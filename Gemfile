@@ -7,14 +7,15 @@ gem "haml"
 gem "rabl"
 gem "oj"
 gem "omniauth"
+gem "rack-oauth2"
 gem "rails-i18n"
 gem "attribute_ext", ">= 1.4.0"
 gem "cancan"
 gem "simple_form", ">= 2.0.0"
 gem "gravtastic"
-gem "rails-timeago", ">= 1.2.0.rc1"
-gem "omniauth-internal"
+gem "rails-timeago", ">= 1.3.0"
 gem "bcrypt-ruby", "~> 3.0.0"
+gem "paperclip"
 
 
 group :assets do
