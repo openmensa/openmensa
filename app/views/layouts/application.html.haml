@@ -10,8 +10,7 @@
     = timeago_script_tag
     = csrf_meta_tags
     %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8"}
-    %link{:rel => "icon", :href => asset_path('favicon.ico'), :type => "image/x-icon"}
-    %link{:rel => "shortcut icon", :href => asset_path('favicon.ico'), :type => "image/x-icon"}
+    = favicon_link_tag
     = yield :header_tags
 
   %body{:class => body_classes }
