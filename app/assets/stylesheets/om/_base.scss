@@ -1,0 +1,111 @@
+
+@import 'mixins';
+@import 'variables';
+@import 'responsive';
+
+body {
+  margin: 0 auto;
+  padding: 0 $base-body-padding;
+
+  &.left {
+    margin: 0 0;
+    .wrapper { margin: 0 0; }
+  }
+
+  @include media(handheld) {
+    padding: 0 0;
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    min-width: $base-min-width - 8px;
+    max-width: $base-max-width;
+  }
+
+  @include media(handheld) {
+    &, .wrapper {
+      min-width: 0%;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  @include media(mobile) {
+    &, .wrapper {
+      padding: 0;
+    }
+  }
+}
+
+.float-wrapper { @include clearfix; }
+.clear { clear: both; }
+
+body > header {
+  clear: both;
+  padding: 0 5px;
+  margin-top: 2px;
+  background: $header-bg-color;
+
+  @include background-image(linear-gradient(#fff, darken($header-bg-color, 2%)));
+  @include box-shadow(#ccc 0 0 1px);
+  @include border-radius(2px);
+
+  @include media(handheld) {
+    @include border-radius(0);
+    margin-top: 0;
+    padding: 0 1px 1px;
+  }
+
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+
+  div.title {
+    float: left;
+    color: $header-color;
+    min-width: $base-sidebar-width - $base-inline-padding;
+
+    padding: 3px ($base-inline-padding*2) 3px 0;
+    padding: .3rem ($base-inline-padding*2) .3rem 0;
+
+    a { color: inherit; }
+    h1 { margin: 0; }
+  }
+  div.actions {
+    padding-top: 5px;
+    padding-top: 0.5rem;
+  }
+
+  @include media(mobile) {
+    div.actions { padding-top: 6px; }
+    div.title   { padding-left: 0; }
+  }
+
+  &.maximize div.title {
+    min-width: auto;
+  }
+}
+
+body > #container {
+
+}
+
+body > footer {
+  border-top: 1px solid $frame-color;
+  padding: 3px 1px;
+  position: relative;
+  text-align: center;
+  color: #ccc;
+  p { font-size: 11px; font-size: 1.1rem; margin: 0; width: 33%; float: left; }
+  p.left { float: left; text-align: left; }
+  p.right { float: right; text-align: right; }
+
+  @include media(mobile) {
+    padding-left: 1px;
+    padding-right: 1px;
+    p { text-align: left; width: 49% !important;}
+    p.left { display: none !important; }
+  }
+
+  a { color: #aaa; }
+  a:hover { color: #555; }
+}

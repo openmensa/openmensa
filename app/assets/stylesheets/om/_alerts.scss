@@ -1,0 +1,12 @@
+
+@import 'variables';
+@import 'mixins';
+
+.alert {
+  @include alert($alert, $alert-bg, $alert-border); }
+.alert-error {
+  @include alert($alert-error, $alert-error-bg, $alert-error-border); }
+.alert-notice, .alert-success {
+  @include alert($alert-notice, $alert-notice-bg, $alert-notice-border); }
+.alert-warning {
+  @include alert($alert-warning, $alert-warning-bg, $alert-warning-border); }

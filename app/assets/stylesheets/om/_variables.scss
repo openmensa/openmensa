@@ -1,0 +1,54 @@
+
+@import 'responsive';
+
+// Typography
+$base-size: 62.5% !default;
+$text-color: #333 !default;
+$text-font: Helvetica, arial, freesans, clean, sans-serif !default;
+
+$header-color: $text-color !default;
+$header-font: 'Droid Sans', $text-font !default;
+$header-bg-color: #f1f1f1;
+
+$frame-color: #ccc !default;
+$link-color: #B42946 !default;
+
+
+// Base
+$base-body-padding: 6px !default;
+$base-body-fluid: true !default;
+
+$base-min-width: 900px !default;
+$base-max-width: 1000px !default;
+$base-fixed-width: 900px !default;
+
+
+$base-sidebar-width:        200px;
+$base-second-sidebar-width: 200px;
+
+$base-inline-padding:    20px;
+$base-content-padding:    9px;
+$base-container-padding: 20px;
+$base-top-padding:       20px;
+$base-body-padding:       6px;
+
+// Form
+// Width of left floated labels.
+$form-label-width: 100px !default;
+$form-input-border: #bbb !default;
+$text-color: #333 !default;
+
+// Alerts
+
+$alert: $text-color;
+$alert-bg: lighten($frame-color, 19%);
+$alert-border: $frame-color;
+$alert-error: #B94A48;
+$alert-error-bg: #F2DEDE;
+$alert-error-border: darken($alert-error-bg, 10%);
+$alert-warning: #C09853;
+$alert-warning-bg: #FCF8E3;
+$alert-warning-border: darken($alert-warning-bg, 10%);
+$alert-notice: #468847;
+$alert-notice-bg: #DFF0D8;
+$alert-notice-border: darken($alert-notice-bg, 10%);

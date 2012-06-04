@@ -1,0 +1,30 @@
+
+@import 'responsive';
+
+.hide-mobile   { display: block !important; }
+.hide-tablet   { display: block !important; }
+.hide-handheld { display: block !important; }
+.hide-default  { display: none !important; }
+.hide-display  { display: none !important; }
+.hide-wide     { display: block !important; }
+
+.show-mobile   { display: none !important; }
+.show-tablet   { display: none !important; }
+.show-handheld { display: none !important; }
+.show-default  { display: block !important; }
+.show-display  { display: none !important; }
+.show-wide     { display: none !important; }
+
+$display-list: mobile tablet handheld default display wide;
+
+@each $i in $display-list {
+
+  @include media($i) {
+    .show-#{$i} {
+      display: block !important;
+    }
+    .hide-#{$i} {
+      display: none !important;
+    }
+  }
+}

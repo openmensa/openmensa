@@ -1,0 +1,104 @@
+
+@import 'responsive';
+@import 'variables';
+
+html {
+  font-size: 10px;
+  font-size: $base-size;
+}
+body {
+  color: $text-color;
+  font-size: 13px;
+  font-size: 1.3rem;
+  font-family: $text-font;
+  line-height: 1.35;
+}
+
+h1, h2, h3, h4, h5 {
+  color: $header-color;
+  font-family: $header-font;
+  font-size: 24px; font-size: 2.4rem;
+  font-weight: normal;
+  @include p;
+}
+h2 { font-size: 21px; font-size: 2.1rem; }
+h3 { font-size: 18px; font-size: 1.8rem; }
+h4 { font-size: 15px; font-size: 1.5rem; }
+h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+
+@include media(mobile) {
+  h1 { font-size: 17px; font-size: 1.7rem; font-weight: bold; }
+  h2 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
+  h3 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
+  h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+  h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+}
+
+small { font-size: .8em; }
+b, strong { font-weight: bold; }
+i, em { font-style: italic; }
+p { @include p; }
+
+ul, ol { @extend p; padding-left: 2.5em; }
+ul { list-style: circle; }
+ol { list-style: decimal; }
+hr { border: none; border-top: 1px solid $frame-color; }
+code, pre { font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
+code {
+  @include border-radius(2px);
+  background-color: #f4f4f4;
+  border: 1px solid $frame-color;
+  padding: 0 2px;
+}
+pre { @extend p;
+  code { display: block; padding: 2px; }
+}
+
+dl.inline {
+  @include clearfix;
+
+  dt { float: left; width: 100px; clear: both; }
+  dd { margin-left: 105px; }
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover, &.hover {
+    @if lightness($link-color) < 40% {
+      color: lighten($link-color, 15%);
+    } @else {
+      color: darken($link-color, 15%);
+    }
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &[class^="icon-"]:before, &[class*=" icon-"]:before {
+    padding-right: 3px;
+    color: $text-color;
+    text-decoration: none;
+  }
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  // width: 1em;
+  text-align: center;
+}
+
+fieldset {
+  @extend p;
+  @include border-radius(2px);
+
+  border: 1px solid $frame-color;
+  &.single { border-width: 1px 0 0 0; }
+
+  legend {
+    margin: 0 0 0 6px;
+    padding: 0 4px;
+  }
+
+  padding: 4px;
+  &.nopad { padding: 0; }
+}

@@ -1,0 +1,115 @@
+
+@import 'compass';
+
+@mixin p {
+  margin: 8px 0;
+
+  @include media(mobile) {
+    margin: 4px 0;
+  }
+}
+
+// *********************************************************
+// Grid
+
+@mixin grid-span($i: 1, $count: 12, $margin: 1.5%) {
+  width: (100%/$count)*$i - $margin + ($margin/$count*$i);
+}
+
+@mixin grid-offset($i: 1, $count: 12, $margin: 1.5%) {
+  padding-left: (100% / $count) * $i + ($margin/$count*$i);
+}
+
+// *********************************************************
+// Form
+
+@mixin form($padding: 140px) {
+  .input, .control-group {
+    padding-left: $padding + 5px;
+    > .label:first-child, > label:first-child {
+      float: left;
+      margin: 0 0 0 0;
+      margin-left: -$padding - 5px;
+      width: $padding;
+    }
+  }
+
+  @include media(handheld) {
+    .input, .control-group {
+      padding-left: 0;
+      > .label:first-child, > label:first-child {
+        margin: 0;
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
+
+// *********************************************************
+// Alerts
+
+@mixin alert($color, $bg, $border) {
+  color: $color;
+  padding: 6px 9px;
+  background-color: $bg;
+  border: 1px solid $border;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  @include border-radius(2px);
+  @include p;
+
+  > :first-child { margin-top: 0; }
+  > :last-child  { margin-bottom: 0; }
+}
+
+// *********************************************************
+// Buttons
+
+@mixin btn($color, $text: $text-color) {
+  color: $text;
+  @if lightness($text) < 40% {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  } @else {
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.2);
+  @include border-radius(2px);
+  @include background-image(
+    linear-gradient(lighten($color, 10%), $color));
+
+  &:hover {
+    color: $text;
+    text-decoration: none;
+    border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.3);
+    @include background-image(
+      linear-gradient(lighten($color, 5%), darken($color, 5%)));
+  }
+
+  &:focus, &.focus {
+    border-color: rgba(0, 0, 0, 0.3);
+    // @if lightness($color) < 70% {
+      @include box-shadow(0 0 0 1px rgba(255, 255, 255, 0.8) inset);
+    // }
+  }
+
+  &:active, &.active, &.current {
+    border-color: rgba(0, 0, 0, 0.3);
+    background-color: darken($color, 7%);
+    background-image: none;
+    @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.2) inset);
+
+    &:focus, &.focus {
+      @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.2) inset, 0 0 0 1px #fff inset);
+    }
+  }
+
+  [disabled] {
+    &:hover, &:active {
+      @include background-image(
+        linear-gradient(lighten($color, 10%), $color));
+      @include box-shadow(none);
+    }
+  }
+}
