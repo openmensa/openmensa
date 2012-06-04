@@ -9,4 +9,8 @@ Openmensa::Application.routes.draw do
   match 'oauth/authorize', :to => 'authorization#new'
   post  'oauth/token', :to => proc { |env| Oauth2::TokenEndpoint.new.call(env) }
 
+  get "/static/:id", to: "static#index", as: :static
+
+  # get "/", to: "application#index", as: :application_index
+  # root to: "application#index"
 end

@@ -1,0 +1,11 @@
+.row
+  .span6.hide-mobile
+    / = render partial: "static/signin"
+  .span6
+    %h2= t(:action, :login)
+    = simple_form_for '', url: auth_path, method: :post, html: {id: :login} do |f|
+      = f.input :auth_key, label: t(:label, :login), hint: 'Your HPI Account Name'
+      = f.input :password, label: t(:label, :password)
+      .control-group
+        = f.button :submit, t(:action, :login), class: 'btn-primary'
+        / = link_to t(:label, :login_with_basic_auth), auth_path

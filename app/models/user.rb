@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
     if: Proc.new { |user,as| as.admin? }
 
   scope :all,    lambda { where("#{User.table_name}.login != ? AND #{User.table_name}.login != ?", 'anonymous', 'system') }
-  scope :online, lambda { where("#{User.table_name}.last_action_at > ?", Time.zone.now - 5.minutes) }
 
   include Gravtastic
   gravtastic :secure => true, :default => :identicon, :filetype => :gif, :size => 100

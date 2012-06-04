@@ -1,0 +1,8 @@
+- if model.errors.any?
+  .alert.alert-error
+    / %a.close{"data-dismiss" => "alert"} ×
+    %h3.alert-heading=t 'errors.explanation', :count => model.errors.count, :model => model.class.model_name.human
+    %ul
+      - model.errors.full_messages.each do |msg|
+        %li= msg
+

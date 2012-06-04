@@ -1,0 +1,14 @@
+= simple_form_for @user, method: :put, url: register_path do |f|
+  = render partial: "common/errors", locals: { model: @user }
+  .row
+    .span6
+      = f.input :login, disabled: true
+      = f.input :email
+  .row
+    .span6
+      = f.input :first_name
+      = f.input :last_name
+  .row
+    .span6
+      .input
+        = f.submit

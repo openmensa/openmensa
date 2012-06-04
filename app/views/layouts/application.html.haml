@@ -1,0 +1,51 @@
+!!!
+%html
+  %head
+    %title= title
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    /[if IE]
+      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    = javascript_include_tag "application"
+    = timeago_script_tag
+    = csrf_meta_tags
+    %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8"}
+    %link{:rel => "icon", :href => asset_path('favicon.ico'), :type => "image/x-icon"}
+    %link{:rel => "shortcut icon", :href => asset_path('favicon.ico'), :type => "image/x-icon"}
+    = yield :header_tags
+
+  %body{:class => body_classes }
+    %header#header
+      .wrapper
+        = yield :header
+        .clear
+    #container
+      .wrapper
+        #content-pane
+          #content.float-wrapper
+            = render partial: "common/notifications"
+            - if content_for? :notifications
+              = yield :notifications
+            = yield
+          %br.clear
+    %footer#footer
+      .wrapper
+        %p.left
+          = "OpenMensa #{OpenMensa::VERSION}"
+          - if Rails.env.development?
+            - if defined?(RUBY_VERSION) or defined?(VERSION)
+              = ' | ' + [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
+            = " | Rails #{Rails.version} | #{Rails.env.capitalize}"
+        %p.right
+          = l Time.zone.now, :format => :short
+          = Time.zone.now.zone
+        %p<
+          Copyright (c) OpenMensa
+          &nbsp;&middot;&nbsp;
+          = link_to 'About', static_url(:about)
+          &nbsp;&middot;&nbsp;
+          = link_to 'Developer', static_url(:developer)
+    .ajax-indicator{style: 'display: none;'}
+      %span
+        Loading...
+
