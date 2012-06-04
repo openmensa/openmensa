@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails", "3.2.3"
+gem "rails", "3.2.5"
 gem "jquery-rails"
 
 gem "haml"
@@ -32,6 +32,7 @@ group :development, :test do
   gem 'sqlite3'
   gem "rspec-rails"
   gem "guard-rails",       require: false
+  gem "rails_best_practices"
 end
 group :test do
   gem "sqlite3"
