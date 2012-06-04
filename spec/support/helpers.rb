@@ -20,6 +20,19 @@ def login(identity)
   end
 end
 
+def basic(client)
+  { "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client.identifier, client.secret) }
+end
+
+def oauth2(token)
+  token = token.token if token.respond_to?(:token)
+  { "HTTP_AUTHORIZATION" => "Bearer #{token.to_s}" }
+end
+
+def auth_via_oauth2(token)
+  request.env[Rack::OAuth2::Server::Resource::ACCESS_TOKEN] = token
+end
+
 def stub_omniauth(identity)
   @controller.stub!(:env).and_return({"omniauth.auth" => {
     "provider" => identity.provider,

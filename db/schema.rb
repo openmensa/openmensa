@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517201600) do
+ActiveRecord::Schema.define(:version => 20120604124703) do
 
   create_table "comments", :force => true do |t|
     t.string   "message"
@@ -59,6 +59,46 @@ ActiveRecord::Schema.define(:version => 20120517201600) do
 
   add_index "mensas", ["user_id"], :name => "index_mensas_on_user_id"
 
+  create_table "oauth2_access_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "client_id"
+    t.integer  "refresh_token_id"
+    t.string   "token"
+    t.datetime "expires_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "oauth2_authorization_codes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "client_id"
+    t.string   "token"
+    t.string   "redirect_uri"
+    t.datetime "expires_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "oauth2_clients", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "identifier"
+    t.string   "secret"
+    t.string   "name"
+    t.string   "website"
+    t.string   "redirect_uri"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "oauth2_refresh_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "client_id"
+    t.string   "token"
+    t.datetime "expires_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "ratings", :force => true do |t|
     t.datetime "date"
     t.integer  "value"
@@ -74,8 +114,12 @@ ActiveRecord::Schema.define(:version => 20120517201600) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "time_zone"
+    t.string   "language",   :limit => 2
+    t.string   "login"
+    t.boolean  "admin"
   end
 
 end
