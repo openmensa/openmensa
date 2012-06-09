@@ -1,19 +1,8 @@
 #
-# Studix Guardfile -- for RSpec with Spork
+# Studix Guardfile -- for RSpec
 #
-guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('Gemfile')
-  watch('Gemfile.lock')
-  watch('spec/spec_helper.rb')
-  watch('test/test_helper.rb')
-  watch(%r{^spec/support/.+\.rb$})
-end
 
-guard 'rspec', :version => 2, :cli => '--drb' do
+guard 'rspec', :version => 2 do
   watch(%r{^spec/(.+)_spec\.rb$})                     { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }

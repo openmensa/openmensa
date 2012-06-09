@@ -42,10 +42,8 @@ group :test do
   gem "database_cleaner"
   gem "capybara"
   gem "capybara-webkit"
-  gem "spork",       require: false
   gem "turn",        require: false
   gem "guard-rspec", require: false
-  gem "guard-spork", require: false
 end
 
 # load Gemfile.local
