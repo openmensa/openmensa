@@ -56,6 +56,9 @@ module Openmensa
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
+    # Change csrf token name
+    config.action_controller.request_forgery_protection_token = '_xsrf_token'
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
