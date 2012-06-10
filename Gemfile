@@ -7,6 +7,7 @@ gem "haml"
 gem "rabl"
 gem "oj"
 gem "omniauth"
+gem "omniauth-github"
 gem "rack-oauth2"
 gem "rails-i18n"
 gem "attribute_ext", ">= 1.4.0"
@@ -25,7 +26,7 @@ group :assets do
   gem "therubyracer", platforms: :ruby
   gem "closure-compiler"
   gem "compass-rails"
-  gem "font-awesome-sass-rails"
+  # gem "font-awesome-sass-rails"
   gem "bourbon"
 end
 group :development, :test do
@@ -44,6 +45,7 @@ group :test do
   gem "capybara-webkit"
   gem "turn",        require: false
   gem "guard-rspec", require: false
+  gem "guard-spork"
 end
 
 # load Gemfile.local

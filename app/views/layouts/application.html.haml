@@ -16,7 +16,14 @@
   %body{:class => body_classes }
     %header#header
       .wrapper
+        %h1 OpenMensa
         = yield :header
+        - if User.current.logged?
+          %div
+            = avatar_img User.current
+        - else
+          %div
+            = link_to 'Sign in', login_path
         .clear
     #container
       .wrapper

@@ -1,7 +1,23 @@
 
-@import 'mixins';
-@import 'variables';
 @import 'responsive';
+
+
+$base-body-padding: 6px !default;
+$base-body-fluid: true !default;
+
+$base-min-width: 900px !default;
+$base-max-width: 1000px !default;
+$base-fixed-width: 900px !default;
+
+$base-sidebar-width:        200px !default;
+$base-second-sidebar-width: 200px !default;
+
+$base-inline-padding:    20px !default;
+$base-content-padding:    9px !default;
+$base-container-padding: 20px !default;
+$base-top-padding:       20px !default;
+$base-body-padding:       6px !default;
+
 
 body {
   margin: 0;
@@ -35,16 +51,20 @@ body {
 
 .float-wrapper { @include clearfix; }
 .clear { clear: both; }
+.centered { text-align: center; }
 
 body > header {
   clear: both;
   padding: 0 5px;
   margin-top: 2px;
-  background: $header-bg-color;
 
-  @include background-image(linear-gradient(#fff, darken($header-bg-color, 2%)));
+  background: transparent image-url("om_64.png") no-repeat 50% 30%;
+  height: 90px;
+
+  // background: $header-bg-color;
+  // @include background-image(linear-gradient(#fff, darken($header-bg-color, 2%)));
   // @include box-shadow(#ccc 0 0 1px);
-  @include border-radius(2px);
+  // @include border-radius(2px);
 
   @include media(handheld) {
     @include border-radius(0);
@@ -55,29 +75,12 @@ body > header {
   // border-bottom: 1px solid #ccc;
   overflow: hidden;
 
-  div.title {
+  h1 {
+    font-size: 250%;
+    width: 50%;
     float: left;
-    color: $header-color;
-    min-width: $base-sidebar-width - $base-inline-padding;
-
-    padding: 3px ($base-inline-padding*2) 3px 0;
-    padding: .3rem ($base-inline-padding*2) .3rem 0;
-
-    a { color: inherit; }
-    h1 { margin: 0; }
-  }
-  div.actions {
-    padding-top: 5px;
-    padding-top: 0.5rem;
-  }
-
-  @include media(mobile) {
-    div.actions { padding-top: 6px; }
-    div.title   { padding-left: 0; }
-  }
-
-  &.maximize div.title {
-    min-width: auto;
+    text-align: center;
+    padding-top: 15px;
   }
 }
 
@@ -86,7 +89,7 @@ body > #container {
   #content-pane {
     background-color: #fff;
     @include box-shadow(0 0 6px rgba(0, 0, 0, 0.4));
-    @include border-radius(5px);
+    border-radius: 5px;
     padding: 15px;
     margin: 0 -15px;
   }

@@ -2,7 +2,8 @@ Openmensa::Application.routes.draw do
 
   match "/auth",                    to: "sessions#new",      as: :login
   match "/auth/signoff",            to: "sessions#destroy",  as: :logout
-  match "/auth/:provider/callback", to: "sessions#create",   as: :auth, defaults: { provider: 'multipassword' }
+  match "/auth/:provider",          to: "sessions#destroy",  as: :auth
+  match "/auth/:provider/callback", to: "sessions#create"
   match "/auth/failure",            to: "sessions#failure",  as: :auth_failure
   match "/auth/register",           to: "sessions#register", as: :register
 
@@ -12,5 +13,5 @@ Openmensa::Application.routes.draw do
   get "/static/:id", to: "static#index", as: :static
 
   # get "/", to: "application#index", as: :application_index
-  # root to: "application#index"
+  root to: "static#index"
 end

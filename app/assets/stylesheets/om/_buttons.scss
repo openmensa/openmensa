@@ -1,32 +1,110 @@
 
-@import 'compass';
-@import 'variables';
 @import 'responsive';
 
+
+$btn: #aaa !default;
 $btn-primary: #3079ED !default;
 $btn-success: #238625 !default;
 
-.btn {
-  margin: 1px;
-  padding: 5px 8px;
-  cursor: pointer;
+
+@mixin btn($base-color, $text: false) {
+  // @include button($color);
+
+  $grayscale: false;
+  @if $base-color == grayscale($base-color) {
+    $grayscale: true;
+  }
+
+  $border: adjust-color($base-color, $saturation: 9%, $lightness: -14%);
+  $inset-shadow: adjust-color($base-color, $saturation: -8%, $lightness: 15%);
+  $stop-gradient: adjust-color($base-color, $saturation: 9%, $lightness: -11%);
+  $text-shadow: adjust-color($base-color, $saturation: 15%, $lightness: -18%);
+
+  @if $text == false {
+    @if lightness($base-color) > 70% {
+      $text: hsl(0, 0, 20%);
+    } @else {
+      $text: hsl(0, 0, 100%);
+    }
+  }
+
+  @if lightness($text) < 70% {
+    $text-shadow: adjust-color($base-color, $saturation: 10%, $lightness: 4%);
+  }
+
+  color: $text;
+  border: 1px solid $border;
+  text-shadow: 0 1px 0 $text-shadow;
+  @include border-radius (3px);
+  @include box-shadow (inset 0 1px 0 0 $inset-shadow);
+  @include linear-gradient ($base-color, $stop-gradient);
+
+  &:hover:not(:disabled) {
+    $base-color-hover: adjust-color($base-color, $saturation: -4%, $lightness: -5%);
+    $inset-shadow-hover: adjust-color($base-color, $saturation: -7%, $lightness: 5%);
+    $stop-gradient-hover: adjust-color($base-color, $saturation: 8%, $lightness: -14%);
+
+    color: $text;
+    cursor: pointer;
+    @include box-shadow (inset 0 1px 0 0 $inset-shadow-hover);
+    @include linear-gradient ($base-color-hover, $stop-gradient-hover);
+  }
+
+  &:focus:not(:disabled), &.focus {
+    @include box-shadow(0 0 0 1px rgba(255, 255, 255, 0.8) inset);
+  }
+
+  &:active:not(:disabled) {
+    $border-active: adjust-color($base-color, $saturation: 9%, $lightness: -14%);
+    $inset-shadow-active: adjust-color($base-color, $saturation: 7%, $lightness: -17%);
+
+    @if $grayscale == true {
+      $border-active: grayscale($border-active);
+      $inset-shadow-active: grayscale($inset-shadow-active);
+    }
+
+    border: 1px solid $border-active;
+    @include box-shadow (inset 0 0 8px 4px $inset-shadow-active, inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee);
+  }
+}
+
+
+.button {
+  @include btn($btn, #fff);
+  font-size: 1em;
+  font-weight: bold;
+  padding: 5px 10px;
   display: inline-block;
+  text-decoration: none;
 
-  box-sizing: border-box;
-  text-align: center;
-  white-space: pre;
-  font: -webkit-small-control;
-  -webkit-appearance: none;
-  -webkit-box-align: center;
-  -webkit-rtl-ordering: logical;
-  -webkit-user-select: text;
+  // font: -webkit-small-control;
+  // -webkit-appearance: none;
+  // -webkit-box-align: center;
+  // -webkit-rtl-ordering: logical;
+  // -webkit-user-select: text;
+  -webkit-background-clip: padding-box;
 
-  @include btn(lighten($frame-color, 5%));
+  &:hover {
+    text-decoration: none;
+  }
 
-  &.btn-small {
+  &.button-small {
     font-size: 12px;
     font-size: 1.2rem;
-    padding: 2px 4px;
+    padding: 2px 4px !important;
+  }
+
+  &.button-large {
+    font-size: 18px;
+    font-size: 1.8rem;
+  }
+
+  > .icon-large:before {
+    font-size: 20px;
+    padding-right: 4px;
+    margin-top: .2em;
+    line-height: .5em;
+    vertical-align: middle;
   }
 
   @include media(mobile) {
@@ -36,12 +114,27 @@ $btn-success: #238625 !default;
   &:focus, &.focus {
     outline: none;
   }
+
+  &.button-twitter { @include btn(#46c0fb); }
+  &.button-facebook { @include btn(#4863ae); }
+  &.button-github { @include btn(#fbfbfb, #333); }
+  &.button-google-plus { @include btn(#dd4b39); }
+  &.button-linkedin {
+    @include btn(#0083a8);
+    span {
+      display: block;
+      font-weight: normal;
+      position: absolute;
+      font-size: 7px;
+      margin-left: 24px;
+      margin-top: -3px;
+    }
+  }
 }
 
-.btn-group {
-
+.button-group {
   a {
-    @extend .btn;
+    @extend .button;
     @include border-radius(0);
     border-right-width: 0;
     margin: 0;
@@ -63,13 +156,13 @@ $btn-success: #238625 !default;
     }
   }
 
-  &.btn-small a { @extend .btn-small }
+  &.button-small a { @extend .button-small }
 }
 
-.btn-primary {
+.button-primary {
   @include btn($btn-primary, #fff);
 }
 
-.btn-success {
+.button-success {
   @include btn($btn-success, #fff);
 }
