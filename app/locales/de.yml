@@ -1,0 +1,17 @@
+
+de:
+  action:
+    login: Anmelden
+    logout: Abmelden
+  tip:
+    login_account:
+      twitter: Mit Twitter anmelden
+      github: Mit GitHub anmelden
+      google: Mit Google+ anmelden
+      facebook: Mit Facebook anmelden
+    connect_account:
+      twitter: Mit Twitter verbinden
+      github: Mit GitHub verbinden
+      google: Mit Google+ verbinden
+      facebook: Mit Facebook verbinden
+

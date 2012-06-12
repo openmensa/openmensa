@@ -9,66 +9,66 @@ class SessionsController < ApplicationController
   def create
     return failure unless env["omniauth.auth"]
 
+    puts
+    print_debug env["omniauth.auth"]
+    puts
+
     @identity = Identity.from_omniauth(env["omniauth.auth"])
-    unless @identity
-      @identity = Identity.new_with_omniauth(env["omniauth.auth"])
-      @identity.save
-    end
-    @user     = @identity.user
+    if @identity
+      if User.current.logged?
+        return redirect_back alert: t('message.account_taken.' + @identity.provider, name: @identity.user.name)
 
-    if @user
-      session["identity"] = nil
-      session["info"]     = nil
-
-      self.current_user   = @user
-      if params[:ref]
-        redirect_to url_for(params[:ref]), notice: t('message.login_successful', name: @user.name)
       else
-        redirect_to root_url, notice: t('message.login_successful', name: @user.name)
+        self.current_user = @identity.user
+        return redirect_back notice: t('message.account_created', name: @identity.user.name)
+      end
+
+    else
+      @identity = Identity.new_with_omniauth(env["omniauth.auth"])
+
+      if User.current.logged?
+        @identity.user = User.current
+        @identity.save!
+        return redirect_back notice: t('message.account_connected.' + @identity.provider, name: @identity.user.name)
+
+      else
+        @user = User.new
+        @user.login      = env["omniauth.auth"]["info"]["login"] || @identity.uid
+        @user.name       = env["omniauth.auth"]["info"]["name"]
+        @user.email      = env["omniauth.auth"]["info"]["email"]
+        @user.save!
+
+        @identity.user = @user
+        @identity.save!
+
+        self.current_user = @user
+
+        return redirect_back notice: t('message.account_created', name: @user.name)
+      end
+    end
+  end
+
+  def print_debug arr, opts = { tabs: 0, name: 'root' }
+    if arr.is_a?(Enumerable)
+      puts ("  " * opts[:tabs]) + opts[:name]
+      arr.each do |k,v|
+        print_debug v, tabs: opts[:tabs] + 1, name: k.to_s
       end
     else
-      session["identity"] = @identity.id
-      session["info"]     = env["omniauth.auth"]["info"]
+      puts ("  " * opts[:tabs]) + opts[:name] + " => " + arr.inspect
+    end
+  end
 
-      redirect_to register_url
+  def redirect_back(options = {})
+    if params[:ref]
+      redirect_to url_for(params[:ref]), options
+    else
+      redirect_to root_url, options
     end
   end
 
   def failure
     redirect_to login_url, alert: t('message.login_failed')
-  end
-
-  def register
-    return redirect_to login_path unless session["identity"]
-
-    identity = Identity.find(session["identity"])
-    info     = session["info"] || {}
-
-    @user = User.new
-    @user.login      = identity.uid
-    if params["user"]
-      @user.email      = params["user"]["email"]
-      @user.last_name  = params["user"]["last_name"]
-      @user.first_name = params["user"]["first_name"]
-    else
-      @user.last_name  = info["first_name"]
-      @user.first_name = info["last_name"]
-    end
-
-    if params["user"] and @user.save
-      identity.user = @user
-      identity.save!
-
-      session["identity"] = nil
-      session["info"]     = nil
-
-      self.current_user = @user
-      redirect_to root_url, notice: t('message.login_successful', name: identity.user.name)
-    else
-      render 'register'
-    end
-  rescue ::ActiveRecord::RecordNotFound
-    redirect_to root_url
   end
 
   def destroy

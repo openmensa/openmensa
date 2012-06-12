@@ -8,8 +8,8 @@ describe User do
   describe "attributes" do
     it { should accept_values_for(:login, 'first.last', 'abc', 'heinz_klein') }
     it { should_not accept_values_for(:login, '', nil) }
-    it { should accept_values_for(:email, 'abc@example.org', 'admin@altimos.de') }
-    it { should_not accept_values_for(:email, nil, '', 'abc', '@domain', 'user@', 'root@local') }
+    it { should accept_values_for(:email, 'abc@example.org', 'admin@altimos.de', '', nil) }
+    it { should_not accept_values_for(:email, 'abc', '@domain', 'user@', 'root@local') }
     it { should accept_values_for(:name, 'John Smith', 'Yung Heng', 'K. Müller')}
     it { should_not accept_values_for(:name, nil, '') }
     it { should be_logged }

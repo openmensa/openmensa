@@ -90,7 +90,7 @@ a {
 
   &[class^="icon-"]:before, &[class*=" icon-"]:before {
     padding-right: 3px;
-    color: $text-color;
+    // color: $text-color;
     text-decoration: none;
   }
 }

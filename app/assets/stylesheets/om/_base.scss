@@ -58,9 +58,6 @@ body > header {
   padding: 0 5px;
   margin-top: 2px;
 
-  background: transparent image-url("om_64.png") no-repeat 50% 30%;
-  height: 90px;
-
   // background: $header-bg-color;
   // @include background-image(linear-gradient(#fff, darken($header-bg-color, 2%)));
   // @include box-shadow(#ccc 0 0 1px);
@@ -76,11 +73,59 @@ body > header {
   overflow: hidden;
 
   h1 {
-    font-size: 250%;
+    background: transparent image-url("om_64.png") no-repeat 0 50%;
+
+    font-size: 230%;
     width: 50%;
     float: left;
-    text-align: center;
-    padding-top: 15px;
+    padding: 15px 0 0 75px;
+    height: 50px;
+
+    img {
+      float: left;
+      height: 1.4em;
+      width: 1.4em;
+      margin-right: 10px;
+    }
+  }
+
+  .account {
+    float: right;
+    text-align: right;
+    width: 40%;
+    padding: 25px 10px 10px;
+
+    > img {
+      float: right;
+      border-radius: 3px;
+      margin-left: 10px;
+    }
+
+    > span {
+      display: block;
+      padding-top: 5px;
+    }
+
+    .connections {
+      font-size: 1.3em;
+
+      a {
+        color: #333;
+        margin-left: 3px;
+        text-shadow: 1px 1px 0 #fff;
+        font-size: 24px;
+        cursor: default;
+
+        &.inactive {
+          color: #aaa;
+          cursor: pointer;
+
+          &:hover {
+            color: #666;
+          }
+        }
+      }
+    }
   }
 }
 

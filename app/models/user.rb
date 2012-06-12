@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
   has_many :authorization_codes, class_name: 'Oauth2::AuthorizationCode'
   has_many :clients, class_name: 'Oauth2::Client'
 
-  validates_presence_of :login, :name, :email
+  validates_presence_of :login, :name
   validates_uniqueness_of :login
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-  validates_exclusion_of :login, :in => ['anonymous', 'system']
+  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true
+  validates_exclusion_of :login, in: ['anonymous', 'system']
 
   safe_attributes :login, :name, :email, :time_zone, :language,
     if: Proc.new { |user,as| as.admin? or user.new_record? }

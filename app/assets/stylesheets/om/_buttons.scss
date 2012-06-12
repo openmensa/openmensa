@@ -35,9 +35,9 @@ $btn-success: #238625 !default;
   color: $text;
   border: 1px solid $border;
   text-shadow: 0 1px 0 $text-shadow;
-  @include border-radius (3px);
-  @include box-shadow (inset 0 1px 0 0 $inset-shadow);
-  @include linear-gradient ($base-color, $stop-gradient);
+  @include border-radius(3px);
+  @include box-shadow(inset 0 1px 0 0 $inset-shadow);
+  @include linear-gradient($base-color, $stop-gradient);
 
   &:hover:not(:disabled) {
     $base-color-hover: adjust-color($base-color, $saturation: -4%, $lightness: -5%);
@@ -46,8 +46,8 @@ $btn-success: #238625 !default;
 
     color: $text;
     cursor: pointer;
-    @include box-shadow (inset 0 1px 0 0 $inset-shadow-hover);
-    @include linear-gradient ($base-color-hover, $stop-gradient-hover);
+    @include box-shadow(inset 0 1px 0 0 $inset-shadow-hover);
+    @include linear-gradient($base-color-hover, $stop-gradient-hover);
   }
 
   &:focus:not(:disabled), &.focus {
@@ -64,12 +64,12 @@ $btn-success: #238625 !default;
     }
 
     border: 1px solid $border-active;
-    @include box-shadow (inset 0 0 8px 4px $inset-shadow-active, inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee);
+    @include box-shadow(inset 0 0 8px 4px $inset-shadow-active, inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee);
   }
 }
 
 
-.button {
+.btn {
   @include btn($btn, #fff);
   font-size: 1em;
   font-weight: bold;
@@ -88,13 +88,14 @@ $btn-success: #238625 !default;
     text-decoration: none;
   }
 
-  &.button-small {
+  &.btn-small {
     font-size: 12px;
     font-size: 1.2rem;
+    font-weight: normal;
     padding: 2px 4px !important;
   }
 
-  &.button-large {
+  &.btn-large {
     font-size: 18px;
     font-size: 1.8rem;
   }
@@ -115,11 +116,11 @@ $btn-success: #238625 !default;
     outline: none;
   }
 
-  &.button-twitter { @include btn(#46c0fb); }
-  &.button-facebook { @include btn(#4863ae); }
-  &.button-github { @include btn(#fbfbfb, #333); }
-  &.button-google-plus { @include btn(#dd4b39); }
-  &.button-linkedin {
+  &.btn-twitter { @include btn(#46c0fb); }
+  &.btn-facebook { @include btn(#4863ae); }
+  &.btn-github { @include btn(#fbfbfb, #333); }
+  &.btn-google-plus { @include btn(#dd4b39); }
+  &.btn-linkedin {
     @include btn(#0083a8);
     span {
       display: block;
@@ -132,7 +133,7 @@ $btn-success: #238625 !default;
   }
 }
 
-.button-group {
+.btn-group {
   a {
     @extend .button;
     @include border-radius(0);
@@ -156,13 +157,15 @@ $btn-success: #238625 !default;
     }
   }
 
-  &.button-small a { @extend .button-small }
+  &.btn-small a { @extend .btn-small }
 }
 
-.button-primary {
+.btn-primary {
+  @extend .btn;
   @include btn($btn-primary, #fff);
 }
 
-.button-success {
+.btn-success {
+  @extend .btn;
   @include btn($btn-success, #fff);
 }

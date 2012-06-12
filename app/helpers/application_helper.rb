@@ -26,6 +26,29 @@ module ApplicationHelper
     end
   end
 
+  def connect_service_links
+    links = {}
+    User.current.identities.each do |id|
+      if Identity::SERVICES.include? id.provider.to_sym
+        links[id.provider.to_sym] = link_to "", "#",
+          class: "icon-#{id.provider}-sign"
+      end
+    end
+
+    Identity::SERVICES.each do |id|
+      links[id] = link_to "", "#",
+        class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id)unless links[id]
+    end
+
+    links.map{|k,v| v}.join('').html_safe
+  end
+
+  def login_service_links
+    Identity::SERVICES.map do |id|
+      link_to "", auth_path(id), class: "icon-#{id}-sign inactive", title: t(:tip, :login_account, id)
+    end.join('').html_safe
+  end
+
   def icon(icon)
     "<i class=\"icon-#{icon}\"></i>".html_safe
   end

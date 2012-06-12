@@ -3,6 +3,8 @@ require "bcrypt"
 class Identity < ActiveRecord::Base
   attr_reader :password
 
+  SERVICES = [ :twitter, :google, :facebook, :github ]
+
   belongs_to :user
 
   validates_presence_of   :provider, :uid
