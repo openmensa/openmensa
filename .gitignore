@@ -19,4 +19,4 @@
 .rspec
 Gemfile.local
 Guardfile.local
-Gemfile.lock
+#Gemfile.lock
