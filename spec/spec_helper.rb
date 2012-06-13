@@ -3,13 +3,19 @@ require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
-require 'simplecov'
-require 'simplecov-rcov'
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails'
+# Setup coverage
+def init_coverage
+  require 'simplecov'
+  require 'simplecov-rcov'
+  require 'support/coverage'
+  SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
+  SimpleCov.start 'rails'
+end
 
 
 Spork.prefork do
+  init_coverage unless ENV['DRB']
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
 
@@ -42,6 +48,8 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  init_coverage if ENV['DRB']
+
   FactoryGirl.reload
   Dir[Rails.root.join("spec/support/runtime/**/*.rb")].each {|f| require f}
 

@@ -29,10 +29,11 @@ group :assets do
   gem 'bourbon'
 end
 
-group :development do
+group :development, :test do
   gem 'sqlite3'
   gem 'rails_best_practices'
   gem 'thin'
+  gem 'rspec-rails', '~> 2.0'
 end
 
 group :test do
@@ -45,7 +46,6 @@ group :test do
   gem 'guard-spork',    require: false
   gem 'simplecov',      require: false
   gem 'simplecov-rcov', require: false
-  gem 'rspec-rails', '~> 2.0'
   gem 'spork-rails', '>= 3.2.0'
   gem 'factory_girl_rails', '>= 3.3.0', require: false
 end
