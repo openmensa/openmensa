@@ -22,13 +22,13 @@ FactoryGirl.define do
     password         'secret'
   end
 
-  factory :access_token, class: Oauth2::AccessToken do
+  factory :access_token, class: 'Oauth2::AccessToken' do
     association :user
     association :client
     # association :refresh_token
   end
 
-  factory :client, class: Oauth2::Client do
+  factory :client, class: 'Oauth2::Client' do
     association :user
     sequence(:name)         { |n| "OAuth2 Client ##{n}" }
     sequence(:redirect_uri) { |n| "http://application/c#{n}/cb" }
@@ -40,7 +40,7 @@ FactoryGirl.define do
     trusted true
   end
 
-  factory :refresh_token, class: Oauth2::RefreshToken do
+  factory :refresh_token, class: 'Oauth2::RefreshToken' do
     association :client
   end
 end
