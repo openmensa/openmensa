@@ -231,6 +231,12 @@ GEM
     simple_form (2.0.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+    simplecov (0.6.4)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
+    simplecov-rcov (0.2.3)
+      simplecov (>= 0.4.1)
     spork (1.0.0rc3)
     spork-rails (3.2.0)
       rails (>= 3.0.0, < 3.3.0)
@@ -293,6 +299,8 @@ DEPENDENCIES
   sass (>= 3.2.alpha.0)
   sass-rails (~> 3.2.3)
   simple_form (>= 2.0.0)
+  simplecov
+  simplecov-rcov
   spork-rails (>= 3.2.0)
   sqlite3
   therubyracer

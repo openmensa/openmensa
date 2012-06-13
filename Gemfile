@@ -38,11 +38,13 @@ end
 group :test do
   gem 'timecop'
   gem 'accept_values_for'
-  gem 'capybara',    require: false
-  gem 'turn',        require: false
-  gem 'guard-rails', require: false
-  gem 'guard-rspec', require: false
-  gem 'guard-spork', require: false
+  gem 'capybara',       require: false
+  gem 'turn',           require: false
+  gem 'guard-rails',    require: false
+  gem 'guard-rspec',    require: false
+  gem 'guard-spork',    require: false
+  gem 'simplecov',      require: false
+  gem 'simplecov-rcov', require: false
   gem 'rspec-rails', '~> 2.0'
   gem 'spork-rails', '>= 3.2.0'
   gem 'factory_girl_rails', '>= 3.3.0', require: false
