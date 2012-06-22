@@ -22,11 +22,11 @@ def login(identity)
   visit "/auth/#{identity.provider}"
 end
 
-def basic(client)
+def auth_basic(client)
   { "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client.identifier, client.secret) }
 end
 
-def oauth2(token)
+def auth_bearer(token)
   token = token.token if token.respond_to?(:token)
   { "HTTP_AUTHORIZATION" => "Bearer #{token.to_s}" }
 end

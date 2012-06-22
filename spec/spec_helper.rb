@@ -39,8 +39,8 @@ Spork.prefork do
       # DatabaseCleaner.clean
 
       # disable when using selenium
-      # DatabaseCleaner.strategy = :transaction
-      # DatabaseCleaner.clean_with(:truncation)
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
     end
 
     config.before :each do

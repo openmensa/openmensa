@@ -30,7 +30,7 @@ describe "OAuth2" do
 
   context "with client credential authentication" do
     it "should get an acces token and no refresh token" do
-      post "/oauth/token?grant_type=client_credentials", {}, basic(client)
+      post "/oauth/token?grant_type=client_credentials", {}, auth_basic(client)
 
       response.status.should == 200
 
