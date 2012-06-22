@@ -17,9 +17,8 @@ FactoryGirl.define do
     association :user
 
     sequence(:uid) { |n| n.to_s.hash.to_s.gsub(/\D/, '') }
-    provider         'internal'
+    provider         'twitter'
     token            'apiTocken'
-    password         'secret'
   end
 
   factory :access_token, class: 'Oauth2::AccessToken' do

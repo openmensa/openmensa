@@ -1,7 +1,6 @@
 require "bcrypt"
 
 class Identity < ActiveRecord::Base
-  attr_reader :password
 
   SERVICES = [ :twitter, :google, :facebook, :github ]
 
@@ -10,7 +9,7 @@ class Identity < ActiveRecord::Base
   validates_presence_of   :provider, :uid
   validates_uniqueness_of :uid, scope: :provider
 
-  safe_attributes :password, :provider, :uid, :secret, :token, :user, :user_id,
+  safe_attributes :provider, :uid, :secret, :token, :user, :user_id,
     if: proc { |identity| identity.new_record? }
 
   def self.from_omniauth(auth)
@@ -27,22 +26,5 @@ class Identity < ActiveRecord::Base
         identity.secret   = auth["credentials"]["secret"]
       end
     end
-  end
-
-  def authenticate(plain)
-    BCrypt::Password.new(secret) == plain ? self : false
-  rescue
-    false
-  end
-
-  def password=(plain)
-    @password = plain
-    unless plain.blank?
-      self.secret = BCrypt::Password.create(plain)
-    end
-  end
-
-  def self.authenticate(username, password)
-    find_by_provider_and_uid("internal", username).try(:authenticate, password)
   end
 end

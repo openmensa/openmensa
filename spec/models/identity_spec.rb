@@ -13,16 +13,16 @@ describe Identity do
       subject { Identity.new }
 
       it do
-        should have_safe_attributes(:password, :user_id, :user, :uid, :provider, :token, :secret)
+        should have_safe_attributes(:user_id, :user, :uid, :provider, :token, :secret)
       end
 
       it do
-        should have_safe_attributes(:password, :user_id, :user, :uid, :provider, :token, :secret).
+        should have_safe_attributes(:user_id, :user, :uid, :provider, :token, :secret).
           as(FactoryGirl.create(:user), 'User')
       end
 
       it do
-        should have_safe_attributes(:password, :user_id, :user, :uid, :provider, :token, :secret).
+        should have_safe_attributes(:user_id, :user, :uid, :provider, :token, :secret).
           as(FactoryGirl.create(:admin), 'Administrator').and_as(User.system, 'System')
       end
     end
