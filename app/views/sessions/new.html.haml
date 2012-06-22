@@ -2,19 +2,15 @@
 .centered
   %h2 Sign in with
   %p
-    = link_to auth_path(:twitter), class: 'btn btn-login btn-social btn-twitter' do
+    = link_to auth_path(:twitter), class: 'btn btn-login btn-social btn-twitter', title: "Twitter" do
       %i.icon-twitter-sign.icon-large
       Twitter
-    = link_to auth_path(:facebook), class: 'btn btn-login btn-social btn-facebook' do
-      %i.icon-facebook-sign.icon-large
-      Facebook
-    = link_to auth_path(:google), class: 'btn btn-login btn-social btn-google-plus' do
-      %i.icon-google-plus-sign.icon-large
-      Google+
-    = link_to auth_path(:github), class: 'btn btn-login btn-social btn-github' do
+    / = link_to auth_path(:facebook), class: 'btn btn-login btn-social btn-facebook', title: "Facebook" do
+    /   %i.icon-facebook-sign.icon-large
+    /   Facebook
+    / = link_to auth_path(:google), class: 'btn btn-login btn-social btn-google-plus', title: "Google+" do
+    /   %i.icon-google-plus-sign.icon-large
+    /   Google+
+    = link_to auth_path(:github), class: 'btn btn-login btn-social btn-github', title: "GitHub" do
       %i.icon-github-sign.icon-large
       GitHub
-    = link_to auth_path(:linkedin), class: 'btn btn-login btn-social btn-linkedin' do
-      %i.icon-linkedin-sign.icon-large
-      LinkedIn &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      %span (No Password Required)
