@@ -28,7 +28,7 @@ describe "OAuth2" do
     end
   end
 
-  context "with client credential authentication" do
+  context "with valid client credential authentication" do
     it "should get an acces token and no refresh token" do
       post "/oauth/token?grant_type=client_credentials", {}, auth_basic(client)
 
@@ -37,6 +37,14 @@ describe "OAuth2" do
       tokens = JSON[response.body]
       tokens["access_token"].should be_present
       tokens["refresh_token"].should be_nil
+    end
+  end
+
+  context "with invalid client credential authentication" do
+    it "should get an acces token and no refresh token" do
+      post "/oauth/token?grant_type=client_credentials", {}, auth_basic({ id: 1234, secret: "abcde" })
+
+      response.status.should == 401
     end
   end
 end

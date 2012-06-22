@@ -20,6 +20,24 @@ describe "Authentication" do
     end
   end
 
+  describe "Connect" do
+    let(:identity) { FactoryGirl.create :identity }
+    let(:user)     { identity.user }
+
+    it "should add a new identity" do
+      login_with identity
+
+      user.identities.count.should == 1
+
+      visit root_path
+      click_link "Mit GitHub verbinden"
+
+      user.identities.count.should == 2
+      puts user.identities.map(&:provider).inspect
+      user.identities.first.provider.should == "github"
+    end
+  end
+
   describe "Logout" do
     before :each do
       login FactoryGirl.create(:identity)

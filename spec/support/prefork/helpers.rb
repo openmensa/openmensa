@@ -9,8 +9,18 @@ def set_current_user(user)
   end
 end
 
+def login_with(identity)
+  login(identity)
+end
+
+def login_as(user)
+  login(user.identities.first)
+end
+
 def login(identity)
-  OmniAuth.config.add_mock(identity.provider, {
+  old_mock = OmniAuth.config.mock_auth[identity.provider.to_sym]
+
+  OmniAuth.config.add_mock(identity.provider.to_sym, {
     uid: identity.uid,
     credentials: {
       token: identity.token,
@@ -20,10 +30,15 @@ def login(identity)
 
   visit logout_path
   visit "/auth/#{identity.provider}"
+
+  OmniAuth.config.mock_auth[identity.provider.to_sym] = old_mock
 end
 
 def auth_basic(client)
-  { "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client.identifier, client.secret) }
+  unless client.is_a?(Hash)
+    client = { id: client.identifier, secret: client.secret }
+  end
+  { "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client[:id], client[:secret]) }
 end
 
 def auth_bearer(token)
