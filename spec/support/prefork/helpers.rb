@@ -10,14 +10,16 @@ def set_current_user(user)
 end
 
 def login(identity)
-  # post auth_path, username: identity.uid, password: identity.secret
+  OmniAuth.config.add_mock(identity.provider, {
+    uid: identity.uid,
+    credentials: {
+      token: identity.token,
+      secret: identity.secret
+    }
+  })
 
-  visit login_path
-  within 'form#login' do
-    fill_in      "Login",    with: identity.uid
-    fill_in      "Password", with: identity.password
-    click_button "Log in"
-  end
+  visit logout_path
+  visit "/auth/#{identity.provider}"
 end
 
 def basic(client)
@@ -31,15 +33,4 @@ end
 
 def auth_via_oauth2(token)
   request.env[Rack::OAuth2::Server::Resource::ACCESS_TOKEN] = token
-end
-
-def stub_omniauth(identity)
-  @controller.stub!(:env).and_return({"omniauth.auth" => {
-    "provider" => identity.provider,
-    "uid"      => identity.uid,
-    "credentials" => {
-      "token"  => identity.token,
-      "secret" => identity.secret
-    }}})
-  identity
 end
