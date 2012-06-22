@@ -9,9 +9,9 @@ describe "API /status" do
 
   context "without authorization/authentication" do
     it "should return anonymous authentication type" do
-      get "/api/status"
+      get "/api/v1/status"
 
-      response.should be_ok
+      response.status.should == 200
       json = JSON[response.body]
 
       json["auth"]["type"].should == 'anonymous'
@@ -32,9 +32,9 @@ describe "API /status" do
       access_token  = tokens["access_token"]
       refresh_token = tokens["refresh_token"]
 
-      get "/api/status", {}, auth_bearer(access_token)
+      get "/api/v1/status", {}, auth_bearer(access_token)
 
-      response.should be_ok
+      response.status.should == 200
       json = JSON[response.body]
 
       json["auth"]["type"].should == 'oauth2'
@@ -49,7 +49,7 @@ describe "API /status" do
       tokens = JSON[response.body]
       access_token = tokens["access_token"]
 
-      get "/api/status", {}, auth_basic(client)
+      get "/api/v1/status", {}, auth_basic(client)
 
       response.status.should == 200
       json = JSON[response.body]

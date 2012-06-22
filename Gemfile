@@ -19,6 +19,7 @@ gem 'gravtastic'
 gem 'rails-timeago', '>= 1.3.0'
 gem 'bcrypt-ruby',   '~> 3.0.0'
 gem 'paperclip'
+gem 'versionist'
 
 group :assets do
   gem 'sass',         '>= 3.2.alpha.0'
