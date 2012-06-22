@@ -5,6 +5,7 @@ gem 'jquery-rails'
 
 gem 'haml'
 gem 'rabl'
+gem 'msgpack', '~> 0.4.5'
 gem 'oj'
 gem 'omniauth'
 gem 'omniauth-github'
@@ -39,6 +40,8 @@ end
 group :test do
   gem 'timecop'
   gem 'accept_values_for'
+  gem 'database_cleaner'
+  gem 'launchy'
   gem 'capybara',       require: false
   gem 'turn',           require: false
   gem 'guard-rails',    require: false
