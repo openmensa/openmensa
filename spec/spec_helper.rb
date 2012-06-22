@@ -31,19 +31,34 @@ Spork.prefork do
 
   RSpec.configure do |config|
     config.mock_with :rspec
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
     config.infer_base_class_for_anonymous_controllers = false
+
+    config.before :all do
+      DatabaseCleaner.strategy = :truncation
+      # DatabaseCleaner.clean
+
+      # disable when using selenium
+      # DatabaseCleaner.strategy = :transaction
+      # DatabaseCleaner.clean_with(:truncation)
+    end
 
     config.before :each do
       Timecop.return
+      DatabaseCleaner.start
     end
 
-    # Enable OmniAuth test mode when testing for external authentication in test case/suite.
-    # Do NOT enable it globally because internal authentication will break.
-    # OmniAuth.config.test_mode = true
-    # OmniAuth.config.add_mock(:internal, { provider:    "internal",
-    #                                       uid:         "1234",
-    #                                       credentials: { secret: "password" }})
+    config.after :each  do
+      DatabaseCleaner.clean
+    end
+
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.add_mock(:twitter, {
+      :uid => '12345',
+      :nickname => 'zapnap'
+    })
+
+    Capybara.default_host = 'http://example.org'
   end
 end
 
