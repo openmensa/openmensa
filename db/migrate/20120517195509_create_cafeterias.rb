@@ -1,6 +1,6 @@
-class CreateMensas < ActiveRecord::Migration
+class CreateCafeterias < ActiveRecord::Migration
   def change
-    create_table :mensas do |t|
+    create_table :cafeterias do |t|
       t.string :name
       t.string :address
       t.string :url
@@ -8,6 +8,6 @@ class CreateMensas < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :mensas, :user_id
+    add_index :cafeterias, :user_id
   end
 end

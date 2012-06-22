@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates_exclusion_of :login, in: ['anonymous', 'system']
 
   safe_attributes :login, :name, :email, :time_zone, :language,
-    if: Proc.new { |user,as| as.admin? or user.new_record? }
+    if: Proc.new { |user,as| user.new_record? or as.admin? }
   safe_attributes :name, :email, :time_zone, :language,
     if: Proc.new { |user,as| user == as }
   safe_attributes :admin,
@@ -63,10 +63,6 @@ class User < ActiveRecord::Base
 
   def self.system
     SystemUser.instance
-  end
-
-  def self.authenticate(login, password)
-    Identity.authenticate(login, password).try(:user)
   end
 end
 

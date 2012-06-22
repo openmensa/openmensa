@@ -4,10 +4,10 @@ class CreateMeals < ActiveRecord::Migration
       t.string :name
       t.datetime :date
       t.string :description
-      t.references :mensa
+      t.references :cafeteria
 
       t.timestamps
     end
-    add_index :meals, :mensa_id
+    add_index :meals, :cafeteria_id
   end
 end

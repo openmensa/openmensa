@@ -13,6 +13,17 @@
 
 ActiveRecord::Schema.define(:version => 20120604124703) do
 
+  create_table "cafeterias", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "url"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cafeterias", ["user_id"], :name => "index_cafeterias_on_user_id"
+
   create_table "comments", :force => true do |t|
     t.string   "message"
     t.integer  "user_id"
@@ -41,23 +52,12 @@ ActiveRecord::Schema.define(:version => 20120604124703) do
     t.string   "name"
     t.datetime "date"
     t.string   "description"
-    t.integer  "mensa_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "cafeteria_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
-  add_index "meals", ["mensa_id"], :name => "index_meals_on_mensa_id"
-
-  create_table "mensas", :force => true do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "url"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "mensas", ["user_id"], :name => "index_mensas_on_user_id"
+  add_index "meals", ["cafeteria_id"], :name => "index_meals_on_cafeteria_id"
 
   create_table "oauth2_access_tokens", :force => true do |t|
     t.integer  "user_id"
