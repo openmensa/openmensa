@@ -9,10 +9,6 @@ class SessionsController < ApplicationController
   def create
     return failure unless env["omniauth.auth"]
 
-    puts
-    print_debug env["omniauth.auth"]
-    puts
-
     @identity = Identity.from_omniauth(env["omniauth.auth"])
     if @identity
       if User.current.logged?
