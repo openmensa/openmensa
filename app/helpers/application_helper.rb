@@ -36,7 +36,7 @@ module ApplicationHelper
     end
 
     Identity::SERVICES.each do |id|
-      links[id] = link_to "", "#",
+      links[id] = link_to "", auth_path(id),
         class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id)unless links[id]
     end
 

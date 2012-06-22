@@ -6,7 +6,9 @@ FactoryGirl.define do
     email            { "#{login}@example.org" }
     name               'John Doe'
 
-    after(:create) { |user| FactoryGirl.create(:identity, user: user) }
+    after(:create) do |user|
+      FactoryGirl.create(:identity, user: user)
+    end
   end
 
   factory :admin, parent: :user do

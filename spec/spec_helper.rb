@@ -57,6 +57,10 @@ Spork.prefork do
       :uid => '12345',
       :nickname => 'zapnap'
     })
+    OmniAuth.config.add_mock(:github, {
+      :uid => '98765',
+      :nickname => 'zapnap'
+    })
 
     Capybara.default_host = 'http://example.org'
   end
