@@ -29,22 +29,22 @@ module ApplicationHelper
   def connect_service_links
     links = {}
     User.current.identities.each do |id|
-      if Identity::SERVICES.include? id.provider.to_sym
+      if Rails.configuration.omniauth_services.include? id.provider.to_sym
         links[id.provider.to_sym] = link_to "", "#",
           class: "icon-#{id.provider}-sign"
       end
     end
 
-    Identity::SERVICES.each do |id|
+    Rails.configuration.omniauth_services.each do |id|
       links[id] = link_to "", auth_path(id),
-        class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id)unless links[id]
+        class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id) unless links[id]
     end
 
     links.map{|k,v| v}.join('').html_safe
   end
 
   def login_service_links
-    Identity::SERVICES.map do |id|
+    Rails.configuration.omniauth_services.map do |id|
       link_to "", auth_path(id), class: "icon-#{id}-sign inactive", title: t(:tip, :login_account, id)
     end.join('').html_safe
   end

@@ -7,3 +7,8 @@ if OMNI_CONFIG
     provider :twitter, OMNI_CONFIG['twitter']['key'], OMNI_CONFIG['twitter']['secret'] if OMNI_CONFIG['twitter']
   end
 end
+
+OMNI_CONFIG.each do |key, data|
+  Rails.configuration.omniauth_services ||= []
+  Rails.configuration.omniauth_services << key
+end
