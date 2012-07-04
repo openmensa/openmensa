@@ -21,6 +21,8 @@ gem 'bcrypt-ruby',   '~> 3.0.0'
 gem 'paperclip'
 gem 'versionist'
 
+gem 'sqlite3'
+
 group :assets do
   gem 'sass',         '>= 3.2.alpha.0'
   gem 'sass-rails',   '~> 3.2.3'
