@@ -74,6 +74,7 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    daemon_controller (1.0.0)
     daemons (1.1.8)
     database_cleaner (0.8.0)
     diff-lcs (1.1.3)
@@ -88,6 +89,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.1)
       multipart-post (~> 1.1)
+    fastthread (1.0.7)
     ffi (1.0.11)
     fssm (0.2.9)
     gravtastic (3.2.6)
@@ -165,6 +167,11 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
+    passenger (3.0.13)
+      daemon_controller (>= 1.0.0)
+      fastthread (>= 1.0.1)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.3)
     progressbar (0.11.0)
     rabl (0.6.14)
@@ -319,6 +326,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-twitter
   paperclip
+  passenger
   rabl
   rack-oauth2
   rails (= 3.2.6)
