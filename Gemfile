@@ -36,6 +36,9 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'thin'
   gem 'rspec-rails', '~> 2.0'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem 'capistrano_colors'
 end
 
 group :test do
