@@ -33,10 +33,6 @@ group :assets do
   gem 'bourbon'
 end
 
-group :production do
-  gem 'passenger'
-end
-
 group :development, :test do
   gem 'sqlite3'
   gem 'rails_best_practices'
