@@ -2,7 +2,7 @@
 @mixin p {
   margin: 8px 0;
 
-  @include media(mobile) {
-    margin: 4px 0;
-  }
+  // @include media(mobile) {
+  //   margin: 4px 0;
+  // }
 }

@@ -28,13 +28,13 @@
         margin: 0 0 0 3px;
       }
 
-      @include media(handheld) {
-        text-align: left;
-        padding-bottom: 2px;
-        padding-top: 0;
-        abbr  { float: none; }
-        label { padding-right: 3px; }
-      }
+      // @include media(handheld) {
+      //   text-align: left;
+      //   padding-bottom: 2px;
+      //   padding-top: 0;
+      //   abbr  { float: none; }
+      //   label { padding-right: 3px; }
+      // }
     }
 
     input, select, textarea {
@@ -71,9 +71,9 @@
 
         &.maximized { width: 100%; }
 
-        @include media(handheld) {
-          width: 100%;
-        }
+        // @include media(handheld) {
+        //   width: 100%;
+        // }
       }
     }
   }
@@ -82,16 +82,16 @@
     // clear: both;
     display: block;
 
-    @include media(handheld) {
-      float: right;
-      position: absolute;
-      top: 0;
-      right: 4px;
-      max-width: 100%;
-      height: 1.1em;
-      overflow: hidden;
-      background-color: #fff;
-    }
+    // @include media(handheld) {
+    //   float: right;
+    //   position: absolute;
+    //   top: 0;
+    //   right: 4px;
+    //   max-width: 100%;
+    //   height: 1.1em;
+    //   overflow: hidden;
+    //   background-color: #fff;
+    // }
   }
 
   span.hint, span.error {

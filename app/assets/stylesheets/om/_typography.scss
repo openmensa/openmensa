@@ -39,13 +39,13 @@ h3 { font-size: 18px; font-size: 1.8rem; }
 h4 { font-size: 15px; font-size: 1.5rem; }
 h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
 
-@include media(mobile) {
-  h1 { font-size: 17px; font-size: 1.7rem; font-weight: bold; }
-  h2 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
-  h3 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
-  h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
-  h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
-}
+// @include media(mobile) {
+//   h1 { font-size: 17px; font-size: 1.7rem; font-weight: bold; }
+//   h2 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
+//   h3 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
+//   h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+//   h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+// }
 
 small { font-size: .8em; }
 b, strong { font-weight: bold; }

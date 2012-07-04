@@ -32,21 +32,21 @@ body {
     max-width: $base-max-width;
   }
 
-  @include media(handheld) {
-    padding: 0 0;
+  // @include media(handheld) {
+  //   padding: 0 0;
 
-    &, .wrapper {
-      min-width: 0%;
-      max-width: 100%;
-      width: 100%;
-    }
-  }
+  //   &, .wrapper {
+  //     min-width: 0%;
+  //     max-width: 100%;
+  //     width: 100%;
+  //   }
+  // }
 
-  @include media(mobile) {
-    &, .wrapper {
-      padding: 0;
-    }
-  }
+  // @include media(mobile) {
+  //   &, .wrapper {
+  //     padding: 0;
+  //   }
+  // }
 }
 
 .float-wrapper { @include clearfix; }
@@ -63,11 +63,11 @@ body > header {
   // @include box-shadow(#ccc 0 0 1px);
   // @include border-radius(2px);
 
-  @include media(handheld) {
-    @include border-radius(0);
-    margin-top: 0;
-    padding: 0 1px 1px;
-  }
+  // @include media(handheld) {
+  //   @include border-radius(0);
+  //   margin-top: 0;
+  //   padding: 0 1px 1px;
+  // }
 
   // border-bottom: 1px solid #ccc;
   overflow: hidden;
@@ -151,12 +151,12 @@ body > footer {
   p.left { float: left; text-align: left; }
   p.right { float: right; text-align: right; }
 
-  @include media(mobile) {
-    padding-left: 1px;
-    padding-right: 1px;
-    p { text-align: left; width: 49% !important;}
-    p.left { display: none !important; }
-  }
+  // @include media(mobile) {
+  //   padding-left: 1px;
+  //   padding-right: 1px;
+  //   p { text-align: left; width: 49% !important;}
+  //   p.left { display: none !important; }
+  // }
 
   a { color: #aaa; }
   a:hover { color: #555; }
