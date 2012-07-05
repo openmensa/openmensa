@@ -112,6 +112,11 @@ $btn-success: #238625 !default;
   &:focus, &.focus {
     outline: none;
   }
+
+  &.btn-twitter { @include btn(#46c0fb); }
+  &.btn-facebook { @include btn(#4863ae); }
+  &.btn-github { @include btn(#fbfbfb, #333); }
+  &.btn-google-plus { @include btn(#dd4b39); }
 }
 
 .btn-group {
