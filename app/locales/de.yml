@@ -14,4 +14,18 @@ de:
       github: Mit GitHub verbinden
       google: Mit Google+ verbinden
       facebook: Mit Facebook verbinden
-
+  error_title: Fieser Fehler
+  error_default_message: Sorry, ein Fehler ist aufgetreten.
+  message:
+    account_created: Account angelegt
+    login_failed: Login fehlgeschlagen
+    account_taken:
+      twitter: Account vergeben
+      github: Account vergeben
+      google: Account vergeben
+      facebook: Account vergeben, Pech
+    account_connected:
+      twitter: Dein Twitter-Account wurde verknüpft
+      github: Dein GitHub-Account wurde verknüpft
+      google: Dein Google+-Account wurde verknüpft
+      facebook: Dein Facebook-Account wurde verknüpft
