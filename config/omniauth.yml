@@ -5,4 +5,9 @@ development: &dev
     secret: 951c3b87f8798128f4fac6b9553ea92269edc515
 
 test:
-  <<: *dev
+  github:
+    key: test
+    secret: test
+  twitter:
+    key: test
+    secret: test
