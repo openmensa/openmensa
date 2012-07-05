@@ -29,7 +29,7 @@ module ApplicationHelper
   def connect_service_links
     links = {}
     User.current.identities.each do |id|
-      if Rails.configuration.omniauth_services.include? id.provider.to_sym
+      if Rails.configuration.omniauth_services.include? id.provider.to_s
         links[id.provider.to_sym] = link_to "", "#",
           class: "icon-#{id.provider}-sign"
       end
@@ -37,7 +37,7 @@ module ApplicationHelper
 
     Rails.configuration.omniauth_services.each do |id|
       links[id] = link_to "", auth_path(id),
-        class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id) unless links[id]
+        class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id) unless links[id.to_sym]
     end
 
     links.map{|k,v| v}.join('').html_safe
