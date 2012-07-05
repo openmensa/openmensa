@@ -44,4 +44,18 @@ FactoryGirl.define do
   factory :refresh_token, class: 'Oauth2::RefreshToken' do
     association :client
   end
+
+  factory :cafeteria do
+    sequence(:name) { |n| "Mensa ##{n}"}
+    address         "Marble Street, 12345 City"
+    url             "http://example.com/m1.xml"
+  end
+
+  factory :meal do
+    sequence(:name) { |n| "Meal ##{n}" }
+    description     { "Description for #{name}" }
+    date            { Time.zone.now }
+
+    association :cafeteria
+  end
 end
