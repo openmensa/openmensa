@@ -46,11 +46,13 @@
     %footer#footer
       .wrapper
         %p.left
-          = "OpenMensa #{OpenMensa::VERSION}"
+          = "OpenMensa #{OpenMensa::VERSION} | #{Rails.root.basename}"
           - if Rails.env.development?
+            = raw '<br />'
             - if defined?(RUBY_VERSION) or defined?(VERSION)
-              = ' | ' + [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
-            = " | Rails #{Rails.version} | #{Rails.env.capitalize}"
+              = [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
+              = ' | '
+            = "Rails #{Rails.version} | #{Rails.env.capitalize}"
         %p.right
           = l Time.zone.now, :format => :short
           = Time.zone.now.zone
