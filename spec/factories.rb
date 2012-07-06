@@ -49,6 +49,8 @@ FactoryGirl.define do
     sequence(:name) { |n| "Mensa ##{n}"}
     address         "Marble Street, 12345 City"
     url             "http://example.com/m1.xml"
+
+    association :user
   end
 
   factory :meal do
