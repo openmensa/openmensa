@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
       else
         self.current_user = @identity.user
-        return redirect_back notice: t('message.account_created', name: @identity.user.name)
+        return redirect_back notice: t('message.login_successful', name: @identity.user.name)
       end
 
     else
