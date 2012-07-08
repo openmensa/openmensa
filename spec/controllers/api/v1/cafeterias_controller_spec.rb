@@ -16,12 +16,17 @@ describe Api::V1::CafeteriasController do
       json.should be_an(Array)
       json.should have(1).item
 
-      json[0].should =~ {
-        "id"      => cafeteria.id,
-        "name"    => cafeteria.name,
-        "address" => cafeteria.address,
-        "meals"   => []
-      }
+      json[0] == JSON[]
+    end
+
+    context "a cafeteria" do
+      it "should be same as single resource" do
+        get :index, format: :json
+        caf = json[0]
+
+        get :show, format: :json, id: cat["cafeteria"]["id"]
+        caf.should == json
+      end
     end
   end
 
