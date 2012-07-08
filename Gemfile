@@ -49,6 +49,7 @@ group :test do
   gem 'accept_values_for'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'webmock'
   gem 'capybara',       require: false
   gem 'turn',           require: false
   gem 'guard-rails',    require: false
