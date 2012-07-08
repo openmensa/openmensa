@@ -1,3 +1,4 @@
 
 collection @meals
-attributes :id, :name, :description, :date
+extends "api/v1/meals/show"
+
