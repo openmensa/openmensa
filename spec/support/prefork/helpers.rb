@@ -9,6 +9,10 @@ def set_current_user(user)
   end
 end
 
+def mock_file(file)
+  File.new Rails.root.join('spec', 'mocks', file)
+end
+
 def login_with(identity)
   login(identity)
 end

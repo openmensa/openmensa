@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mensa SYSTEM "http://om.altimos.de/open-mensa-v1.dtd">
+<mensa>
+	<!-- Studentenwerk Potsdam, Griebnitzsee -->
+	<meal name="Rührei mit Rahmspinat und Salzkartoffeln" date="05/29/2012" category="Essen 1">
+		<description>ovo-lacto-vegetabil</description>
+	</meal>
+	<meal name="Hähnchengeschnetzeltes mit exotischen Früchten, dazu Bio-Reis und Mischsalat" date="05/29/2012" category="Essen 2">
+		<description>mit Geflügelfleisch</description>
+	</meal>
+	<meal name="Gemüse-Couscouspfanne mit Joghurt-Ingwer-Dip, dazu bunter Blattsalat" date="05/29/2012" category="Alternativ-Angebot">
+		<description>ovo-lacto-vegetabil</description>
+		<description>mensaVital</description>
+	</meal>
+
+	<!-- Studentenwerk München, Garching -->
+	<meal name="Kartoffelrösti mit Apfelmus" date="05/22/2012" category="Tagesgericht 1">
+		<description>fleischloses Gericht</description>
+		<description>mit Farbstoff</description>
+		<description>mit Antioxidationsmittel</description>
+	</meal>
+	<meal name="Tagessuppe" date="05/22/2012" category="Beilagen" />
+	<meal name="Mischgemüse, natur" date="05/22/2012" category="Beilagen">
+		<description>veganes Gericht</description>
+	</meal>
+
+	<!-- Studentenwerk Karlsruhe, Am Adenauerring -->
+	<meal name="Apfelstrudel mit Vanillesoße, Tagessuppe und Salat" date="05/29/2012" category="Linie 1" />
+	<meal name="Pommes frittes" date="05/29/2012" category="Linie 2">
+		<description>vegan</description>
+	</meal>
+	<meal name="Hamburger-, Salat-, Buffet" date="05/29/2012" category="L6 Update">
+		<description>Rundfleisch</description>
+		<description>Schweinefleisch</description>
+	</meal>
+</mensa>
