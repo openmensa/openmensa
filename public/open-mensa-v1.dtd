@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT mensa (meal+)>
-<!ELEMENT meal (description*)>
+<!ELEMENT mensa (meal*)>
+<!ELEMENT meal (description*,price*)>
 <!ELEMENT description (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ATTLIST mensa version CDATA #REQUIRED>
 <!ATTLIST meal name CDATA #REQUIRED>
 <!ATTLIST meal date CDATA #REQUIRED>
 <!ATTLIST meal category CDATA #IMPLIED>

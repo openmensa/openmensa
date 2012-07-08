@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mensa SYSTEM "http://student.hpi.uni-potsdam.de/openMensa.dtd">
+<!DOCTYPE mensa SYSTEM "http://om.altimos.de/open-mensa-v1.dtd">
 
-<mensa>
+<mensa version="1.0">
 	<!-- Studentenwerk Potsdam, Griebnitzsee -->
 	<meal name="Rührei mit Rahmspinat und Salzkartoffeln" date="05/29/2012" category="Essen 1">
 		<description>ovo-lacto-vegetabil</description>
+		<price>1.20</price>
 	</meal>
 	<meal name="Hähnchengeschnetzeltes mit exotischen Früchten, dazu Bio-Reis und Mischsalat" date="05/29/2012" category="Essen 2">
 		<description>mit Geflügelfleisch</description>
+		<price>2.00</price>
 	</meal>
 	<meal name="Gemüse-Couscouspfanne mit Joghurt-Ingwer-Dip, dazu bunter Blattsalat" date="05/29/2012" category="Alternativ-Angebot">
 		<description>ovo-lacto-vegetabil</description>
 		<description>mensaVital</description>
+		<price>2.50</price>
 	</meal>
 	
 	<!-- Studentenwerk München, Garching -->
