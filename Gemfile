@@ -20,6 +20,7 @@ gem 'rails-timeago', '>= 1.3.0'
 gem 'bcrypt-ruby',   '~> 3.0.0'
 gem 'paperclip'
 gem 'versionist'
+gem 'whenever', :require => false
 
 gem 'sqlite3'
 
