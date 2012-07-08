@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ELEMENT cafeteria (day*)>
-<!ELEMENT day (meal*)>
-<!ELEMENT meal (description*,price*)>
-<!ELEMENT description (#PCDATA)>
+<!ELEMENT day (category+)>
+<!ELEMENT category (meal+)>
+<!ELEMENT meal (name,note*,price*)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT note (#PCDATA)>
 <!ELEMENT price (#PCDATA)>
 <!ATTLIST cafeteria version CDATA #REQUIRED>
 <!ATTLIST day date CDATA #REQUIRED>
-<!ATTLIST meal name CDATA #REQUIRED>
-<!ATTLIST meal category CDATA #IMPLIED>
+<!ATTLIST category name CDATA #REQUIRED>

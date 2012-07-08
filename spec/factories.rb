@@ -54,9 +54,9 @@ FactoryGirl.define do
   end
 
   factory :meal do
-    sequence(:name) { |n| "Meal ##{n}" }
-    description     { "Description for #{name}" }
-    date            { Time.zone.now }
+    sequence(:category) { |n| "Meal ##{n}" }
+    name                { "The name of #{category}." }
+    date                { Time.zone.now }
 
     association :cafeteria
   end

@@ -11,15 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604124703) do
+ActiveRecord::Schema.define(:version => 20120708173920) do
 
   create_table "cafeterias", :force => true do |t|
     t.string   "name"
     t.string   "address"
     t.string   "url"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.datetime "last_fetched_at"
+    t.integer  "fetch_hour"
   end
 
   add_index "cafeterias", ["user_id"], :name => "index_cafeterias_on_user_id"
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120604124703) do
     t.integer  "cafeteria_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "category"
   end
 
   add_index "meals", ["cafeteria_id"], :name => "index_meals_on_cafeteria_id"

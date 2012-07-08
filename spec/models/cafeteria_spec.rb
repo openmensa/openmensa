@@ -5,7 +5,6 @@ describe Cafeteria do
 
   it { should_not accept_values_for(:name, nil, "") }
   it { should_not accept_values_for(:address, nil, "") }
-  it { should_not accept_values_for(:url, nil, "") }
   it { should_not accept_values_for(:user_id, nil, "") }
 
   describe "#fetch" do
@@ -14,10 +13,20 @@ describe Cafeteria do
         to_return(:body => mock_file("cafeteria_feed.xml"), :status => 200)
     end
 
-    xit "should fetch meals from remote source" do
+    it "should fetch meals from remote source" do
       cafeteria.fetch
-
       cafeteria.meals.should have(9).items
+    end
+
+    it "should remove old meals" do
+      FactoryGirl.create(:meal,
+        cafeteria: cafeteria,
+        date: Date.new(2012, 05, 29),
+        category: 'Essen 1')
+      cafeteria.meals.should have(1).items
+
+      cafeteria.fetch
+      cafeteria.meals(true).should have(9).items
     end
   end
 end

@@ -3,43 +3,70 @@
 <cafeteria version="1.0">
 	<!-- Studentenwerk Potsdam, Griebnitzsee -->
 	<day date="2012-05-29">
-		<meal name="Rührei mit Rahmspinat und Salzkartoffeln" category="Essen 1">
-			<description>ovo-lacto-vegetabil</description>
-			<price>1.20</price>
-		</meal>
-		<meal name="Hähnchengeschnetzeltes mit exotischen Früchten, dazu Bio-Reis und Mischsalat" category="Essen 2">
-			<description>mit Geflügelfleisch</description>
-			<price>2.00</price>
-		</meal>
-		<meal name="Gemüse-Couscouspfanne mit Joghurt-Ingwer-Dip, dazu bunter Blattsalat" category="Alternativ-Angebot">
-			<description>ovo-lacto-vegetabil</description>
-			<description>mensaVital</description>
-			<price>2.50</price>
-		</meal>
+		<category name="Essen 1">
+			<meal>
+				<name>Rührei mit Rahmspinat und Salzkartoffeln</name>
+				<note>ovo-lacto-vegetabil</note>
+				<price>1.20</price>
+			</meal>
+		</category>
+		<category name="Essen 2">
+			<meal>
+				<name>Hähnchengeschnetzeltes mit exotischen Früchten, dazu Bio-Reis und Mischsalat</name>
+				<note>mit Geflügelfleisch</note>
+				<price>2.00</price>
+			</meal>
+		</category>
+		<category name="Alternativ-Angebot">
+			<meal>
+				<name>Gemüse-Couscouspfanne mit Joghurt-Ingwer-Dip, dazu bunter Blattsalat</name>
+				<note>ovo-lacto-vegetabil</note>
+				<note>mensaVital</note>
+				<price>2.50</price>
+			</meal>
+		</category>
 	</day>
 
 	<!-- Studentenwerk München, Garching -->
 	<day date="2012-05-22">
-		<meal name="Kartoffelrösti mit Apfelmus" category="Tagesgericht 1">
-			<description>fleischloses Gericht</description>
-			<description>mit Farbstoff</description>
-			<description>mit Antioxidationsmittel</description>
-		</meal>
-		<meal name="Tagessuppe" category="Beilagen" />
-		<meal name="Mischgemüse, natur" category="Beilagen">
-			<description>veganes Gericht</description>
-		</meal>
+		<category name="Tagesgericht 1">
+			<meal>
+				<name>Kartoffelrösti mit Apfelmus</name>
+				<note>fleischloses Gericht</note>
+				<note>mit Farbstoff</note>
+				<note>mit Antioxidationsmittel</note>
+			</meal>
+		</category>
+		<category name="Beilagen">
+			<meal>
+				<name>Tagessuppe</name>
+			</meal>
+			<meal>
+				<name>Mischgemüse, natur</name>
+				<note>veganes Gericht</note>
+			</meal>
+		</category>
 	</day>
 
 	<!-- Studentenwerk Karlsruhe, Am Adenauerring -->
 	<day date="2012-05-27">
-		<meal name="Apfelstrudel mit Vanillesoße, Tagessuppe und Salat" category="Linie 1" />
-		<meal name="Pommes frittes" category="Linie 2">
-			<description>vegan</description>
-		</meal>
-		<meal name="Hamburger-, Salat-, Buffet" category="L6 Update">
-			<description>Rundfleisch</description>
-			<description>Schweinefleisch</description>
-		</meal>
+		<category name="Linie 1">
+			<meal>
+				<name>Apfelstrudel mit Vanillesoße, Tagessuppe und Salat</name>
+			</meal>
+		</category>
+		<category name="Linie 2">
+			<meal>
+				<name>Pommes frittes</name>
+				<note>vegan</note>
+			</meal>
+		</category>
+		<category name="L6 Update">
+			<meal>
+				<name>Hamburger-, Salat-, Buffet</name>
+				<note>Rundfleisch</note>
+				<note>Schweinefleisch</note>
+			</meal>
+		</category>
 	</day>
 </cafeteria>

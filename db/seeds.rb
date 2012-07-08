@@ -17,7 +17,7 @@ eve   = User.create! name: 'Eve Longhorn', email: 'eve@macrosoft.com', login: 'l
 bob   = User.create! name: 'Bob Baumeister', email: 'bob@bau.de', login: 'boby'
 alice = User.create! name: 'Alice Thorn', email: 'athorn@schatten.de', login: 'atho'
 
-caf = Cafeteria.create! name: "Mensa Griebnitzsee", address: "Somewhere", user: admin, url: 'http://example.com/'
+caf = Cafeteria.create! name: "Mensa Griebnitzsee", address: "Somewhere", user: admin
 m = caf.meals.create! date: Time.zone.now.to_date, name: "Essen 1", description: "Grießspeise mit Früchten (iee)"
 m.comments.create! user: john, message: "Gar nicht so schlecht wie sonst."
 m.comments.create! user: alice, message: "klappe. könte kotzen alta"
@@ -30,7 +30,7 @@ m.comments.create! user: bob, message: "Bäää WARUM SCHON WIEDER VEGAN????!?!?
 caf.meals.create! date: Time.zone.now.tomorrow.to_date, name: "Essen 2", description: "Kalamari mit würzigen Ofenkartoffeln"
 caf.meals.create! date: Time.zone.now.tomorrow.to_date, name: "Essen 3", description: "Rinderzunge vom Grill mit Kroketten"
 
-cafu = Cafeteria.create! name: "Ulf's Cafe", address: "A.E-0", user: admin, url: 'http://example.com/'
+cafu = Cafeteria.create! name: "Ulf's Cafe", address: "A.E-0", user: admin
 m = cafu.meals.create! date: Time.zone.now.to_date,
   name: "Wiener Schnitzen mit Pilzen", description: "Würziges Schnitzel nach Wiener Art mit frischen
   Pilzen sowie Beilage nach Wahl."
