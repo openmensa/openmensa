@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mensa SYSTEM "http://om.altimos.de/open-mensa-v1.dtd">
-<mensa version="1.0">
+<!DOCTYPE cafeteria SYSTEM "http://om.altimos.de/open-mensa-v1.dtd">
+<cafeteria version="1.0">
 	<!-- Studentenwerk Potsdam, Griebnitzsee -->
 	<day date="05/29/2012">
 		<meal name="Rührei mit Rahmspinat und Salzkartoffeln" category="Essen 1">
@@ -42,4 +42,4 @@
 			<description>Schweinefleisch</description>
 		</meal>
 	</day>
-</mensa>
+</cafeteria>
