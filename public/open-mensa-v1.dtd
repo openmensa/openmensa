@@ -5,6 +5,6 @@
 <!ELEMENT description (#PCDATA)>
 <!ELEMENT price (#PCDATA)>
 <!ATTLIST mensa version CDATA #REQUIRED>
+<!ATTLIST day date CDATA #REQUIRED>
 <!ATTLIST meal name CDATA #REQUIRED>
-<!ATTLIST meal date CDATA #REQUIRED>
 <!ATTLIST meal category CDATA #IMPLIED>
