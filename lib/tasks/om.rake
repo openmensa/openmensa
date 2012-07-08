@@ -1,6 +1,7 @@
 namespace :om do
   desc "Fetch data for all cafeterias"
   task :fetch => :environment do
+    Rails.logger.info "[INFO] Fetch cafeteria data..."
     date = Time.zone.now.to_date
 
     Cafeteria.all.each do |cafeteria|
