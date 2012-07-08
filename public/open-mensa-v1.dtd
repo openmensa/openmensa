@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT mensa (meal*)>
+<!ELEMENT mensa (day*)>
+<!ELEMENT day (meal*)>
 <!ELEMENT meal (description*,price*)>
 <!ELEMENT description (#PCDATA)>
 <!ELEMENT price (#PCDATA)>
