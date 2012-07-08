@@ -2,7 +2,7 @@
 <!DOCTYPE cafeteria SYSTEM "http://om.altimos.de/open-mensa-v1.dtd">
 <cafeteria version="1.0">
 	<!-- Studentenwerk Potsdam, Griebnitzsee -->
-	<day date="05/29/2012">
+	<day date="2012-05-29">
 		<meal name="Rührei mit Rahmspinat und Salzkartoffeln" category="Essen 1">
 			<description>ovo-lacto-vegetabil</description>
 			<price>1.20</price>
@@ -19,7 +19,7 @@
 	</day>
 
 	<!-- Studentenwerk München, Garching -->
-	<day date="05/22/2012">
+	<day date="2012-05-22">
 		<meal name="Kartoffelrösti mit Apfelmus" category="Tagesgericht 1">
 			<description>fleischloses Gericht</description>
 			<description>mit Farbstoff</description>
@@ -32,7 +32,7 @@
 	</day>
 
 	<!-- Studentenwerk Karlsruhe, Am Adenauerring -->
-	<day date="05/27/2012">
+	<day date="2012-05-27">
 		<meal name="Apfelstrudel mit Vanillesoße, Tagessuppe und Salat" category="Linie 1" />
 		<meal name="Pommes frittes" category="Linie 2">
 			<description>vegan</description>
