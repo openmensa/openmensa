@@ -7,6 +7,6 @@ class Api::V1::MealsController < Api::V1::BaseController
 
   def show
     @cafeteria = Cafeteria.find params[:cafeteria_id]
-    @meal      = @cafeteria.find params[:id]
+    @meal      = @cafeteria.meals.find params[:id]
   end
 end

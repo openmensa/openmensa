@@ -14,7 +14,7 @@ describe Cafeteria do
         to_return(:body => mock_file("cafeteria_feed.xml"), :status => 200)
     end
 
-    it "should fetch meals from remote source" do
+    xit "should fetch meals from remote source" do
       cafeteria.fetch
 
       cafeteria.meals.should have(9).items
