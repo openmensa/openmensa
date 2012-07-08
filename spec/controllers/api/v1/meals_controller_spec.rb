@@ -16,20 +16,20 @@ describe Api::V1::MealsController do
     end
 
     it "should return list of meals" do
-      get :index, format: :json
+      get :index, format: :json, cafeteria_id: cafeteria.id
 
       response.status.should == 200
       json.should be_an(Array)
-      json.should have(1).item
+      json.should have(5).item
     end
 
     context "a meal" do
       it "should have same representation as single resource" do
-        get :index, format: :json
+        get :index, format: :json, cafeteria_id: cafeteria.id
 
         meal = json[0]
 
-        get :show, format: :json, id: meal["meal"]["id"]
+        get :show, format: :json, cafeteria_id: cafeteria.id, id: meal["meal"]["id"]
 
         meal.should == JSON[response.body]
       end
@@ -41,7 +41,7 @@ describe Api::V1::MealsController do
     let(:meal)      { FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now }
 
     it "should return a meal object" do
-      get :show, format: :json, id: meal.id
+      get :show, format: :json, cafeteria_id: cafeteria.id, id: meal.id
 
       response.status.should == 200
       json.should be_an(Hash)
@@ -50,7 +50,7 @@ describe Api::V1::MealsController do
     end
 
     it "should include meal id" do
-      get :show, format: :json, id: meal.id
+      get :show, format: :json, cafeteria_id: cafeteria.id, id: meal.id
       json["meal"]["id"].should == meal.id
     end
   end
