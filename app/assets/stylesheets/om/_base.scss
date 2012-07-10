@@ -86,11 +86,18 @@ body > header {
     // color: #fff;
     // height: 50px;
 
+    a {
+      color: #333;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
     img {
-      float: left;
-      height: 1.4em;
-      width: 1.4em;
-      margin-right: 10px;
+      float: right;
+      position: absolute;
+      top: -20px;
+      margin-left: 40px;
     }
   }
 

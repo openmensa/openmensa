@@ -16,7 +16,8 @@
     %header#header
       .wrapper
         %h1
-          OpenMensa
+          = link_to "OpenMensa", root_url
+          = image_tag "alpha.png", class: "alpha"
         = yield :header
         - if User.current.logged?
           %div.account
