@@ -18,6 +18,8 @@ $base-container-padding: 20px !default;
 $base-top-padding:       20px !default;
 $base-body-padding:       6px !default;
 
+$header-bg-color: #333;
+
 
 body {
   margin: 0;
@@ -57,6 +59,8 @@ body > header {
   clear: both;
   padding: 0 5px;
   margin-top: 2px;
+  margin-bottom: 10px;
+  // color: #fff;
 
   // background: $header-bg-color;
   // @include background-image(linear-gradient(#fff, darken($header-bg-color, 2%)));
@@ -73,13 +77,14 @@ body > header {
   overflow: hidden;
 
   h1 {
-    background: transparent image-url("om_64.png") no-repeat 0 50%;
+    background: transparent image-url("logo3.png") no-repeat 0 50%;
 
     font-size: 230%;
     width: 50%;
     float: left;
-    padding: 15px 0 0 75px;
-    height: 50px;
+    padding: 5px 0 5px 75px;
+    // color: #fff;
+    // height: 50px;
 
     img {
       float: left;
@@ -93,7 +98,7 @@ body > header {
     float: right;
     text-align: right;
     width: 40%;
-    padding: 25px 10px 10px;
+    padding: 10px 10px 0;
 
     > img {
       float: right;
@@ -133,8 +138,8 @@ body > #container {
 
   #content-pane {
     background-color: #fff;
-    @include box-shadow(0 0 6px rgba(0, 0, 0, 0.4));
-    border-radius: 5px;
+    @include box-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+    // border-radius: 20px;
     padding: 15px;
     margin: 0 -15px;
   }
