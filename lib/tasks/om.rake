@@ -10,9 +10,8 @@ namespace :om do
 
       begin
         cafeteria.fetch
-      rescue Error => e
-        puts e
-        Rails.logger.warn "Error while fetching cafeteria data of #{cafeteria.id}: #{cafeteria.name}:\n" + e
+      rescue
+        Rails.logger.warn "Error while fetching cafeteria data of #{cafeteria.id}: #{cafeteria.name}"
       end
     end
   end
