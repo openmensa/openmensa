@@ -68,5 +68,13 @@
 				<note>Schweinefleisch</note>
 			</meal>
 		</category>
+		<category name="L6 Update 2">
+			<meal>
+				<!-- Empty names are valid but will be ignored -->
+				<name />
+				<note>Rundfleisch</note>
+				<note>Schweinefleisch</note>
+			</meal>
+		</category>
 	</day>
 </cafeteria>

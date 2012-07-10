@@ -30,6 +30,8 @@ class Cafeteria < ActiveRecord::Base
             meal = Meal.new cafeteria: self, date: date, category: category
             meal.name = REXML::XPath.first(node, 'name').text
 
+            next if meal.name.to_s.empty?
+
             meal.description = ""
             REXML::XPath.each(node, 'note') do |note|
               meal.description += note.text + "\n"
