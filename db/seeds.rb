@@ -18,3 +18,5 @@ Cafeteria.create! name: "Mensa Jena, Philosophenweg",
   address: "Philosophenweg", user: admin, url: "http://khaos.at/openmensa/jena_philweg.xml"
 Cafeteria.create! name: "Mensa Jena, Carl-Zeiss-Promenade",
   address: "Carl-Zeiss-Promenade", user: admin, url: "http://khaos.at/openmensa/jena_czprom.xml"
+Cafeteria.create! name: "Mensa Potsdam, Griebnitzsee",
+  address: "August-Bebel-Str. 89, 14482 Potsdam", user: admin, url: "http://www.matthiasspringer.de:5009/"
