@@ -9,7 +9,7 @@ class Cafeteria < ActiveRecord::Base
   validates :address, :name, :user_id, presence: true
 
   def fetch_hour
-    read_attributes(:fetch_hour) || 8
+    read_attribute(:fetch_hour) || 8
   end
 
   def fetch
