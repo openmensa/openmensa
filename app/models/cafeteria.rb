@@ -10,8 +10,7 @@ class Cafeteria < ActiveRecord::Base
 
   acts_as_gmappable :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "address",
-                  :title => :name, :protocol => "https",
-                  :msg => "Sorry, not even Google could figure out where that is"
+                  :title => :name, :msg => "Sorry, not even Google could figure out where that is"
 
   def geocode?
     return false if Rails.env.test?
