@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
       else
         @user = User.new
         @user.login      = env["omniauth.auth"]["info"]["login"] || @identity.uid
-        @user.name       = env["omniauth.auth"]["info"]["name"]
+        @user.name       = env["omniauth.auth"]["info"]["name"] || @identity.uid
         @user.email      = env["omniauth.auth"]["info"]["email"]
         @user.save!
 
