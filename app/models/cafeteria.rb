@@ -14,6 +14,7 @@ class Cafeteria < ActiveRecord::Base
                   :msg => "Sorry, not even Google could figure out where that is"
 
   def geocode?
+    return false if Rails.env.test?
     !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
   end
 
@@ -43,7 +44,7 @@ class Cafeteria < ActiveRecord::Base
 
             meal.description = ""
             REXML::XPath.each(node, 'note') do |note|
-              meal.description += note.text.to_s + "\n" if note.text.to_s.any?
+              meal.description += note.text.to_s + "\n" if note.text.to_s
             end
             meal.description.strip!
 
