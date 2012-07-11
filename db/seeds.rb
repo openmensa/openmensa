@@ -12,21 +12,21 @@ User.current = User.system
 
 admin = User.create! name: 'admin', login: 'admin', email: 'admin@om.altimos.de'
 
-Cafeteria.create! name: "Mensa Jena, Ernst-Abbe-Platz", address: "Mensa Ernst-Abbe-Platz, Ernst-Abbe-Platz 8, 07743 Jena, DE",
+Cafeteria.create! name: "Mensa Jena, Ernst-Abbe-Platz", address: "Ernst-Abbe-Platz 8, 07743 Jena, DE",
   user: admin, url: "http://khaos.at/openmensa/jena_eabp.xml"
-Cafeteria.create! name: "Mensa Jena, Philosophenweg", address: "Mensa Philosophenweg, Philosophenweg 20, 07743 Jena, DE",
+Cafeteria.create! name: "Mensa Jena, Philosophenweg", address: "Philosophenweg 20, 07743 Jena, DE",
   user: admin, url: "http://khaos.at/openmensa/jena_philweg.xml"
-Cafeteria.create! name: "Mensa Jena, Carl-Zeiss-Promenade",  address: "Mensa Carl-Zeiss-Promenade, Carl-Zeiss-Promenade 6, 07745 Jena, DE",
+Cafeteria.create! name: "Mensa Jena, Carl-Zeiss-Promenade",  address: "Carl-Zeiss-Promenade 6, 07745 Jena, DE",
   user: admin, url: "http://khaos.at/openmensa/jena_czprom.xml"
-Cafeteria.create! name: "Mensa Potsdam, Wildau", address: "Mensa Wildau, Bahnhofstr. 1, 15745 Wildau, DE",
+Cafeteria.create! name: "Mensa Potsdam, Wildau", address: "Bahnhofstr. 1, 15745 Wildau, DE",
   user: admin, url: "http://www.matthiasspringer.de:5009/wildau.xml"
-Cafeteria.create! name: "Mensa Potsdam, Griebnitzsee", address: "Mensa Griebnitzsee, August-Bebel-Str. 89, 14482 Potsdam, DE",
+Cafeteria.create! name: "Mensa Potsdam, Griebnitzsee", address: "August-Bebel-Str. 89, 14482 Potsdam, DE",
   user: admin, url: "http://www.matthiasspringer.de:5009/griebnitzsee.xml"
-Cafeteria.create! name: "Mensa Potsdam, Golm", address: "Mensa Golm, Karl-Liebknecht-Str. 24/25, 14476 Potsdam OT Golm, DE",
+Cafeteria.create! name: "Mensa Potsdam, Golm", address: "Karl-Liebknecht-Str. 24/25, 14476 Potsdam OT Golm, DE",
   user: admin, url: "http://www.matthiasspringer.de:5009/golm.xml"
-Cafeteria.create! name: "Mensa Potsdam, Friedrich-Ebert-Straße", address: "Mensa Friedrich-Ebert-Straße, Friedrich-Ebert-Str. 4, 14467 Potsdam, DE",
+Cafeteria.create! name: "Mensa Potsdam, Friedrich-Ebert-Straße", address: "Friedrich-Ebert-Str. 4, 14467 Potsdam, DE",
   user: admin, url: "http://www.matthiasspringer.de:5009/friedrich.xml"
-Cafeteria.create! name: "Mensa Potsdam, Pappelallee", address: "Mensa Pappelallee, Kiepenheuerallee 5, 14469 Potsdam, DE",
+Cafeteria.create! name: "Mensa Potsdam, Pappelallee", address: "Kiepenheuerallee 5, 14469 Potsdam, DE",
   user: admin, url: "http://www.matthiasspringer.de:5009/pappel.xml"
-Cafeteria.create! name: "Mensa Potsdam, Brandenburg an der Havel", address: "Mensa Brandenburg an der Havel, Magdeburger Straße 50, 14770 Brandenburg an der Havel, DE",
+Cafeteria.create! name: "Mensa Potsdam, Brandenburg an der Havel", address: "Magdeburger Straße 50, 14770 Brandenburg an der Havel, DE",
   user: admin, url: "http://www.matthiasspringer.de:5009/brandenburg.xml"
