@@ -1,39 +1,45 @@
-.row
-  .span8
-    %h1 OpenMensa - deine Mensa direkt bei dir!
-    %p
-      OpenMensa ist die kostenfreie Datenbank für Mensen und Cafeterien im
-      deutschsprachigen Raum.
-    %p
-      Ein junges, dynamisches Studententeam treibt die Entwicklung der Plattform,
-      der öffentlichen API sowie der Referenz-Implementierung stetig voran, um
-      Dir auch aktuellste Social Features anbieten zu können.
-    %p
-      %i
-        "Mittels universellem Handyclient für Android, Windows Phone 7, Symbian, Blackberry
-        und iOS ist dein Mittagessen immer in deiner Nähe!"
-    %p
-      Unsere Features:
-    %ul
-      %li Was gibt es zu essen?
-      %li
-        %i Wo ist die nächste Mensa?
-      %li
-        %i Wieviel kostet das Essen?
-      %li
-        %i Wie gut ist das Essen in Mensa xy?
-    %i
-      (Kursiv gedruckte Features sind noch nicht vollständig implementiert)
-    %p
-      Aktuell gelistete Mensen:
-      %strong
-        Jena, Potsdam
-  .span4
-    %h2.centered Download OpenMensa App
-    .android
-      = image_tag "android.png"
-      = link_to "http://mycrobase.de/wtf/OpenMensa-20120710-2315.apk" do
-        %span OpenMensa Alpha
-        for Android
-    .android-qr
-      = image_tag "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=http://mycrobase.de/wtf/OpenMensa-20120710-2315.apk"
+
+.box
+  %span
+    = gmaps("markers" => {"data" => Cafeteria.all.to_gmaps4rails { |caf, marker| marker.title caf.name }}, "map_options" => {:language => 'de', :hl => 'de', :region => 'de'})
+.box
+  %div
+    .row
+      .span8
+        %h1 OpenMensa - deine Mensa direkt bei dir!
+        %p
+          OpenMensa ist die kostenfreie Datenbank für Mensen und Cafeterien im
+          deutschsprachigen Raum.
+        %p
+          Ein junges, dynamisches Studententeam treibt die Entwicklung der Plattform,
+          der öffentlichen API sowie der Referenz-Implementierung stetig voran, um
+          Dir auch aktuellste Social Features anbieten zu können.
+        %p
+          %i
+            "Mittels universellem Handyclient für Android, Windows Phone 7, Symbian, Blackberry
+            und iOS ist dein Mittagessen immer in deiner Nähe!"
+        %p
+          Unsere Features:
+        %ul
+          %li Was gibt es zu essen?
+          %li
+            %i Wo ist die nächste Mensa?
+          %li
+            %i Wieviel kostet das Essen?
+          %li
+            %i Wie gut ist das Essen in Mensa xy?
+        %i
+          (Kursiv gedruckte Features sind noch nicht vollständig implementiert)
+        %p
+          Aktuell gelistete Mensen:
+          %strong
+            Jena, Potsdam
+      .span4
+        %h2.centered Download OpenMensa App
+        .android
+          = image_tag "android.png"
+          = link_to "http://mycrobase.de/wtf/OpenMensa-20120710-2315.apk" do
+            %span OpenMensa Alpha
+            for Android
+        .android-qr
+          = image_tag "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=http://mycrobase.de/wtf/OpenMensa-20120710-2315.apk"

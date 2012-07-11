@@ -11,3 +11,4 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require om/application
+//= require_tree ./gmaps4rails

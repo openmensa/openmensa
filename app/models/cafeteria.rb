@@ -8,6 +8,15 @@ class Cafeteria < ActiveRecord::Base
   attr_accessible :address, :name, :url, :user
   validates :address, :name, :user_id, presence: true
 
+  acts_as_gmappable :process_geocoding => :geocode?,
+                  :address => "address", :normalized_address => "address",
+                  :title => :name, :protocol => "https",
+                  :msg => "Sorry, not even Google could figure out where that is"
+
+  def geocode?
+    !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
+  end
+
   def fetch_hour
     read_attribute(:fetch_hour) || 8
   end
@@ -34,7 +43,7 @@ class Cafeteria < ActiveRecord::Base
 
             meal.description = ""
             REXML::XPath.each(node, 'note') do |note|
-              meal.description += note.text + "\n"
+              meal.description += note.text.to_s + "\n" if note.text.to_s.any?
             end
             meal.description.strip!
 

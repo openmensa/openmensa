@@ -92,6 +92,7 @@ GEM
       multipart-post (~> 1.1)
     ffi (1.0.11)
     fssm (0.2.9)
+    gmaps4rails (1.5.2)
     gravtastic (3.2.6)
     guard (1.2.3)
       listen (>= 0.4.2)
@@ -314,6 +315,7 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   factory_girl_rails (>= 3.3.0)
+  gmaps4rails
   gravtastic
   guard-rails
   guard-rspec

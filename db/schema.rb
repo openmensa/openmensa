@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120708173920) do
+ActiveRecord::Schema.define(:version => 20120711070028) do
 
   create_table "cafeterias", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20120708173920) do
     t.datetime "updated_at",      :null => false
     t.datetime "last_fetched_at"
     t.integer  "fetch_hour"
+    t.float    "longitude"
+    t.float    "latitude"
   end
 
   add_index "cafeterias", ["user_id"], :name => "index_cafeterias_on_user_id"
