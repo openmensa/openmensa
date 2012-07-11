@@ -1,7 +1,7 @@
 
 .box
   %span
-    = gmaps("markers" => {"data" => Cafeteria.all.to_gmaps4rails { |caf, marker| marker.title caf.name }}, "map_options" => {:language => 'de', :hl => 'de', :region => 'de'})
+    = gmaps(markers: {data: Cafeteria.all.to_gmaps4rails { |caf, marker| marker.title caf.name }}, map_options: {provider: 'openlayers', language: 'de', hl: 'de', region: 'de'})
 .box
   %div
     .row
