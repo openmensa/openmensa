@@ -13,3 +13,7 @@
   width: 1000px;
   height: 350px;
 }
+
+.olControlAttribution {
+  bottom: 0 !important;
+}

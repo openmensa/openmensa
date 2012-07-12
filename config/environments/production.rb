@@ -49,14 +49,6 @@ Openmensa::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( screen.css ie.css print.css )
 
-  config.assets.precompile << 'gmaps4rails/OpenLayers.js'
-  config.assets.precompile << 'gmaps4rails/theme/default/style.css'
-  config.assets.precompile << 'gmaps4rails/theme/default/style.mobile.css'
-  config.assets.precompile << 'gmaps4rails/theme/default/style.mobile.tidycss'
-  config.assets.precompile << 'gmaps4rails/theme/default/style.tidy.css'
-  config.assets.precompile << 'gmaps4rails/theme/default/ie6-style.css'
-  config.assets.precompile << 'gmaps4rails/theme/default/ie6-style.tidy.css'
-
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
