@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://openmensa.org/open-mensa-v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://openmensa.org/open-mensa-v1">
+
+    <xs:element name="cafeteria" type="cafeteriaType"></xs:element>
+    
+    <xs:complexType name="cafeteriaType">
+    	<xs:sequence>
+    		<xs:element name="day" type="dayType" maxOccurs="unbounded" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="version" type="xs:float" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="dayType">
+    	<xs:sequence>
+    		<xs:element name="category" type="categoryType" maxOccurs="unbounded" minOccurs="1"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="date" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="categoryType">
+    	<xs:sequence>
+    		<xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="mealType">
+    	<xs:sequence>
+    		<xs:element name="name" type="xs:string"></xs:element>
+    		<xs:element name="note" type="xs:string" maxOccurs="unbounded" minOccurs="0"></xs:element>
+    		<xs:element name="price" type="xs:string" maxOccurs="unbounded" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+</xs:schema>
