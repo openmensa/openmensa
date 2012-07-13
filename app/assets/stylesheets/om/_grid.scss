@@ -17,7 +17,7 @@ $grid-gutter: 1.5% !default;
 
 
 .row {
-  @include clearfix;
+  @include pie-clearfix;
 
   display: block;
   width: 100%;
