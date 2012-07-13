@@ -14,21 +14,59 @@
     	<xs:sequence>
     		<xs:element name="category" type="categoryType" maxOccurs="unbounded" minOccurs="1"></xs:element>
     	</xs:sequence>
-    	<xs:attribute name="date" type="xs:string" use="required"></xs:attribute>
+    	<xs:attribute name="date" use="required">
+    		<xs:simpleType>
+                <xs:annotation>
+                	<xs:documentation>This field specifies the date of the day as "YYYY-MM-DD".</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+    				<xs:pattern
+    					value="[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}">
+    				</xs:pattern>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="categoryType">
     	<xs:sequence>
     		<xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1"></xs:element>
     	</xs:sequence>
-    	<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+    	<xs:attribute name="name" use="required">
+    		<xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:minLength value="1"></xs:minLength>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="mealType">
     	<xs:sequence>
-    		<xs:element name="name" type="xs:string"></xs:element>
-    		<xs:element name="note" type="xs:string" maxOccurs="unbounded" minOccurs="0"></xs:element>
-    		<xs:element name="price" type="xs:string" maxOccurs="unbounded" minOccurs="0"></xs:element>
+    		<xs:element name="name">
+    			<xs:simpleType>
+    				<xs:restriction base="xs:string">
+    					<xs:minLength value="1"></xs:minLength>
+    				</xs:restriction>
+    			</xs:simpleType>
+    		</xs:element>
+    		<xs:element name="note" maxOccurs="unbounded" minOccurs="0">
+    			<xs:simpleType>
+    				<xs:restriction base="xs:string">
+    					<xs:minLength value="1"></xs:minLength>
+    				</xs:restriction>
+    			</xs:simpleType>
+    		</xs:element>
+    		<xs:element name="price" maxOccurs="unbounded" minOccurs="0">
+                <xs:annotation>
+                	<xs:documentation>This field contains a price in Euro for a meal.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+    				<xs:restriction base="xs:float">
+    					<xs:minExclusive value="0"></xs:minExclusive>
+    				</xs:restriction>
+    			</xs:simpleType>
+    		</xs:element>
     	</xs:sequence>
     </xs:complexType>
 </xs:schema>
