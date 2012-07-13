@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="http://openmensa.org/open-mensa-v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://openmensa.org/open-mensa-v1">
+<xs:schema targetNamespace="http://openmensa.org/open-mensa-v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://openmensa.org/open-mensa-v1" elementFormDefault="qualified">
 
     <xs:element name="cafeteria" type="cafeteriaType"></xs:element>
     
@@ -43,13 +43,7 @@
 
     <xs:complexType name="mealType">
     	<xs:sequence>
-    		<xs:element name="name">
-    			<xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    				</xs:restriction>
-    			</xs:simpleType>
-    		</xs:element>
+    		<xs:element name="name"></xs:element>
     		<xs:element name="note" maxOccurs="unbounded" minOccurs="0">
     			<xs:simpleType>
     				<xs:restriction base="xs:string">
