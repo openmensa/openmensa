@@ -40,4 +40,4 @@ test:
 
 production:
   <<: *common
-  database: ../../shared/db/production.sqlite3
+  database: db/production.sqlite3
