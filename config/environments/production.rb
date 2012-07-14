@@ -67,5 +67,5 @@ Openmensa::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Piwik tracking
-  config.middleware.use Rack::Piwik, :piwik_url => 'altimos.de/piwik', :piwik_id => '3'
+  config.middleware.use Rack::Piwik, :piwik_url => 'dev.altimos.de/piwik', :piwik_id => '3'
 end
