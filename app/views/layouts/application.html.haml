@@ -19,21 +19,21 @@
           = link_to "OpenMensa", root_url
           = image_tag "alpha.png", class: "alpha"
         = yield :header
-        - if User.current.logged?
-          %div.account
-            = avatar_img User.current, size: 48
-            %span
-              = link_to t(:action, :logout), logout_path
-              &nbsp;|&nbsp;
-              %strong= User.current.name
-              %br
-              %span.connections= connect_service_links
-        - else
-          %div.account
-            %span
-              = link_to t(:action, :login), login_path
-              %br
-              %span.connections= login_service_links
+        / - if User.current.logged?
+        /   %div.account
+        /     = avatar_img User.current, size: 48
+        /     %span
+        /       = link_to t(:action, :logout), logout_path
+        /       &nbsp;|&nbsp;
+        /       %strong= User.current.name
+        /       %br
+        /       %span.connections= connect_service_links
+        / - else
+        /   %div.account
+        /     %span
+        /       = link_to t(:action, :login), login_path
+        /       %br
+        /       %span.connections= login_service_links
         .clear
     #container
       .wrapper
