@@ -9,7 +9,7 @@ Openmensa::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -67,5 +67,5 @@ Openmensa::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Piwik tracking
-  config.middleware.use Rack::Piwik, :piwik_url => 'http://piwik.altimos.de/', :piwik_id => '3'
+  config.middleware.use Rack::Piwik, :piwik_url => 'piwik.altimos.de/', :piwik_id => '3'
 end
