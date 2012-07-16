@@ -1,17 +1,17 @@
 namespace :om do
   desc "Fetch data for all cafeterias"
   task :fetch => :environment do
-    Rails.logger.info "[#{Time.zone.now}] Fetch cafeteria data..."
+    Rails.logger.info "[#{Time.zone.now}] Fetch canteen data..."
     date = Time.zone.now.to_date
 
-    Cafeteria.all.each do |cafeteria|
-      next if cafeteria.last_fetched_at and cafeteria.last_fetched_at.to_date == date
-      next if Time.zone.now.hour < cafeteria.fetch_hour
+    Canteen.all.each do |canteen|
+      next if canteen.last_fetched_at and canteen.last_fetched_at.to_date == date
+      next if Time.zone.now.hour < canteen.fetch_hour
 
       begin
-        cafeteria.fetch
+        canteen.fetch
       rescue
-        Rails.logger.warn "Error while fetching cafeteria data of #{cafeteria.id}: #{cafeteria.name}"
+        Rails.logger.warn "Error while fetching canteen data of #{canteen.id}: #{canteen.name}"
       end
     end
   end

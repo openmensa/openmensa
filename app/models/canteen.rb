@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'rexml/document'
 
-class Cafeteria < ActiveRecord::Base
+class Canteen < ActiveRecord::Base
   belongs_to :user
   has_many :meals
 
@@ -36,7 +36,7 @@ class Cafeteria < ActiveRecord::Base
           self.meals.where(date: date, category: category).destroy_all
 
           REXML::XPath.each(cat, 'meal') do |node|
-            meal = Meal.new cafeteria: self, date: date, category: category
+            meal = Meal.new canteen: self, date: date, category: category
             meal.name = REXML::XPath.first(node, 'name').text
 
             next if meal.name.to_s.empty?

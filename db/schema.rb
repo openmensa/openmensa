@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711070028) do
+ActiveRecord::Schema.define(:version => 20120716170836) do
 
-  create_table "cafeterias", :force => true do |t|
+  create_table "canteens", :force => true do |t|
     t.string   "name"
     t.string   "address"
     t.string   "url"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20120711070028) do
     t.float    "latitude"
   end
 
-  add_index "cafeterias", ["user_id"], :name => "index_cafeterias_on_user_id"
+  add_index "canteens", ["user_id"], :name => "index_cafeterias_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.string   "message"
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(:version => 20120711070028) do
     t.string   "name"
     t.datetime "date"
     t.string   "description"
-    t.integer  "cafeteria_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "canteen_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "category"
   end
 
-  add_index "meals", ["cafeteria_id"], :name => "index_meals_on_cafeteria_id"
+  add_index "meals", ["canteen_id"], :name => "index_meals_on_cafeteria_id"
 
   create_table "oauth2_access_tokens", :force => true do |t|
     t.integer  "user_id"

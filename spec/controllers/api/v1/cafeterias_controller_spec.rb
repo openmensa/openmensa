@@ -6,8 +6,8 @@ describe Api::V1::CafeteriasController do
   let(:json) { JSON[response.body] }
 
   describe "GET index" do
-    let(:cafeteria) { FactoryGirl.create :cafeteria }
-    before          { cafeteria }
+    let(:canteen) { FactoryGirl.create :canteen }
+    before        { canteen }
 
     it "should return list of cafeterias" do
       get :index, format: :json
@@ -30,40 +30,40 @@ describe Api::V1::CafeteriasController do
   end
 
   describe "GET show" do
-    let(:cafeteria) { FactoryGirl.create :cafeteria }
+    let(:canteen) { FactoryGirl.create :canteen }
 
     it "should return a cafeteria object" do
-      get :show, format: :json, id: cafeteria.id
+      get :show, format: :json, id: canteen.id
 
       response.status.should == 200
       json.should be_an(Hash)
 
-      json["cafeteria"]["id"].should == cafeteria.id
+      json["cafeteria"]["id"].should == canteen.id
     end
 
     it "should include cafeteria id" do
-      get :show, format: :json, id: cafeteria.id
-      json["cafeteria"]["id"].should == cafeteria.id
+      get :show, format: :json, id: canteen.id
+      json["cafeteria"]["id"].should == canteen.id
     end
 
     it "should include cafeteria name" do
-      get :show, format: :json, id: cafeteria.id
-      json["cafeteria"]["name"].should == cafeteria.name
+      get :show, format: :json, id: canteen.id
+      json["cafeteria"]["name"].should == canteen.name
     end
 
     it "should include cafeteria address" do
-      get :show, format: :json, id: cafeteria.id
-      json["cafeteria"]["address"].should == cafeteria.address
+      get :show, format: :json, id: canteen.id
+      json["cafeteria"]["address"].should == canteen.address
     end
 
     it "should include todays and tomorrows meals" do
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now - 2.day
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now - 1.day
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now + 1.day
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now + 2.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 2.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 1.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 1.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 2.day
 
-      get :show, format: :json, id: cafeteria.id
+      get :show, format: :json, id: canteen.id
 
       json["cafeteria"]["meals"].should be_an(Array)
       json["cafeteria"]["meals"].should have(2).items

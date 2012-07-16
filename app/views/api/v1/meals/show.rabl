@@ -1,3 +1,5 @@
 
-object @meal
-attributes :id, :name, :description, :date
+object false
+child(@meal) do
+  attributes :id, :name, :description, :date
+end

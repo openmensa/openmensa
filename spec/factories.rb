@@ -45,10 +45,10 @@ FactoryGirl.define do
     association :client
   end
 
-  factory :cafeteria do
+  factory :canteen do
     sequence(:name) { |n| "Mensa ##{n}"}
     address         "Marble Street, 12345 City"
-    url             "http://example.com/m1.xml"
+    url             "http://example.com/canteen_feed.xml"
 
     association :user
   end
@@ -58,6 +58,6 @@ FactoryGirl.define do
     name                { "The name of #{category}." }
     date                { Time.zone.now }
 
-    association :cafeteria
+    association :canteen
   end
 end

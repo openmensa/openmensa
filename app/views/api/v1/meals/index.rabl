@@ -1,4 +1,4 @@
 
-collection @meals
-extends "api/v1/meals/show"
+collection @meals, root: false, object_root: "meal"
+attributes :id, :name, :description, :date
 

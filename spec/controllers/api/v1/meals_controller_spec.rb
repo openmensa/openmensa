@@ -6,17 +6,17 @@ describe Api::V1::MealsController do
   let(:json) { JSON[response.body] }
 
   describe "GET index" do
-    let(:cafeteria) { FactoryGirl.create :cafeteria }
+    let(:canteen) { FactoryGirl.create :canteen }
     before do
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now - 2.day
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now - 1.day
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now + 1.day
-      FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now + 2.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 2.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 1.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 1.day
+      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 2.day
     end
 
     it "should return list of meals" do
-      get :index, format: :json, cafeteria_id: cafeteria.id
+      get :index, format: :json, cafeteria_id: canteen.id
 
       response.status.should == 200
       json.should be_an(Array)
@@ -25,11 +25,11 @@ describe Api::V1::MealsController do
 
     context "a meal" do
       it "should have same representation as single resource" do
-        get :index, format: :json, cafeteria_id: cafeteria.id
+        get :index, format: :json, cafeteria_id: canteen.id
 
         meal = json[0]
 
-        get :show, format: :json, cafeteria_id: cafeteria.id, id: meal["meal"]["id"]
+        get :show, format: :json, cafeteria_id: canteen.id, id: meal["meal"]["id"]
 
         meal.should == JSON[response.body]
       end
@@ -37,11 +37,11 @@ describe Api::V1::MealsController do
   end
 
   describe "GET show" do
-    let(:cafeteria) { FactoryGirl.create :cafeteria }
-    let(:meal)      { FactoryGirl.create :meal, cafeteria: cafeteria, date: Time.zone.now }
+    let(:canteen) { FactoryGirl.create :canteen }
+    let(:meal)    { FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now }
 
     it "should return a meal object" do
-      get :show, format: :json, cafeteria_id: cafeteria.id, id: meal.id
+      get :show, format: :json, cafeteria_id: canteen.id, id: meal.id
 
       response.status.should == 200
       json.should be_an(Hash)
@@ -50,7 +50,7 @@ describe Api::V1::MealsController do
     end
 
     it "should include meal id" do
-      get :show, format: :json, cafeteria_id: cafeteria.id, id: meal.id
+      get :show, format: :json, cafeteria_id: canteen.id, id: meal.id
       json["meal"]["id"].should == meal.id
     end
   end
