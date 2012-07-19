@@ -42,7 +42,7 @@ h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
 small { font-size: .8em; }
 b, strong { font-weight: bold; }
 i, em { font-style: italic; }
-p { @include p; }
+p, .p { @include p; }
 
 ul, ol { @extend p;
   padding-left: 2.5em; }

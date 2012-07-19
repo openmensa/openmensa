@@ -1,0 +1,20 @@
+
+.section
+  %header
+    %h1= @canteen.name
+
+  %section
+    %header.header
+      %h1 Speiseplan (Beta)
+    .content
+      %ul
+        - @canteen.meals.where(date: Time.zone.now.to_date).each do |canteen|
+          %li
+            %h3= canteen.category
+            %p= canteen.name
+
+= content_for :aside do
+  .section
+    %section
+      %header.header
+        %h2 Blub

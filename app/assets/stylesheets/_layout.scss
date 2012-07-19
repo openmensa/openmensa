@@ -56,6 +56,20 @@ header#header {
     margin: 15px 0 0 0;
     padding-bottom: 10px;
 
+    > header {
+      padding: 95px 0 35px;
+      background-color: #fff;
+      background-image: image-url("canteen.jpg");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+
+      h1 {
+        color: #fff;
+        padding: 15px 15px;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    }
+
     > section {
       margin: 0;
       padding: 0;

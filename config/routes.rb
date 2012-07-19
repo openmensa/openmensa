@@ -9,7 +9,7 @@ Openmensa::Application.routes.draw do
     end
   end
 
-  resources :canteens
+  resources :canteens, path: "c"
 
   match "/auth",                    to: "sessions#new",      as: :login
   match "/auth/signoff",            to: "sessions#destroy",  as: :logout
