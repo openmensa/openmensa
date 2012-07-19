@@ -1,0 +1,41 @@
+#
+#= require jquery
+#= require jquery_ujs
+#= require "OpenLayers"
+#
+
+class Map
+  constructor: (id, options) ->
+    @map = new OpenLayers.Map id
+    @map.addLayer new OpenLayers.Layer.OSM()
+    @map.setCenter @createCoordinates(0, 0), 14
+
+    if options.markers?
+      @addMarker m for m in options.markers
+
+  createCoordinates: (lat, lng) =>
+    # transform from WGS 1984 to Spherical Mercator Projection
+    new OpenLayers.LonLat(lng, lat).transform new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")
+
+  getMarkersLayer: (options) =>
+    unless @markersLayer?
+      @markersLayer ?= new OpenLayers.Layer.Markers "Markers"
+      @map.addLayer @markersLayer
+    @markersLayer
+
+  addMarker: (options) =>
+    marker = new OpenLayers.Marker @createCoordinates(options.lat, options.lng), @createIcon(options)
+    console.log marker
+    @getMarkersLayer().addMarker marker
+
+  adjustToMarkers: ->
+    @map.zoomToExtent @markersLayer.getDataExtent()
+
+  createIcon: (options) ->
+    options ?= {}
+    new OpenLayers.Icon (options.icon || "<%= asset_path('logo.png') %>")
+
+$ ->
+  $(".map").each ->
+    map = new Map $(@).data("map"), markers: $(@).data("markers")
+    map.adjustToMarkers()
