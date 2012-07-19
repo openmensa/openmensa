@@ -8,9 +8,8 @@ class Canteen < ActiveRecord::Base
   attr_accessible :address, :name, :url, :user
   validates :address, :name, :user_id, presence: true
 
-  acts_as_gmappable :process_geocoding => :geocode?,
-                  :address => "address", :normalized_address => "address",
-                  :title => :name, :msg => "Sorry, not even Google could figure out where that is"
+  geocoded_by :address
+  after_validation :geocode, if: :geocode?
 
   def geocode?
     return false if Rails.env.test?
@@ -19,6 +18,10 @@ class Canteen < ActiveRecord::Base
 
   def fetch_hour
     read_attribute(:fetch_hour) || 8
+  end
+
+  def to_map_marker
+    { lat: latitude, lng: longitude, title: name }.to_json
   end
 
   def fetch

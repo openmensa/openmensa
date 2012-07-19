@@ -70,4 +70,8 @@ module ApplicationHelper
     n = render_navigation renderer: :links, items: [{ key: :anon, name: text, url: url, options: options }]
     n.gsub(/<\/?div>/, '').html_safe
   end
+
+  def map(markers, options = {})
+    content_tag :div, nil, class: "map", id: (options[:id] || "map"), data: { map: (options[:id] || "map"), markers: "[#{markers.map(&:to_map_marker).join(',')}]"}
+  end
 end
