@@ -6,7 +6,6 @@
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if IE]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
-    = javascript_include_tag "application"
     = csrf_meta_tags
     %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8"}
     = favicon_link_tag
@@ -14,56 +13,52 @@
 
   %body{:class => body_classes }
     %header#header
-      .wrapper
-        %h1
-          = link_to "OpenMensa", root_url
-          = image_tag "alpha.png", class: "alpha"
-        = yield :header
-        - if User.current.logged?
-          %div.account.hide
-            = avatar_img User.current, size: 48
-            %span
-              = link_to t(:action, :logout), logout_path
-              &nbsp;|&nbsp;
-              %strong= User.current.name
-              %br
-              %span.connections= connect_service_links
-        - else
-          %div.account.hide
-            %span
-              = link_to t(:action, :login), login_path
-              %br
-              %span.connections= login_service_links
-        .clear
-    #container
-      .wrapper
-        #content-pane
-          #content.float-wrapper
-            = render partial: "common/notifications"
-            - if content_for? :notifications
-              = yield :notifications
-            = yield
-          %div.clear
-    %footer#footer
-      .wrapper
-        %p.left
-          = "OpenMensa #{OpenMensa::VERSION} | #{Rails.root.basename}"
-          - if Rails.env.development?
-            = raw '<br />'
-            - if defined?(RUBY_VERSION) or defined?(VERSION)
-              = [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
-              = ' | '
-            = "Rails #{Rails.version} | #{Rails.env.capitalize}"
-        %p.right
-          = l Time.zone.now, :format => :short
-          = Time.zone.now.zone
-        %p<
-          Copyright (c) OpenMensa
-          &nbsp;&middot;&nbsp;
-          = link_to 'Impressum', static_url(:impressum)
-          &nbsp;&middot;&nbsp;&nbsp;
-          = link_to 'Developer', static_url(:developer)
-    .ajax-indicator{style: 'display: none;'}
-      %span
-        Loading...
-    = yield :scripts
+      %h1
+        = link_to "OpenMensa", root_url
+        = image_tag "alpha.png", class: "alpha"
+      = yield :header
+      - if User.current.logged?
+        %div.account.hide
+          = avatar_img User.current, size: 48
+          %span
+            = link_to t(:action, :logout), logout_path
+            &nbsp;|&nbsp;
+            %strong= User.current.name
+            %br
+            %span.connections= connect_service_links
+      - else
+        %div.account.hide
+          %span
+            = link_to t(:action, :login), login_path
+            %br
+            %span.connections= login_service_links
+      .clear
+    %section#content
+      .row
+        .span8
+          = yield
+        .span4
+          = render partial: "common/notifications"
+          - if content_for? :notifications
+            = yield :notifications
+          - if content_for? :aside
+            = yield :aside
+          %footer#footer
+            %p
+              © 2012 OpenMensa &middot;
+              = link_to 'Impressum', static_url(:impressum)
+              &middot;
+              = link_to 'Developer', static_url(:developer)
+            %p
+              %span
+                = l Time.zone.now, :format => :short
+                = Time.zone.now.zone
+              = "#{OpenMensa::VERSION}-#{Rails.root.basename}"
+              - if Rails.env.development?
+                = raw '<br />'
+                - if defined?(RUBY_VERSION) or defined?(VERSION)
+                  = [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
+                  = ' | '
+                = "Rails #{Rails.version} | #{Rails.env.capitalize}"
+
+    = javascript_include_tag "application"

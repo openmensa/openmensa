@@ -1,9 +1,5 @@
 
-@import 'responsive';
-@import 'mixins';
-
-
-$base-size: 62.5% !default;
+$text-size: 62.5% !default;
 $text-color: #333 !default;
 $text-font: Helvetica, arial, freesans, clean, sans-serif !default;
 
@@ -14,10 +10,13 @@ $header-bg-color: #f1f1f1;
 $frame-color: #ccc !default;
 $link-color: #2941B4 !default;
 
+@mixin p {
+  margin: 6px 0;
+}
 
 html {
   font-size: 10px;
-  font-size: $base-size;
+  font-size: $text-size;
 }
 body {
   color: $text-color;
@@ -30,7 +29,8 @@ body {
 h1, h2, h3, h4, h5 {
   color: $header-color;
   font-family: $header-font;
-  font-size: 24px; font-size: 2.4rem;
+  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: normal;
   @include p;
 }
@@ -39,20 +39,13 @@ h3 { font-size: 18px; font-size: 1.8rem; }
 h4 { font-size: 15px; font-size: 1.5rem; }
 h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
 
-// @include media(mobile) {
-//   h1 { font-size: 17px; font-size: 1.7rem; font-weight: bold; }
-//   h2 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
-//   h3 { font-size: 14px; font-size: 1.4rem; font-weight: bold; }
-//   h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
-//   h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
-// }
-
 small { font-size: .8em; }
 b, strong { font-weight: bold; }
 i, em { font-style: italic; }
 p { @include p; }
 
-ul, ol { @extend p; padding-left: 2.5em; }
+ul, ol { @extend p;
+  padding-left: 2.5em; }
 ul { list-style: circle; }
 ol { list-style: decimal; }
 hr { border: none; border-top: 1px solid $frame-color; }
@@ -65,13 +58,6 @@ code {
 }
 pre { @extend p;
   code { display: block; padding: 2px; }
-}
-
-dl.inline {
-  @include clearfix;
-
-  dt { float: left; width: 100px; clear: both; }
-  dd { margin-left: 105px; }
 }
 
 a {
@@ -87,31 +73,4 @@ a {
     text-decoration: underline;
     cursor: pointer;
   }
-
-  &[class^="icon-"]:before, &[class*=" icon-"]:before {
-    padding-right: 3px;
-    // color: $text-color;
-    text-decoration: none;
-  }
-}
-
-[class^="icon-"]:before, [class*=" icon-"]:before {
-  // width: 1em;
-  text-align: center;
-}
-
-fieldset {
-  @extend p;
-  @include border-radius(2px);
-
-  border: 1px solid $frame-color;
-  &.single { border-width: 1px 0 0 0; }
-
-  legend {
-    margin: 0 0 0 6px;
-    padding: 0 4px;
-  }
-
-  padding: 4px;
-  &.nopad { padding: 0; }
 }

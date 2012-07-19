@@ -1,53 +1,12 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
- *
- *= require_self
- */
+// Main stylesheet file for default desktop (screen) devices.
+//
+//= require_self
 
-@import "om/application";
-@import "gmaps4rails";
+@import "bourbon";
+@import "compass";
 
-// import all controller stylesheets here
-@import "controllers/sessions";
+@import "layout";
+@import "typography";
+@import "grid";
 
-.android {
-  border: 1px solid #A5C838;
-  border-radius: 3px;
-  margin: 50px 0 0 50px;
-  padding: 10px 0 10px 50px;
-  @include linear-gradient(#AFCF4A, #C8DD74);
-
-  a {
-    color: #333;
-    display: block;
-    text-align: center;
-    font-size: 1em;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-
-    span { font-weight: bold; }
-  }
-
-  > img {
-    position: absolute;
-    margin: -50px 0 0 -90px;
-  }
-}
-
-.hide { display: none; visibility: hidden; }
-
-.android-qr {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.box {
-  background-color: #fff;
-  @include box-shadow(0 0 3px rgba(0, 0, 0, 0.4));
-  margin: 20px 0 0 0;
-
-  > div, > p {
-    padding: 15px;
-  }
-}
+@import "map";

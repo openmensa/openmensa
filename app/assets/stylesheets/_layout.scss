@@ -1,0 +1,104 @@
+
+body {
+  margin: 0;
+  padding: 0;
+
+  background-color: #ededed;
+  background-image: image-url("fbg.png");
+}
+
+.fwrapper {
+  @include pie-clearfix;
+}
+
+.cwrapper {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+header#header {
+  @extend .fwrapper;
+  @extend .cwrapper;
+
+  h1 {
+    background: transparent image-url("logo3.png") no-repeat 0 50%;
+
+    font-size: 230%;
+    width: 50%;
+    float: left;
+    padding: 5px 0 5px 75px;
+
+    a {
+      color: #333;
+
+      &:hover { text-decoration: none; }
+    }
+
+    img {
+      float: right;
+      position: absolute;
+      top: -20px;
+      margin-left: 40px;
+      z-index: 2000;
+    }
+  }
+}
+
+#content {
+  @extend .fwrapper;
+  @extend .cwrapper;
+
+  margin-bottom: 25px;
+
+  .section {
+    background-color: #fff;
+    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+    margin: 15px 0 0 0;
+    padding-bottom: 15px;
+
+    > section {
+      margin: 0;
+      padding: 0;
+      display: block;
+
+      header {
+        padding: 0 15px 0 15px;
+        border-top: 1px solid #ddd;
+        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+      }
+
+      .content {
+        padding: 0 15px 0 15px;
+      }
+    }
+  }
+}
+
+footer#footer {
+  color: #aaa;
+  padding: 4px 1px 1px;
+  text-align: left;
+  text-shadow: 0 1px 1px #fff;
+
+  margin-top: 15px;
+
+  background-color: rgba(255, 255, 255, .2);
+  @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+
+  p {
+    font-size: 11px;
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 4px 4px 2px;
+
+    span { float: right; }
+
+    &:first-child {
+      border: none;
+      padding-top: 1px;
+    }
+  }
+
+  a { color: #aaa; }
+  a:hover { color: #555; }
+}
