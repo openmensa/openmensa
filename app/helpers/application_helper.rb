@@ -71,7 +71,15 @@ module ApplicationHelper
     n.gsub(/<\/?div>/, '').html_safe
   end
 
-  def map(markers, options = {})
-    content_tag :div, nil, class: "map", id: (options[:id] || "map"), data: { map: (options[:id] || "map"), markers: "[#{markers.map(&:to_map_marker).join(',')}]"}
+  def map(canteens, options = {})
+    markers = canteens.map do |canteen|
+      {
+        lat: canteen.latitude,
+        lng: canteen.longitude,
+        title: canteen.name,
+        url: canteen_url(canteen)
+      }
+    end
+    content_tag :div, nil, class: "map", id: (options[:id] || "map"), data: { map: (options[:id] || "map"), markers: markers.to_json}
   end
 end

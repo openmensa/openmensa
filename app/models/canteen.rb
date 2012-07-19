@@ -20,10 +20,6 @@ class Canteen < ActiveRecord::Base
     read_attribute(:fetch_hour) || 8
   end
 
-  def to_map_marker
-    { lat: latitude, lng: longitude, title: name }.to_json
-  end
-
   def fetch
     return unless self.url
     uri = URI.parse self.url

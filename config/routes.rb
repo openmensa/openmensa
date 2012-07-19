@@ -9,6 +9,8 @@ Openmensa::Application.routes.draw do
     end
   end
 
+  resources :canteens
+
   match "/auth",                    to: "sessions#new",      as: :login
   match "/auth/signoff",            to: "sessions#destroy",  as: :logout
   match "/auth/:provider",          to: "sessions#failure",  as: :auth

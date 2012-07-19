@@ -49,14 +49,16 @@
               © 2012 OpenMensa &middot;
               = link_to 'Impressum', static_url(:impressum)
               &middot;
+              = link_to 'Blog', 'https://blog.altimos.de/category/openmensa'
+              &middot;
               = link_to 'Developer', static_url(:developer)
             %p
               %span
                 = l Time.zone.now, :format => :short
                 = Time.zone.now.zone
               = "#{OpenMensa::VERSION}-#{Rails.root.basename}"
-              - if Rails.env.development?
-                = raw '<br />'
+            - if Rails.env.development?
+              %p
                 - if defined?(RUBY_VERSION) or defined?(VERSION)
                   = [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
                   = ' | '
