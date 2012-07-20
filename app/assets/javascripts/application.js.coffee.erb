@@ -6,7 +6,7 @@
 
 class Map
   constructor: (id, options) ->
-    @map = new OpenLayers.Map id
+    @map = new OpenLayers.Map id, theme: null
     @map.addLayer new OpenLayers.Layer.OSM()
     @map.setCenter @createCoordinates(0, 0), 14
 
