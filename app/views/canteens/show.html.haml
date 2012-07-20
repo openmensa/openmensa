@@ -4,14 +4,22 @@
     %h1= @canteen.name
 
   %section
-    %header.header
-      %h1 Speiseplan (Beta)
-    .content
-      %ul
-        - @canteen.meals.where(date: Time.zone.now.to_date).each do |canteen|
-          %li
-            %h3= canteen.category
-            %p= canteen.name
+    %header.page-header
+      %a.prev
+        %span
+      %a.next
+        %span
+      %h2.centered
+        - if @canteen.meals.today.first.date.to_date == Time.zone.now.to_date
+          = "Today"
+        - else
+          = l @canteen.meals.today.first.date.to_date, format: :long
+    %ul.meals
+      - @canteen.meals.today.group_by { |m| m.category }.each do |category, meals|
+        %li
+          %h3= category
+          - meals.each do |meal|
+            %p= meal.name
 
 = content_for :aside do
   .section

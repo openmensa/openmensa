@@ -10,3 +10,77 @@
 @import "grid";
 
 @import "map";
+
+.canteens_controller {
+  .page-header {
+    a.next, a.prev {
+      display: block;
+      margin: 7px 0 0;
+      padding: 4px;
+
+      span {
+        width: 14px;
+        height: 14px;
+        display: block;
+        @include transform(rotate(-45deg));
+      }
+
+      &.next {
+        float: right;
+
+        span {
+          border-bottom: 3px solid #ccc;
+          border-right: 3px solid #ccc;
+        }
+      }
+
+      &.prev {
+        float: left;
+
+        span {
+          border-top: 3px solid #ccc;
+          border-left: 3px solid #ccc;
+        }
+      }
+
+      &:hover span {
+        border-color: #333;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  ul.meals {
+    margin: 0;
+    padding: 0 0 5px;
+    list-style: none;
+
+    li {
+      border-top: 1px solid #e5e5e5;
+      padding: 4px 15px 5px;
+      @include clearfix;
+
+      &:first-child {
+        padding-top: 8px;
+        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+      }
+
+      h3 {
+        float: left;
+        width: 120px;
+        font-size: 13px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        text-align: right;
+        margin: 4px 0 0 0;
+      }
+
+      p {
+        margin: 4px 0 0 135px;
+        padding: 0 5px 4px;
+        border-bottom: 1px dotted #eee;
+        &:last-child { border: none; }
+      }
+    }
+  }
+}

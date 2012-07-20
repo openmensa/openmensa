@@ -35,9 +35,9 @@ h1, h2, h3, h4, h5 {
   @include p;
 }
 h2 { font-size: 21px; font-size: 2.1rem; }
-h3 { font-size: 18px; font-size: 1.8rem; }
-h4 { font-size: 15px; font-size: 1.5rem; }
-h5 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+h3 { font-size: 16px; font-size: 1.6rem; }
+h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
+h5 { font-size: 13px; font-size: 1.3rem; }
 
 small { font-size: .8em; }
 b, strong { font-weight: bold; }
@@ -74,3 +74,5 @@ a {
     cursor: pointer;
   }
 }
+
+.centered { text-align: center; }
