@@ -44,12 +44,13 @@
     border-right: none;
     @include transition(all .2s ease-in-out);
   }
-  a.available:hover {
+  &.available a:hover {
     background-color: #fff;
     margin-left: -4px;
     margin-right: -4px;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
+    padding-left: 59px;
 
     .qr {
       display: block;
