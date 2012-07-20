@@ -28,25 +28,32 @@
   }
 
   .qr {
-    float: right;
-    width: 32px;
-    height: 32px;
+    float: left;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     position: absolute;
-    top: 12px;
-    right: 5px;
-    z-index: 10;
+    top: -1px;
+    left: -202px;
+    z-index: 1000;
 
-    padding: 0;
+    opacity: 0;
     background-color: #fff;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    border-right: none;
     @include transition(all .2s ease-in-out);
+  }
+  a.available:hover {
+    background-color: #fff;
+    margin-left: -4px;
+    margin-right: -4px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 
-    &:hover {
-      width: 200px;
-      height: 200px;
-      margin: -80px 0 0 0;
+    .qr {
+      display: block;
+      opacity: 1;
       @include transition(all .2s ease-in-out);
     }
   }
