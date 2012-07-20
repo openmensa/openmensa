@@ -91,7 +91,7 @@
         width: 14px;
         height: 14px;
         display: block;
-        // @include transform(rotate(-45deg));
+        @include transform(rotate(-45deg));
       }
 
       &.next {
