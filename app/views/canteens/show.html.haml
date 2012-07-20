@@ -15,7 +15,7 @@
         - else
           = l @canteen.meals.today.first.date.to_date, format: :long
     %ul.meals
-      - @canteen.meals.today.group_by { |m| m.category }.each do |category, meals|
+      - @canteen.meals.today.group_by(&:category).each do |category, meals|
         %li
           %h3= category
           - meals.each do |meal|

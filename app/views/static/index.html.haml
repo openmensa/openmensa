@@ -38,12 +38,18 @@
   .section
     %section
       %header.header
-        %h2.centered Download OpenMensa App
-      .content
-        .android
-          = image_tag "android.png"
-          = link_to "http://mycrobase.de/wtf/OpenMensa-20120712-1254.apk" do
-            %span OpenMensa Alpha
-            for Android
-        .android-qr
-          = image_tag "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=http://mycrobase.de/wtf/OpenMensa-20120712-1254.apk"
+        %h2 Download OpenMensa App
+      .android
+        = link_to "http://mycrobase.de/wtf/OpenMensa-20120712-1254.apk" do
+          %span OpenMensa Alpha
+          for Android
+          = image_tag "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=http://mycrobase.de/wtf/OpenMensa-20120712-1254.apk", class: :qr
+      .ios
+        = link_to "#" do
+          %span Comming soon.
+      .wphone
+        = link_to "#" do
+          %span Comming soon.
+      .bb
+        = link_to "#" do
+          %span Comming soon.
