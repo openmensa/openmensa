@@ -9,6 +9,7 @@ Openmensa::Application.routes.draw do
     end
   end
 
+  get "/c/:id(/:date)" => "canteens#show", as: :canteen, constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   resources :canteens, path: "c"
 
   match "/auth",                    to: "sessions#new",      as: :login

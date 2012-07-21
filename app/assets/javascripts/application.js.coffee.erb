@@ -1,7 +1,7 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require "OpenLayers"
+#= require OpenLayers
 #
 
 class Map
@@ -46,3 +46,21 @@ $ ->
   $(".map").each ->
     map = new Map $(@).data("map"), markers: $(@).data("markers")
     map.adjustToMarkers()
+
+  if history and history.pushState
+    handleRemote = $.rails.handleRemote
+
+    $.rails.handleRemote = (element) ->
+      handleRemote.call @, element
+      if element.data("push")
+        history.pushState null, document.title, element.attr('href')
+
+
+    # $("[data-push]").each ->
+    #   el = $(@)
+    #   el.bind "click", (e) ->
+    #     $.getScript el.attr('href')
+    #     e.preventDefault()
+
+    # $(window).bind "popstate", ->
+    #   $.getScript location.href

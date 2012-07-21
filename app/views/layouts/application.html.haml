@@ -15,7 +15,7 @@
   %body{:class => body_classes }
     %header#header
       %h1
-        = link_to "OpenMensa", root_url
+        = link_to "OpenMensa", root_path
         = image_tag "alpha.png", class: "alpha"
       = yield :header
       - if User.current.logged?

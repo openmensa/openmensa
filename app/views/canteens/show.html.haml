@@ -3,28 +3,8 @@
   %header
     %h1= @canteen.name
 
-  %section
-    %header.page-header
-      %a.prev
-        %span
-      %a.next
-        %span
-      %h2.centered
-        - if @date.to_date == Time.zone.now.to_date
-          = "Today"
-        - else
-          = l @date.to_date, format: :long
-    %ul.meals
-      - if @meals.any?
-        - @meals.group_by(&:category).each do |category, meals|
-          %li
-            %h3= category
-            - meals.each do |meal|
-              %p= meal.name
-      - else
-        %li
-          %h3 Kein Angebot
-          %p Leider liegen uns für diesen Tag keine Angebote vor.
+  %section#remote-canteens-show
+    = render partial: "show_section"
 
 = content_for :aside do
   .section

@@ -30,3 +30,7 @@ de:
       github: Dein GitHub-Account wurde verknüpft
       google: Dein Google+-Account wurde verknüpft
       facebook: Dein Facebook-Account wurde verknüpft
+
+  date:
+    formats:
+      with_weekday: '%A, %d. %B %Y'

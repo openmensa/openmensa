@@ -1,0 +1,4 @@
+var el = $("#remote-canteens-show");
+el.fadeOut(200, function() {
+	el.html("<%= escape_javascript render(partial: 'show_section') %>").fadeIn(200);
+});
