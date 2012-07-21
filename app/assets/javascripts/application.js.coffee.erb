@@ -47,13 +47,17 @@ $ ->
     map = new Map $(@).data("map"), markers: $(@).data("markers")
     map.adjustToMarkers()
 
-  if history and history.pushState
-    handleRemote = $.rails.handleRemote
+  # if history and history.pushState
+  #   handleRemote = $.rails.handleRemote
 
-    $.rails.handleRemote = (element) ->
-      handleRemote.call @, element
-      if element.data("push")
-        history.pushState null, document.title, element.attr('href')
+  #   $.rails.handleRemote = (element) ->
+  #     handleRemote.call @, element
+  #     if element.data("push")
+  #       history.pushState null, document.title, element.attr('href')
+
+  #   $(window).bind "popstate", ->
+  #     console.log arguments
+  #     $.getScript location.href
 
 
     # $("[data-push]").each ->
@@ -61,6 +65,3 @@ $ ->
     #   el.bind "click", (e) ->
     #     $.getScript el.attr('href')
     #     e.preventDefault()
-
-    # $(window).bind "popstate", ->
-    #   $.getScript location.href

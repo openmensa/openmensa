@@ -21,28 +21,4 @@
   - else
     %li
       %h3 Kein Angebot
-      %p Leider liegen uns für diesen Tag keine Angebote vor.%header.page-header
-
-/ %header.page-header
-/   - if @date > Time.zone.now.to_date.beginning_of_week
-/     = link_to canteen_path(@canteen, date: (@date - 1.day)), remote: true, 'data-push' => 'true', class: :prev do
-/       %span
-/   - if @date < (Time.zone.now.to_date + 2.days).end_of_week
-/     = link_to canteen_path(@canteen, date: (@date + 1.day)), remote: true, 'data-push' => 'true', class: :next do
-/       %span
-/   %h2.centered
-/     - if @date.to_date == Time.zone.now.to_date
-/       = "Today"
-/     - else
-/       = l @date.to_date, format: :with_weekday
-/ %ul.meals
-/   - if @meals.any?
-/     - @meals.group_by(&:category).each do |category, meals|
-/       %li
-/         %h3= category
-/         - meals.each do |meal|
-/           %p= meal.name
-/   - else
-/     %li
-/       %h3 Kein Angebot
-/       %p Leider liegen uns für diesen Tag keine Angebote vor.
+      %p Leider liegen uns für diesen Tag keine Angebote vor.
