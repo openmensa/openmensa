@@ -29,21 +29,21 @@
 
   .qr {
     float: left;
-    width: 200px;
-    height: 200px;
     overflow: hidden;
     position: absolute;
     top: -1px;
-    left: -202px;
+    left: -1px;
     z-index: 1000;
+    width: 0;
+    height: 0;
 
-    opacity: 0;
+    opacity: 0.0;
     background-color: #fff;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-right: none;
-    @include transition(all .2s ease-in-out);
   }
+
   &.available a:hover {
     background-color: #fff;
     margin-left: -4px;
@@ -54,8 +54,12 @@
 
     .qr {
       display: block;
-      opacity: 1;
-      @include transition(all .2s ease-in-out);
+      opacity: 1.0;
+      width: 200px;
+      height: 200px;
+      left: -202px;
+
+      @include transition(opacity .2s ease-in-out);
     }
   }
 }
