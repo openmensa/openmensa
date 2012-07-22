@@ -8,7 +8,7 @@ Doorkeeper.configure do
     # routes.new_user_session_path
     # e.g. User.find_by_id(session[:user_id]) || redirect_to(routes.new_user_session_url)
 
-    User.find_by_id(session[:user_id]) || redirect_to(routes.auth_path)
+    User.find_by_id(session[:user_id]) || redirect_to(routes.login_url)
   end
 
   # If you want to restrict the access to the web interface for
@@ -21,9 +21,11 @@ Doorkeeper.configure do
     # routes.new_admin_session_path
 
     user = User.find_by_id(session[:user_id])
-    return user if user and user.admin?
-
-    redirect_to routes.auth_path
+    if user and user.admin?
+      user
+    else
+      redirect_to routes.login_url
+    end
   end
 
   # Access token expiration time (default 2 hours).
