@@ -23,26 +23,9 @@ FactoryGirl.define do
     token            'apiTocken'
   end
 
-  factory :access_token, class: 'Oauth2::AccessToken' do
-    association :user
-    association :client
-    # association :refresh_token
-  end
-
-  factory :client, class: 'Oauth2::Client' do
-    association :user
+  factory :application, class: 'Doorkeeper::Application' do
     sequence(:name)         { |n| "OAuth2 Client ##{n}" }
-    sequence(:redirect_uri) { |n| "http://application/c#{n}/cb" }
-
-    website "http://example.com"
-  end
-
-  factory :trusted_client, parent: :client do
-    trusted true
-  end
-
-  factory :refresh_token, class: 'Oauth2::RefreshToken' do
-    association :client
+    sequence(:redirect_uri) { |n| "http://test.host/c#{n}/cb" }
   end
 
   factory :canteen do

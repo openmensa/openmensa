@@ -2,7 +2,7 @@ class ApiController < BaseController
   rescue_from ::CanCan::AccessDenied,         :with => :error_access_denied
   rescue_from ::ActiveRecord::RecordNotFound, :with => :error_not_found
 
-  before_filter :setup_request, :check_authentication
+  before_filter :setup_request
 
   attr_reader :current_client
 
@@ -23,23 +23,6 @@ class ApiController < BaseController
 
   def set_api_version(version)
     custom_headers api_version: version
-  end
-
-  def check_authentication
-    if current_access_token
-      self.current_user = current_access_token.user
-      @current_client   = current_access_token.client
-    end
-  end
-
-  def setup_ability
-    current_access_token.try(:ability) || current_user.ability
-  end
-
-  # **** accessors ****
-
-  def current_access_token
-    @access_token ||= request.env[Rack::OAuth2::Server::Resource::ACCESS_TOKEN]
   end
 
   # **** errors *****

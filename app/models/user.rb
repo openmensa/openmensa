@@ -1,11 +1,6 @@
 class User < ActiveRecord::Base
   has_many :identities
 
-  # Oauth2 associations
-  has_many :access_tokens, class_name: 'Oauth2::AccessToken'
-  has_many :authorization_codes, class_name: 'Oauth2::AuthorizationCode'
-  has_many :clients, class_name: 'Oauth2::Client'
-
   validates_presence_of :login, :name
   validates_uniqueness_of :login
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true
