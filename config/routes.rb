@@ -2,7 +2,6 @@ Openmensa::Application.routes.draw do
   mount Doorkeeper::Engine => '/oauth'
 
   api_version(module: 'Api::V1', path: 'api/v1', defaults: { format: 'json' }) do
-    get '/status', to: 'status#index'
     resources :cafeterias do
       resources :meals do
         resources :comments
