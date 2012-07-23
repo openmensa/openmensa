@@ -1,11 +1,9 @@
 
 %header.page-header
-  - if @date > Time.zone.now.to_date.beginning_of_week
-    = link_to canteen_path(@canteen, date: (@date - 1.day)), remote: true, 'data-push' => 'true', class: :prev do
-      %span
-  - if @date < (Time.zone.now.to_date + 2.days).end_of_week
-    = link_to canteen_path(@canteen, date: (@date + 1.day)), remote: true, 'data-push' => 'true', class: :next do
-      %span
+  = link_to canteen_path(@canteen, date: (@date - 1.day)), remote: true, 'data-push' => 'true', class: :prev do
+    %span
+  = link_to canteen_path(@canteen, date: (@date + 1.day)), remote: true, 'data-push' => 'true', class: :next do
+    %span
   %h2.centered
     - if @date.to_date == Time.zone.now.to_date
       = "Today"
