@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.7'
 gem 'jquery-rails'
 
 gem 'haml'
@@ -38,7 +38,6 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'rails_best_practices'
   gem 'thin'
   gem 'rspec-rails', '~> 2.0'
   gem 'capistrano'
