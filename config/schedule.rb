@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, "whenever.log"
+set :output, "log/whenever.log"
 
 every :hour do
   rake "om:fetch", path: "/home/openmensa/application/current/"
