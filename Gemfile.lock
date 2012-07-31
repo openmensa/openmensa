@@ -89,7 +89,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.1)
       multipart-post (~> 1.1)
-    ffi (1.1.1)
+    ffi (1.1.2)
     fssm (0.2.9)
     geocoder (1.1.2)
     gravtastic (3.2.6)
@@ -300,7 +300,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
-  doorkeeper (~> 0.4.0)
+  doorkeeper (~> 0.4.2)
   factory_girl_rails (>= 3.3.0)
   geocoder
   gravtastic
