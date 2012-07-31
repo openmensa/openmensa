@@ -28,6 +28,7 @@ header#header {
     width: 50%;
     float: left;
     padding: 5px 0 5px 75px;
+    margin-bottom: 0;
 
     a {
       color: #333;
@@ -38,7 +39,7 @@ header#header {
     img {
       float: right;
       position: absolute;
-      top: -27px;
+      top: -20px;
       margin-left: 40px;
       z-index: 2000;
     }
@@ -54,8 +55,7 @@ header#header {
   .section {
     background-color: #fff;
     @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
-    margin: 15px 0 0 0;
-    @include p;
+    margin: 16px 0 0 0;
     // padding-bottom: 10px;
 
     > header {
@@ -88,6 +88,10 @@ header#header {
           border-top: 1px solid #ddd;
           @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
         }
+
+        h3, h4, h5 {
+          margin: 4px 0;
+        }
       }
 
       .content {
@@ -102,8 +106,7 @@ footer#footer {
   padding: 4px 1px 1px;
   text-align: left;
   text-shadow: 0 1px 1px #fff;
-
-  margin-top: 15px;
+  margin-top: 10px;
 
   background-color: rgba(255, 255, 255, .4);
   @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.1));

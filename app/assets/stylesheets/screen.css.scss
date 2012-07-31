@@ -13,6 +13,8 @@
 
 @import "map";
 
+.hide { display: none; }
+
 .appbox {
   position: relative;
   border-top: 1px solid #ddd;
@@ -90,7 +92,7 @@
   .page-header {
     a.next, a.prev {
       display: block;
-      margin: 1px 0 0;
+      margin: 3px 0 0;
       padding: 10px;
 
       span {
