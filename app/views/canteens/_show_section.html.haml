@@ -10,13 +10,9 @@
     - else
       = l @date.to_date, format: :with_weekday
 %ul.meals
-  - if @meals.any?
-    - @meals.group_by(&:category).each do |category, meals|
-      %li
-        %h3= category
-        - meals.each do |meal|
-          %p= meal.name
-  - else
-    %li
-      %h3 Kein Angebot
-      %p Leider liegen uns für diesen Tag keine Angebote vor.
+  = render partial: "meals", object: @canteen.meals.on(@date)
+
+%header.page-header
+  %h3.centered= l (@date + 1.day).to_date, format: :with_weekday
+%ul.meals
+  = render partial: "meals", object: @canteen.meals.on(@date + 1.day)
