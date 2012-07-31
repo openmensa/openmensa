@@ -22,6 +22,5 @@
 set :output, "log/whenever.log"
 
 every :hour do
-  rake "om:fetch", path: "/home/openmensa/application/current/"
-  rake "om:fetch", path: "/home/openmensa/develop/current/"
+  rake "om:fetch"
 end
