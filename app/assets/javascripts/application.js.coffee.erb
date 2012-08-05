@@ -1,46 +1,68 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require OpenLayers
+#= require leaflet
+#= require leaflet.oms
 #
 
 class Map
   constructor: (id, options) ->
-    @map = new OpenLayers.Map id, theme: null
-    @map.addLayer new OpenLayers.Layer.OSM()
-    @map.setCenter @createCoordinates(0, 0), 14
+    @map = L.map(id).setView [51.505, -0.09], 13
+    @map.addLayer L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        maxZoom: 18)
+    @oms = new OverlappingMarkerSpiderfier @map,
+      keepSpiderfied: true
+      nearbyDistance: 20
+
+    @markers = []
+    @lightIcon = L.Icon.Default;
+    @darkIcon = L.Icon.Default.extend({options: {iconUrl: '<%= image_path "marker-dark.png" %>'}});
+
+
+    @oms.addListener 'spiderfy', (markers) =>
+      marker.setIcon new @lightIcon for marker in markers
+      @map.closePopup()
+
+    @oms.addListener 'unspiderfy', (markers) =>
+      marker.setIcon new @darkIcon for marker in markers
 
     if options.markers?
       @addMarker m for m in options.markers
 
-  createCoordinates: (lat, lng) =>
-    # transform from WGS 1984 to Spherical Mercator Projection
-    new OpenLayers.LonLat(lng, lat).transform new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")
-
-  getMarkersLayer: (options) =>
-    unless @markersLayer?
-      @markersLayer ?= new OpenLayers.Layer.Markers "Markers"
-      @map.addLayer @markersLayer
-    @markersLayer
-
   addMarker: (options) =>
-    marker = new OpenLayers.Marker @createCoordinates(options.lat, options.lng), @createIcon(options)
-    @getMarkersLayer().addMarker marker
-    marker
+    marker = L.marker([options.lat, options.lng], { title: options.title, icon: new @darkIcon })
+
+    @map.addLayer marker
+    @oms.addMarker marker
+
+    # if options.popup
+    #   marker.bindPopup options.popup
+    # else
+    #   if options.url
+    #     marker.on "click", (e) ->
+    #       window.location.href = options.url if options.url?
+    marker.bindPopup "<a class=\"popup-link\" href=\"#{options.url}\">#{options.title}</a><br />"
+    @markers.push marker
 
   adjustToMarkers: ->
-    @map.zoomToExtent @markersLayer.getDataExtent()
+    bounds = new L.LatLngBounds(marker.getLatLng() for marker in @markers)
+
+    @map.fitBounds bounds
+    if @map.getZoom() > 12
+      @map.setZoom 12
+
 
   createIcon: (options) ->
-    options ?= {}
+    # options ?= {}
 
-    icon = new OpenLayers.Icon(options.icon || "<%= asset_path('logo2.png') %>")
-    el   = $(icon.imageDiv)
-    el.append "<span>#{options.title}</span>" if options.title?
-    el.addClass "canteen-icon"
-    el.bind "click", (e) ->
-      window.location.href = options.url if options.url?
-    icon
+    # icon = new OpenLayers.Icon(options.icon || "<%= asset_path('logo2.png') %>")
+    # el   = $(icon.imageDiv)
+    # el.append "<span>#{options.title}</span>" if options.title?
+    # el.addClass "canteen-icon"
+    # el.bind "click", (e) ->
+    #   window.location.href = options.url if options.url?
+    # icon
 
 $ ->
   $(".map").each ->

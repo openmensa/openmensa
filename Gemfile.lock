@@ -118,6 +118,7 @@ GEM
       multi_json (>= 1.0)
     launchy (2.1.1)
       addressable (~> 2.3)
+    leaflet-rails (0.4.2.beta1)
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
       addressable
@@ -310,6 +311,7 @@ DEPENDENCIES
   haml
   jquery-rails
   launchy
+  leaflet-rails (~> 0.4.2.beta1)
   msgpack (~> 0.4.5)
   oj
   omniauth

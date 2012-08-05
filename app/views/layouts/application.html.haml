@@ -35,10 +35,13 @@
             %span.connections= login_service_links
       .clear
     %section#content
-      .row
-        .span8
-          = yield
-          %footer#footer
+      = render partial: "common/notifications"
+      - if content_for? :notifications
+        = yield :notifications
+      = yield
+      %footer#footer
+        .row
+          .span8
             %p
               © 2012 OpenMensa
               &nbsp;&middot;&nbsp;
@@ -47,34 +50,30 @@
               = link_to 'Blog', 'https://blog.altimos.de/category/openmensa'
               &nbsp;&middot;&nbsp;
               = link_to 'Developer', static_url(:developer)
-            %p
               %span
                 = l Time.zone.now, :format => :short
                 = Time.zone.now.zone
-              = "#{OpenMensa::VERSION}-#{Rails.root.basename}"
             - if Rails.env.development?
               %p
+                = "#{OpenMensa::VERSION}-#{Rails.root.basename} | "
                 - if defined?(RUBY_VERSION) or defined?(VERSION)
                   = [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
                   = ' | '
                 = "Rails #{Rails.version} | #{Rails.env.capitalize}"
-        .span4
-          = render partial: "common/notifications"
-          - if content_for? :notifications
-            = yield :notifications
+        / .span4
 
-          - if User.current.logged?
-            .section
-              %section
-                %header.header
-                  %h2 Meine Mensa
-          - else
-            .section
-              %section
-                %header.header
-                  %h2 Sign In
+        /   - if User.current.logged?
+        /     .section
+        /       %section
+        /         %header.header
+        /           %h2 Meine Mensa
+        /   - else
+        /     .section
+        /       %section
+        /         %header.header
+        /           %h2 Sign In
 
-          - if content_for? :aside
-            = yield :aside
+        /   - if content_for? :aside
+        /     = yield :aside
 
     = javascript_include_tag "application"

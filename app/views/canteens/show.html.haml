@@ -1,13 +1,19 @@
 
-.section
-  %header
-    %h1= @canteen.name
+.row
+  .span8
+    .section
+      %header
+        %h1= @canteen.name
 
-  %section#remote-canteens-show
-    = render partial: "show_section"
+      %section#remote-canteens-show
+        = render partial: "show_section"
 
-= content_for :aside do
-  .section
-    %section
-      %header.header
-        %h2 Blub
+  .span4
+    .section
+      %section
+        %header
+          %h2 Location
+
+        = map @canteen
+
+

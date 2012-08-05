@@ -1,6 +1,6 @@
 // Main stylesheet file for default desktop (screen) devices.
 //
-//= require "theme/default/style"
+//= require leaflet
 //= require_self
 
 @import "bourbon";
@@ -14,6 +14,8 @@
 @import "map";
 
 .hide { display: none; }
+.leaflet-popup-content-wrapper { border-radius: 0; }
+.leaflet-container a.leaflet-popup-close-button { padding: 2px 0 0 0; }
 
 .appbox {
   position: relative;
