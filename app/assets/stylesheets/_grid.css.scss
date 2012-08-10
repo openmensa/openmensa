@@ -28,6 +28,7 @@ $grid-gutter: 1.5% !default;
     margin-left: $grid-gutter;
     float: left;
 
-    &:first-child { margin-left: 0; }
+    &:last-child { float: right; }
+    &:first-child { margin-left: 0; float: left; }
   }
 }
