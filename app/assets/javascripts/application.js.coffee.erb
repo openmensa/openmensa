@@ -19,6 +19,11 @@ class Map
     @lightIcon = L.Icon.Default;
     @darkIcon = L.Icon.Default.extend({options: {iconUrl: '<%= image_path "marker-dark.png" %>'}});
 
+    popup = new L.Popup offset: new L.Point(0.5, -24)
+    @oms.addListener 'click', (marker) =>
+      popup.setContent marker.desc
+      popup.setLatLng marker.getLatLng()
+      @map.openPopup popup
 
     @oms.addListener 'spiderfy', (markers) =>
       marker.setIcon new @lightIcon for marker in markers
@@ -32,17 +37,10 @@ class Map
 
   addMarker: (options) =>
     marker = L.marker([options.lat, options.lng], { title: options.title, icon: new @darkIcon })
+    marker.desc = "<a class=\"popup-link\" href=\"#{options.url}\">#{options.title}</a><br />"
 
     @map.addLayer marker
     @oms.addMarker marker
-
-    # if options.popup
-    #   marker.bindPopup options.popup
-    # else
-    #   if options.url
-    #     marker.on "click", (e) ->
-    #       window.location.href = options.url if options.url?
-    marker.bindPopup "<a class=\"popup-link\" href=\"#{options.url}\">#{options.title}</a><br />"
     @markers.push marker
 
   adjustToMarkers: ->
@@ -52,38 +50,7 @@ class Map
     if @map.getZoom() > 12
       @map.setZoom 12
 
-
-  createIcon: (options) ->
-    # options ?= {}
-
-    # icon = new OpenLayers.Icon(options.icon || "<%= asset_path('logo2.png') %>")
-    # el   = $(icon.imageDiv)
-    # el.append "<span>#{options.title}</span>" if options.title?
-    # el.addClass "canteen-icon"
-    # el.bind "click", (e) ->
-    #   window.location.href = options.url if options.url?
-    # icon
-
 $ ->
   $(".map").each ->
     map = new Map $(@).data("map"), markers: $(@).data("markers")
     map.adjustToMarkers()
-
-  # if history and history.pushState
-  #   handleRemote = $.rails.handleRemote
-
-  #   $.rails.handleRemote = (element) ->
-  #     handleRemote.call @, element
-  #     if element.data("push")
-  #       history.pushState null, document.title, element.attr('href')
-
-  #   $(window).bind "popstate", ->
-  #     console.log arguments
-  #     $.getScript location.href
-
-
-    # $("[data-push]").each ->
-    #   el = $(@)
-    #   el.bind "click", (e) ->
-    #     $.getScript el.attr('href')
-    #     e.preventDefault()
