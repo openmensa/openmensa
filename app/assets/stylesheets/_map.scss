@@ -13,13 +13,21 @@
   opacity: 0.2;
   border: 1px solid #597393;
   border: 1px solid rgba(#597393, 0.8);
+  text-align: center;
 
   div {
-    margin: 4px;
+    margin: 5px;
     font-weight: bold;
     background-color: #fff;
-    border: 1px solid #597393;
-    border: 1px solid rgba(#597393, 0.8);
+    // border: 1px solid #597393;
+    // border: 1px solid rgba(#597393, 0.8);
+
+    width: 26px;
+    height: 26px;
+  }
+
+  span {
+    line-height: 27px;
   }
 }
 
