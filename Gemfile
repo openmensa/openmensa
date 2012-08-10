@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 gem 'jquery-rails'
 
 gem 'haml'
@@ -50,11 +50,9 @@ group :test do
   gem 'timecop'
   gem 'accept_values_for'
   gem 'database_cleaner'
-  gem 'launchy'
   gem 'webmock'
   gem 'capybara',       require: false
   gem 'turn',           require: false
-  gem 'guard-rails',    require: false
   gem 'guard-rspec',    require: false
   gem 'guard-spork',    require: false
   gem 'simplecov',      require: false
