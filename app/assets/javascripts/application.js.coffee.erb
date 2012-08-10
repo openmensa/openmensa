@@ -2,7 +2,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require leaflet
-#= require leaflet.oms
+#= require leaflet.markercluster
 #
 
 class Map
@@ -11,36 +11,23 @@ class Map
     @map.addLayer L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 18)
-    @oms = new OverlappingMarkerSpiderfier @map,
-      keepSpiderfied: true
-      nearbyDistance: 20
+
+
+    @cluster = new L.MarkerClusterGroup showCoverageOnHover: false
 
     @markers = []
-    @lightIcon = L.Icon.Default;
-    @darkIcon = L.Icon.Default.extend({options: {iconUrl: '<%= image_path "marker-dark.png" %>'}});
-
-    popup = new L.Popup offset: new L.Point(0.5, -24)
-    @oms.addListener 'click', (marker) =>
-      popup.setContent marker.desc
-      popup.setLatLng marker.getLatLng()
-      @map.openPopup popup
-
-    @oms.addListener 'spiderfy', (markers) =>
-      marker.setIcon new @lightIcon for marker in markers
-      @map.closePopup()
-
-    @oms.addListener 'unspiderfy', (markers) =>
-      marker.setIcon new @darkIcon for marker in markers
+    # L.Icon.Default.extend({options: {iconUrl: '<%= image_path "marker-dark.png" %>'}});
 
     if options.markers?
       @addMarker m for m in options.markers
 
-  addMarker: (options) =>
-    marker = L.marker([options.lat, options.lng], { title: options.title, icon: new @darkIcon })
-    marker.desc = "<a class=\"popup-link\" href=\"#{options.url}\">#{options.title}</a><br />"
+    @map.addLayer(@cluster);
 
-    @map.addLayer marker
-    @oms.addMarker marker
+  addMarker: (options) =>
+    marker = L.marker([options.lat, options.lng], { title: options.title })
+    marker.bindPopup "<a class=\"popup-link\" href=\"#{options.url}\">#{options.title}</a><br />"
+
+    @cluster.addLayer marker
     @markers.push marker
 
   adjustToMarkers: ->
