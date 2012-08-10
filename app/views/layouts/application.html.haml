@@ -20,8 +20,9 @@
             = link_to "OpenMensa", root_path
             = image_tag "alpha.png", class: "alpha"
         .span6
-          %div.actions.hide
-            = link_to login_path do
+          %div.actions
+            /= link_to login_path do
+            %a
               %span.icon-signin
             %a
               %span.icon-star
