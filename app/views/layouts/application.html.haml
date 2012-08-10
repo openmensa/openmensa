@@ -45,35 +45,10 @@
             %p
               © 2012 OpenMensa
               &nbsp;&middot;&nbsp;
-              = link_to 'Impressum', static_url(:impressum)
+              = link_to 'Impressum', static_path(:impressum)
               &nbsp;&middot;&nbsp;
               = link_to 'Blog', 'https://blog.altimos.de/category/openmensa'
               &nbsp;&middot;&nbsp;
-              = link_to 'Developer', static_url(:developer)
-              %span
-                = l Time.zone.now, :format => :short
-                = Time.zone.now.zone
-            - if Rails.env.development?
-              %p
-                = "#{OpenMensa::VERSION}-#{Rails.root.basename} | "
-                - if defined?(RUBY_VERSION) or defined?(VERSION)
-                  = [defined?(RUBY_ENGINE) ? RUBY_ENGINE.capitalize : 'Ruby', defined?(RUBY_VERSION) ? RUBY_VERSION : VERSION].join(' ')
-                  = ' | '
-                = "Rails #{Rails.version} | #{Rails.env.capitalize}"
-        / .span4
-
-        /   - if User.current.logged?
-        /     .section
-        /       %section
-        /         %header.header
-        /           %h2 Meine Mensa
-        /   - else
-        /     .section
-        /       %section
-        /         %header.header
-        /           %h2 Sign In
-
-        /   - if content_for? :aside
-        /     = yield :aside
+              = link_to 'Developer', static_path(:developer)
 
     = javascript_include_tag "application"
