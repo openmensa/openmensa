@@ -20,14 +20,25 @@
             = link_to "OpenMensa", root_path
             = image_tag "alpha.png", class: "alpha"
         .span6
-          %div.actions
-            /= link_to login_path, title: t(:action, :login) do
-            %a
-              %span.icon-signin
-            %a
-              %span.icon-star
-            = link_to root_path do
-              %span.icon-home
+          - if User.current.logged?
+            %div.account.hide
+              = avatar_img User.current, size: 48
+              %span
+                = link_to t(:action, :logout), logout_path
+                &nbsp;|&nbsp;
+                %strong= User.current.name
+                %br
+                %span.connections= connect_service_links
+          - else
+            %div.actions
+              = link_to login_path, title: t(:action, :login), style: 'display: none' do
+                %span.icon-signin
+              %a
+                %span.icon-signin
+              %a
+                %span.icon-star
+              = link_to root_path do
+                %span.icon-home
       .clear
     %section#content
       = render partial: "common/notifications"
