@@ -203,6 +203,12 @@
         border-bottom: 1px dotted #eee;
         &:last-child { border: none; }
       }
+
+      @include media(mobile) {
+        padding: 1px 4px !important;
+        h3 { float: none; width: 100%; text-align: left; margin: 2px 0; }
+        p { margin-left: 30px; }
+      }
     }
   }
 }
