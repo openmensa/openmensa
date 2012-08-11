@@ -28,3 +28,7 @@ $responsive-default-width: 1350px !default;
     { @content; }
   }
 }
+
+.hide-handheld {
+  @include media(handheld) { display: none; }
+}
