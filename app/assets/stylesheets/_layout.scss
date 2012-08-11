@@ -63,13 +63,13 @@ header#header {
       text-align: center;
       margin-right: 20px;
 
-      @include transition(all .2s ease);
+      @include transition(all .3s ease-in-out .2s);
 
       &:hover {
         text-decoration: none;
         color: #333;
 
-        @include transition(all .2s ease);
+        @include transition(all .1s ease-in-out);
         // background-color: rgba(0,0,0,0.02);
       }
 
