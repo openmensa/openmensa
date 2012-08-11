@@ -1,11 +1,10 @@
 
 .row
   .span8
-    .section
-      %header
+    %section
+      %header#canteen-header
         %h1= @canteen.name
-
-      %section#remote-canteens-show
+      #remote-canteens-show
         = render partial: "show_section"
 
   .span4

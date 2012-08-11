@@ -15,7 +15,7 @@ $link-color: #2941B4 !default;
 @mixin p {
   margin: 8px 0;
   @include media(mobile) {
-    margin: 2px 0;
+    margin: 3px 0;
   }
 }
 
@@ -71,6 +71,9 @@ code {
 }
 pre { @extend p;
   code { display: block; padding: 2px; }
+}
+address {
+  @extend p;
 }
 
 a {

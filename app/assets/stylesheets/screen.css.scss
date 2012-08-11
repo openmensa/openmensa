@@ -91,11 +91,54 @@
 }
 
 .canteens_controller {
+  #canteen-header {
+    padding: 95px 0 35px;
+    background-color: #fff;
+    background-image: image-url("canteen.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+    h1 {
+      color: #fff;
+      padding: 15px 15px;
+      text-shadow: none;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    @include media(tablet) {
+      padding: 65px 0 15px;
+    }
+
+    @include media(mobile) {
+      padding: 0;
+      background-image: none;
+
+      h1 {
+        margin: 0;
+        padding: 3px 4px;
+        text-align: center;
+      }
+    }
+  }
+
   .page-header {
+    @include clearfix;
+
+    @include media(handheld) {
+      h2 {
+        margin-top: 7px;
+        font-size: 18px; font-size: 1.8rem;
+      }
+    }
+
     a.next, a.prev {
       display: block;
       margin: 3px 0 0;
       padding: 10px;
+
+      @include media(handheld) {
+        margin: 0;
+      }
 
       span {
         width: 14px;
