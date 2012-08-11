@@ -1,4 +1,6 @@
 
+@import 'responsive';
+
 $grid-count: 12 !default;
 $grid-gutter: 1.5% !default;
 
@@ -30,5 +32,16 @@ $grid-gutter: 1.5% !default;
 
     &:last-child { float: right; }
     &:first-child { margin-left: 0; float: left; }
+  }
+
+  &:not(.tablet) {
+    @include media(handheld) {
+      > [class*='span'], > [class*='offset'] {
+        float: none;
+        width: 100%;
+        padding: 0;
+        margin-left: 0;
+      }
+    }
   }
 }

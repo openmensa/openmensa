@@ -38,4 +38,8 @@
 
 #index_map .map {
   height: 400px;
+
+  @include media(mobile) {
+    height: 250px;
+  }
 }

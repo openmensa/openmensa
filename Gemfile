@@ -28,7 +28,7 @@ gem 'leaflet-rails', '~> 0.4.2.beta1'
 gem 'sqlite3'
 
 group :assets do
-  gem 'sass'#,         '>= 3.2'
+  gem "sass", "~> 3.2.0"
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer', platforms: :ruby

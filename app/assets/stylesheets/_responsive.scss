@@ -1,0 +1,30 @@
+$responsive-mobile-width: 480px !default;
+$responsive-tablet-width: 767px !default;
+$responsive-default-width: 1350px !default;
+
+@mixin media($media) {
+  @if $media == 'mobile' {
+    @media only screen and (max-width: $responsive-mobile-width)
+    { @content; }
+  }
+  @if $media == 'tablet' {
+    @media only screen and (min-width: $responsive-mobile-width + 1) and (max-width: $responsive-tablet-width)
+    { @content; }
+  }
+  @if $media == 'handheld' {
+    @media only screen and (max-width: $responsive-tablet-width)
+    { @content; }
+  }
+  @if $media == 'wide' {
+    @media only screen and (min-width: $responsive-default-width + 1)
+    { @content; }
+  }
+  @if $media == 'default' {
+    @media only screen and (min-width: $responsive-tablet-width + 1) and (max-width: $responsive-default-width)
+    { @content; }
+  }
+  @if $media == 'display' {
+    @media only screen and (min-width: $responsive-tablet-width + 1)
+    { @content; }
+  }
+}

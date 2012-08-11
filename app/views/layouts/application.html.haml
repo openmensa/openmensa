@@ -8,38 +8,35 @@
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = csrf_meta_tags
     %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
     %link{:href => "http://blog.altimos.de/category/openmensa/feed/", :rel => "alternate", :title => "OpenMensa Blog (Atom)", :type => "application/atom+xml"}
     = favicon_link_tag
     = yield :header_tags
 
   %body{:class => body_classes }
     %header#header
-      .row
-        .span6
-          %h1
-            = link_to "OpenMensa", root_path
-            = image_tag "alpha.png", class: "alpha"
-        .span6
-          - if User.current.logged?
-            %div.account.hide
-              = avatar_img User.current, size: 48
-              %span
-                = link_to t(:action, :logout), logout_path
-                &nbsp;|&nbsp;
-                %strong= User.current.name
-                %br
-                %span.connections= connect_service_links
-          - else
-            %div.actions
-              = link_to login_path, title: t(:action, :login), style: 'display: none' do
-                %span.icon-signin
-              %a
-                %span.icon-signin
-              %a
-                %span.icon-star
-              = link_to root_path do
-                %span.icon-home
-      .clear
+      %h1
+        = link_to "OpenMensa", root_path
+      - if User.current.logged?
+        %div.account.hide
+          = avatar_img User.current, size: 48
+          %span
+            = link_to t(:action, :logout), logout_path
+            &nbsp;|&nbsp;
+            %strong= User.current.name
+            %br
+            %span.connections= connect_service_links
+      - else
+        %div.actions
+          = link_to login_path, title: t(:action, :login), style: 'display: none' do
+            %span.icon-signin
+          %a
+            %span.icon-signin
+          %a
+            %span.icon-star
+          = link_to root_path do
+            %span.icon-home
+        .clear
     %section#content
       = render partial: "common/notifications"
       - if content_for? :notifications

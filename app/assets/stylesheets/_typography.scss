@@ -1,4 +1,6 @@
 
+@import 'responsive';
+
 $text-size: 62.5% !default;
 $text-color: #333 !default;
 $text-font: Helvetica, arial, freesans, clean, sans-serif !default;
@@ -12,6 +14,9 @@ $link-color: #2941B4 !default;
 
 @mixin p {
   margin: 8px 0;
+  @include media(mobile) {
+    margin: 2px 0;
+  }
 }
 
 html {
@@ -38,6 +43,14 @@ h2 { font-size: 21px; font-size: 2.1rem; }
 h3 { font-size: 16px; font-size: 1.6rem; }
 h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
 h5 { font-size: 13px; font-size: 1.3rem; }
+
+@include media(mobile) {
+  h1 { font-size: 17px; font-size: 1.7rem; }
+  h2 { font-size: 14px; font-size: 1.4rem; }
+  h3 { font-size: 14px; font-size: 1.4rem; }
+  h4 { font-size: 13px; font-size: 1.3rem; }
+  h5 { font-size: 13px; font-size: 1.3rem; }
+}
 
 small { font-size: .8em; }
 b, strong { font-weight: bold; }
