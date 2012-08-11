@@ -145,6 +145,7 @@
         height: 14px;
         display: block;
         @include transform(rotate(-45deg));
+        @include transition(all .1s ease-in-out);
       }
 
       &.next {
@@ -168,6 +169,7 @@
       &:hover span {
         border-color: #333;
         background-color: rgba(0, 0, 0, 0.05);
+        @include transition(all .1s ease-in-out);
       }
     }
   }
