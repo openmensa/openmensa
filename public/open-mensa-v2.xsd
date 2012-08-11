@@ -4,9 +4,10 @@
     <xs:element name="openmensa" type="openmensaType"></xs:element>
     
     <xs:complexType name="openmensaType">
-    	<xs:sequence>
-
-    		<xs:element name="provider" type="providerType"></xs:element>
+        <xs:annotation>
+        	<xs:documentation>This is the required OpenMense root element always accompanied by a version attribute that explicitly tells the feed's version to the parser.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
     		<xs:element name="cafeteria" type="cafeteriaType"
     			maxOccurs="unbounded" minOccurs="1">
     		</xs:element>
@@ -15,13 +16,14 @@
     </xs:complexType>
 
     <xs:complexType name="cafeteriaType">
-    	<xs:sequence>
-            <xs:element name="info" type="infoType"></xs:element>
+        <xs:annotation>
+        	<xs:documentation>This stands for a single canteen.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
             <xs:element name="day" type="dayType" maxOccurs="unbounded"
     			minOccurs="0">
-    		</xs:element>
+    		</xs:element>
     	</xs:sequence>
-    	
     </xs:complexType>
 
     <xs:complexType name="dayType">
@@ -57,7 +59,7 @@
 
     <xs:complexType name="mealType">
     	<xs:sequence>
-    		<xs:element name="name"></xs:element>
+    		<xs:element name="name" type="xs:string"></xs:element>
     		<xs:element name="note" maxOccurs="unbounded" minOccurs="0">
     			<xs:simpleType>
     				<xs:restriction base="xs:string">
@@ -65,65 +67,27 @@
     				</xs:restriction>
     			</xs:simpleType>
     		</xs:element>
-    		<xs:element name="price" maxOccurs="unbounded" minOccurs="0">
+    		<xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
                 <xs:annotation>
                 	<xs:documentation>This field contains a price in Euro for a meal.</xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-    				<xs:restriction base="xs:float">
-    					<xs:minExclusive value="0"></xs:minExclusive>
-    				</xs:restriction>
-    			</xs:simpleType>
     		</xs:element>
     	</xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="providerType">
-    	<xs:sequence>
-    		<xs:element name="name">
-    			<xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    				</xs:restriction>
-    			</xs:simpleType>
-    		</xs:element>
-    		<xs:element name="contact" type="providerContactType" maxOccurs="unbounded" minOccurs="1"></xs:element>
-    	</xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="providerContactType">
-    	<xs:attribute name="type" use="required">
-    		<xs:simpleType>
-    			<xs:restriction base="xs:string">
-    				<xs:enumeration value="email"></xs:enumeration>
-    			</xs:restriction>
-    		</xs:simpleType>
-    	</xs:attribute>
-    </xs:complexType>
-
-    <xs:complexType name="infoType">
-    	<xs:sequence>
-    		<xs:element name="name">
-    			<xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    				</xs:restriction>
-    			</xs:simpleType>
-    		</xs:element>
-    		<xs:element name="address">
-    			<xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    				</xs:restriction>
-    			</xs:simpleType>
-    		</xs:element>
-    		<xs:element name="url">
-    			<xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    				</xs:restriction>
-    			</xs:simpleType>
-    		</xs:element>
-    	</xs:sequence>
+    <xs:complexType name="priceType">
+    	<xs:simpleContent>
+    		<xs:extension base="xs:float">
+    			<xs:attribute name="role" use="required">
+    				<xs:simpleType>
+    					<xs:restriction base="xs:string">
+    						<xs:enumeration value="student"></xs:enumeration>
+    						<xs:enumeration value="employee"></xs:enumeration>
+    						<xs:enumeration value="other"></xs:enumeration>
+    					</xs:restriction>
+    				</xs:simpleType>
+    			</xs:attribute>
+    		</xs:extension>
+    	</xs:simpleContent>
     </xs:complexType>
 </xs:schema>
