@@ -7,6 +7,10 @@ body {
   background-image: image-url("fbg.png");
 }
 
+header, section, footer {
+  display: block;
+}
+
 .fwrapper {
   @include pie-clearfix;
 }
@@ -24,8 +28,8 @@ body {
 header#header {
   @extend .fwrapper;
   @extend .cwrapper;
-  padding: 10px 0;
 
+  padding: 10px 0;
   background-image: image-url("hbg.png");
   @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
 
