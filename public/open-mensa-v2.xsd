@@ -8,11 +8,13 @@
         	<xs:documentation>This is the required OpenMense root element always accompanied by a version attribute that explicitly tells the feed's version to the parser.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-    		<xs:element name="cafeteria" type="cafeteriaType"
-    			maxOccurs="unbounded" minOccurs="1">
+    		<xs:element name="cafeteria" type="cafeteriaType">
     		</xs:element>
     	</xs:sequence>
-    	<xs:attribute name="version" type="xs:float" use="required"></xs:attribute>
+    	<xs:attribute name="version" type="xs:float" use="required">
+    		<xs:annotation>
+    			<xs:documentation>The version should be equal to 2.0.</xs:documentation>
+    		</xs:annotation></xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="cafeteriaType">
@@ -22,18 +24,27 @@
         <xs:sequence>
             <xs:element name="day" type="dayType" maxOccurs="unbounded"
     			minOccurs="0">
-    		</xs:element>
+                <xs:annotation>
+                	<xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
     	</xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="dayType">
     	<xs:sequence>
-    		<xs:element name="category" type="categoryType" maxOccurs="unbounded" minOccurs="1"></xs:element>
+    		<xs:element name="category" type="categoryType" maxOccurs="unbounded" minOccurs="1">
+    			<xs:annotation>
+    				<xs:documentation>Every meal must belong to a category so there should be at least one category since a day without any meals may be omitted completely else.</xs:documentation>
+    			</xs:annotation></xs:element>
     	</xs:sequence>
     	<xs:attribute name="date" use="required">
-    		<xs:simpleType>
+            <xs:annotation>
+            	<xs:documentation>This field specifies the date of the day as "YYYY-MM-DD.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
                 <xs:annotation>
-                	<xs:documentation>This field specifies the date of the day as "YYYY-MM-DD".</xs:documentation>
+                	<xs:documentation></xs:documentation>
                 </xs:annotation>
                 <xs:restriction base="xs:string">
     				<xs:pattern
@@ -46,10 +57,16 @@
 
     <xs:complexType name="categoryType">
     	<xs:sequence>
-    		<xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1"></xs:element>
+    		<xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1">
+    			<xs:annotation>
+    				<xs:documentation>Each category must contain at least one meal because else the category is useless.</xs:documentation>
+    			</xs:annotation></xs:element>
     	</xs:sequence>
     	<xs:attribute name="name" use="required">
-    		<xs:simpleType>
+            <xs:annotation>
+            	<xs:documentation>The name of the category, e.g. "Essen 1" or "Ausgabe A".</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
     			<xs:restriction base="xs:string">
     				<xs:minLength value="1"></xs:minLength>
     			</xs:restriction>
@@ -59,9 +76,15 @@
 
     <xs:complexType name="mealType">
     	<xs:sequence>
-    		<xs:element name="name" type="xs:string"></xs:element>
+    		<xs:element name="name" type="xs:string">
+    			<xs:annotation>
+    				<xs:documentation>The name of the meal, e.g. "Rinderhacksteak mit Kartoffeln". Shouldn't be more than a couple of words or a sentence in maximum. Additional text may go into several notes.</xs:documentation>
+    			</xs:annotation></xs:element>
     		<xs:element name="note" maxOccurs="unbounded" minOccurs="0">
-    			<xs:simpleType>
+                <xs:annotation>
+                	<xs:documentation>A note often resembles a properties of the associated meal like the ingredients used or some important annotations.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
     				<xs:restriction base="xs:string">
     					<xs:minLength value="1"></xs:minLength>
     				</xs:restriction>
@@ -69,7 +92,7 @@
     		</xs:element>
     		<xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
                 <xs:annotation>
-                	<xs:documentation>This field contains a price in Euro for a meal.</xs:documentation>
+                	<xs:documentation>This field contains a price in euro for a given role (because different prices may apply different groups of people).</xs:documentation>
                 </xs:annotation>
     		</xs:element>
     	</xs:sequence>
@@ -79,7 +102,10 @@
     	<xs:simpleContent>
     		<xs:extension base="xs:float">
     			<xs:attribute name="role" use="required">
-    				<xs:simpleType>
+                    <xs:annotation>
+                    	<xs:documentation>A price's role defines for which group of persons the price is valid: students, employees (of your organization) or others (people that do not belong to your organization).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
     					<xs:restriction base="xs:string">
     						<xs:enumeration value="student"></xs:enumeration>
     						<xs:enumeration value="employee"></xs:enumeration>
