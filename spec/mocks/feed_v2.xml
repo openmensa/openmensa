@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openmensa version="2.0" xmlns="http://openmensa.org/open-mensa-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openmensa.org/open-mensa-v2 http://openmensa.org/open-mensa-v2.xsd">
+<openmensa version="2.0" xmlns="http://openmensa.org/open-mensa-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openmensa.org/open-mensa-v2 ../../public/open-mensa-v2.xsd">
 	<cafeteria>
 		<!-- Studentenwerk Potsdam, Griebnitzsee -->
 		<day date="2012-05-29">
@@ -8,6 +8,8 @@
 					<name>Rührei mit Rahmspinat und Salzkartoffeln</name>
 					<note>ovo-lacto-vegetabil</note>
 					<price role="student">1.20</price>
+					<price role="employee">2.60</price>
+					<price role="other">3.00</price>
 				</meal>
 			</category>
 			<category name="Essen 2">
@@ -15,6 +17,8 @@
 					<name>Hähnchengeschnetzeltes mit exotischen Früchten, dazu Bio-Reis und Mischsalat</name>
 					<note>mit Geflügelfleisch</note>
 					<price role="student">2.00</price>
+					<price role="employee">3.35</price>
+					<price role="other">4.00</price>
 				</meal>
 			</category>
 			<category name="Alternativ-Angebot">
@@ -22,7 +26,9 @@
 					<name>Gemüse-Couscouspfanne mit Joghurt-Ingwer-Dip, dazu bunter Blattsalat</name>
 					<note>ovo-lacto-vegetabil</note>
 					<note>mensaVital</note>
-					<price role="student">2.50</price>
+					<price role="student">2.30</price>
+					<price role="employee">3.65</price>
+					<price role="other">4.60</price>
 				</meal>
 			</category>
 		</day>

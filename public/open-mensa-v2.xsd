@@ -92,7 +92,7 @@
     		</xs:element>
     		<xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
                 <xs:annotation>
-                	<xs:documentation>This field contains a price in euro for a given role (because different prices may apply different groups of people).</xs:documentation>
+                	<xs:documentation>This field contains a price in euro for a given role (because different prices may apply different groups of people). There mustn't be two price elements with the same role for a meal!</xs:documentation>
                 </xs:annotation>
     		</xs:element>
     	</xs:sequence>
