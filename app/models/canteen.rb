@@ -23,10 +23,19 @@ class Canteen < ActiveRecord::Base
   def fetch
     return unless self.url
     uri = URI.parse self.url
-
+    
+    xml = REXML::Document.new open(uri).read
+      
+    case xml.root.attribute(:version)
+      when 1.0 then fetch_v1(xml)
+      when 2.0 then fetch_v2(xml)
+    end
+  rescue URI::InvalidURIError
+    Rails.logger.warn "Invalid URI (#{url}) in cafeteria #{id}"
+  end
+  
+  def fetch_v1(xml)
     transaction do
-      xml = REXML::Document.new open(uri).read
-
       REXML::XPath.each(xml, '/cafeteria/day') do |day|
         date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
 
@@ -50,12 +59,14 @@ class Canteen < ActiveRecord::Base
           end
         end
       end
-
+      
       self.meals.reset
       self.last_fetched_at = Time.zone.now
       self.save!
     end
-  rescue URI::InvalidURIError
-    Rails.logger.warn "Invalid URI (#{url}) in cafeteria #{id}"
+  end
+  
+  def fetch_v2(xml)
+    # TODO: fetch_v2
   end
 end
