@@ -54,7 +54,7 @@ class ApplicationController < BaseController
     @title   = error[:title]
     @message = error[:message]
 
-    if format == 'html'
+    if (params[:format] || 'html') == 'html'
       render template: file, layout: layout, status: error[:status]
     else
       super

@@ -8,7 +8,7 @@
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = csrf_meta_tags
     %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8"}
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %link{:href => "http://blog.altimos.de/category/openmensa/feed/", :rel => "alternate", :title => "OpenMensa Blog (Atom)", :type => "application/atom+xml"}
     = favicon_link_tag
     = yield :header_tags
@@ -17,25 +17,28 @@
     %header#header
       %h1
         = link_to "OpenMensa", root_path
-      - if User.current.logged?
-        %div.account.hide
-          = avatar_img User.current, size: 48
-          %span
-            = link_to t(:action, :logout), logout_path
-            &nbsp;|&nbsp;
-            %strong= User.current.name
-            %br
-            %span.connections= connect_service_links
+      - if current_user.logged?
+        %div.actions
+          = link_to canteens_path do
+            %span.icon-home
+          = link_to favorites_path, title: t(:favorites) do
+            %span.icon-star
+          = link_to user_path(current_user.id), title: t(:profile) do
+            %span.icon-cog
+          = link_to logout_path, title: t(:logout) do
+            %span.icon-signout
+          %div.account
+            = avatar
+            %span= current_user.name
+        .clear
       - else
         %div.actions
-          = link_to login_path, title: t(:action, :login), style: 'display: none' do
-            %span.icon-signin
-          %a
-            %span.icon-signin
-          %a
-            %span.icon-star
           = link_to root_path do
             %span.icon-home
+          %a
+            %span.icon-star
+          = link_to login_path, title: t(:login) do
+            %span.icon-signin
         .clear
     %section#content
       = render partial: "common/notifications"

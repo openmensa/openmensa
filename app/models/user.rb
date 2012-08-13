@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
   end
 
   def gravatars?; true end
-  def to_param; login end
 
   def language
     read_attribute(:language) || Rails.configuration.i18n.default_locale.to_s

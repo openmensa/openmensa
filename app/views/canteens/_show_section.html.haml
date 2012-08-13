@@ -6,7 +6,7 @@
     %span
   %h2.centered
     - if @date.to_date == Time.zone.now.to_date
-      = "Today"
+      = t :today
     - else
       = l @date.to_date, format: :with_weekday
 %ul.meals

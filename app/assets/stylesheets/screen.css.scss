@@ -12,6 +12,8 @@
 @import "layout";
 @import "grid";
 @import "alerts";
+@import "buttons";
+@import "form";
 
 @import "map";
 
@@ -100,13 +102,15 @@
 
     h1 {
       color: #fff;
+      margin: 0;
       padding: 15px 15px;
       text-shadow: none;
       background-color: rgba(0, 0, 0, 0.8);
     }
 
     @include media(tablet) {
-      padding: 65px 0 15px;
+      padding: 0;
+      background-image: none;
     }
 
     @include media(mobile) {
