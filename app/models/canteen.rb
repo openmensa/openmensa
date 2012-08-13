@@ -67,6 +67,30 @@ class Canteen < ActiveRecord::Base
   end
   
   def fetch_v2(xml)
-    # TODO: fetch_v2
+    transaction do
+      REXML::XPath.each(xml, '/openmensa/cafeteria/day') do |day|
+        date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
+        
+        REXML::XPath.each(day, 'category') do |cat|
+          category = cat.attribute(:name).to_s
+          self.meals.where(date: date, category: category).destroy_all
+          
+          REXML::XPath.each(cat, 'meal') do |node|
+            meal = Meal.new canteen: self, date: date, category: category
+            meal.name = REXML::XPath.first(node, 'name').text
+            
+            # TODO: fetch a meal's note and price
+            REXML::XPath.each(node, 'note') do |note| end
+            REXML::XPath.each(node, 'price') do |price| end
+            
+            meal.save!
+          end
+        end
+      end
+    end
+    
+    self.meals.reset
+    self.last_fetched_at = Time.zone.now
+    self.save!
   end
 end
