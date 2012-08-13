@@ -76,10 +76,16 @@
 
     <xs:complexType name="mealType">
     	<xs:sequence>
-    		<xs:element name="name" type="xs:string">
+    		<xs:element name="name">
     			<xs:annotation>
     				<xs:documentation>The name of the meal, e.g. "Rinderhacksteak mit Kartoffeln". Shouldn't be more than a couple of words or a sentence in maximum. Additional text may go into several notes.</xs:documentation>
-    			</xs:annotation></xs:element>
+    			</xs:annotation>
+    			<xs:simpleType>
+    				<xs:restriction base="xs:string">
+    					<xs:minLength value="1"></xs:minLength>
+    				</xs:restriction>
+    			</xs:simpleType>
+    		</xs:element>
     		<xs:element name="note" maxOccurs="unbounded" minOccurs="0">
                 <xs:annotation>
                 	<xs:documentation>A note often resembles a properties of the associated meal like the ingredients used or some important annotations.</xs:documentation>
