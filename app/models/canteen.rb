@@ -26,9 +26,9 @@ class Canteen < ActiveRecord::Base
     
     xml = REXML::Document.new open(uri).read
       
-    case xml.root.attribute(:version)
-      when 1.0 then fetch_v1(xml)
-      when 2.0 then fetch_v2(xml)
+    case xml.root.attribute(:version).to_s
+      when '1.0' then fetch_v1(xml)
+      when '2.0' then fetch_v2(xml)
     end
   rescue URI::InvalidURIError
     Rails.logger.warn "Invalid URI (#{url}) in cafeteria #{id}"
