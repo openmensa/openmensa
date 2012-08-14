@@ -1,4 +1,4 @@
-class Ability::User
+class Ability
   include CanCan::Ability
 
   def initialize(user)
