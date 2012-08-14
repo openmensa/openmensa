@@ -12,7 +12,8 @@
 %ul.meals
   = render partial: "meals", object: @canteen.meals.on(@date)
 
-%header.page-header
-  %h3.centered= l (@date + 1.day).to_date, format: :with_weekday
-%ul.meals
-  = render partial: "meals", object: @canteen.meals.on(@date + 1.day)
+-if @date == Time.zone.now.to_date
+  %header.page-header
+    %h3.centered= l (@date + 1.day).to_date, format: :with_weekday
+  %ul.meals
+    = render partial: "meals", object: @canteen.meals.on(@date + 1.day)
