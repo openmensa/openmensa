@@ -41,3 +41,16 @@ $ ->
   $(".map").each ->
     map = new Map $(@).data("map"), markers: $(@).data("markers")
     map.adjustToMarkers()
+
+  $('.alert a[data-dismiss]').each ->
+    el = $ @
+    el.bind 'click', (e) ->
+      el.parent().fadeOut()
+
+  $('.alert a[data-auto-dismiss]').each ->
+    el = $ @
+    timeout = parseInt el.data('auto-dismiss'), 10
+    timeout = 4000 unless timeout? and !isNaN(timeout)
+    setTimeout ->
+      el.parent().fadeOut()
+    , timeout
