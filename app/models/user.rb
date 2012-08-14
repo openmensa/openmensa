@@ -13,11 +13,10 @@ class User < ActiveRecord::Base
   safe_attributes :admin,
     if: Proc.new { |user,as| as.admin? }
 
-  scope :all,    lambda { where("#{User.table_name}.login != ? AND #{User.table_name}.login != ?", 'anonymous', 'system') }
+  scope :all, lambda { where("#{User.table_name}.login != ? AND #{User.table_name}.login != ?", 'anonymous', 'system') }
 
   include Gravtastic
   gravtastic :secure => true, :default => :identicon, :filetype => :gif, :size => 100
-
 
   def admin?; admin end
   def logged?; true end
@@ -38,7 +37,7 @@ class User < ActiveRecord::Base
     read_attribute(:time_zone) || Rails.configuration.time_zone.to_s
   end
 
-  def ability; @ability ||= Ability::User.new(self) end
+  def ability; @ability ||= Ability.new(self) end
   def can?(*attr) ability.can?(*attr) end
   def cannot?(*attr) ability.cannot?(*attr) end
 
