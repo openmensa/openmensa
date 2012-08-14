@@ -9,6 +9,7 @@ de:
   my_favorites: Meine Favoriten
   my_applications: Meine Anwendungen
   my_identities: Meine Identitäten
+  add_identity: Identität hinzufügen
 
   service:
     twitter: Twitter
@@ -20,7 +21,7 @@ de:
 
   profile:
     name: Name
-    email: "E-Mail <small>(privat)</small>"
+    email: "E-Mail <small>(nicht öffentlich)</small>"
 
   helpers:
     label:
