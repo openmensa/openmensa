@@ -19,11 +19,9 @@
         = link_to "OpenMensa", root_path
       - if current_user.logged?
         %div.actions
-          = link_to canteens_path do
-            %span.icon-home
-          = link_to favorites_path, title: t(:favorites) do
+          = link_to favorites_path, title: t(:my_favorites) do
             %span.icon-star
-          = link_to user_path(current_user.id), title: t(:profile) do
+          = link_to user_path(current_user.id), title: t(:my_profile) do
             %span.icon-cog
           = link_to logout_path, title: t(:logout) do
             %span.icon-signout
@@ -33,15 +31,13 @@
         .clear
       - else
         %div.actions
-          = link_to root_path do
-            %span.icon-home
-          %a
+          = link_to favorites_path, title: t(:my_favorites) do
             %span.icon-star
           = link_to login_path, title: t(:login) do
             %span.icon-signin
         .clear
     %section#content
-      = render partial: "common/notifications"
+      = render partial: "common/flash", object: flash
       - if content_for? :notifications
         = yield :notifications
       = yield
