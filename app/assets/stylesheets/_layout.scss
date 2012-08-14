@@ -25,6 +25,8 @@ header, section, footer {
   }
 }
 
+.clearfix { @include clearfix; }
+
 header#header {
   @extend .fwrapper;
   @extend .cwrapper;
@@ -274,7 +276,7 @@ header#header {
 
 footer#footer {
   color: #aaa;
-  padding: 4px 1px 1px;
+  padding: 1px 10px 10px;
   text-align: left;
   text-shadow: 0 1px 1px #fff;
   margin-top: 10px;
