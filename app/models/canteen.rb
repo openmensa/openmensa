@@ -68,7 +68,7 @@ class Canteen < ActiveRecord::Base
   
   def fetch_v2(xml)
     transaction do
-      REXML::XPath.each(xml, '/openmensa/cafeteria/day') do |day|
+      REXML::XPath.each(xml, '/openmensa/canteen/day') do |day|
         date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
         
         REXML::XPath.each(day, 'category') do |cat|
@@ -79,7 +79,7 @@ class Canteen < ActiveRecord::Base
             meal = Meal.new canteen: self, date: date, category: category
             meal.name = REXML::XPath.first(node, 'name').text
             
-            # TODO: fetch a meal's note and price
+            # TODO: fetch a meal's notes and prices
             REXML::XPath.each(node, 'note') do |note| end
             REXML::XPath.each(node, 'price') do |price| end
             
