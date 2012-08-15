@@ -21,7 +21,6 @@ describe Canteen do
     end
     
     it "should fetch meals from remote source (version 2.0)" do
-      pending "Not fully implemented"
       canteen.url = "http://example.com/feed_v2.xml"
       canteen.fetch
       canteen.meals.should have(9).items
