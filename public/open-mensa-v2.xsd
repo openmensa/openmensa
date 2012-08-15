@@ -8,7 +8,7 @@
         	<xs:documentation>This is the required OpenMense root element always accompanied by a version attribute that explicitly tells the feed's version to the parser.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-    		<xs:element name="cafeteria" type="cafeteriaType">
+    		<xs:element name="canteen" type="canteenType">
     		</xs:element>
     	</xs:sequence>
     	<xs:attribute name="version" type="xs:float" use="required">
@@ -17,7 +17,7 @@
     		</xs:annotation></xs:attribute>
     </xs:complexType>
 
-    <xs:complexType name="cafeteriaType">
+    <xs:complexType name="canteenType">
         <xs:annotation>
         	<xs:documentation>This stands for a single canteen.</xs:documentation>
         </xs:annotation>
