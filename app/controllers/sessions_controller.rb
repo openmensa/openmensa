@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    return failure unless env["omniauth.auth"]
+    return failure unless request.env["omniauth.auth"]
 
-    @identity = Identity.from_omniauth(env["omniauth.auth"])
+    @identity = Identity.from_omniauth(request.env["omniauth.auth"])
     if @identity
       if User.current.logged?
         return redirect_back alert: t('message.account_taken.' + @identity.provider, name: @identity.user.name)
@@ -20,18 +20,23 @@ class SessionsController < ApplicationController
       end
 
     else
-      @identity = Identity.new_with_omniauth(env["omniauth.auth"])
+      @identity = Identity.new_with_omniauth(request.env["omniauth.auth"])
 
       if User.current.logged?
         @identity.user = User.current
         @identity.save!
-        return redirect_back notice: t('message.account_connected.' + @identity.provider, name: @identity.user.name)
+        return redirect_back notice: t('message.identity_added.' + @identity.provider, name: @identity.user.name).html_safe
 
       else
         @user = User.new
-        @user.login      = env["omniauth.auth"]["info"]["login"] || @identity.uid
-        @user.name       = env["omniauth.auth"]["info"]["name"] || @identity.uid
-        @user.email      = env["omniauth.auth"]["info"]["email"]
+        if request.env["omniauth.auth"]["info"]
+          @user.login      = request.env["omniauth.auth"]["info"]["login"] || @identity.uid
+          @user.name       = request.env["omniauth.auth"]["info"]["name"] || @identity.uid
+          @user.email      = request.env["omniauth.auth"]["info"]["email"]
+        else
+          @user.login      = @identity.uid
+          @user.name       = @identity.uid
+        end
         @user.save!
 
         @identity.user = @user
@@ -44,20 +49,14 @@ class SessionsController < ApplicationController
     end
   end
 
-  def print_debug arr, opts = { tabs: 0, name: 'root' }
-    if arr.is_a?(Enumerable)
-      puts ("  " * opts[:tabs]) + opts[:name]
-      arr.each do |k,v|
-        print_debug v, tabs: opts[:tabs] + 1, name: k.to_s
-      end
-    else
-      puts ("  " * opts[:tabs]) + opts[:name] + " => " + arr.inspect
-    end
+  def ref
+    return request.env["omniauth.params"]['ref'] if request.env["omniauth.params"] and request.env["omniauth.params"]['ref']
+    params[:ref]
   end
 
   def redirect_back(options = {})
-    if params[:ref]
-      redirect_to url_for(params[:ref]), options
+    if ref and ref[0] == '/'
+      redirect_to url_for(ref), options
     else
       redirect_to root_url, options
     end

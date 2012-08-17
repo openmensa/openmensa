@@ -1,36 +1,49 @@
 
 de:
-  action:
-    login: Anmelden
-    logout: Abmelden
-  tip:
-    login_account:
-      twitter: Mit Twitter anmelden
-      github: Mit GitHub anmelden
-      google: Mit Google+ anmelden
-      facebook: Mit Facebook anmelden
-    connect_account:
-      twitter: Mit Twitter verbinden
-      github: Mit GitHub verbinden
-      google: Mit Google+ verbinden
-      facebook: Mit Facebook verbinden
-  error_title: Fieser Fehler
-  error_default_message: "Sorry, ein Fehler ist aufgetreten."
+  save: Speichern
+  login: Anmelden
+  logout: Abmelden
+  settings: Einstellungen
+  favorites: Favoriten
+  my_profile: Mein Profil
+  my_favorites: Meine Favoriten
+  my_applications: Meine Anwendungen
+  my_identities: Meine Identitäten
+  add_identity: Identität hinzufügen
+
+  service:
+    twitter: Twitter
+    github: GitHub
+  destroy_identity:
+    twitter: Twitter Identität entfernen
+    github: GitHub Identität entfernen
+
+  today: Heute
+  no_meals_title: Kein Angebot
+  no_meals_message: Leider liegen uns für diesen Tag keine Angebote vor.
+
   message:
-    account_created: Account angelegt
-    login_failed: Login fehlgeschlagen
-    login_successful: Anmelden erfolgreich
-    account_taken:
-      twitter: Account vergeben
-      github: Account vergeben
-      google: Account vergeben
-      facebook: "Account vergeben, Pech"
-    account_connected:
-      twitter: Dein Twitter-Account wurde verknüpft
-      github: Dein GitHub-Account wurde verknüpft
-      google: Dein Google+-Account wurde verknüpft
-      facebook: Dein Facebook-Account wurde verknüpft
+    identity_added:
+      github: "<b>GitHub</b> Identität hinzugefügt."
+      twitter: "<b>Twitter</b> Identität hinzugefügt."
+    identity_removed:
+      github: "<b>GitHub</b> Identität entfernt."
+      twitter: "<b>Twitter</b> Identität entfernt."
+    profile_saved: "Profil gespeichert."
+
+  profile:
+    name: Name
+    email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
+
+  helpers:
+    label:
+      profile_name: ProfileName
 
   date:
     formats:
       with_weekday: '%A, %d. %B %Y'
+
+  errors:
+    not_found:
+      title: Ham wa net.
+      message: Das gesuchte Dokument haben wir leider nicht im Angebot.

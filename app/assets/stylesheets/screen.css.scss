@@ -12,6 +12,8 @@
 @import "layout";
 @import "grid";
 @import "alerts";
+@import "buttons";
+@import "form";
 
 @import "map";
 
@@ -100,13 +102,15 @@
 
     h1 {
       color: #fff;
+      margin: 0;
       padding: 15px 15px;
       text-shadow: none;
       background-color: rgba(0, 0, 0, 0.8);
     }
 
     @include media(tablet) {
-      padding: 65px 0 15px;
+      padding: 0;
+      background-image: none;
     }
 
     @include media(mobile) {
@@ -210,6 +214,65 @@
         padding: 1px 4px !important;
         h3 { float: none; width: 100%; text-align: left; margin: 2px 0; }
         p { margin-left: 30px; }
+      }
+    }
+  }
+}
+
+.users_controller {
+  .identities {
+    padding: 3px 3px 4px !important;
+
+    p { clear: both; padding: 6px 12px 0; }
+  }
+
+  .identity {
+    float: left;
+    width: 42%;
+    height: 74px;
+    margin: 4px;
+    padding: 0 14px;
+    overflow: hidden;
+    background-color: #fff;
+    position: relative;
+    border: 1px solid #ddd;
+    @include box-shadow(0 1px 3px rgba(#000, 0.1));
+
+    @include media(mobile) {
+      width: 85%;
+    }
+
+    i {
+      color: #444;
+      float: left;
+      font-size: 60px;
+    }
+
+    span.provider {
+      display: block;
+      margin: 24px 0 0 55px;
+      font-size: 10px;
+      color: #999;
+    }
+
+    span.uid {
+      display: block;
+      margin: 0 0 0 55px;
+    }
+
+    a.destroy {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      display: block;
+      color: #aaa;
+      font-size: 20px;
+      padding: 0 6px;
+
+      &:hover {
+        color: #333;
+        text-decoration: none;
       }
     }
   }

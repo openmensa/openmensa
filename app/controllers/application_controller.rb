@@ -21,7 +21,7 @@ class ApplicationController < BaseController
     return User.find_by_id(session[:user_id])
   end
 
-  # **** accessors ****
+  # **** accessors & helpers ****
 
   def current_user=(user)
     session[:user_id] = user ? user.id : nil
@@ -30,6 +30,11 @@ class ApplicationController < BaseController
 
   def current_ability
     curent_user.ability
+  end
+
+  def flash_for node, flashs = {}
+    flash[node] ||= {}
+    flash[node].merge! flashs
   end
 
   # **** authentication ****
@@ -54,7 +59,7 @@ class ApplicationController < BaseController
     @title   = error[:title]
     @message = error[:message]
 
-    if format == 'html'
+    if (params[:format] || 'html') == 'html'
       render template: file, layout: layout, status: error[:status]
     else
       super

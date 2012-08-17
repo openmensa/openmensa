@@ -11,14 +11,14 @@ module ApplicationHelper
     options[:default].to_s
   end
 
-  def avatar_img(*attrs)
-    options = {size: 100}.merge(attrs.extract_options!)
+  def avatar(*attrs)
+    options = attrs.extract_options!
     user    = attrs.first || User.current
     if user
       image_tag user.gravatar_url(options).to_s,
         alt:   user.login,
         class: 'avatar',
-        style: "width: #{options[:size]}px; height: #{options[:size]}px;"
+        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ''
     else
       content_tag :span, class: 'avatar', style: "width: #{options[:size]}px; height: #{options[:size]}px;" do
         ""

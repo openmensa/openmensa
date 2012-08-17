@@ -1,0 +1,11 @@
+.span4
+  %section
+    %header
+      %h2= t :settings
+    %ul.content.nav
+      %li
+        %a= t :my_profile
+      %li
+        = link_to t(:my_favorites), user_favorites_path(@user)
+      %li
+        %a= t :my_applications
