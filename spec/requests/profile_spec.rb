@@ -17,6 +17,8 @@ describe "Profile page" do
     fill_in "E-Mail", with: "boby@altimos.de"
     click_on "Speichern"
 
+    page.should have_content("Profil gespeichert.")
+
     find_field('Name').value.should == 'Boby Short'
     find_field('E-Mail').value.should == 'boby@altimos.de'
   end

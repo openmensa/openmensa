@@ -29,10 +29,11 @@ de:
     identity_removed:
       github: "<b>GitHub</b> Identität entfernt."
       twitter: "<b>Twitter</b> Identität entfernt."
+    profile_saved: "Profil gespeichert."
 
   profile:
     name: Name
-    email: "E-Mail <small>(nicht öffentlich)</small>"
+    email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
 
   helpers:
     label:

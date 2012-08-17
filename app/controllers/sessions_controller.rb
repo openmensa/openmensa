@@ -49,20 +49,14 @@ class SessionsController < ApplicationController
     end
   end
 
-  def print_debug arr, opts = { tabs: 0, name: 'root' }
-    if arr.is_a?(Enumerable)
-      puts ("  " * opts[:tabs]) + opts[:name]
-      arr.each do |k,v|
-        print_debug v, tabs: opts[:tabs] + 1, name: k.to_s
-      end
-    else
-      puts ("  " * opts[:tabs]) + opts[:name] + " => " + arr.inspect
-    end
+  def ref
+    return request.env["omniauth.params"]['ref'] if request.env["omniauth.params"] and request.env["omniauth.params"]['ref']
+    params[:ref]
   end
 
   def redirect_back(options = {})
-    if params[:ref] and params[:ref][0] == '/'
-      redirect_to url_for(params[:ref]), options
+    if ref and ref[0] == '/'
+      redirect_to url_for(ref), options
     else
       redirect_to root_url, options
     end
