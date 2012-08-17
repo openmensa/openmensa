@@ -32,12 +32,24 @@
     </xs:complexType>
 
     <xs:complexType name="dayType">
-    	<xs:sequence>
-    		<xs:element name="category" type="categoryType" maxOccurs="unbounded" minOccurs="1">
-    			<xs:annotation>
-    				<xs:documentation>Every meal must belong to a category so there should be at least one category since a day without any meals may be omitted completely else.</xs:documentation>
-    			</xs:annotation></xs:element>
-    	</xs:sequence>
+        <xs:choice>
+        	<xs:element name="category" type="categoryType"
+        		maxOccurs="unbounded" minOccurs="1">
+        		<xs:annotation>
+        			<xs:documentation>Every meal must belong to a category so there should be at least one category since a day without any meals may be omitted completely else.</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="closed">
+                <xs:annotation>
+                	<xs:documentation>Indicates that for the given day a canteen has closed (to distinguish from the case where there is - for some reason - no data). Should be used on weekends or explicit closing times on holidays.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+        			<xs:restriction base="xs:string">
+        				<xs:maxLength value="0"></xs:maxLength>
+        			</xs:restriction>
+        		</xs:simpleType>
+        	</xs:element>
+        </xs:choice>
     	<xs:attribute name="date" use="required">
             <xs:annotation>
             	<xs:documentation>This field specifies the date of the day as "YYYY-MM-DD.</xs:documentation>

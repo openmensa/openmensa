@@ -75,5 +75,9 @@
 				</meal>
 			</category>
 		</day>
+		
+		<day date="2012-05-28">
+		    <closed/>
+		</day>
 	</canteen>
 </openmensa>
