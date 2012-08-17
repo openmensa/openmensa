@@ -38,4 +38,14 @@ describe "Profile page" do
     find_field('Name').value.should == 'Bob Example'
     find_field('E-Mail').value.should == 'boby@altimos.de'
   end
+
+  it "should allow user to remove an identity" do
+    visit root_path
+    click_link "Anmelden"
+    click_link "Twitter"
+
+    click_link "Profile"
+
+
+  end
 end
