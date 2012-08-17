@@ -20,8 +20,9 @@
       %div.content.identities
         - @user.identities.each do |identity|
           = render partial: 'identity', object: identity
-        %p
-          = link_to t(:add_identity), new_user_identity_path(@user), class: 'btn icon-plus'
+        - if @user.identities.count < Identity.providers.count
+          %p
+            = link_to t(:add_identity), new_user_identity_path(@user), class: 'btn icon-plus'
 
 
   = render partial: 'nav'

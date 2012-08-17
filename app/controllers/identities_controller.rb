@@ -1,7 +1,7 @@
 class IdentitiesController < ApplicationController
 
   def new
-    @identities = Rails.configuration.omniauth_services - current_user.identities.map(&:provider)
+    @identities = Identity.providers - current_user.identities.map(&:provider)
   end
 
   def destroy
