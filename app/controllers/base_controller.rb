@@ -12,6 +12,7 @@ class BaseController < ActionController::Base
   def current_user
     User.current
   end
+  helper_method :current_user
 
   def current_user=(user)
     User.current = user

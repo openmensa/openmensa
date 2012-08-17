@@ -5,41 +5,51 @@ describe User do
   before  { @user = FactoryGirl.create(:user) }
   subject { @user }
 
-  describe "attributes" do
-    it { should accept_values_for(:login, 'first.last', 'abc', 'heinz_klein') }
-    it { should_not accept_values_for(:login, '', nil) }
-    it { should accept_values_for(:email, 'abc@example.org', 'admin@altimos.de', '', nil) }
-    it { should_not accept_values_for(:email, 'abc', '@domain', 'user@', 'root@local') }
-    it { should accept_values_for(:name, 'John Smith', 'Yung Heng', 'K. Müller')}
-    it { should_not accept_values_for(:name, nil, '') }
-    it { should be_logged }
-    it { should_not be_admin }
-    it { should_not be_internal }
-    it { @user.language.should == I18n.locale.to_s }
-    it { @user.time_zone.should == 'Berlin' }
+  it { should accept_values_for(:login, 'first.last', 'abc', 'heinz_klein') }
+  it { should_not accept_values_for(:login, '', nil) }
+  it { should accept_values_for(:email, 'abc@example.org', 'admin@altimos.de', '', nil) }
+  it { should_not accept_values_for(:email, 'abc', '@domain', 'user@', 'root@local') }
+  it { should accept_values_for(:name, 'John Smith', 'Yung Heng', 'K. Müller')}
+  it { should_not accept_values_for(:name, nil, '') }
+  it { should be_logged }
+  it { should_not be_admin }
+  it { should_not be_internal }
+  it { @user.language.should == I18n.locale.to_s }
+  it { @user.time_zone.should == 'Berlin' }
 
-    # reserved logins
-    it { should_not accept_values_for(:login, 'anonymous', 'system')}
+  xit 'should require an email if one was set before' do
+    user = FactoryGirl.create :user, email: ''
 
-    it 'should have a unique login' do
-      another_user = FactoryGirl.build(:user, :login => @user.login)
-      another_user.login.should == @user.login
-      another_user.should_not be_valid
-      another_user.save.should be_false
-    end
+    user.email = 'bob@example.org'
+    user.should be_valid
+    user.save
 
-    it 'can be destroyed' do
-      user = FactoryGirl.create(:user)
-      user.destroy.should_not be_false
-    end
+    user.email = ''
+    user.should_not be_valid
+    user.save.should be_false
+  end
 
-    context 'when admin' do
-      before  { @admin = FactoryGirl.create(:admin) }
-      subject { @admin }
+  # reserved logins
+  it { should_not accept_values_for(:login, 'anonymous', 'system')}
 
-      it { should_not be_destructible }
-      it('can not be destroyed') { @admin.destroy.should be_false }
-    end
+  it 'should have a unique login' do
+    another_user = FactoryGirl.build(:user, :login => @user.login)
+    another_user.login.should == @user.login
+    another_user.should_not be_valid
+    another_user.save.should be_false
+  end
+
+  it 'can be destroyed' do
+    user = FactoryGirl.create(:user)
+    user.destroy.should_not be_false
+  end
+
+  context 'when admin' do
+    before  { @admin = FactoryGirl.create(:admin) }
+    subject { @admin }
+
+    it { should_not be_destructible }
+    it('can not be destroyed') { @admin.destroy.should be_false }
   end
 
   describe '@class' do

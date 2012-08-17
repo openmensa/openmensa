@@ -25,6 +25,8 @@ header, section, footer {
   }
 }
 
+.clearfix { @include clearfix; }
+
 header#header {
   @extend .fwrapper;
   @extend .cwrapper;
@@ -53,7 +55,7 @@ header#header {
       background: transparent image-url("logo3.png") no-repeat -10px 50%;
     }
 
-    @media only screen and (max-width: 300px) {
+    @media only screen and (max-width: 340px) {
       padding: 15px 0 5px 50px;
       font-size: 100%;
     }
@@ -79,18 +81,20 @@ header#header {
   }
 
   .actions {
-    padding: 0 10px 0 0;
+    padding: 0 15px 0 0;
+    float: right;
+    height: 50px;
 
-    a {
+    > a {
       display: block;
-      float: right;
+      float: left;
       font-size: 30px;
       color: #ccc;
       height: 50px;
-      width: 50px;
+      width: 30px;
       border-radius: 25px;
       text-align: center;
-      margin-right: 20px;
+      padding: 0 10px;
 
       @include transition(all .3s ease-in-out .2s);
 
@@ -103,27 +107,72 @@ header#header {
       }
 
       span {
-        display: block;
+        float: right;
         margin: 6px 0 0 0;
       }
     }
 
-    @include media(tablet) {
-      margin: 0 auto;
+    .account {
+      float: left;
+      padding: 5px 0 0 0;
+      margin: 0 0 0 10px;
+      height: 40px;
 
-      a { margin-right: 10px; }
+      img {
+        float: right;
+        display: block;
+        margin: 0 auto;
+        height: 40px;
+        width: 40px;
+        @include box-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+      }
+
+      span {
+        display: block;
+        margin-right: 35px;
+        font-weight: bold;
+        padding: 6px 0 0 0;
+        display: none;
+      }
+    }
+
+    @include media(tablet) {
+      // margin: 0 auto;
+
+      // > a {
+      //   margin-right: 10px;
+      //   height: 40px;
+      //   width: 40px;
+      // }
+      // > .account {
+      //   margin-right: 4px;
+      //   height: 40px;
+      // }
     }
 
     @include media(mobile) {
       margin: 0 auto;
       padding: 1px 10px 0 0;
+      height: 45px;
 
-      a {
-        float: right;
+      > a {
         margin-right: 4px;
         height: 30px;
         width: 30px;
         font-size: 26px;
+        padding: 0;
+      }
+      .account {
+        padding-top: 13px;
+        margin-left: 4px;
+        height: 18px;
+        width: 30px;
+
+        img {
+          height: 20px;
+          width: 20px;
+        }
+        span { display: none; }
       }
     }
   }
@@ -145,9 +194,9 @@ header#header {
   }
 
   section {
+    margin: 14px 0 0 0;
     background-color: #fff;
     @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
-    margin: 14px 0 0 0;
 
     @include media(mobile) {
       margin: 4px 0 0 0;
@@ -191,12 +240,43 @@ header#header {
         }
       }
     }
+
+    ul.content {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        padding: 6px 15px 6px 15px;
+
+        &:not(:first-child) {
+          border-top: 1px solid #ddd;
+          @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+        }
+      }
+
+      &.nav {
+        li { padding: 0; }
+        a {
+          display: block;
+          padding: 10px 15px 10px 35px;
+          color: #333;
+          font-weight: bold;
+          @include transition(background-color .2s ease-in-out);
+
+          &:hover {
+            background-color: #efefef;
+            @include transition(background-color .2s ease-in-out);
+          }
+        }
+      }
+    }
   }
 }
 
 footer#footer {
   color: #aaa;
-  padding: 4px 1px 1px;
+  padding: 1px 10px 10px;
   text-align: left;
   text-shadow: 0 1px 1px #fff;
   margin-top: 10px;

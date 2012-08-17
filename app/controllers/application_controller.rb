@@ -21,7 +21,7 @@ class ApplicationController < BaseController
     return User.find_by_id(session[:user_id])
   end
 
-  # **** accessors ****
+  # **** accessors & helpers ****
 
   def current_user=(user)
     session[:user_id] = user ? user.id : nil
@@ -32,11 +32,17 @@ class ApplicationController < BaseController
     curent_user.ability
   end
 
+  def flash_for node, flashs = {}
+    flash[node] ||= {}
+    flash[node].merge! flashs
+  end
+
   # **** authentication ****
 
   def require_authentication!
     unless current_user.logged?
-      redirect_to login_url(ref: request.fullpath)
+      # redirect_to login_url(ref: request.fullpath)
+      error_access_denied
       return false
     end
     true
@@ -54,7 +60,7 @@ class ApplicationController < BaseController
     @title   = error[:title]
     @message = error[:message]
 
-    if format == 'html'
+    if (params[:format] || 'html') == 'html'
       render template: file, layout: layout, status: error[:status]
     else
       super

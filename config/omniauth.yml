@@ -3,6 +3,9 @@ development: &dev
   github:
     key: 592cd23d78131215954c
     secret: 951c3b87f8798128f4fac6b9553ea92269edc515
+  twitter:
+    key: m1PplbhUQdVfB1zfkY3kZg
+    secret: ysozRyiD6bKjy8GBmMjPqVjyyVG5unX5rVEqE4YxtBU
 
 test:
   github:

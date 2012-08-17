@@ -27,4 +27,8 @@ class Identity < ActiveRecord::Base
       end
     end
   end
+
+  def self.providers
+    Rails.configuration.omniauth_services
+  end
 end

@@ -1,0 +1,16 @@
+.row.singelton
+  .span6.offset3
+    .section
+      %section
+        %header
+          %h2= t :add_identity
+        .content
+          %p.centered
+            - if @identities.any?
+              - @identities.each do |srv|
+                = link_to auth_path(srv, ref: user_path(current_user)), class: "btn btn-login btn-social btn-#{srv}", title: t(:service, srv) do
+                  %i.icon-large{ class: "icon-#{srv}-sign" }
+                  = t(:service, srv)
+            - else
+              %strong= t :no_more_identities
+

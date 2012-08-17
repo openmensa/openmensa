@@ -15,16 +15,35 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
 
 @mixin alert($color, $bg, $border) {
   color: $color;
-  padding: 6px 9px;
+  padding: 6px 29px 6px 9px;
   background-color: $bg;
   border: 1px solid $border;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   border-radius: 2px;
+  position: relative;
   @include box-shadow(0 0 2px rgba(0, 0, 0, 0.2));
   @include p;
 
   > :first-child { margin-top: 0; }
   > :last-child  { margin-bottom: 0; }
+
+  > a.close {
+    content: '×';
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: block;
+    color: #aaa;
+    font-size: 20px;
+    padding: 1px 6px;
+    font-weight: bold;
+
+    &:hover {
+      color: #333;
+      text-decoration: none;
+    }
+  }
 }
 
 .alert {
