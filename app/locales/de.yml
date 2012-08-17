@@ -47,3 +47,6 @@ de:
     not_found:
       title: Ham wa net.
       message: Das gesuchte Dokument haben wir leider nicht im Angebot.
+    unauthorized:
+      title: Darfst du nicht.
+      message: Du darfst diesen Aufruf nicht durchführen.

@@ -17,7 +17,7 @@ describe User do
   it { @user.language.should == I18n.locale.to_s }
   it { @user.time_zone.should == 'Berlin' }
 
-  it 'should require an email if one was set before' do
+  xit 'should require an email if one was set before' do
     user = FactoryGirl.create :user, email: ''
 
     user.email = 'bob@example.org'

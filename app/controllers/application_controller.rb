@@ -41,7 +41,8 @@ class ApplicationController < BaseController
 
   def require_authentication!
     unless current_user.logged?
-      redirect_to login_url(ref: request.fullpath)
+      # redirect_to login_url(ref: request.fullpath)
+      error_access_denied
       return false
     end
     true
