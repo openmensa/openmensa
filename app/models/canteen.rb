@@ -71,6 +71,8 @@ class Canteen < ActiveRecord::Base
       REXML::XPath.each(xml, '/openmensa/canteen/day') do |day|
         date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
         
+        #REXML::XPath.first(day, 'closed')
+        
         REXML::XPath.each(day, 'category') do |cat|
           category = cat.attribute(:name).to_s
           self.meals.where(date: date, category: category).destroy_all
