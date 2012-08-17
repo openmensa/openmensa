@@ -14,10 +14,21 @@ de:
   service:
     twitter: Twitter
     github: GitHub
+  destroy_identity:
+    twitter: Twitter Identität entfernen
+    github: GitHub Identität entfernen
 
   today: Heute
   no_meals_title: Kein Angebot
   no_meals_message: Leider liegen uns für diesen Tag keine Angebote vor.
+
+  message:
+    identity_added:
+      github: "<b>GitHub</b> Identität hinzugefügt."
+      twitter: "<b>Twitter</b> Identität hinzugefügt."
+    identity_removed:
+      github: "<b>GitHub</b> Identität entfernt."
+      twitter: "<b>Twitter</b> Identität entfernt."
 
   profile:
     name: Name

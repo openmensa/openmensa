@@ -2,13 +2,14 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 
 describe "Profile page" do
-  it "should allow user to change name and email" do
+  before do
     visit root_path
     click_link "Anmelden"
     click_link "Twitter"
+    click_link "Profil"
+  end
 
-    click_link "Mein Profil"
-
+  it "should allow user to change name and email" do
     page.should have_content("Name")
     page.should have_content("E-Mail")
 
@@ -21,12 +22,6 @@ describe "Profile page" do
   end
 
   it "should raise error when user tries to update with empty name" do
-    visit root_path
-    click_link "Anmelden"
-    click_link "Twitter"
-
-    click_link "Mein Profil"
-
     page.should have_content("Name")
     page.should have_content("E-Mail")
 
@@ -35,17 +30,30 @@ describe "Profile page" do
     click_on "Speichern"
 
     page.should have_content("muss ausgefüllt werden")
-    find_field('Name').value.should == 'Bob Example'
+    find_field('Name').value.should == ''
     find_field('E-Mail').value.should == 'boby@altimos.de'
   end
 
+  it "should allow user to add an identity" do
+    click_link "Identität hinzufügen"
+
+    expect { click_link "GitHub" }.to change { Identity.all.count }.from(1).to(2)
+
+    Identity.last.provider.should == "github"
+
+    current_path.should == user_path(1)
+    page.should have_content("GitHub Identität hinzugefügt.")
+  end
+
   it "should allow user to remove an identity" do
-    visit root_path
-    click_link "Anmelden"
-    click_link "Twitter"
+    click_link "Identität hinzufügen"
+    click_link "GitHub"
 
-    click_link "Profile"
+    expect { click_link "Twitter Identität entfernen" }.to change {
+      Identity.all.count }.from(2).to(1)
 
+    Identity.first.provider.should == "github"
 
+    page.should have_content("Twitter Identität entfernt.")
   end
 end

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   scope :all, lambda { where("#{User.table_name}.login != ? AND #{User.table_name}.login != ?", 'anonymous', 'system') }
 
   include Gravtastic
-  gravtastic :secure => true, :default => :identicon, :filetype => :gif, :size => 100
+  gravtastic :secure => true, :default => :mm, :filetype => :gif, :size => 100
 
   def admin?; admin end
   def logged?; true end
