@@ -1,0 +1,10 @@
+.row
+  .span8
+    %section
+      %header
+        %h2= t :my_canteens
+      .content
+        %p
+          = link_to t(:add_canteen), new_user_canteen_path(@user), class: 'btn icon-plus'
+
+  = render partial: 'users/nav'

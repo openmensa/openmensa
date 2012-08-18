@@ -9,3 +9,9 @@
         = link_to t(:my_favorites), user_favorites_path(@user)
       %li
         %a= t :my_applications
+  - if @user.developer?
+    %section
+      %header
+        %h2= t :developer
+      %ul.content.nav
+        = link_to t(:my_canteens), user_canteens_path(@user)
