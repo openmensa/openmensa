@@ -62,12 +62,12 @@ header#header {
 
     a {
       color: #333;
-      @include transition(all .8s ease-in-out);
+      @include transition(text-shadow .8s ease-in-out);
 
       &:hover {
         text-shadow: 0 1px 8px rgba(#333, 0.8);
         text-decoration: none;
-        @include transition(all .8s ease-in-out);
+        @include transition(text-shadow .8s ease-in-out);
       }
     }
 
