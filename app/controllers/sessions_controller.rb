@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     @identity = Identity.from_omniauth(request.env["omniauth.auth"])
     if @identity
       if User.current.logged?
-        return redirect_back alert: t('message.account_taken.' + @identity.provider, name: @identity.user.name)
+        return redirect_back alert: t('message.identity_taken.' + @identity.provider, name: @identity.user.name)
 
       else
         self.current_user = @identity.user

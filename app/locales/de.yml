@@ -30,7 +30,13 @@ de:
   no_meals_message: Leider liegen uns für diesen Tag keine Angebote vor.
 
   message:
-    account_created: Hey, du bist jetzt auch auf OpenMensa. Entdecke die neuen Möglichkeiten durch dein individuelles Profil.
+    account_created: "Hey, du bist jetzt auch auf OpenMensa. Willkommen."
+    login_failed: "Sorry, irgendwas ist schiefgegangen."
+    login_successful: "Willkommen zurück."
+    identity_taken:
+      github: "Deine GitHub Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
+      twitter: "Deine Twitter Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
+      facebook: "Deine Facebook Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
     identity_added:
       github: "<b>GitHub</b> Identität hinzugefügt."
       twitter: "<b>Twitter</b> Identität hinzugefügt."
