@@ -5,56 +5,43 @@
 #= require leaflet.markercluster
 #
 
-class Map
-  constructor: (id, options) ->
-    @map = L.map(id, scrollWheelZoom: options.wheel).setView [51.505, -0.09], 13
-    @map.addLayer L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-        maxZoom: 18)
-
-    @cluster = new L.MarkerClusterGroup showCoverageOnHover: false
-    @markers = []
-
-  map: ->
-    @map
-
-  addMarker: (marker) =>
-    @cluster.addLayer marker
-    @markers.push marker
-
-  setupMarkers: ->
-    bounds = new L.LatLngBounds(marker.getLatLng() for marker in @markers)
-
-    @map.addLayer(@cluster);
-    @map.fitBounds bounds
-    if @map.getZoom() > 17
-      @map.setZoom 17
-
 $ ->
-  $(".map").each ->
-    if $(@).data("markers")
-      map = new Map 'map', wheel: false
+  tileLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    maxZoom: 18)
 
-      for m in $(@).data("markers")
-        marker = L.marker([m.lat, m.lng], { title: m.title })
-        marker.bindPopup "<a class=\"popup-link\" href=\"#{m.url}\">#{m.title}</a><br />"
+  $("#index_map .map").each ->
+    map = L.map(@, scrollWheelZoom: false).setView([51.505, -0.09], 13)
+    map.addLayer tileLayer
 
-        map.addMarker marker
+    cluster = new L.MarkerClusterGroup showCoverageOnHover: false
+    markers = $(@).data("markers")
+    for m in markers
+      marker = L.marker([m.lat, m.lng], { title: m.title })
+      marker.bindPopup "<a class=\"popup-link\" href=\"#{m.url}\">#{m.title}</a><br />"
+      cluster.addLayer marker
+    map.addLayer cluster
 
-    if $(@).data("sync")
-      map = new Map 'map', wheel: true
+    if markers.length > 0
+      map.fitBounds new L.LatLngBounds(new L.LatLng(m.lat, m.lng) for m in markers)
 
-      lat = $ $(@).data("lat")
-      lng = $ $(@).data("lng")
+    if map.getZoom() > 17
+      map.setZoom 17
 
-      marker = L.marker [lat.attr('value'), lng.attr('value')], { draggable: true }
-      marker.on "drag dragend", (marker) ->
-        lat.attr 'value', marker.target.getLatLng().lat
-        lng.attr 'value', marker.target.getLatLng().lng
+  $(".canteens_controller .map").each ->
+    map = L.map(@, scrollWheelZoom: true).setView([51.505, -0.09], 13)
+    map.addLayer tileLayer
 
-      map.addMarker marker
+    lat = $ $(@).data("lat")
+    lng = $ $(@).data("lng")
 
-    map?.setupMarkers()
+    marker = L.marker [lat.attr('value'), lng.attr('value')], { draggable: true }
+    marker.on "drag dragend", (marker) ->
+      lat.attr 'value', marker.target.getLatLng().lat
+      lng.attr 'value', marker.target.getLatLng().lng
+
+    map.addLayer marker
+    map.setView [lat.attr('value'), lng.attr('value')], 17
 
   $('.alert a[data-dismiss]').each ->
     el = $ @
