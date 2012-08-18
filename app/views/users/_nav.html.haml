@@ -6,7 +6,7 @@
       %li
         %a= t :my_profile
       %li
-        = link_to t(:my_favorites), user_favorites_path(@user)
+        = link_to t(:my_favorites), '#' #user_favorites_path(@user)
       %li
         %a= t :my_applications
   - if @user.developer?

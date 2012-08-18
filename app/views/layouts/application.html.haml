@@ -19,7 +19,7 @@
         = link_to "OpenMensa", root_path
       - if current_user.logged?
         %div.actions
-          = link_to favorites_path, title: t(:my_favorites) do
+          = link_to '#', title: t(:my_favorites) do
             %span.icon-star
           = link_to logout_path, title: t(:logout) do
             %span.icon-signout
@@ -28,7 +28,7 @@
         .clear
       - else
         %div.actions
-          = link_to favorites_path, title: t(:my_favorites) do
+          = link_to '#', title: t(:my_favorites) do
             %span.icon-star
           = link_to login_path, title: t(:login) do
             %span.icon-signin
