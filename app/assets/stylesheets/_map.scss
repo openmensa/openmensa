@@ -5,6 +5,10 @@
 .leaflet-container a.leaflet-popup-close-button {
   padding: 2px 0 0 0;
 }
+.leaflet-control-zoom {
+  border-radius: 4px;
+  a { border-radius: 2px; }
+}
 
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
   background-color: #4598d0;
