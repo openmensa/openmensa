@@ -61,6 +61,9 @@ $btn-success: #238625 !default;
 
   &:focus:not(:disabled) {
     @include box-shadow(0 0 0 1px rgba(255, 255, 255, 0.8) inset);
+    @if lightness($text) < 70% {
+      @include box-shadow(0 0 0 1px rgba(0, 0, 0, 0.4) inset);
+    }
   }
 
   &:active:not(:disabled) {
