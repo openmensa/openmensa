@@ -14,21 +14,26 @@ de:
   service:
     twitter: Twitter
     github: GitHub
+    facebook: Facebook
   destroy_identity:
     twitter: Twitter Identität entfernen
     github: GitHub Identität entfernen
+    facebook: Facebook Identität entfernen
 
   today: Heute
   no_meals_title: Kein Angebot
   no_meals_message: Leider liegen uns für diesen Tag keine Angebote vor.
 
   message:
+    account_created: Hey, du bist jetzt auch auf OpenMensa. Entdecke die neuen Möglichkeiten durch dein individuelles Profil.
     identity_added:
       github: "<b>GitHub</b> Identität hinzugefügt."
       twitter: "<b>Twitter</b> Identität hinzugefügt."
+      facebook: "<b>Facebook</b> Identität hinzugefügt."
     identity_removed:
       github: "<b>GitHub</b> Identität entfernt."
       twitter: "<b>Twitter</b> Identität entfernt."
+      facebook: "<b>Facebook</b> Identität entfernt."
     profile_saved: "Profil gespeichert."
 
   profile:
