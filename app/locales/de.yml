@@ -51,6 +51,8 @@ de:
     url: Feed-Url
     name: Name
     address: Adresse
+    latitude: Latitude
+    longitude: Longitude
 
   helpers:
     label:

@@ -5,7 +5,7 @@ class Canteen < ActiveRecord::Base
   belongs_to :user
   has_many :meals
 
-  attr_accessible :address, :name, :url, :user
+  attr_accessible :address, :name, :url, :user, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
 
   geocoded_by :address
@@ -23,9 +23,9 @@ class Canteen < ActiveRecord::Base
   def fetch
     return unless self.url
     uri = URI.parse self.url
-    
+
     xml = REXML::Document.new open(uri).read
-      
+
     case xml.root.attribute(:version).to_s
       when '1.0' then fetch_v1(xml)
       when '2.0' then fetch_v2(xml)
@@ -33,7 +33,7 @@ class Canteen < ActiveRecord::Base
   rescue URI::InvalidURIError
     Rails.logger.warn "Invalid URI (#{url}) in cafeteria #{id}"
   end
-  
+
   def fetch_v1(xml)
     transaction do
       REXML::XPath.each(xml, '/cafeteria/day') do |day|
@@ -59,38 +59,38 @@ class Canteen < ActiveRecord::Base
           end
         end
       end
-      
+
       self.meals.reset
       self.last_fetched_at = Time.zone.now
       self.save!
     end
   end
-  
+
   def fetch_v2(xml)
     transaction do
       REXML::XPath.each(xml, '/openmensa/canteen/day') do |day|
         date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
-        
+
         #REXML::XPath.first(day, 'closed')
-        
+
         REXML::XPath.each(day, 'category') do |cat|
           category = cat.attribute(:name).to_s
           self.meals.where(date: date, category: category).destroy_all
-          
+
           REXML::XPath.each(cat, 'meal') do |node|
             meal = Meal.new canteen: self, date: date, category: category
             meal.name = REXML::XPath.first(node, 'name').text
-            
+
             # TODO: fetch a meal's notes and prices
             REXML::XPath.each(node, 'note') do |note| end
             REXML::XPath.each(node, 'price') do |price| end
-            
+
             meal.save!
           end
         end
       end
     end
-    
+
     self.meals.reset
     self.last_fetched_at = Time.zone.now
     self.save!
