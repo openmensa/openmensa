@@ -7,20 +7,60 @@ describe UsersController do
   describe "#show" do
     before { user }
 
-    it "should not allow unauthorized access by anonymous" do
-      get :show, id: user.id
+    context "as anonymous" do
+      it "should not be accessible" do
+        get :show, id: user.id
 
-      response.status.should == 401
+        response.status.should == 401
+      end
+    end
+
+    context "as user" do
+      it "should be allow access to my profile" do
+        set_current_user user
+        get :show, id: user.id
+
+        response.status.should == 200
+      end
+    end
+
+    context "as admin" do
+      it "should not be accessible" do
+        set_current_user FactoryGirl.create(:admin)
+        get :show, id: user.id
+
+        response.status.should == 200
+      end
     end
   end
 
   describe "#update" do
     before { user }
 
-    it "should not be accessible by anonymous" do
-      put :update, id: user.id, user_name: 'Bobby'
+    context "as anonymous" do
+      it "should not be accessible" do
+        put :update, id: user.id, user_name: 'Bobby'
 
-      response.status.should == 401
+        response.status.should == 401
+      end
+    end
+
+    context "as user" do
+      it "should be allow to update to my profile" do
+        set_current_user user
+        put :update, id: user.id, user_name: 'Bobby'
+
+        response.status.should == 302
+      end
+    end
+
+    context "as admin" do
+      it "should not be accessible" do
+        set_current_user FactoryGirl.create(:admin)
+        put :update, id: user.id, user_name: 'Bobby'
+
+        response.status.should == 302
+      end
     end
   end
 end
