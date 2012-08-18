@@ -1,6 +1,6 @@
 
 # fix strange port numbers due to proxy
-OmniAuth.config.full_host = Proc.new { |env| env['HOST'] }
+# OmniAuth.config.full_host = Proc.new { |env| env['HOST'] }
 
 OMNI_CONFIG = YAML.load_file(Rails.root.join("config","omniauth.yml"))[Rails.env]
 
