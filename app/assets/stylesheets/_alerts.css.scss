@@ -15,14 +15,15 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
 
 @mixin alert($color, $bg, $border) {
   color: $color;
-  padding: 6px 29px 6px 9px;
+  padding: 10px 29px 10px 14px;
   background-color: $bg;
   border: 1px solid $border;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   border-radius: 2px;
   position: relative;
+  overflow: hidden;
   @include box-shadow(0 0 2px rgba(0, 0, 0, 0.2));
-  @include p;
+  margin: 14px 0;
 
   > :first-child { margin-top: 0; }
   > :last-child  { margin-bottom: 0; }
@@ -30,7 +31,7 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
   > a.close {
     content: '×';
     position: absolute;
-    top: 0;
+    top: -4px;
     right: 0;
 
     display: block;
@@ -43,6 +44,11 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
       color: #333;
       text-decoration: none;
     }
+  }
+
+  @include media(handheld) {
+    margin: 3px 0;
+    padding: 4px 29px 4px 6px;
   }
 }
 
