@@ -26,6 +26,7 @@ gem 'geocoder'
 gem 'leaflet-rails', '~> 0.4.2.beta1'
 
 gem 'sqlite3'
+gem 'pg'
 
 group :assets do
   gem "sass", "~> 3.2.0"

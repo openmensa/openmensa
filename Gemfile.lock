@@ -169,6 +169,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
+    pg (0.14.0)
     polyglot (0.3.3)
     rabl (0.7.1)
       activesupport (>= 2.3.14)
@@ -312,6 +313,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-twitter
   paperclip
+  pg
   rabl
   rack-piwik
   rails (= 3.2.8)

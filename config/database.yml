@@ -39,5 +39,7 @@ test:
   database: ":memory:"
 
 production:
-  <<: *common
-  database: db/production.sqlite3
+  adapter: postgresql
+  database: openmensa2
+  host: 127.0.0.1
+  user: openmensa
