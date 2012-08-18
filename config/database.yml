@@ -1,41 +1,15 @@
-# SQLite version 3.x
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
-database: &common
-   adapter: sqlite3
-   pool: 5
-   timeout: 5000
-#
-# Postgres
-#   Ensure the Postgress gem is defined in your Gemfile
-#   gem 'pg'
-#
-# database: &common
-#   adapter: postgresql or pg
-#   username: username
-#   password: password
-#
-# MySQL
-#   Ensure the MySQL gem is defined in your Gemfile
-#   gem 'mysql2'
-# database: &common
-#   adapter: mysql2
-#   username: username
-#   password: password
-#
-# Replace database with the name or file of your database depending
-# on your adapter. E.g. for SQLite `db/development.sqlite3` while for MySQL
-# it my be `studix_development`.
+
 development:
-  <<: *common
-  database: db/development.sqlite3
+  adapter: postgresql
+  database: openmensa
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *common
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
   database: ":memory:"
 
 production:

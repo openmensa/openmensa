@@ -1,4 +1,4 @@
-require "bcrypt"
+require 'bcrypt'
 
 class Identity < ActiveRecord::Base
 
@@ -13,17 +13,17 @@ class Identity < ActiveRecord::Base
     if: proc { |identity| identity.new_record? }
 
   def self.from_omniauth(auth)
-    find_by_provider_and_uid(auth["provider"], auth["uid"])
+    find_by_provider_and_uid(auth['provider'], auth['uid'].to_s)
   end
 
   def self.new_with_omniauth(auth, user = nil)
     new do |identity|
       identity.user     = user
-      identity.provider = auth["provider"]
-      identity.uid      = auth["uid"]
-      if auth["credentials"]
-        identity.token    = auth["credentials"]["token"]
-        identity.secret   = auth["credentials"]["secret"]
+      identity.provider = auth['provider']
+      identity.uid      = auth['uid'].to_s
+      if auth['credentials']
+        identity.token    = auth['credentials']['token']
+        identity.secret   = auth['credentials']['secret']
       end
     end
   end
