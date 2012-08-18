@@ -40,6 +40,6 @@ test:
 
 production:
   adapter: postgresql
-  database: openmensa2
+  database: openmensa
   host: 127.0.0.1
   user: openmensa
