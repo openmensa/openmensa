@@ -26,49 +26,13 @@ module ApplicationHelper
     end
   end
 
-  def connect_service_links
-    links = {}
-    User.current.identities.each do |id|
-      if Rails.configuration.omniauth_services.include? id.provider.to_s
-        links[id.provider.to_sym] = link_to "", "#",
-          class: "icon-#{id.provider}-sign"
-      end
-    end
-
-    Rails.configuration.omniauth_services.each do |id|
-      links[id] = link_to "", auth_path(id),
-        class: "icon-#{id}-sign inactive", title: t(:tip, :connect_account, id) unless links[id.to_sym]
-    end
-
-    links.map{|k,v| v}.join('').html_safe
-  end
-
-  def login_service_links
-    Rails.configuration.omniauth_services.map do |id|
-      link_to "", auth_path(id), class: "icon-#{id}-sign inactive", title: t(:tip, :login_account, id)
-    end.join('').html_safe
-  end
-
-  def icon(icon)
-    "<i class=\"icon-#{icon}\"></i>".html_safe
-  end
-
   def title
     "#{@title} - #{OpenMensa::TITLE}" unless @title
     OpenMensa::TITLE
   end
 
-  def set_title(title)
-    @title = title.to_s
-  end
-
   def body_classes
     ["#{controller.controller_name}_controller", "#{params[:action] || 'unknown'}_action", @layout].join(' ').strip
-  end
-
-  def render_navigation_item(text, url, options = {})
-    n = render_navigation renderer: :links, items: [{ key: :anon, name: text, url: url, options: options }]
-    n.gsub(/<\/?div>/, '').html_safe
   end
 
   def map(canteens, options = {})
