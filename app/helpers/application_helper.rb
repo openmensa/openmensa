@@ -16,7 +16,7 @@ module ApplicationHelper
     user    = attrs.first || User.current
     if user
       image_tag user.gravatar_url(options).to_s,
-        alt:   user.login,
+        alt:   user.name,
         class: 'avatar',
         style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ''
     else

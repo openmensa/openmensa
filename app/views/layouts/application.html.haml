@@ -21,13 +21,10 @@
         %div.actions
           = link_to favorites_path, title: t(:my_favorites) do
             %span.icon-star
-          = link_to user_path(current_user.id), title: t(:my_profile) do
-            %span.icon-cog
           = link_to logout_path, title: t(:logout) do
             %span.icon-signout
-          %div.account
+          = link_to user_path(current_user.id), title: t(:my_profile), class: :account do
             = avatar
-            %span= current_user.name
         .clear
       - else
         %div.actions

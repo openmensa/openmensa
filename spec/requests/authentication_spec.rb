@@ -8,7 +8,7 @@ describe "Authentication" do
       click_link "Anmelden"
       click_link "Twitter"
 
-      page.should have_content("Bob Example")
+      page.body.should include("Bob Example")
     end
 
     it "should login using GitHub" do
@@ -16,7 +16,7 @@ describe "Authentication" do
       click_link "Anmelden"
       click_link "GitHub"
 
-      page.should have_content("Bob Example")
+      page.body.should include("Bob Example")
     end
   end
 
