@@ -10,6 +10,7 @@ class CanteensController < ApplicationController
   end
 
   def index
+    @canteens = @user.canteens
   end
 
   def new
@@ -28,6 +29,16 @@ class CanteensController < ApplicationController
 
   def edit
     @canteen = @user.canteens.find(params[:id])
+  end
+
+  def update
+    @canteen = @user.canteens.find(params[:id])
+    if @canteen.update_attributes(params[:canteen])
+      flash[:notice] = t "message.canteen_saved"
+      redirect_to user_canteens_path(@user)
+    else
+      render action: :edit
+    end
   end
 
   def show
