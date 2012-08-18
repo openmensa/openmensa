@@ -15,6 +15,10 @@ FactoryGirl.define do
     admin true
   end
 
+  factory :developer, parent: :user do
+    developer true
+  end
+
   factory :identity do
     association :user
 

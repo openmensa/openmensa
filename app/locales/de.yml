@@ -1,5 +1,6 @@
 
 de:
+  add: Hinzufügen
   save: Speichern
   login: Anmelden
   logout: Abmelden
@@ -10,6 +11,10 @@ de:
   my_applications: Meine Anwendungen
   my_identities: Meine Identitäten
   add_identity: Identität hinzufügen
+  developer: Entwickler
+  my_canteens: Meine Mensen
+  add_canteen: Neuen Mensa hinzufügen
+  edit_canteen: Mensa bearbeiten
 
   service:
     twitter: Twitter
@@ -35,10 +40,17 @@ de:
       twitter: "<b>Twitter</b> Identität entfernt."
       facebook: "<b>Facebook</b> Identität entfernt."
     profile_saved: "Profil gespeichert."
+    canteen_added: Der Mensa wurde erfolgreich hinzugefügt.
+    canteen_saved: "Mensa gespeichert."
 
   profile:
     name: Name
     email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
+
+  canteen:
+    url: Feed-Url
+    name: Name
+    address: Adresse
 
   helpers:
     label:

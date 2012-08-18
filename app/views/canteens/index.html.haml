@@ -1,0 +1,18 @@
+.row
+  .span8
+    %section
+      %header
+        %h2= t :my_canteens
+      .content
+        %table
+          - @canteens.each do |c|
+            %tr
+              %td=c.name
+              %td=c.address
+              %td
+                = link_to edit_user_canteen_path(@user, c), title: t(:edit_canteen) do
+                  %i.icon-edit
+        %p
+          = link_to t(:add_canteen), new_user_canteen_path(@user), class: 'btn icon-plus'
+
+  = render partial: 'users/nav'

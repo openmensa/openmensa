@@ -1,0 +1,20 @@
+.row
+  .span8
+    %section
+      %header
+        %h2= t :add_canteen
+      .content
+        = form_for [@user, @canteen] do |f|
+          %p
+            = f.label :url, t(:canteen, :url)
+            = f.text_field :url
+          %p
+            = f.label :name, t(:canteen, :name)
+            = f.text_field :name
+          %p
+            = f.label :address, t(:canteen, :address)
+            = f.text_field :address
+          %p
+            = submit_tag t(:add)
+
+  = render partial: 'users/nav'
