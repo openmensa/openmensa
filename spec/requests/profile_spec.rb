@@ -2,10 +2,10 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 
 describe "Profile page" do
+  let(:user) { FactoryGirl.create :user }
+
   before do
-    visit root_path
-    click_link "Anmelden"
-    click_link "Twitter"
+    login_as user
     click_link "Profil"
   end
 
@@ -43,7 +43,7 @@ describe "Profile page" do
 
     Identity.last.provider.should == "github"
 
-    current_path.should == user_path(1)
+    current_path.should == user_path(user)
     page.should have_content("GitHub Identität hinzugefügt.")
   end
 
