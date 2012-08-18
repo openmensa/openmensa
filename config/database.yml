@@ -14,4 +14,4 @@ test:
 
 production:
   <<: *common
-  database: openmensa_prod
+  database: openmensa
