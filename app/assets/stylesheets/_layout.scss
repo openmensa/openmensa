@@ -123,6 +123,7 @@ header#header {
       margin: 0 0 0 20px;
       height: 40px;
 
+
       img {
         float: right;
         display: block;
@@ -130,14 +131,12 @@ header#header {
         height: 40px;
         width: 40px;
         @include box-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+        @include transition(all .3s ease-in-out .2s);
       }
 
-      span {
-        display: block;
-        margin-right: 35px;
-        font-weight: bold;
-        padding: 6px 0 0 0;
-        display: none;
+      &:hover img {
+        @include box-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+        @include transition(all .2s ease-in-out);
       }
     }
 
