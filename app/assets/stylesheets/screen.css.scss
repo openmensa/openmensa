@@ -196,7 +196,7 @@
 
       h3 {
         float: left;
-        width: 120px;
+        width: 140px;
         font-size: 13px;
         font-size: 1.3rem;
         font-weight: bold;
@@ -205,7 +205,7 @@
       }
 
       p {
-        margin: 4px 0 0 135px;
+        margin: 4px 0 0 155px;
         padding: 0 5px 4px;
         border-bottom: 1px dotted #eee;
         &:last-child { border: none; }
@@ -267,10 +267,11 @@
       top: 0;
       right: 0;
 
-      display: block;
       color: #aaa;
+      display: block;
+      font-weight: bold;
       font-size: 20px;
-      padding: 0 6px;
+      padding: 0 10px 0 6px;
 
       &:hover {
         color: #333;

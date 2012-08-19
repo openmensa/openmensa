@@ -15,7 +15,7 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
 
 @mixin alert($color, $bg, $border) {
   color: $color;
-  padding: 10px 29px 10px 14px;
+  padding: 10px 32px 10px 14px;
   background-color: $bg;
   border: 1px solid $border;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -30,14 +30,15 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
 
   > a.close {
     content: '×';
+    float: right;
     position: absolute;
-    top: -2px;
+    top: 0;
     right: 0;
 
     display: block;
     color: #aaa;
     font-size: 20px;
-    padding: 1px 6px;
+    padding: 3px 12px;
     font-weight: bold;
 
     &:hover {
