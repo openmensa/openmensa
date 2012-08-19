@@ -11,7 +11,7 @@ describe "Profile page" do
 
   it "should allow to add a new canteen feed" do
     click_on "Meine Mensen"
-    click_on "Neuen Mensa hinzufügen"
+    click_on "Neue Mensa hinzufügen"
 
     fill_in "Feed-Url", with: "http://example.org/canteens.xml"
     fill_in "Name", with: "Test-Mensa"
