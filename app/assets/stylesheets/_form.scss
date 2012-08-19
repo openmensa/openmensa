@@ -30,6 +30,12 @@ form {
       &:focus {
         border-color: #777;
       }
+
+      &[readonly], &:disabled {
+        @include box-shadow(none);
+        border-color: #ccc;
+        background-color: #fafafa;
+      }
     }
 
     .error {
