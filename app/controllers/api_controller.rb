@@ -14,7 +14,11 @@ class ApiController < BaseController
 
   def set_content_type
     if ['json', 'xml', 'msgpack'].include? params[:format].to_s
-      response.content_type = "application/#{params[:format]}"
+      response.content_type = {
+        json: 'application/json',
+        xml: 'application/xml',
+        msgpack: 'application/x-msgpack'
+      }[params[:format].to_s.to_sym]
     else
       render_error status: :not_acceptable, message: 'Unsupported format.'
       false
