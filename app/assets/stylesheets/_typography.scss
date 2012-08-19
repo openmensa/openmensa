@@ -3,7 +3,7 @@
 
 $text-size: 62.5% !default;
 $text-color: #333 !default;
-$text-font: Helvetica, arial, freesans, clean, sans-serif !default;
+$text-font: $helvetica !default;
 
 $header-color: $text-color !default;
 $header-font: 'Droid Sans', $text-font !default;
@@ -52,7 +52,7 @@ h5 { font-size: 13px; font-size: 1.3rem; }
   h5 { font-size: 13px; font-size: 1.3rem; }
 }
 
-small { font-size: .8em; }
+small { font-size: .7em; font-family: sans-serif; font-weight: normal; }
 b, strong { font-weight: bold; }
 i, em { font-style: italic; }
 p, .p { @include p; }

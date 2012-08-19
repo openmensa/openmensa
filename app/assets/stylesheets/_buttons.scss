@@ -94,14 +94,15 @@ $btn-success: #238625 !default;
 
 .btn {
   @include btn($btn, #fff);
-  font-size: 1em;
+  font-size: 13px;
+  font-size: 1.3rem;
   font-weight: bold;
   padding: 4px 10px;
   display: inline-block;
   text-decoration: none;
 
   // font: -webkit-small-control;
-  // -webkit-appearance: none;
+  -webkit-appearance: none;
   // -webkit-box-align: center;
   // -webkit-rtl-ordering: logical;
   // -webkit-user-select: text;
@@ -129,8 +130,9 @@ $btn-success: #238625 !default;
 
   > .icon-large:before {
     font-size: 20px;
+    font-size: 2.0rem;
     padding-right: 4px;
-    margin-top: .2em;
+    margin-top: .1em;
     line-height: .5em;
     vertical-align: middle;
   }
