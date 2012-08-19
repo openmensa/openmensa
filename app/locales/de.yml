@@ -31,6 +31,10 @@ de:
   no_meals_title: Kein Angebot
   no_meals_message: Leider liegen uns für diesen Tag keine Angebote vor.
 
+  notice:
+    no_canteens: "Du hast noch keine Mensen eingetragen.<br /> Du kanst eine <strong>neue Mensa</strong> eintragen, indem du oben auf das Plus-Symbol drückst."
+    only_one_identity: "Du hast erst <strong>eine</strong> Identität eingetragen.<br /> Warum verbindest du deinen Account nicht mit weiteren Diensten, mit denen du dich bei OpenMensa anmelden kannst?"
+
   message:
     account_created: "Hey, du bist jetzt auch auf OpenMensa. Willkommen."
     login_failed: "Sorry, irgendwas ist schiefgegangen."

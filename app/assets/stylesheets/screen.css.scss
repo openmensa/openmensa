@@ -279,5 +279,13 @@
         text-decoration: none;
       }
     }
+
+    &.add_notice {
+      float: right;
+      text-align: right !important;
+      border: 0;
+      margin-right: 10px !important;
+      @include box-shadow(none);
+    }
   }
 }

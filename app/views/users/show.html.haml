@@ -25,6 +25,9 @@
       %div.content.identities
         - @user.identities.each do |identity|
           = render partial: 'identity', object: identity
+        - if @user.identities.count == 1
+          %div.identity.add_notice
+            = t :notice, :only_one_identity
 
 
   = render partial: 'nav'
