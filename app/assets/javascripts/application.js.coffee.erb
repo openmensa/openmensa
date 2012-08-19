@@ -11,7 +11,7 @@ $ ->
     maxZoom: 18)
 
   $("#index_map .map").each ->
-    map = L.map(@, scrollWheelZoom: false).setView([51.505, -0.09], 13)
+    map = L.map(@, scrollWheelZoom: false)
     map.addLayer tileLayer
 
     cluster = new L.MarkerClusterGroup showCoverageOnHover: false
@@ -24,12 +24,14 @@ $ ->
 
     if markers.length > 0
       map.fitBounds new L.LatLngBounds(new L.LatLng(m.lat, m.lng) for m in markers)
+    else
+      map.setView([52.39392162228438, 13.132932186126707], 18)
 
     if map.getZoom() > 17
       map.setZoom 17
 
   $(".canteens_controller .map").each ->
-    map = L.map(@, scrollWheelZoom: true).setView([51.505, -0.09], 13)
+    map = L.map(@, scrollWheelZoom: true)
     map.addLayer tileLayer
 
     lat = $ $(@).data("lat")
