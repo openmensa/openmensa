@@ -26,6 +26,10 @@ form {
         border-color: #aaa;
         @include box-shadow(0 0 3px rgba(#000, 0.4));
       }
+
+      &:focus {
+        border-color: #777;
+      }
     }
 
     .error {
