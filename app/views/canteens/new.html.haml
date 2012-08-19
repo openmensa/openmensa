@@ -7,13 +7,13 @@
         = form_for [@user, @canteen] do |f|
           %p
             = f.label :url, t(:canteen, :url)
-            = f.text_field :url
+            = f.text_field :url, :placeholder => t(:placeholder, :canteen, :url)
           %p
             = f.label :name, t(:canteen, :name)
-            = f.text_field :name
+            = f.text_field :name, :placeholder => t(:placeholder, :canteen, :name)
           %p
             = f.label :address, t(:canteen, :address)
-            = f.text_field :address
+            = f.text_field :address, :placeholder => t(:placeholder, :canteen, :address)
           %p
             = submit_tag t(:add)
 

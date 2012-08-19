@@ -13,7 +13,7 @@ de:
   add_identity: Identität hinzufügen
   developer: Entwickler
   my_canteens: Meine Mensen
-  add_canteen: Neuen Mensa hinzufügen
+  add_canteen: Neue Mensa hinzufügen
   edit_canteen: Mensa bearbeiten
 
   service:
@@ -75,3 +75,9 @@ de:
     unauthorized:
       title: Darfst du nicht.
       message: Du darfst diesen Aufruf nicht durchführen.
+
+  placeholder:
+    canteen:
+      url: http://mydomain.de/mensa-greuther-fuerth.xml
+      name: Mensa Greuther Fürth
+      address: Straße + Hausnummer, Postleitzahl + Stadt, Germany
