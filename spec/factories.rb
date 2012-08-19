@@ -37,6 +37,9 @@ FactoryGirl.define do
     address         "Marble Street, 12345 City"
     url             "http://example.com/canteen_feed.xml"
 
+    sequence(:latitude)  { |n| (n % 180) - 90 }
+    sequence(:longitude) { |n| (n % 360) - 180 }
+
     association :user
   end
 
