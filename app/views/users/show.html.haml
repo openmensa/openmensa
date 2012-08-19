@@ -16,13 +16,15 @@
             %input{type: "submit", value: t(:save)}
     %section
       %header
-        %h2= t(:my_identities)
+        %h2
+          = t(:my_identities)
+          %ul.actions
+            - if @user.identities.count < Identity.providers.count
+              %li
+                = link_to '', new_user_identity_path(@user), title: t(:add_identity), class: 'icon-plus-sign'
       %div.content.identities
         - @user.identities.each do |identity|
           = render partial: 'identity', object: identity
-        - if @user.identities.count < Identity.providers.count
-          %p
-            = link_to t(:add_identity), new_user_identity_path(@user), class: 'btn icon-plus'
 
 
   = render partial: 'nav'
