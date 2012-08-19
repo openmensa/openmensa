@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Authentication" do
+describe "Authentication", js: true do
   describe "Login" do
     it "should login using Twitter" do
       visit root_path
