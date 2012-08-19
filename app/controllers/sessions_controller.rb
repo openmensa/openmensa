@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     respond_to do |format|
-      format.html { redirect_to root_url and return if User.current.logged? }
+      format.html { redirect_to root_url and return if current_user.logged? }
     end
   end
 
@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 
     @identity = Identity.from_omniauth(request.env["omniauth.auth"])
     if @identity
-      if User.current.logged?
+      if current_user.logged?
         return redirect_back alert: t('message.identity_taken.' + @identity.provider, name: @identity.user.name)
 
       else
@@ -22,8 +22,8 @@ class SessionsController < ApplicationController
     else
       @identity = Identity.new_with_omniauth(request.env["omniauth.auth"])
 
-      if User.current.logged?
-        @identity.user = User.current
+      if current_user.logged?
+        @identity.user = current_user
         @identity.save!
         return redirect_back notice: t('message.identity_added.' + @identity.provider, name: @identity.user.name).html_safe
 

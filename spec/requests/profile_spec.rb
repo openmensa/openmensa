@@ -39,7 +39,7 @@ describe "Profile page" do
   it "should allow user to add an identity" do
     click_link "Identität hinzufügen"
 
-    expect { click_link "GitHub" }.to change { Identity.all.count }.from(1).to(2)
+    expect { click_link "GitHub" }.to change { Identity.all.count }.by(1)
 
     Identity.last.provider.should == "github"
 
@@ -50,6 +50,7 @@ describe "Profile page" do
   it "should allow user to remove an identity" do
     click_link "Identität hinzufügen"
     click_link "GitHub"
+    click_link "Mein Profil"
 
     expect { click_link "Twitter Identität entfernen" }.to change {
       Identity.all.count }.from(2).to(1)
