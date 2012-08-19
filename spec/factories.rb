@@ -43,6 +43,17 @@ FactoryGirl.define do
     association :user
   end
 
+  factory :canteen_with_meals, parent: :canteen do
+    after(:create) do |canteen|
+      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now - 1.day)
+      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now - 1.day)
+      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now)
+      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now)
+      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now + 1.day)
+      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now + 1.day)
+    end
+  end
+
   factory :meal do
     sequence(:category) { |n| "Meal ##{n}" }
     name                { "The name of #{category}." }
