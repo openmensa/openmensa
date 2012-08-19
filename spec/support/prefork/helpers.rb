@@ -1,12 +1,6 @@
 
 def set_current_user(user)
-  if user && user.logged?
-    session[:user_id] = user.id
-    User.current = user
-  else
-    session[:user_id] = nil
-    User.current = User.anonymous
-  end
+  controller.current_user = user.is_a?(User) ? user : nil
 end
 
 def mock_file(file)
@@ -36,6 +30,10 @@ def login(identity)
   visit "/auth/#{identity.provider}"
 
   OmniAuth.config.mock_auth[identity.provider.to_sym] = old_mock
+end
+
+def phantom_image(name)
+  page.driver.render("tmp/#{name}.png", :full => true)
 end
 
 def auth_basic(client)

@@ -54,6 +54,7 @@ group :test do
   gem 'database_cleaner'
   gem 'webmock'
   gem 'capybara',       require: false
+  gem 'poltergeist',    require: false
   gem 'turn',           require: false
   gem 'guard-rspec',    require: false
   gem 'guard-spork',    require: false

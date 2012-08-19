@@ -25,6 +25,7 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'factory_girl'
   require 'webmock/rspec'
+  require 'capybara/poltergeist'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -44,13 +45,23 @@ Spork.prefork do
       DatabaseCleaner.clean_with(:truncation)
     end
 
+    config.before :each, js: true do
+      DatabaseCleaner.clean_with(:truncation)
+      DatabaseCleaner.strategy = :truncation
+    end
+
     config.before :each do
       Timecop.return
       DatabaseCleaner.start
     end
 
-    config.after :each  do
+    config.after :each do
       DatabaseCleaner.clean
+    end
+
+    config.after :each, js: true do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
     end
 
     OmniAuth.config.test_mode = true
@@ -64,6 +75,8 @@ Spork.prefork do
     })
 
     Capybara.default_host = 'http://example.org'
+    Capybara.javascript_driver = :poltergeist
+    WebMock.disable_net_connect!(:allow_localhost => true)
   end
 end
 
