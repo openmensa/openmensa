@@ -17,12 +17,14 @@
           .row
             .span6
               %p
-                = f.label :address, t(:canteen, :latitude)
+                = f.label :address, t(:canteen, :latitude_and_longitude)
                 = f.text_field :latitude, readonly: true
+                = f.text_field :longitude, readonly: true
             .span6
               %p
-                = f.label :address, t(:canteen, :longitude)
-                = f.text_field :longitude, readonly: true
+                %label.icon-comment-alt
+                  = t :canteen, :map_marker
+                = t :notice, :map_marker
           %div.map#map{ data: { sync: "true", lat: '#canteen_latitude', lng: '#canteen_longitude' } }
           %p
             = submit_tag t(:save)

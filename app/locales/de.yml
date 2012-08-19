@@ -34,6 +34,7 @@ de:
   notice:
     no_canteens: "Du hast noch keine Mensen eingetragen.<br /> Du kannst eine <strong>neue Mensa</strong> eintragen, indem du oben auf das Plus-Symbol drückst."
     only_one_identity: "Du hast erst <strong>eine</strong> Identität eingetragen.<br /> Warum verbindest du deinen Account nicht mit weiteren Diensten, mit denen du dich bei OpenMensa anmelden kannst?"
+    map_marker: "Du kannst den Marker auf der Karte <strong>verschieben</strong> um den Koordinaten den letzten Schliff zu geben."
 
   message:
     account_created: "Hey, du bist jetzt auch auf OpenMensa. Willkommen."
@@ -68,6 +69,8 @@ de:
     address: Adresse
     latitude: Latitude
     longitude: Longitude
+    latitude_and_longitude: "Latitude & Longitude"
+    map_marker: "Marker verschieben"
 
   helpers:
     label:
