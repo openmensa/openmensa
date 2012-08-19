@@ -20,10 +20,12 @@ de:
     twitter: Twitter
     github: GitHub
     facebook: Facebook
+    google_oauth2: Google
   destroy_identity:
     twitter: Twitter Identität entfernen
     github: GitHub Identität entfernen
     facebook: Facebook Identität entfernen
+    google_oauth2: Google Identität entfernen
 
   today: Heute
   no_meals_title: Kein Angebot
@@ -37,14 +39,17 @@ de:
       github: "Deine GitHub Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
       twitter: "Deine Twitter Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
       facebook: "Deine Facebook Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
+      google_oauth2: "Deine Google Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
     identity_added:
       github: "<b>GitHub</b> Identität hinzugefügt."
       twitter: "<b>Twitter</b> Identität hinzugefügt."
       facebook: "<b>Facebook</b> Identität hinzugefügt."
+      google_oauth2: "<b>Google</b> Identität hinzugefügt."
     identity_removed:
       github: "<b>GitHub</b> Identität entfernt."
       twitter: "<b>Twitter</b> Identität entfernt."
       facebook: "<b>Facebook</b> Identität entfernt."
+      google_oauth2: "<b>Google</b> Identität entfernt."
     profile_saved: "Profil gespeichert."
     canteen_added: Der Mensa wurde erfolgreich hinzugefügt.
     canteen_saved: "Mensa gespeichert."

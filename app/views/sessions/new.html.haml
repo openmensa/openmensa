@@ -6,21 +6,9 @@
         %header
           %h2 Sign in with
         .content
-          %p.centered
-            - Rails.configuration.omniauth_services.each do |srv|
-              = link_to auth_path(srv), class: "btn btn-login btn-social btn-#{srv}", title: t(:service, srv) do
-                %i.icon-large{ class: "icon-#{srv}-sign" }
-                = t(:service, srv)
-            / = link_to auth_path(:twitter), class: 'btn btn-login btn-social btn-twitter', title: "Twitter" do
-            /   %i.icon-twitter-sign.icon-large
-            /   Twitter
-            / = link_to auth_path(:facebook), class: 'btn btn-login btn-social btn-facebook', title: "Facebook" do
-            /   %i.icon-facebook-sign.icon-large
-            /   Facebook
-            / = link_to auth_path(:google), class: 'btn btn-login btn-social btn-google-plus', title: "Google+" do
-            /   %i.icon-google-plus-sign.icon-large
-            /   Google+
-            / = link_to auth_path(:github), class: 'btn btn-login btn-social btn-github', title: "GitHub" do
-            /   %i.icon-github-sign.icon-large
-            /   GitHub
+          %p.centered.ident-buttons
+            - Rails.configuration.omniauth_services.each do |id|
+              = link_to auth_path(id), class: "btn btn-login btn-social btn-#{id}", title: t(:service, id) do
+                %i.icon-large{ class: "icon-#{id}-sign" }
+                = t(:service, id)
 

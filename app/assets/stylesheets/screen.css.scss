@@ -1,10 +1,10 @@
 // Main stylesheet file for default desktop (screen) devices.
 //
-//= require font-awesome
-//= require leaflet
-//= require leaflet.markercluster
 //= require_self
 
+@import "font-awesome";
+@import "leaflet";
+@import "leaflet.markercluster";
 @import "bourbon";
 @import "compass";
 
@@ -18,6 +18,7 @@
 @import "map";
 
 .hide { display: none; }
+.icon-google_oauth2-sign { @extend .icon-google-plus-sign }
 
 .appbox {
   position: relative;

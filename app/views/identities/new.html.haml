@@ -5,12 +5,14 @@
         %header
           %h2= t :add_identity
         .content
-          %p.centered
-            - if @identities.any?
-              - @identities.each do |srv|
-                = link_to auth_path(srv, ref: user_path(current_user)), class: "btn btn-login btn-social btn-#{srv}", title: t(:service, srv) do
-                  %i.icon-large{ class: "icon-#{srv}-sign" }
-                  = t(:service, srv)
-            - else
-              %strong= t :no_more_identities
+          %p.centered.ident-buttons
+            - Identity.providers.each do |id|
+              - if @identities.include? id
+                %span{class: "btn btn-login btn-social btn-#{id} btn-disabled"}
+                  %i.icon-large{ class: "icon-#{id}-sign" }
+                  = t(:service, id)
+              - else
+                = link_to auth_path(id, ref: user_path(current_user)), class: "btn btn-login btn-social btn-#{id}", title: t(:service, id) do
+                  %i.icon-large{ class: "icon-#{id}-sign" }
+                  = t(:service, id)
 

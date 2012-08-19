@@ -1,7 +1,7 @@
 class IdentitiesController < ApplicationController
 
   def new
-    @identities = Identity.providers - current_user.identities.map(&:provider)
+    @identities = current_user.identities.map(&:provider)
   end
 
   def destroy
