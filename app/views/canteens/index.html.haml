@@ -15,9 +15,9 @@
               %tr
                 %td=c.name
                 %td=c.address
-                %td
+                %td.actions
                   = link_to edit_user_canteen_path(@user, c), title: t(:edit_canteen) do
-                    %i.icon-edit
+                    %i.icon-pencil
         - else
           %p.add_notice= t :notice, :no_canteens
 

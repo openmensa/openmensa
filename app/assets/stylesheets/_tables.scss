@@ -1,0 +1,54 @@
+
+table {
+  @extend p;
+  width: 100%;
+  border-collapse: collapse;
+
+  tr {
+    td {
+      border-top: 1px solid #eee;
+      padding: 2px 4px;
+
+      @include transition(color .1s ease-in-out);
+    }
+    &:first-child td { border: none; }
+
+    td.actions {
+      text-align: right;
+      padding: 0 4px;
+
+      a {
+        color: #eee;
+        display: block;
+        padding: 0 2px;
+        overflow: hidden;
+        height: 20px;
+
+        i:before {
+          font-size: 20px;
+        }
+
+        @include transition(color .2s ease-in-out .2s);
+
+        &:hover {
+          text-decoration: none;
+          color: #333 !important;
+
+          @include transition(color .1s ease-in-out);
+          // background-color: rgba(0,0,0,0.02);
+        }
+      }
+    }
+
+    &:hover {
+      td {
+        background-color: #f8f8ff;
+
+        &.actions a {
+          color: #aaa;
+          @include transition(color .1s ease-in-out);
+        }
+      }
+    }
+  }
+}

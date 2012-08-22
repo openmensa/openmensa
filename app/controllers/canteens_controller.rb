@@ -10,7 +10,7 @@ class CanteensController < ApplicationController
   end
 
   def index
-    @canteens = @user.canteens
+    @canteens = @user.canteens.order(:name)
   end
 
   def new
