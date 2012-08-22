@@ -25,7 +25,7 @@
                 %label.icon-comment-alt
                   = t :canteen, :map_marker
                 = t :notice, :map_marker
-          %div.map#map{ data: { sync: "true", lat: '#canteen_latitude', lng: '#canteen_longitude' } }
+          %div.map.edit_map#map{ data: { sync: "true", lat: '#canteen_latitude', lng: '#canteen_longitude' } }
           %p
             = submit_tag t(:save)
 

@@ -10,7 +10,7 @@ $ ->
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     maxZoom: 18)
 
-  $("#index_map .map").each ->
+  $(".index_map").each ->
     map = L.map(@, scrollWheelZoom: false)
     map.addLayer tileLayer
 
@@ -18,7 +18,7 @@ $ ->
     markers = $(@).data("markers")
     for m in markers
       marker = L.marker([m.lat, m.lng], { title: m.title })
-      marker.bindPopup "<a class=\"popup-link\" href=\"#{m.url}\">#{m.title}</a><br />"
+      marker.bindPopup "<a class=\"popup-link\" href=\"#{m.url}\">#{m.title}</a><br />" if m.url?
       cluster.addLayer marker
     map.addLayer cluster
 
@@ -27,10 +27,10 @@ $ ->
     else
       map.setView([52.39392162228438, 13.132932186126707], 18)
 
-    if map.getZoom() > 17
-      map.setZoom 17
+    if map.getZoom() > 16
+      map.setZoom 16
 
-  $(".canteens_controller .map").each ->
+  $(".edit_map").each ->
     map = L.map(@, scrollWheelZoom: true)
     map.addLayer tileLayer
 

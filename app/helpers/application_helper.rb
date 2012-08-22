@@ -45,6 +45,6 @@ module ApplicationHelper
         url: canteen_path(canteen)
       }
     end
-    content_tag :div, nil, class: "map", id: (options[:id] || "map"), data: { map: (options[:id] || "map"), markers: markers.to_json}
+    content_tag :div, nil, class: "map index_map", id: (options[:id] || "map"), data: { map: (options[:id] || "map"), markers: markers.to_json}
   end
 end

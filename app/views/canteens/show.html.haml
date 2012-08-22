@@ -8,5 +8,11 @@
         = render partial: "show_section"
 
   .span4
-
+    %section
+      %header
+        %h2=t :canteen, :address
+      = map @canteen
+      .content
+        %address= @canteen.address
+      / %section
 
