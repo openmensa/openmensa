@@ -35,12 +35,13 @@ class Canteen < ActiveRecord::Base
   end
 
   def fetch_v1(xml)
-    transaction do
-      REXML::XPath.each(xml, '/cafeteria/day') do |day|
-        date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
+    REXML::XPath.each(xml, '/cafeteria/day') do |day|
+      date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
 
-        REXML::XPath.each(day, 'category') do |cat|
-          category = cat.attribute(:name).to_s
+      REXML::XPath.each(day, 'category') do |cat|
+        category = cat.attribute(:name).to_s
+
+        transaction do
           self.meals.where(date: date, category: category).destroy_all
 
           REXML::XPath.each(cat, 'meal') do |node|
@@ -57,24 +58,25 @@ class Canteen < ActiveRecord::Base
 
             meal.save!
           end
+
+          # saved for each processed day :S
+          self.meals.reset
+          self.last_fetched_at = Time.zone.now
+          self.save!
         end
       end
-
-      self.meals.reset
-      self.last_fetched_at = Time.zone.now
-      self.save!
     end
   end
 
   def fetch_v2(xml)
-    transaction do
-      REXML::XPath.each(xml, '/openmensa/canteen/day') do |day|
-        date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
+    REXML::XPath.each(xml, '/openmensa/canteen/day') do |day|
+      date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
 
-        #REXML::XPath.first(day, 'closed')
+      #REXML::XPath.first(day, 'closed')
 
-        REXML::XPath.each(day, 'category') do |cat|
-          category = cat.attribute(:name).to_s
+      REXML::XPath.each(day, 'category') do |cat|
+        category = cat.attribute(:name).to_s
+        transaction do
           self.meals.where(date: date, category: category).destroy_all
 
           REXML::XPath.each(cat, 'meal') do |node|
@@ -87,12 +89,12 @@ class Canteen < ActiveRecord::Base
 
             meal.save!
           end
+
+          self.meals.reset
+          self.last_fetched_at = Time.zone.now
+          self.save!
         end
       end
     end
-
-    self.meals.reset
-    self.last_fetched_at = Time.zone.now
-    self.save!
   end
 end
