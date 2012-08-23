@@ -36,64 +36,72 @@ class Canteen < ActiveRecord::Base
 
   def fetch_v1(xml)
     REXML::XPath.each(xml, '/cafeteria/day') do |day|
-      date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
+      begin
+        date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
 
-      REXML::XPath.each(day, 'category') do |cat|
-        category = cat.attribute(:name).to_s
+        REXML::XPath.each(day, 'category') do |cat|
+          category = cat.attribute(:name).to_s
 
-        transaction do
-          self.meals.where(date: date, category: category).destroy_all
+          transaction do
+            self.meals.where(date: date, category: category).destroy_all
 
-          REXML::XPath.each(cat, 'meal') do |node|
-            meal = Meal.new canteen: self, date: date, category: category
-            meal.name = REXML::XPath.first(node, 'name').text
+            REXML::XPath.each(cat, 'meal') do |node|
+              meal = Meal.new canteen: self, date: date, category: category
+              meal.name = REXML::XPath.first(node, 'name').text
 
-            next if meal.name.to_s.empty?
+              next if meal.name.to_s.empty?
 
-            meal.description = ""
-            REXML::XPath.each(node, 'note') do |note|
-              meal.description += note.text.to_s + "\n" if note.text.to_s
+              meal.description = ""
+              REXML::XPath.each(node, 'note') do |note|
+                meal.description += note.text.to_s + "\n" if note.text.to_s
+              end
+              meal.description.strip!
+
+              meal.save!
             end
-            meal.description.strip!
 
-            meal.save!
+            # saved for each processed day :S
+            self.meals.reset
+            self.last_fetched_at = Time.zone.now
+            self.save!
           end
-
-          # saved for each processed day :S
-          self.meals.reset
-          self.last_fetched_at = Time.zone.now
-          self.save!
         end
+      rescue
+        $stderr.puts $!.inspect
       end
     end
   end
 
   def fetch_v2(xml)
     REXML::XPath.each(xml, '/openmensa/canteen/day') do |day|
-      date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
+      begin
+        date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
 
-      #REXML::XPath.first(day, 'closed')
+        #REXML::XPath.first(day, 'closed')
 
-      REXML::XPath.each(day, 'category') do |cat|
-        category = cat.attribute(:name).to_s
-        transaction do
-          self.meals.where(date: date, category: category).destroy_all
+        REXML::XPath.each(day, 'category') do |cat|
+          category = cat.attribute(:name).to_s
+          transaction do
+            self.meals.where(date: date, category: category).destroy_all
 
-          REXML::XPath.each(cat, 'meal') do |node|
-            meal = Meal.new canteen: self, date: date, category: category
-            meal.name = REXML::XPath.first(node, 'name').text
+            REXML::XPath.each(cat, 'meal') do |node|
+              meal = Meal.new canteen: self, date: date, category: category
+              meal.name = REXML::XPath.first(node, 'name').text
 
-            # TODO: fetch a meal's notes and prices
-            REXML::XPath.each(node, 'note') do |note| end
-            REXML::XPath.each(node, 'price') do |price| end
+              # TODO: fetch a meal's notes and prices
+              REXML::XPath.each(node, 'note') do |note| end
+              REXML::XPath.each(node, 'price') do |price| end
 
-            meal.save!
+              meal.save!
+            end
+
+            self.meals.reset
+            self.last_fetched_at = Time.zone.now
+            self.save!
           end
-
-          self.meals.reset
-          self.last_fetched_at = Time.zone.now
-          self.save!
         end
+      rescue
+        $stderr.puts $!.inspect
       end
     end
   end
