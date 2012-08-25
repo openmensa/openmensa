@@ -7,8 +7,6 @@
         = link_to t(:my_profile), user_path(@user)
       %li
         = link_to t(:my_favorites), '#' #user_favorites_path(@user)
-      %li
-        %a= t :my_applications
   - if @user.developer?
     %section
       %header
