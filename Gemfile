@@ -50,7 +50,7 @@ group :development, :test do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
-  gem 'capistrano-unicorn', git: 'https://github.com/sosedoff/capistrano-unicorn.git'
+  gem 'capistrano-unicorn'
 end
 
 group :test do
