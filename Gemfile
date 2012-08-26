@@ -39,6 +39,10 @@ group :assets do
   gem 'bourbon'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'thin'
@@ -46,6 +50,7 @@ group :development, :test do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
+  gem 'capistrano-unicorn'
 end
 
 group :test do
