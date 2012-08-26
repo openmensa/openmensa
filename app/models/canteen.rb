@@ -77,7 +77,15 @@ class Canteen < ActiveRecord::Base
       begin
         date = Date.strptime day.attribute(:date).to_s, '%Y-%m-%d'
 
-        #REXML::XPath.first(day, 'closed')
+        if not REXML::XPath.first(day, 'closed').nil?
+          transaction do
+            # TODO: save the info that for the current day this canteen is closed
+            
+            self.last_fetched_at = Time.zone.now
+            self.save!
+          end
+          next
+        end
 
         REXML::XPath.each(day, 'category') do |cat|
           category = cat.attribute(:name).to_s
