@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120818124743) do
+ActiveRecord::Schema.define(:version => 20120827201927) do
 
   create_table "canteens", :force => true do |t|
     t.string   "name"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20120818124743) do
   add_index "comments", ["commentee_id"], :name => "index_comments_on_commentee_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "days", :force => true do |t|
+    t.integer  "canteen_id"
+    t.date     "date"
+    t.boolean  "closed",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "identities", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
@@ -54,15 +62,12 @@ ActiveRecord::Schema.define(:version => 20120818124743) do
 
   create_table "meals", :force => true do |t|
     t.string   "name"
-    t.datetime "date"
     t.string   "description"
-    t.integer  "canteen_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "category"
+    t.integer  "day_id"
   end
-
-  add_index "meals", ["canteen_id"], :name => "index_meals_on_cafeteria_id"
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false

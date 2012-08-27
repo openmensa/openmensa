@@ -3,7 +3,7 @@ require 'rexml/document'
 
 class Canteen < ActiveRecord::Base
   belongs_to :user
-  has_many :meals
+  has_many :days
 
   attr_accessible :address, :name, :url, :user, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
@@ -80,7 +80,7 @@ class Canteen < ActiveRecord::Base
         if not REXML::XPath.first(day, 'closed').nil?
           transaction do
             # TODO: save the info that for the current day this canteen is closed
-            
+
             self.last_fetched_at = Time.zone.now
             self.save!
           end
