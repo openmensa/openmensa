@@ -1,0 +1,2 @@
+class OpenMensa::Updater
+end
