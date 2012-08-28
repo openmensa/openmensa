@@ -124,6 +124,7 @@ GEM
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
       addressable
+    libxml-ruby (2.3.3)
     listen (0.4.7)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
@@ -327,6 +328,7 @@ DEPENDENCIES
   haml
   jquery-rails
   leaflet-rails (~> 0.4.2.beta1)
+  libxml-ruby
   msgpack (~> 0.4.5)
   oj
   omniauth

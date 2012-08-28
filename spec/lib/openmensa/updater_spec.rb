@@ -1,19 +1,23 @@
-require File.dirname(__FILE__) + '/../../lib/open_mensa.rb'
+require File.dirname(__FILE__) + '/../../../lib/open_mensa.rb'
+require 'spec_helper'
 
 describe OpenMensa::Updater do
   context "should reject" do
     it "non-xml data" do
-      pending
+      OpenMensa::Updater.new.validate(mock_content('feed_garbage.dat')).should be_false
     end
-    it "non-valid xml data" do
-      pending
+    it "well-formatted but non-valid xml data" do
+      OpenMensa::Updater.new.validate(mock_content('feed_wellformated.xml')).should be_false
     end
     it "valid but non-openmensa xml data" do
-      pending
+      OpenMensa::Updater.new.validate(mock_content('carrier_ship.xml')).should be_false
     end
   end
-  it "accept valid openmensa xml feeds" do
-    pending
+  it "should return 1 on valid v1 openmensa xml feeds" do
+    OpenMensa::Updater.new.validate(mock_content('canteen_feed.xml')).should == 1
+  end
+  it "should return 2 on valid v openmensa xml feeds" do
+    OpenMensa::Updater.new.validate(mock_content('feed_v2.xml')).should == 2
   end
   context "with valid v2 feed" do
     it 'ignore empty feeds' do

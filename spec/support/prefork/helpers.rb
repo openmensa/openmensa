@@ -7,6 +7,10 @@ def mock_file(file)
   File.new Rails.root.join('spec', 'mocks', file)
 end
 
+def mock_content(file)
+  File.new(Rails.root.join('spec', 'mocks', file)).read
+end
+
 def login_with(identity)
   login(identity)
 end
