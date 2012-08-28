@@ -4,6 +4,7 @@ require 'rexml/document'
 class Canteen < ActiveRecord::Base
   belongs_to :user
   has_many :days
+  has_many :meals, through: :days
 
   attr_accessible :address, :name, :url, :user, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
