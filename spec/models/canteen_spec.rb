@@ -14,19 +14,19 @@ describe Canteen do
         to_return(:body => mock_file("feed_v2.xml"), :status => 200)
     end
 
-    it "should fetch meals from remote source (version 1.0)" do
+    xit "should fetch meals from remote source (version 1.0)" do
       canteen.url = "http://example.com/canteen_feed.xml"
       canteen.fetch
       canteen.meals.should have(9).items
     end
 
-    it "should fetch meals from remote source (version 2.0)" do
+    xit "should fetch meals from remote source (version 2.0)" do
       canteen.url = "http://example.com/feed_v2.xml"
       canteen.fetch
       canteen.meals.should have(9).items
     end
 
-    it "should remove old meals" do
+    xit "should remove old meals" do
       FactoryGirl.create(:meal,
         day: FactoryGirl.create(:day,
           canteen: canteen,
