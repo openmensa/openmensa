@@ -19,7 +19,7 @@ describe Canteen do
       canteen.fetch
       canteen.meals.should have(9).items
     end
-    
+
     it "should fetch meals from remote source (version 2.0)" do
       canteen.url = "http://example.com/feed_v2.xml"
       canteen.fetch
@@ -28,8 +28,9 @@ describe Canteen do
 
     it "should remove old meals" do
       FactoryGirl.create(:meal,
-        canteen: canteen,
-        date: Date.new(2012, 05, 29),
+        day: FactoryGirl.create(:day,
+          canteen: canteen,
+          date: Date.new(2012, 05, 29)),
         category: 'Essen 1')
       canteen.meals.should have(1).items
 

@@ -57,11 +57,11 @@ describe Api::V1::CafeteriasController do
     end
 
     it "should include todays and tomorrows meals" do
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 2.day
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 1.day
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 1.day
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 2.day
+      FactoryGirl.create :meal, day: FactoryGirl.create(:day, canteen: canteen, date: Time.zone.now - 2.day)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:yesterday, canteen: canteen)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:today, canteen: canteen)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:tomorrow, canteen: canteen)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:day, canteen: canteen, date: Time.zone.now + 2.day)
 
       get :show, format: :json, id: canteen.id
 
