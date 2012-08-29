@@ -1,6 +1,13 @@
 require 'libxml'
 class OpenMensa::Updater
   include LibXML
+  def initialize(canteen)
+    @canteen = canteen
+  end
+  def canteen
+    @canteen
+  end
+
   def self.schema_v1
     @schema_v1 ||= XML::Schema.new Rails.root.join('public', 'open-mensa-v1.xsd').to_s
     @schema_v1
