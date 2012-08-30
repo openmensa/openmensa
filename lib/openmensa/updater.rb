@@ -33,4 +33,16 @@ class OpenMensa::Updater
   rescue XML::Error
     false
   end
+
+  def addMeal(day, category, meal)
+    day.meals.create(
+      category: category,
+      name: meal.find('name').first.content
+    )
+    @changed = true
+  end
+
+  def changed?
+    @changed
+  end
 end
