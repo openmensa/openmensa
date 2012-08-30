@@ -3,6 +3,7 @@ class OpenMensa::Updater
   include LibXML
   def initialize(canteen)
     @canteen = canteen
+    @updated = false
   end
   def canteen
     @canteen
@@ -39,6 +40,16 @@ class OpenMensa::Updater
       category: category,
       name: meal.find('name').first.content
     )
+    @changed = true
+  end
+
+  def addDay(dayData)
+    day = canteen.days.create(date: Date.parse(dayData['date']))
+    dayData.find('category').each do |category|
+      category.find('meal').each do |meal|
+        addMeal(day, category['name'], meal)
+      end
+    end
     @changed = true
   end
 

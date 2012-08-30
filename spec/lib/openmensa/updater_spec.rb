@@ -50,15 +50,47 @@ describe OpenMensa::Updater do
         updater.should be_changed
       end
 
-      it 'should add days with meals entries' do
-        pending
+      it 'should add a new day with meals entries' do
+        # data
+        category1_name = 'Hauptgricht'
+        category1_meal1_name = 'Essen 1'
+        category1_meal2_name = 'Essen 2'
+
+        category2_name = 'Beilagen'
+        category2_meal1_name = 'Beilage 1'
+
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = Time.zone.today.to_s
+
+        day << category = XML::Node.new('category')
+        category['name'] = category1_name
+        category << meal = XML::Node.new('meal')
+        meal << name = XML::Node.new('name')
+        name << category1_meal1_name
+        category << meal = XML::Node.new('meal')
+        meal << name = XML::Node.new('name')
+        name << category1_meal2_name
+
+        day << category = XML::Node.new('category')
+        category['name'] = category2_name
+        category << meal = XML::Node.new('meal')
+        meal << name = XML::Node.new('name')
+        name << category2_meal1_name
+
+        # starting check
+        canteen.days.size.should be_zero
+
+        updater.addDay(day)
+
+        canteen.days.size.should == 1
+        day = canteen.days.first
+        day.meals.size.should == 3
+        day.meals.order(:category).map(&:category).should == [category2_name, category1_name, category1_name]
+
+        updater.should be_changed
       end
-      it 'should add prices for meals' do
-        pending
-      end
-      it 'should add correct notes for meals' do
-        pending
-      end
+
       it 'should add closed days entries' do
         pending
       end
