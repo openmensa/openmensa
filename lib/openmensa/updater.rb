@@ -1,4 +1,6 @@
+require 'open-uri'
 require 'libxml'
+
 class OpenMensa::Updater
   include LibXML
   def initialize(canteen, version=nil)
@@ -19,6 +21,19 @@ class OpenMensa::Updater
     @document
   end
 
+
+  # 1. fetch data
+  def fetch(handle_301=true)
+    open canteen.url, redirect: !handle_301
+  rescue OpenURI::HTTPRedirect => redirect
+    if redirect.message.start_with? '301' # permanent redirect
+      canteen.update_attribute :url, redirect.uri.to_s
+    end
+    fetch false
+  end
+
+
+  # 2. validate data
   def self.schema_v1
     @schema_v1 ||= XML::Schema.new Rails.root.join('public', 'open-mensa-v1.xsd').to_s
     @schema_v1
@@ -47,6 +62,9 @@ class OpenMensa::Updater
   ensure
     XML::Error.reset_handler
   end
+
+
+  # 3. process data
 
   # very bad, needs improvement; but know at the moment no better way
   def xfp(object, expression)

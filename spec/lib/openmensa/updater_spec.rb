@@ -15,6 +15,36 @@ describe OpenMensa::Updater do
     document.root = n
   end
 
+  context "#fetch" do
+    before do
+      stub_request(:any, "example.com/canteen_feed.xml").
+        to_return(:body => mock_file("canteen_feed.xml"), :status => 200)
+      stub_request(:any, "example.com/data.xml").
+        to_return(:body => '<xml>', :status => 200)
+      stub_request(:any, "example.com/301.xml").
+        to_return(status: 301, headers: { location: 'http://example.com/data.xml' })
+      stub_request(:any, "example.com/302.xml").
+        to_return(status: 302, headers: { location: 'http://example.com/data.xml' })
+    end
+
+    it 'should receive feed data via http' do
+      canteen.update_attribute :url, 'http://example.com/data.xml'
+      updater.fetch.read.should == '<xml>'
+    end
+
+    it 'should update feed url on 301 responses' do
+      canteen.update_attribute :url, 'http://example.com/301.xml'
+      updater.fetch.read.should == '<xml>'
+      canteen.url.should == 'http://example.com/data.xml'
+    end
+
+    it 'should not update feed url on 302 responses' do
+      canteen.update_attribute :url, 'http://example.com/302.xml'
+      updater.fetch.read.should == '<xml>'
+      canteen.url.should == 'http://example.com/302.xml'
+    end
+  end
+
   context "should reject" do
     it "non-xml data" do
       updater.validate(mock_content('feed_garbage.dat')).should be_false
