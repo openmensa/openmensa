@@ -1,9 +1,11 @@
 require 'libxml'
 class OpenMensa::Updater
   include LibXML
-  def initialize(canteen)
+  def initialize(canteen, version=nil)
     @canteen = canteen
     @changed = false
+    @version = version
+    @document = nil
   end
   def canteen
     @canteen
@@ -11,6 +13,10 @@ class OpenMensa::Updater
 
   def changed?
     @changed
+  end
+
+  def document
+    @document
   end
 
   def self.schema_v1
@@ -27,12 +33,12 @@ class OpenMensa::Updater
     @document = XML::Document.string data, options: XML::Parser::Options::NOERROR | XML::Parser::Options::NOWARNING
     begin
       @document.validate_schema(self.class.schema_v2)
-      return 2
+      return @version = 2
     rescue XML::Error
     end
     begin
       @document.validate_schema(self.class.schema_v1)
-      return 1
+      return @version = 1
     rescue XML::Error
     end
     false
@@ -42,10 +48,27 @@ class OpenMensa::Updater
     XML::Error.reset_handler
   end
 
+  # very bad, needs improvement; but know at the moment no better way
+  def xfp(object, expression)
+    object.find('om:' + expression,
+        'om:http://openmensa.org/open-mensa-v' + @version.to_s).empty?
+  end
+
+  def xff(object, expression)
+    object.find_first('om:' + expression,
+        'om:http://openmensa.org/open-mensa-v' + @version.to_s)
+  end
+
+  def xfe(object, expression, &block)
+    object.find('om:' + expression,
+        'om:http://openmensa.org/open-mensa-v' + @version.to_s).each &block
+  end
+
+
   def addMeal(day, category, meal)
     day.meals.create(
       category: category,
-      name: meal.find('name').first.content
+      name: xff(meal, 'name').content
     )
     @changed = true
   end
@@ -54,12 +77,11 @@ class OpenMensa::Updater
     # at the moment no action needed
   end
 
-
   def addDay(dayData)
     day = canteen.days.create(date: Date.parse(dayData['date']))
-    if dayData.find('closed').empty?
-      dayData.find('category').each do |category|
-        category.find('meal').each do |meal|
+    if xfp dayData, 'closed'
+      xfe dayData, 'category' do |category|
+        xfe category, 'meal' do |meal|
           addMeal(day, category['name'], meal)
         end
       end
@@ -71,7 +93,7 @@ class OpenMensa::Updater
   end
 
   def updateDay(day, dayData)
-    if not dayData.find('closed').empty?
+    if not xfp dayData, 'closed'
       @changed = !day.closed?
       day.meals.destroy_all
       day.update_attribute :closed, true
@@ -81,9 +103,9 @@ class OpenMensa::Updater
         @changed = true
       end
       names = day.meals.inject({}) { |m,v| m[v.name.to_s] = v; m }
-      dayData.find('category').each do |category|
-        category.find('meal').each do |meal|
-          name = meal.find('name').first.content
+      xfe dayData, 'category' do |category|
+        xfe category, 'meal' do |meal|
+          name = xff(meal, 'name').content
           if names.key? name
             updateMeal names[name], category['name'], meal
             names.delete name
@@ -101,14 +123,17 @@ class OpenMensa::Updater
 
 
   def updateCanteen(canteenData)
-    days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v }
-    canteenData.find('day').each do |day|
+    days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
+    xfe canteenData, 'day' do |day|
       date = day['date']
       if days.key? date
-        updateDay day
+        updateDay days[date], day
       else
         addDay day
       end
+    end
+    if changed?
+      canteen.update_column :last_fetched_at, Time.zone.now
     end
   end
 end

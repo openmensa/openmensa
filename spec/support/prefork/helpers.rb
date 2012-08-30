@@ -55,3 +55,14 @@ end
 def auth_via_oauth2(token)
   request.env[Rack::OAuth2::Server::Resource::ACCESS_TOKEN] = token
 end
+
+def xml_node(name)
+  LibXML::XML::Node.new(name, nil, document.root.namespaces.find_by_href('http://openmensa.org/open-mensa-v2'))
+end
+
+def xml_meal(meal_name)
+  meal = xml_node('meal')
+  meal << name = xml_node('name')
+  name << meal_name
+  meal
+end

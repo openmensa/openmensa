@@ -4,10 +4,16 @@ include LibXML
 
 describe OpenMensa::Updater do
   let(:canteen) { FactoryGirl.create :canteen }
-  let(:updater) { OpenMensa::Updater.new(canteen) }
+  let(:updater) { OpenMensa::Updater.new(canteen, 2) }
   let(:today) { FactoryGirl.create :today, canteen: canteen }
   let(:document) { XML::Document.new }
-  let(:root_element) { document.root = XML::Node.new('openmensa') }
+  let(:root_element) do
+    n = XML::Node.new('openmensa')
+    ns = XML::Namespace.new(n, 'om', 'http://openmensa.org/open-mensa-v2')
+    n.namespaces.namespace = ns
+    #document.root.namespaces.default_prefix = 'om'
+    document.root = n
+  end
 
   context "should reject" do
     it "non-xml data" do
@@ -30,16 +36,20 @@ describe OpenMensa::Updater do
 
   context "with valid v2 feed" do
     it 'ignore empty feeds' do
-      pending
+      document = updater.validate mock_content 'feed2_empty.xml'
+      document.should == 2
+      lca = canteen.last_fetched_at
+      c = updater.document.find('om:canteen', 'om:http://openmensa.org/open-mensa-v2').first
+      updater.updateCanteen c
+      canteen.last_fetched_at.should == lca
     end
+
     context 'with new data' do
       it 'should add a new meals to a day' do
         meal_name = 'Essen 1'
         meal_category = 'Hauptgricht'
 
-        root_element << meal = XML::Node.new('meal')
-        meal << name = XML::Node.new('name')
-        name << meal_name
+        root_element << meal = xml_meal(meal_name)
         today.meals.size.should be_zero
 
         updater.addMeal(today, meal_category, meal)
@@ -60,23 +70,17 @@ describe OpenMensa::Updater do
         category2_meal1_name = 'Beilage 1'
 
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = Time.zone.today.to_s
 
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = category1_name
-        category << meal = XML::Node.new('meal')
-        meal << name = XML::Node.new('name')
-        name << category1_meal1_name
-        category << meal = XML::Node.new('meal')
-        meal << name = XML::Node.new('name')
-        name << category1_meal2_name
+        category << xml_meal(category1_meal1_name)
+        category << xml_meal(category1_meal2_name)
 
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = category2_name
-        category << meal = XML::Node.new('meal')
-        meal << name = XML::Node.new('name')
-        name << category2_meal1_name
+        category << xml_meal(category2_meal1_name)
 
         # starting check
         canteen.days.size.should be_zero
@@ -93,9 +97,9 @@ describe OpenMensa::Updater do
 
       it 'should add closed days entries' do
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = Time.zone.today.to_s
-        day << XML::Node.new('closed')
+        day << xml_node('closed')
 
         # starting check
         canteen.days.size.should be_zero
@@ -111,7 +115,19 @@ describe OpenMensa::Updater do
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
-        pending
+        document = updater.validate mock_content('feed_v2.xml')
+        document.should == 2
+
+        canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
+        last_fetched_at = canteen.last_fetched_at
+        updated_at = canteen.updated_at
+
+        c = updater.document.find_first 'om:canteen', 'om:http://openmensa.org/open-mensa-v2'
+        updater.updateCanteen c
+
+        canteen.days.size.should == 4
+        canteen.last_fetched_at.should > Time.zone.now - 1.minute
+        canteen.updated_at.should == updated_at
       end
     end
 
@@ -119,9 +135,9 @@ describe OpenMensa::Updater do
     context 'with old data' do
       it 'should allow to close the canteen on given days' do
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = today.date.to_s
-        day << XML::Node.new('closed')
+        day << xml_node('closed')
         meal = FactoryGirl.create :meal, day: today
 
         # starting check
@@ -146,13 +162,11 @@ describe OpenMensa::Updater do
         today.update_attribute :closed, true
 
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = today.date.to_s
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = category_name
-        category << meal = XML::Node.new('meal')
-        meal << name = XML::Node.new('name')
-        name << meal_name
+        category <<  xml_meal(meal_name)
 
         # starting check
         today.meals.size.should == 0
@@ -176,17 +190,14 @@ describe OpenMensa::Updater do
         meal = FactoryGirl.create :meal, day: today
 
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = today.date.to_s
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = meal.category
-        category << newMeal = XML::Node.new('meal')
-        newMeal << name = XML::Node.new('name')
-        name << meal.name
+        category << xml_meal(meal.name)
+        day << category = xml_node('category')
         category['name'] = category_name
-        category << newMeal = XML::Node.new('meal')
-        newMeal << name = XML::Node.new('name')
-        name << meal_name
+        category << xml_meal(meal_name)
 
         # starting check
         today.meals.size.should == 1
@@ -204,13 +215,11 @@ describe OpenMensa::Updater do
         meal1 = FactoryGirl.create :meal, day: today
 
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = today.date.to_s
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = meal1.category
-        category << newMeal = XML::Node.new('meal')
-        newMeal << name = XML::Node.new('name')
-        name << meal1.name
+        category << xml_meal(meal1.name)
 
         # starting check
         today.meals.size.should == 1
@@ -227,13 +236,11 @@ describe OpenMensa::Updater do
         meal2 = FactoryGirl.create :meal, day: today
 
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = today.date.to_s
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = meal2.category
-        category << newMeal = XML::Node.new('meal')
-        newMeal << name = XML::Node.new('name')
-        name << meal2.name
+        category << xml_meal(meal2.name)
 
         # starting check
         today.meals.size.should == 2
@@ -251,13 +258,11 @@ describe OpenMensa::Updater do
         meal1 = FactoryGirl.create :meal, day: today
 
         # build xml data
-        root_element << day = XML::Node.new('day')
+        root_element << day = xml_node('day')
         day['date'] = today.date.to_s
-        day << category = XML::Node.new('category')
+        day << category = xml_node('category')
         category['name'] = meal1.category
-        category << newMeal = XML::Node.new('meal')
-        newMeal << name = XML::Node.new('name')
-        name << meal1.name
+        category << xml_meal(meal1.name)
 
         # starting check
         today.meals.size.should == 1
@@ -270,7 +275,30 @@ describe OpenMensa::Updater do
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
-        pending
+        document = updater.validate mock_content('feed_v2.xml')
+        document.should == 2
+
+        day1 = FactoryGirl.create :day, date: Date.new(2012, 05, 22), canteen: canteen
+        meal1 = FactoryGirl.create :meal, day: day1, name: 'Tagessuppe'
+        day2 = FactoryGirl.create :day, date: Date.new(2012, 05, 29), canteen: canteen
+        meal2 = FactoryGirl.create :meal, day: day2
+        meal3 = FactoryGirl.create :meal, day: day2
+        meal4 = FactoryGirl.create :meal, day: today
+
+        canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
+        canteen.days.size.should == 3
+        canteen.meals.size.should == 4
+
+        last_fetched_at = canteen.last_fetched_at
+        updated_at = canteen.updated_at
+
+        c = updater.document.find_first 'om:canteen', 'om:http://openmensa.org/open-mensa-v2'
+        updater.updateCanteen c
+
+        canteen.days.size.should == 5
+        canteen.meals.size.should == 10
+        canteen.last_fetched_at.should > Time.zone.now - 1.minute
+        canteen.updated_at.should == updated_at
       end
     end
   end
