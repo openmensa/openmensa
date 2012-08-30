@@ -92,31 +92,183 @@ describe OpenMensa::Updater do
       end
 
       it 'should add closed days entries' do
-        pending
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = Time.zone.today.to_s
+        day << XML::Node.new('closed')
+
+        # starting check
+        canteen.days.size.should be_zero
+
+        updater.addDay(day)
+
+        canteen.days.size.should == 1
+        day = canteen.days.first
+        day.should be_closed
+        day.meals.size.should be_zero
+
+        updater.should be_changed
       end
+
       it 'should update last_fetch_at and not last_changed_at' do
         pending
       end
     end
+
+
     context 'with old data' do
       it 'should allow to close the canteen on given days' do
-        pending
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = today.date.to_s
+        day << XML::Node.new('closed')
+        meal = FactoryGirl.create :meal, day: today
+
+        # starting check
+        today.meals.size.should == 1
+        today.should_not be_closed
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should be_zero
+        today.should be_closed
+
+        updater.should be_changed
       end
-      it 'should allow to reopen a canteen on given days' do
-        pending
+
+
+     it 'should allow to reopen a canteen on given days' do
+        # data
+        category_name = 'Hauptessen'
+        meal_name = 'Essen 1'
+
+        # close our test day
+        today.update_attribute :closed, true
+
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = today.date.to_s
+        day << category = XML::Node.new('category')
+        category['name'] = category_name
+        category << meal = XML::Node.new('meal')
+        meal << name = XML::Node.new('name')
+        name << meal_name
+
+        # starting check
+        today.meals.size.should == 0
+        today.should be_closed
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should == 1
+        today.should_not be_closed
+
+        updater.should be_changed
       end
+
+
       it 'should add new meals' do
-        pending
+        # data
+        category_name = 'Hauptessen'
+        meal_name = 'Essen 1'
+
+        # close our test day
+        meal = FactoryGirl.create :meal, day: today
+
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = today.date.to_s
+        day << category = XML::Node.new('category')
+        category['name'] = meal.category
+        category << newMeal = XML::Node.new('meal')
+        newMeal << name = XML::Node.new('name')
+        name << meal.name
+        category['name'] = category_name
+        category << newMeal = XML::Node.new('meal')
+        newMeal << name = XML::Node.new('name')
+        name << meal_name
+
+        # starting check
+        today.meals.size.should == 1
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should == 2
+        today.meals.map(&:name) == [meal.name, meal_name]
+
+        updater.should be_changed
       end
-      it 'should drop disappeared meals' do
-        pending
-      end
+
       it 'should update changed meals' do
-        pending
+        # close our test day
+        meal1 = FactoryGirl.create :meal, day: today
+
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = today.date.to_s
+        day << category = XML::Node.new('category')
+        category['name'] = meal1.category
+        category << newMeal = XML::Node.new('meal')
+        newMeal << name = XML::Node.new('name')
+        name << meal1.name
+
+        # starting check
+        today.meals.size.should == 1
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should == 1
+        today.meals.first.name.should == meal1.name
       end
+
+      it 'should drop disappeared meals' do
+        # close our test day
+        meal1 = FactoryGirl.create :meal, day: today
+        meal2 = FactoryGirl.create :meal, day: today
+
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = today.date.to_s
+        day << category = XML::Node.new('category')
+        category['name'] = meal2.category
+        category << newMeal = XML::Node.new('meal')
+        newMeal << name = XML::Node.new('name')
+        name << meal2.name
+
+        # starting check
+        today.meals.size.should == 2
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should == 1
+        today.meals.first.should == meal2
+
+        updater.should be_changed
+      end
+
       it 'should not update last_changed_at on unchanged meals' do
-        pending
+        # close our test day
+        meal1 = FactoryGirl.create :meal, day: today
+
+        # build xml data
+        root_element << day = XML::Node.new('day')
+        day['date'] = today.date.to_s
+        day << category = XML::Node.new('category')
+        category['name'] = meal1.category
+        category << newMeal = XML::Node.new('meal')
+        newMeal << name = XML::Node.new('name')
+        name << meal1.name
+
+        # starting check
+        today.meals.size.should == 1
+        updated_at = meal1.updated_at
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should == 1
+        meal1.updated_at.should == updated_at
       end
+
       it 'should update last_fetch_at and not last_changed_at' do
         pending
       end
