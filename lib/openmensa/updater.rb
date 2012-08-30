@@ -19,20 +19,23 @@ class OpenMensa::Updater
   end
 
   def validate(data)
-    @document = XML::Document.string data, options: XML::Parser::Options::NOERROR | XML::Parser::Options::NOWARNING | XML::Parser::Options::RECOVER
+    XML::Error.set_handler { |e| }
+    @document = XML::Document.string data, options: XML::Parser::Options::NOERROR | XML::Parser::Options::NOWARNING
     begin
-      result = @document.validate_schema(self.class.schema_v2)
+      @document.validate_schema(self.class.schema_v2)
       return 2
     rescue XML::Error
     end
     begin
-      result = @document.validate_schema(self.class.schema_v1)
+      @document.validate_schema(self.class.schema_v1)
       return 1
     rescue XML::Error
     end
     false
   rescue XML::Error
     false
+  ensure
+    XML::Error.reset_handler
   end
 
   def addMeal(day, category, meal)
