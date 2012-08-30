@@ -6,7 +6,7 @@ class Meal < ActiveRecord::Base
   attr_accessible :description, :name, :category, :day_id, :day
   validates :name, :category, :day_id, presence: true
 
-  def data
+  def date
     day.date
   end
 end
