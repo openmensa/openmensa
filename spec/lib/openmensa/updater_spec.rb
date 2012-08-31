@@ -80,8 +80,7 @@ describe OpenMensa::Updater do
       document = updater.validate mock_content 'feed2_empty.xml'
       document.should == 2
       lca = canteen.last_fetched_at
-      c = updater.document.find('om:canteen', 'om:http://openmensa.org/open-mensa-v2').first
-      updater.updateCanteen c
+      updater.updateCanteen updater.document.root.first.next
       canteen.last_fetched_at.should == lca
     end
 
@@ -163,8 +162,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        c = updater.document.find_first 'om:canteen', 'om:http://openmensa.org/open-mensa-v2'
-        updater.updateCanteen c
+        updater.updateCanteen updater.document.root.first.next
 
         canteen.days.size.should == 4
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
@@ -333,8 +331,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        c = updater.document.find_first 'om:canteen', 'om:http://openmensa.org/open-mensa-v2'
-        updater.updateCanteen c
+        updater.updateCanteen updater.document.root.first.next
 
         canteen.days.size.should == 5
         canteen.meals.size.should == 10

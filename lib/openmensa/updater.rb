@@ -71,28 +71,10 @@ class OpenMensa::Updater
 
 
   # 3. process data
-
-  # very bad, needs improvement; but know at the moment no better way
-  def xfp(object, expression)
-    object.find('om:' + expression,
-        'om:http://openmensa.org/open-mensa-v' + @version.to_s).empty?
-  end
-
-  def xff(object, expression)
-    object.find_first('om:' + expression,
-        'om:http://openmensa.org/open-mensa-v' + @version.to_s)
-  end
-
-  def xfe(object, expression, &block)
-    object.find('om:' + expression,
-        'om:http://openmensa.org/open-mensa-v' + @version.to_s).each &block
-  end
-
-
   def addMeal(day, category, meal)
     day.meals.create(
       category: category,
-      name: xff(meal, 'name').content
+      name: meal.children.select { |node| node.name == 'name' }.first.content
     )
     @changed = true
   end
@@ -103,9 +85,9 @@ class OpenMensa::Updater
 
   def addDay(dayData)
     day = canteen.days.create(date: Date.parse(dayData['date']))
-    if xfp dayData, 'closed'
-      xfe dayData, 'category' do |category|
-        xfe category, 'meal' do |meal|
+    if dayData.children.select { |node| node.name == 'closed' }.empty?
+      dayData.each_element do |category|
+        category.each_element do |meal|
           addMeal(day, category['name'], meal)
         end
       end
@@ -117,7 +99,7 @@ class OpenMensa::Updater
   end
 
   def updateDay(day, dayData)
-    if not xfp dayData, 'closed'
+    if not dayData.children.select { |node| node.name == 'closed' }.empty?
       @changed = !day.closed?
       day.meals.destroy_all
       day.update_attribute :closed, true
@@ -127,9 +109,9 @@ class OpenMensa::Updater
         @changed = true
       end
       names = day.meals.inject({}) { |m,v| m[v.name.to_s] = v; m }
-      xfe dayData, 'category' do |category|
-        xfe category, 'meal' do |meal|
-          name = xff(meal, 'name').content
+      dayData.each_element do |category|
+        category.each_element do |meal|
+          name = meal.children.select { |node| node.name == 'name' }.first.content
           if names.key? name
             updateMeal names[name], category['name'], meal
             names.delete name
@@ -148,7 +130,7 @@ class OpenMensa::Updater
 
   def updateCanteen(canteenData)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
-    xfe canteenData, 'day' do |day|
+    canteenData.each_element do |day|
       date = day['date']
       if days.key? date
         updateDay days[date], day
