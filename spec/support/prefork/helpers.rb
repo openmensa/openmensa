@@ -66,3 +66,9 @@ def xml_meal(meal_name)
   name << meal_name
   meal
 end
+
+def xml_text(name, text)
+  node = xml_node(name)
+  node << text
+  node
+end

@@ -90,12 +90,16 @@ describe OpenMensa::Updater do
         meal_category = 'Hauptgricht'
 
         root_element << meal = xml_meal(meal_name)
+        meal << t = xml_text('price', '1.70'); t['role'] = 'student'
+        meal << t = xml_text('price', '2.70'); t['role'] = 'other'
         today.meals.size.should be_zero
 
         updater.addMeal(today, meal_category, meal)
 
         today.meals.size.should == 1
         today.meals.first.name.should == meal_name
+        today.meals.first.prices[:student].should == 1.7
+        today.meals.first.prices[:other].should == 2.7
 
         updater.should be_changed
       end
@@ -250,23 +254,52 @@ describe OpenMensa::Updater do
       end
 
       it 'should update changed meals' do
-        # close our test day
-        meal1 = FactoryGirl.create :meal, day: today
+        meal1 = FactoryGirl.create :meal, day: today, prices: { student: 1.8, employee: 2.9, other: nil, pupil: nil}
 
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = today.date.to_s
         day << category = xml_node('category')
         category['name'] = meal1.category
-        category << xml_meal(meal1.name)
+        category << meal = xml_meal(meal1.name)
+        meal << t = xml_text('price', '1.70'); t['role'] = 'student'
+        meal << t = xml_text('price', '2.70'); t['role'] = 'other'
 
         # starting check
         today.meals.size.should == 1
+        updated_at = today.meals.first.updated_at - 1.second
 
         updater.updateDay(today, day)
 
         today.meals.size.should == 1
+        today.meals.first.prices.should == { student: 1.7, other: 2.7 }
         today.meals.first.name.should == meal1.name
+        today.meals.first.updated_at.should > updated_at
+      end
+
+      it 'should not update unchanged meals' do
+        # close our test day
+        meal1 = FactoryGirl.create :meal, day: today, prices: { student: 1.8, employee: 2.9, other: nil, pupil: nil}
+
+        # build xml data
+        root_element << day = xml_node('day')
+        day['date'] = today.date.to_s
+        day << category = xml_node('category')
+        category['name'] = meal1.category
+        category << meal = xml_meal(meal1.name)
+        meal << t = xml_text('price', '1.80'); t['role'] = 'student'
+        meal << t = xml_text('price', '2.90'); t['role'] = 'employee'
+
+        # starting check
+        today.meals.size.should == 1
+        updated_at = today.meals.first.updated_at
+
+        updater.updateDay(today, day)
+
+        today.meals.size.should == 1
+        today.meals.first.prices.should == { student: 1.8, employee: 2.9 }
+        today.meals.first.name.should == meal1.name
+        today.meals.first.updated_at.should == updated_at
       end
 
       it 'should drop disappeared meals' do

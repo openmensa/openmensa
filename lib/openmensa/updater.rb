@@ -74,13 +74,21 @@ class OpenMensa::Updater
   def addMeal(day, category, meal)
     day.meals.create(
       category: category,
-      name: meal.children.select { |node| node.name == 'name' }.first.content
+      name: meal.children.select { |node| node.name == 'name' }.first.content,
+      prices: meal.children.inject({}) do |prices, node|
+        prices[node['role']] = node.content if node.name == 'price'
+        prices
+      end
     )
     @changed = true
   end
 
   def updateMeal(meal, category, mealData)
-    # at the moment no action needed
+    meal.prices = mealData.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
+      prices[node['role']] = node.content if node.name == 'price'
+      prices
+    end
+    meal.save if meal.changed?
   end
 
   def addDay(dayData)
