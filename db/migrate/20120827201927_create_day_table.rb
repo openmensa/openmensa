@@ -16,15 +16,15 @@ class CreateDayTable < ActiveRecord::Migration
       Day.reset_column_information
       Meal.reset_column_information
       Meal.all.each do |m|
-        canteen = Canteen.find_by_id(m.canteen_id)
+        canteen = Canteen.find_by_id m.canteen_id
         # way is this needed:
         if not canteen
           puts 'meals without canteen:', m.inspect
           m.destroy
           next
         end
-        day = canteen.days.find_by_date(m.date)
-        day ||= canteen.days.create(date: m.date)
+        day = canteen.days.find_by_date m.read_attribute(:date)
+        day ||= canteen.days.create date: m.read_attribute(:date)
         m.update_column :day_id, day.id
       end
     end
