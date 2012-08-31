@@ -27,6 +27,17 @@ describe OpenMensa::Updater do
         to_return(status: 302, headers: { location: 'http://example.com/data.xml' })
     end
 
+    it 'should skip on missing urls' do
+      canteen.update_attribute :url, nil
+      canteen.url.should be_nil
+      updater.fetch.should be_false
+    end
+
+    it 'should skip invalid urls' do
+      canteen.update_attribute :url, ':///:asdf'
+      updater.fetch.should be_false
+    end
+
     it 'should receive feed data via http' do
       canteen.update_attribute :url, 'http://example.com/data.xml'
       updater.fetch.read.should == '<xml>'

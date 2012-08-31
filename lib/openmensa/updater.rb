@@ -24,9 +24,15 @@ class OpenMensa::Updater
 
   # 1. fetch data
   def fetch(handle_301=true)
-    open canteen.url, redirect: !handle_301
+    return false unless canteen.url.present?
+    uri = URI.parse canteen.url
+    open uri, redirect: !handle_301
+  rescue URI::InvalidURIError
+    Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
+    false
   rescue OpenURI::HTTPRedirect => redirect
     if redirect.message.start_with? '301' # permanent redirect
+      Rails.logger.warn "Update url of canteen #{canteen.id} to '#{redirect.uri.to_s}'"
       canteen.update_attribute :url, redirect.uri.to_s
     end
     fetch false
@@ -153,5 +159,20 @@ class OpenMensa::Updater
     if changed?
       canteen.update_column :last_fetched_at, Time.zone.now
     end
+    changed?
+  end
+
+
+  # all togther
+  def update
+    document = fetch
+    return false unless document
+    version = validate document.read
+    return false unless version
+    canteenData = case version
+      when 1 then @document.root
+      when 2 then @document.root.children.first.next
+    end
+    updateCanteen canteenData
   end
 end
