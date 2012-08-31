@@ -35,5 +35,30 @@ class CreateDayTable < ActiveRecord::Migration
   end
 
   def down
+    # 1. extends meals table
+    change_table :meals do |t|
+      t.references :canteen
+      t.datetime :date
+    end
+
+    # 2. migrate data
+    say_with_time 'updating meals' do
+      Meal.reset_column_information
+      Meal.all.each do |m|
+        day = Day.find_by_id(m.day_id)
+        # way is this needed:
+        if not day
+          puts 'meals without day:', m.inspect
+          m.destroy
+          next
+        end
+        m.update_column :date, day.date
+        m.update_column :canteen_id, day.canteen_id
+      end
+    end
+
+    # 3. remove obsolete entity
+    remove_column :meals, :day_id
+    remove_table :days
   end
 end
