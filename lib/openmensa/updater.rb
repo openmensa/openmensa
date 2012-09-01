@@ -78,7 +78,8 @@ class OpenMensa::Updater
       prices: meal.children.inject({}) do |prices, node|
         prices[node['role']] = node.content if node.name == 'price'
         prices
-      end
+      end,
+      notes: meal.children.select { |n| n.name == 'note' }.map(&:content)
     )
     @changed = true
   end
@@ -88,6 +89,7 @@ class OpenMensa::Updater
       prices[node['role']] = node.content if node.name == 'price'
       prices
     end
+    meal.notes = mealData.children.select { |n| n.name == 'note' }.map(&:content)
     meal.save if meal.changed?
   end
 

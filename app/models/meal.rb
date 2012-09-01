@@ -2,8 +2,9 @@ class Meal < ActiveRecord::Base
   belongs_to :day
   has_one :canteen, through: :day
   has_many :comments, as: :commentee
+  has_and_belongs_to_many :notes, autosave: true, readonly: true, uniq: true
 
-  attr_accessible :description, :name, :category, :day_id, :day, :prices, :price_student, :price_employee, :price_pupil, :price_other
+  attr_accessible :description, :name, :category, :day_id, :day, :prices, :price_student, :price_employee, :price_pupil, :price_other, :notes
   validates :name, :category, :day_id, presence: true
 
   def date
@@ -21,5 +22,12 @@ class Meal < ActiveRecord::Base
     prices.each do |role, price|
       write_attribute :"price_#{role}", price
     end
+  end
+
+  def notes=(notes)
+    super(notes.map do |note|
+      note = Note.find_or_create_by_name name: note if note.is_a? String
+      note
+    end)
   end
 end

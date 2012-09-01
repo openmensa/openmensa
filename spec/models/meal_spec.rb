@@ -55,4 +55,30 @@ describe Meal do
       meal.should be_changed
     end
   end
+
+  describe '#notes=' do
+    it 'should to clear notes list' do
+      meal.notes << FactoryGirl.create(:note)
+      meal.notes << FactoryGirl.create(:note)
+      meal.notes.size.should == 2
+      meal.notes = []
+      meal.notes.size.should be_zero
+    end
+
+    it 'should add new notes' do
+      meal.notes.size.should == 0
+      meal.notes = ['vegan', 'vegetarisch']
+      meal.notes.size.should == 2
+      meal.notes.map(&:name).should == [ 'vegan', 'vegetarisch' ]
+    end
+
+    it 'should removed old notes' do
+      meal.notes << note = FactoryGirl.create(:note)
+      oldname = note.name
+      meal.notes.size.should == 1
+      meal.notes = [oldname + '2']
+      meal.notes.size.should == 1
+      meal.notes.first.name.should == oldname + '2'
+    end
+  end
 end

@@ -90,6 +90,8 @@ describe OpenMensa::Updater do
         meal_category = 'Hauptgricht'
 
         root_element << meal = xml_meal(meal_name)
+        meal << xml_text('note', 'vegan')
+        meal << xml_text('note', 'vegetarisch')
         meal << t = xml_text('price', '1.70'); t['role'] = 'student'
         meal << t = xml_text('price', '2.70'); t['role'] = 'other'
         today.meals.size.should be_zero
@@ -100,6 +102,7 @@ describe OpenMensa::Updater do
         today.meals.first.name.should == meal_name
         today.meals.first.prices[:student].should == 1.7
         today.meals.first.prices[:other].should == 2.7
+        today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'vegetarisch' ]
 
         updater.should be_changed
       end
@@ -255,6 +258,7 @@ describe OpenMensa::Updater do
 
       it 'should update changed meals' do
         meal1 = FactoryGirl.create :meal, day: today, prices: { student: 1.8, employee: 2.9, other: nil, pupil: nil}
+        meal1.notes = [ 'vegan', 'vegetarisch' ]
 
         # build xml data
         root_element << day = xml_node('day')
@@ -262,6 +266,8 @@ describe OpenMensa::Updater do
         day << category = xml_node('category')
         category['name'] = meal1.category
         category << meal = xml_meal(meal1.name)
+        meal << xml_text('note', 'vegan')
+        meal << xml_text('note', 'scharf')
         meal << t = xml_text('price', '1.70'); t['role'] = 'student'
         meal << t = xml_text('price', '2.70'); t['role'] = 'other'
 
@@ -273,6 +279,7 @@ describe OpenMensa::Updater do
 
         today.meals.size.should == 1
         today.meals.first.prices.should == { student: 1.7, other: 2.7 }
+        today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'scharf' ]
         today.meals.first.name.should == meal1.name
         today.meals.first.updated_at.should > updated_at
       end
@@ -280,6 +287,7 @@ describe OpenMensa::Updater do
       it 'should not update unchanged meals' do
         # close our test day
         meal1 = FactoryGirl.create :meal, day: today, prices: { student: 1.8, employee: 2.9, other: nil, pupil: nil}
+        meal1.notes = [ 'vegan', 'vegetarisch' ]
 
         # build xml data
         root_element << day = xml_node('day')
@@ -287,6 +295,8 @@ describe OpenMensa::Updater do
         day << category = xml_node('category')
         category['name'] = meal1.category
         category << meal = xml_meal(meal1.name)
+        meal << xml_text('note', 'vegan')
+        meal << xml_text('note', 'vegetarisch')
         meal << t = xml_text('price', '1.80'); t['role'] = 'student'
         meal << t = xml_text('price', '2.90'); t['role'] = 'employee'
 
@@ -298,6 +308,7 @@ describe OpenMensa::Updater do
 
         today.meals.size.should == 1
         today.meals.first.prices.should == { student: 1.8, employee: 2.9 }
+        today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'vegetarisch' ]
         today.meals.first.name.should == meal1.name
         today.meals.first.updated_at.should == updated_at
       end

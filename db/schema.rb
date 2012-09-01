@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831221122) do
+ActiveRecord::Schema.define(:version => 20120901124056) do
 
   create_table "canteens", :force => true do |t|
     t.string   "name"
@@ -72,6 +72,19 @@ ActiveRecord::Schema.define(:version => 20120831221122) do
     t.decimal  "price_pupil",    :precision => 8, :scale => 2
     t.decimal  "price_other",    :precision => 8, :scale => 2
   end
+
+  create_table "meals_notes", :force => true do |t|
+    t.integer "meal_id"
+    t.integer "note_id"
+  end
+
+  create_table "notes", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "notes", ["name"], :name => "index_notes_on_name", :unique => true
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false

@@ -75,4 +75,8 @@ FactoryGirl.define do
 
     association :day
   end
+
+  factory :note do
+    sequence(:name)     { |n| "note #{n}" }
+  end
 end
