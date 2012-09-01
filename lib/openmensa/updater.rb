@@ -76,7 +76,7 @@ class OpenMensa::Updater
       category: category,
       name: meal.children.select { |node| node.name == 'name' }.first.content,
       prices: meal.children.inject({}) do |prices, node|
-        prices[node['role']] = node.content if node.name == 'price'
+        prices[node['role']] = node.content if node.name == 'price' and @version == 2
         prices
       end,
       notes: meal.children.select { |n| n.name == 'note' }.map(&:content)
@@ -86,7 +86,7 @@ class OpenMensa::Updater
 
   def updateMeal(meal, category, mealData)
     meal.prices = mealData.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
-      prices[node['role']] = node.content if node.name == 'price'
+      prices[node['role']] = node.content if node.name == 'price' and @version == 2
       prices
     end
     meal.notes = mealData.children.select { |n| n.name == 'note' }.map(&:content)
