@@ -141,11 +141,13 @@ class OpenMensa::Updater
   def updateCanteen(canteenData)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
     canteenData.each_element do |day|
-      date = day['date']
-      if days.key? date
-        updateDay days[date], day
-      else
-        addDay day
+      canteen.transaction do
+        date = day['date']
+        if days.key? date
+          updateDay days[date], day
+        else
+          addDay day
+        end
       end
     end
     if changed?
