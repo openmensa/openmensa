@@ -10,10 +10,10 @@
     - else
       = l @date.to_date, format: :with_weekday
 %ul.meals
-  = render partial: "meals", object: @canteen.meals.on(@date)
+  = render partial: "meals", object: @canteen.meals.for(@date)
 
 -if @date == Time.zone.now.to_date
   %header.page-header
     %h3.centered= l (@date + 1.day).to_date, format: :with_weekday
   %ul.meals
-    = render partial: "meals", object: @canteen.meals.on(@date + 1.day)
+    = render partial: "meals", object: @canteen.meals.for(@date + 1.day)
