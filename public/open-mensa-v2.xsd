@@ -79,10 +79,11 @@
             	<xs:documentation>The name of the category, e.g. "Essen 1" or "Ausgabe A".</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
-    			<xs:restriction base="xs:string">
-    				<xs:minLength value="1"></xs:minLength>
-    			</xs:restriction>
-    		</xs:simpleType>
+            	<xs:restriction base="xs:string">
+            		<xs:minLength value="1"></xs:minLength>
+            		<xs:maxLength value="250"></xs:maxLength>
+            	</xs:restriction>
+            </xs:simpleType>
     	</xs:attribute>
     </xs:complexType>
 
@@ -95,6 +96,7 @@
     			<xs:simpleType>
     				<xs:restriction base="xs:string">
     					<xs:minLength value="1"></xs:minLength>
+    					<xs:maxLength value="250"></xs:maxLength>
     				</xs:restriction>
     			</xs:simpleType>
     		</xs:element>
@@ -103,10 +105,11 @@
                 	<xs:documentation>A note often resembles a properties of the associated meal like the ingredients used or some important annotations.</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    				</xs:restriction>
-    			</xs:simpleType>
+                	<xs:restriction base="xs:string">
+                		<xs:minLength value="1"></xs:minLength>
+                		<xs:maxLength value="250"></xs:maxLength>
+                	</xs:restriction>
+                </xs:simpleType>
     		</xs:element>
     		<xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
                 <xs:annotation>
@@ -121,15 +124,20 @@
     		<xs:extension base="xs:float">
     			<xs:attribute name="role" use="required">
                     <xs:annotation>
-                    	<xs:documentation>A price's role defines for which group of persons the price is valid: students, employees (of your organization) or others (people that do not belong to your organization).</xs:documentation>
+                    	<xs:documentation>A price's role defines for which group of persons the price is valid:
+- pupils (some canteens do that)
+- students
+- employees (of your organization) or
+- others (people that do not belong to your organization or to any other group listed here).</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
-    					<xs:restriction base="xs:string">
-    						<xs:enumeration value="student"></xs:enumeration>
-    						<xs:enumeration value="employee"></xs:enumeration>
-    						<xs:enumeration value="other"></xs:enumeration>
-    					</xs:restriction>
-    				</xs:simpleType>
+                    	<xs:restriction base="xs:string">
+                    		<xs:enumeration value="pupil"></xs:enumeration>
+                    		<xs:enumeration value="student"></xs:enumeration>
+                    		<xs:enumeration value="employee"></xs:enumeration>
+                    		<xs:enumeration value="other"></xs:enumeration>
+                    	</xs:restriction>
+                    </xs:simpleType>
     			</xs:attribute>
     		</xs:extension>
     	</xs:simpleContent>
