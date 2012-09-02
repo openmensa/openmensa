@@ -1,4 +1,6 @@
 class CreateDayTable < ActiveRecord::Migration
+  class Meal < ActiveRecord::Base
+  end
   def up
     # 1. add new entity
     create_table :days do |t|
@@ -15,6 +17,7 @@ class CreateDayTable < ActiveRecord::Migration
     say_with_time 'updating meals' do
       Day.reset_column_information
       Meal.reset_column_information
+      count = 0
       Meal.all.each do |m|
         canteen = Canteen.find_by_id m.canteen_id
         # way is this needed:
@@ -26,7 +29,9 @@ class CreateDayTable < ActiveRecord::Migration
         day = canteen.days.find_by_date m.read_attribute(:date)
         day ||= canteen.days.create date: m.read_attribute(:date)
         m.update_column :day_id, day.id
+        count += 1
       end
+      count
     end
 
     # 3. remove obsolete columns
