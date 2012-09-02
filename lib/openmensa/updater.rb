@@ -163,9 +163,14 @@ class OpenMensa::Updater
     return false unless document
     version = validate document.read
     return false unless version
-    canteenData = case version
-      when 1 then @document.root
-      when 2 then @document.root.children.first.next
+    case version
+      when 1 then
+        canteenData = @document.root
+      when 2 then
+        canteenData = @document.root.children.first
+        while canteenData.name != 'canteen'
+          canteenData = canteenData.next
+        end
     end
     updateCanteen canteenData
   end
