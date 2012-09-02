@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../../../lib/open_mensa.rb'
+require File.dirname(__FILE__) + '/../../../app/models/message.rb'
 require 'spec_helper'
 include LibXML
 
@@ -25,6 +26,12 @@ describe OpenMensa::Updater do
         to_return(status: 301, headers: { location: 'http://example.com/data.xml' })
       stub_request(:any, "example.com/302.xml").
         to_return(status: 302, headers: { location: 'http://example.com/data.xml' })
+      stub_request(:any, "example.com/500.xml").
+        to_return(status: 500)
+      stub_request(:any, "unknowndomain.org").
+        to_raise(SocketError.new('getaddrinfo: Name or service not known'))
+      stub_request(:any, "example.org/timeout.xml").
+        to_timeout
     end
 
     it 'should skip on missing urls' do
@@ -36,6 +43,8 @@ describe OpenMensa::Updater do
     it 'should skip invalid urls' do
       canteen.update_attribute :url, ':///:asdf'
       updater.fetch.should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedInvalidUrlError)
     end
 
     it 'should receive feed data via http' do
@@ -47,6 +56,10 @@ describe OpenMensa::Updater do
       canteen.update_attribute :url, 'http://example.com/301.xml'
       updater.fetch.read.should == '<xml>'
       canteen.url.should == 'http://example.com/data.xml'
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedUrlUpdatedInfo)
+      m.old_url.should == 'http://example.com/301.xml'
+      m.new_url.should == 'http://example.com/data.xml'
     end
 
     it 'should not update feed url on 302 responses' do
@@ -54,17 +67,53 @@ describe OpenMensa::Updater do
       updater.fetch.read.should == '<xml>'
       canteen.url.should == 'http://example.com/302.xml'
     end
+
+    it 'should handle http errors correctly' do
+      canteen.update_attribute :url, 'http://example.com/500.xml'
+      updater.fetch.should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedFetchError)
+      m.code.should == 500
+    end
+
+    it 'should handle network errors correctly' do
+      canteen.update_attribute :url, 'http://unknowndomain.org'
+      updater.fetch.should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedFetchError)
+      m.code.should == nil
+    end
+
+    it 'should handle network timeout ' do
+      canteen.update_attribute :url, 'http://example.org/timeout.xml'
+      updater.fetch.should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedFetchError)
+      m.code.should == nil
+    end
   end
 
   context "should reject" do
     it "non-xml data" do
       updater.validate(mock_content('feed_garbage.dat')).should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedValidationError)
+      m.kind.should == :no_xml
+      m.version.should be_nil
     end
     it "well-formatted but non-valid xml data" do
       updater.validate(mock_content('feed_wellformated.xml')).should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedValidationError)
+      m.kind.should == :invalid_xml
+      m.version.should == 1
     end
     it "valid but non-openmensa xml data" do
       updater.validate(mock_content('carrier_ship.xml')).should be_false
+      m = canteen.messages.first
+      m.should be_an_instance_of(FeedValidationError)
+      m.kind.should == :unknown_version
+      m.version.should be_nil
     end
   end
 

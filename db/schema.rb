@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901124056) do
+ActiveRecord::Schema.define(:version => 20120901235013) do
 
   create_table "canteens", :force => true do |t|
     t.string   "name"
@@ -77,6 +77,18 @@ ActiveRecord::Schema.define(:version => 20120901124056) do
     t.integer "meal_id"
     t.integer "note_id"
   end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "canteen_id"
+    t.string   "type",       :null => false
+    t.string   "priority",   :null => false
+    t.text     "data",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "messages", ["canteen_id"], :name => "index_messages_on_canteen_id"
+  add_index "messages", ["type"], :name => "index_messages_on_type"
 
   create_table "notes", :force => true do |t|
     t.string   "name",       :null => false

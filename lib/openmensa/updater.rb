@@ -29,13 +29,25 @@ class OpenMensa::Updater
     open uri, redirect: !handle_301
   rescue URI::InvalidURIError
     Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
+    FeedInvalidUrlError.create canteen: canteen
     false
   rescue OpenURI::HTTPRedirect => redirect
     if redirect.message.start_with? '301' # permanent redirect
       Rails.logger.warn "Update url of canteen #{canteen.id} to '#{redirect.uri.to_s}'"
+      FeedUrlUpdatedInfo.create canteen: canteen, old_url: canteen.url, new_url: redirect.uri.to_s
       canteen.update_attribute :url, redirect.uri.to_s
     end
     fetch false
+  rescue OpenURI::HTTPError => error
+    FeedFetchError.create({
+        canteen: @canteen, code: error.message.to_i,
+        message: error.message})
+    false
+  rescue => error
+    FeedFetchError.create({
+        canteen: @canteen, code: nil,
+        message: error.message})
+    false
   end
 
 
@@ -51,20 +63,34 @@ class OpenMensa::Updater
 
   def validate(data)
     XML::Error.set_handler { |e| }
-    @document = XML::Document.string data, options: XML::Parser::Options::NOERROR | XML::Parser::Options::NOWARNING
+    @version = nil
     begin
-      @document.validate_schema(self.class.schema_v2)
-      return @version = 2
-    rescue XML::Error
+      @document = XML::Document.string data, options: XML::Parser::Options::NOERROR | XML::Parser::Options::NOWARNING
+    rescue XML::Error => e
+      FeedValidationError.create({
+        canteen: @canteen, version: @version,
+        kind: :no_xml, message: e.message})
+      return false
+    end
+    @version = @document.root[:version].to_i
+    case @version
+      when 1 then schema = self.class.schema_v1
+      when 2 then schema = self.class.schema_v2
+      else
+        FeedValidationError.create({
+          canteen: @canteen, version: nil,
+          kind: :unknown_version })
+        return false
     end
     begin
-      @document.validate_schema(self.class.schema_v1)
-      return @version = 1
-    rescue XML::Error
+      @document.validate_schema(schema)
+    rescue XML::Error => error
+      FeedValidationError.create({
+        canteen: @canteen, version: @version,
+        kind: :invalid_xml, message: error.message })
+      return false
     end
-    false
-  rescue XML::Error
-    false
+    return @version
   ensure
     XML::Error.reset_handler
   end

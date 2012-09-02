@@ -5,6 +5,7 @@ class Canteen < ActiveRecord::Base
   belongs_to :user
   has_many :days
   has_many :meals, through: :days
+  has_many :messages
 
   attr_accessible :address, :name, :url, :user, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
