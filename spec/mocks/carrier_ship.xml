@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sed:model xmlns:sed="http://mycrobase.de/sed-model-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://mycrobase.de/sed-model-1.0 sed-model-1.0.xsd">
+    <name>carrier_ship</name>
+    <mesh file="models/carrier_ship.mesh.xml" />
+    <poi>
+        <camera x="0.0" y="30.0" z="36.75" />
+    </poi>
+</sed:model>

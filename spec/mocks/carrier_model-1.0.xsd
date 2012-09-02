@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://mycrobase.de/sed-model-1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://mycrobase.de/sed-model-1.0">
+
+    <xs:element name="model" type="modelType"></xs:element>
+
+    <xs:complexType name="modelType">
+    	<xs:sequence>
+    		<xs:element name="name" type="xs:string"></xs:element>
+    		<xs:element name="mesh" type="meshType"></xs:element>
+    		<xs:element name="poi" type="poiType"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="meshType">
+    	<xs:attribute name="file" type="xs:string"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="poiType">
+    	<xs:sequence>
+    		<xs:element name="camera" type="cameraType"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="cameraType">
+    	<xs:attribute name="x" type="xs:float"></xs:attribute>
+    	<xs:attribute name="y" type="xs:float"></xs:attribute>
+    	<xs:attribute name="z" type="xs:float"></xs:attribute>
+    </xs:complexType>
+</xs:schema>

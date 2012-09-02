@@ -8,11 +8,11 @@ describe Api::V1::MealsController do
   describe "GET index" do
     let(:canteen) { FactoryGirl.create :canteen }
     before do
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 2.day
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now - 1.day
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 1.day
-      FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now + 2.day
+      FactoryGirl.create :meal, day: FactoryGirl.create(:day, canteen: canteen, date: Time.zone.now - 2.day)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:yesterday, canteen: canteen)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:today, canteen: canteen)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:tomorrow, canteen: canteen)
+      FactoryGirl.create :meal, day: FactoryGirl.create(:day, canteen: canteen, date: Time.zone.now + 2.day)
     end
 
     it "should return list of meals" do
@@ -38,7 +38,7 @@ describe Api::V1::MealsController do
 
   describe "GET show" do
     let(:canteen) { FactoryGirl.create :canteen }
-    let(:meal)    { FactoryGirl.create :meal, canteen: canteen, date: Time.zone.now }
+    let(:meal)    { FactoryGirl.create :meal, day: FactoryGirl.create(:today, canteen: canteen) }
 
     it "should return a meal object" do
       get :show, format: :json, cafeteria_id: canteen.id, id: meal.id

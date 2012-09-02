@@ -45,20 +45,38 @@ FactoryGirl.define do
 
   factory :canteen_with_meals, parent: :canteen do
     after(:create) do |canteen|
-      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now - 1.day)
-      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now - 1.day)
-      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now)
-      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now)
-      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now + 1.day)
-      FactoryGirl.create(:meal, canteen: canteen, date: Time.zone.now + 1.day)
+      FactoryGirl.create(:meal, day: FactoryGirl.create(:yesterday, canteen: canteen))
+      FactoryGirl.create(:meal, day: FactoryGirl.create(:yesterday, canteen: canteen))
+      FactoryGirl.create(:meal, day: FactoryGirl.create(:today, canteen: canteen))
+      FactoryGirl.create(:meal, day: FactoryGirl.create(:today, canteen: canteen))
+      FactoryGirl.create(:meal, day: FactoryGirl.create(:tomorrow, canteen: canteen))
+      FactoryGirl.create(:meal, day: FactoryGirl.create(:tomorrow, canteen: canteen))
     end
+  end
+
+  factory :day do
+    date                { Time.zone.now }
+
+    association :canteen
+  end
+  factory :yesterday, parent: :day do
+    date                { Time.zone.now - 1.day }
+  end
+  factory :today, parent: :day do
+    date                { Time.zone.now }
+  end
+  factory :tomorrow, parent: :day do
+    date                { Time.zone.now + 1.day }
   end
 
   factory :meal do
     sequence(:category) { |n| "Meal ##{n}" }
     name                { "The name of #{category}." }
-    date                { Time.zone.now }
 
-    association :canteen
+    association :day
+  end
+
+  factory :note do
+    sequence(:name)     { |n| "note #{n}" }
   end
 end

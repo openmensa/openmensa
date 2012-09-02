@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :identities
+  has_many :messages, through: :canteens
 
   validates_presence_of :login, :name
   validates_uniqueness_of :login

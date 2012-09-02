@@ -15,7 +15,7 @@ guard 'spork', cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'RAILS_ENV'
   watch(%r{features/support/}) { :cucumber }
 end
 
-guard 'rspec', version: 2, cli: '--drb' do
+guard 'rspec', version: 2, cli: '--drb', :all_after_pass => false, :all_on_start => false do
   watch(%r{^spec/(.+)_spec\.rb$})                     { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }

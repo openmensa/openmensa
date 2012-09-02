@@ -1,15 +1,33 @@
 class Meal < ActiveRecord::Base
-  belongs_to :canteen
+  belongs_to :day
+  has_one :canteen, through: :day
   has_many :comments, as: :commentee
+  has_and_belongs_to_many :notes, autosave: true, readonly: true, uniq: true
 
-  attr_accessible :date, :description, :name, :category, :canteen_id, :canteen
-  validates :date, :name, :category, :canteen_id, presence: true
+  attr_accessible :description, :name, :category, :day_id, :day, :prices, :price_student, :price_employee, :price_pupil, :price_other, :notes
+  validates :name, :category, :day_id, presence: true
 
-  scope :on, lambda { |date| where(date: date.to_date) }
-  scope :today, lambda { where(date: Time.now.to_date) }
-  scope :tomorrow, lambda { where(date: Time.now.to_date + 1.day) }
+  def date
+    day.date
+  end
 
-  def date=(date)
-    write_attribute :date, date.to_date unless date.nil?
+  def prices
+    [:student, :employee, :pupil, :other].inject({}) do |prices, role|
+      price = read_attribute :"price_#{role}"
+      prices[role] = price if price
+      prices
+    end
+  end
+  def prices=(prices)
+    prices.each do |role, price|
+      write_attribute :"price_#{role}", price
+    end
+  end
+
+  def notes=(notes)
+    super(notes.map do |note|
+      note = Note.find_or_create_by_name name: note if note.is_a? String
+      note
+    end)
   end
 end

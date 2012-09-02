@@ -10,8 +10,8 @@ namespace :om do
 
       begin
         canteen.fetch
-      rescue
-        Rails.logger.warn "Error while fetching canteen data of #{canteen.id}: #{canteen.name}"
+      rescue => e
+        Rails.logger.warn "Error while fetching canteen data of #{canteen.id} (#{canteen.name}): #{e.message}"
       end
     end
   end
