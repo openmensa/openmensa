@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../../../lib/open_mensa.rb'
-require File.dirname(__FILE__) + '/../../../app/models/message.rb'
 require 'spec_helper'
 include LibXML
 
