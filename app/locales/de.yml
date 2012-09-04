@@ -15,6 +15,7 @@ de:
   my_canteens: Meine Mensen
   add_canteen: Neue Mensa hinzufügen
   edit_canteen: Mensa bearbeiten
+  my_messages: Statusmitteilungen
 
   service:
     twitter: Twitter
@@ -93,3 +94,12 @@ de:
       url: http://mydomain.de/mensa-greuther-fuerth.xml
       name: Mensa Greuther Fürth
       address: Straße + Hausnummer, Postleitzahl + Stadt, Germany
+
+  messages_html:
+    feed_invalid_url_error: "Die Feed-Url der Mensa ist nicht valid."
+    feed_fetch_error: "Die Feed-Daten konnten nicht abgerufen werden: %{code} - %{message}"
+    feed_validation_error:
+      no_xml: "Als Feed wurden keine XML-Daten zurückgeliefert: %message}"
+      invalid_xml: "Die XML-Daten entsprechen nicht dem Schema des OpenMensa Feed v%{version}: %{message}"
+      unknown_version: "Aus dem XML-Dokument konnte keine Feed-Version extrahiert werden. Es handelt sich daher wahrscheinlich um keinen OpenMensa-Feed."
+    feed_url_updated_info: "Die Anfrage nach %{old_url} wurde mit einem permanenten HTTP-Rewrite (301) beantwortet. Als neue URL wird nun %{new_url} genutzt."

@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 describe "Profile page" do
   let(:developer) { FactoryGirl.create :developer }
+  let(:canteen) { FactoryGirl.create :canteen, user_id: developer.id }
 
   before do
     login_as developer
@@ -22,7 +23,7 @@ describe "Profile page" do
   end
 
   it "should allow to edit own canteens" do
-    canteen = FactoryGirl.create :canteen, user_id: developer.id
+    canteen
     click_on "Meine Mensen"
     click_on "Mensa bearbeiten"
 
@@ -42,5 +43,13 @@ describe "Profile page" do
 
 
     page.should have_content 'Mensa gespeichert.'
+  end
+
+  it "should allow to view own messages" do
+    message = FactoryGirl.create :feedValidationError, canteen: canteen, kind: :invalid_xml
+    click_on "Statusmitteilungen"
+
+    page.should have_content message.canteen.name
+    page.should have_content message.message
   end
 end

@@ -1,0 +1,18 @@
+.row
+  .span8
+    %section
+      %header
+        %h2
+          = t :my_messages
+
+      .content
+        - @messages.group_by(&:canteen).each do |canteen, messages|
+          %h3= "#{canteen.name}"
+          %p="url: #{canteen.url}"
+          %table
+            - messages.each do |message|
+              %tr
+                %td=l message.created_at
+                %td=message.to_html
+
+  = render partial: 'users/nav'

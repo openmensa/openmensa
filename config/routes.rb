@@ -15,6 +15,7 @@ Openmensa::Application.routes.draw do
     resources :favorites, path: 'favs', only: [ :index, :destroy ]
     resources :identities, path: 'ids', only: [ :new, :create, :destroy ]
     resources :canteens, path: 'c', only: [ :index, :new, :create, :edit, :update ]
+    resources :messages, path: 'm', only: [ :index ]
   end
   resources :favorites, path: 'favs', only: [ :index ]
 
