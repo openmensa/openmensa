@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'libxml'
-require File.dirname(__FILE__) + '/../../app/models/message.rb'
+require_dependency 'message'
 
 class OpenMensa::Updater
   include LibXML

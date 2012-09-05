@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../lib/open_mensa.rb'
 require 'spec_helper'
+require 'libxml'
 include LibXML
 
 describe OpenMensa::Updater do
