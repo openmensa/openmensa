@@ -1,0 +1,17 @@
+In den letzten 24 Stunden sind folgende Probleme aufgetretten.
+
+<% @messages.group_by(&:canteen).each do |canteen, messages| %>
+<%=canteen.name %>
+===================
+url: <%= canteen.url %>
+
+<%= messages.each do |message| %>
+ - <%=l message.created_at %>
+    <% message.to_text_mail %>
+
+<% end %>
+`
+<% end %>
+
+Die Liste alle Mitteilungen ist unter:
+<%= user_messages_url(@user, only_path: false) %>

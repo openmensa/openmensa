@@ -16,7 +16,11 @@ class Message < ActiveRecord::Base
   def debug?;   priority == :debug   end
 
   def to_html
-    I18n.t("messages_html.#{self.class.name.underscore}", data)
+    I18n.t("messages.html.#{self.class.name.underscore}", data)
+  end
+
+  def to_text_mail
+    I18n.t("messages.text_mail.#{self.class.name.underscore}", data)
   end
 
   protected
@@ -57,7 +61,10 @@ class FeedValidationError < Message
   def message=(m); data[:message] = m end
 
   def to_html
-    I18n.t("messages_html.feed_validation_error.#{kind.to_s}", data)
+    I18n.t("messages.html.feed_validation_error.#{kind.to_s}", data)
+  end
+  def to_html
+    I18n.t("messages.text_mail.feed_validation_error.#{kind.to_s}", data)
   end
 end
 
