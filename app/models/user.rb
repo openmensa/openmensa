@@ -40,6 +40,17 @@ class User < ActiveRecord::Base
     read_attribute(:time_zone) || Rails.configuration.time_zone.to_s
   end
 
+  def send_reports?
+    !last_report_at.nil?
+  end
+  def send_reports=(bool)
+    if bool
+      write_attribute(:last_report_at, read_attribute(:last_report_at) || Time.zone.now)
+    else
+      write_attribute :last_report_at, nil
+    end
+  end
+
   def ability; @ability ||= Ability.new(self) end
   def can?(*attr) ability.can?(*attr) end
   def cannot?(*attr) ability.cannot?(*attr) end

@@ -5,12 +5,12 @@ In den letzten 24 Stunden sind folgende Probleme aufgetretten.
 ===================
 url: <%= canteen.url %>
 
-<%= messages.each do |message| %>
+<% messages.each do |message| %>
  - <%=l message.created_at %>
-    <% message.to_text_mail %>
+    <%= message.to_text_mail %>
 
 <% end %>
-`
+
 <% end %>
 
 Die Liste alle Mitteilungen ist unter:

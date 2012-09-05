@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901235013) do
+ActiveRecord::Schema.define(:version => 20120905144125) do
 
   create_table "canteens", :force => true do |t|
     t.string   "name"
@@ -152,13 +152,14 @@ ActiveRecord::Schema.define(:version => 20120901235013) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.string   "time_zone"
-    t.string   "language",   :limit => 2
+    t.string   "language",       :limit => 2
     t.string   "login"
     t.boolean  "admin"
-    t.boolean  "developer",               :default => false
+    t.boolean  "developer",                   :default => false
+    t.datetime "last_report_at"
   end
 
 end
