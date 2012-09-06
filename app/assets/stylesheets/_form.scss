@@ -1,5 +1,18 @@
 form {
 
+  fieldset {
+    margin: 1.4em 0 0 0;
+    border: none;
+    border-top: 1px solid $frame-color;
+
+    > legend {
+      padding: 0 5px;
+      margin: 0 0 0 -5px;
+
+      + p { margin-top: 0; }
+    }
+  }
+
   p {
     position: relative;
     padding: 0 18px 0 0;
@@ -35,6 +48,15 @@ form {
         @include box-shadow(none);
         border-color: #ccc;
         background-color: #fafafa;
+      }
+    }
+
+    input[type="checkbox"] {
+      vertical-align: bottom;
+      margin: 0 .2em .1em 0;
+
+      + label { 
+        display: inline-block;
       }
     }
 
