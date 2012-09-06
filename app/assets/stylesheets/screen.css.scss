@@ -231,7 +231,7 @@
           margin: 0;
           list-style: none;
           position: relative;
-          padding: 0;
+          padding: 0 0 12px 0;
           @include clearfix;
           @extend %hover-transition;
 
@@ -250,7 +250,6 @@
         ul.prices {
           float: right;
           margin: 6px 0 0 15px;
-          padding-bottom: 12px;
           overflow: hidden;
 
           li {
@@ -294,10 +293,9 @@
           border-bottom: 1px dotted #eee;
         }
         div.meal {
-          padding: 3px 5px 3px 10px;
+          padding: 3px 5px 3px 10px !important;
 
-          ul.notes, ul.prices, > p { margin-left: 0; margin-top: 1px; color: #777; }
-          ul.prices { padding-bottom: 0; }
+          ul.notes, ul.prices, > p { margin-left: 0; margin-top: 1px; color: #777; padding-bottom: 0; }
           ul.prices li { width: auto; margin-left: 1em; }
           ul.prices li span { display: none; }
         }
