@@ -1,17 +1,24 @@
 In den letzten 24 Stunden sind folgende Probleme aufgetretten.
+Mehr Information finden Sie unter:
+<%= user_messages_url(@user, only_path: false) %>
 
-<% @messages.group_by(&:canteen).each do |canteen, messages| %>
+<% @messages.group_by(&:canteen).each do |canteen, allMessages| %>
 <%=canteen.name %>
 ===================
 url: <%= canteen.url %>
 
-<% messages.each do |message| %>
- - <%=l message.created_at %>
-    <%= message.to_text_mail %>
-
+<% allMessages.group_by { |m| [m.type, m.data ] }.each do |d, messages| %>
+ - <%= messages.first.to_text_mail %>
+<% if messages.size > 1 %>
+   Erstmals: <%=l messages.first.created_at %>
+   Letztes Mal: <%=l messages.first.created_at %>
+   Anzahl: <%=messages.size %>
+<% else %>
+   Zeitpunkt: <%=l messages.first.created_at %>
 <% end %>
 
 <% end %>
+<% end %>
 
-Die Liste alle Mitteilungen ist unter:
+Die vollständige Liste mit Mitteilungen finden Sie unter:
 <%= user_messages_url(@user, only_path: false) %>

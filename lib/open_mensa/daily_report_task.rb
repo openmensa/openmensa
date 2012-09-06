@@ -5,7 +5,7 @@ class OpenMensa::DailyReportTask
     User.all.each do |user|
       next unless user.developer?
       next unless user.send_reports?
-      messages = user.messages.where('messages.created_at > ?', user.last_report_at)
+      messages = user.messages.where('messages.created_at > ?', user.last_report_at).order(["canteens.name", :updated_at]).includes(:canteen)
       if messages.size > 0
         MessageMailer.daily_report(user, messages).deliver
         user.update_attribute :last_report_at, Time.zone.now
