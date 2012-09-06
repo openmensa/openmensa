@@ -1,5 +1,5 @@
 class MessageMailer < ActionMailer::Base
-  default from: "info@openmensa.org"
+  default from: "mail@openmensa.org"
 
   def daily_report(user, messages=nil)
     @user = user

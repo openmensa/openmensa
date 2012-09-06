@@ -25,7 +25,7 @@ describe MessageMailer do
     end
 
     it 'should send in the name of the OpenMensa development team' do
-      mail.from.should == ['info@openmensa.org']
+      mail.from.should == ['mail@openmensa.org']
     end
 
     it 'should include all new messages for every canteen' do
