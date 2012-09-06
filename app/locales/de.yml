@@ -30,6 +30,8 @@ de:
   today: Heute
   no_meals_title: Kein Angebot
   no_meals_message: Leider liegen uns für diesen Tag keine Angebote vor.
+  closed_day_title: Geschlossen
+  closed_day_message: Die Mensa ist an diesem Tag geschlossen.
 
   notice:
     no_canteens: "Du hast noch keine Mensen eingetragen.<br /> Du kannst eine <strong>neue Mensa</strong> eintragen, indem du oben auf das Plus-Symbol drückst."
