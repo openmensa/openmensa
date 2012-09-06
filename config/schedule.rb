@@ -24,3 +24,7 @@ set :output, "log/whenever.log"
 every :hour do
   rake "om:fetch"
 end
+
+every :day, :at => '11am' do
+  rake 'om:daily_report'
+end
