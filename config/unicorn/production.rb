@@ -15,7 +15,7 @@ preload_app true
 timeout 30
 
 # Listen on a unix socket
-listen File.absolute_path('./tmp/sockets/unicorn.sock'), :backlog => 2048
+listen 'unix:tmp/sockets/unicorn.sock', :backlog => 2048
 
 # Setup pid file
 pid 'tmp/pids/unicorn.pid'
