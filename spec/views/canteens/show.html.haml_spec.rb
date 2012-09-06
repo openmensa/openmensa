@@ -60,7 +60,7 @@ describe "canteens/show.html.haml" do
 
       rendered.should include('Student')
       rendered.should include('1,22 €')
-      rendered.should include('Angestellte')
+      rendered.should include('Mitarbeiter')
       rendered.should include('1,70 €')
       rendered.should include('Gäste')
       rendered.should include('2,20 €')
