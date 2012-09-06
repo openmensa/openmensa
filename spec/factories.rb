@@ -54,6 +54,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :closed_day, parent: :today do
+    closed              true
+  end
+
   factory :day do
     date                { Time.zone.now }
 

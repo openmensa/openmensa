@@ -1,0 +1,15 @@
+- if day.nil?
+  %li
+    %h3= t(:no_meals_title)
+    %p= t(:no_meals_message)
+- elsif day.closed?
+  %li
+    %h3= t(:closed_day_title)
+    %p= t(:closed_day_message)
+- else
+  - day.meals.group_by(&:category).each do |category, meals|
+    %li
+      %h3= category
+      - if meals
+        - meals.each do |meal|
+          %p= meal.name
