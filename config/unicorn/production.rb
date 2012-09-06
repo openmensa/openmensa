@@ -18,7 +18,7 @@ timeout 30
 listen File.absolute_path('./tmp/sockets/unicorn.sock'), :backlog => 2048
 
 # Setup pid file
-pid './tmp/pids/unicorn.pid'
+pid 'tmp/pids/unicorn.pid'
 
 # Log to /application/current/log/ files, we are allready in RAILS_ROOT
 stderr_path 'log/unicorn.err.log'
@@ -43,7 +43,7 @@ before_fork do |server, worker|
   # a new Unicorn and need to tell the old one that it can now die. To do so
   # we send it a QUIT.
 
-  old_pid = Rails.root + '/tmp/pids/unicorn.pid.oldbin'
+  old_pid = 'tmp/pids/unicorn.pid.oldbin'
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
