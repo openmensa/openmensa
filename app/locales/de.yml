@@ -33,9 +33,9 @@ de:
   closed_day_title: Geschlossen
   closed_day_message: Die Mensa ist an diesem Tag geschlossen.
   price_roles:
-    student: Student
+    student: Studenten
     pupil: Schüler
-    employee: Angestellter
+    employee: Mitarbeiter
     other: Gäste
 
   notice:

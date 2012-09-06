@@ -21,6 +21,10 @@
 .hide { display: none; }
 .icon-google_oauth2-sign { @extend .icon-google-plus-sign }
 
+%hover-transition {
+  @include transition(all .2s ease-in-out);
+}
+
 .appbox {
   position: relative;
   border-top: 1px solid #ddd;
@@ -151,7 +155,7 @@
         height: 14px;
         display: block;
         @include transform(rotate(-45deg));
-        @include transition(all .1s ease-in-out);
+        @extend %hover-transition;
       }
 
       &.next {
@@ -175,47 +179,128 @@
       &:hover span {
         border-color: #333;
         background-color: rgba(0, 0, 0, 0.05);
-        @include transition(all .1s ease-in-out);
+        @extend %hover-transition;
       }
     }
   }
 
   ul.meals {
     margin: 0;
-    padding: 0 0 5px;
+    padding: 0;
+    // padding: 0 0 5px;
     list-style: none;
 
-    li {
+    > li {
       border-top: 1px solid #e5e5e5;
-      padding: 4px 15px 5px;
+      // padding: 4px 15px 0;
       @include clearfix;
 
       &:first-child {
-        padding-top: 8px;
+        > h3  { padding-top: 7px; }
+        > h3 + div.meal { padding-top: 12px; }
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
       }
+      &:last-child > div { padding-bottom: 8px; }
 
-      h3 {
+      > h3 {
         float: left;
         width: 140px;
         font-size: 13px;
         font-size: 1.3rem;
         font-weight: bold;
         text-align: right;
-        margin: 4px 0 0 0;
+        margin: 9px 0 0 15px;
       }
 
-      p {
-        margin: 4px 0 0 155px;
-        padding: 0 5px 4px;
+      div.meal {
+        padding: 5px 15px 3px;
         border-bottom: 1px dotted #eee;
+        @extend %hover-transition;
+
         &:last-child { border: none; }
+        &:hover {
+          @extend %hover-transition;
+          background-color: #fcfcfc;
+          cursor: pointer;
+        }
+
+        > p { margin: 4px 0 1px 155px; }
+        > div { @include clearfix; }
+
+        ul.notes, ul.prices {
+          margin: 0;
+          list-style: none;
+          position: relative;
+          padding: 0;
+          @include clearfix;
+          @extend %hover-transition;
+
+          color: #ccc;
+          font-size: .85em;
+        }
+        ul.notes {
+          margin: 6px 0 0 155px;
+
+          li {
+            float: left;
+            margin: 0 .5em 0 0;
+            &:before { content: '+'; }
+          }
+        }
+        ul.prices {
+          float: right;
+          margin: 6px 0 0 15px;
+          padding-bottom: 12px;
+          overflow: hidden;
+
+          li {
+            float: left;
+            margin: 0 0 0 5px;
+            width: 55px;
+
+            opacity: 0.0;
+            visibility: hidden;
+            @extend %hover-transition;
+
+            span {
+              @extend %hover-transition;
+              color: #aaa;
+              bottom: 0;
+              opacity: 0.0;
+              position: absolute;
+              visibility: hidden;
+            }
+
+            &:last-child {
+              opacity: 1.0;
+              visibility: visible;
+            }
+          }
+        }
+
+        &:hover, &.active {
+          ul { color: #666; @extend %hover-transition; }
+          ul.prices li, ul.prices span { visibility: visible; opacity: 1.0; @extend %hover-transition; }
+        }
       }
 
       @include media(mobile) {
-        padding: 1px 4px !important;
-        h3 { float: none; width: 100%; text-align: left; margin: 2px 0; }
-        p { margin-left: 30px; }
+        > h3 {
+          float: none;
+          width: 100%;
+          text-align: left;
+          margin: 2px 0 0;
+          padding: 2px 5px !important;
+          border-bottom: 1px dotted #eee;
+        }
+        div.meal {
+          padding: 3px 5px 3px 10px;
+
+          ul.notes, ul.prices, > p { margin-left: 0; margin-top: 1px; color: #777; }
+          ul.prices { padding-bottom: 0; }
+          ul.prices li { width: auto; margin-left: 1em; }
+          ul.prices li span { display: none; }
+        }
       }
     }
   }

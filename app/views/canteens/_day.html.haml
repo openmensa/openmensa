@@ -13,12 +13,14 @@
       - meals.each do |meal|
         %div.meal
           %p= meal.name
-          - if meal.prices.size > 0
-            %dl
-              - meal.prices.each do |role,price|
-                %dt=t :"price_roles.#{role}"
-                %dd=number_to_currency(price, uni: '€')
-          - if meal.notes.size > 0
-            %ul
-              - meal.notes.each do |note|
-                %li=note.name
+          %div
+            - if meal.prices.size > 0
+              %ul.prices
+                - meal.prices.each do |role,price|
+                  %li{title: t(:"price_roles.#{role}")}
+                    %span=t :"price_roles.#{role}"
+                    =number_to_currency(price, uni: '€')
+            - if meal.notes.size > 0
+              %ul.notes
+                - meal.notes.each do |note|
+                  %li=note.name
