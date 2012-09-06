@@ -8,11 +8,6 @@ describe Meal do
   it { should_not accept_values_for(:day_id, "", nil) }
 
   describe '#prices' do
-    it 'should be empty by default but not nil' do
-      meal.prices.should be_empty
-      meal.prices.should_not be_nil
-    end
-
     it 'should only contain setted values' do
       meal.update_attributes({
         price_student: 1.7,
