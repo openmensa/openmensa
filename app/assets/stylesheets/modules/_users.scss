@@ -1,0 +1,70 @@
+
+.users_controller {
+  .identities {
+    @include clearfix;
+    padding: 3px 3px 4px !important;
+
+    p { clear: both; padding: 6px 12px 0; }
+  }
+
+  .identity {
+    float: left;
+    width: 42%;
+    height: 74px;
+    margin: 4px;
+    padding: 0 14px;
+    overflow: hidden;
+    background-color: #fff;
+    position: relative;
+    border: 1px solid #ddd;
+    @include box-shadow(0 1px 3px rgba(#000, 0.1));
+
+    @include media(mobile) {
+      width: 85%;
+    }
+
+    i {
+      color: #444;
+      float: left;
+      font-size: 60px;
+    }
+
+    span.provider {
+      display: block;
+      margin: 24px 0 0 55px;
+      font-size: 11px;
+      font-size: 1.1rem;
+      color: #999;
+    }
+
+    span.uid {
+      display: block;
+      margin: 0 0 0 55px;
+    }
+
+    a.destroy {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      color: #aaa;
+      display: block;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 0 10px 0 6px;
+
+      &:hover {
+        color: #333;
+        text-decoration: none;
+      }
+    }
+
+    &.add_notice {
+      float: right;
+      text-align: right !important;
+      border: 0;
+      margin-right: 10px !important;
+      @include box-shadow(none);
+    }
+  }
+}
