@@ -10,6 +10,15 @@
   - day.meals.group_by(&:category).each do |category, meals|
     %li
       %h3= category
-      - if meals
-        - meals.each do |meal|
+      - meals.each do |meal|
+        %div.meal
           %p= meal.name
+          - if meal.prices.size > 0
+            %dl
+              - meal.prices.each do |role,price|
+                %dt=t :"price_roles.#{role}"
+                %dd=number_to_currency(price, uni: '€')
+          - if meal.notes.size > 0
+            %ul
+              - meal.notes.each do |note|
+                %li=note.name

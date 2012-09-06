@@ -17,15 +17,14 @@ describe "canteens/show.html.haml" do
   end
 
   context 'without meals' do
-    it "should list information about missing meal" do
+    it 'should list information about missing meal' do
       render
 
       rendered.should include('keine Angebote')
     end
   end
 
-
-  context "on closed day" do
+  context 'on closed day' do
     let(:day) { FactoryGirl.create(:closed_day) }
     let(:canteen) { day.canteen }
 
@@ -33,6 +32,48 @@ describe "canteens/show.html.haml" do
       render
 
       rendered.should include('geschlossen')
+    end
+  end
+
+  context 'with meals' do
+    let(:day) { FactoryGirl.create(:today, canteen: canteen) }
+    let(:meal) { FactoryGirl.create(:meal, day: day) }
+    before do
+      meal
+    end
+
+    it 'should list names of category' do
+      render
+      rendered.should include(meal.category)
+    end
+
+    it 'should include name of meal' do
+      render
+      rendered.should include(meal.category)
+    end
+
+    it 'should include prices of meal' do
+      meal.prices = { student: 1.22, other: 2.20, employee: 1.7 }
+      meal.save!
+
+      render
+
+      rendered.should include('Student')
+      rendered.should include('1,22 €')
+      rendered.should include('Angestellte')
+      rendered.should include('1,70 €')
+      rendered.should include('Gäste')
+      rendered.should include('2,20 €')
+      rendered.should_not include("Schüler")
+    end
+
+    it 'should include notes of meal' do
+      meal.notes = [ 'vegan', 'vegetarisch' ]
+
+      render
+
+      rendered.should include('vegan')
+      rendered.should include('vegetarisch')
     end
   end
 end

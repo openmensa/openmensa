@@ -76,6 +76,7 @@ FactoryGirl.define do
   factory :meal do
     sequence(:category) { |n| "Meal ##{n}" }
     name                { "The name of #{category}." }
+    sequence(:price_student) { |n| 0.51 + n * 0.2 }
 
     association :day
   end
