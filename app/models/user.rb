@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true
   validates_exclusion_of :login, in: ['anonymous', 'system']
 
-  safe_attributes :login, :name, :email, :time_zone, :language,
+  safe_attributes :login, :name, :email, :time_zone, :language, :send_reports,
     if: Proc.new { |user,as| user.new_record? or as.admin? }
-  safe_attributes :name, :email, :time_zone, :language,
+  safe_attributes :name, :email, :time_zone, :language, :send_reports,
     if: Proc.new { |user,as| user == as }
   safe_attributes :admin,
     if: Proc.new { |user,as| as.admin? }
@@ -44,12 +44,17 @@ class User < ActiveRecord::Base
     !last_report_at.nil?
   end
   def send_reports=(bool)
+    if bool.is_a? String
+      bool = bool == '1'
+    end
+    return if bool == send_reports?
     if bool
-      write_attribute(:last_report_at, read_attribute(:last_report_at) || Time.zone.now)
+      write_attribute :last_report_at, Time.zone.now
     else
       write_attribute :last_report_at, nil
     end
   end
+  alias_method :send_reports, :send_reports?
 
   def ability; @ability ||= Ability.new(self) end
   def can?(*attr) ability.can?(*attr) end

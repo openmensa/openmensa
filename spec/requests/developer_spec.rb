@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../spec_helper"
+require_dependency 'message'
 
 describe "Profile page" do
   let(:developer) { FactoryGirl.create :developer }
@@ -51,5 +52,29 @@ describe "Profile page" do
 
     page.should have_content message.canteen.name
     page.should have_content message.message
+  end
+
+  it "should allow to activate (daily) report mails" do
+    developer.send_reports?.should be_false
+
+    check "Sende Error-Reports per Mail (maximal täglich)"
+    click_on "Speichern"
+
+    developer.reload
+
+    developer.send_reports?.should be_true
+  end
+
+  it "should allow to deactivate (daily) report mails" do
+    developer.send_reports = true
+    developer.save!
+
+    click_on "Profil"
+    uncheck "Sende Error-Reports per Mail (maximal täglich)"
+    click_on "Speichern"
+
+    developer.reload
+
+    developer.send_reports?.should be_false
   end
 end

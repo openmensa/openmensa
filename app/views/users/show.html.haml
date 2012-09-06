@@ -12,6 +12,11 @@
           %p
             = f.label :email, t(:profile, :email)
             = f.text_field :email
+          %fieldset
+            %legend= t :profile, :developer_settings
+            %p
+              = f.check_box :send_reports
+              = f.label :send_reports, t(:profile, :send_reports)
           %p
             %input{type: "submit", value: t(:save)}
     %section

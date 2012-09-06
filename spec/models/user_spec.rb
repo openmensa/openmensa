@@ -98,16 +98,16 @@ describe User do
       subject { User.new }
 
       it do
-        should have_safe_attributes(:login, :email, :name, :time_zone, :language)
+        should have_safe_attributes(:login, :email, :name, :time_zone, :language, :send_reports)
       end
 
       it do
-        should have_safe_attributes(:login, :email, :name, :time_zone, :language).
+        should have_safe_attributes(:login, :email, :name, :time_zone, :language, :send_reports).
           as(FactoryGirl.create(:user), 'User')
       end
 
       it do
-        should have_safe_attributes(:login, :email, :name, :time_zone, :language, :admin).
+        should have_safe_attributes(:login, :email, :name, :time_zone, :language, :send_reports, :admin).
           as(FactoryGirl.create(:admin), 'Administrator').and_as(User.system, 'System')
       end
     end
@@ -125,13 +125,13 @@ describe User do
       end
 
       it do
-        @user.should have_safe_attributes(:email, :name, :time_zone, :language).
+        @user.should have_safe_attributes(:email, :name, :time_zone, :language, :send_reports).
           as(@user, 'himself')
       end
 
       it do
         admin = FactoryGirl.create :admin
-        @user.should have_safe_attributes(:login, :email, :name, :time_zone, :language, :admin).
+        @user.should have_safe_attributes(:login, :email, :name, :time_zone, :language, :send_reports, :admin).
           as(admin, 'Administrator').and_as(User.system, 'System')
       end
     end

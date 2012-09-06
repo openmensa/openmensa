@@ -60,8 +60,10 @@ de:
     canteen_saved: "Mensa gespeichert."
 
   profile:
+    developer_settings: 'Entwickler-Einstellungen'
     name: Name
     email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
+    send_reports: Sende Error-Reports per Mail (maximal täglich)
 
   canteen:
     url: Feed-Url
