@@ -35,7 +35,6 @@
           %li
             = link_to login_path, title: t(:login) do
               %i.icon-signin
-        .clear
     %section#content
       = render partial: "common/flash", object: flash
       - if content_for? :notifications
