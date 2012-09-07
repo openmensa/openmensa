@@ -189,18 +189,21 @@
       }
 
       @include media(mobile) {
-        > h3 {
+        > h3, div.meal h3 {
           float: none;
           width: 100%;
           text-align: left;
           margin: 2px 0 0;
-          padding: 2px 5px !important;
+          padding: 2px 0 !important;
           border-bottom: 1px dotted #eee;
+          position: static;
         }
+        > h3, > p { margin: 1px 6px; padding: 2px 0; }
         div.meal {
           padding: 3px 5px 3px 10px !important;
 
-          ul.notes, ul.prices, > p { margin-left: 0; margin-top: 1px; color: #777; padding-bottom: 0; }
+          > p { margin: 3px 0 1px; }
+          ul.notes, ul.prices { margin: 1px 0 0 0; color: #aaa; padding-bottom: 0; }
           ul.prices li { width: auto; margin-left: 1em; }
           ul.prices li span { display: none; }
         }

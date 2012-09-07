@@ -9,9 +9,10 @@
 - else
   - day.meals.group_by(&:category).each do |category, meals|
     %li
-      - meals.each do |meal|
+      - meals.each_with_index do |meal, index|
         %div.meal
-          %h3= category
+          - if index == 0
+            %h3= category
           %p= meal.name
           %div
             - if meal.prices.size > 0
