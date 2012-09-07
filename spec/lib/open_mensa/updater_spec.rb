@@ -427,19 +427,31 @@ describe OpenMensa::Updater do
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
         canteen.updated_at.should == updated_at
       end
-
     end
 
     context '#update' do
       before do
         stub_request(:any, "example.org/compact.xml").
           to_return(:body => mock_file("feed2_compact.xml"), :status => 200)
+        stub_request(:any, "example.org/double.xml").
+          to_return(:body => mock_file("feed2_doubleMeals.xml"), :status => 200)
       end
+
       it 'should handle compact document' do
         canteen.url = 'http://example.org/compact.xml'
         updater.update.should be_true
         canteen.days.size.should == 1
         canteen.meals.size.should == 4
+      end
+
+      it 'should merge double meal names correctly' do
+        canteen.url = 'http://example.org/double.xml'
+        updater.update.should be_true
+        canteen.days.size.should == 1
+        canteen.meals.size.should == 3
+        updater.update.should be_true
+        canteen.days.size.should == 1
+        canteen.meals.size.should == 3
       end
     end
   end

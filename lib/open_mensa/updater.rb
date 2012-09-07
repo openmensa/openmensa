@@ -120,8 +120,13 @@ class OpenMensa::Updater
     day = canteen.days.create(date: Date.parse(dayData['date']))
     if dayData.children.select { |node| node.name == 'closed' }.empty?
       dayData.children.select(&:element?).each do |category|
-        category.children.select(&:element?).each do |meal|
-          addMeal(day, category['name'], meal)
+        category.children.select(&:element?).inject([]) do |names, meal|
+          name = meal.children.find { |node| node.name == 'name' }.content
+          unless names.include? name
+            addMeal(day, category['name'], meal)
+            names << name
+          end
+          names
         end
       end
     else
@@ -141,20 +146,21 @@ class OpenMensa::Updater
         day.update_attribute :closed, false
         @changed = true
       end
-      names = day.meals.inject({}) { |m,v| m[v.name.to_s] = v; m }
+      names = day.meals.inject({}) { |m,v| m[[v.category, v.name.to_s]] = v; m }
       dayData.children.select(&:element?).each do |category|
         category.children.select(&:element?).each do |meal|
           name = meal.children.select { |node| node.name == 'name' }.first.content
-          if names.key? name
-            updateMeal names[name], category['name'], meal
-            names.delete name
-          else
+          mealObject = names[[category['name'], name]]
+          if mealObject.is_a? Meal
+            updateMeal mealObject, category['name'], meal
+            names[[category['name'], name ]] = false
+          elsif mealObject.nil?
             addMeal day, category['name'], meal
           end
         end
       end
       if names.size > 0
-        names.each_value { |meal| day.meals.delete meal }
+        names.each_value { |meal| day.meals.delete meal if meal }
         @changed = true
       end
     end
