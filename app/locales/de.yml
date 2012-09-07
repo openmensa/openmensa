@@ -76,6 +76,9 @@ de:
     url: Feed-Url
     name: Name
     address: Adresse
+    fetch_hour: Frühste Abrufstunde
+    fetch_hour_hour: '%{hour} Uhr'
+    fetch_hour_default: Standard
     latitude: Latitude
     longitude: Longitude
     latitude_and_longitude: "Latitude & Longitude"

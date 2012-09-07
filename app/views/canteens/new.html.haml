@@ -15,6 +15,9 @@
             = f.label :address, t(:canteen, :address)
             = f.text_field :address, :placeholder => t(:placeholder, :canteen, :address)
           %p
+            = f.label :fetch_hour, t(:canteen, :fetch_hour)
+            = f.select :fetch_hour, options_for_select((0..23).map{ |n| [ t(:canteen, :fetch_hour_hour, hour: n), n] }),  include_blank: t(:canteen, :fetch_hour_default)
+          %p
             = submit_tag t(:add)
 
   = render partial: 'users/nav'

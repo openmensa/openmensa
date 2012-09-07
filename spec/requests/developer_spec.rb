@@ -18,6 +18,7 @@ describe "Profile page" do
     fill_in "Feed-Url", with: "http://example.org/canteens.xml"
     fill_in "Name", with: "Test-Mensa"
     fill_in "Adresse", with: "Essensweg 34, 12345 Hunger, Deutschland"
+    select 'Standard', from: 'Frühste Abrufstunde'
     click_on "Hinzufügen"
 
     page.should have_content 'Der Mensa wurde erfolgreich hinzugefügt.'
@@ -44,6 +45,32 @@ describe "Profile page" do
 
 
     page.should have_content 'Mensa gespeichert.'
+  end
+
+  it "should allow to set fetch_hour for meal" do
+    canteen
+    click_on "Meine Mensen"
+    click_on "Mensa bearbeiten"
+
+    select "9 Uhr", from: 'Frühste Abrufstunde'
+    click_on "Speichern"
+
+    canteen.reload
+
+    canteen.fetch_hour.should == 9
+  end
+
+  it "should allow to set fetch_hour to default" do
+    canteen
+    click_on "Meine Mensen"
+    click_on "Mensa bearbeiten"
+
+    select "Standard", from: 'Frühste Abrufstunde'
+    click_on "Speichern"
+
+    canteen.reload
+
+    canteen.fetch_hour.should be_nil
   end
 
   it "should allow to view own messages" do

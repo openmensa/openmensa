@@ -7,7 +7,7 @@ class Canteen < ActiveRecord::Base
   has_many :meals, through: :days
   has_many :messages
 
-  attr_accessible :address, :name, :url, :user, :latitude, :longitude
+  attr_accessible :address, :name, :url, :user, :fetch_hour, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
 
   geocoded_by :address
@@ -18,8 +18,8 @@ class Canteen < ActiveRecord::Base
     !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
   end
 
-  def fetch_hour
-    read_attribute(:fetch_hour) || 8
+  def fetch_hour_default
+    read_attribute(:fetch_hour_default) || 8
   end
 
   def fetch

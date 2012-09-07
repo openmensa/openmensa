@@ -6,7 +6,7 @@ namespace :om do
 
     Canteen.all.each do |canteen|
       next if canteen.last_fetched_at and canteen.last_fetched_at.to_date == date
-      next if Time.zone.now.hour < canteen.fetch_hour
+      next if Time.zone.now.hour < (canteen.fetch_hour || canteen.fetch_hour_default)
 
       begin
         canteen.fetch
