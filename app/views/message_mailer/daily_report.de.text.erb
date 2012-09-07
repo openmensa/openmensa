@@ -11,7 +11,7 @@ url: <%= canteen.url %>
  - <%= messages.first.to_text_mail %>
 <% if messages.size > 1 %>
    Erstmals: <%=l messages.first.created_at %>
-   Letztes Mal: <%=l messages.first.created_at %>
+   Letztes Mal: <%=l messages.last.created_at %>
    Anzahl: <%=messages.size %>
 <% else %>
    Zeitpunkt: <%=l messages.first.created_at %>
