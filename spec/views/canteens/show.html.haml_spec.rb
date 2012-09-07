@@ -76,4 +76,23 @@ describe "canteens/show.html.haml" do
       rendered.should include('vegetarisch')
     end
   end
+
+  it 'should print up-to-date on canteens fetched in the last 24 hour' do
+    canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hour
+    render
+
+    rendered.should include('Daten aktuell')
+  end
+
+  it 'should print a warning on canteens fetched earlier then 24 hour ago' do
+    canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hour
+    render
+    rendered.should include('Aktualisierung notwendig')
+  end
+
+  it 'should print error on never fetched canteens' do
+    canteen.update_attribute :last_fetched_at, nil
+    render
+    rendered.should include('Keine Daten')
+  end
 end
