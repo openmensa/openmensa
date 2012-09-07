@@ -14,11 +14,11 @@
       = map @canteen
       .content
         %address= @canteen.address
-    %section
+    %section.status
       - if @canteen.last_fetched_at.nil?
         %header
           %h2
-            %i.icon-bold
+            %i.icon-bolt
             =t :canteen, :no_fetch_ever
         %p=t :canteen, :no_fetch_ever_message
       - elsif @canteen.last_fetched_at > Time.zone.now - 1.day
@@ -29,6 +29,7 @@
         %p=t :canteen, :fetch_up_to_date_message
         %p
           =t :canteen, :last_update_at
+          %br
           =l @canteen.last_fetched_at
       - else
         %header

@@ -214,4 +214,9 @@
   .content .map {
     @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
   }
+
+  .status p {
+    padding: 5px;
+    text-align: justify;
+  }
 }

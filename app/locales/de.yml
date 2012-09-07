@@ -88,8 +88,8 @@ de:
     fetch_up_to_date_message: Die Essensdaten wurden erst vor kurzem aktualisiert.
     fetch_needed: Aktualisierung notwendig
     fetch_needed_message: Die gezeigten Essensinformationen sind veraltet. Aktuelle Anpassung des Speiseplanes werden nicht gezeigt.
-    no_fetch_ever: 'Keine Daten'
-    no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essensinformationen folgen bald.'
+    no_fetch_ever: 'Noch keine Daten'
+    no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald.'
 
   helpers:
     label:

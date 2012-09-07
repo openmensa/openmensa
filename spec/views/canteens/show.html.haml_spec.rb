@@ -93,6 +93,6 @@ describe "canteens/show.html.haml" do
   it 'should print error on never fetched canteens' do
     canteen.update_attribute :last_fetched_at, nil
     render
-    rendered.should include('Keine Daten')
+    rendered.should include('Noch keine Daten')
   end
 end
