@@ -97,21 +97,23 @@
       @include clearfix;
 
       &:first-child {
-        > h3  { padding-top: 7px; }
-        > h3 + div.meal { padding-top: 12px; }
+        > h3 { padding-top: 7px; }
+        div.meal:first-child { padding-top: 12px; }
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
       }
       &:last-child > div { padding-bottom: 8px; }
 
-      > h3 {
+      > h3, div.meal h3 {
         float: left;
         width: 140px;
         font-size: 13px;
         font-size: 1.3rem;
         font-weight: bold;
         text-align: right;
-        margin: 9px 0 0 15px;
+        margin: 9px 0;
       }
+      > h3 { margin-left: 15px; }
+      > p { margin: 9px 0 9px 170px; padding: 7px 0; }
 
       div.meal {
         padding: 5px 15px 3px;
@@ -125,7 +127,9 @@
           cursor: pointer;
         }
 
-        > p { margin: 4px 0 1px 155px; }
+        > h3 { visibility: hidden; position: absolute; }
+        &:first-child h3 { visibility: visible; }
+        > p { margin: 9px 0 9px 155px; }
         > div { @include clearfix; }
 
         ul.notes, ul.prices {
@@ -140,17 +144,17 @@
           font-size: .85em;
         }
         ul.notes {
-          margin: 6px 0 0 155px;
+          margin: 0 0 0 155px;
 
           li {
             float: left;
             margin: 0 .5em 0 0;
-            &:before { content: '+'; }
+            &:before { content: '~'; }
           }
         }
         ul.prices {
           float: right;
-          margin: 6px 0 0 15px;
+          margin: 0 0 0 15px;
           overflow: hidden;
 
           li {
