@@ -1,9 +1,8 @@
 require 'open-uri'
-require 'libxml'
 require_dependency 'message'
 
 class OpenMensa::Updater
-  include LibXML
+  include Nokogiri
   def initialize(canteen, version=nil)
     @canteen = canteen
     @changed = false
@@ -54,26 +53,25 @@ class OpenMensa::Updater
 
   # 2. validate data
   def self.schema_v1
-    @schema_v1 ||= XML::Schema.new Rails.root.join('public', 'open-mensa-v1.xsd').to_s
+    @schema_v1 ||= XML::Schema.new File.open(Rails.root.join('public', 'open-mensa-v1.xsd').to_s)
     @schema_v1
   end
   def self.schema_v2
-    @schema_v2 ||= XML::Schema.new Rails.root.join('public', 'open-mensa-v2.xsd').to_s
+    @schema_v2 ||= XML::Schema.new File.open(Rails.root.join('public', 'open-mensa-v2.xsd').to_s)
     @schema_v2
   end
 
   def validate(data)
-    XML::Error.set_handler { |e| }
     @version = nil
-    begin
-      @document = XML::Document.string data, options: XML::Parser::Options::NOERROR | XML::Parser::Options::NOWARNING
-    rescue XML::Error => e
+    @document = XML::Document.parse data
+    @document.errors.each do |error|
       FeedValidationError.create({
         canteen: @canteen, version: @version,
-        kind: :no_xml, message: e.message})
-      return false
+        kind: :no_xml, message: error.message})
     end
-    @version = @document.root[:version].to_i
+    return false unless @document.errors.empty?
+
+    @version = @document.root.nil? ? nil : @document.root[:version].to_i
     case @version
       when 1 then schema = self.class.schema_v1
       when 2 then schema = self.class.schema_v2
@@ -83,17 +81,15 @@ class OpenMensa::Updater
           kind: :unknown_version })
         return false
     end
-    begin
-      @document.validate_schema(schema)
-    rescue XML::Error => error
+
+    errors = schema.validate(@document)
+    errors.each do |error|
       FeedValidationError.create({
         canteen: @canteen, version: @version,
         kind: :invalid_xml, message: error.message })
-      return false
     end
+    return false unless errors.empty?
     return @version
-  ensure
-    XML::Error.reset_handler
   end
 
 
@@ -123,8 +119,8 @@ class OpenMensa::Updater
   def addDay(dayData)
     day = canteen.days.create(date: Date.parse(dayData['date']))
     if dayData.children.select { |node| node.name == 'closed' }.empty?
-      dayData.each_element do |category|
-        category.each_element do |meal|
+      dayData.children.select(&:element?).each do |category|
+        category.children.select(&:element?).each do |meal|
           addMeal(day, category['name'], meal)
         end
       end
@@ -146,8 +142,8 @@ class OpenMensa::Updater
         @changed = true
       end
       names = day.meals.inject({}) { |m,v| m[v.name.to_s] = v; m }
-      dayData.each_element do |category|
-        category.each_element do |meal|
+      dayData.children.select(&:element?).each do |category|
+        category.children.select(&:element?).each do |meal|
           name = meal.children.select { |node| node.name == 'name' }.first.content
           if names.key? name
             updateMeal names[name], category['name'], meal
@@ -167,7 +163,7 @@ class OpenMensa::Updater
 
   def updateCanteen(canteenData)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
-    canteenData.each_element do |day|
+    canteenData.children.select(&:element?).each do |day|
       canteen.transaction do
         date = day['date']
         if days.key? date

@@ -57,7 +57,7 @@ def auth_via_oauth2(token)
 end
 
 def xml_node(name)
-  LibXML::XML::Node.new(name, nil, document.root.namespaces.find_by_href('http://openmensa.org/open-mensa-v2'))
+  Nokogiri::XML::Node.new(name, document)
 end
 
 def xml_meal(meal_name)

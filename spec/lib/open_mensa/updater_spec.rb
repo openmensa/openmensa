@@ -1,6 +1,5 @@
 require 'spec_helper'
-require 'libxml'
-include LibXML
+include Nokogiri
 
 describe OpenMensa::Updater do
   let(:canteen) { FactoryGirl.create :canteen }
@@ -8,11 +7,9 @@ describe OpenMensa::Updater do
   let(:today) { FactoryGirl.create :today, canteen: canteen }
   let(:document) { XML::Document.new }
   let(:root_element) do
-    n = XML::Node.new('openmensa')
-    ns = XML::Namespace.new(n, 'om', 'http://openmensa.org/open-mensa-v2')
-    n.namespaces.namespace = ns
-    #document.root.namespaces.default_prefix = 'om'
+    n = XML::Node.new('openmensa', document)
     document.root = n
+    n
   end
 
   context "#fetch" do
@@ -128,7 +125,7 @@ describe OpenMensa::Updater do
       document = updater.validate mock_content 'feed2_empty.xml'
       document.should == 2
       lca = canteen.last_fetched_at
-      updater.updateCanteen updater.document.root.first.next
+      updater.updateCanteen updater.document.root.child.next
       canteen.last_fetched_at.should == lca
     end
 
@@ -217,7 +214,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        updater.updateCanteen updater.document.root.first.next
+        updater.updateCanteen updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
@@ -423,7 +420,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        updater.updateCanteen updater.document.root.first.next
+        updater.updateCanteen updater.document.root.child.next
 
         canteen.days.size.should == 5
         canteen.meals.size.should == 10

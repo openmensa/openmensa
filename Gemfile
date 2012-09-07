@@ -25,7 +25,7 @@ gem 'whenever', require: false
 gem 'rack-piwik', require: 'rack/piwik'
 gem 'geocoder'
 gem 'leaflet-rails', '~> 0.4.2.beta1'
-gem 'libxml-ruby'
+gem 'nokogiri'
 
 gem 'sqlite3'
 gem 'pg'
