@@ -25,6 +25,6 @@ every :hour do
   rake "om:fetch"
 end
 
-every :day, :at => '11am' do
+every :day, :at => '9am' do
   rake 'om:daily_report'
 end
