@@ -99,6 +99,7 @@
       &:first-child {
         > h3 { padding-top: 7px; }
         div.meal:first-child { padding-top: 12px; }
+        div.meal:last-child { padding-bottom: 12px; }
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
       }
       &:last-child > div { padding-bottom: 8px; }
@@ -217,6 +218,5 @@
 
   .status p {
     padding: 5px;
-    text-align: justify;
   }
 }

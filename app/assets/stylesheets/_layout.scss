@@ -243,7 +243,7 @@ header#header {
     }
 
     .content {
-      padding: 5px 15px 6px 15px;
+      padding: 1px 15px 2px 15px;
 
       h2, h3, h4, h5 {
         margin-top: 16px;
@@ -257,6 +257,9 @@ header#header {
           font-weight: bold;
         }
       }
+
+      // > p:first-child { margin-top: 0; }
+      // > p:last-child { margin-bottom: 0; }
 
       .add_notice {
         margin: 0 -2px;
@@ -301,6 +304,10 @@ header#header {
     .map {
       border-top: 1px solid #ccc;
     }
+  }
+
+  aside {
+    section .content { padding: 0px 5px 1px; }
   }
 }
 
