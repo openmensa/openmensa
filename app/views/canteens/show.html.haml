@@ -17,16 +17,12 @@
     %section.status
       - if @canteen.last_fetched_at.nil?
         %header
-          %h3
-            %i.icon-bolt
-            =t :canteen, :no_fetch_ever
+          %h3.icon-bolt=t :canteen, :no_fetch_ever
         .content
           %p=t :canteen, :no_fetch_ever_message
       - elsif @canteen.last_fetched_at > Time.zone.now - 1.day
         %header
-          %h3
-            %i.icon-ok
-            =t :canteen, :fetch_up_to_date
+          %h3.icon-ok=t :canteen, :fetch_up_to_date
         .content
           %p=t :canteen, :fetch_up_to_date_message
           %p
@@ -35,8 +31,7 @@
             =l @canteen.last_fetched_at
       - else
         %header
-          %h3.icon-warning-sign
-            =t :canteen, :fetch_needed
+          %h3.icon-warning-sign=t :canteen, :fetch_needed
         .content
           %p=t :canteen, :fetch_needed_message
           %p
