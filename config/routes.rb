@@ -1,11 +1,15 @@
 Openmensa::Application.routes.draw do
   mount Doorkeeper::Engine => '/oauth'
 
-  api_version(module: 'Api::V1', path: 'api/v1', defaults: { format: 'json' }) do
-    resources :cafeterias do
-      resources :meals do
-        resources :comments
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :cafeterias do
+        resources :meals
       end
+    end
+
+    namespace :v2 do
+      resources :canteens
     end
   end
 
