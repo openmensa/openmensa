@@ -58,4 +58,22 @@ describe Api::V2::CanteensController do
       json.should have(100).items
     end
   end
+
+  describe "GET show" do
+    let(:canteen) { FactoryGirl.create :canteen }
+    before        { canteen }
+
+    it "should answer with canteen" do
+      get :show, id: canteen.id, format: :json
+      response.status.should == 200
+
+      json.should == {
+        :id => canteen.id,
+        :name => canteen.name,
+        :address => canteen.address,
+        :latitude => canteen.latitude,
+        :longitude => canteen.longitude
+      }.as_json
+    end
+  end
 end

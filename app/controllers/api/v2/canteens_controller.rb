@@ -1,5 +1,6 @@
 class Api::V2::CanteensController < ApiController
   inherit_resources
+  actions :index, :show
   include OpenMensa::ResourceDecorator
 
   respond_to :json
