@@ -4,7 +4,7 @@ describe Api::V2::CanteensController do
   let(:json) { JSON.parse response.body }
 
   describe "GET index" do
-    let(:canteen) { FactoryGirl.create :canteen }
+    let(:canteen) { FactoryGirl.create :canteen, latitude: 0.0, longitude: 0.0 }
     before        { canteen }
 
     it "should answer with a list" do
@@ -28,34 +28,55 @@ describe Api::V2::CanteensController do
       }.as_json
     end
 
-    it "should limit list to 100 canteens" do
-      100.times { FactoryGirl.create :canteen }
-      Canteen.count.should > 100
+    context "&limit" do
+      it "should limit list to 100 canteens" do
+        100.times { FactoryGirl.create :canteen }
+        Canteen.count.should > 100
 
-      get :index, format: :json
+        get :index, format: :json
 
-      response.status.should == 200
-      json.should have(100).items
+        response.status.should == 200
+        json.should have(100).items
+      end
+
+      it "should limit list to given limit parameter" do
+        100.times { FactoryGirl.create :canteen }
+        Canteen.count.should > 100
+
+        get :index, format: :json, limit: 20
+
+        response.status.should == 200
+        json.should have(20).items
+      end
+
+      it "should limit list to 100 if given limit parameter exceed 100" do
+        100.times { FactoryGirl.create :canteen }
+        Canteen.count.should > 100
+
+        get :index, format: :json, limit: 120
+
+        response.status.should == 200
+        json.should have(100).items
+      end
     end
 
-    it "should limit list to given limit parameter" do
-      100.times { FactoryGirl.create :canteen }
-      Canteen.count.should > 100
+    context "&near" do
+      before do
+        FactoryGirl.create :canteen, latitude: 0.0, longitude: 0.1
+        FactoryGirl.create :canteen, latitude: 0.0, longitude: 0.2
+      end
 
-      get :index, format: :json, limit: 20
+      it "should find canteens within distance around a point" do
+        get :index, format: :json, near: { lat: 0.0, lng: 0.15, dist: 100 }
 
-      response.status.should == 200
-      json.should have(20).items
-    end
+        json.should have(3).items
+      end
 
-    it "should limit list to 100 if given limit parameter exceed 100" do
-      100.times { FactoryGirl.create :canteen }
-      Canteen.count.should > 100
+      it "should find canteens within default distance around a point" do
+        get :index, format: :json, near: { lat: 0.1, lng: 0.1 }
 
-      get :index, format: :json, limit: 120
-
-      response.status.should == 200
-      json.should have(100).items
+        json.should have(1).items
+      end
     end
   end
 
