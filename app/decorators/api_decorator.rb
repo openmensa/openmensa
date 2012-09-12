@@ -17,7 +17,7 @@ module ApiDecorator
         next if opts[:format] and opts[:format] != options[:format]
         next if opts[:formats] and not opts[:formats].include? options[:format]
         next if opts[:if] and not opts[:if].call model, options
-        next if opts[:unless] and not opts[:unless].call model, options
+        next if opts[:unless] and opts[:unless].call model, options
 
         names += attrs
       end
@@ -31,17 +31,5 @@ module ApiDecorator
 
   def as_json(options)
     as_api(options.merge format: :json).as_json
-  end
-
-  def to_json(options)
-    as_json(options).to_json
-  end
-
-  def to_xml(options)
-    as_api(options.merge format: :xml).to_xml
-  end
-
-  def to_mpac(options)
-    as_api(options.merge format: :mpac).as_mpac
   end
 end
