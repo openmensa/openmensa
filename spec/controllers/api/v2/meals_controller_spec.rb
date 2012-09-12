@@ -29,7 +29,7 @@ describe Api::V2::MealsController do
           pupils: canteen.meals.first.price_pupil,
           others: canteen.meals.first.price_other
         },
-        notes: canteen.meals.first.notes.map(&:name)
+        notes: []
       }.as_json
     end
 
@@ -41,7 +41,7 @@ describe Api::V2::MealsController do
         get :index, canteen_id: canteen.id, format: :json
         response.status.should == 200
 
-        json[0]['notes'].should == meal.notes.map(&:name)
+        json[0]['notes'].should =~ meal.notes.map(&:name)
       end
     end
   end
