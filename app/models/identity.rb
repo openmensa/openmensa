@@ -1,6 +1,7 @@
 require 'bcrypt'
 
 class Identity < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
 
   SERVICES = [ :twitter, :google, :facebook, :github ]
 

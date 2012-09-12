@@ -2,6 +2,8 @@ require 'open-uri'
 require 'rexml/document'
 
 class Canteen < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :user
   has_many :days
   has_many :meals, through: :days
