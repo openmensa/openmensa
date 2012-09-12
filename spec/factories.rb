@@ -55,22 +55,22 @@ FactoryGirl.define do
   end
 
   factory :closed_day, parent: :today do
-    closed              true
+    closed true
   end
 
   factory :day do
-    date                { Time.zone.now }
+    date { Time.zone.now }
 
     association :canteen
   end
   factory :yesterday, parent: :day do
-    date                { Time.zone.now - 1.day }
+    date { Time.zone.now - 1.day }
   end
   factory :today, parent: :day do
-    date                { Time.zone.now }
+    date { Time.zone.now }
   end
   factory :tomorrow, parent: :day do
-    date                { Time.zone.now + 1.day }
+    date { Time.zone.now + 1.day }
   end
 
   factory :meal do
@@ -79,6 +79,10 @@ FactoryGirl.define do
     sequence(:price_student) { |n| 0.51 + n * 0.2 }
 
     association :day
+  end
+
+  factory :meal_with_notes, parent: :meal do
+    notes [ "Note M1", "Note M2", "Note M3" ]
   end
 
   factory :note do
