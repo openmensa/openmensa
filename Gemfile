@@ -26,6 +26,7 @@ gem 'rack-piwik', require: 'rack/piwik'
 gem 'geocoder'
 gem 'leaflet-rails', '~> 0.4.2.beta1'
 gem 'nokogiri'
+gem 'draper'
 
 gem 'sqlite3'
 gem 'pg'
