@@ -18,7 +18,7 @@ class CanteensController < ApplicationController
   end
 
   def create
-    @canteen = Canteen.new params[:canteen].merge(user: @user)
+    @canteen = Canteen.new canteen_params.merge(user: @user)
     if @canteen.save
       flash[:notice] = t "message.canteen_added"
       redirect_to edit_user_canteen_path(@user, @canteen)
@@ -33,7 +33,7 @@ class CanteensController < ApplicationController
 
   def update
     @canteen = @user.canteens.find(params[:id])
-    if @canteen.update_attributes(params[:canteen])
+    if @canteen.update_attributes canteen_params
       flash[:notice] = t "message.canteen_saved"
       redirect_to user_canteens_path(@user)
     else
@@ -50,5 +50,10 @@ class CanteensController < ApplicationController
 
     @canteen = Canteen.find params[:id]
     @meals   = @canteen.meals.where(date: @date)
+  end
+
+private
+  def canteen_params
+    params.require(:canteen).permit(:address, :name, :url, :fetch_hour, :latitude, :longitude)
   end
 end

@@ -39,7 +39,7 @@ describe UsersController do
 
     context "as anonymous" do
       it "should not be accessible" do
-        put :update, id: user.id, user_name: 'Bobby'
+        put :update, id: user.id, user: { user_name: 'Bobby' }
 
         response.status.should == 401
       end
@@ -48,7 +48,7 @@ describe UsersController do
     context "as user" do
       it "should be allow to update to my profile" do
         set_current_user user
-        put :update, id: user.id, user_name: 'Bobby'
+        put :update, id: user.id, user: { user_name: 'Bobby' }
 
         response.status.should == 302
       end
@@ -57,7 +57,7 @@ describe UsersController do
     context "as admin" do
       it "should not be accessible" do
         set_current_user FactoryGirl.create(:admin)
-        put :update, id: user.id, user_name: 'Bobby'
+        put :update, id: user.id, user: { user_name: 'Bobby' }
 
         response.status.should == 302
       end

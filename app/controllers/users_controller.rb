@@ -13,11 +13,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes user_params
       flash_for :user, notice: t('message.profile_saved').html_safe
       redirect_to user_path(@user)
     else
       render action: :show
     end
+  end
+
+private
+  def user_params
+    params.require(:user).permit(:name, :email, :send_reports)
   end
 end
