@@ -1,4 +1,12 @@
 
+def visit_with(path, params = nil)
+  if params.nil?
+    params = path
+    path   = url
+  end
+  visit path.to_s + (params.respond_to?(:to_param) ? params.to_param : '')
+end
+
 def set_current_user(user)
   controller.current_user = user.is_a?(User) ? user : nil
 end
