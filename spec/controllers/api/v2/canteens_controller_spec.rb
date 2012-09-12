@@ -73,7 +73,7 @@ describe Api::V2::CanteensController do
       end
 
       it "should find canteens within default distance around a point" do
-        get :index, format: :json, near: { lat: 0.1, lng: 0.1 }
+        get :index, format: :json, near: { lat: 0.05, lng: 0.1 }
 
         json.should have(1).items
       end
