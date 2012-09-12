@@ -63,7 +63,7 @@ de:
       facebook: "<b>Facebook</b> Identität entfernt."
       google_oauth2: "<b>Google</b> Identität entfernt."
     profile_saved: "Profil gespeichert."
-    canteen_added: Der Mensa wurde erfolgreich hinzugefügt.
+    canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
     canteen_saved: "Mensa gespeichert."
 
   profile:
