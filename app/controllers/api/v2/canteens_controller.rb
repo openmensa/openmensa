@@ -14,7 +14,7 @@ class Api::V2::CanteensController < ApiController
     lng = value[1].to_f
 
     if lat and lng
-      scope.near([ lat, lng ], value[2] ? value[2].to_f : 10, units: :km).tap { |s| s.explain }
+      scope.near([ lat, lng ], value[2] ? value[2].to_f : 10, units: :km)
     else
       scope
     end
