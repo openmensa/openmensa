@@ -78,6 +78,23 @@ describe Api::V2::CanteensController do
         json.should have(1).items
       end
     end
+
+    context "&ids" do
+      let(:second_canteen) { FactoryGirl.create :canteen }
+      before do
+        FactoryGirl.create :canteen
+        second_canteen
+        FactoryGirl.create :canteen
+      end
+
+      it "should return canteens with given ids" do
+        get :index, format: :json, ids: [ canteen.id, second_canteen.id ].join(',')
+
+        json.should have(2).items
+        json[0]['id'].should == canteen.id
+        json[1]['id'].should == second_canteen.id
+      end
+    end
   end
 
   describe "GET show" do

@@ -19,4 +19,9 @@ class Api::V2::CanteensController < ApiController
       scope
     end
   end
+
+  has_scope :ids do |controller, scope, value|
+    ids = value.split(',').map(&:to_i).select{|x| x > 0}.uniq
+    scope.where(id: ids)
+  end
 end
