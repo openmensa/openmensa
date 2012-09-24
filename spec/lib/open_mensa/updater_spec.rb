@@ -11,6 +11,7 @@ describe OpenMensa::Updater do
     document.root = n
     n
   end
+  before { Timecop.freeze DateTime.new(2012, 04, 16, 8, 5, 3) }
 
   context "#fetch" do
     before do
@@ -219,6 +220,38 @@ describe OpenMensa::Updater do
         canteen.days.size.should == 4
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
         canteen.updated_at.should == updated_at
+      end
+
+      it 'should not add dates in the past' do
+        # build xml data
+        root_element << day = xml_node('day')
+        day['date'] = (Time.zone.today - 2.days).to_s
+        day << xml_node('closed')
+
+        # starting check
+        canteen.days.size.should be_zero
+
+        updater.addDay(day)
+
+        canteen.days.size.should be_zero
+
+        updater.should_not be_changed
+      end
+
+      it 'should add information about today' do
+        # build xml data
+        root_element << day = xml_node('day')
+        day['date'] = Date.today.to_s
+        day << xml_node('closed')
+
+        # starting check
+        canteen.days.size.should be_zero
+
+        updater.addDay(day)
+
+        canteen.days.size.should == 1
+
+        updater.should be_changed
       end
     end
 
@@ -429,6 +462,42 @@ describe OpenMensa::Updater do
         canteen.meals.size.should == 10
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
         canteen.updated_at.should == updated_at
+      end
+
+      it 'should not update days in the past' do
+        d = FactoryGirl.create :day, date: (Date.today - 2.days), canteen: canteen
+        # build xml data
+        root_element << day = xml_node('day')
+        day['date'] = d.date.to_s
+        day << xml_node('closed')
+
+        # starting check
+        canteen.days.size.should == 1
+
+        updater.updateDay(d, day)
+
+        canteen.days.size.should == 1
+
+        updater.should_not be_changed
+      end
+
+      it 'should update today' do
+        d = FactoryGirl.create :day, date: Date.today, canteen: canteen
+        # build xml data
+        root_element << day = xml_node('day')
+        day['date'] = d.date.to_s
+        day << xml_node('closed')
+
+        # starting check
+        canteen.days.size.should == 1
+        canteen.days.first.should_not be_closed
+
+        updater.updateDay(d, day)
+
+        canteen.days.size.should == 1
+        canteen.days.first.should be_closed
+
+        updater.should be_changed
       end
     end
 

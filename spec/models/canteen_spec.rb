@@ -12,6 +12,7 @@ describe Canteen do
         to_return(:body => mock_file("canteen_feed.xml"), :status => 200)
       stub_request(:any, "example.com/feed_v2.xml").
         to_return(:body => mock_file("feed_v2.xml"), :status => 200)
+      Timecop.freeze DateTime.new(2012, 04, 16, 8, 5, 3)
     end
 
     it "should fetch meals from remote source (version 1.0)" do

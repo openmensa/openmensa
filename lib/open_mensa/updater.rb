@@ -117,6 +117,7 @@ class OpenMensa::Updater
   end
 
   def addDay(dayData)
+    return if Date.parse(dayData['date']) < Date.today
     day = canteen.days.create(date: Date.parse(dayData['date']))
     if dayData.children.select { |node| node.name == 'closed' }.empty?
       dayData.children.select(&:element?).each do |category|
@@ -137,6 +138,7 @@ class OpenMensa::Updater
   end
 
   def updateDay(day, dayData)
+    return if Date.parse(dayData['date']) < Date.today
     if not dayData.children.select { |node| node.name == 'closed' }.empty?
       @changed = !day.closed?
       day.meals.destroy_all
