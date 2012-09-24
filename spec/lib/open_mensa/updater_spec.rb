@@ -372,11 +372,14 @@ describe OpenMensa::Updater do
 
         # starting check
         today.meals.size.should == 2
+        mealIds = today.meals.map(&:id)
 
         updater.updateDay(today, day)
 
-        today.meals.size.should == 1
+        today.meals(force_reload=true).size.should == 1
         today.meals.first.should == meal2
+
+        mealIds.map { |id| Meal.find_by_id id }.should == [nil, meal2]
 
         updater.should be_changed
       end

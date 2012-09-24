@@ -159,8 +159,9 @@ class OpenMensa::Updater
           end
         end
       end
+      names.keep_if { |key, meal| meal }
       if names.size > 0
-        names.each_value { |meal| day.meals.delete meal if meal }
+        names.each_value { |meal| meal.destroy }
         @changed = true
       end
     end
