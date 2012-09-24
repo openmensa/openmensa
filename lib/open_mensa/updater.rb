@@ -97,7 +97,7 @@ class OpenMensa::Updater
   def addMeal(day, category, meal)
     day.meals.create(
       category: category,
-      name: meal.children.select { |node| node.name == 'name' }.first.content,
+      name: meal.children.find { |node| node.name == 'name' }.content,
       prices: meal.children.inject({}) do |prices, node|
         prices[node['role']] = node.content if node.name == 'price' and @version == 2
         prices
@@ -119,7 +119,7 @@ class OpenMensa::Updater
   def addDay(dayData)
     return if Date.parse(dayData['date']) < Date.today
     day = canteen.days.create(date: Date.parse(dayData['date']))
-    if dayData.children.select { |node| node.name == 'closed' }.empty?
+    if not dayData.children.any? { |node| node.name == 'closed' }
       dayData.children.select(&:element?).each do |category|
         category.children.select(&:element?).inject([]) do |names, meal|
           name = meal.children.find { |node| node.name == 'name' }.content
@@ -139,7 +139,7 @@ class OpenMensa::Updater
 
   def updateDay(day, dayData)
     return if Date.parse(dayData['date']) < Date.today
-    if not dayData.children.select { |node| node.name == 'closed' }.empty?
+    if dayData.children.any? { |node| node.name == 'closed' }
       @changed = !day.closed?
       day.meals.destroy_all
       day.update_attribute :closed, true
@@ -148,10 +148,13 @@ class OpenMensa::Updater
         day.update_attribute :closed, false
         @changed = true
       end
-      names = day.meals.inject({}) { |m,v| m[[v.category, v.name.to_s]] = v; m }
+      names = day.meals.inject({}) do |memo, value|
+        memo[[value.category, value.name.to_s]] = value
+        memo
+      end
       dayData.children.select(&:element?).each do |category|
         category.children.select(&:element?).each do |meal|
-          name = meal.children.select { |node| node.name == 'name' }.first.content
+          name = meal.children.find { |node| node.name == 'name' }.content
           mealObject = names[[category['name'], name]]
           if mealObject.is_a? Meal
             updateMeal mealObject, category['name'], meal
