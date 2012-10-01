@@ -464,6 +464,26 @@ describe OpenMensa::Updater do
         canteen.updated_at.should == updated_at
       end
 
+      it 'should set last_fetched_at on unchanged feed data with days' do
+        document = updater.validate mock_content('feed_v2.xml')
+        document.should == 2
+
+        updater.updateCanteen updater.document.root.child.next
+
+        canteen.days.size.should == 4
+        canteen.meals.size.should == 9
+
+        last_fetched_at = canteen.last_fetched_at
+        updated_at = canteen.updated_at
+
+        Timecop.freeze Time.now + 1.hour
+
+        updater.updateCanteen updater.document.root.child.next
+
+        canteen.last_fetched_at.should > last_fetched_at
+        canteen.updated_at.should == updated_at
+      end
+
       it 'should not update days in the past' do
         d = FactoryGirl.create :day, date: (Date.today - 2.days), canteen: canteen
         # build xml data

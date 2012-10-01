@@ -175,6 +175,7 @@ class OpenMensa::Updater
 
   def updateCanteen(canteenData)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
+    dayUpdates = nil
     canteenData.children.select(&:element?).each do |day|
       canteen.transaction do
         date = day['date']
@@ -183,9 +184,10 @@ class OpenMensa::Updater
         else
           addDay day
         end
+        dayUpdates = true
       end
     end
-    if changed?
+    if dayUpdates
       canteen.update_column :last_fetched_at, Time.zone.now
     end
     changed?
