@@ -53,5 +53,10 @@ describe Api::V1::MealsController do
       get :show, format: :json, cafeteria_id: canteen.id, id: meal.id
       json["meal"]["id"].should == meal.id
     end
+
+    it "should include date as UTC timestamp" do
+      get :show, format: :json, cafeteria_id: canteen.id, id: meal.id
+      json["meal"]["date"].should == meal.date.to_time.iso8601
+    end
   end
 end
