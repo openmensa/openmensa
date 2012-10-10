@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Api::V2::CanteensController do
+  render_views
+
   let(:json) { JSON.parse response.body }
 
   describe "GET index" do
@@ -23,20 +25,22 @@ describe Api::V2::CanteensController do
         :id => canteen.id,
         :name => canteen.name,
         :address => canteen.address,
-        :latitude => canteen.latitude,
-        :longitude => canteen.longitude
+        :coordinates => [
+          canteen.latitude,
+          canteen.longitude
+        ]
       }.as_json
     end
 
     context "&limit" do
-      it "should limit list to 100 canteens" do
+      it "should limit list to 10 canteens by default" do
         100.times { FactoryGirl.create :canteen }
         Canteen.count.should > 100
 
         get :index, format: :json
 
         response.status.should == 200
-        json.should have(100).items
+        json.should have(10).items
       end
 
       it "should limit list to given limit parameter" do
@@ -109,8 +113,10 @@ describe Api::V2::CanteensController do
         :id => canteen.id,
         :name => canteen.name,
         :address => canteen.address,
-        :latitude => canteen.latitude,
-        :longitude => canteen.longitude
+        :coordinates => [
+          canteen.latitude,
+          canteen.longitude
+        ]
       }.as_json
     end
   end
