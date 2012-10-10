@@ -1,5 +1,7 @@
 class CanteenDecorator < Draper::Base
-  include ApiDecorator
   decorates :canteen
-  api_attributes :id, :name, :address, :latitude, :longitude
+
+  def coordinates
+    [ latitude, longitude ]
+  end
 end

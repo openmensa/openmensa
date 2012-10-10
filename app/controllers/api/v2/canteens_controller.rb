@@ -1,13 +1,7 @@
 class Api::V2::CanteensController < ApiController
-  inherit_resources
-  actions :index, :show
-  include OpenMensa::ResourceDecorator
+  self.responder = OpenMensa::ApiResponder
 
   respond_to :json
-
-  has_scope :limit, default: 100 do |controller, scope, value|
-    scope.limit [[1, value.to_i].max, 100].min
-  end
 
   has_scope :near, using: [ :lat, :lng, :dist ] do |controller, scope, value|
     lat = value[0].to_f
@@ -23,5 +17,9 @@ class Api::V2::CanteensController < ApiController
   has_scope :ids do |controller, scope, value|
     ids = value.split(',').map(&:to_i).select{|x| x > 0}.uniq
     scope.where(id: ids)
+  end
+
+  def find_collection
+    super.order(:id)
   end
 end

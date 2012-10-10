@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Api::V2::MealsController do
+  render_views
+
   let(:json) { JSON.parse response.body }
 
   describe "GET index" do
@@ -24,10 +26,10 @@ describe Api::V2::MealsController do
         name: canteen.meals.first.name,
         category: canteen.meals.first.category,
         prices: {
-          students: canteen.meals.first.price_student,
-          employees: canteen.meals.first.price_employee,
-          pupils: canteen.meals.first.price_pupil,
-          others: canteen.meals.first.price_other
+          students: canteen.meals.first.price_student.try(:to_f),
+          employees: canteen.meals.first.price_employee.try(:to_f),
+          pupils: canteen.meals.first.price_pupil.try(:to_f),
+          others: canteen.meals.first.price_other.try(:to_f)
         },
         notes: []
       }.as_json
