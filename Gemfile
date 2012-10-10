@@ -30,6 +30,7 @@ gem 'draper'
 gem 'strong_parameters'
 gem 'inherited_resources'
 gem 'has_scope'
+gem 'will_paginate'
 
 gem 'sqlite3'
 gem 'pg'
