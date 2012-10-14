@@ -41,8 +41,12 @@ class Api::BaseController < ApiController
     scope
   end
 
+  def scoped_resource
+    default_scope(self.class.resource_class.scoped)
+  end
+
   def find_resource
-    default_scope(self.class.resource_class.scoped).find params[:id]
+    scoped_resource.find params[:id]
   end
 
   def find_collection
