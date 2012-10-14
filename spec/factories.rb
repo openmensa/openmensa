@@ -45,12 +45,16 @@ FactoryGirl.define do
 
   factory :canteen_with_meals, parent: :canteen do
     after(:create) do |canteen|
-      FactoryGirl.create(:meal, day: FactoryGirl.create(:yesterday, canteen: canteen))
-      FactoryGirl.create(:meal, day: FactoryGirl.create(:yesterday, canteen: canteen))
-      FactoryGirl.create(:meal, day: FactoryGirl.create(:today, canteen: canteen))
-      FactoryGirl.create(:meal, day: FactoryGirl.create(:today, canteen: canteen))
-      FactoryGirl.create(:meal, day: FactoryGirl.create(:tomorrow, canteen: canteen))
-      FactoryGirl.create(:meal, day: FactoryGirl.create(:tomorrow, canteen: canteen))
+      yesterday = FactoryGirl.create(:yesterday, canteen: canteen)
+      today = FactoryGirl.create(:today, canteen: canteen)
+      tomorrow = FactoryGirl.create(:tomorrow, canteen: canteen)
+
+      FactoryGirl.create(:meal, day: yesterday)
+      FactoryGirl.create(:meal, day: yesterday)
+      FactoryGirl.create(:meal, day: today)
+      FactoryGirl.create(:meal, day: today)
+      FactoryGirl.create(:meal, day: tomorrow)
+      FactoryGirl.create(:meal, day: tomorrow)
     end
   end
 

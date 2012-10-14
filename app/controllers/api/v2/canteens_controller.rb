@@ -1,6 +1,4 @@
-class Api::V2::CanteensController < ApiController
-  self.responder = OpenMensa::ApiResponder
-
+class Api::V2::CanteensController < Api::BaseController
   respond_to :json
 
   has_scope :near, using: [ :lat, :lng, :dist ] do |controller, scope, value|

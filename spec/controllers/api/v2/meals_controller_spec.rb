@@ -7,40 +7,42 @@ describe Api::V2::MealsController do
 
   describe "GET index" do
     let(:canteen) { FactoryGirl.create :canteen_with_meals }
-    before        { canteen }
+    let(:day) { canteen.days.first! }
+    before { canteen }
 
     it "should answer with a list" do
-      get :index, canteen_id: canteen.id, format: :json
+      get :index, canteen_id: canteen.id, day_id: day.id, format: :json
       response.status.should == 200
 
       json.should be_an(Array)
-      json.should have(6).item
+      json.should have(2).item
     end
 
     it "should answer with a list of meal nodes" do
-      get :index, canteen_id: canteen.id, format: :json
+      get :index, canteen_id: canteen.id, day_id: day.id, format: :json
       response.status.should == 200
 
       json[0].should == {
-        id: canteen.meals.first.id,
-        name: canteen.meals.first.name,
-        category: canteen.meals.first.category,
+        id: day.meals.first.id,
+        name: day.meals.first.name,
+        category: day.meals.first.category,
         prices: {
-          students: canteen.meals.first.price_student.try(:to_f),
-          employees: canteen.meals.first.price_employee.try(:to_f),
-          pupils: canteen.meals.first.price_pupil.try(:to_f),
-          others: canteen.meals.first.price_other.try(:to_f)
+          students: day.meals.first.price_student.try(:to_f),
+          employees: day.meals.first.price_employee.try(:to_f),
+          pupils: day.meals.first.price_pupil.try(:to_f),
+          others: day.meals.first.price_other.try(:to_f)
         },
         notes: []
       }.as_json
     end
 
     context "meal node" do
-      let(:meal)    { FactoryGirl.create :meal_with_notes }
+      let(:meal) { FactoryGirl.create :meal_with_notes }
+      let(:day) { meal.day }
       let(:canteen) { meal.day.canteen }
 
       it "should include notes" do
-        get :index, canteen_id: canteen.id, format: :json
+        get :index, canteen_id: canteen.id, day_id: day.id, format: :json
         response.status.should == 200
 
         json[0]['notes'].should =~ meal.notes.map(&:name)

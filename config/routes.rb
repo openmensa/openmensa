@@ -10,7 +10,9 @@ Openmensa::Application.routes.draw do
 
     namespace :v2 do
       resources :canteens, only: [ :index, :show ] do
-        resources :meals, only: [ :index ]
+        resources :days, only: [ :index, :show ] do
+          resources :meals, only: [ :index, :show ]
+        end
       end
     end
   end
