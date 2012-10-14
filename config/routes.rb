@@ -10,7 +10,7 @@ Openmensa::Application.routes.draw do
 
     namespace :v2 do
       resources :canteens, only: [ :index, :show ] do
-        resources :days, only: [ :index, :show ] do
+        resources :days, only: [ :index, :show ], constraints: { id: /\d{4}-\d{2}-\d{2}/ } do
           resources :meals, only: [ :index, :show ]
         end
       end

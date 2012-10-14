@@ -51,12 +51,43 @@ describe 'API routing within' do
       )
     end
 
-    it 'should route /canteens/:id/meals to v2 meals#index' do
-      expect(:get => "#{base}/canteens/1/meals").to route_to(
-        :controller => 'api/v2/meals',
+    it 'should route /canteens/:canteen_id/days to v2 days#index' do
+      expect(:get => "#{base}/canteens/1/days").to route_to(
+        :controller => 'api/v2/days',
         :action => 'index',
         :format => 'json',
         :canteen_id => '1'
+      )
+    end
+
+    it 'should route /canteens/:canteen_id/days/:date to v2 days#show' do
+      expect(:get => "#{base}/canteens/1/days/2012-10-14").to route_to(
+        :controller => 'api/v2/days',
+        :action => 'show',
+        :format => 'json',
+        :canteen_id => '1',
+        :id => '2012-10-14'
+      )
+    end
+
+    it 'should route /canteens/:canteen_id/days/:date/meals to v2 meals#index' do
+      expect(:get => "#{base}/canteens/1/days/2012-10-14/meals").to route_to(
+        :controller => 'api/v2/meals',
+        :action => 'index',
+        :format => 'json',
+        :canteen_id => '1',
+        :day_id => '2012-10-14'
+      )
+    end
+
+    it 'should route /canteens/:canteen_id/days/:date/meals/:id to v2 meals#show' do
+      expect(:get => "#{base}/canteens/1/days/2012-10-14/meals/1").to route_to(
+        :controller => 'api/v2/meals',
+        :action => 'show',
+        :format => 'json',
+        :canteen_id => '1',
+        :day_id => '2012-10-14',
+        :id => '1'
       )
     end
   end

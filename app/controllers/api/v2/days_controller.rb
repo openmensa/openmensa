@@ -14,4 +14,8 @@ class Api::V2::DaysController < Api::BaseController
     @canteen = Canteen.find params[:canteen_id]
     scope.where(canteen_id: @canteen.id)
   end
+
+  def find_resource
+    scoped_resource.find_by_date! params[:id]
+  end
 end

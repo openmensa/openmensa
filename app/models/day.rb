@@ -11,4 +11,8 @@ class Day < ActiveRecord::Base
   def date=(date)
     write_attribute :date, date.to_date unless date.nil?
   end
+
+  def to_param
+    date.to_date.iso8601
+  end
 end

@@ -11,7 +11,7 @@ describe Api::V2::MealsController do
     before { canteen }
 
     it "should answer with a list" do
-      get :index, canteen_id: canteen.id, day_id: day.id, format: :json
+      get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
       response.status.should == 200
 
       json.should be_an(Array)
@@ -19,7 +19,7 @@ describe Api::V2::MealsController do
     end
 
     it "should answer with a list of meal nodes" do
-      get :index, canteen_id: canteen.id, day_id: day.id, format: :json
+      get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
       response.status.should == 200
 
       json[0].should == {
@@ -42,7 +42,7 @@ describe Api::V2::MealsController do
       let(:canteen) { meal.day.canteen }
 
       it "should include notes" do
-        get :index, canteen_id: canteen.id, day_id: day.id, format: :json
+        get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
         response.status.should == 200
 
         json[0]['notes'].should =~ meal.notes.map(&:name)

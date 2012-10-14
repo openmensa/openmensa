@@ -58,7 +58,7 @@ describe Api::V2::DaysController do
     before { canteen }
 
     it "should answer with day" do
-      get :show, canteen_id: canteen.id, id: day.id, format: :json
+      get :show, canteen_id: canteen.id, id: day.to_param, format: :json
       response.status.should == 200
 
       json.should == {
