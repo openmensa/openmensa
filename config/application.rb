@@ -68,5 +68,8 @@ module Openmensa
     config.assets.initialize_on_precompile = false
 
     config.omniauth_services = []
+
+    # send content length (at least required for api calls)
+    config.middleware.use Rack::ContentLength
   end
 end
