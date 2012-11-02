@@ -2,8 +2,9 @@
 require 'spec_helper'
 
 describe User do
-  before  { @user = FactoryGirl.create(:user) }
-  subject { @user }
+  let(:user) { FactoryGirl.create(:user) }
+  before { user }
+  subject { user }
 
   it { should accept_values_for(:login, 'first.last', 'abc', 'heinz_klein') }
   it { should_not accept_values_for(:login, '', nil) }
@@ -14,8 +15,8 @@ describe User do
   it { should be_logged }
   it { should_not be_admin }
   it { should_not be_internal }
-  it { @user.language.should == I18n.locale.to_s }
-  it { @user.time_zone.should == 'Berlin' }
+  it { user.language.should == I18n.locale.to_s }
+  it { user.time_zone.should == 'Berlin' }
 
   xit 'should require an email if one was set before' do
     user = FactoryGirl.create :user, email: ''
@@ -33,8 +34,8 @@ describe User do
   it { should_not accept_values_for(:login, 'anonymous', 'system')}
 
   it 'should have a unique login' do
-    another_user = FactoryGirl.build(:user, :login => @user.login)
-    another_user.login.should == @user.login
+    another_user = FactoryGirl.build(:user, :login => user.login)
+    another_user.login.should == user.login
     another_user.should_not be_valid
     another_user.save.should be_false
   end
@@ -45,21 +46,23 @@ describe User do
   end
 
   context 'when admin' do
-    before  { @admin = FactoryGirl.create(:admin) }
-    subject { @admin }
+    let(:admin) { FactoryGirl.create(:admin) }
+    before { admin }
+    subject { admin }
 
     it { should_not be_destructible }
-    it('can not be destroyed') { @admin.destroy.should be_false }
+    it('can not be destroyed') { admin.destroy.should be_false }
   end
 
   describe '@class' do
     # TODO: should be redesigned somehow
     context '#system' do
-      before  { @sys = User.system }
-      subject { @sys }
+      let(:system) { User.system }
+      before  { system }
+      subject { system }
 
       it('should be a SystemUser') { should be_an SystemUser }
-      it('should have reserved system login') { @sys.login.should == 'system' }
+      it('should have reserved system login') { system.login.should == 'system' }
       it('should always return same instance') { should == User.system }
       it { should_not be_logged }
       it { should be_admin }
@@ -67,11 +70,12 @@ describe User do
     end
 
     context '#anonymous' do
-      before  { @anon = User.anonymous }
-      subject { @anon }
+      let(:anon) { User.anonymous }
+      before  { anon }
+      subject { anon }
 
       it('should be an AnonymousUser') { should be_an AnonymousUser }
-      it('should have reserved anonymous login') { @anon.login.should == 'anonymous' }
+      it('should have reserved anonymous login') { anon.login.should == 'anonymous' }
       it('should always return same instance') { should == User.anonymous }
       it { should_not be_logged }
       it { should_not be_admin }
@@ -109,16 +113,16 @@ describe User do
   context '@authorization' do
     context 'Anonymous' do
       subject { User.anonymous }
-      before(:all) { @user = FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
 
       it { should_not be_able_to(:index, User, 'Users') }
       it { should_not be_able_to(:new, User, 'a User') }
       it { should_not be_able_to(:create, User, 'a User') }
-      it { should_not be_able_to(:show, @user, 'a User') }
-      it { should_not be_able_to(:edit, @user, 'a User') }
-      it { should_not be_able_to(:update, @user, 'a User') }
-      it { should_not be_able_to(:delete, @user, 'a User') }
-      it { should_not be_able_to(:destroy, @user, 'a User') }
+      it { should_not be_able_to(:show, user, 'a User') }
+      it { should_not be_able_to(:edit, user, 'a User') }
+      it { should_not be_able_to(:update, user, 'a User') }
+      it { should_not be_able_to(:delete, user, 'a User') }
+      it { should_not be_able_to(:destroy, user, 'a User') }
       it { should_not be_able_to(:show, User.anonymous, 'himself') }
       it { should_not be_able_to(:edit, User.anonymous, 'himself') }
       it { should_not be_able_to(:update, User.anonymous, 'himself') }
@@ -126,50 +130,46 @@ describe User do
       it { should_not be_able_to(:destroy, User.anonymous, 'himself') }
     end
     context 'User' do
-      before(:all) do
-        @user  = FactoryGirl.create(:user)
-        @user2 = FactoryGirl.create(:user)
-      end
-      subject { @user }
+      let(:user) { FactoryGirl.create :user }
+      let(:user2) { FactoryGirl.create :user }
+      subject { user }
 
       it { should_not be_able_to(:index, User, 'Users') }
       it { should_not be_able_to(:new, User, 'a User') }
       it { should_not be_able_to(:create, User, 'a User') }
-      it { should_not be_able_to(:show, @user2, 'a User') }
-      it { should_not be_able_to(:edit, @user2, 'a User') }
-      it { should_not be_able_to(:update, @user2, 'a User') }
-      it { should_not be_able_to(:delete, @user2, 'a User') }
-      it { should_not be_able_to(:destroy, @user2, 'a User') }
-      it { should be_able_to(:show, @user, 'himself') }
-      it { should_not be_able_to(:edit, @user, 'himself') }
-      it { should_not be_able_to(:update, @user, 'himself') }
-      it { should_not be_able_to(:delete, @user, 'himself') }
-      it { should_not be_able_to(:destroy, @user, 'himself') }
+      it { should_not be_able_to(:show, user2, 'a User') }
+      it { should_not be_able_to(:edit, user2, 'a User') }
+      it { should_not be_able_to(:update, user2, 'a User') }
+      it { should_not be_able_to(:delete, user2, 'a User') }
+      it { should_not be_able_to(:destroy, user2, 'a User') }
+      it { should be_able_to(:show, user, 'himself') }
+      it { should_not be_able_to(:edit, user, 'himself') }
+      it { should_not be_able_to(:update, user, 'himself') }
+      it { should_not be_able_to(:delete, user, 'himself') }
+      it { should_not be_able_to(:destroy, user, 'himself') }
     end
     context 'Administrator' do
-      before(:all) do
-        @admin  = FactoryGirl.create(:admin)
-        @admin2 = FactoryGirl.create(:admin)
-        @user   = FactoryGirl.create(:user)
-      end
-      subject { @admin }
+      let(:admin) { FactoryGirl.create :admin }
+      let(:admin2) { FactoryGirl.create :admin }
+      let(:user) { FactoryGirl.create :user }
+      subject { admin }
 
       it { should be_able_to(:create, User, 'Users') }
       it { should be_able_to(:index, User, 'Users') }
-      it { should be_able_to(:update, @user, 'a User') }
-      it { should be_able_to(:show, @user, 'a User') }
-      it { should be_able_to(:destroy, @user, 'a User') }
-      it { should be_able_to(:update, @admin, 'himself') }
-      it { should be_able_to(:show, @admin, 'himself') }
-      it { should be_able_to(:update, @admin2, 'another Admin') }
-      it { should be_able_to(:show, @admin2, 'another Admin') }
-      it { should_not be_able_to(:destroy, @admin, 'himself') }
-      it { should_not be_able_to(:destroy, @admin2, 'another Admin') }
+      it { should be_able_to(:update, user, 'a User') }
+      it { should be_able_to(:show, user, 'a User') }
+      it { should be_able_to(:destroy, user, 'a User') }
+      it { should be_able_to(:update, admin, 'himself') }
+      it { should be_able_to(:show, admin, 'himself') }
+      it { should be_able_to(:update, admin2, 'another Admin') }
+      it { should be_able_to(:show, admin2, 'another Admin') }
+      it { should_not be_able_to(:destroy, admin, 'himself') }
+      it { should_not be_able_to(:destroy, admin2, 'another Admin') }
     end
   end
 
   describe "identities" do
-    subject { @user.identities }
+    subject { user.identities }
 
     it { should_not be_empty }
   end
