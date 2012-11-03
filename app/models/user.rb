@@ -6,10 +6,9 @@ class User < ActiveRecord::Base
   has_many :messages, through: :canteens
   has_many :canteens
 
-  validates_presence_of :login, :name
-  validates_uniqueness_of :login
-  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true
-  validates_exclusion_of :login, in: ['anonymous', 'system']
+  validates :login, presence: true, uniqueness: true, exclusion: ['anonymous', 'system']
+  validates :name, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true }
 
   attr_accessible :login, :name, :email, :time_zone, :language, :send_reports, :admin
 

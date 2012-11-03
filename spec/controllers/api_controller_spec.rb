@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + "/../spec_helper"
 describe ApiController do
   controller(ApiController) do
     def index
-      render nothing: true
+      render text: 'NOTHING'
     end
   end
 
