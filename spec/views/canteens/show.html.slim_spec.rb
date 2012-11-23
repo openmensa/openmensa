@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe "canteens/show.html.haml" do
+describe "canteens/show.html.slim" do
   let(:user) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen) }
 

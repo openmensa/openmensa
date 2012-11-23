@@ -1,19 +1,19 @@
 
-%header.page-header
+header.page-header
   = link_to canteen_path(@canteen, date: (@date - 1.day)), remote: true, 'data-push' => 'true', class: :prev do
-    %span
+    span
   = link_to canteen_path(@canteen, date: (@date + 1.day)), remote: true, 'data-push' => 'true', class: :next do
-    %span
-  %h2.centered
+    span
+  h2.centered
     - if @date.to_date == Time.zone.now.to_date
       = t :today
     - else
       = l @date.to_date, format: :with_weekday
-%ul.meals
+ul.meals
   = render partial: "day", object: @canteen.days.find_by_date(@date)
 
 - if @date == Time.zone.now.to_date and @canteen.days.find_by_date(@date + 1.day).try(:meals).try(:any?)
-  %header.page-header
-    %h3.centered= l (@date + 1.day).to_date, format: :with_weekday
-  %ul.meals
+  header.page-header
+    h3.centered= l (@date + 1.day).to_date, format: :with_weekday
+  ul.meals
     = render partial: "day", object: @canteen.days.find_by_date(@date + 1.day)

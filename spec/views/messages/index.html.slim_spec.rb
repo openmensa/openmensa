@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + '/../../../lib/open_mensa.rb'
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe "messages/index.html.haml" do
+describe "messages/index.html.slim" do
   let(:user) { FactoryGirl.create :user }
   let(:canteens) {[
     FactoryGirl.create(:canteen, user: user),

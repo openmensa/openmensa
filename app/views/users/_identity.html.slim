@@ -1,6 +1,6 @@
-%div.identity{class: identity.provider}
+div.identity class=identity.provider
   - if @user.identities.count > 1
     = link_to '×', user_identity_path(@user, identity), method: :delete, class: 'destroy', title: t(:destroy_identity, identity.provider)
-  %i{class: "icon-#{identity.provider}-sign"}
-  %span.provider= t "service.#{identity.provider}"
-  %span.uid= identity.uid
+  i class="icon-#{identity.provider}-sign"
+  span.provider= t "service.#{identity.provider}"
+  span.uid= identity.uid

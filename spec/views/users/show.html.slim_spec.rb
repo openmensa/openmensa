@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe "users/show.html.haml" do
+describe "users/show.html.slim" do
   let(:user) { FactoryGirl.create :user }
   it "should not show add identity button if all providers are bound" do
     assign(:user, user)

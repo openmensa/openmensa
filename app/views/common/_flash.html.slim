@@ -1,10 +1,10 @@
 - (flash || []).each do |type, value|
   - next unless value.is_a?(String)
   - if %w(alert error).include?(type.to_s.downcase.strip)
-    %div{:class => "alert alert-error"}= value
+    div class="alert alert-error" = value
   - elsif %w(notice confirmation).include?(type.to_s.downcase.strip)
-    %div{:class => "alert alert-success"}
-      %a.close{href: '#', data: { dismiss: true, 'auto-dismiss' => "5000" }} ×
+    div class="alert alert-success"
+      a.close *{href: '#', data: { dismiss: true, 'auto-dismiss' => "5000" }}
       = value
   - else
-    %div{:class => "alert"}= value
+    div class="alert" = value

@@ -1,37 +1,36 @@
 .row
   .span8
-    %section
-      %header
-        %h2= t :my_profile
+    section
+      header
+        h2= t :my_profile
       .content
         = render partial: "common/flash", object: flash[:user]
         = form_for @user do |f|
-          %p
+          p
             = f.label :name, t(:profile, :name)
             = f.text_field :name
-          %p
+          p
             = f.label :email, t(:profile, :email)
             = f.text_field :email
-          %fieldset
-            %legend= t :profile, :developer_settings
-            %p
+          fieldset
+            legend= t :profile, :developer_settings
+            p
               = f.check_box :send_reports
               = f.label :send_reports, t(:profile, :send_reports)
-          %p
-            %input{type: "submit", value: t(:save)}
-    %section
-      %header
-        %h2
+          p
+            input type="submit" value=t(:save)
+    section
+      header
+        h2
           = t(:my_identities)
-          %ul.actions
+          ul.actions
             - if @user.identities.count < Identity.providers.count
-              %li
-                = link_to '', new_user_identity_path(@user), title: t(:add_identity), class: 'icon-plus-sign'
-      %div.content.identities
+              li= link_to '', new_user_identity_path(@user), title: t(:add_identity), class: 'icon-plus-sign'
+      div.content.identities
         - @user.identities.each do |identity|
           = render partial: 'identity', object: identity
         - if @user.identities.count == 1
-          %div.identity.add_notice
+          div.identity.add_notice
             = t :notice, :only_one_identity
 
 

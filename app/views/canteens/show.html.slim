@@ -1,0 +1,40 @@
+
+.row
+  .span8
+    section
+      header#canteen-header
+        h1= @canteen.name
+      #remote-canteens-show
+        = render partial: "show_section"
+
+  aside.span4
+    section
+      header
+        h2=t :canteen, :address
+      = map @canteen
+      .content
+        address= @canteen.address
+    section.status
+      - if @canteen.last_fetched_at.nil?
+        header
+          h3.icon-bolt=t :canteen, :no_fetch_ever
+        .content
+          p=t :canteen, :no_fetch_ever_message
+      - elsif @canteen.last_fetched_at > Time.zone.now - 1.day
+        header
+          h3.icon-ok=t :canteen, :fetch_up_to_date
+        .content
+          p=t :canteen, :fetch_up_to_date_message
+          p
+            =t :canteen, :last_update_at
+            br
+            =l @canteen.last_fetched_at
+      - else
+        header
+          h3.icon-warning-sign=t :canteen, :fetch_needed
+        .content
+          p=t :canteen, :fetch_needed_message
+          p
+            =t :canteen, :last_update_at
+            br
+            =l @canteen.last_fetched_at
