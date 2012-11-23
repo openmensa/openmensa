@@ -4,6 +4,7 @@ gem 'rails', '3.2.8'
 gem 'jquery-rails'
 
 gem 'haml'
+gem 'slim'
 gem 'rabl'
 gem 'msgpack', '~> 0.4.5'
 gem 'oj'
