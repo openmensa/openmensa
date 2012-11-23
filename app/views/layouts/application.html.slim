@@ -37,8 +37,6 @@ html
               i.icon-signin
     section#content
       = render partial: "common/flash", object: flash
-      - if content_for? :notifications
-        = yield :notifications
       = yield
       footer#footer
         .row
