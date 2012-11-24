@@ -24,12 +24,9 @@ section
           ' Unsere Features:
         ul
           li Was gibt es zu essen?
-          li
-            i Wo ist die nächste Mensa?
-          li
-            i Wieviel kostet das Essen?
-          li
-            i Wie gut ist das Essen in Mensa xy?
+          li: i Wo ist die nächste Mensa?
+          li: i Wieviel kostet das Essen?
+          li: i Wie gut ist das Essen in Mensa xy?
         i
           ' (Kursiv gedruckte Features sind noch nicht vollständig implementiert)
         p
@@ -43,7 +40,8 @@ section
         h2 OpenMensa App
       .android.available
         = link_to "http://mycrobase.de/wtf/OpenMensa-20120712-1254.apk" do
-          span OpenMensa Alpha
+          span
+            ' OpenMensa Alpha
           | for Android
           = image_tag "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=http://mycrobase.de/wtf/OpenMensa-20120712-1254.apk", class: :qr
       .ios
