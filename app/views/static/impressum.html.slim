@@ -1,33 +1,35 @@
-.section
-  section
-    header
-      h1 Impressum
-    .content
-      p.description Verantwortlich für den Inhalt und Funktion dieser Seiten zeichnen sich:
+.row
+  .span8
+    .section
+      section
+        header
+          h1 Impressum
+        .content
+          p.description Verantwortlich für den Inhalt und Funktion dieser Seiten zeichnen sich:
 
-      .row.p
-        .span4
-          address#jgraichen
-            .name Jan Graichen
-            .address Stahnsdorfer Str. 144a
-            .city DE-14482 Potsdam
-        .span4
-          address#kfabian
-            .name Kai Fabian
-            .address Frankenhauser Str. 37
-            .city DE-12249 Berlin
-        .span4
-          address#mspringer
-            .name Matthias Springer
-            .address Stahnsdorfer Str. 144c
-            .city DE-14482 Potsdam
-      p
-        ' sowie
-        em Christian Nicolai
-
-= content_for :aside do
-  .section
-    section
-      header
-      .content
-        = raw "Du hast Kritik oder Anregung für uns? Dann schreib uns einfach ein Nachricht an #{link_to 'info@openmensa.org', 'mailto:info@openmensa.org'}."
+          .row.p
+            .span4
+              address#jgraichen
+                .name Jan Graichen
+                .address Stahnsdorfer Str. 144a
+                .city DE-14482 Potsdam
+            .span4
+              address#kfabian
+                .name Kai Fabian
+                .address Frankenhauser Str. 37
+                .city DE-12249 Berlin
+            .span4
+              address#mspringer
+                .name Matthias Springer
+                .address Stahnsdorfer Str. 144c
+                .city DE-14482 Potsdam
+          p
+            ' sowie
+            em Christian Nicolai
+  .span4
+    .section
+      section
+        header
+          h2 Kommentare?
+        .content
+          p= raw "Du hast Kritik oder Anregung für uns? Dann schreib uns einfach ein Nachricht an #{link_to 'info@openmensa.org', 'mailto:info@openmensa.org'}."
