@@ -15,10 +15,12 @@ module ApplicationHelper
     options = attrs.extract_options!
     user    = attrs.first || User.current
     if user
-      image_tag user.gravatar_url(options).to_s,
-        alt:   user.name,
-        class: 'avatar',
-        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ''
+      content_tag :span, class: 'avatar', style: "width: #{options[:size]}px; height: #{options[:size]}px;" do
+        image_tag user.gravatar_url(options).to_s,
+          alt:   user.name,
+          class: 'avatar',
+          style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ''
+      end
     else
       content_tag :span, class: 'avatar', style: "width: #{options[:size]}px; height: #{options[:size]}px;" do
         ""
