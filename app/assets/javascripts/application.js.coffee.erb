@@ -3,6 +3,7 @@
 #= require jquery_ujs
 #= require leaflet
 #= require leaflet.markercluster
+#= require leaflet.control.locate
 #
 
 $ ->
@@ -11,7 +12,8 @@ $ ->
     maxZoom: 18)
 
   $(".index_map").each ->
-    map = L.map(@, scrollWheelZoom: false)
+    map = L.map(@, scrollWheelZoom: false, maxZoom: 16)
+    L.control.locate().addTo(map);
     map.addLayer tileLayer
 
     cluster = new L.MarkerClusterGroup showCoverageOnHover: false
