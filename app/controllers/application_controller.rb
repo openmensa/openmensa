@@ -18,7 +18,7 @@ class ApplicationController < BaseController
   end
 
   def find_current_user
-    return User.find_by_id(session[:user_id])
+    User.find_by_id(session[:user_id])
   end
 
   # **** accessors & helpers ****
@@ -32,7 +32,7 @@ class ApplicationController < BaseController
     curent_user.ability
   end
 
-  def flash_for node, flashs = {}
+  def flash_for(node, flashs = {})
     flash[node] ||= {}
     flash[node].merge! flashs
   end
