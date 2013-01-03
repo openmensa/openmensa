@@ -41,38 +41,42 @@ FactoryGirl.define do
     sequence(:longitude) { |n| (n % 360) - 180 }
 
     association :user
-  end
 
-  factory :canteen_with_meals, parent: :canteen do
-    after(:create) do |canteen|
-      yesterday = FactoryGirl.create(:yesterday, canteen: canteen)
-      today = FactoryGirl.create(:today, canteen: canteen)
-      tomorrow = FactoryGirl.create(:tomorrow, canteen: canteen)
-
-      FactoryGirl.create(:meal, day: yesterday)
-      FactoryGirl.create(:meal, day: yesterday)
-      FactoryGirl.create(:meal, day: today)
-      FactoryGirl.create(:meal, day: today)
-      FactoryGirl.create(:meal, day: tomorrow)
-      FactoryGirl.create(:meal, day: tomorrow)
+    trait :with_meals do
+      after(:create) do |canteen|
+        FactoryGirl.create :yesterday, :with_meals, canteen: canteen
+        FactoryGirl.create :today, :with_meals, canteen: canteen
+        FactoryGirl.create :tomorrow, :with_meals, canteen: canteen
+      end
     end
-  end
-
-  factory :closed_day, parent: :today do
-    closed true
   end
 
   factory :day do
     date { Time.zone.now }
 
     association :canteen
+
+    trait :closed do
+      closed true
+    end
+
+    trait :with_meals do
+      after(:create) do |day|
+        FactoryGirl.create :meal, day: day
+        FactoryGirl.create :meal, day: day
+        FactoryGirl.create :meal, day: day
+      end
+    end
   end
+
   factory :yesterday, parent: :day do
     date { Time.zone.now - 1.day }
   end
+
   factory :today, parent: :day do
     date { Time.zone.now }
   end
+
   factory :tomorrow, parent: :day do
     date { Time.zone.now + 1.day }
   end
@@ -83,10 +87,10 @@ FactoryGirl.define do
     sequence(:price_student) { |n| 0.51 + n * 0.2 }
 
     association :day
-  end
 
-  factory :meal_with_notes, parent: :meal do
-    notes [ "Note M1", "Note M2", "Note M3" ]
+    trait :with_notes do
+      notes [ "Note M1", "Note M2", "Note M3" ]
+    end
   end
 
   factory :note do

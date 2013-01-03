@@ -6,4 +6,18 @@ class Api::V2::MealsController < Api::BaseController
     @day = @canteen.days.find_by_date! params[:day_id]
     scope.where(day_id: @day.id)
   end
+
+  def canteen_meals
+    @canteen = Canteen.find params[:canteen_id]
+
+    @days = @canteen.days
+    begin
+      date = Date.strptime(params[:start] || '', '%Y-%m-%d')
+      @days = @days.where('days.date >= ?', date).where('days.date < ?', date + 7.days)
+    rescue ArgumentError
+      @days = @days.where('days.date >= ?', Date.today).where('days.date < ?', Date.today + 7.days)
+    end
+
+    @days = DayDecorator.decorate(@days)
+  end
 end

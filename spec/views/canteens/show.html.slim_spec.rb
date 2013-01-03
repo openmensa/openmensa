@@ -25,7 +25,7 @@ describe "canteens/show.html.slim" do
   end
 
   context 'on closed day' do
-    let(:day) { FactoryGirl.create(:closed_day) }
+    let(:day) { FactoryGirl.create :day, :closed }
     let(:canteen) { day.canteen }
 
     it "should show a closed notice" do

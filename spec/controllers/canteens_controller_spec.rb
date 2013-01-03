@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 describe CanteensController do
   describe "#show" do
-    let(:canteen) { FactoryGirl.create :canteen_with_meals }
+    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
 
     it "should fetch canteen and canteen's meals for today" do
       get :show, id: canteen.id
@@ -21,7 +21,7 @@ describe CanteensController do
   end
 
   describe "#update" do
-    let(:canteen) { FactoryGirl.create :canteen_with_meals }
+    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
     let(:user) { FactoryGirl.create :user }
 
     it "should not be accessible by anonymous" do

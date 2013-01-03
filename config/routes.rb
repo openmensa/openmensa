@@ -13,6 +13,7 @@ Openmensa::Application.routes.draw do
         resources :days, only: [ :index, :show ] do
           resources :meals, only: [ :index, :show ]
         end
+        get 'meals' => 'meals#canteen_meals'
       end
     end
   end
