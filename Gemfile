@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.10'
 gem 'jquery-rails'
 
 gem 'haml'
@@ -40,7 +40,7 @@ group :assets do
   gem "sass", "~> 3.2.0"
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', platforms: :ruby
+  gem 'therubyracer', '=0.10', platforms: :ruby
   gem 'uglifier'
   gem 'compass-rails'
   gem 'bourbon'
