@@ -9,6 +9,8 @@
 @import "bourbon";
 @import "compass";
 
+* { box-sizing: border-box; }
+
 @import "typography";
 @import "layout";
 @import "grid";

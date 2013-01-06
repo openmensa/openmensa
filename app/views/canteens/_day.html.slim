@@ -9,16 +9,15 @@
 - else
   - day.meals.group_by(&:category).each do |category, meals|
     li
-      - meals.each_with_index do |meal, index|
-        div.meal
-          - if index == 0
-            h3= category
-          p= meal.name
-          div
+      h3= category
+      ul
+        - meals.each_with_index do |meal, index|
+          li
+            p= meal.name
             - if meal.prices.size > 0
               ul.prices
                 - meal.prices.each do |role,price|
-                  li title=t(:"price_roles.# role}")
+                  li title=t(:"price_roles.#{role}")
                     span=t "price_roles.#{role}"
                     = number_to_currency(price, uni: '€')
             - if meal.notes.size > 0

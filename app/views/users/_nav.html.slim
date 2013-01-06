@@ -4,7 +4,7 @@
       h2= t :settings
     ul.content.nav
       li= link_to t(:my_profile), user_path(@user)
-      li= link_to t(:my_favorites), '#' || user_favorites_path(@user)
+      / li= link_to t(:my_favorites), '#' || user_favorites_path(@user)
   - if @user.developer?
     section
       header

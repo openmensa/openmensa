@@ -9,33 +9,34 @@ html
     = javascript_include_tag "application"
     = csrf_meta_tags
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
-    meta name="viewport" content="width=device-width,initial-scale=1.0"
+    / meta name="viewport" content="width=device-width,initial-scale=1.0"
+    meta name="viewport" content="width=device-width"
     link href="http://blog.altimos.de/category/openmensa/feed/" rel="alternate" title="OpenMensa Blog (Atom)" type="application/atom+xml"
     = favicon_link_tag
 
   body class=body_classes
-    header#header
-      h1
-        = link_to "OpenMensa", root_path
-      ul.actions
-        - if current_user.logged?
-          li
-            = link_to '#', title: t(:my_favorites) do
-              i.icon-star
-          li
-            = link_to logout_path, title: t(:logout) do
-              i.icon-signout
-          li
-            = link_to user_path(current_user.id), title: t(:my_profile), class: :account do
-              = avatar
-        - else
-          li
-            = link_to '#', title: t(:my_favorites) do
-              i.icon-star
-          li
-            = link_to login_path, title: t(:login) do
-              i.icon-signin
     section#content
+      header#header
+        h1
+          = link_to "OpenMensa", root_path
+        ul.actions
+          - if current_user.logged?
+            / li
+            /   = link_to '#', title: t(:my_favorites) do
+            /     i.icon-star
+            li
+              = link_to logout_path, title: t(:logout) do
+                i.icon-signout
+            li
+              = link_to user_path(current_user.id), title: t(:my_profile), class: :account do
+                = avatar
+          - else
+            / li
+            /   = link_to '#', title: t(:my_favorites) do
+            /     i.icon-star
+            li
+              = link_to login_path, title: t(:login) do
+                i.icon-signin
       = render partial: "common/flash", object: flash
       = yield
       footer#footer

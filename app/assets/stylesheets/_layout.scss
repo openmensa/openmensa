@@ -17,11 +17,11 @@ header, section, footer {
 
 .cwrapper {
   margin: 0 auto;
-  max-width: 900px;
-  width: 98%;
+  max-width: 960px;
+  padding: 0 15px;
 
   @include media(mobile) {
-    width: 98%;
+    padding: 0 11px;
   }
 }
 
@@ -40,13 +40,13 @@ header ul.actions {
   a {
     display: block;
     position: relative;
-    padding: 0 .2em;
+    padding: .2em .2em .1em .2em;
 
     color: #bbb;
     font-size: 1.3em;
+    line-height: 1em;
     text-align: center;
     text-shadow: none;
-    vertical-align: middle;
 
     @include transition(color .3s ease-in-out .2s);
 
@@ -60,6 +60,10 @@ header ul.actions {
       display: inline-block;
       width: 40px;
       height: 40px;
+    }
+
+    @include media(mobile) {
+      padding-top: 0.35em;
     }
 
     // span {
@@ -89,7 +93,7 @@ header ul.actions {
 
 header#header {
   @extend .fwrapper;
-  @extend .cwrapper;
+  // @extend .cwrapper;
 
   padding: 10px 0;
   background-image: image-url("hbg.png");
@@ -107,7 +111,7 @@ header#header {
     float: left;
     padding: 5px 0 5px 75px;
     margin: 0;
-    min-height: 26px;
+    min-height: 50px;
 
     @include media(mobile) {
       font-size: 150%;
@@ -153,6 +157,7 @@ header#header {
     .account {
       float: left;
       margin-top: -1px;
+      padding: 0 .2em;
 
       span {
         background-color: #f9f9f9;
@@ -182,12 +187,12 @@ header#header {
       font-size: 1.6em;
 
       .account {
-        margin-top: 5px;
-        img {
+        padding-top: .3em;
+
+        img, span {
           height: 24px;
           width: 24px;
         }
-        span { display: none; }
       }
     }
   }
