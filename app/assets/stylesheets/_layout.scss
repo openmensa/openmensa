@@ -224,7 +224,7 @@ header#header {
         list-style: none;
         float: right;
         margin: -2px 0 0 0;
-        padding: 0;
+        padding: 0 4px;
 
         li {
           float: left;
@@ -233,6 +233,10 @@ header#header {
         a {
           @extend %action-link;
           &:hover { color: #333; }
+        }
+
+        @include media(mobile) {
+          padding: 0;
         }
       }
     }
