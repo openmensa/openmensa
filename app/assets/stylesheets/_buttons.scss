@@ -39,7 +39,7 @@ $btn-success: #238625 !default;
   color: $text;
   border: 1px solid $border;
   text-shadow: 0 1px 0 $text-shadow;
-  @include border-radius(3px);
+  @include border-radius(1px);
   @include box-shadow(inset 0 1px 0 0 $inset-shadow);
   @include linear-gradient($base-color, $stop-gradient);
 
@@ -138,7 +138,7 @@ $btn-success: #238625 !default;
   }
 
   @include media(mobile) {
-    padding: 9px 15px;
+    padding: 9px 15px 7px;
   }
 
   &:focus, &.focus {
@@ -160,7 +160,8 @@ $btn-success: #238625 !default;
 
   .btn-login {
     display: block;
-    width: 45%;
+    width: 48%;
+    margin: 1%;
     float: left;
   }
 }

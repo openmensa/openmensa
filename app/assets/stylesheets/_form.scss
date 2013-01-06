@@ -15,7 +15,7 @@ form {
 
   p {
     position: relative;
-    padding: 0 18px 0 0;
+    padding: 0;
 
     label {
       display: block;
@@ -26,7 +26,7 @@ form {
       width: 100%;
       max-width: 400px;
 
-      margin: 4px 0 2px 2px;
+      margin: 4px 0;
       padding: 4px;
       border: 1px solid #ccc;
       border-radius: 2px;
@@ -54,9 +54,11 @@ form {
     input[type="checkbox"] {
       vertical-align: bottom;
       margin: 0 .2em .1em 0;
+      float: left;
 
-      + label { 
-        display: inline-block;
+      + label {
+        // display: inline-block;
+        margin-left: 20px;
       }
     }
 

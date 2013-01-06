@@ -11,8 +11,9 @@ header, section, footer {
   display: block;
 }
 
+%clearfix { @include pie-clearfix; }
 .fwrapper {
-  @include pie-clearfix;
+  @extend %clearfix;
 }
 
 .cwrapper {
@@ -25,7 +26,7 @@ header, section, footer {
   }
 }
 
-.clearfix { @include clearfix; }
+.clearfix { @extend %clearfix; }
 
 header ul.actions {
   list-style: none;
@@ -65,35 +66,11 @@ header ul.actions {
     @include media(mobile) {
       padding-top: 0.35em;
     }
-
-    // span {
-    //   color: transparent;
-    //   font-size: 9px;
-    //   display: block;
-    //   text-align: center;
-    //   position: absolute;
-    //   // bottom: -0.6em;
-    //   top: -0.9em;
-    //   left: 0;
-    //   right: 0;
-
-    //   text-transform: uppercase;
-    //   font-variant: small-caps;
-    //   color: #B9B9B9;
-    //   font-weight: 300;
-    //   letter-spacing: 0px;
-    //   text-shadow: none;
-
-    //   @include media(handheld) {
-    //     display: none;
-    //   }
-    // }
   }
 }
 
 header#header {
   @extend .fwrapper;
-  // @extend .cwrapper;
 
   padding: 10px 0;
   background-image: image-url("hbg.png");
@@ -131,7 +108,6 @@ header#header {
       &:hover {
         text-shadow: 0 1px 8px rgba(#333, 0.8);
         text-decoration: none;
-        @include transition(text-shadow .8s ease-in-out);
       }
     }
 
@@ -223,7 +199,7 @@ header#header {
     }
 
     header {
-      @include clearfix;
+      @extend %clearfix;
       padding: 4px 4px 3px 15px;
 
       @include media(mobile) {
@@ -307,7 +283,7 @@ header#header {
         li { padding: 0; }
         a {
           display: block;
-          padding: 10px 15px 10px 35px;
+          padding: 12px 15px 10px 35px;
           color: #333;
           font-weight: bold;
           @include transition(background-color .2s ease-in-out);
