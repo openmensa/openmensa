@@ -8,7 +8,7 @@ class DayDecorator < Draper::Decorator
       date: model.date.iso8601,
       closed: model.closed
     }
-    result[:meals] = meals if options[:include].include? :meals
+    result[:meals] = meals if options[:include].try(:include?, :meals)
     result
   end
 end
