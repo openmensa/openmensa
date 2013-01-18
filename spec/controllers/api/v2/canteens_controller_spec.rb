@@ -39,9 +39,9 @@ describe Api::V2::CanteensController do
       get :index, format: :json
 
       response.status.should == 200
-      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=1> rel="first"')
-      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=2> rel="next"')
-      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=3> rel="last"')
+      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=1>; rel="first"')
+      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=2>; rel="next"')
+      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
     end
 
     context "&limit" do

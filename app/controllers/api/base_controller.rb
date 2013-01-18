@@ -1,5 +1,9 @@
 class Api::BaseController < ApiController
-  self.responder = OpenMensa::ApiResponder
+  responders OpenMensa::Responders::ApiResponder,
+    OpenMensa::Responders::DecoratorResponder,
+    Responders::PaginateResponder
+
+  api_version 2
 
   class << self
     attr_accessor :max_limit, :default_limit, :default_page
@@ -13,10 +17,14 @@ class Api::BaseController < ApiController
   def setup_collection; self.collection = find_collection; end
   def setup_resource; self.resource = find_resource; end
 
-  def decorate(collection_or_resource)
-    self.class.decorator_class.decorate(collection_or_resource)
+  def decorate(resource)
+    if resource.is_a?(ActiveRecord::Relation)
+      self.collection = self.class.decorator_class.decorate_collection(resource)
+    else
+      self.resource = self.class.decorator_class.decorate(resource)
+    end
   rescue NameError
-    collection_or_resource
+    resource
   end
 
   def resource=(resource)

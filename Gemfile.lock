@@ -181,7 +181,7 @@ GEM
     omniauth-twitter (0.0.14)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    paginate-responder (1.1.0)
+    paginate-responder (1.1.1)
       rack-link_headers (>= 2.2)
     pg (0.14.1)
     poltergeist (1.0.2)
@@ -195,9 +195,6 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    rabl (0.7.9)
-      activesupport (>= 2.3.14)
-      multi_json (~> 1.0)
     rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -336,7 +333,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
-  draper
+  draper (~> 1.0)
   factory_girl_rails (>= 3.3.0)
   geocoder
   gravtastic
@@ -354,10 +351,9 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-twitter
-  paginate-responder (>= 1.1)
+  paginate-responder (>= 1.1.1)
   pg
   poltergeist
-  rabl
   rack-piwik
   rails (~> 3.2)
   rails-i18n

@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Api::V1::MealsController do
-  render_views
-
   let(:json) { JSON[response.body] }
 
   describe "GET index" do
@@ -54,9 +52,9 @@ describe Api::V1::MealsController do
       json["meal"]["id"].should == meal.id
     end
 
-    it "should include date as UTC timestamp" do
+    it "should include date as UTC date" do
       get :show, format: :json, cafeteria_id: canteen.id, id: meal.id
-      json["meal"]["date"].should == meal.date.to_time.iso8601
+      json["meal"]["date"].should == meal.date.to_date.iso8601
     end
   end
 end

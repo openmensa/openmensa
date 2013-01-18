@@ -1,6 +1,4 @@
 class ApiController < BaseController
-  self.responder = OpenMensa::ApiResponder
-
   rescue_from ::CanCan::AccessDenied,         :with => :error_access_denied
   rescue_from ::ActiveRecord::RecordNotFound, :with => :error_not_found
 
@@ -15,12 +13,14 @@ class ApiController < BaseController
   end
 
   def set_content_type
-    if ['json', 'xml', 'msgpack'].include? params[:format].to_s
+    params[:format] = params[:format].to_s.downcase
+
+    if ['json', 'xml', 'msgpack'].include? params[:format]
       response.content_type = {
         json: 'application/json',
         xml: 'application/xml',
         msgpack: 'application/x-msgpack'
-      }[params[:format].to_s.to_sym]
+      }[params[:format].to_sym]
     else
       render_error status: :not_acceptable, message: 'Unsupported format.'
       false
@@ -51,7 +51,10 @@ class ApiController < BaseController
     end
   end
 
-  def self.api_version(value)
+  def self.api_version(value = nil)
+    return @api_version unless value
+    @api_version = value
+
     before_filter do
       set_api_version value
     end

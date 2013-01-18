@@ -1,16 +1,38 @@
-class MealDecorator < Draper::Base
+class MealDecorator < Draper::Decorator
+  include ApiDecorator
   decorates :meal
 
   def notes
-    meal.notes.map(&:name)
+    model.notes.map(&:name)
   end
 
   def prices
     {
-      students: meal.price_student,
-      employees: meal.price_employee,
-      pupils: meal.price_pupil,
-      others: meal.price_other
+      students: model.price_student.try(:to_f),
+      employees: model.price_employee.try(:to_f),
+      pupils: model.price_pupil.try(:to_f),
+      others: model.price_other.try(:to_f)
+    }
+  end
+
+  def to_version_1(options)
+    {
+      meal: {
+        id: model.id,
+        name: model.name,
+        description: model.description,
+        date: model.date.to_date.iso8601
+      }
+    }
+  end
+
+  def to_version_2(options)
+    {
+      id: model.id,
+      name: model.name,
+      category: model.category,
+      prices: prices,
+      notes: notes
     }
   end
 end

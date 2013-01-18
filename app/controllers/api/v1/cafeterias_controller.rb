@@ -1,10 +1,10 @@
 class Api::V1::CafeteriasController < Api::V1::BaseController
 
   def index
-    @canteens = Canteen.all
+    respond_with Canteen.scoped
   end
 
   def show
-    @canteen = Canteen.find params[:id]
+    respond_with Canteen.find params[:id]
   end
 end

@@ -18,6 +18,6 @@ class Api::V2::MealsController < Api::BaseController
       @days = @days.where('days.date >= ?', Date.today).where('days.date < ?', Date.today + 7.days)
     end
 
-    @days = DayDecorator.decorate(@days)
+    respond_with @days
   end
 end

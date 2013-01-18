@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Api::V1::CafeteriasController do
-  render_views
-
   let(:json) { JSON[response.body] }
 
   describe "GET index" do
@@ -68,7 +66,7 @@ describe Api::V1::CafeteriasController do
       json["cafeteria"]["meals"].should be_an(Array)
       json["cafeteria"]["meals"].should have(2).items
       json["cafeteria"]["meals"].each do |meal|
-        date = meal["date"].to_time
+        date = meal["meal"]["date"].to_time
         date.should >= (Time.zone.now).to_date
         date.should <  (Time.zone.now + 2.days).to_date
       end
