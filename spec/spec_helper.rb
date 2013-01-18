@@ -21,7 +21,6 @@ Spork.prefork do
 
   require 'rspec/rails'
   require 'accept_values_for'
-  require 'attribute_ext/rspec'
   require 'capybara/rspec'
   require 'factory_girl'
   require 'webmock/rspec'

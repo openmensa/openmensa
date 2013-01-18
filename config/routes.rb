@@ -1,5 +1,4 @@
 Openmensa::Application.routes.draw do
-  mount Doorkeeper::Engine => '/oauth'
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do

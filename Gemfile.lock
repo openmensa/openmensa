@@ -34,7 +34,6 @@ GEM
     addressable (2.3.2)
     ansi (1.4.3)
     arel (3.0.2)
-    attribute_ext (1.4.0)
     bcrypt-ruby (3.0.1)
     bourbon (3.0.1)
       sass (>= 3.2.0)
@@ -61,7 +60,6 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.9.0)
     chunky_png (1.2.7)
-    cocaine (0.4.2)
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -80,8 +78,6 @@ GEM
     daemons (1.1.9)
     database_cleaner (0.9.1)
     diff-lcs (1.1.3)
-    doorkeeper (0.4.2)
-      railties (~> 3.1)
     draper (0.18.0)
       actionpack (~> 3.2)
       activesupport (~> 3.2)
@@ -114,7 +110,6 @@ GEM
       childprocess (>= 0.2.3)
       guard (>= 1.1)
       spork (>= 0.8.4)
-    haml (3.1.7)
     has_scope (0.5.1)
     hashie (1.2.0)
     highline (1.6.15)
@@ -185,12 +180,6 @@ GEM
     omniauth-twitter (0.0.14)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    paperclip (3.4.0)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
-      mime-types
     pg (0.14.1)
     poltergeist (1.0.2)
       capybara (~> 1.1)
@@ -315,9 +304,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    versionist (0.3.1)
-      rails (~> 3.0)
-      yard (~> 0.7)
     webmock (1.9.0)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
@@ -328,14 +314,12 @@ GEM
     will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    yard (0.8.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   accept_values_for
-  attribute_ext (>= 1.4.0)
   bcrypt-ruby (~> 3.0.0)
   bourbon
   cancan
@@ -346,14 +330,12 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
-  doorkeeper (~> 0.4.2)
   draper
   factory_girl_rails (>= 3.3.0)
   geocoder
   gravtastic
   guard-rspec
   guard-spork
-  haml
   has_scope
   inherited_resources
   jquery-rails
@@ -366,7 +348,6 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-twitter
-  paperclip
   pg
   poltergeist
   rabl
@@ -390,7 +371,6 @@ DEPENDENCIES
   turn
   uglifier
   unicorn
-  versionist
   webmock
   whenever
   will_paginate
