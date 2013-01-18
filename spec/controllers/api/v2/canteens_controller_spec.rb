@@ -49,7 +49,7 @@ describe Api::V2::CanteensController do
         100.times { FactoryGirl.create :canteen }
         Canteen.count.should > 100
 
-        get :index, format: :json, limit: 20
+        get :index, format: :json, limit: "20"
 
         response.status.should == 200
         json.should have(20).items
@@ -59,7 +59,7 @@ describe Api::V2::CanteensController do
         100.times { FactoryGirl.create :canteen }
         Canteen.count.should > 100
 
-        get :index, format: :json, limit: 120
+        get :index, format: :json, limit: "120"
 
         response.status.should == 200
         json.should have(100).items
@@ -81,7 +81,7 @@ describe Api::V2::CanteensController do
         100.times { FactoryGirl.create :canteen }
         Canteen.count.should > 100
 
-        get :index, format: :json, per_page: 20
+        get :index, format: :json, per_page: "20"
 
         response.status.should == 200
         json.should have(20).items
@@ -91,7 +91,7 @@ describe Api::V2::CanteensController do
         100.times { FactoryGirl.create :canteen }
         Canteen.count.should > 100
 
-        get :index, format: :json, per_page: 120
+        get :index, format: :json, per_page: "120"
 
         response.status.should == 200
         json.should have(100).items

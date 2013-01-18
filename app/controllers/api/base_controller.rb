@@ -92,6 +92,6 @@ class Api::BaseController < ApiController
   end
 
   def per_page
-    params[:per_page] || params[:limit] || 50
+    params[:per_page].try(:to_i) || params[:limit].try(:to_i) || 50
   end
 end
