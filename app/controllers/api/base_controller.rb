@@ -76,4 +76,14 @@ class Api::BaseController < ApiController
   def show
     respond_with self.resource
   end
+
+  # paginate reponder methods
+
+  def max_per_page
+    100
+  end
+
+  def per_page
+    params[:per_page] || params[:limit] || 50
+  end
 end

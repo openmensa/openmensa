@@ -7,7 +7,7 @@ guard 'spork', cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'RAILS_ENV'
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
   watch(%r{^config/initializers/.+\.rb$})
-  watch('Gemfile')
+  # watch('Gemfile') # Do not reload spork on Gemfile change. Only of Gemfile.lock was changed after bundle install.
   watch('Gemfile.lock')
   watch('spec/spec_helper.rb') { :rspec }
   watch(%r{spec/support/}) { :rspec }

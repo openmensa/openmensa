@@ -27,6 +27,8 @@ gem 'strong_parameters'
 gem 'inherited_resources'
 gem 'has_scope'
 gem 'will_paginate'
+gem 'rack-link_headers', '>= 2.1'
+gem 'paginate-responder'
 
 gem 'sqlite3'
 gem 'pg'

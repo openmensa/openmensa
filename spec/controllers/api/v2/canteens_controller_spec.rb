@@ -32,17 +32,19 @@ describe Api::V2::CanteensController do
       }.as_json
     end
 
+    it "should add link headers" do
+      100.times { FactoryGirl.create :canteen }
+      Canteen.count.should > 100
+
+      get :index, format: :json
+
+      response.status.should == 200
+      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=1> rel="first"')
+      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=2> rel="next"')
+      response.headers["Link"].to_s.should include('<http://test.host/api/v2/canteens?page=3> rel="last"')
+    end
+
     context "&limit" do
-      it "should limit list to 10 canteens by default" do
-        100.times { FactoryGirl.create :canteen }
-        Canteen.count.should > 100
-
-        get :index, format: :json
-
-        response.status.should == 200
-        json.should have(10).items
-      end
-
       it "should limit list to given limit parameter" do
         100.times { FactoryGirl.create :canteen }
         Canteen.count.should > 100
@@ -58,6 +60,38 @@ describe Api::V2::CanteensController do
         Canteen.count.should > 100
 
         get :index, format: :json, limit: 120
+
+        response.status.should == 200
+        json.should have(100).items
+      end
+    end
+
+    context "&per_page" do
+      it "should limit list to 50 canteens by default" do
+        100.times { FactoryGirl.create :canteen }
+        Canteen.count.should > 100
+
+        get :index, format: :json
+
+        response.status.should == 200
+        json.should have(50).items
+      end
+
+      it "should limit list to given limit parameter" do
+        100.times { FactoryGirl.create :canteen }
+        Canteen.count.should > 100
+
+        get :index, format: :json, per_page: 20
+
+        response.status.should == 200
+        json.should have(20).items
+      end
+
+      it "should limit list to 100 if given limit parameter exceed 100" do
+        100.times { FactoryGirl.create :canteen }
+        Canteen.count.should > 100
+
+        get :index, format: :json, per_page: 120
 
         response.status.should == 200
         json.should have(100).items
