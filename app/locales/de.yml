@@ -83,11 +83,11 @@ de:
     longitude: Longitude
     latitude_and_longitude: "Latitude & Longitude"
     map_marker: "Marker verschieben"
-    last_update_at: 'Letztes Aktualisierung:'
+    last_update_at: 'Letzte Aktualisierung:'
     fetch_up_to_date: Daten aktuell
-    fetch_up_to_date_message: Die Essensdaten wurden erst vor kurzem aktualisiert.
+    fetch_up_to_date_message: Die Essendaten wurden erst vor kurzem aktualisiert.
     fetch_needed: Aktualisierung notwendig
-    fetch_needed_message: Die gezeigten Essensinformationen sind veraltet. Aktuelle Anpassung des Speiseplanes werden nicht gezeigt.
+    fetch_needed_message: Die gezeigten Esseninformationen sind veraltet. Aktuelle Anpassung des Speiseplanes werden nicht gezeigt.
     no_fetch_ever: 'Noch keine Daten'
     no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald.'
 
