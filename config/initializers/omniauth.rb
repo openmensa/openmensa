@@ -1,7 +1,7 @@
 
 # fix strange port numbers due to proxy
 if !Rails.env.development?
-  OmniAuth.config.full_host = "http://openmensa.org"
+  OmniAuth.config.full_host = "http://dev.openmensa.org"
 end
 
 OMNI_CONFIG = YAML.load_file(Rails.root.join("config","omniauth.yml"))[Rails.env]

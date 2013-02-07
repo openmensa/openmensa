@@ -54,7 +54,7 @@ Openmensa::Application.configure do
   config.action_mailer.sendmail_settings = {
      :location => '/usr/sbin/sendmail', :arguments => '-i' }
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => "openmensa.org" }
+  config.action_mailer.default_url_options = { :host => "dev.openmensa.org" }
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
