@@ -27,6 +27,7 @@ gem 'inherited_resources'
 gem 'has_scope'
 gem 'will_paginate'
 gem 'paginate-responder', '>= 1.1.1'
+gem 'decorate-responder'
 
 gem 'sqlite3'
 gem 'pg'

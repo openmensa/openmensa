@@ -1,6 +1,6 @@
 class Api::BaseController < ApiController
   responders OpenMensa::Responders::ApiResponder,
-    OpenMensa::Responders::DecoratorResponder,
+    Responders::DecorateResponder,
     Responders::PaginateResponder
 
   api_version 2
@@ -11,38 +11,12 @@ class Api::BaseController < ApiController
 
   # **** api responders ****
 
-  before_filter :setup_collection, only: :index
-  before_filter :setup_resource, only: [ :show, :update, :destroy ]
-
-  def setup_collection; self.collection = find_collection; end
-  def setup_resource; self.resource = find_resource; end
-
-  def decorate(resource)
-    if resource.is_a?(ActiveRecord::Relation)
-      self.collection = self.class.decorator_class.decorate_collection(resource)
-    else
-      self.resource = self.class.decorator_class.decorate(resource)
-    end
-  rescue NameError
-    resource
-  end
-
-  def resource=(resource)
-    instance_variable_set "@#{controller_name.singularize}", resource
-  end
-
-  def collection=(collection)
-    instance_variable_set "@#{controller_name}", collection
-  end
-
   def resource
-    resource = instance_variable_get "@#{controller_name.singularize}"
-    resource ||= self.resource = find_resource
+    @resource ||= find_resource
   end
 
   def collection
-    collection = instance_variable_get "@#{controller_name}"
-    collection ||= self.collection = find_collection
+    @collection ||= find_collection
   end
 
   def default_scope(scope)
