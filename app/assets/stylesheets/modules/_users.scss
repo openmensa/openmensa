@@ -11,7 +11,7 @@
     float: left;
     width: 48%;
     height: 74px;
-    margin: 1%;
+    margin: 6px;
     padding: 0 14px;
     overflow: hidden;
     background-color: #fff;
@@ -64,6 +64,7 @@
       text-align: right !important;
       border: 0;
       margin-right: 10px !important;
+      height: 84px;
       @include box-shadow(none);
     }
   }
