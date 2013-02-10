@@ -33,7 +33,7 @@ class Api::BaseController < ApiController
 
   def find_collection
     collection = default_scope(self.class.resource_class.scoped)
-    collection = apply_scopes(collection) if respond_to? :apply_scopes
+    collection = apply_scopes(collection)
     collection
   end
 
