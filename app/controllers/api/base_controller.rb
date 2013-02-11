@@ -1,5 +1,5 @@
 class Api::BaseController < ApiController
-  responders OpenMensa::Responders::ApiResponder,
+  responders Responders::ApiResponder,
     Responders::DecorateResponder,
     Responders::PaginateResponder
 

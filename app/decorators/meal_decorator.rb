@@ -1,5 +1,5 @@
 class MealDecorator < Draper::Decorator
-  include ApiDecorator
+  include ApiResponder::Formattable
   decorates :meal
 
   def notes
@@ -15,7 +15,7 @@ class MealDecorator < Draper::Decorator
     }
   end
 
-  def to_version_1(options)
+  def as_api_v1(options)
     {
       meal: {
         id: model.id,
@@ -26,7 +26,7 @@ class MealDecorator < Draper::Decorator
     }
   end
 
-  def to_version_2(options)
+  def as_api_v2(options)
     {
       id: model.id,
       name: model.name,
