@@ -28,6 +28,7 @@ gem 'has_scope'
 gem 'will_paginate'
 gem 'paginate-responder', '>= 1.1.1'
 gem 'decorate-responder'
+gem 'api-responder'
 
 gem 'sqlite3'
 gem 'pg'
@@ -54,6 +55,9 @@ group :development, :test do
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
   gem 'capistrano-unicorn'
+  gem 'guard-rspec',    require: false
+  gem 'guard-spork',    require: false
+  gem 'rb-inotify', '~> 0.8.8'
 end
 
 group :test do
@@ -64,8 +68,6 @@ group :test do
   gem 'capybara',       require: false
   gem 'poltergeist',    require: false
   gem 'turn',           require: false
-  gem 'guard-rspec',    require: false
-  gem 'guard-spork',    require: false
   gem 'simplecov',      require: false
   gem 'simplecov-rcov', require: false
   gem 'spork-rails', '>= 3.2.0'

@@ -33,6 +33,8 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.2)
     ansi (1.4.3)
+    api-responder (1.0.0)
+      activesupport
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bourbon (3.1.0)
@@ -226,6 +228,8 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (10.0.3)
+    rb-inotify (0.8.8)
+      ffi (>= 0.5.0)
     rdoc (3.12.1)
       json (~> 1.4)
     request_store (1.0.5)
@@ -323,6 +327,7 @@ PLATFORMS
 
 DEPENDENCIES
   accept_values_for
+  api-responder
   bcrypt-ruby (~> 3.0.0)
   bourbon
   cancan
@@ -359,6 +364,7 @@ DEPENDENCIES
   rails (~> 3.2)
   rails-i18n
   rails-timeago (>= 1.3.0)
+  rb-inotify (~> 0.8.8)
   rspec-rails (~> 2.0)
   rvm-capistrano
   sass (~> 3.2.0)
