@@ -10,6 +10,6 @@ class MessagesController < ApplicationController
   end
 
   def index
-    @messages = @user.messages.order(["canteens.name", :updated_at]).includes(:canteen)
+    @messages = @user.messages.order(['canteens.name', :updated_at]).includes(:canteen)
   end
 end

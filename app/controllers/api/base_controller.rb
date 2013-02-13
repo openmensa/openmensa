@@ -5,10 +5,6 @@ class Api::BaseController < ApiController
 
   api_version 2
 
-  class << self
-    attr_accessor :max_limit, :default_limit, :default_page
-  end
-
   # **** api responders ****
 
   def resource
@@ -32,9 +28,7 @@ class Api::BaseController < ApiController
   end
 
   def find_collection
-    collection = default_scope(self.class.resource_class.scoped)
-    collection = apply_scopes(collection)
-    collection
+    apply_scopes default_scope(self.class.resource_class.scoped)
   end
 
   def self.resource_name

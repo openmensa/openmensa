@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    return failure unless request.env["omniauth.auth"]
+    return failure unless request.env['omniauth.auth']
 
-    @identity = Identity.from_omniauth(request.env["omniauth.auth"])
+    @identity = Identity.from_omniauth(request.env['omniauth.auth'])
     if @identity
       if current_user.logged?
         return redirect_back alert: t('message.identity_taken.' + @identity.provider, name: @identity.user.name)
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       end
 
     else
-      @identity = Identity.new_with_omniauth(request.env["omniauth.auth"])
+      @identity = Identity.new_with_omniauth(request.env['omniauth.auth'])
 
       if current_user.logged?
         @identity.user = current_user
@@ -29,10 +29,10 @@ class SessionsController < ApplicationController
 
       else
         @user = User.new
-        if request.env["omniauth.auth"]["info"]
-          @user.login      = request.env["omniauth.auth"]["info"]["login"] || @identity.uid
-          @user.name       = request.env["omniauth.auth"]["info"]["name"] || @identity.uid
-          @user.email      = request.env["omniauth.auth"]["info"]["email"]
+        if request.env['omniauth.auth']['info']
+          @user.login      = request.env['omniauth.auth']['info']['login'] || @identity.uid
+          @user.name       = request.env['omniauth.auth']['info']['name'] || @identity.uid
+          @user.email      = request.env['omniauth.auth']['info']['email']
         else
           @user.login      = @identity.uid
           @user.name       = @identity.uid
@@ -50,7 +50,7 @@ class SessionsController < ApplicationController
   end
 
   def ref
-    return request.env["omniauth.params"]['ref'] if request.env["omniauth.params"] and request.env["omniauth.params"]['ref']
+    return request.env['omniauth.params']['ref'] if request.env['omniauth.params'] and request.env['omniauth.params']['ref']
     params[:ref]
   end
 

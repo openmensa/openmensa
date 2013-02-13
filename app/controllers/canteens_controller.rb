@@ -20,7 +20,7 @@ class CanteensController < ApplicationController
   def create
     @canteen = Canteen.new canteen_params.merge(user: @user)
     if @canteen.save
-      flash[:notice] = t "message.canteen_added"
+      flash[:notice] = t 'message.canteen_added'
       redirect_to edit_user_canteen_path(@user, @canteen)
     else
       render action: :new
@@ -34,7 +34,7 @@ class CanteensController < ApplicationController
   def update
     @canteen = @user.canteens.find(params[:id])
     if @canteen.update_attributes canteen_params
-      flash[:notice] = t "message.canteen_saved"
+      flash[:notice] = t 'message.canteen_saved'
       redirect_to user_canteens_path(@user)
     else
       render action: :edit
