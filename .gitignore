@@ -21,3 +21,5 @@
 Gemfile.local
 Guardfile.local
 #Gemfile.lock
+
+/.idea
