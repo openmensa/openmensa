@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :identities
   has_many :messages, through: :canteens
   has_many :canteens
+  has_many :favorites
 
   validates :login, presence: true, uniqueness: true, exclusion: ['anonymous', 'system']
   validates :name, presence: true
@@ -52,6 +53,10 @@ class User < ActiveRecord::Base
   def ability; @ability ||= Ability.new(self) end
   def can?(*attr) ability.can?(*attr) end
   def cannot?(*attr) ability.cannot?(*attr) end
+
+  def has_favorite?(canteen)
+    favorites.where(canteen_id: canteen).any?
+  end
 
   # -- class methods
   def self.current

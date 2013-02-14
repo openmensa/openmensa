@@ -3,7 +3,15 @@
   .span8
     section
       header#canteen-header
-        h1= @canteen.name
+        h1
+          - if not current_user.internal?
+            - if current_user.has_favorite? @canteen
+              = link_to [@canteen, :favorite], title: t('favorites.delete_as_favorite'), method: :delete, class: :fav do
+                i.icon-star
+            - else
+              = link_to [@canteen, :favorite], title: t('favorites.add_as_favorite'), method: :post, class: :fav do
+                i.icon-star-empty
+          = @canteen.name
       #remote-canteens-show
         = render partial: "show_section"
 

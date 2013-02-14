@@ -1,0 +1,11 @@
+.row
+  .span8
+    section
+      header
+        h2
+          = t 'favorites.my_favorites'
+      .content
+        ul
+          - @favorites.each do |f|
+            li= link_to f.canteen.name, [ f.canteen ]
+  = render partial: 'users/nav'

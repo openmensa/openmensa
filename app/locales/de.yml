@@ -4,9 +4,7 @@ de:
   login: Anmelden
   logout: Abmelden
   settings: Einstellungen
-  favorites: Favoriten
   my_profile: Mein Profil
-  my_favorites: Meine Favoriten
   my_applications: Meine Anwendungen
   my_identities: Meine Identitäten
   add_identity: Identität hinzufügen
@@ -132,6 +130,15 @@ de:
       feed_url_updated_info: "Die Anfrage nach %{old_url} wurde mit einem permanenten HTTP-Rewrite (301) beantwortet. Als neue URL wird nun %{new_url} genutzt."
     canteen: Mensa
     last_error_time: Letzte Fehlerzeit
+
+  favorites:
+    my_favorites: Meine Favoriten
+    add_as_favorite: Als Favorit markieren
+    delete_as_favorite: Favorit entfernen
+    added: Mensa wurde als dein Favorit gespeichert.
+    added_error: Die Mensa konnte nicht als dein Favirot gespeichert werden!
+    deleted: Der Favorit wurde gelöscht.
+    deleted_error: Der Favorit konnt nicht gelöscht werden.
 
   mailer:
     daily_report:
