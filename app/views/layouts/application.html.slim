@@ -20,17 +20,11 @@ html
         h1= link_to 'OpenMensa', root_path
         ul.actions
           - if current_user.logged?
-            / li
-            /   = link_to '#', title: t(:my_favorites) do
-            /     i.icon-star
             li= link_to logout_path, title: t(:logout) do
               i.icon-signout
             li= link_to user_path(current_user.id), title: t(:my_profile), class: :account do
               = avatar
           - else
-            / li
-            /   = link_to '#', title: t(:my_favorites) do
-            /     i.icon-star
             li= link_to login_path, title: t(:login) do
               i.icon-signin
       = render partial: 'common/flash', object: flash
