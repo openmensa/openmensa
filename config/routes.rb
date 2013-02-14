@@ -1,12 +1,6 @@
 Openmensa::Application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
-    namespace :v1 do
-      resources :cafeterias, only: [ :index, :show ] do
-        resources :meals, only: [ :index, :show ]
-      end
-    end
-
     namespace :v2 do
       resources :canteens, only: [ :index, :show ] do
         resources :days, only: [ :index, :show ] do
