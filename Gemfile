@@ -4,8 +4,7 @@ gem 'rails', '~> 3.2'
 gem 'jquery-rails'
 
 gem 'slim'
-gem 'msgpack', '~> 0.4.5'
-gem 'oj'
+gem 'oj', platforms: :ruby
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
@@ -30,8 +29,8 @@ gem 'paginate-responder', '>= 1.1.1'
 gem 'decorate-responder'
 gem 'api-responder'
 
-gem 'sqlite3'
-gem 'pg'
+gem 'pg', platforms: :ruby
+gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 
 group :assets do
   gem "sass", "~> 3.2.0"
@@ -44,12 +43,12 @@ group :assets do
 end
 
 group :production do
-  gem 'unicorn'
+  gem 'unicorn', platforms: :ruby
 end
 
 group :development, :test do
-  gem 'sqlite3'
-  gem 'thin'
+  gem 'sqlite3', platforms: :ruby
+  gem 'thin', platforms: :ruby
   gem 'rspec-rails', '~> 2.0'
   gem 'capistrano'
   gem 'rvm-capistrano'
