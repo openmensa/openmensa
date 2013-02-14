@@ -3,7 +3,6 @@ class Message < ActiveRecord::Base
 
   belongs_to :canteen
   serialize :data, Hash
-  attr_accessible :data, :priority, :canteen
 
   validates :priority, inclusion: {
       in: [ :error, :warning, :info, :debug ],
@@ -39,8 +38,6 @@ end
 
 
 class FeedFetchError < Message
-  attr_accessible :code, :message
-
   def code; data[:code] end
   def code=(c); data[:code] = c end
   def message; data[:message] end
@@ -49,8 +46,6 @@ end
 
 
 class FeedValidationError < Message
-  attr_accessible :message, :version, :kind
-
   validates :kind, inclusion: {
       in: [ :no_xml, :unknown_version, :invalid_xml ],
     }
@@ -72,8 +67,6 @@ end
 
 
 class FeedUrlUpdatedInfo < Message
-  attr_accessible :old_url, :new_url
-
   def default_priority; :info end
   def old_url; data[:old_url] end
   def old_url=(url); data[:old_url] = url end

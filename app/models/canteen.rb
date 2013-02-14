@@ -9,7 +9,6 @@ class Canteen < ActiveRecord::Base
   has_many :meals, through: :days
   has_many :messages
 
-  attr_accessible :address, :name, :url, :user, :fetch_hour, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
 
   geocoded_by :address
