@@ -1,36 +1,6 @@
 require 'spec_helper'
 
 describe 'API routing within' do
-  context '/api/v1' do
-    let(:base) { '/api/v1' }
-
-    it 'should route /cafeterias to v1 cafeterias#index' do
-      expect(:get => "#{base}/cafeterias").to route_to(
-        :controller => 'api/v1/cafeterias',
-        :action => 'index',
-        :format => 'json'
-      )
-    end
-
-    it 'should route /cafeterias/:id to v1 cafeterias#show' do
-      expect(:get => "#{base}/cafeterias/5").to route_to(
-        :controller => 'api/v1/cafeterias',
-        :action => 'show',
-        :format => 'json',
-        :id => '5'
-      )
-    end
-
-    it 'should route /cafeterias/:id/meals to v1 meals#index' do
-      expect(:get => "#{base}/cafeterias/5/meals").to route_to(
-        :controller => 'api/v1/meals',
-        :action => 'index',
-        :format => 'json',
-        :cafeteria_id => '5'
-      )
-    end
-  end
-
   context '/api/v2' do
     let(:base) { '/api/v2' }
 
