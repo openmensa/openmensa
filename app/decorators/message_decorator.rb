@@ -6,7 +6,7 @@ class MessageDecorator < Draper::Decorator
     elsif model.created_at < Time.zone.now - 2.days
       'icon-warning-sign'
     else
-      'i.icon-bolt'
+      'icon-bolt'
     end
   end
 
