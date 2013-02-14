@@ -1,10 +1,11 @@
 
-section
-  #index_map
-    = map Canteen.all
+- if @favorites.nil?
+  = render partial: 'map'
 
 .row
   .span8
+    - unless @favorites.nil?
+      = render partial: 'map'
     section
       header
         h1 OpenMensa - deine Mensa direkt bei dir!
@@ -35,6 +36,17 @@ section
             ' Berlin, Jena, Potsdam
 
   .span4
+    - unless @favorites.nil?
+      section
+        header
+          h2=t('favorites.my_favorites')
+        - if @favorites.empty?
+          .content
+            p=t('favorites.howto_add')
+        - else
+          ul.favs
+            - @favorites.each do |f|
+              li= link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
     section
       header
         h2 OpenMensa App

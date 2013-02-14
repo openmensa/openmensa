@@ -44,6 +44,18 @@ describe "Favorites: " do
       page.should have_link favorite.canteen.name
       page.should have_link favorite2.canteen.name
     end
+
+    it 'can access favorite via start page directly' do
+      favorite
+
+      visit root_path
+
+      page.should have_content('Meine Favoriten')
+
+      click_on favorite.canteen.name
+
+      page.should have_content favorite.canteen.name
+    end
   end
 
   context 'anonymous' do
@@ -53,6 +65,12 @@ describe "Favorites: " do
       visit canteen_path(canteen)
 
       page.should_not have_link 'Als Favorit markieren'
+    end
+
+    it 'should have a start page without favorite menu' do
+      visit root_path
+
+      page.should_not have_content('Meine Favoriten')
     end
   end
 end

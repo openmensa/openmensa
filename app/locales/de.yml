@@ -136,9 +136,10 @@ de:
     add_as_favorite: Als Favorit markieren
     delete_as_favorite: Favorit entfernen
     added: Mensa wurde als dein Favorit gespeichert.
-    added_error: Die Mensa konnte nicht als dein Favirot gespeichert werden!
+    added_error: Die Mensa konnte nicht als dein Favorit gespeichert werden!
     deleted: Der Favorit wurde gelöscht.
     deleted_error: Der Favorit konnt nicht gelöscht werden.
+    howto_add: "Um Mensa als Favorit zu speichern, markiere sie auf der Mensa-Seite mit einem Stern."
 
   mailer:
     daily_report:
