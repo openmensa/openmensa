@@ -39,7 +39,9 @@
             =l @canteen.last_fetched_at
       - else
         header
-          h3.icon-warning-sign=t :canteen, :fetch_needed
+          h3
+            i.icon-warning-sign
+            =t :canteen, :fetch_needed
         .content
           p=t :canteen, :fetch_needed_message
           p

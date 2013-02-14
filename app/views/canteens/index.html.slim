@@ -6,7 +6,8 @@
           = t :my_canteens
           ul.actions
             li
-              = link_to '', new_user_canteen_path(@user), title: t(:add_canteen), class: 'icon-plus-sign'
+              = link_to '', new_user_canteen_path(@user), title: t(:add_canteen) do
+                i.icon-plus-sign
 
       .content
         - if @canteens.any?

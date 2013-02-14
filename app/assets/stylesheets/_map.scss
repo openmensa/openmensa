@@ -20,11 +20,11 @@
 
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
   background-color: #4598d0;
-  background-color: rgba(#4598d0, 0.8);
-  @include linear-gradient(rgba(#4598d0, 0.8), rgba(#1374cf, 0.8));
+  background-color: rgba(#4598d0, 0.9);
+  @include linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
   // opacity: 0.2;
   border: 1px solid #597393;
-  border: 1px solid rgba(#597393, 0.8);
+  border: 1px solid rgba(#597393, 0.9);
   text-align: center;
 
   div {

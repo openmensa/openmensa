@@ -37,6 +37,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer', '~> 0.10.0', platforms: :ruby
+  gem 'font-awesome-rails'
   gem 'uglifier'
   gem 'bourbon'
 end

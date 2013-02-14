@@ -25,6 +25,7 @@
 @import "map";
 
 .hide { display: none; }
+.icon-google_oauth2 { @extend .icon-google-plus; }
 .icon-google_oauth2-sign { @extend .icon-google-plus-sign; }
 
 @import "modules/canteens";

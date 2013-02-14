@@ -1,5 +1,4 @@
 @import "addons/font-family";
-
 @import 'responsive';
 
 $text-size: 62.5% !default;
@@ -40,8 +39,8 @@ h1, h2, h3, h4, h5 {
   font-weight: normal;
   @include p;
 
-  &[class^="icon-"]::before, &[class*=" icon-"]::before {
-    margin-right: .35em;
+  & > [class^="icon-"], & > [class*=" icon-"] {
+    margin-right: .45em;
   }
 }
 h2 { font-size: 21px; font-size: 2.1rem; }

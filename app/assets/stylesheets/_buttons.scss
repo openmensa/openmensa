@@ -131,12 +131,8 @@ $btn-success: #238625 !default;
   }
 
   > .icon-large:before {
-    font-size: 20px;
-    font-size: 2.0rem;
-    padding-right: 4px;
-    margin-top: .1em;
-    line-height: .5em;
-    vertical-align: middle;
+    padding-right: 6px;
+    vertical-align: baseline;
   }
 
   @include media(mobile) {
