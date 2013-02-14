@@ -48,6 +48,17 @@ class ApplicationController < BaseController
     true
   end
 
+  def return_me
+    User.find(params[:user_id])
+  end
+
+  def require_me_or_admin
+    @user = return_me
+    unless current_user == @user or current_user.admin?
+      error_access_denied
+    end
+  end
+
   # **** error handling and rendering ****
 
   def error_not_found; error status: :not_found end

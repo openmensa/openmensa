@@ -2,13 +2,6 @@ class FavoritesController < ApplicationController
   before_filter :require_authentication!
   before_filter :require_me_or_admin, only: :index
 
-  def require_me_or_admin
-    @user = User.find(params[:user_id])
-    unless current_user == @user or current_user.admin?
-      error_access_denied
-    end
-  end
-
   def create
     max_priority = current_user.favorites.order('priority ASC').first.try(:priority) || 0
     if current_user.favorites.create canteen_id: params[:canteen_id], priority: max_priority
