@@ -65,23 +65,19 @@ class User < ActiveRecord::Base
   def self.anonymous
     AnonymousUser.instance
   end
-
-  def self.system
-    SystemUser.instance
-  end
 end
 
 
-class SystemUser < User
+class AnonymousUser < User
   validate :single_user
 
   def single_user
-    errors.add_to_base 'A system user already exists.' if self.class.find_by_login(self.class.login_id)
+    errors.add_to_base 'An anonymous user already exists.' if self.class.find_by_login(self.class.login_id)
   end
 
   def logged?; false end
-  def admin?; true end
-  def name; I18n.t(:system_user) end
+  def admin?; false end
+  def name; I18n.t(:anonymous_user) end
   def last_name; name end
   def email; nil end
   def destroy; false end
@@ -100,12 +96,5 @@ class SystemUser < User
     user
   end
 
-  def self.login_id; 'system' end
-end
-
-
-class AnonymousUser < SystemUser
-  def admin?; false end
-  def name; I18n.t(:anonymous_user) end
   def self.login_id; 'anonymous' end
 end

@@ -55,20 +55,6 @@ describe User do
   end
 
   describe '@class' do
-    # TODO: should be redesigned somehow
-    context '#system' do
-      let(:system) { User.system }
-      before  { system }
-      subject { system }
-
-      it('should be a SystemUser') { should be_an SystemUser }
-      it('should have reserved system login') { system.login.should == 'system' }
-      it('should always return same instance') { should == User.system }
-      it { should_not be_logged }
-      it { should be_admin }
-      it { should be_internal }
-    end
-
     context '#anonymous' do
       let(:anon) { User.anonymous }
       before  { anon }
@@ -99,9 +85,8 @@ describe User do
 
   describe '@scopes' do
     context '#all' do
-      it 'does not contain AnonymousUser or SystemUser' do
+      it 'does not contain AnonymousUser' do
         User.anonymous # enforce that AnonymousUser and
-        User.system    # SystemUser exist
         FactoryGirl.create(:user)
 
         User.all.should_not be_empty
