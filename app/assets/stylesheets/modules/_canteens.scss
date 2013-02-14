@@ -1,3 +1,7 @@
+@import "css3/transition";
+@import "css3/transform";
+@import "responsive";
+@import "extends";
 
 .canteens_controller {
   #canteen-header {
@@ -17,9 +21,16 @@
       .fav {
         float: right;
         color: white;
-      }
-      .fav:hover {
-        text-decoration: none;
+        padding: 0 7px;
+        border-radius: 20px;
+        @include transition(all .3s ease-in-out);
+
+        &:hover {
+          color: #000;
+          text-decoration: none;
+          background-color: #ffffff;
+          @include transition(all .3s ease-in-out);
+        }
       }
     }
 
@@ -109,7 +120,7 @@
       }
 
       &:first-child {
-        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
       }
       // &:last-child > div { padding-bottom: 8px; }
 
@@ -251,7 +262,7 @@
   }
 
   .content .map {
-    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 
   .status p {

@@ -1,3 +1,6 @@
+@import "css3/linear-gradient";
+@import "addons/font-family";
+@import "responsive";
 
 .leaflet-popup-content-wrapper {
   border-radius: 0;
@@ -46,7 +49,7 @@
 }
 
 #index_map .map {
-  height: 450px;
+  height: 500px;
 
   @include media(mobile) {
     height: 250px;

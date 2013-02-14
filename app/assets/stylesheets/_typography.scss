@@ -1,3 +1,4 @@
+@import "addons/font-family";
 
 @import 'responsive';
 
@@ -68,7 +69,7 @@ ol { list-style: decimal; }
 hr { border: none; border-top: 1px solid $frame-color; }
 code, pre { font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
 code {
-  @include border-radius(2px);
+  border-radius: 2px;
   background-color: #f4f4f4;
   border: 1px solid $frame-color;
   padding: 0 2px;

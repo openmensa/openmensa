@@ -1,4 +1,6 @@
-@import 'responsive';
+@import "css3/linear-gradient";
+@import "responsive";
+@import "extends";
 
 $btn: #aaa !default;
 $btn-primary: #3079ED !default;
@@ -39,8 +41,8 @@ $btn-success: #238625 !default;
   color: $text;
   border: 1px solid $border;
   text-shadow: 0 1px 0 $text-shadow;
-  @include border-radius(1px);
-  @include box-shadow(inset 0 1px 0 0 $inset-shadow);
+  border-radius: 1px;
+  box-shadow: inset 0 1px 0 0 $inset-shadow;
   @include linear-gradient($base-color, $stop-gradient);
 
   &:hover {
@@ -55,14 +57,14 @@ $btn-success: #238625 !default;
 
     color: $text;
     cursor: pointer;
-    @include box-shadow(inset 0 1px 0 0 $inset-shadow-hover);
+    box-shadow: inset 0 1px 0 0 $inset-shadow-hover;
     @include linear-gradient($base-color-hover, $stop-gradient-hover);
   }
 
   &:focus {
-    @include box-shadow(0 0 0 1px rgba(255, 255, 255, 0.8) inset);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
     @if lightness($text) < 70% {
-      @include box-shadow(0 0 0 1px rgba(0, 0, 0, 0.4) inset);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset;
     }
   }
 
@@ -76,7 +78,7 @@ $btn-success: #238625 !default;
     }
 
     border: 1px solid $border-active;
-    @include box-shadow(inset 0 0 8px 4px $inset-shadow-active, inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee);
+    box-shadow: inset 0 0 8px 4px $inset-shadow-active, inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee;
   }
 
   &:disabled, &.btn-disabled {
@@ -85,8 +87,8 @@ $btn-success: #238625 !default;
       color: #bbb;
       border-color: #ccc;
       text-shadow: 0 1px 1px #fff;
+      box-shadow: none;
       @include linear-gradient(#eee, #e4e4e4);
-      @include box-shadow(none);
     }
   }
 }
@@ -169,7 +171,7 @@ $btn-success: #238625 !default;
 .btn-group {
   a {
     @extend .button;
-    @include border-radius(0);
+    border-radius: 0;
     border-right-width: 0;
     margin: 0;
 
@@ -182,15 +184,17 @@ $btn-success: #238625 !default;
     }
 
     &:first-child {
-      @include border-left-radius(2px);
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
     }
     &:last-child  {
-      @include border-right-radius(2px);
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
       border-right-width: 1px;
     }
   }
 
-  &.btn-small a { @extend .btn-small }
+  &.btn-small a { @extend .btn-small; }
 }
 
 .btn-primary {

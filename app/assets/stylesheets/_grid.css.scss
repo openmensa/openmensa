@@ -1,5 +1,5 @@
-
-@import 'responsive';
+@import "responsive";
+@import "extends";
 
 $grid-count: 12 !default;
 $grid-gutter: 1.5% !default;
@@ -15,7 +15,7 @@ $grid-gutter: 1.5% !default;
 
 
 .row {
-  @include pie-clearfix;
+  @extend %clearfix;
 
   display: block;
   width: 100%;

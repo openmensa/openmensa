@@ -1,3 +1,4 @@
+@import "responsive";
 
 $alert: #333 !default;
 $alert-bg: lighten(#ccc, 19%) !default;
@@ -22,7 +23,7 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
   border-radius: 2px;
   position: relative;
   overflow: hidden;
-  @include box-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   margin: 14px 0 0;
 
   > :first-child { margin-top: 0; }
