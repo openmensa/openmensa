@@ -75,6 +75,7 @@ describe "Developers" do
     before { message; click_on "Statusmitteilungen" }
 
     it "should allow to view own messages" do
+      click_on canteen.name
       page.should have_content message.canteen.name
       page.should have_content message.message
     end
