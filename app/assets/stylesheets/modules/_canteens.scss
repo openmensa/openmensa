@@ -159,19 +159,6 @@
           border-bottom: 1px dotted #eee;
           &:last-child { border: none; }
 
-          // @extend %hover-transition;
-
-          // &:hover {
-          //   @extend %hover-transition;
-          //   background-color: #fcfcfc;
-          //   cursor: pointer;
-          // }
-
-          // > h3 { visibility: hidden; position: absolute; }
-          // &:first-child h3 { visibility: visible; }
-          // > p { margin: 9px 0 9px 155px; }
-          // > div { @include clearfix; }
-
           ul.notes, ul.prices {
             margin: 0;
             list-style: none;
@@ -182,6 +169,7 @@
             color: #ccc;
             font-size: .85em;
           }
+
           ul.notes {
             margin: 0;
 
@@ -191,6 +179,7 @@
               &:before { content: '~'; }
             }
           }
+
           ul.prices {
             float: right;
             margin: 0 0 0 15px;
@@ -199,6 +188,7 @@
             li {
               float: left;
               margin: 0 0 0 5px;
+              padding-right: 10px;
               width: 55px;
 
               opacity: 0.0;
@@ -232,32 +222,9 @@
             ul.notes, ul.prices { margin: 1px 0 0 0; color: #aaa; padding-bottom: 0; }
             ul.prices li { width: auto; margin-left: 1em; visibility: visible; opacity: 1.0; }
             ul.prices li span { display: none; }
-            // ul.notes {
-            //   li { display: none; }
-            //   li:first-child, li:nth-child(2) { display: block; }
-            //   li:nth-child(3) { display: block; content: '...'; }
-            // }
           }
         }
       }
-
-      // @include media(mobile) {
-      //   > h3, div.meal h3 {
-      //     float: none;
-      //     width: 100%;
-      //     text-align: left;
-      //     margin: 2px 0 0;
-      //     padding: 2px 0 !important;
-      //     border-bottom: 1px dotted #eee;
-      //     position: static;
-      //   }
-      //   > h3, > p { margin: 1px 6px; padding: 2px 0; }
-      //   div.meal {
-      //     padding: 3px 5px 3px 10px !important;
-
-      //     > p { margin: 3px 0 1px; }
-      //   }
-      // }
     }
   }
 
