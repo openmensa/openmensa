@@ -166,6 +166,7 @@
             margin: 0;
             list-style: none;
             position: relative;
+            display: table-cell;
             padding: 0 0 12px 0;
             @extend %hover-transition;
 
