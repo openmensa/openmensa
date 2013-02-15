@@ -120,6 +120,7 @@
       }
 
       &:first-child {
+        padding-top: 5px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
       }
       // &:last-child > div { padding-bottom: 8px; }
@@ -157,6 +158,8 @@
         > li {
           @extend %clearfix;
           border-bottom: 1px dotted #eee;
+          padding-right: 10px;
+
           &:last-child { border: none; }
 
           ul.notes, ul.prices {
@@ -188,7 +191,6 @@
             li {
               float: left;
               margin: 0 0 0 5px;
-              padding-right: 10px;
               width: 55px;
 
               opacity: 0.0;
