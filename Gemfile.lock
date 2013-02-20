@@ -303,6 +303,9 @@ GEM
     terminal-table (1.4.5)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
+    therubyrhino (2.0.2)
+      therubyrhino_jar (>= 1.7.3)
+    therubyrhino_jar (1.7.4)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -389,6 +392,7 @@ DEPENDENCIES
   sqlite3
   strong_parameters
   therubyracer (~> 0.10.0)
+  therubyrhino
   thin
   timecop
   turn
