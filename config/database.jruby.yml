@@ -1,5 +1,5 @@
 database: &common
-  adapter: postgresql
+  adapter: jdbcpostgresql
 
 development:
   <<: *common
@@ -19,3 +19,5 @@ production:
 ci:
   <<: *common
   database: openmensa_ci
+  username: teamcity
+  password: teamcity

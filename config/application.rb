@@ -68,5 +68,15 @@ module Openmensa
 
     # send content length (at least required for api calls)
     config.middleware.use Rack::ContentLength
+
+    # Load ruby platform specific database configuration
+    def config.database_configuration
+      files = %W(/config/database.#{RUBY_ENGINE}.yml /config/database.yml)
+      files.each do |file|
+        file = Rails.root.to_s + file
+        return YAML::load(ERB.new(IO.read(file)).result) if File.exists?(file)
+      end
+      raise "No database configuration found."
+    end
   end
 end
