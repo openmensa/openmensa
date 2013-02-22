@@ -23,3 +23,4 @@ Guardfile.local
 #Gemfile.lock
 
 /.idea
+*.iml
