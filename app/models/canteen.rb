@@ -15,7 +15,7 @@ class Canteen < ActiveRecord::Base
   after_validation :geocode, if: :geocode?
 
   def geocode?
-    return false if Rails.env.test?
+    return false unless Rails.env.production? or Rails.env.development?
     !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
   end
 

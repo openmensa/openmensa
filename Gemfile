@@ -47,7 +47,7 @@ group :production do
   gem 'unicorn', platforms: :ruby
 end
 
-group :development, :test do
+group :development, :test, :ci do
   gem 'sqlite3', platforms: :ruby
   gem 'thin', platforms: :ruby
   gem 'rspec-rails', '~> 2.0'
@@ -60,7 +60,7 @@ group :development, :test do
   gem 'rb-inotify', '~> 0.8.8'
 end
 
-group :test do
+group :test, :ci do
   gem 'timecop'
   gem 'accept_values_for'
   gem 'database_cleaner'

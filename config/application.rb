@@ -10,7 +10,7 @@ require "sprockets/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(:assets => %w(development test ci)))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -68,5 +68,15 @@ module Openmensa
 
     # send content length (at least required for api calls)
     config.middleware.use Rack::ContentLength
+
+    # Load ruby platform specific database configuration
+    def config.database_configuration
+      files = %W(/config/database.#{RUBY_ENGINE}.yml /config/database.yml)
+      files.each do |file|
+        file = Rails.root.to_s + file
+        return YAML::load(ERB.new(IO.read(file)).result) if File.exists?(file)
+      end
+      raise "No database configuration found."
+    end
   end
 end
