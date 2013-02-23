@@ -1,5 +1,7 @@
 database: &common
   adapter: jdbcpostgresql
+  username: teamcity
+  password: teamcity
 
 development:
   <<: *common
