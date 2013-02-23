@@ -31,6 +31,7 @@ gem 'api-responder'
 
 gem 'pg', platforms: :ruby
 gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
+gem 'jruby-openssl', platforms: :jruby
 
 group :assets do
   gem "sass", "~> 3.2.0"
@@ -48,7 +49,6 @@ group :production do
 end
 
 group :development, :test, :ci do
-  gem 'sqlite3', platforms: :ruby
   gem 'thin', platforms: :ruby
   gem 'rspec-rails', '~> 2.0'
   gem 'capistrano'
