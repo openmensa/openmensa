@@ -20,4 +20,3 @@ ci:
   <<: *common
   database: openmensa_ci
   username: teamcity
-  password: teamcity
