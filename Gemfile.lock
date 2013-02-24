@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:mojombo/chronic.git
+  revision: a243ae16d27562b5cbb94ab72a8f5c4028c3290b
+  specs:
+    chronic (0.9.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -66,7 +72,6 @@ GEM
       xpath (~> 1.0.0)
     childprocess (0.3.8)
       ffi (~> 1.0, >= 1.0.11)
-    chronic (0.9.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -352,6 +357,7 @@ DEPENDENCIES
   capistrano-unicorn
   capistrano_colors
   capybara
+  chronic!
   coffee-rails (~> 3.2.1)
   database_cleaner
   decorate-responder
