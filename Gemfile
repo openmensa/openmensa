@@ -16,7 +16,7 @@ gem 'gravtastic'
 gem 'rails-timeago', '>= 1.3.0'
 gem 'bcrypt-ruby',   '~> 3.0.0'
 # bleeding edge whenever dependency with Ruby 2.0 compatibility
-gem 'chronic', :git => 'git@github.com:mojombo/chronic.git'
+gem 'chronic', :git => 'https://github.com/mojombo/chronic.git'
 gem 'whenever', require: false
 gem 'rack-piwik', require: 'rack/piwik'
 gem 'geocoder'

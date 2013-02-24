@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:mojombo/chronic.git
+  remote: https://github.com/mojombo/chronic.git
   revision: a243ae16d27562b5cbb94ab72a8f5c4028c3290b
   specs:
     chronic (0.9.0)
