@@ -34,16 +34,21 @@ header ul.actions {
   list-style: none;
   float: right;
   margin: -2px 0 0 0;
-  padding: 0;
+  padding: .1em 0 0;
 
   li {
     float: left;
+
+    [class^="icon-"]:before, [class*=" icon-"]:before {
+      width: auto;
+      padding: 0 .2em;
+    }
   }
 
   a {
     display: block;
     position: relative;
-    padding: .2em .2em .1em .2em;
+    padding: 0;
 
     color: #bbb;
     font-size: 1.3em;
@@ -131,6 +136,8 @@ header#header {
     font-size: 1.8em;
     margin-top: 6px;
     margin-right: 10px;
+
+    i { padding: .1em 0; }
 
     .account {
       float: left;
@@ -226,7 +233,6 @@ header#header {
         list-style: none;
         float: right;
         margin: -2px 0 0 0;
-        padding: 0 4px;
 
         li {
           float: left;
