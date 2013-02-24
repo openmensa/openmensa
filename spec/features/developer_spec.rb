@@ -97,7 +97,6 @@ describe "Developers" do
       developer.send_reports = true
       developer.save!
 
-      click_on "Profil"
       uncheck "Sende Error-Reports per Mail (maximal täglich)"
       click_on "Speichern"
 
