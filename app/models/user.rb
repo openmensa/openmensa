@@ -70,6 +70,17 @@ class User < ActiveRecord::Base
   def self.anonymous
     AnonymousUser.instance
   end
+
+  def self.create_omniauth(info, identity)
+    info ||= {}
+    self.create(
+        name: (info['name'] || identity.uid),
+        login: (info['login'] || identity.uid),
+        email: info['email']
+      ).tap do |user|
+        identity.update_attributes! user: user
+    end
+  end
 end
 
 

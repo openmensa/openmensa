@@ -11,6 +11,10 @@ class Identity < ActiveRecord::Base
   validates_uniqueness_of :uid, scope: :provider
 
   def self.from_omniauth(auth)
+    find_omniauth(auth) || new_with_omniauth(auth)
+  end
+
+  def self.find_omniauth(auth)
     find_by_provider_and_uid(auth['provider'], auth['uid'].to_s)
   end
 
