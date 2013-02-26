@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/denofevil/debase.git
+  revision: e124e34343cd3e6550baa509f816d45528b4941a
+  specs:
+    debase (0.0.1)
+
+GIT
   remote: https://github.com/mojombo/chronic.git
   revision: a243ae16d27562b5cbb94ab72a8f5c4028c3290b
   specs:
@@ -267,6 +273,8 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    ruby-debug-ide (0.4.17.beta16)
+      rake (>= 0.8.1)
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
@@ -360,6 +368,7 @@ DEPENDENCIES
   chronic!
   coffee-rails (~> 3.2.1)
   database_cleaner
+  debase!
   decorate-responder
   draper (~> 1.0)
   factory_girl_rails (>= 3.3.0)
@@ -389,6 +398,7 @@ DEPENDENCIES
   rails-timeago (>= 1.3.0)
   rb-inotify (~> 0.8.8)
   rspec-rails (~> 2.0)
+  ruby-debug-ide (>= 0.4.17.beta14)
   rvm-capistrano
   sass (~> 3.2.0)
   sass-rails (~> 3.2.3)

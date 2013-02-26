@@ -57,6 +57,10 @@ group :development do
   gem 'capistrano_colors'
   gem 'capistrano-unicorn'
   gem 'rb-inotify', '~> 0.8.8'
+
+  # For debugging on MRI 2.0
+  gem 'ruby-debug-ide', '>= 0.4.17.beta14', require: false
+  gem 'debase', git: 'https://github.com/denofevil/debase.git', require: false
 end
 
 group :development, :test do
