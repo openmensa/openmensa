@@ -23,33 +23,24 @@ class OpenMensa::Updater
 
 
   # 1. fetch data
-  def fetch(handle_301=true)
-    return false unless canteen.url.present?
-    uri = URI.parse canteen.url
-    open uri, redirect: !handle_301
-  rescue URI::InvalidURIError
-    Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
-    FeedInvalidUrlError.create canteen: canteen
-    false
-  rescue OpenURI::HTTPRedirect => redirect
-    if redirect.message.start_with? '301' # permanent redirect
-      Rails.logger.warn "Update url of canteen #{canteen.id} to '#{redirect.uri.to_s}'"
-      FeedUrlUpdatedInfo.create canteen: canteen, old_url: canteen.url, new_url: redirect.uri.to_s
-      canteen.update_attribute :url, redirect.uri.to_s
+  def fetch
+    OpenMensa::FeedLoader.new(canteen).load!
+  rescue OpenMensa::FeedLoader::FeedLoadError => error
+    case error.cause
+      when URI::InvalidURIError
+        Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
+        FeedInvalidUrlError.create canteen: canteen
+      when OpenURI::HTTPError
+        FeedFetchError.create canteen: canteen,
+                              code:    error.cause.message.to_i,
+                              message: error.cause.message
+      else
+        FeedFetchError.create canteen: canteen,
+                              code: nil,
+                              message: error.message
     end
-    fetch false
-  rescue OpenURI::HTTPError => error
-    FeedFetchError.create({
-        canteen: @canteen, code: error.message.to_i,
-        message: error.message})
-    false
-  rescue => error
-    FeedFetchError.create({
-        canteen: @canteen, code: nil,
-        message: error.message})
     false
   end
-
 
   # 2. validate data
   def self.schema_v1
