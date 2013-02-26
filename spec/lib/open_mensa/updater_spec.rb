@@ -126,7 +126,7 @@ describe OpenMensa::Updater do
       document = updater.validate mock_content 'feed2_empty.xml'
       document.should == 2
       lca = canteen.last_fetched_at
-      updater.updateCanteen updater.document.root.child.next
+      updater.update_canteen updater.document.root.child.next
       canteen.last_fetched_at.should == lca
     end
 
@@ -142,7 +142,7 @@ describe OpenMensa::Updater do
         meal << t = xml_text('price', '2.70'); t['role'] = 'other'
         today.meals.size.should be_zero
 
-        updater.addMeal(today, meal_category, meal)
+        updater.add_meal(today, meal_category, meal)
 
         today.meals.size.should == 1
         today.meals.first.name.should == meal_name
@@ -178,7 +178,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should == 1
         day = canteen.days.first
@@ -197,7 +197,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should == 1
         day = canteen.days.first
@@ -215,7 +215,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
@@ -231,7 +231,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should be_zero
 
@@ -247,7 +247,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should == 1
 
@@ -268,7 +268,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         today.should_not be_closed
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should be_zero
         today.should be_closed
@@ -296,7 +296,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 0
         today.should be_closed
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         today.should_not be_closed
@@ -326,7 +326,7 @@ describe OpenMensa::Updater do
         # starting check
         today.meals.size.should == 1
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 2
         today.meals.map(&:name) == [meal.name, meal_name]
@@ -353,7 +353,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         updated_at = today.meals.first.updated_at - 1.second
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         today.meals.first.prices.should == { student: 1.7, other: 2.7 }
@@ -382,7 +382,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         updated_at = today.meals.first.updated_at
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         today.meals.first.prices.should == { student: 1.8, employee: 2.9 }
@@ -405,14 +405,14 @@ describe OpenMensa::Updater do
 
         # starting check
         today.meals.size.should == 2
-        mealIds = today.meals.map(&:id)
+        ids = today.meals.map(&:id)
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals(force_reload=true).size.should == 1
         today.meals.first.should == meal2
 
-        mealIds.map { |id| Meal.find_by_id id }.should == [nil, meal2]
+        ids.map { |id| Meal.find_by_id id }.should == [nil, meal2]
 
         updater.should be_changed
       end
@@ -432,7 +432,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         updated_at = meal1.updated_at
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         meal1.updated_at.should == updated_at
@@ -456,7 +456,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.days.size.should == 5
         canteen.meals.size.should == 10
@@ -468,7 +468,7 @@ describe OpenMensa::Updater do
         document = updater.validate mock_content('feed_v2.xml')
         document.should == 2
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.meals.size.should == 9
@@ -478,7 +478,7 @@ describe OpenMensa::Updater do
 
         Timecop.freeze Time.now + 1.hour
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.last_fetched_at.should > last_fetched_at
         canteen.updated_at.should == updated_at
@@ -494,7 +494,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should == 1
 
-        updater.updateDay(d, day)
+        updater.update_day(d, day)
 
         canteen.days.size.should == 1
 
@@ -512,7 +512,7 @@ describe OpenMensa::Updater do
         canteen.days.size.should == 1
         canteen.days.first.should_not be_closed
 
-        updater.updateDay(d, day)
+        updater.update_day(d, day)
 
         canteen.days.size.should == 1
         canteen.days.first.should be_closed

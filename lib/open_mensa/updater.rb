@@ -89,12 +89,12 @@ class OpenMensa::Updater
         kind: :invalid_xml, message: error.message })
     end
     return false unless errors.empty?
-    return @version
+    @version
   end
 
 
   # 3. process data
-  def addMeal(day, category, meal)
+  def add_meal(day, category, meal)
     day.meals.create(
       category: category,
       name: meal.children.find { |node| node.name == 'name' }.content,
@@ -107,39 +107,39 @@ class OpenMensa::Updater
     @changed = true
   end
 
-  def updateMeal(meal, category, mealData)
-    meal.prices = mealData.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
+  def update_meal(meal, category, meal_data)
+    meal.prices = meal_data.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
       prices[node['role']] = node.content if node.name == 'price' and @version == 2
       prices
     end
-    meal.notes = mealData.children.select { |n| n.name == 'note' }.map(&:content)
+    meal.notes = meal_data.children.select { |n| n.name == 'note' }.map(&:content)
     meal.save if meal.changed?
   end
 
-  def addDay(dayData)
-    return if Date.parse(dayData['date']) < Date.today
-    day = canteen.days.create(date: Date.parse(dayData['date']))
-    if not dayData.children.any? { |node| node.name == 'closed' }
-      dayData.children.select(&:element?).each do |category|
+  def add_day(day_data)
+    return if Date.parse(day_data['date']) < Date.today
+    day = canteen.days.create(date: Date.parse(day_data['date']))
+    if day_data.children.any? { |node| node.name == 'closed' }
+      day.closed = true
+      day.save!
+    else
+      day_data.children.select(&:element?).each do |category|
         category.children.select(&:element?).inject([]) do |names, meal|
           name = meal.children.find { |node| node.name == 'name' }.content
           unless names.include? name
-            addMeal(day, category['name'], meal)
+            add_meal(day, category['name'], meal)
             names << name
           end
           names
         end
       end
-    else
-      day.closed = true
-      day.save!
     end
     @changed = true
   end
 
-  def updateDay(day, dayData)
-    return if Date.parse(dayData['date']) < Date.today
-    if dayData.children.any? { |node| node.name == 'closed' }
+  def update_day(day, day_data)
+    return if Date.parse(day_data['date']) < Date.today
+    if day_data.children.any? { |node| node.name == 'closed' }
       @changed = !day.closed?
       day.meals.destroy_all
       day.update_attribute :closed, true
@@ -152,15 +152,15 @@ class OpenMensa::Updater
         memo[[value.category, value.name.to_s]] = value
         memo
       end
-      dayData.children.select(&:element?).each do |category|
+      day_data.children.select(&:element?).each do |category|
         category.children.select(&:element?).each do |meal|
           name = meal.children.find { |node| node.name == 'name' }.content
-          mealObject = names[[category['name'], name]]
-          if mealObject.is_a? Meal
-            updateMeal mealObject, category['name'], meal
+          meal_obj = names[[category['name'], name]]
+          if meal_obj.is_a? Meal
+            update_meal meal_obj, category['name'], meal
             names[[category['name'], name ]] = false
-          elsif mealObject.nil?
-            addMeal day, category['name'], meal
+          elsif meal_obj.nil?
+            add_meal day, category['name'], meal
           end
         end
       end
@@ -173,42 +173,46 @@ class OpenMensa::Updater
   end
 
 
-  def updateCanteen(canteenData)
+  def update_canteen(canteen_data)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
-    dayUpdates = nil
-    canteenData.children.select(&:element?).each do |day|
+    day_updated = nil
+    canteen_data.children.select(&:element?).each do |day|
       canteen.transaction do
         date = day['date']
         if days.key? date
-          updateDay days[date], day
+          update_day days[date], day
         else
-          addDay day
+          add_day day
         end
-        dayUpdates = true
+        day_updated = true
       end
     end
-    if dayUpdates
+    if day_updated
       canteen.update_column :last_fetched_at, Time.zone.now
     end
     changed?
   end
 
 
-  # all togther
+  # all together
   def update
     document = fetch
     return false unless document
     version = validate document.read
     return false unless version
-    case version
+
+    canteen_data = case version
       when 1 then
-        canteenData = @document.root
+        @document.root
       when 2 then
-        canteenData = @document.root.children.first
-        while canteenData.name != 'canteen'
-          canteenData = canteenData.next
+        node = @document.root.children.first
+        while node.name != 'canteen'
+          node = node.next
         end
+        node
+      else
+        nil
     end
-    updateCanteen canteenData
+    update_canteen canteen_data
   end
 end
