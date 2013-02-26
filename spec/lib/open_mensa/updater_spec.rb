@@ -92,39 +92,50 @@ describe OpenMensa::Updater do
 
   context "should reject" do
     it "non-xml data" do
-      updater.validate(mock_content('feed_garbage.dat')).should be_false
-      m = canteen.messages.first
-      m.should be_an_instance_of(FeedValidationError)
-      m.kind.should == :no_xml
-      m.version.should be_nil
+      updater.parse(mock_content('feed_garbage.dat')).should be_false
+
+      canteen.messages.first.tap do |message|
+        message.should be_a(FeedValidationError)
+        message.kind.should    == :no_xml
+        message.version.should == nil
+      end
     end
+
     it "well-formatted but non-valid xml data" do
-      updater.validate(mock_content('feed_wellformated.xml')).should be_false
-      m = canteen.messages.first
-      m.should be_an_instance_of(FeedValidationError)
-      m.kind.should == :invalid_xml
-      m.version.should == 1
+      updater.parse mock_content('feed_wellformated.xml')
+      updater.validate.should be_false
+
+      canteen.messages.first.tap do |message|
+        message.should be_a(FeedValidationError)
+        message.kind.should    == :invalid_xml
+        message.version.should == 1
+      end
     end
+
     it "valid but non-openmensa xml data" do
-      updater.validate(mock_content('carrier_ship.xml')).should be_false
-      m = canteen.messages.first
-      m.should be_an_instance_of(FeedValidationError)
-      m.kind.should == :unknown_version
-      m.version.should be_nil
+      updater.parse mock_content('carrier_ship.xml')
+      updater.validate.should be_false
+
+      canteen.messages.first.tap do |message|
+        message.should be_a(FeedValidationError)
+        message.kind.should    == :unknown_version
+        message.version.should == nil
+      end
     end
   end
 
   it "should return 1 on valid v1 openmensa xml feeds" do
-    updater.validate(mock_content('canteen_feed.xml')).should == 1
+    updater.parse mock_content('canteen_feed.xml')
+    updater.validate.should == 1
   end
   it "should return 2 on valid v openmensa xml feeds" do
-    updater.validate(mock_content('feed_v2.xml')).should == 2
+    updater.parse mock_content('feed_v2.xml')
+    updater.validate.should == 2
   end
 
   context "with valid v2 feed" do
     it 'ignore empty feeds' do
-      document = updater.validate mock_content 'feed2_empty.xml'
-      document.should == 2
+      document = updater.parse mock_content 'feed2_empty.xml'
       lca = canteen.last_fetched_at
       updater.update_canteen updater.document.root.child.next
       canteen.last_fetched_at.should == lca
@@ -208,8 +219,7 @@ describe OpenMensa::Updater do
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
-        document = updater.validate mock_content('feed_v2.xml')
-        document.should == 2
+        document = updater.parse mock_content('feed_v2.xml')
 
         canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
         last_fetched_at = canteen.last_fetched_at
@@ -439,8 +449,7 @@ describe OpenMensa::Updater do
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
-        document = updater.validate mock_content('feed_v2.xml')
-        document.should == 2
+        document = updater.parse mock_content('feed_v2.xml')
 
         day1 = FactoryGirl.create :day, date: Date.new(2012, 05, 22), canteen: canteen
         meal1 = FactoryGirl.create :meal, day: day1, name: 'Tagessuppe'
@@ -465,8 +474,7 @@ describe OpenMensa::Updater do
       end
 
       it 'should set last_fetched_at on unchanged feed data with days' do
-        document = updater.validate mock_content('feed_v2.xml')
-        document.should == 2
+        document = updater.parse mock_content('feed_v2.xml')
 
         updater.update_canteen updater.document.root.child.next
 
