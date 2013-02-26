@@ -50,16 +50,19 @@ group :production do
   gem 'unicorn', platforms: :ruby
 end
 
-group :development, :test do
+group :development do
   gem 'thin', platforms: :ruby
-  gem 'rspec-rails', '~> 2.0'
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
   gem 'capistrano-unicorn'
+  gem 'rb-inotify', '~> 0.8.8'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
   gem 'guard-rspec',    require: false
   gem 'guard-spork',    require: false
-  gem 'rb-inotify', '~> 0.8.8'
 end
 
 group :test do
