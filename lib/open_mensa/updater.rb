@@ -3,7 +3,7 @@ require_dependency 'message'
 
 class OpenMensa::Updater
   include Nokogiri
-  attr_reader :canteen, :document, :version
+  attr_reader :canteen, :document, :version, :data
 
   def initialize(canteen, version = nil)
     @canteen = canteen
@@ -15,10 +15,9 @@ class OpenMensa::Updater
     @changed
   end
 
-
   # 1. Fetch feed data
-  def fetch
-    OpenMensa::FeedLoader.new(canteen).load!
+  def fetch!
+    @data = OpenMensa::FeedLoader.new(canteen).load!
   rescue OpenMensa::FeedLoader::FeedLoadError => error
     case error.cause
       when URI::InvalidURIError
@@ -37,7 +36,7 @@ class OpenMensa::Updater
   end
 
   # 2. Parse XML data
-  def parse(data)
+  def parse!
     @version  = nil
     @document = OpenMensa::FeedParser.new(data).parse!
   rescue OpenMensa::FeedParser::ParserError => err
@@ -50,38 +49,26 @@ class OpenMensa::Updater
     false
   end
 
-  # 2. validate data
-  def self.schema_v1
-    @schema_v1 ||= XML::Schema.new File.open(Rails.root.join('public', 'open-mensa-v1.xsd').to_s)
-    @schema_v1
-  end
-  def self.schema_v2
-    @schema_v2 ||= XML::Schema.new File.open(Rails.root.join('public', 'open-mensa-v2.xsd').to_s)
-    @schema_v2
-  end
-
-  def validate
-    return false unless document.errors.empty?
-
-    @version = document.root.nil? ? nil : document.root[:version].to_i
-    case version
-      when 1 then schema = self.class.schema_v1
-      when 2 then schema = self.class.schema_v2
-      else
-        FeedValidationError.create({
-          canteen: canteen, version: nil,
-          kind: :unknown_version })
-        return false
+  # 2. Validate XML document
+  def validate!
+    OpenMensa::FeedValidator.new(document).tap do |validator|
+      @version = validator.version
+      validator.validate!
     end
-
-    errors = schema.validate(document)
-    errors.each do |error|
-      FeedValidationError.create({
-        canteen: canteen, version: version,
-        kind: :invalid_xml, message: error.message })
-    end
-    return false unless errors.empty?
     version
+  rescue OpenMensa::FeedValidator::InvalidFeedVersionError
+    FeedValidationError.create canteen: canteen,
+                               version: nil,
+                               kind: :unknown_version
+    false
+  rescue OpenMensa::FeedValidator::FeedValidationError => err
+    err.errors.each do |error|
+      FeedValidationError.create canteen: canteen,
+                                 version: version,
+                                 kind: :invalid_xml,
+                                 message: error.message
+    end
+    false
   end
 
 
@@ -188,11 +175,7 @@ class OpenMensa::Updater
 
   # all together
   def update
-    document = parse fetch
-    return false unless document
-
-    version = validate
-    return false unless version
+    return false unless fetch! and parse! and validate!
 
     canteen_data = case version
       when 1 then
