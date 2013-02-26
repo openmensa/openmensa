@@ -47,7 +47,7 @@ describe "Profile page" do
     page.should have_content("GitHub Identität hinzugefügt.")
   end
 
-  it "should allow user to remove an identity", js: true do
+  it "should allow user to remove an identity" do
     click_link "Identität hinzufügen"
     click_link "GitHub"
 
