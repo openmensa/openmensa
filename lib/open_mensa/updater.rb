@@ -19,18 +19,16 @@ class OpenMensa::Updater
   def fetch!
     @data = OpenMensa::FeedLoader.new(canteen).load!
   rescue OpenMensa::FeedLoader::FeedLoadError => error
-    case error.cause
-      when URI::InvalidURIError
-        Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
-        FeedInvalidUrlError.create canteen: canteen
-      when OpenURI::HTTPError
-        FeedFetchError.create canteen: canteen,
-                              code:    error.cause.message.to_i,
-                              message: error.cause.message
-      else
-        FeedFetchError.create canteen: canteen,
-                              code: nil,
-                              message: error.message
+    error.cause.tap do |err|
+      case err
+        when URI::InvalidURIError
+          Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
+          FeedInvalidUrlError.create canteen: canteen
+        when OpenURI::HTTPError
+          create_fetch_error! err.message, code: err.message.to_i
+        else
+          create_fetch_error! err.message
+      end
     end
     false
   end
@@ -41,10 +39,7 @@ class OpenMensa::Updater
     @document = OpenMensa::FeedParser.new(data).parse!
   rescue OpenMensa::FeedParser::ParserError => err
     err.errors.each do |error|
-      FeedValidationError.create canteen: canteen,
-                                 version: version,
-                                 kind: :no_xml,
-                                 message: error.message
+      create_validation_error! :no_xml, message: error.message
     end
     false
   end
@@ -57,16 +52,11 @@ class OpenMensa::Updater
     end
     version
   rescue OpenMensa::FeedValidator::InvalidFeedVersionError
-    FeedValidationError.create canteen: canteen,
-                               version: nil,
-                               kind: :unknown_version
+    create_validation_error! :unknown_version
     false
   rescue OpenMensa::FeedValidator::FeedValidationError => err
     err.errors.each do |error|
-      FeedValidationError.create canteen: canteen,
-                                 version: version,
-                                 kind: :invalid_xml,
-                                 message: error.message
+      create_validation_error! :invalid_xml, message: error.message
     end
     false
   end
@@ -190,5 +180,19 @@ class OpenMensa::Updater
         nil
     end
     update_canteen canteen_data
+  end
+
+private
+  def create_validation_error!(kind, message: nil)
+    FeedValidationError.create! canteen: canteen,
+                                version: version,
+                                message: message,
+                                kind: kind
+  end
+
+  def create_fetch_error!(message, code: nil)
+    FeedFetchError.create canteen: canteen,
+                          message: message,
+                          code: code
   end
 end
