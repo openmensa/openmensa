@@ -25,7 +25,7 @@ class OpenMensa::Updater
           Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
           FeedInvalidUrlError.create canteen: canteen
         when OpenURI::HTTPError
-          create_fetch_error! err.message, code: err.message.to_i
+          create_fetch_error! err.message, err.message.to_i
         else
           create_fetch_error! err.message
       end
@@ -39,7 +39,7 @@ class OpenMensa::Updater
     @document = OpenMensa::FeedParser.new(data).parse!
   rescue OpenMensa::FeedParser::ParserError => err
     err.errors.each do |error|
-      create_validation_error! :no_xml, message: error.message
+      create_validation_error! :no_xml, error.message
     end
     false
   end
@@ -56,7 +56,7 @@ class OpenMensa::Updater
     false
   rescue OpenMensa::FeedValidator::FeedValidationError => err
     err.errors.each do |error|
-      create_validation_error! :invalid_xml, message: error.message
+      create_validation_error! :invalid_xml, error.message
     end
     false
   end
@@ -183,14 +183,14 @@ class OpenMensa::Updater
   end
 
 private
-  def create_validation_error!(kind, message: nil)
+  def create_validation_error!(kind, message = nil)
     FeedValidationError.create! canteen: canteen,
                                 version: version,
                                 message: message,
                                 kind: kind
   end
 
-  def create_fetch_error!(message, code: nil)
+  def create_fetch_error!(message, code = nil)
     FeedFetchError.create canteen: canteen,
                           message: message,
                           code: code
