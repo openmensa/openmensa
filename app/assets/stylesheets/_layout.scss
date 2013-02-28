@@ -69,10 +69,6 @@ header ul.actions {
       width: 40px;
       height: 40px;
     }
-
-    @include media(mobile) {
-      padding-top: 0.35em;
-    }
   }
 }
 
@@ -172,7 +168,7 @@ header#header {
       font-size: 1.6em;
 
       .account {
-        padding-top: .3em;
+        padding-top: .2em;
 
         img, span {
           height: 24px;
