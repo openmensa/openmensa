@@ -60,7 +60,7 @@ group :development do
 
   # For debugging on MRI 2.0
   gem 'ruby-debug-ide', '>= 0.4.17.beta14', require: false, platforms: :ruby
-  gem 'debase', git: 'https://github.com/denofevil/debase.git', require: false, platforms: :ruby
+  gem 'debase', '>= 0.0.2', require: false, platforms: :ruby
 end
 
 group :development, :test do

@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/denofevil/debase.git
-  revision: e124e34343cd3e6550baa509f816d45528b4941a
-  specs:
-    debase (0.0.1)
-
-GIT
   remote: https://github.com/mojombo/chronic.git
   revision: a243ae16d27562b5cbb94ab72a8f5c4028c3290b
   specs:
@@ -89,6 +83,7 @@ GEM
     crack (0.3.2)
     daemons (1.1.9)
     database_cleaner (0.9.1)
+    debase (0.0.2)
     decorate-responder (1.0.0)
     diff-lcs (1.2.1)
     draper (1.1.0)
@@ -368,7 +363,7 @@ DEPENDENCIES
   chronic!
   coffee-rails (~> 3.2.1)
   database_cleaner
-  debase!
+  debase (>= 0.0.2)
   decorate-responder
   draper (~> 1.0)
   factory_girl_rails (>= 3.3.0)
