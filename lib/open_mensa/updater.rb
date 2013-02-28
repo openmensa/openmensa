@@ -167,19 +167,16 @@ class OpenMensa::Updater
   def update
     return false unless fetch! and parse! and validate!
 
-    canteen_data = case version
+    update_canteen case version
       when 1 then
         @document.root
       when 2 then
         node = @document.root.children.first
-        while node.name != 'canteen'
-          node = node.next
-        end
+        node = node.next while node.name != 'canteen'
         node
       else
         nil
     end
-    update_canteen canteen_data
   end
 
 private
