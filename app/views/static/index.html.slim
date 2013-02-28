@@ -1,11 +1,8 @@
 
-- if @favorites.nil?
-  = render partial: 'map'
+= render partial: 'map'
 
 .row
   .span8
-    - unless @favorites.nil?
-      = render partial: 'map'
     section
       header
         h1 OpenMensa - deine Mensa direkt bei dir!
@@ -36,7 +33,7 @@
             ' Berlin, Jena, Potsdam
 
   .span4
-    - unless @favorites.nil?
+    / - unless @favorites.nil?
       section
         header
           h2=t('favorites.my_favorites')

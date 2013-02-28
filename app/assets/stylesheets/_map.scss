@@ -48,10 +48,40 @@
   height: 250px;
 }
 
-#index_map .map {
-  height: 500px;
+#index_map {
+
+  .favorites {
+    background-image: image-url("hbg.png");
+    height: 500px;
+
+    .content, ul {
+      background: #fff;
+      border-bottom: 1px solid $frame-color;
+    }
+  }
+
+  .map {
+    height: 500px;
+  }
+
+  @include media(handheld) {
+    .map {
+      height: 350px;
+    }
+
+    .favorites {
+      width: 100%;
+      height: auto;
+      border-bottom: none;
+
+      &.empty { display: none; visibility: hidden; }
+    }
+  }
 
   @include media(mobile) {
-    height: 250px;
+    .map {
+      height: 250px;
+    }
   }
 }
+

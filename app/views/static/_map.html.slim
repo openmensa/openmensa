@@ -1,3 +1,16 @@
-section
-  #index_map
-    = map Canteen.all
+#index_map.row.reversed
+  .span4
+    section.favorites class="#{@favorites.empty? ? "empty" : ""}"
+      header: h2 = t('favorites.my_favorites')
+      - if @favorites.empty?
+        .content
+          p=t('favorites.howto_add')
+      - else
+        ul.favs
+          - @favorites.each do |f|
+            li = link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
+
+  .span8
+    section
+      = map Canteen.all
+
