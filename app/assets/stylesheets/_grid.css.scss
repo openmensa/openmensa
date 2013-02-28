@@ -1,9 +1,9 @@
 @import "responsive";
 @import "extends";
+@import "variables";
 
 $grid-count: 12 !default;
 $grid-gutter: 1.5% !default;
-
 
 @mixin grid-span($i: 1, $count: 12, $margin: 1.5%) {
   width: (100%/$count)*$i - $margin + ($margin/$count*$i);
@@ -12,7 +12,6 @@ $grid-gutter: 1.5% !default;
 @mixin grid-offset($i: 1, $count: 12, $margin: 1.5%) {
   padding-left: (100% / $count) * $i + ($margin/$count*$i);
 }
-
 
 .row {
   @extend %clearfix;

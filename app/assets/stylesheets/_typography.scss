@@ -1,16 +1,6 @@
 @import "addons/font-family";
 @import 'responsive';
-
-$text-size: 62.5% !default;
-$text-color: #333 !default;
-$text-font: $helvetica !default;
-
-$header-color: $text-color !default;
-$header-font: 'Droid Sans', $text-font !default;
-$header-bg-color: #f1f1f1;
-
-$frame-color: #ccc !default;
-$link-color: #2941B4 !default;
+@import 'variables';
 
 @mixin p {
   margin: 8px 0;
