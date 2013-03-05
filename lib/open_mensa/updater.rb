@@ -92,8 +92,8 @@ class OpenMensa::Updater
       day.closed = true
       day.save!
     else
-      day_data.children.select(&:element?).each do |category|
-        category.children.select(&:element?).inject([]) do |names, meal|
+      day_data.element_children.each do |category|
+        category.element_children.inject([]) do |names, meal|
           name = meal.children.find { |node| node.name == 'name' }.content
           unless names.include? name
             add_meal(day, category['name'], meal)
@@ -121,8 +121,8 @@ class OpenMensa::Updater
         memo[[value.category, value.name.to_s]] = value
         memo
       end
-      day_data.children.select(&:element?).each do |category|
-        category.children.select(&:element?).each do |meal|
+      day_data.element_children.each do |category|
+        category.element_children.each do |meal|
           name = meal.children.find { |node| node.name == 'name' }.content
           meal_obj = names[[category['name'], name]]
           if meal_obj.is_a? Meal
@@ -145,7 +145,7 @@ class OpenMensa::Updater
   def update_canteen(canteen_data)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
     day_updated = nil
-    canteen_data.children.select(&:element?).each do |day|
+    canteen_data.element_children.each do |day|
       canteen.transaction do
         date = day['date']
         if days.key? date
