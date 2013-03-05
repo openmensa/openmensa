@@ -3,16 +3,11 @@ require_dependency 'message'
 
 class OpenMensa::Updater
   include Nokogiri
-  attr_reader :canteen, :document, :version, :data
+  attr_reader :canteen, :document, :version, :data, :reader
 
   def initialize(canteen, version = nil)
     @canteen = canteen
     @version = version
-    @changed = false
-  end
-
-  def changed?
-    @changed
   end
 
   # 1. Fetch feed data
@@ -62,120 +57,81 @@ class OpenMensa::Updater
   end
 
 
-  # 3. process data
-  def add_meal(day, category, meal)
-    day.meals.create(
-      category: category,
-      name: meal.children.find { |node| node.name == 'name' }.content,
-      prices: meal.children.inject({}) do |prices, node|
-        prices[node['role']] = node.content if node.name == 'price' and @version == 2
-        prices
-      end,
-      notes: meal.children.select { |n| n.name == 'note' }.map(&:content)
-    )
-    @changed = true
-  end
+  # 3. Process data
 
-  def update_meal(meal, category, meal_data)
-    meal.prices = meal_data.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
-      prices[node['role']] = node.content if node.name == 'price' and @version == 2
-      prices
+  # Returns true if any change was applied.
+  +Transactional
+  def update_canteen!
+    reader.days.inject(false) do |changed, day|
+      update_day(day, canteen.days.where(date: date.to_s).first || canteen.days.create!(date: date.to_s)) || changed
     end
-    meal.notes = meal_data.children.select { |n| n.name == 'note' }.map(&:content)
-    meal.save if meal.changed?
   end
 
-  def add_day(day_data)
-    return if Date.parse(day_data['date']) < Date.today
-    day = canteen.days.create(date: Date.parse(day_data['date']))
-    if day_data.children.any? { |node| node.name == 'closed' }
-      day.closed = true
-      day.save!
+  # Returns true if any change was applied.
+  def update_day(node, day)
+    if node.closed
+      close_day day
     else
-      day_data.element_children.each do |category|
-        category.element_children.inject([]) do |names, meal|
-          name = meal.children.find { |node| node.name == 'name' }.content
-          unless names.include? name
-            add_meal(day, category['name'], meal)
-            names << name
-          end
-          names
-        end
-      end
+      changed = update_meals(node, day)
+      day.closed? ? open_day(day) : changed
     end
-    @changed = true
   end
 
-  def update_day(day, day_data)
-    return if Date.parse(day_data['date']) < Date.today
-    if day_data.children.any? { |node| node.name == 'closed' }
-      @changed = !day.closed?
-      day.meals.destroy_all
-      day.update_attribute :closed, true
+  # Returns true if any change was applied.
+  def close_day(day)
+    return false if day.closed?
+
+    day.meals.destroy_all
+    day.update_attribute :closed, true
+  end
+
+  # Returns true if any change was applied.
+  def open_day(day)
+    return false unless day.closed?
+
+    day.update_attribute :closed, false
+  end
+
+  # Returns true if any change was applied.
+  def update_meals(node, day) # day, day_data
+    nodes = reader.meals(node)
+
+    nodes.inject(delete_old_meals(day, nodes)) do |changed, node|
+      update_meal(node, day.meals.selecy { |m| node.matches? m } || day.meals.new) || changed
+    end
+  end
+
+  # Returns true if any change was applied.
+  def delete_old_meals(day, nodes)
+    day.meals.inject(false) do |changed, meal|
+      meal.destroy and next true unless nodes.any? { |node| node.matches? meal }
+      changed
+    end
+  end
+
+  # Returns true if any change was applied.
+  def update_meal(node, meal)
+    meal.category = node.category
+    meal.name     = node.name
+    meal.prices   = node.prices
+    meal.notes    = node.notes
+
+    if meal.changed? or meal.new_record?
+      meal.save!
     else
-      if day.closed?
-        day.update_attribute :closed, false
-        @changed = true
-      end
-      names = day.meals.inject({}) do |memo, value|
-        memo[[value.category, value.name.to_s]] = value
-        memo
-      end
-      day_data.element_children.each do |category|
-        category.element_children.each do |meal|
-          name = meal.children.find { |node| node.name == 'name' }.content
-          meal_obj = names[[category['name'], name]]
-          if meal_obj.is_a? Meal
-            update_meal meal_obj, category['name'], meal
-            names[[category['name'], name ]] = false
-          elsif meal_obj.nil?
-            add_meal day, category['name'], meal
-          end
-        end
-      end
-      names.keep_if { |key, meal| meal }
-      if names.size > 0
-        names.each_value { |meal| meal.destroy }
-        @changed = true
-      end
+      false
     end
   end
 
-
-  def update_canteen(canteen_data)
-    days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
-    day_updated = nil
-    canteen_data.element_children.each do |day|
-      canteen.transaction do
-        date = day['date']
-        if days.key? date
-          update_day days[date], day
-        else
-          add_day day
-        end
-        day_updated = true
-      end
-    end
-    if day_updated
-      canteen.update_column :last_fetched_at, Time.zone.now
-    end
-    changed?
-  end
-
-
-  # all together
+  # All together
+  #
+  # Returns true if any change was applied.
   def update
     return false unless fetch! and parse! and validate!
 
-    update_canteen case version
-      when 1 then
-        @document.root
-      when 2 then
-        node = @document.root.children.first
-        node = node.next while node.name != 'canteen'
-        node
-      else
-        nil
+    @reader = OpenMensa::FeedReader.new(document, version)
+    update_canteen!.tap do
+      canteen.update_column :last_fetched_at, Time.zone.now
     end
   end
 

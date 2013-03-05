@@ -30,6 +30,7 @@ gem 'will_paginate'
 gem 'paginate-responder', '>= 1.1.1'
 gem 'decorate-responder'
 gem 'api-responder'
+gem 'method_decorators', '~> 0.9.2'
 
 gem 'pg', platforms: :ruby
 gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby

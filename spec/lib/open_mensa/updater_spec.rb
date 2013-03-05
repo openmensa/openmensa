@@ -145,7 +145,7 @@ describe OpenMensa::Updater do
       updater.parse!
 
       expect {
-        updater.update_canteen updater.document.root.child.next
+        updater.update_canteen! updater.document.root.child.next
       }.to_not change { canteen.last_fetched_at }
     end
 
@@ -161,15 +161,13 @@ describe OpenMensa::Updater do
         meal << t = xml_text('price', '2.70'); t['role'] = 'other'
         today.meals.size.should be_zero
 
-        updater.add_meal(today, meal_category, meal)
+        updater.add_meal(today, meal_category, meal).should be_true
 
         today.meals.size.should == 1
         today.meals.first.name.should == meal_name
         today.meals.first.prices[:student].should == 1.7
         today.meals.first.prices[:other].should == 2.7
         today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'vegetarisch' ]
-
-        updater.should be_changed
       end
 
       it 'should add a new day with meals entries' do
@@ -197,14 +195,12 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.add_day(day)
+        updater.add_day(day).should be_true
 
         canteen.days.size.should == 1
         day = canteen.days.first
         day.meals.size.should == 3
         day.meals.order(:category).map(&:category).should == [category2_name, category1_name, category1_name]
-
-        updater.should be_changed
       end
 
       it 'should add closed days entries' do
@@ -216,14 +212,12 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.add_day(day)
+        updater.add_day(day).should == true
 
         canteen.days.size.should == 1
         day = canteen.days.first
         day.should be_closed
         day.meals.size.should be_zero
-
-        updater.should be_changed
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
@@ -233,7 +227,7 @@ describe OpenMensa::Updater do
         canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
         updated_at = canteen.updated_at
 
-        updater.update_canteen updater.document.root.child.next
+        updater.update_canteen! updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
@@ -248,12 +242,8 @@ describe OpenMensa::Updater do
 
         # starting check
         canteen.days.size.should be_zero
-
-        updater.add_day(day)
-
+        updater.add_day(day).should be_false
         canteen.days.size.should be_zero
-
-        updater.should_not be_changed
       end
 
       it 'should add information about today' do
@@ -264,12 +254,8 @@ describe OpenMensa::Updater do
 
         # starting check
         canteen.days.size.should be_zero
-
-        updater.add_day(day)
-
+        updater.add_day(day).should be_true
         canteen.days.size.should == 1
-
-        updater.should be_changed
       end
     end
 
@@ -286,12 +272,9 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         today.should_not be_closed
 
-        updater.update_day(today, day)
-
+        updater.update_day(today, day).should be_true
         today.meals.size.should be_zero
         today.should be_closed
-
-        updater.should be_changed
       end
 
 
@@ -314,12 +297,9 @@ describe OpenMensa::Updater do
         today.meals.size.should == 0
         today.should be_closed
 
-        updater.update_day(today, day)
-
+        updater.update_day(today, day).should be_true
         today.meals.size.should == 1
         today.should_not be_closed
-
-        updater.should be_changed
       end
 
 
@@ -344,12 +324,10 @@ describe OpenMensa::Updater do
         # starting check
         today.meals.size.should == 1
 
-        updater.update_day(today, day)
+        updater.update_day(today, day).should be_true
 
         today.meals.size.should == 2
         today.meals.map(&:name) == [meal.name, meal_name]
-
-        updater.should be_changed
       end
 
       it 'should update changed meals' do
@@ -425,14 +403,12 @@ describe OpenMensa::Updater do
         today.meals.size.should == 2
         ids = today.meals.map(&:id)
 
-        updater.update_day(today, day)
+        updater.update_day(today, day).should be_true
 
         today.meals(force_reload=true).size.should == 1
         today.meals.first.should == meal2
 
         ids.map { |id| Meal.find_by_id id }.should == [nil, meal2]
-
-        updater.should be_changed
       end
 
       it 'should not update last_changed_at on unchanged meals' do
@@ -473,7 +449,7 @@ describe OpenMensa::Updater do
 
         updated_at = canteen.updated_at
 
-        updater.update_canteen updater.document.root.child.next
+        updater.update_canteen! updater.document.root.child.next
 
         canteen.days.size.should == 5
         canteen.meals.size.should == 10
@@ -485,7 +461,7 @@ describe OpenMensa::Updater do
         updater.stub(:data).and_return mock_content('feed_v2.xml')
         updater.parse!
 
-        updater.update_canteen updater.document.root.child.next
+        updater.update_canteen! updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.meals.size.should == 9
@@ -495,7 +471,7 @@ describe OpenMensa::Updater do
 
         Timecop.freeze Time.now + 1.hour
 
-        updater.update_canteen updater.document.root.child.next
+        updater.update_canteen! updater.document.root.child.next
 
         canteen.last_fetched_at.should > last_fetched_at
         canteen.updated_at.should == updated_at
@@ -510,12 +486,8 @@ describe OpenMensa::Updater do
 
         # starting check
         canteen.days.size.should == 1
-
-        updater.update_day(d, day)
-
+        updater.update_day(d, day).should be_false
         canteen.days.size.should == 1
-
-        updater.should_not be_changed
       end
 
       it 'should update today' do
@@ -528,13 +500,9 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should == 1
         canteen.days.first.should_not be_closed
-
-        updater.update_day(d, day)
-
+        updater.update_day(d, day).should be_true
         canteen.days.size.should == 1
         canteen.days.first.should be_closed
-
-        updater.should be_changed
       end
     end
 
