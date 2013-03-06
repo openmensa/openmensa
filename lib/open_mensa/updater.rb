@@ -62,8 +62,8 @@ class OpenMensa::Updater
   # Returns true if any change was applied.
   +Transactional
   def update_canteen!
-    reader.days.inject(false) do |changed, day|
-      update_day(day, canteen.days.where(date: date.to_s).first || canteen.days.create!(date: date.to_s)) || changed
+    reader.days(reader.canteens.first).inject(false) do |changed, day|
+      update_day(day, canteen.days.where(date: day.date.to_s).first || canteen.days.create!(date: day.date.to_s)) || changed
     end
   end
 
@@ -97,7 +97,7 @@ class OpenMensa::Updater
     nodes = reader.meals(node)
 
     nodes.inject(delete_old_meals(day, nodes)) do |changed, node|
-      update_meal(node, day.meals.selecy { |m| node.matches? m } || day.meals.new) || changed
+      update_meal(node, day.meals.select{ |m| node.matches? m }.first || day.meals.new) || changed
     end
   end
 
@@ -126,7 +126,7 @@ class OpenMensa::Updater
   # All together
   #
   # Returns true if any change was applied.
-  def update
+  def update!
     return false unless fetch! and parse! and validate!
 
     @reader = OpenMensa::FeedReader.new(document, version)

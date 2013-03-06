@@ -24,6 +24,6 @@ class Canteen < ActiveRecord::Base
   end
 
   def fetch
-    OpenMensa::Updater.new(self).update
+    OpenMensa::Updater.new(self).update!
   end
 end

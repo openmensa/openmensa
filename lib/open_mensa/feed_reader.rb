@@ -38,11 +38,7 @@ module OpenMensa
 
     def days(canteen)
       canteen.node.element_children.map do |xml|
-        DayNode.new(
-            Date.parse(xml['date']),
-            xml.children.any? { |node| node.name == 'closed' },
-            xml
-        )
+        read_day xml
       end
     end
 
@@ -58,6 +54,14 @@ module OpenMensa
     end
 
   private
+    def read_day(xml)
+      DayNode.new(
+          Date.parse(xml['date']),
+          xml.children.any? { |node| node.name == 'closed' },
+          xml
+      )
+    end
+
     def read_meal(category, xml)
       name   = xml.children.find { |node| node.name == 'name' }.content
       prices = read_prices xml

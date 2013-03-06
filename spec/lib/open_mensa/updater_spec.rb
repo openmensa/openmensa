@@ -145,7 +145,7 @@ describe OpenMensa::Updater do
       updater.parse!
 
       expect {
-        updater.update_canteen! updater.document.root.child.next
+        updater.update!
       }.to_not change { canteen.last_fetched_at }
     end
 
@@ -262,17 +262,17 @@ describe OpenMensa::Updater do
 
     context 'with old data' do
       it 'should allow to close the canteen on given days' do
-        # build xml data
-        root_element << day = xml_node('day')
-        day['date'] = today.date.to_s
-        day << xml_node('closed')
-        meal = FactoryGirl.create :meal, day: today
+        # build data node
+        node = OpenMensa::FeedReader::DayNode.new
+        node.date   = today.date
+        node.closed = true
+        FactoryGirl.create :meal, day: today
 
         # starting check
         today.meals.size.should == 1
         today.should_not be_closed
 
-        updater.update_day(today, day).should be_true
+        updater.update_day(node, today).should be_true
         today.meals.size.should be_zero
         today.should be_closed
       end
@@ -283,21 +283,25 @@ describe OpenMensa::Updater do
         category_name = 'Hauptessen'
         meal_name = 'Essen 1'
 
-        # close our test day
+        # close test day
         today.update_attribute :closed, true
 
-        # build xml data
-        root_element << day = xml_node('day')
-        day['date'] = today.date.to_s
-        day << category = xml_node('category')
+        # build data node
+        node = OpenMensa::FeedReader::DayNode.new
+        node.date   = today.date
+        node.closed = false
+        node.node   = xml_node('day')
+        category = xml_node('category')
         category['name'] = category_name
-        category <<  xml_meal(meal_name)
+        category << xml_meal(meal_name)
+        node.node << category
 
-        # starting check
+            # starting check
         today.meals.size.should == 0
         today.should be_closed
 
-        updater.update_day(today, day).should be_true
+        updater.update_day(node, today).should be_true
+
         today.meals.size.should == 1
         today.should_not be_closed
       end
@@ -516,17 +520,20 @@ describe OpenMensa::Updater do
 
       it 'should handle compact document' do
         canteen.url = 'http://example.org/compact.xml'
-        updater.update.should be_true
+
+        updater.update!.should be_true
         canteen.days.size.should == 1
         canteen.meals.size.should == 4
       end
 
       it 'should merge double meal names correctly' do
         canteen.url = 'http://example.org/double.xml'
-        updater.update.should be_true
+
+        updater.update!.should be_true
         canteen.days.size.should == 1
         canteen.meals.size.should == 3
-        updater.update.should be_true
+
+        updater.update!.should be_false
         canteen.days.size.should == 1
         canteen.meals.size.should == 3
       end
