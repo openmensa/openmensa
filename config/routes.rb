@@ -25,15 +25,12 @@ Openmensa::Application.routes.draw do
   end
   resources :favorites, path: 'favs', only: [ :index ]
 
-  match '/auth',                    to: 'sessions#new',      as: :login
-  match '/auth/signoff',            to: 'sessions#destroy',  as: :logout
-  match '/auth/:provider',          to: 'sessions#failure',  as: :auth
-  match '/auth/:provider/callback', to: 'sessions#create'
-  match '/auth/failure',            to: 'sessions#failure',  as: :auth_failure
-  match '/auth/register',           to: 'sessions#register', as: :register
-
-  match '/oauth/authorize', :to => 'authorization#new'
-  post  '/oauth/token', :to => proc { |env| Oauth2::TokenEndpoint.new.call(env) }
+  get '/auth',                    to: 'sessions#new',      as: :login
+  get '/auth/signoff',            to: 'sessions#destroy',  as: :logout
+  get '/auth/:provider',          to: 'sessions#failure',  as: :auth
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth/failure',            to: 'sessions#failure',  as: :auth_failure
+  get '/auth/register',           to: 'sessions#register', as: :register
 
   get '/static/:id', to: 'static#index', as: :static
 

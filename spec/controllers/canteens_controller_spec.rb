@@ -25,7 +25,7 @@ describe CanteensController do
     let(:user) { FactoryGirl.create :user }
 
     it "should not be accessible by anonymous" do
-      put :update, id: canteen.id, canteen: { name: 'NewName' }
+      patch :update, id: canteen.id, canteen: { name: 'NewName' }
 
       canteen.reload
       canteen.name.should_not == 'NewName'

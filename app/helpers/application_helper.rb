@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def map(canteens, options = {})
-    canteens = [ canteens ] unless canteens.is_a?(Array)
+    canteens = [ canteens ] unless canteens.respond_to?(:map)
     markers = canteens.map do |canteen|
       {
         lat: canteen.latitude,

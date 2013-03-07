@@ -29,7 +29,7 @@ class Meal < ActiveRecord::Base
 
   def notes=(notes)
     super(notes.map do |note|
-      note = Note.find_or_create_by_name name: note if note.is_a? String
+      note = Note.find_or_create_by(name: note) if note.is_a? String
       note
     end)
   end

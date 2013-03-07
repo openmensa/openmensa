@@ -1,7 +1,7 @@
 #index_map.row.reversed
   - if current_user.internal?
     section
-      = map Canteen.all
+      = map Canteen.all.to_a
   - else
     .span4
       form

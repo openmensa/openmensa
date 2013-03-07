@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true }
 
-  scope :all, lambda { where("#{User.table_name}.login != ? AND #{User.table_name}.login != ?", 'anonymous', 'system') }
+  default_scope -> { where.not(login: %w{anonymous system}) }
 
   gravtastic :secure => true, :default => :mm, :filetype => :gif, :size => 100
 
