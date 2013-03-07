@@ -2,13 +2,6 @@ class CanteensController < ApplicationController
   before_filter :require_authentication!, except: [ :show ]
   before_filter :require_me_or_admin, except: [ :show ]
 
-  def require_me_or_admin
-    @user = User.find(params[:user_id])
-    unless current_user == @user or current_user.admin?
-      error_access_denied
-    end
-  end
-
   def index
     @canteens = @user.canteens.order(:name)
   end
@@ -20,7 +13,7 @@ class CanteensController < ApplicationController
   def create
     @canteen = Canteen.new canteen_params.merge(user: @user)
     if @canteen.save
-      flash[:notice] = t "message.canteen_added"
+      flash[:notice] = t 'message.canteen_added'
       redirect_to edit_user_canteen_path(@user, @canteen)
     else
       render action: :new
@@ -34,7 +27,7 @@ class CanteensController < ApplicationController
   def update
     @canteen = @user.canteens.find(params[:id])
     if @canteen.update_attributes canteen_params
-      flash[:notice] = t "message.canteen_saved"
+      flash[:notice] = t 'message.canteen_saved'
       redirect_to user_canteens_path(@user)
     else
       render action: :edit

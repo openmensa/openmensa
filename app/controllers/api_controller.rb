@@ -15,7 +15,7 @@ class ApiController < BaseController
   def set_content_type
     params[:format] = params[:format].to_s.downcase
 
-    if ['json', 'xml', 'msgpack'].include? params[:format]
+    if %w(json xml msgpack).include? params[:format]
       response.content_type = {
         json: 'application/json',
         xml: 'application/xml',

@@ -1,3 +1,6 @@
+@import "css3/transition";
+@import "responsive";
+@import "extends";
 
 body {
   margin: 0;
@@ -11,7 +14,6 @@ header, section, footer {
   display: block;
 }
 
-%clearfix { @include pie-clearfix; }
 .fwrapper {
   @extend %clearfix;
 }
@@ -32,16 +34,21 @@ header ul.actions {
   list-style: none;
   float: right;
   margin: -2px 0 0 0;
-  padding: 0;
+  padding: .1em 0 0;
 
   li {
     float: left;
+
+    [class^="icon-"]:before, [class*=" icon-"]:before {
+      width: auto;
+      padding: 0 .2em;
+    }
   }
 
   a {
     display: block;
     position: relative;
-    padding: .2em .2em .1em .2em;
+    padding: 0;
 
     color: #bbb;
     font-size: 1.3em;
@@ -62,10 +69,6 @@ header ul.actions {
       width: 40px;
       height: 40px;
     }
-
-    @include media(mobile) {
-      padding-top: 0.35em;
-    }
   }
 }
 
@@ -74,7 +77,7 @@ header#header {
 
   padding: 10px 0;
   background-image: image-url("hbg.png");
-  @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
   @include media(mobile) {
     padding: 0;
@@ -130,6 +133,8 @@ header#header {
     margin-top: 6px;
     margin-right: 10px;
 
+    i { padding: .1em 0; }
+
     .account {
       float: left;
       margin-top: -1px;
@@ -141,7 +146,7 @@ header#header {
         background-repeat: no-repeat;
         background-position: 50% 50%;
 
-        @include box-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
         @include transition(all .3s ease-in-out .2s);
       }
 
@@ -154,7 +159,7 @@ header#header {
       }
 
       &:hover span {
-        @include box-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         @include transition(all .2s ease-in-out);
       }
     }
@@ -163,7 +168,7 @@ header#header {
       font-size: 1.6em;
 
       .account {
-        padding-top: .3em;
+        padding-top: .2em;
 
         img, span {
           height: 24px;
@@ -192,15 +197,15 @@ header#header {
   section {
     margin: 14px 0 0 0;
     background-color: #fff;
-    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
-    @include media(mobile) {
+    @include media(handheld) {
       margin: 4px 0 0 0;
     }
 
     header {
       @extend %clearfix;
-      padding: 4px 4px 3px 15px;
+      padding: 4px 15px 3px 15px;
 
       @include media(mobile) {
         padding: 2px 6px 2px 6px;
@@ -213,7 +218,7 @@ header#header {
 
       ~ .content {
         border-top: 1px solid #ddd;
-        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
       }
 
       h3, h4, h5 {
@@ -224,7 +229,6 @@ header#header {
         list-style: none;
         float: right;
         margin: -2px 0 0 0;
-        padding: 0 4px;
 
         li {
           float: left;
@@ -279,7 +283,7 @@ header#header {
 
         &:not(:first-child) {
           border-top: 1px solid #ddd;
-          @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
         }
       }
 

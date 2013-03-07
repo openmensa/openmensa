@@ -6,10 +6,13 @@
 @import "leaflet";
 @import "leaflet.markercluster";
 @import "leaflet.control.locate";
-@import "bourbon";
-@import "compass";
 
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+@import "addons/clearfix";
+@import "addons/prefixer";
+
+@import "css3/box-sizing";
+
+* { @include box-sizing(border-box); }
 
 @import "typography";
 @import "layout";
@@ -22,10 +25,9 @@
 @import "map";
 
 .hide { display: none; }
-.icon-google_oauth2-sign { @extend .icon-google-plus-sign }
+.icon-google_oauth2 { @extend .icon-google-plus; }
+.icon-google_oauth2-sign { @extend .icon-google-plus-sign; }
 
-%hover-transition {
-  @include transition(all .2s ease-in-out);
-}
-
-@import "modules/*";
+@import "modules/canteens";
+@import "modules/index";
+@import "modules/users";

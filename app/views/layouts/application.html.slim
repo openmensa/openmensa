@@ -3,9 +3,7 @@ html
   head
     title= title
     = stylesheet_link_tag 'screen.css', media: 'screen, projection'
-    = stylesheet_link_tag 'print.css', media: 'print'
-    /[if IE]
-      = stylesheet_link_tag 'ie.css', media: 'screen, projection'
+    /= stylesheet_link_tag 'print.css', media: 'print'
     = javascript_include_tag "application"
     = csrf_meta_tags
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
@@ -17,27 +15,17 @@ html
   body class=body_classes
     section#content
       header#header
-        h1
-          = link_to "OpenMensa", root_path
+        h1= link_to 'OpenMensa', root_path
         ul.actions
           - if current_user.logged?
-            / li
-            /   = link_to '#', title: t(:my_favorites) do
-            /     i.icon-star
-            li
-              = link_to logout_path, title: t(:logout) do
-                i.icon-signout
-            li
-              = link_to user_path(current_user.id), title: t(:my_profile), class: :account do
-                = avatar
+            li= link_to logout_path, title: t(:logout) do
+              i.icon-signout
+            li= link_to user_path(current_user.id), title: t(:my_profile), class: :account do
+              = avatar
           - else
-            / li
-            /   = link_to '#', title: t(:my_favorites) do
-            /     i.icon-star
-            li
-              = link_to login_path, title: t(:login) do
-                i.icon-signin
-      = render partial: "common/flash", object: flash
+            li= link_to login_path, title: t(:login) do
+              i.icon-signin
+      = render partial: 'common/flash', object: flash
       = yield
       footer#footer
         .row

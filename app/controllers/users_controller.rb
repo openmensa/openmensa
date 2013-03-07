@@ -2,13 +2,6 @@ class UsersController < ApplicationController
   before_filter :require_authentication!
   before_filter :require_me_or_admin
 
-  def require_me_or_admin
-    @user = User.find(params[:id])
-    unless current_user == @user or current_user.admin?
-      error_access_denied
-    end
-  end
-
   def show
   end
 
@@ -22,6 +15,10 @@ class UsersController < ApplicationController
   end
 
 private
+  def return_me
+    User.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :send_reports)
   end

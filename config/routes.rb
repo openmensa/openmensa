@@ -1,12 +1,6 @@
 Openmensa::Application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
-    namespace :v1 do
-      resources :cafeterias, only: [ :index, :show ] do
-        resources :meals, only: [ :index, :show ]
-      end
-    end
-
     namespace :v2 do
       resources :canteens, only: [ :index, :show ] do
         resources :days, only: [ :index, :show ] do
@@ -18,12 +12,16 @@ Openmensa::Application.routes.draw do
   end
 
   get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: { date: /\d{4}-\d{2}-\d{2}/ }
-  resources :canteens, path: 'c', only: [ :show ]
+  resources :canteens, path: 'c', only: [ :show ] do
+    resource :favorite, only: [ :create, :destroy ]
+  end
   resources :users, path: 'u' do
-    resources :favorites, path: 'favs', only: [ :index, :destroy ]
+    resources :favorites, path: 'favs', only: [ :index ]
     resources :identities, path: 'ids', only: [ :new, :create, :destroy ]
-    resources :canteens, path: 'c', only: [ :index, :new, :create, :edit, :update ]
-    resources :messages, path: 'm', only: [ :index ]
+    resources :canteens, path: 'c', only: [ :index, :new, :create, :edit, :update ] do
+      resources :messages, path: 'm', only: [ :index ]
+    end
+    get 'm', to: 'messages#overview', as: :messages
   end
   resources :favorites, path: 'favs', only: [ :index ]
 

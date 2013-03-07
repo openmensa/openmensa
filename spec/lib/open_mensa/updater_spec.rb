@@ -34,24 +34,24 @@ describe OpenMensa::Updater do
     it 'should skip on missing urls' do
       canteen.update_attribute :url, nil
       canteen.url.should be_nil
-      updater.fetch.should be_false
+      updater.fetch!.should be_false
     end
 
     it 'should skip invalid urls' do
       canteen.update_attribute :url, ':///:asdf'
-      updater.fetch.should be_false
+      updater.fetch!.should be_false
       m = canteen.messages.first
       m.should be_an_instance_of(FeedInvalidUrlError)
     end
 
     it 'should receive feed data via http' do
       canteen.update_attribute :url, 'http://example.com/data.xml'
-      updater.fetch.read.should == '<xml>'
+      updater.fetch!.read.should == '<xml>'
     end
 
     it 'should update feed url on 301 responses' do
       canteen.update_attribute :url, 'http://example.com/301.xml'
-      updater.fetch.read.should == '<xml>'
+      updater.fetch!.read.should == '<xml>'
       canteen.url.should == 'http://example.com/data.xml'
       m = canteen.messages.first
       m.should be_an_instance_of(FeedUrlUpdatedInfo)
@@ -61,13 +61,13 @@ describe OpenMensa::Updater do
 
     it 'should not update feed url on 302 responses' do
       canteen.update_attribute :url, 'http://example.com/302.xml'
-      updater.fetch.read.should == '<xml>'
+      updater.fetch!.read.should == '<xml>'
       canteen.url.should == 'http://example.com/302.xml'
     end
 
     it 'should handle http errors correctly' do
       canteen.update_attribute :url, 'http://example.com/500.xml'
-      updater.fetch.should be_false
+      updater.fetch!.should be_false
       m = canteen.messages.first
       m.should be_an_instance_of(FeedFetchError)
       m.code.should == 500
@@ -75,7 +75,7 @@ describe OpenMensa::Updater do
 
     it 'should handle network errors correctly' do
       canteen.update_attribute :url, 'http://unknowndomain.org'
-      updater.fetch.should be_false
+      updater.fetch!.should be_false
       m = canteen.messages.first
       m.should be_an_instance_of(FeedFetchError)
       m.code.should == nil
@@ -83,7 +83,7 @@ describe OpenMensa::Updater do
 
     it 'should handle network timeout ' do
       canteen.update_attribute :url, 'http://example.org/timeout.xml'
-      updater.fetch.should be_false
+      updater.fetch!.should be_false
       m = canteen.messages.first
       m.should be_an_instance_of(FeedFetchError)
       m.code.should == nil
@@ -92,42 +92,61 @@ describe OpenMensa::Updater do
 
   context "should reject" do
     it "non-xml data" do
-      updater.validate(mock_content('feed_garbage.dat')).should be_false
-      m = canteen.messages.first
-      m.should be_an_instance_of(FeedValidationError)
-      m.kind.should == :no_xml
-      m.version.should be_nil
+      updater.stub(:data).and_return mock_content('feed_garbage.dat')
+      updater.parse!.should be_false
+
+      canteen.messages.first.tap do |message|
+        message.should be_a(FeedValidationError)
+        message.kind.should    == :no_xml
+        message.version.should == nil
+      end
     end
+
     it "well-formatted but non-valid xml data" do
-      updater.validate(mock_content('feed_wellformated.xml')).should be_false
-      m = canteen.messages.first
-      m.should be_an_instance_of(FeedValidationError)
-      m.kind.should == :invalid_xml
-      m.version.should == 1
+      updater.stub(:data).and_return mock_content('feed_wellformated.xml')
+      updater.parse!
+      updater.validate!.should be_false
+
+      canteen.messages.first.tap do |message|
+        message.should be_a(FeedValidationError)
+        message.kind.should    == :invalid_xml
+        message.version.should == 1
+      end
     end
+
     it "valid but non-openmensa xml data" do
-      updater.validate(mock_content('carrier_ship.xml')).should be_false
-      m = canteen.messages.first
-      m.should be_an_instance_of(FeedValidationError)
-      m.kind.should == :unknown_version
-      m.version.should be_nil
+      updater.stub(:data).and_return mock_content('carrier_ship.xml')
+      updater.parse!
+      updater.validate!.should be_false
+
+      canteen.messages.first.tap do |message|
+        message.should be_a(FeedValidationError)
+        message.kind.should    == :unknown_version
+        message.version.should == nil
+      end
     end
   end
 
   it "should return 1 on valid v1 openmensa xml feeds" do
-    updater.validate(mock_content('canteen_feed.xml')).should == 1
+    updater.stub(:data).and_return mock_content('canteen_feed.xml')
+    updater.parse!
+    updater.validate!.should == 1
   end
+
   it "should return 2 on valid v openmensa xml feeds" do
-    updater.validate(mock_content('feed_v2.xml')).should == 2
+    updater.stub(:data).and_return mock_content('feed_v2.xml')
+    updater.parse!
+    updater.validate!.should == 2
   end
 
   context "with valid v2 feed" do
     it 'ignore empty feeds' do
-      document = updater.validate mock_content 'feed2_empty.xml'
-      document.should == 2
-      lca = canteen.last_fetched_at
-      updater.updateCanteen updater.document.root.child.next
-      canteen.last_fetched_at.should == lca
+      updater.stub(:data).and_return mock_content('feed2_empty.xml')
+      updater.parse!
+
+      expect {
+        updater.update_canteen updater.document.root.child.next
+      }.to_not change { canteen.last_fetched_at }
     end
 
     context 'with new data' do
@@ -142,7 +161,7 @@ describe OpenMensa::Updater do
         meal << t = xml_text('price', '2.70'); t['role'] = 'other'
         today.meals.size.should be_zero
 
-        updater.addMeal(today, meal_category, meal)
+        updater.add_meal(today, meal_category, meal)
 
         today.meals.size.should == 1
         today.meals.first.name.should == meal_name
@@ -178,7 +197,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should == 1
         day = canteen.days.first
@@ -197,7 +216,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should == 1
         day = canteen.days.first
@@ -208,14 +227,13 @@ describe OpenMensa::Updater do
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
-        document = updater.validate mock_content('feed_v2.xml')
-        document.should == 2
+        updater.stub(:data).and_return mock_content('feed_v2.xml')
+        updater.parse!
 
         canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
-        last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.last_fetched_at.should > Time.zone.now - 1.minute
@@ -231,7 +249,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should be_zero
 
@@ -247,7 +265,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should be_zero
 
-        updater.addDay(day)
+        updater.add_day(day)
 
         canteen.days.size.should == 1
 
@@ -268,7 +286,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         today.should_not be_closed
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should be_zero
         today.should be_closed
@@ -296,7 +314,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 0
         today.should be_closed
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         today.should_not be_closed
@@ -326,7 +344,7 @@ describe OpenMensa::Updater do
         # starting check
         today.meals.size.should == 1
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 2
         today.meals.map(&:name) == [meal.name, meal_name]
@@ -353,7 +371,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         updated_at = today.meals.first.updated_at - 1.second
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         today.meals.first.prices.should == { student: 1.7, other: 2.7 }
@@ -382,7 +400,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         updated_at = today.meals.first.updated_at
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         today.meals.first.prices.should == { student: 1.8, employee: 2.9 }
@@ -405,14 +423,14 @@ describe OpenMensa::Updater do
 
         # starting check
         today.meals.size.should == 2
-        mealIds = today.meals.map(&:id)
+        ids = today.meals.map(&:id)
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals(force_reload=true).size.should == 1
         today.meals.first.should == meal2
 
-        mealIds.map { |id| Meal.find_by_id id }.should == [nil, meal2]
+        ids.map { |id| Meal.find_by_id id }.should == [nil, meal2]
 
         updater.should be_changed
       end
@@ -432,15 +450,15 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         updated_at = meal1.updated_at
 
-        updater.updateDay(today, day)
+        updater.update_day(today, day)
 
         today.meals.size.should == 1
         meal1.updated_at.should == updated_at
       end
 
       it 'should update last_fetch_at and not last_changed_at' do
-        document = updater.validate mock_content('feed_v2.xml')
-        document.should == 2
+        updater.stub(:data).and_return mock_content('feed_v2.xml')
+        updater.parse!
 
         day1 = FactoryGirl.create :day, date: Date.new(2012, 05, 22), canteen: canteen
         meal1 = FactoryGirl.create :meal, day: day1, name: 'Tagessuppe'
@@ -453,10 +471,9 @@ describe OpenMensa::Updater do
         canteen.days.size.should == 3
         canteen.meals.size.should == 4
 
-        last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.days.size.should == 5
         canteen.meals.size.should == 10
@@ -465,10 +482,10 @@ describe OpenMensa::Updater do
       end
 
       it 'should set last_fetched_at on unchanged feed data with days' do
-        document = updater.validate mock_content('feed_v2.xml')
-        document.should == 2
+        updater.stub(:data).and_return mock_content('feed_v2.xml')
+        updater.parse!
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.days.size.should == 4
         canteen.meals.size.should == 9
@@ -478,7 +495,7 @@ describe OpenMensa::Updater do
 
         Timecop.freeze Time.now + 1.hour
 
-        updater.updateCanteen updater.document.root.child.next
+        updater.update_canteen updater.document.root.child.next
 
         canteen.last_fetched_at.should > last_fetched_at
         canteen.updated_at.should == updated_at
@@ -494,7 +511,7 @@ describe OpenMensa::Updater do
         # starting check
         canteen.days.size.should == 1
 
-        updater.updateDay(d, day)
+        updater.update_day(d, day)
 
         canteen.days.size.should == 1
 
@@ -512,7 +529,7 @@ describe OpenMensa::Updater do
         canteen.days.size.should == 1
         canteen.days.first.should_not be_closed
 
-        updater.updateDay(d, day)
+        updater.update_day(d, day)
 
         canteen.days.size.should == 1
         canteen.days.first.should be_closed

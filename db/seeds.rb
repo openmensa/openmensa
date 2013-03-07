@@ -8,8 +8,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.current = User.system
-
 admin = User.create! name: 'admin', login: 'admin', email: 'admin@om.altimos.de'
 
 Canteen.create! name: "Mensa Potsdam, Wildau", address: "Bahnhofstr. 1, 15745 Wildau, DE",

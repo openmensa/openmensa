@@ -6,7 +6,6 @@ class Meal < ActiveRecord::Base
   has_many :comments, as: :commentee
   has_and_belongs_to_many :notes, autosave: true, readonly: true, uniq: true
 
-  attr_accessible :description, :name, :category, :day_id, :day, :prices, :price_student, :price_employee, :price_pupil, :price_other, :notes
   validates :name, :category, :day_id, presence: true
 
   scope :for, lambda { |date| where('days.date' => date.to_date) }

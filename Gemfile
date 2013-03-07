@@ -4,8 +4,7 @@ gem 'rails', '~> 3.2'
 gem 'jquery-rails'
 
 gem 'slim'
-gem 'msgpack', '~> 0.4.5'
-gem 'oj'
+gem 'oj', platforms: :ruby
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
@@ -16,6 +15,8 @@ gem 'cancan'
 gem 'gravtastic'
 gem 'rails-timeago', '>= 1.3.0'
 gem 'bcrypt-ruby',   '~> 3.0.0'
+# bleeding edge whenever dependency with Ruby 2.0 compatibility
+gem 'chronic', :git => 'https://github.com/mojombo/chronic.git'
 gem 'whenever', require: false
 gem 'rack-piwik', require: 'rack/piwik'
 gem 'geocoder'
@@ -28,32 +29,44 @@ gem 'has_scope'
 gem 'will_paginate'
 gem 'paginate-responder', '>= 1.1.1'
 gem 'decorate-responder'
+gem 'api-responder'
 
-gem 'sqlite3'
-gem 'pg'
+gem 'pg', platforms: :ruby
+gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
+gem 'jruby-openssl', platforms: :jruby
 
 group :assets do
   gem "sass", "~> 3.2.0"
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer', '~> 0.10.0', platforms: :ruby
+  gem 'therubyrhino', platforms: :jruby
+  gem 'font-awesome-rails'
   gem 'uglifier'
-  gem 'compass-rails'
   gem 'bourbon'
 end
 
 group :production do
-  gem 'unicorn'
+  gem 'unicorn', platforms: :ruby
 end
 
-group :development, :test do
-  gem 'sqlite3'
-  gem 'thin'
-  gem 'rspec-rails', '~> 2.0'
+group :development do
+  gem 'thin', platforms: :ruby
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
   gem 'capistrano-unicorn'
+  gem 'rb-inotify', '~> 0.8.8'
+
+  # For debugging on MRI 2.0
+  gem 'ruby-debug-ide', '>= 0.4.17.beta14', require: false, platforms: :ruby
+  gem 'debase', '>= 0.0.2', require: false, platforms: :ruby
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'guard-rspec',    require: false
+  gem 'guard-spork',    require: false
 end
 
 group :test do
@@ -64,8 +77,6 @@ group :test do
   gem 'capybara',       require: false
   gem 'poltergeist',    require: false
   gem 'turn',           require: false
-  gem 'guard-rspec',    require: false
-  gem 'guard-spork',    require: false
   gem 'simplecov',      require: false
   gem 'simplecov-rcov', require: false
   gem 'spork-rails', '>= 3.2.0'

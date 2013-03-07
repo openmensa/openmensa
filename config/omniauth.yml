@@ -13,10 +13,12 @@ development: &dev
     key: 1077144505741-918mbo03g7sdqkes2dn65fcrhb672rfe.apps.googleusercontent.com
     secret: FjS15-RTEs-dz2Cf8iXZDYSs
 
-test:
+test: &test
   github:
     key: test
     secret: test
   twitter:
     key: test
     secret: test
+ci:
+  <<: *test

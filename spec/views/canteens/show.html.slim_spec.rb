@@ -9,6 +9,8 @@ describe "canteens/show.html.slim" do
     assign(:user, user)
     assign(:canteen, canteen)
     assign(:date, Time.zone.now.to_date)
+
+    view.stub(:current_user) { user }
   end
 
   it "should contain canteen name" do

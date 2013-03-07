@@ -5,12 +5,11 @@ class User < ActiveRecord::Base
   has_many :identities
   has_many :messages, through: :canteens
   has_many :canteens
+  has_many :favorites
 
   validates :login, presence: true, uniqueness: true, exclusion: ['anonymous', 'system']
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true }
-
-  attr_accessible :login, :name, :email, :time_zone, :language, :send_reports, :admin
 
   scope :all, lambda { where("#{User.table_name}.login != ? AND #{User.table_name}.login != ?", 'anonymous', 'system') }
 
@@ -55,6 +54,10 @@ class User < ActiveRecord::Base
   def can?(*attr) ability.can?(*attr) end
   def cannot?(*attr) ability.cannot?(*attr) end
 
+  def has_favorite?(canteen)
+    favorites.where(canteen_id: canteen).any?
+  end
+
   # -- class methods
   def self.current
     @current_user || self.anonymous
@@ -68,22 +71,29 @@ class User < ActiveRecord::Base
     AnonymousUser.instance
   end
 
-  def self.system
-    SystemUser.instance
+  def self.create_omniauth(info, identity)
+    info ||= {}
+    self.create(
+        name: (info['name'] || identity.uid),
+        login: (info['login'] || identity.uid),
+        email: info['email']
+      ).tap do |user|
+        identity.update_attributes! user: user
+    end
   end
 end
 
 
-class SystemUser < User
+class AnonymousUser < User
   validate :single_user
 
   def single_user
-    errors.add_to_base 'A system user already exists.' if self.class.find_by_login(self.class.login_id)
+    errors.add_to_base 'An anonymous user already exists.' if self.class.find_by_login(self.class.login_id)
   end
 
   def logged?; false end
-  def admin?; true end
-  def name; I18n.t(:system_user) end
+  def admin?; false end
+  def name; I18n.t(:anonymous_user) end
   def last_name; name end
   def email; nil end
   def destroy; false end
@@ -102,12 +112,5 @@ class SystemUser < User
     user
   end
 
-  def self.login_id; 'system' end
-end
-
-
-class AnonymousUser < SystemUser
-  def admin?; false end
-  def name; I18n.t(:anonymous_user) end
   def self.login_id; 'anonymous' end
 end

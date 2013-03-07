@@ -9,10 +9,10 @@
             - Identity.providers.each do |id|
               - if @identities.include? id
                 span class="btn btn-login btn-social btn-#{id} btn-disabled"
-                  i.icon-large class="icon-#{id}-sign"
+                  i.icon-large class="icon-#{id}"
                   = t(:service, id)
               - else
                 = link_to auth_path(id, ref: user_path(current_user)), class: "btn btn-login btn-social btn-#{id}", title: t(:service, id) do
-                  i.icon-large class="icon-#{id}-sign"
+                  i.icon-large class="icon-#{id}"
                   = t(:service, id)
 

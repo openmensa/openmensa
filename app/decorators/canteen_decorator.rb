@@ -1,12 +1,12 @@
 class CanteenDecorator < Draper::Decorator
-  include ApiDecorator
+  include ApiResponder::Formattable
   decorates :canteen
 
   def coordinates
     [ model.latitude, model.longitude ]
   end
 
-  def to_version_1(options)
+  def as_api_v1(options)
     {
       cafeteria: {
         id: model.id,
@@ -17,7 +17,7 @@ class CanteenDecorator < Draper::Decorator
     }
   end
 
-  def to_version_2(options)
+  def as_api_v2(options)
     {
       id: model.id,
       name: model.name,

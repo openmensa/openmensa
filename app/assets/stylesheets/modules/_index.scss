@@ -1,8 +1,10 @@
+@import "css3/transition";
+@import "variables";
 
 .appbox {
   position: relative;
   border-top: 1px solid #ddd;
-  @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
 
   a {
     color: #333;
@@ -70,4 +72,33 @@
 .bb {
   @extend .appbox;
   a { background-image: image-url("bb.png"); }
+}
+
+.favs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li a {
+    width: auto;
+    color: black;
+    display: block;
+    text-align: left;
+
+    padding: 10px 0 9px 12px;
+    border-top: 1px solid #ddd;
+
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
+    @include transition(background-color .2s ease-in-out);
+
+    &:hover {
+      text-decoration: none;
+      background-color: #efefef;
+      @include transition(background-color .2s ease-in-out);
+    }
+
+    &:before {
+      margin-right: 9px;
+    }
+  }
 }

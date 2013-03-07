@@ -1,7 +1,9 @@
+@import "responsive";
+@import "extends";
 
 .users_controller {
   .identities {
-    @include clearfix;
+    @extend %clearfix;
     padding: 3px 3px 4px !important;
 
     p { clear: both; padding: 6px 12px 0; }
@@ -17,7 +19,7 @@
     background-color: #fff;
     position: relative;
     border: 1px solid #ddd;
-    @include box-shadow(0 1px 3px rgba(#000, 0.1));
+    box-shadow: 0 1px 3px rgba(#000, 0.1);
 
     @include media(mobile) {
       width: 98%;
@@ -26,7 +28,8 @@
     i {
       color: #444;
       float: left;
-      font-size: 60px;
+      font-size: 45px;
+      margin-top: 12px
     }
 
     span.provider {
@@ -65,7 +68,7 @@
       border: 0;
       margin-right: 10px !important;
       height: 84px;
-      @include box-shadow(none);
+      box-shadow: none;
     }
   }
 }

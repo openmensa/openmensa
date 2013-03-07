@@ -1,9 +1,9 @@
-
-@import 'responsive';
+@import "responsive";
+@import "extends";
+@import "variables";
 
 $grid-count: 12 !default;
 $grid-gutter: 1.5% !default;
-
 
 @mixin grid-span($i: 1, $count: 12, $margin: 1.5%) {
   width: (100%/$count)*$i - $margin + ($margin/$count*$i);
@@ -13,9 +13,8 @@ $grid-gutter: 1.5% !default;
   padding-left: (100% / $count) * $i + ($margin/$count*$i);
 }
 
-
 .row {
-  @include pie-clearfix;
+  @extend %clearfix;
 
   display: block;
   width: 100%;
@@ -37,6 +36,15 @@ $grid-gutter: 1.5% !default;
     &:first-child { margin-left: 0; float: left; }
   }
 
+  &.reversed {
+    > [class*='span'], > [class*='offset'] {
+      float: right;
+
+      &:last-child { margin-left: 0; float: left; }
+      &:first-child { margin-left: $grid-gutter; float: right; }
+    }
+  }
+
   &:not(.tablet) {
     @include media(handheld) {
       > [class*='span'], > [class*='offset'] {
@@ -45,6 +53,33 @@ $grid-gutter: 1.5% !default;
         padding: 0;
         margin-left: 0;
       }
+    }
+  }
+}
+
+.trow {
+  display: table;
+  width:  100%;
+  @for $i from 1 through $grid-count {
+    > .span#{$i}   { @include grid-span($i, $grid-count, 0); }
+    > .offset#{$i} { @include grid-offset($i, $grid-count, 0); }
+  }
+
+  > [class*='span'], > [class*='offset'] {
+    display: table-cell;
+    vertical-align: top;
+    float: none;
+    margin-left: 0;
+    border-left: 1px solid $frame-color;
+
+    &:first-child { border-left-width: 0; }
+  }
+
+  @include media(mobile) {
+    > [class*='span'], > [class*='offset'] {
+      display: block;
+      width: auto;
+      border-left-width: 0;
     }
   }
 }

@@ -1,0 +1,17 @@
+@import "css3/transition";
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+%hover-transition {
+  @include transition(all .2s ease-in-out);
+}
+
+%clearfix {
+  @include clearfix;
+}

@@ -10,7 +10,7 @@ require "sprockets/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(:assets => %w(development test ci)))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -50,11 +50,8 @@ module Openmensa
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    # Enforce whitelist mode for mass assignment.
-    # This will create an empty whitelist of attributes available for mass-assignment for all models
-    # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
-    # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    # Whitelist not required due to strong_parameters
+    config.active_record.whitelist_attributes = false
 
     # Change csrf token name
     config.action_controller.request_forgery_protection_token = '_xsrf_token'
@@ -63,7 +60,7 @@ module Openmensa
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '2.0'
 
     config.assets.initialize_on_precompile = false
 
@@ -71,5 +68,17 @@ module Openmensa
 
     # send content length (at least required for api calls)
     config.middleware.use Rack::ContentLength
+
+    # Load ruby platform specific database configuration
+    def config.database_configuration
+      files = []
+      files += %W(/config/database.#{ENV['DB_ENV']}.#{RUBY_ENGINE}.yml /config/database.#{ENV['DB_ENV']}.yml) if ENV['DB_ENV']
+      files += %W(/config/database.#{RUBY_ENGINE}.yml /config/database.yml)
+      files.each do |file|
+        file = Rails.root.to_s + file
+        return YAML::load(ERB.new(IO.read(file)).result) if File.exists?(file)
+      end
+      raise "No database configuration found."
+    end
   end
 end

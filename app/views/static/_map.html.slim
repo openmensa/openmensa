@@ -1,0 +1,22 @@
+#index_map.row.reversed
+  - if current_user.internal?
+    section
+      = map Canteen.all
+  - else
+    .span4
+      form
+
+      section.favorites class="#{@favorites.empty? ? "empty" : ""}"
+        header: h2 = t('favorites.my_favorites')
+        - if @favorites.empty?
+          .content
+            p=t('favorites.howto_add')
+        - else
+          ul.favs
+            - @favorites.each do |f|
+              li = link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
+
+    .span8
+      section
+        = map Canteen.all
+

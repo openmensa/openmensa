@@ -1,3 +1,7 @@
+@import "css3/transition";
+@import "css3/transform";
+@import "responsive";
+@import "extends";
 
 .canteens_controller {
   #canteen-header {
@@ -13,6 +17,21 @@
       padding: 15px 25px;
       text-shadow: none;
       background-color: rgba(0, 0, 0, 0.8);
+
+      .fav {
+        float: right;
+        color: white;
+        padding: 0 7px;
+        border-radius: 20px;
+        @include transition(all .3s ease-in-out);
+
+        &:hover {
+          color: #000;
+          text-decoration: none;
+          background-color: #ffffff;
+          @include transition(all .3s ease-in-out);
+        }
+      }
     }
 
     @include media(tablet) {
@@ -101,7 +120,8 @@
       }
 
       &:first-child {
-        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+        padding-top: 5px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
       }
       // &:last-child > div { padding-bottom: 8px; }
 
@@ -138,31 +158,22 @@
         > li {
           @extend %clearfix;
           border-bottom: 1px dotted #eee;
+          padding-right: 10px;
+
           &:last-child { border: none; }
-
-          // @extend %hover-transition;
-
-          // &:hover {
-          //   @extend %hover-transition;
-          //   background-color: #fcfcfc;
-          //   cursor: pointer;
-          // }
-
-          // > h3 { visibility: hidden; position: absolute; }
-          // &:first-child h3 { visibility: visible; }
-          // > p { margin: 9px 0 9px 155px; }
-          // > div { @include clearfix; }
 
           ul.notes, ul.prices {
             margin: 0;
             list-style: none;
             position: relative;
+            display: table-cell;
             padding: 0 0 12px 0;
             @extend %hover-transition;
 
             color: #ccc;
             font-size: .85em;
           }
+
           ul.notes {
             margin: 0;
 
@@ -172,6 +183,7 @@
               &:before { content: '~'; }
             }
           }
+
           ul.prices {
             float: right;
             margin: 0 0 0 15px;
@@ -213,37 +225,14 @@
             ul.notes, ul.prices { margin: 1px 0 0 0; color: #aaa; padding-bottom: 0; }
             ul.prices li { width: auto; margin-left: 1em; visibility: visible; opacity: 1.0; }
             ul.prices li span { display: none; }
-            // ul.notes {
-            //   li { display: none; }
-            //   li:first-child, li:nth-child(2) { display: block; }
-            //   li:nth-child(3) { display: block; content: '...'; }
-            // }
           }
         }
       }
-
-      // @include media(mobile) {
-      //   > h3, div.meal h3 {
-      //     float: none;
-      //     width: 100%;
-      //     text-align: left;
-      //     margin: 2px 0 0;
-      //     padding: 2px 0 !important;
-      //     border-bottom: 1px dotted #eee;
-      //     position: static;
-      //   }
-      //   > h3, > p { margin: 1px 6px; padding: 2px 0; }
-      //   div.meal {
-      //     padding: 3px 5px 3px 10px !important;
-
-      //     > p { margin: 3px 0 1px; }
-      //   }
-      // }
     }
   }
 
   .content .map {
-    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 
   .status p {

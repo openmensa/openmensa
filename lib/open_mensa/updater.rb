@@ -3,98 +3,67 @@ require_dependency 'message'
 
 class OpenMensa::Updater
   include Nokogiri
-  def initialize(canteen, version=nil)
+  attr_reader :canteen, :document, :version, :data
+
+  def initialize(canteen, version = nil)
     @canteen = canteen
-    @changed = false
     @version = version
-    @document = nil
-  end
-  def canteen
-    @canteen
+    @changed = false
   end
 
   def changed?
     @changed
   end
 
-  def document
-    @document
-  end
-
-
-  # 1. fetch data
-  def fetch(handle_301=true)
-    return false unless canteen.url.present?
-    uri = URI.parse canteen.url
-    open uri, redirect: !handle_301
-  rescue URI::InvalidURIError
-    Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
-    FeedInvalidUrlError.create canteen: canteen
-    false
-  rescue OpenURI::HTTPRedirect => redirect
-    if redirect.message.start_with? '301' # permanent redirect
-      Rails.logger.warn "Update url of canteen #{canteen.id} to '#{redirect.uri.to_s}'"
-      FeedUrlUpdatedInfo.create canteen: canteen, old_url: canteen.url, new_url: redirect.uri.to_s
-      canteen.update_attribute :url, redirect.uri.to_s
+  # 1. Fetch feed data
+  def fetch!
+    @data = OpenMensa::FeedLoader.new(canteen).load!
+  rescue OpenMensa::FeedLoader::FeedLoadError => error
+    error.cause.tap do |err|
+      case err
+        when URI::InvalidURIError
+          Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
+          FeedInvalidUrlError.create canteen: canteen
+        when OpenURI::HTTPError
+          create_fetch_error! err.message, err.message.to_i
+        else
+          create_fetch_error! err.message
+      end
     end
-    fetch false
-  rescue OpenURI::HTTPError => error
-    FeedFetchError.create({
-        canteen: @canteen, code: error.message.to_i,
-        message: error.message})
-    false
-  rescue => error
-    FeedFetchError.create({
-        canteen: @canteen, code: nil,
-        message: error.message})
     false
   end
 
-
-  # 2. validate data
-  def self.schema_v1
-    @schema_v1 ||= XML::Schema.new File.open(Rails.root.join('public', 'open-mensa-v1.xsd').to_s)
-    @schema_v1
+  # 2. Parse XML data
+  def parse!
+    @version  = nil
+    @document = OpenMensa::FeedParser.new(data).parse!
+  rescue OpenMensa::FeedParser::ParserError => err
+    err.errors.each do |error|
+      create_validation_error! :no_xml, error.message
+    end
+    false
   end
-  def self.schema_v2
-    @schema_v2 ||= XML::Schema.new File.open(Rails.root.join('public', 'open-mensa-v2.xsd').to_s)
-    @schema_v2
-  end
 
-  def validate(data)
-    @version = nil
-    @document = XML::Document.parse data
-    @document.errors.each do |error|
-      FeedValidationError.create({
-        canteen: @canteen, version: @version,
-        kind: :no_xml, message: error.message})
+  # 2. Validate XML document
+  def validate!
+    OpenMensa::FeedValidator.new(document).tap do |validator|
+      @version = validator.version
+      validator.validate!
     end
-    return false unless @document.errors.empty?
-
-    @version = @document.root.nil? ? nil : @document.root[:version].to_i
-    case @version
-      when 1 then schema = self.class.schema_v1
-      when 2 then schema = self.class.schema_v2
-      else
-        FeedValidationError.create({
-          canteen: @canteen, version: nil,
-          kind: :unknown_version })
-        return false
+    version
+  rescue OpenMensa::FeedValidator::InvalidFeedVersionError
+    create_validation_error! :unknown_version
+    false
+  rescue OpenMensa::FeedValidator::FeedValidationError => err
+    err.errors.each do |error|
+      create_validation_error! :invalid_xml, error.message
     end
-
-    errors = schema.validate(@document)
-    errors.each do |error|
-      FeedValidationError.create({
-        canteen: @canteen, version: @version,
-        kind: :invalid_xml, message: error.message })
-    end
-    return false unless errors.empty?
-    return @version
+    false
   end
 
 
   # 3. process data
-  def addMeal(day, category, meal)
+  def add_meal(day, category, meal)
     day.meals.create(
       category: category,
       name: meal.children.find { |node| node.name == 'name' }.content,
@@ -107,39 +76,39 @@ class OpenMensa::Updater
     @changed = true
   end
 
-  def updateMeal(meal, category, mealData)
-    meal.prices = mealData.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
+  def update_meal(meal, category, meal_data)
+    meal.prices = meal_data.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
       prices[node['role']] = node.content if node.name == 'price' and @version == 2
       prices
     end
-    meal.notes = mealData.children.select { |n| n.name == 'note' }.map(&:content)
+    meal.notes = meal_data.children.select { |n| n.name == 'note' }.map(&:content)
     meal.save if meal.changed?
   end
 
-  def addDay(dayData)
-    return if Date.parse(dayData['date']) < Date.today
-    day = canteen.days.create(date: Date.parse(dayData['date']))
-    if not dayData.children.any? { |node| node.name == 'closed' }
-      dayData.children.select(&:element?).each do |category|
-        category.children.select(&:element?).inject([]) do |names, meal|
+  def add_day(day_data)
+    return if Date.parse(day_data['date']) < Date.today
+    day = canteen.days.create(date: Date.parse(day_data['date']))
+    if day_data.children.any? { |node| node.name == 'closed' }
+      day.closed = true
+      day.save!
+    else
+      day_data.element_children.each do |category|
+        category.element_children.inject([]) do |names, meal|
           name = meal.children.find { |node| node.name == 'name' }.content
           unless names.include? name
-            addMeal(day, category['name'], meal)
+            add_meal(day, category['name'], meal)
             names << name
           end
           names
         end
       end
-    else
-      day.closed = true
-      day.save!
     end
     @changed = true
   end
 
-  def updateDay(day, dayData)
-    return if Date.parse(dayData['date']) < Date.today
-    if dayData.children.any? { |node| node.name == 'closed' }
+  def update_day(day, day_data)
+    return if Date.parse(day_data['date']) < Date.today
+    if day_data.children.any? { |node| node.name == 'closed' }
       @changed = !day.closed?
       day.meals.destroy_all
       day.update_attribute :closed, true
@@ -152,15 +121,15 @@ class OpenMensa::Updater
         memo[[value.category, value.name.to_s]] = value
         memo
       end
-      dayData.children.select(&:element?).each do |category|
-        category.children.select(&:element?).each do |meal|
+      day_data.element_children.each do |category|
+        category.element_children.each do |meal|
           name = meal.children.find { |node| node.name == 'name' }.content
-          mealObject = names[[category['name'], name]]
-          if mealObject.is_a? Meal
-            updateMeal mealObject, category['name'], meal
+          meal_obj = names[[category['name'], name]]
+          if meal_obj.is_a? Meal
+            update_meal meal_obj, category['name'], meal
             names[[category['name'], name ]] = false
-          elsif mealObject.nil?
-            addMeal day, category['name'], meal
+          elsif meal_obj.nil?
+            add_meal day, category['name'], meal
           end
         end
       end
@@ -173,42 +142,54 @@ class OpenMensa::Updater
   end
 
 
-  def updateCanteen(canteenData)
+  def update_canteen(canteen_data)
     days = canteen.days.inject({}) { |m,v| m[v.date.to_s] = v; m }
-    dayUpdates = nil
-    canteenData.children.select(&:element?).each do |day|
+    day_updated = nil
+    canteen_data.element_children.each do |day|
       canteen.transaction do
         date = day['date']
         if days.key? date
-          updateDay days[date], day
+          update_day days[date], day
         else
-          addDay day
+          add_day day
         end
-        dayUpdates = true
+        day_updated = true
       end
     end
-    if dayUpdates
+    if day_updated
       canteen.update_column :last_fetched_at, Time.zone.now
     end
     changed?
   end
 
 
-  # all togther
+  # all together
   def update
-    document = fetch
-    return false unless document
-    version = validate document.read
-    return false unless version
-    case version
+    return false unless fetch! and parse! and validate!
+
+    update_canteen case version
       when 1 then
-        canteenData = @document.root
+        @document.root
       when 2 then
-        canteenData = @document.root.children.first
-        while canteenData.name != 'canteen'
-          canteenData = canteenData.next
-        end
+        node = @document.root.children.first
+        node = node.next while node.name != 'canteen'
+        node
+      else
+        nil
     end
-    updateCanteen canteenData
+  end
+
+private
+  def create_validation_error!(kind, message = nil)
+    FeedValidationError.create! canteen: canteen,
+                                version: version,
+                                message: message,
+                                kind: kind
+  end
+
+  def create_fetch_error!(message, code = nil)
+    FeedFetchError.create canteen: canteen,
+                          message: message,
+                          code: code
   end
 end

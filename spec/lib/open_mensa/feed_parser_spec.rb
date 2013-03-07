@@ -1,0 +1,29 @@
+require 'spec_helper'
+require 'nokogiri'
+
+describe OpenMensa::FeedParser do
+  let(:valid_data)   { mock_content('feed_v2.xml') }
+  let(:invalid_data) { mock_content('feed_garbage.dat') }
+
+  describe '#parse' do
+    it 'should return XML document on valid XML data' do
+      OpenMensa::FeedParser.new(valid_data).parse.should be_a(Nokogiri::XML::Document)
+    end
+
+    it 'should return false on non valid XML data' do
+      OpenMensa::FeedParser.new(invalid_data).parse.should == false
+    end
+  end
+
+  describe '#parse!' do
+    it 'should return XML document on valid XML data' do
+      OpenMensa::FeedParser.new(valid_data).parse!.should be_a(Nokogiri::XML::Document)
+    end
+
+    it 'should raise an error on non valid XML data' do
+      expect {
+        OpenMensa::FeedParser.new(invalid_data).parse!
+      }.to raise_error(::OpenMensa::FeedParser::ParserError)
+    end
+  end
+end

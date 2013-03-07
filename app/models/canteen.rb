@@ -9,14 +9,13 @@ class Canteen < ActiveRecord::Base
   has_many :meals, through: :days
   has_many :messages
 
-  attr_accessible :address, :name, :url, :user, :fetch_hour, :latitude, :longitude
   validates :address, :name, :user_id, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :geocode?
 
   def geocode?
-    return false if Rails.env.test?
+    return false unless Rails.env.production? or Rails.env.development?
     !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
   end
 

@@ -1,3 +1,6 @@
+@import "css3/linear-gradient";
+@import "addons/font-family";
+@import "responsive";
 
 .leaflet-popup-content-wrapper {
   border-radius: 0;
@@ -17,11 +20,11 @@
 
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
   background-color: #4598d0;
-  background-color: rgba(#4598d0, 0.8);
-  @include linear-gradient(rgba(#4598d0, 0.8), rgba(#1374cf, 0.8));
+  background-color: rgba(#4598d0, 0.9);
+  @include linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
   // opacity: 0.2;
   border: 1px solid #597393;
-  border: 1px solid rgba(#597393, 0.8);
+  border: 1px solid rgba(#597393, 0.9);
   text-align: center;
 
   div {
@@ -45,10 +48,40 @@
   height: 250px;
 }
 
-#index_map .map {
-  height: 450px;
+#index_map {
+
+  .favorites {
+    background-image: image-url("hbg.png");
+    height: 500px;
+
+    .content, ul {
+      background: #fff;
+      border-bottom: 1px solid $frame-color;
+    }
+  }
+
+  .map {
+    height: 500px;
+  }
+
+  @include media(handheld) {
+    .map {
+      height: 350px;
+    }
+
+    .favorites {
+      width: 100%;
+      height: auto;
+      border-bottom: none;
+
+      &.empty { display: none; visibility: hidden; }
+    }
+  }
 
   @include media(mobile) {
-    height: 250px;
+    .map {
+      height: 250px;
+    }
   }
 }
+

@@ -1,7 +1,7 @@
 class Api::V2::DaysController < Api::BaseController
   respond_to :json
 
-  has_scope :start, default: "true" do |controller, scope, value|
+  has_scope :start, default: 'true' do |controller, scope, value|
     begin
       value = Date.strptime(value, '%Y-%m-%d')
     rescue ArgumentError

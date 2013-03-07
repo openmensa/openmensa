@@ -1,6 +1,4 @@
-$responsive-mobile-width: 480px !default;
-$responsive-tablet-width: 767px !default;
-$responsive-default-width: 1350px !default;
+@import "variables";
 
 @mixin media($media) {
   @if $media == 'mobile' {
@@ -27,8 +25,4 @@ $responsive-default-width: 1350px !default;
     @media only screen and (min-width: $responsive-tablet-width + 1)
     { @content; }
   }
-}
-
-.hide-handheld {
-  @include media(handheld) { display: none; }
 }

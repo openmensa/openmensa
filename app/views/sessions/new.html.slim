@@ -9,6 +9,6 @@
           p.centered.ident-buttons
             - Rails.configuration.omniauth_services.each do |id|
               = link_to auth_path(id), class: "btn btn-login btn-social btn-#{id}", title: t(:service, id) do
-                i.icon-large class="icon-#{id}-sign"
+                i.icon-large class="icon-#{id}"
                 = t(:service, id)
 

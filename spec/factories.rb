@@ -122,4 +122,11 @@ FactoryGirl.define do
 
     association :canteen
   end
+
+  factory :favorite do
+    sequence :priority
+
+    association :user
+    association :canteen
+  end
 end

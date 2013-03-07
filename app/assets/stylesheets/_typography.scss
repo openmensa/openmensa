@@ -1,16 +1,6 @@
-
+@import "addons/font-family";
 @import 'responsive';
-
-$text-size: 62.5% !default;
-$text-color: #333 !default;
-$text-font: $helvetica !default;
-
-$header-color: $text-color !default;
-$header-font: 'Droid Sans', $text-font !default;
-$header-bg-color: #f1f1f1;
-
-$frame-color: #ccc !default;
-$link-color: #2941B4 !default;
+@import 'variables';
 
 @mixin p {
   margin: 8px 0;
@@ -39,8 +29,8 @@ h1, h2, h3, h4, h5 {
   font-weight: normal;
   @include p;
 
-  &[class^="icon-"]::before, &[class*=" icon-"]::before {
-    margin-right: .35em;
+  & > [class^="icon-"], & > [class*=" icon-"] {
+    margin-right: .45em;
   }
 }
 h2 { font-size: 21px; font-size: 2.1rem; }
@@ -68,7 +58,7 @@ ol { list-style: decimal; }
 hr { border: none; border-top: 1px solid $frame-color; }
 code, pre { font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
 code {
-  @include border-radius(2px);
+  border-radius: 2px;
   background-color: #f4f4f4;
   border: 1px solid $frame-color;
   padding: 0 2px;

@@ -75,6 +75,7 @@ describe "Developers" do
     before { message; click_on "Statusmitteilungen" }
 
     it "should allow to view own messages" do
+      click_on canteen.name
       page.should have_content message.canteen.name
       page.should have_content message.message
     end
@@ -96,7 +97,6 @@ describe "Developers" do
       developer.send_reports = true
       developer.save!
 
-      click_on "Profil"
       uncheck "Sende Error-Reports per Mail (maximal täglich)"
       click_on "Speichern"
 

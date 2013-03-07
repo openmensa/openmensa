@@ -1,9 +1,9 @@
 class DayDecorator < Draper::Decorator
-  include ApiDecorator
+  include ApiResponder::Formattable
   decorates :day
   decorates_association :meals
 
-  def to_version_2(options)
+  def as_api_v2(options)
     result = {
       date: model.date.iso8601,
       closed: model.closed

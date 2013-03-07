@@ -7,50 +7,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    return failure unless request.env["omniauth.auth"]
+    return failure unless request.env['omniauth.auth']
 
-    @identity = Identity.from_omniauth(request.env["omniauth.auth"])
-    if @identity
-      if current_user.logged?
-        return redirect_back alert: t('message.identity_taken.' + @identity.provider, name: @identity.user.name)
-
-      else
-        self.current_user = @identity.user
-        return redirect_back notice: t('message.login_successful', name: @identity.user.name)
-      end
-
+    identity = Identity.from_omniauth(request.env['omniauth.auth'])
+    if current_user.logged?
+      create_identity! identity
     else
-      @identity = Identity.new_with_omniauth(request.env["omniauth.auth"])
-
-      if current_user.logged?
-        @identity.user = current_user
-        @identity.save!
-        return redirect_back notice: t('message.identity_added.' + @identity.provider, name: @identity.user.name).html_safe
-
-      else
-        @user = User.new
-        if request.env["omniauth.auth"]["info"]
-          @user.login      = request.env["omniauth.auth"]["info"]["login"] || @identity.uid
-          @user.name       = request.env["omniauth.auth"]["info"]["name"] || @identity.uid
-          @user.email      = request.env["omniauth.auth"]["info"]["email"]
-        else
-          @user.login      = @identity.uid
-          @user.name       = @identity.uid
-        end
-        @user.save!
-
-        @identity.user = @user
-        @identity.save!
-
-        self.current_user = @user
-
-        return redirect_back notice: t('message.account_created', name: @user.name)
-      end
+      create_session! identity
     end
   end
 
   def ref
-    return request.env["omniauth.params"]['ref'] if request.env["omniauth.params"] and request.env["omniauth.params"]['ref']
+    return request.env['omniauth.params']['ref'] if request.env['omniauth.params'] and request.env['omniauth.params']['ref']
     params[:ref]
   end
 
@@ -69,5 +37,25 @@ class SessionsController < ApplicationController
   def destroy
     self.current_user = nil
     redirect_to root_url
+  end
+
+private
+  def create_identity!(identity)
+    if identity.new_record?
+      identity.update_attributes! user: current_user
+      redirect_back notice: t('message.identity_added.' + identity.provider, name: identity.user.name).html_safe
+    else
+      redirect_back alert: t('message.identity_taken.' + identity.provider, name: identity.user.name)
+    end
+  end
+
+  def create_session!(identity)
+    if identity.new_record?
+      self.current_user = User.create_omniauth(request.env['omniauth.auth']['info'], identity)
+      redirect_back notice: t('message.account_created', name: identity.user.name)
+    else
+      self.current_user = identity.user
+      redirect_back notice: t('message.login_successful', name: identity.user.name)
+    end
   end
 end

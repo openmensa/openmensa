@@ -44,20 +44,20 @@ def login(identity)
   OmniAuth.config.mock_auth[identity.provider.to_sym] = old_mock
 end
 
-def phantom_image(name)
-  page.driver.render("tmp/#{name}.png", :full => true)
+def image(name)
+  page.save_screenshot "tmp/#{name}.png"
 end
 
 def auth_basic(client)
   unless client.is_a?(Hash)
     client = { id: client.identifier, secret: client.secret }
   end
-  { "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client[:id], client[:secret]) }
+  { 'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Basic.encode_credentials(client[:id], client[:secret]) }
 end
 
 def auth_bearer(token)
   token = token.token if token.respond_to?(:token)
-  { "HTTP_AUTHORIZATION" => "Bearer #{token.to_s}" }
+  { 'HTTP_AUTHORIZATION' => "Bearer #{token.to_s}" }
 end
 
 def auth_via_oauth2(token)
