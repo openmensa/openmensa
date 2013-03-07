@@ -1,11 +1,10 @@
 // Main stylesheet file for default desktop (screen) devices.
 //
+//= require font-awesome
+//= require leaflet
+//= require leaflet.markercluster
+//= require leaflet.control.locate
 //= require_self
-
-@import "font-awesome";
-@import "leaflet";
-@import "leaflet.markercluster";
-@import "leaflet.control.locate";
 
 @import "addons/clearfix";
 @import "addons/prefixer";
