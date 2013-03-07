@@ -75,7 +75,6 @@ end
 group :test do
   gem 'timecop'
   gem 'accept_values_for'
-  gem 'database_cleaner'
   gem 'webmock'
   gem 'capybara',       require: false
   gem 'poltergeist',    require: false
