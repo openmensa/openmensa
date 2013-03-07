@@ -44,8 +44,8 @@
     .qr {
       display: block;
       opacity: 1.0;
-      width: 200px;
-      height: 200px;
+      width: 201px;
+      height: 202px;
       left: -202px;
 
       @include transition(opacity .2s ease-in-out);
