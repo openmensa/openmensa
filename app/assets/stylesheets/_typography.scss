@@ -49,7 +49,7 @@ h5 { font-size: 13px; font-size: 1.3rem; }
 small { font-size: .7em; font-family: sans-serif; font-weight: normal; }
 b, strong { font-weight: bold; }
 i, em { font-style: italic; }
-p, .p { @include p; }
+p, .p { @include p; line-height: 1.5em; }
 
 ul, ol { @extend p;
   padding-left: 2.5em; }
