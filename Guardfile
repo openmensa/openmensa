@@ -2,20 +2,7 @@
 # Studix Guardfile -- for RSpec
 #
 
-guard 'spork', cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'RAILS_ENV' => 'test' } do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  # watch('Gemfile') # Do not reload spork on Gemfile change. Only of Gemfile.lock was changed after bundle install.
-  watch('Gemfile.lock')
-  watch('spec/spec_helper.rb') { :rspec }
-  watch(%r{spec/support/}) { :rspec }
-  watch('test/test_helper.rb') { :test_unit }
-  watch(%r{features/support/}) { :cucumber }
-end
-
-guard 'rspec', version: 2, cli: '--drb', :all_after_pass => false, :all_on_start => false do
+guard 'rspec', cli: '--drb', :all_after_pass => false, :all_on_start => false do
   watch(%r{^spec/(.+)_spec\.rb$})                     { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
