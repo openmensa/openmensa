@@ -1,0 +1,9 @@
+section.favorites class="#{user.favorites.empty? ? "empty" : ""}"
+  header: h2 = t('favorites.my_favorites')
+  - if user.favorites.empty?
+    .content
+      p=t('favorites.howto_add')
+  - else
+    ul.favs
+      - user.favorites.each do |f|
+        li = link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
