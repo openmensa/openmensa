@@ -348,6 +348,7 @@ DEPENDENCIES
   capybara
   chronic (~> 0.9.1)
   coffee-rails (~> 4.0.0.beta1)
+  coffee-script-source (~> 1.6.1)
   debase (>= 0.0.2)
   decorate-responder
   draper (~> 1.0)

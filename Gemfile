@@ -40,6 +40,7 @@ gem 'jruby-openssl', platforms: :jruby
 group :assets do
   gem "sass", "~> 3.2.0"
   gem 'sass-rails',   '~> 4.0.0.beta1'
+  gem "coffee-script-source", "~> 1.6.1" # for source map support
   gem 'coffee-rails', '~> 4.0.0.beta1'
 
   gem 'therubyracer', '~> 0.10', platforms: :ruby
