@@ -1,8 +1,8 @@
 
 header.page-header
-  = link_to canteen_path(@canteen, date: (@date - 1.day)), remote: true, 'data-push' => 'true', class: :prev do
+  = link_to canteen_path(@canteen, date: (@date - 1.day)), class: :prev do
     span
-  = link_to canteen_path(@canteen, date: (@date + 1.day)), remote: true, 'data-push' => 'true', class: :next do
+  = link_to canteen_path(@canteen, date: (@date + 1.day)), class: :next do
     span
   h2.centered
     - if @date.to_date == Time.zone.now.to_date
