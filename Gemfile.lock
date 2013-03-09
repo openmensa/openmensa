@@ -230,8 +230,6 @@ GEM
       thor (>= 0.17.0, < 2.0)
     raindrops (0.10.0)
     rake (10.0.3)
-    rb-inotify (0.9.0)
-      ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.2)
@@ -376,7 +374,6 @@ DEPENDENCIES
   rails (~> 4.0.0.beta1)
   rails-i18n
   rails-timeago (>= 1.3.0)
-  rb-inotify (~> 0.9)
   rspec-rails (~> 2.0)
   ruby-debug-ide (>= 0.4.17.beta14)
   rvm-capistrano

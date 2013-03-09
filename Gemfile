@@ -62,7 +62,6 @@ group :development do
   gem 'capistrano-unicorn'
 
   gem 'guard-rspec', require: false
-  gem 'rb-inotify', '~> 0.9'
 
   # For debugging on MRI 2.0
   gem 'ruby-debug-ide', '>= 0.4.17.beta14', require: false, platforms: :ruby
