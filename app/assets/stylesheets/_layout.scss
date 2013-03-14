@@ -69,6 +69,10 @@ header ul.actions {
       width: 40px;
       height: 40px;
     }
+
+    i {
+      font-size: 1.3rem;
+    }
   }
 }
 
@@ -129,16 +133,26 @@ header#header {
   }
 
   .actions {
-    font-size: 1.8em;
-    margin-top: 6px;
+    //margin-top: 6px;
     margin-right: 10px;
 
-    i { padding: .1em 0; }
+    a {
+      font-size: .8em;
+      vertical-align: middle;
+      margin: 0 5px;
+    }
+
+    i {
+      padding: .1em 0;
+      font-size: 3.5rem;
+      vertical-align: middle;
+      display: block;
+    }
 
     .account {
       float: left;
-      margin-top: -1px;
-      padding: 0 .2em;
+      margin-top: 7px;
+      padding: 0 .3em 0 1em;
 
       span {
         background-color: #f9f9f9;
@@ -165,9 +179,12 @@ header#header {
     }
 
     @include media(mobile) {
-      font-size: 1.6em;
+      margin-top: 6px;
+
+      i { font-size: 1.6em; }
 
       .account {
+        margin-top: 4px;
         padding-top: .2em;
 
         img, span {
