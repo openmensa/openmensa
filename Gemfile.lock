@@ -360,6 +360,7 @@ DEPENDENCIES
   jquery-rails
   jruby-openssl
   leaflet-rails (~> 0.4.2.beta1)
+  listen
   nokogiri
   oj
   omniauth
