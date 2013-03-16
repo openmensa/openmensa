@@ -20,7 +20,7 @@ class Api::BaseController < ApiController
   end
 
   def scoped_resource
-    default_scope(self.class.resource_class.scoped)
+    default_scope(self.class.resource_class.all)
   end
 
   def find_resource
@@ -28,7 +28,7 @@ class Api::BaseController < ApiController
   end
 
   def find_collection
-    apply_scopes default_scope(self.class.resource_class.scoped)
+    apply_scopes default_scope(self.class.resource_class.all)
   end
 
   def self.resource_name

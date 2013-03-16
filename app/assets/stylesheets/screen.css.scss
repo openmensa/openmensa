@@ -1,33 +1,33 @@
 // Main stylesheet file for default desktop (screen) devices.
 //
+//= require font-awesome
+//= require leaflet
+//= require leaflet.markercluster
+//= require leaflet.control.locate
 //= require_self
 
-@import "font-awesome";
-@import "leaflet";
-@import "leaflet.markercluster";
-@import "leaflet.control.locate";
+@import 'font-awesome';
+@import 'addons/clearfix';
+@import 'addons/prefixer';
 
-@import "addons/clearfix";
-@import "addons/prefixer";
-
-@import "css3/box-sizing";
+@import 'css3/box-sizing';
 
 * { @include box-sizing(border-box); }
 
-@import "typography";
-@import "layout";
-@import "grid";
-@import "alerts";
-@import "buttons";
-@import "form";
-@import "tables";
+@import 'typography';
+@import 'layout';
+@import 'grid';
+@import 'alerts';
+@import 'buttons';
+@import 'form';
+@import 'tables';
 
-@import "map";
+@import 'map';
 
 .hide { display: none; }
 .icon-google_oauth2 { @extend .icon-google-plus; }
 .icon-google_oauth2-sign { @extend .icon-google-plus-sign; }
 
-@import "modules/canteens";
-@import "modules/index";
-@import "modules/users";
+@import 'modules/canteens';
+@import 'modules/index';
+@import 'modules/users';

@@ -13,13 +13,13 @@
                 i.icon-star-empty
           = @canteen.name
       #remote-canteens-show
-        = render partial: 'show_section'
+        = render partial: "show_section"
 
   aside.span4
     = render partial: 'common/favorites', locals: { user: current_user }
     section
       header
-        h3=t :canteen, :address
+        h2=t :canteen, :address
       = map @canteen
       .content
         address= @canteen.address
