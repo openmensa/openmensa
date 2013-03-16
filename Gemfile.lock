@@ -306,8 +306,6 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.0.0)
-      coffee-rails
     turn (0.9.6)
       ansi
     tzinfo (0.3.37)
@@ -387,7 +385,6 @@ DEPENDENCIES
   therubyrhino
   thin
   timecop
-  turbolinks
   turn
   uglifier (>= 1.0.3)
   unicorn
