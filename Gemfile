@@ -44,7 +44,7 @@ group :assets do
 
   gem 'therubyracer', '~> 0.10', platforms: :ruby
   gem 'therubyrhino', platforms: :jruby
-  gem 'font-awesome-rails'
+  gem 'font-awesome-sass-rails', '>= 3.0.2.2'
   gem 'uglifier', '>= 1.0.3'
   gem 'bourbon'
 end

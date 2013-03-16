@@ -101,8 +101,9 @@ GEM
       eventmachine (>= 0.12.0)
     ffi (1.4.0)
     ffi (1.4.0-java)
-    font-awesome-rails (3.0.2.0)
-      railties (>= 3.1)
+    font-awesome-sass-rails (3.0.2.2)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     geocoder (1.1.6)
     gravtastic (3.2.6)
     guard (1.6.2)
@@ -349,7 +350,7 @@ DEPENDENCIES
   decorate-responder
   draper (~> 1.0)
   factory_girl_rails (>= 3.3.0)
-  font-awesome-rails
+  font-awesome-sass-rails (>= 3.0.2.2)
   geocoder
   gravtastic
   guard-rspec
