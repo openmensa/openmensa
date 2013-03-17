@@ -7,12 +7,16 @@ describe "canteens/index.html.slim" do
     FactoryGirl.create(:canteen),
     FactoryGirl.create(:canteen)
   ]}
-  it "should list canteens" do
+
+  before do
+    controller.stub(:current_user) { User.new }
     assign(:user, user)
     assign(:canteens, canteens)
 
     render
+  end
 
+  it "should list canteens" do
     rendered.should include(canteens[0].name)
     rendered.should include(canteens[1].name)
   end

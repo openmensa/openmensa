@@ -128,8 +128,8 @@ describe User do
       it { should_not be_able_to(:delete, user2, 'a User') }
       it { should_not be_able_to(:destroy, user2, 'a User') }
       it { should be_able_to(:show, user, 'himself') }
-      it { should_not be_able_to(:edit, user, 'himself') }
-      it { should_not be_able_to(:update, user, 'himself') }
+      it { should be_able_to(:edit, user, 'himself') }
+      it { should be_able_to(:update, user, 'himself') }
       it { should_not be_able_to(:delete, user, 'himself') }
       it { should_not be_able_to(:destroy, user, 'himself') }
     end

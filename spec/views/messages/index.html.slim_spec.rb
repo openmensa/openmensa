@@ -11,13 +11,17 @@ describe "messages/index.html.slim" do
     FactoryGirl.create(:feedFetchError, canteen: canteen),
     FactoryGirl.create(:feedValidationError, canteen: canteen, kind: :invalid_xml)
   ]}
-  it "should list canteens with their messages" do
+
+  before do
+    controller.stub(:current_user) { User.new }
     assign(:user, user)
     assign(:canteen, canteen)
     assign(:messages, messages)
 
     render
+  end
 
+  it "should list canteens with their messages" do
     rendered.should include(canteen.name)
     rendered.should include(messages[1].code.to_s)
     rendered.should include(messages[1].message)

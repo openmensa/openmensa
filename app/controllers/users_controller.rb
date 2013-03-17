@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_authentication!
-  before_filter :require_me_or_admin
+  load_and_authorize_resource
 
   def show
   end

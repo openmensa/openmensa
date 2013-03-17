@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
-  before_filter :require_authentication!
-  before_filter :require_me_or_admin
+  load_and_authorize_resource
 
   def overview
     @canteens = @user.canteens.order(:name).map do |canteen|

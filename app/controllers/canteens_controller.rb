@@ -1,18 +1,17 @@
 class CanteensController < ApplicationController
-  before_filter :require_authentication!, except: [ :show ]
-  before_filter :require_me_or_admin, except: [ :show ]
+  before_filter :new_resource, only: [ :new, :create ]
+  before_filter :load_resource, only: [ :show, :update, :edit ]
+  load_and_authorize_resource
 
   def index
     @canteens = @user.canteens.order(:name)
   end
 
   def new
-    @canteen = Canteen.new
   end
 
   def create
-    @canteen = Canteen.new canteen_params.merge(user: @user)
-    if @canteen.save
+    if @canteen.update canteen_params
       flash[:notice] = t 'message.canteen_added'
       redirect_to edit_user_canteen_path(@user, @canteen)
     else
@@ -21,12 +20,10 @@ class CanteensController < ApplicationController
   end
 
   def edit
-    @canteen = @user.canteens.find(params[:id])
   end
 
   def update
-    @canteen = @user.canteens.find(params[:id])
-    if @canteen.update_attributes canteen_params
+    if @canteen.update canteen_params
       flash[:notice] = t 'message.canteen_saved'
       redirect_to user_canteens_path(@user)
     else
@@ -41,11 +38,18 @@ class CanteensController < ApplicationController
       @date  = Time.zone.now.to_date
     end
 
-    @canteen = Canteen.find params[:id]
-    @meals   = @canteen.meals.where(date: @date)
+    @meals = @canteen.meals.where(date: @date)
   end
 
 private
+  def load_resource
+    @canteen = Canteen.find params[:id]
+  end
+
+  def new_resource
+    @canteen = @user.canteens.new
+  end
+
   def canteen_params
     params.require(:canteen).permit(:address, :name, :url, :fetch_hour, :latitude, :longitude)
   end

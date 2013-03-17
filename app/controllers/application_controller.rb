@@ -1,10 +1,11 @@
 class ApplicationController < BaseController
   protect_from_forgery
+  check_authorization
 
   before_filter :setup_user
 
-  rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
-  rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found
+  rescue_from ::CanCan::AccessDenied,         with: :error_access_denied unless Rails.env.development?
+  rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found     unless Rails.env.development?
 
   # **** setup ****
 
@@ -14,6 +15,12 @@ class ApplicationController < BaseController
       self.current_user = user
       Time.zone         = current_user.time_zone
       I18n.locale       = current_user.language
+    end
+
+    if params[:user_id]
+      @user = User.find params[:user_id]
+    else
+      @user = current_user
     end
   end
 
@@ -29,7 +36,7 @@ class ApplicationController < BaseController
   end
 
   def current_ability
-    curent_user.ability
+    current_user.ability
   end
 
   def flash_for(node, flashs = {})
@@ -46,17 +53,6 @@ class ApplicationController < BaseController
       return false
     end
     true
-  end
-
-  def return_me
-    User.find(params[:user_id])
-  end
-
-  def require_me_or_admin
-    @user = return_me
-    unless current_user == @user or current_user.admin?
-      error_access_denied
-    end
   end
 
   # **** error handling and rendering ****

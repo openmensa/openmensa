@@ -1,4 +1,5 @@
 class IdentitiesController < ApplicationController
+  load_and_authorize_resource
 
   def new
     @identities = current_user.identities.map(&:provider)

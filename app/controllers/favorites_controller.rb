@@ -1,6 +1,5 @@
 class FavoritesController < ApplicationController
-  before_filter :require_authentication!
-  before_filter :require_me_or_admin, only: :index
+  load_and_authorize_resource
 
   def create
     max_priority = current_user.favorites.order('priority ASC').first.try(:priority) || 0

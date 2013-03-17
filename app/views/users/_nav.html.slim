@@ -5,7 +5,7 @@
     ul.content.nav
       li= link_to t(:my_profile), user_path(@user)
       li= link_to t('favorites.my_favorites'), user_favorites_path(@user)
-  - if @user.developer?
+  - if can? :create, Canteen
     section
       header
         h2= t :developer
