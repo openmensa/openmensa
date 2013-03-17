@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  load_and_authorize_resource
+  skip_authorization_check
 
   def overview
     @canteens = @user.canteens.order(:name).map do |canteen|
