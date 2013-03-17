@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :canteens
   has_many :favorites
 
-  validates :login, presence: true, uniqueness: true, exclusion: ['anonymous', 'system']
+  validates :login, presence: true, uniqueness: true, exclusion: %w(anonymous system)
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true }
 
