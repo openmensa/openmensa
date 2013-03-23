@@ -14,12 +14,11 @@
         - meals.each_with_index do |meal, index|
           li
             p= meal.name
-            - if meal.prices.size > 0
-              ul.prices
-                - meal.prices.each do |role,price|
-                  li title=t(:"price_roles.#{role}")
-                    span=t "price_roles.#{role}"
-                    = number_to_currency(price, uni: '€')
+            ul.prices
+              - meal.prices.each do |role,price|
+                li title=t(:"price_roles.#{role}")
+                  span=t "price_roles.#{role}"
+                  = number_to_currency(price, uni: '€')
             - if meal.notes.size > 0
               ul.notes
                 - meal.notes.each do |note|
