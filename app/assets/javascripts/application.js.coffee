@@ -12,7 +12,7 @@ $ ->
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 18)
 
-    $(".index_map").each ->
+    $(".map").each ->
       map = L.map(@, scrollWheelZoom: false, maxZoom: 16)
       L.control.locate().addTo(map);
       map.addLayer tileLayer
