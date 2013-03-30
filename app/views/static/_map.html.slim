@@ -4,11 +4,11 @@
       = map Canteen.all.to_a
   - else
     .span4
-      form
-
       = render partial: 'common/favorites', locals: { user: current_user }
 
     .span8
-      section
+      section.index-map
+        / form.search
+        /   input#query
         = map Canteen.all
 
