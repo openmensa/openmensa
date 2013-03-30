@@ -35,21 +35,25 @@ form {
       background-color: #fff;
 
       box-shadow: 0 0 3px rgba(#000, 0.2);
+      @extend %transition;
 
       &:hover, &:focus {
         outline: none;
         border-color: #aaa;
         box-shadow: 0 0 3px rgba(#000, 0.4);
+        @extend %transition;
       }
 
       &:focus {
         border-color: #777;
+        @extend %transition;
       }
 
       &[readonly], &:disabled {
         box-shadow: none;
         border-color: #ccc;
         background-color: #fafafa;
+        @extend %transition;
       }
     }
 

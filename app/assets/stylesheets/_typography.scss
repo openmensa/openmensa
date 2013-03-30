@@ -73,6 +73,7 @@ address {
 a {
   color: $link-color;
   text-decoration: none;
+  @extend %transition;
 
   &:hover, &.hover {
     @if lightness($link-color) < 40% {
@@ -82,6 +83,7 @@ a {
     }
     text-decoration: underline;
     cursor: pointer;
+    @extend %transition;
   }
 }
 

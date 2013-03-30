@@ -10,7 +10,8 @@ table {
       border-top: 1px solid #eee;
       padding: 2px 4px;
 
-      @include transition(color .1s ease-in-out);
+      // @include transition(color .1s ease-in-out);
+      @extend %transition;
     }
     &:first-child td { border: none; }
 
@@ -29,13 +30,15 @@ table {
           font-size: 20px;
         }
 
-        @include transition(color .2s ease-in-out .2s);
+        @extend %transition;
+        // @include transition(color .2s ease-in-out .2s);
 
         &:hover {
           text-decoration: none;
           color: #333 !important;
 
-          @include transition(color .1s ease-in-out);
+          @extend %transition;
+          // @include transition(color .1s ease-in-out);
           // background-color: rgba(0,0,0,0.02);
         }
       }
@@ -47,7 +50,8 @@ table {
 
         &.actions a {
           color: #aaa;
-          @include transition(color .1s ease-in-out);
+          @extend %transition;
+          // @include transition(color .1s ease-in-out);
         }
       }
     }

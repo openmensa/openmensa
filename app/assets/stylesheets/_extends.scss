@@ -9,7 +9,8 @@
 }
 
 %hover-transition {
-  @include transition(all .2s ease-in-out);
+  @extend %transition;
+  // @include transition(all .2s ease-in-out);
 }
 
 %clearfix {

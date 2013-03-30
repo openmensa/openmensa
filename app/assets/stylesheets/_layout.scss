@@ -56,12 +56,14 @@ header ul.actions {
     text-align: center;
     text-shadow: none;
 
-    @include transition(color .3s ease-in-out .2s);
+    @extend %transition;
+    // @include transition(color .3s ease-in-out .2s);
 
     &:hover {
       color: #333;
       text-decoration: none;
-      @include transition(color .1s ease-in-out);
+      @extend %transition;
+      // @include transition(color .1s ease-in-out);
     }
 
     span.avatar {
@@ -157,7 +159,8 @@ header#header {
         background-position: 50% 50%;
 
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-        @include transition(all .3s ease-in-out .2s);
+        @extend %transition;
+        // @include transition(all .3s ease-in-out .2s);
       }
 
       img, span {
@@ -170,7 +173,8 @@ header#header {
 
       &:hover span {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-        @include transition(all .2s ease-in-out);
+        @extend %transition;
+        // @include transition(all .2s ease-in-out);
       }
     }
 
@@ -307,11 +311,13 @@ header#header {
           padding: 12px 15px 10px 35px;
           color: #333;
           font-weight: bold;
-          @include transition(background-color .2s ease-in-out);
+          @extend %transition;
+          // @include transition(background-color .2s ease-in-out);
 
           &:hover {
             background-color: #efefef;
-            @include transition(background-color .2s ease-in-out);
+            @extend %transition;
+            // @include transition(background-color .2s ease-in-out);
           }
         }
       }

@@ -1,6 +1,7 @@
 @import "css3/linear-gradient";
 @import "addons/font-family";
 @import "responsive";
+@import "variables";
 
 .leaflet-popup-content-wrapper {
   border-radius: 0;
@@ -60,8 +61,27 @@
     }
   }
 
-  .map {
-    height: 500px;
+  .index-map {
+
+    input {
+      height: 52px;
+      padding: 6px 15px;
+      border: none;
+      margin: 0;
+      width: 100%;
+      font-size: 2em;
+      box-shadow: 0 2px 5px rgba(0,0,0,.05) inset;
+      @extend %transition;
+
+      &:hover, &:focus {
+        box-shadow: 0 2px 5px rgba(0,0,0,.2) inset;
+        @extend %transition;
+      }
+    }
+
+    .map {
+      height: 448px;
+    }
   }
 
   @include media(handheld) {
