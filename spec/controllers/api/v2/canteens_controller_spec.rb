@@ -133,6 +133,37 @@ describe Api::V2::CanteensController do
         json[1]['id'].should == second_canteen.id
       end
     end
+
+    context '&near[place]' do
+      let(:griebnitzsee) do FactoryGirl.create :canteen,
+        name: "Mensa Griebnitzsee",
+        address: "August-Bebel-Str. 89, 14482 Potsdam",
+        latitude: 52.3935353446923,
+        longitude: 13.1278145313263
+      end
+
+      let(:palais) do FactoryGirl.create :canteen,
+        name: "Mensa Am Neuen Palais",
+        address: "Am Neuen Palais 10, Haus 12, 14469 Potsdam",
+        latitude: 52.399,
+        longitude: 13.01494
+      end
+
+      before do
+        griebnitzsee
+        palais
+        stub_request(:get, "http://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&polygon=1&q=Potsdam").
+          to_return(lambda { |request| File.new Rails.root.join(*%w{spec mocks nominatim.json}).to_s })
+      end
+
+      it 'should return canteens near a specified place' do
+        get :index, format: :json, near: { place: 'Potsdam' }
+
+        json.should have(2).item
+        json[0]['name'].should == palais.name
+        json[1]['name'].should == griebnitzsee.name
+      end
+    end
   end
 
   describe "GET show" do

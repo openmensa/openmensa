@@ -1,12 +1,15 @@
 class Api::V2::CanteensController < Api::BaseController
   respond_to :json
 
-  has_scope :near, using: [ :lat, :lng, :dist ] do |controller, scope, value|
-    lat = value[0].to_f
-    lng = value[1].to_f
+  has_scope :near, using: [ :lat, :lng, :dist, :place ] do |controller, scope, value|
+    place = if value[3]
+      value[3].to_s
+    else
+      [ value[0].to_f, value[1].to_f ]
+    end
 
-    if lat and lng
-      scope.near([ lat, lng ], value[2] ? value[2].to_f : 10, units: :km)
+    if place
+      scope.reorder('distance ASC').near(place, value[2] ? value[2].to_f : 10, units: :km)
     else
       scope
     end
@@ -18,6 +21,6 @@ class Api::V2::CanteensController < Api::BaseController
   end
 
   def find_collection
-    super.order(:id)
+    apply_scopes Canteen.all.order(:id)
   end
 end
