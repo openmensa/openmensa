@@ -1,6 +1,6 @@
 #index_map.row.reversed
   - if current_user.internal?
-    section
+    section.index-map
       = map Canteen.all.to_a
   - else
     .span4
