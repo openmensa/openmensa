@@ -7,9 +7,12 @@ class User < ActiveRecord::Base
   has_many :canteens
   has_many :favorites
 
+  before_save :activate_developer_if_email
+  
   validates :login, presence: true, uniqueness: true, exclusion: %w(anonymous system)
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true }
+  validates :email, presence: true, if: :developer?
 
   default_scope -> { where.not(login: %w{anonymous system}) }
 
@@ -80,6 +83,11 @@ class User < ActiveRecord::Base
       ).tap do |user|
         identity.update_attributes! user: user
     end
+  end
+
+  private
+  def activate_developer_if_email
+    self.developer = true unless email.to_s.empty?
   end
 end
 
