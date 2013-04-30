@@ -6,8 +6,7 @@
         .content
           p=t('favorites.howto_add')
       - else
-        .content
-          ul
-            - @favorites.each do |f|
-              li= link_to f.canteen.name, [ f.canteen ]
+        ul.favs
+          - @favorites.each do |f|
+            li= link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
   = render partial: 'users/nav'
