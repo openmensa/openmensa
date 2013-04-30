@@ -3,8 +3,8 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:login) { |n| "user#{n}" }
-    email            { "#{login}@example.org" }
-    name               'John Doe'
+    name 'John Doe'
+    developer false
 
     after(:create) do |user|
       FactoryGirl.create(:identity, user: user)
@@ -16,6 +16,7 @@ FactoryGirl.define do
   end
 
   factory :developer, parent: :user do
+    email { "#{login}@example.org" }
     developer true
   end
 
@@ -24,7 +25,7 @@ FactoryGirl.define do
 
     sequence(:uid) { |n| n.to_s.hash.to_s.gsub(/\D/, '') }
     provider         'twitter'
-    token            'apiTocken'
+    token            'apiToken'
   end
 
   factory :application, class: 'Doorkeeper::Application' do
