@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe MessageMailer do
   describe 'daily_report' do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { FactoryGirl.create :developer }
     let(:canteens) {[
       FactoryGirl.create(:canteen, user: user),
       FactoryGirl.create(:canteen, user: user),

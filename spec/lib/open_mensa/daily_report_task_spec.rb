@@ -4,7 +4,7 @@ require_dependency 'message'
 describe OpenMensa::DailyReportTask do
   let(:task) { OpenMensa::DailyReportTask.new }
   let(:user) { FactoryGirl.create :user }
-  let(:developer) { FactoryGirl.create :user, developer: true, last_report_at: Time.zone.now - 1.day }
+  let(:developer) { FactoryGirl.create :developer, last_report_at: Time.zone.now - 1.day }
   let(:canteen) { FactoryGirl.create :canteen, user: developer }
 
   context "#do" do
