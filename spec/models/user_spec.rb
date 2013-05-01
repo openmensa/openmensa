@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create :user }
   before { user }
   subject { user }
 
   it { should accept_values_for(:login, 'first.last', 'abc', 'heinz_klein') }
   it { should_not accept_values_for(:login, '', nil) }
-  it { should accept_values_for(:email, 'abc@example.org', 'admin@altimos.de', '', nil) }
+  it { should accept_values_for(:email, nil, '', 'abc@example.org', 'admin@altimos.de') }
   it { should_not accept_values_for(:email, 'abc', '@domain', 'user@', 'root@local') }
   it { should accept_values_for(:name, 'John Smith', 'Yung Heng', 'K. Müller')}
   it { should_not accept_values_for(:name, nil, '') }
@@ -18,7 +18,7 @@ describe User do
   it { user.language.should == I18n.locale.to_s }
   it { user.time_zone.should == 'Berlin' }
 
-  xit 'should require an email if one was set before' do
+  it 'should require an email if one was set before' do
     user = FactoryGirl.create :user, email: ''
 
     user.email = 'bob@example.org'
