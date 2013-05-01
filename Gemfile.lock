@@ -375,7 +375,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0.beta1)
   simplecov
   simplecov-rcov
-  slim (~> 1.3.8)
+  slim (~> 1.3)
   therubyracer (~> 0.10)
   therubyrhino
   thin
