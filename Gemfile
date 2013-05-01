@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0.beta1'
+gem 'rails', '~> 4.0.0.rc1'
 gem 'jquery-rails'
 
-gem 'slim'
+gem 'slim', '~> 1.3.8'
 gem 'oj', platforms: :ruby
 gem 'omniauth'
 gem 'omniauth-github'
