@@ -15,7 +15,3 @@ test:
 production:
   <<: *common
   database: openmensa
-
-ci:
-  <<: *common
-  database: openmensa_ci
