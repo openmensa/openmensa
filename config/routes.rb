@@ -32,7 +32,7 @@ Openmensa::Application.routes.draw do
   get '/auth/failure',            to: 'sessions#failure',  as: :auth_failure
   get '/auth/register',           to: 'sessions#register', as: :register
 
-  get '/static/:id', to: 'static#index', as: :static
+  get '/impressum', to: 'static#impressum', as: :imprint
 
   # get '/', to: 'application#index', as: :application_index
   root to: 'static#index'

@@ -3,7 +3,7 @@ html
   head
     title= title
     = stylesheet_link_tag 'application', media: 'screen, projection'
-    = javascript_include_tag "application"
+    = javascript_include_tag 'application'
     = csrf_meta_tags
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta name="viewport" content="width=device-width,initial-scale=1.0"
@@ -34,7 +34,7 @@ html
             p
               | © 2012 OpenMensa
               | &nbsp;&middot;&nbsp;
-              = link_to 'Impressum', static_path(:impressum)
+              = link_to 'Impressum', imprint_path
               | &nbsp;&middot;&nbsp;
               = link_to 'Blog', 'https://blog.altimos.de/category/openmensa'
               | &nbsp;&middot;&nbsp;
