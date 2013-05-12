@@ -17,7 +17,7 @@ gem 'rails-timeago', '>= 1.3.0'
 gem 'bcrypt-ruby',   '~> 3.0.0'
 
 # whenever dependency with Ruby 2.0 compatibility
-gem "chronic", "~> 0.9.1"
+gem 'chronic', '~> 0.9.1'
 gem 'whenever', require: false
 
 gem 'rack-piwik', require: 'rack/piwik'
@@ -37,9 +37,9 @@ gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'jruby-openssl', platforms: :jruby
 
 group :assets do
-  gem "sass", "~> 3.2.0"
+  gem 'sass', '~> 3.2.0'
   gem 'sass-rails',   '~> 4.0.0.beta1'
-  gem "coffee-script-source", "~> 1.6.1" # for source map support
+  gem 'coffee-script-source', '~> 1.6.1' # for source map support
   gem 'coffee-rails', '~> 4.0.0.beta1'
 
   gem 'therubyracer', '~> 0.10', platforms: :ruby
@@ -59,6 +59,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
   gem 'capistrano-unicorn'
+  gem 'brakeman'
 
   gem 'guard-rspec', require: false
   gem 'listen'
