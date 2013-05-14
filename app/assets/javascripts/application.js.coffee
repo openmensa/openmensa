@@ -4,7 +4,7 @@
 #= require leaflet
 #= require leaflet.markercluster
 #= require leaflet.control.locate
-#
+#= require leaflet.hash
 
 $ ->
   $(document).bind 'page:change', ->
@@ -32,6 +32,8 @@ $ ->
 
       if map.getZoom() > 16
         map.setZoom 16
+
+      new L.Hash map
 
     $(".edit_map").each ->
       map = L.map(@, scrollWheelZoom: true)
