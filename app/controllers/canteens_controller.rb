@@ -42,6 +42,10 @@ class CanteensController < ApplicationController
   end
 
   def fetch
+    if @canteen.last_fetched_at and \
+        @canteen.last_fetched_at > Time.zone.now - 1.second
+      return error_too_many_requests
+    end
     updater = OpenMensa::Updater.new(@canteen)
     @result = {
       'status' => updater.update ? 'ok' : 'error'

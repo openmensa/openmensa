@@ -104,5 +104,13 @@ describe CanteensController do
         ]
       }
     end
+
+    it 'should only allow one fetch per minute' do
+      OpenMensa::Updater.rspec_reset
+      updater.should_not_receive(:update)
+      canteen.update_attribute :last_fetched_at, Time.zone.now
+      get :fetch, id: canteen.id, format: :json
+      response.status.should == 429
+    end
   end
 end
