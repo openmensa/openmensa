@@ -42,8 +42,14 @@ class CanteensController < ApplicationController
   end
 
   def fetch
-    OpenMensa::Updater.new(@canteen).update
-    render text: ''
+    updater = OpenMensa::Updater.new(@canteen)
+    @result = {
+      'status' => updater.update ? 'ok' : 'error'
+    }
+    @result.update updater.stats
+    respond_to do |format|
+      format.json { render json: @result }
+    end
   end
 
 private

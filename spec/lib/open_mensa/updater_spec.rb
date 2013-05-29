@@ -42,6 +42,7 @@ describe OpenMensa::Updater do
       updater.fetch!.should be_false
       m = canteen.messages.first
       m.should be_an_instance_of(FeedInvalidUrlError)
+      updater.errors.should == [m]
     end
 
     it 'should receive feed data via http' do
@@ -71,6 +72,7 @@ describe OpenMensa::Updater do
       m = canteen.messages.first
       m.should be_an_instance_of(FeedFetchError)
       m.code.should == 500
+      updater.errors.should == [m]
     end
 
     it 'should handle network errors correctly' do
@@ -79,6 +81,7 @@ describe OpenMensa::Updater do
       m = canteen.messages.first
       m.should be_an_instance_of(FeedFetchError)
       m.code.should == nil
+      updater.errors.should == [m]
     end
 
     it 'should handle network timeout ' do
@@ -87,6 +90,7 @@ describe OpenMensa::Updater do
       m = canteen.messages.first
       m.should be_an_instance_of(FeedFetchError)
       m.code.should == nil
+      updater.errors.should == [m]
     end
   end
 
@@ -99,6 +103,7 @@ describe OpenMensa::Updater do
         message.should be_a(FeedValidationError)
         message.kind.should    == :no_xml
         message.version.should == nil
+        updater.errors.should == [message]
       end
     end
 
@@ -111,6 +116,7 @@ describe OpenMensa::Updater do
         message.should be_a(FeedValidationError)
         message.kind.should    == :invalid_xml
         message.version.should == 1
+        updater.errors.should == [message]
       end
     end
 
@@ -123,6 +129,7 @@ describe OpenMensa::Updater do
         message.should be_a(FeedValidationError)
         message.kind.should    == :unknown_version
         message.version.should == nil
+        updater.errors.should == [message]
       end
     end
   end
@@ -169,6 +176,7 @@ describe OpenMensa::Updater do
         today.meals.first.prices[:other].should == 2.7
         today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'vegetarisch' ]
 
+        updater.added_meals.should == 1
         updater.should be_changed
       end
 
@@ -204,6 +212,7 @@ describe OpenMensa::Updater do
         day.meals.size.should == 3
         day.meals.order(:category).map(&:category).should == [category2_name, category1_name, category1_name]
 
+        updater.added_days.should == 1
         updater.should be_changed
       end
 
@@ -223,6 +232,7 @@ describe OpenMensa::Updater do
         day.should be_closed
         day.meals.size.should be_zero
 
+        updater.added_days.should == 1
         updater.should be_changed
       end
 
@@ -253,6 +263,7 @@ describe OpenMensa::Updater do
 
         canteen.days.size.should be_zero
 
+        updater.added_days.should == 0
         updater.should_not be_changed
       end
 
@@ -269,6 +280,7 @@ describe OpenMensa::Updater do
 
         canteen.days.size.should == 1
 
+        updater.added_days.should == 1
         updater.should be_changed
       end
     end
@@ -291,6 +303,7 @@ describe OpenMensa::Updater do
         today.meals.size.should be_zero
         today.should be_closed
 
+        updater.updated_days.should == 1
         updater.should be_changed
       end
 
@@ -319,6 +332,7 @@ describe OpenMensa::Updater do
         today.meals.size.should == 1
         today.should_not be_closed
 
+        updater.updated_days.should == 1
         updater.should be_changed
       end
 
@@ -350,6 +364,7 @@ describe OpenMensa::Updater do
         today.meals.map(&:name) == [meal.name, meal_name]
 
         updater.should be_changed
+        updater.added_meals.should == 1
       end
 
       it 'should update changed meals' do
@@ -378,6 +393,7 @@ describe OpenMensa::Updater do
         today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'scharf' ]
         today.meals.first.name.should == meal1.name
         today.meals.first.updated_at.should > updated_at
+        updater.updated_meals.should == 1
       end
 
       it 'should not update unchanged meals' do
@@ -407,6 +423,7 @@ describe OpenMensa::Updater do
         today.meals.first.notes.map(&:name).should =~ [ 'vegan', 'vegetarisch' ]
         today.meals.first.name.should == meal1.name
         today.meals.first.updated_at.should == updated_at
+        updater.updated_meals.should == 0
       end
 
       it 'should drop disappeared meals' do
@@ -432,6 +449,7 @@ describe OpenMensa::Updater do
 
         ids.map { |id| Meal.find_by_id id }.should == [nil, meal2]
 
+        updater.removed_meals.should == 1
         updater.should be_changed
       end
 
@@ -561,6 +579,21 @@ describe OpenMensa::Updater do
         updater.update.should be_true
         canteen.days.size.should == 1
         canteen.meals.size.should == 3
+      end
+
+      it 'should not change data on same feed' do
+        canteen.url = 'http://example.org/compact.xml'
+        # first
+        updater.update.should be_true
+        updater.reset_stats
+        # second
+        updater.update.should be_true
+        updater.added_days.should == 0
+        updater.updated_days.should == 0
+        updater.added_meals.should == 0
+        updater.updated_meals.should == 0
+        updater.removed_meals.should == 0
+        updater.should_not be_changed
       end
     end
   end

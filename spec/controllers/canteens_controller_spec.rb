@@ -54,5 +54,55 @@ describe CanteensController do
 
       response.status.should == 200
     end
+
+    it 'should return update information' do
+      updater.should_receive(:update).and_return true
+      updater.should_receive(:added_days).and_return 1
+      updater.should_receive(:updated_days).and_return 0
+      updater.should_receive(:added_meals).and_return 3
+      updater.should_receive(:updated_meals).and_return 4
+      updater.should_receive(:removed_meals).and_return 5
+      get :fetch, id: canteen.id, format: :json
+
+      response.status.should == 200
+      response.content_type.should == 'application/json'
+
+      json.should == {
+        'status' => 'ok',
+        'days' => {
+          'added'   => 1,
+          'updated' => 0
+        },
+        'meals' => {
+          'added'   => 3,
+          'updated' => 4,
+          'removed' => 5
+        }
+      }
+    end
+
+    it 'should return occured errors' do
+      updater.should_receive(:update).and_return false
+      updater.should_receive(:errors).at_least(:once).and_return do
+        [ FeedFetchError.create(canteen: canteen,
+                              message: 'Could not fetch',
+                              code: 404) ]
+      end
+      get :fetch, id: canteen.id, format: :json
+
+      response.status.should == 200
+      response.content_type.should == 'application/json'
+
+      json.should == {
+        'status' => 'error',
+        'errors' => [
+          {
+            'type' => 'feed_fetch_error',
+            'message' => 'Could not fetch',
+            'code' => 404
+          }
+        ]
+      }
+    end
   end
 end

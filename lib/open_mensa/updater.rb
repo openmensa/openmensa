@@ -4,11 +4,23 @@ require_dependency 'message'
 class OpenMensa::Updater
   include Nokogiri
   attr_reader :canteen, :document, :version, :data
+  attr_reader :errors
+  attr_reader :added_days, :updated_days, :added_meals, :updated_meals, :removed_meals
 
   def initialize(canteen, version = nil)
     @canteen = canteen
     @version = version
+    reset_stats
+  end
+
+  def reset_stats
     @changed = false
+    @errors = []
+    @added_days = 0
+    @updated_days = 0
+    @added_meals = 0
+    @updated_meals = 0
+    @removed_meals = 0
   end
 
   def changed?
@@ -23,7 +35,7 @@ class OpenMensa::Updater
       case err
         when URI::InvalidURIError
           Rails.logger.warn "Invalid URI (#{canteen.url}) in canteen #{canteen.id}"
-          FeedInvalidUrlError.create canteen: canteen
+          @errors << FeedInvalidUrlError.create(canteen: canteen)
         when OpenURI::HTTPError
           create_fetch_error! err.message, err.message.to_i
         else
@@ -73,6 +85,7 @@ class OpenMensa::Updater
       end,
       notes: meal.children.select { |n| n.name == 'note' }.map(&:content)
     )
+    @added_meals += 1
     @changed = true
   end
 
@@ -82,7 +95,10 @@ class OpenMensa::Updater
       prices
     end
     meal.notes = meal_data.children.select { |n| n.name == 'note' }.map(&:content)
-    meal.save if meal.changed?
+    if meal.changed?
+      @updated_meals += 1
+      meal.save
+    end
   end
 
   def add_day(day_data)
@@ -103,6 +119,7 @@ class OpenMensa::Updater
         end
       end
     end
+    @added_days += 1
     @changed = true
   end
 
@@ -110,11 +127,13 @@ class OpenMensa::Updater
     return if Date.parse(day_data['date']) < Date.today
     if day_data.children.any? { |node| node.name == 'closed' }
       @changed = !day.closed?
+      @updated_days += 1 unless day.closed?
       day.meals.destroy_all
       day.update_attribute :closed, true
     else
       if day.closed?
         day.update_attribute :closed, false
+        @updated_days += 1
         @changed = true
       end
       names = day.meals.inject({}) do |memo, value|
@@ -135,6 +154,7 @@ class OpenMensa::Updater
       end
       names.keep_if { |key, meal| meal }
       if names.size > 0
+        @removed_meals += names.size
         names.each_value { |meal| meal.destroy }
         @changed = true
       end
@@ -159,7 +179,7 @@ class OpenMensa::Updater
     if day_updated
       canteen.update_column :last_fetched_at, Time.zone.now
     end
-    changed?
+    true
   end
 
 
@@ -179,17 +199,37 @@ class OpenMensa::Updater
     end
   end
 
+  def stats
+    if errors.size > 0
+      {
+        'errors' => errors.map(&:to_json)
+      }
+    else
+      {
+        'days' => {
+          'added' => added_days,
+          'updated' => updated_days
+        },
+        'meals' => {
+          'added' => added_meals,
+          'updated' => updated_meals,
+          'removed' => removed_meals
+        }
+      }
+    end
+  end
+
 private
   def create_validation_error!(kind, message = nil)
-    FeedValidationError.create! canteen: canteen,
-                                version: version,
-                                message: message,
-                                kind: kind
+    @errors << FeedValidationError.create!(canteen: canteen,
+                                           version: version,
+                                           message: message,
+                                           kind: kind)
   end
 
   def create_fetch_error!(message, code = nil)
-    FeedFetchError.create canteen: canteen,
-                          message: message,
-                          code: code
+    @errors << FeedFetchError.create(canteen: canteen,
+                                     message: message,
+                                     code: code)
   end
 end
