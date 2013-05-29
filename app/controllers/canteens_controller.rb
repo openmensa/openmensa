@@ -1,6 +1,6 @@
 class CanteensController < ApplicationController
   before_filter :new_resource, only: [ :new, :create ]
-  before_filter :load_resource, only: [ :show, :update, :edit ]
+  before_filter :load_resource, only: [ :show, :update, :edit, :fetch ]
   load_and_authorize_resource
 
   def index
@@ -39,6 +39,11 @@ class CanteensController < ApplicationController
     end
 
     @meals = @canteen.meals.where(date: @date)
+  end
+
+  def fetch
+    OpenMensa::Updater.new(@canteen).update
+    render text: ''
   end
 
 private

@@ -37,4 +37,22 @@ describe CanteensController do
       response.status.should == 401
     end
   end
+
+  describe '#fetch' do
+    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
+    let(:updater) { OpenMensa::Updater.new(canteen) }
+    let(:json) { JSON.parse response.body }
+
+    before do
+      updater
+      OpenMensa::Updater.should_receive(:new).with(canteen).and_return updater
+    end
+
+    it 'should run openmensa updater' do
+      updater.should_receive(:update).and_return true
+      get :fetch, id: canteen.id, format: :json
+
+      response.status.should == 200
+    end
+  end
 end
