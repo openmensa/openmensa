@@ -27,3 +27,4 @@ Guardfile.local
 
 /.idea
 *.iml
+.ruby-gemset
