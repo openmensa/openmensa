@@ -32,5 +32,6 @@
           p
             = submit_tag t(:save)
 
+  - content_for :navigation do
+    = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
   = render partial: 'users/nav'
-  = render partial: 'common/canteen_actions', locals: { canteen: @canteen}
