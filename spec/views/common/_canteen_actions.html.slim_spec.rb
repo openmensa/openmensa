@@ -24,4 +24,9 @@ describe "common/_canteen_actions.html.slim" do
     render_partial
     rendered.should include('Mensa-Mitteilungen')
   end
+
+  it 'should contain a link to the canteen meal page' do
+    render_partial
+    rendered.should include('Essensseite')
+  end
 end

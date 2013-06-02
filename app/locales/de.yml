@@ -16,6 +16,7 @@ de:
   my_messages: Statusmitteilungen
   canteen_messages: Mensa-Mitteilungen
   fetch_feed: Frage Feed ab
+  canteen_meals_page: Essensseite
 
   service:
     twitter: Twitter
