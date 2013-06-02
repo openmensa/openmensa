@@ -199,10 +199,10 @@ class OpenMensa::Updater
     end
   end
 
-  def stats
+  def stats(json=true)
     if errors.size > 0
       {
-        'errors' => errors.map(&:to_json)
+        'errors' => json ? errors.map(&:to_json) : errors
       }
     else
       {

@@ -42,17 +42,20 @@ class CanteensController < ApplicationController
   end
 
   def fetch
-    if @canteen.last_fetched_at and \
-        @canteen.last_fetched_at > Time.zone.now - 1.second
+    if current_user != @canteen.user and \
+        @canteen.last_fetched_at and \
+        @canteen.last_fetched_at > Time.zone.now - 15.minutes
       return error_too_many_requests
     end
     updater = OpenMensa::Updater.new(@canteen)
     @result = {
       'status' => updater.update ? 'ok' : 'error'
     }
-    @result.update updater.stats
+    json = @result.dup.update updater.stats
+    @result.update updater.stats(false) if current_user == @canteen.user
     respond_to do |format|
-      format.json { render json: @result }
+      format.html
+      format.json { render json: json }
     end
   end
 
