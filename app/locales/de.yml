@@ -14,9 +14,6 @@ de:
   add_canteen: Neue Mensa hinzufügen
   edit_canteen: Mensa bearbeiten
   my_messages: Statusmitteilungen
-  canteen_messages: Mensa-Mitteilungen
-  fetch_feed: Frage Feed ab
-  canteen_meals_page: Essensseite
 
   service:
     twitter: Twitter
@@ -100,6 +97,12 @@ de:
     updated_meals: '%{count} Essen aktualisiert.'
     removed_meals: '%{count} Essen gelöscht.'
     actions: Mensa verwalten
+
+  canteen_actions:
+    open_messages: Mensa-Mitteilungen
+    fetch_feed: Frage Feed ab
+    open_meals: Essensseite
+    open_feed: Feed-URL
 
   helpers:
     label:

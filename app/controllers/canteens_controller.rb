@@ -42,7 +42,7 @@ class CanteensController < ApplicationController
   end
 
   def fetch
-    if current_user != @canteen.user and \
+    if current_user.cannot? :manage, @canteen and \
         @canteen.last_fetched_at and \
         @canteen.last_fetched_at > Time.zone.now - 15.minutes
       return error_too_many_requests
@@ -52,7 +52,7 @@ class CanteensController < ApplicationController
       'status' => updater.update ? 'ok' : 'error'
     }
     json = @result.dup.update updater.stats
-    @result.update updater.stats(false) if current_user == @canteen.user
+    @result.update updater.stats(false) if current_user.can? :manager, @canteen
     respond_to do |format|
       format.html
       format.json { render json: json }

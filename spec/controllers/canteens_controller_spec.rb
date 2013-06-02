@@ -39,8 +39,8 @@ describe CanteensController do
   end
 
   describe '#fetch' do
-    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
-    let(:owner) { canteen.user}
+    let(:canteen) { FactoryGirl.create :canteen, :with_meals, user: owner }
+    let(:owner) { FactoryGirl.create :developer}
     let(:updater) { OpenMensa::Updater.new(canteen) }
     let(:json) { JSON.parse response.body }
 
