@@ -14,7 +14,7 @@
               li=t :canteen, :updated_meals, count: @result['meals']['updated']
               li=t :canteen, :removed_meals, count: @result['meals']['removed']
         - else
-          p= t :canteen, :feed_update_error
+          p.alert-error= t :canteen, :feed_update_error
           - if @result.has_key? 'errors'
             ul
               - @result['errors'].each do |error|
