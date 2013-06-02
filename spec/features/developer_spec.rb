@@ -76,7 +76,7 @@ describe "Developers" do
       it 'should allow to fetch the canteen feed again' do
         visit canteen_path canteen
 
-        click_on 'Frage Feed ab'
+        click_on 'Feed abfragen'
 
         page.should have_content 'Der Mensa-Feed konnte nicht abgerufen werden!'
         page.should have_content canteen.name

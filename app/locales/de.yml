@@ -100,9 +100,9 @@ de:
 
   canteen_actions:
     open_messages: Mensa-Mitteilungen
-    fetch_feed: Frage Feed ab
-    open_meals: Essensseite
-    open_feed: Feed-URL
+    fetch_feed: Feed abfragen
+    open_meals: Mensa-Seite
+    open_feed: Feed-URL öffen
 
   helpers:
     label:

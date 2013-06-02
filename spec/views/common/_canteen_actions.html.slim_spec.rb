@@ -13,6 +13,7 @@ describe "common/_canteen_actions.html.slim" do
   it 'should contain a link to the canteen feed' do
     render_partial
     rendered.should include(canteen.url)
+    rendered.should include('Feed-URL öffen')
   end
 
   it 'should cantain a link to edit the canteen' do
@@ -27,6 +28,6 @@ describe "common/_canteen_actions.html.slim" do
 
   it 'should contain a link to the canteen meal page' do
     render_partial
-    rendered.should include('Essensseite')
+    rendered.should include('Mensa-Seite')
   end
 end
