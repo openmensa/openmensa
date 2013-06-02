@@ -7,8 +7,9 @@
       = render partial: 'common/favorites', locals: { user: current_user }
 
     .span8
-      section.index-map
-        / form.search
-        /   input#query
-        = map Canteen.all
+      section
+        .index-map
+          / form.search
+          /   input#query
+          = map Canteen.all
 
