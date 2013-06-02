@@ -74,10 +74,7 @@ describe "Developers" do
 
     context 'on my canteen page' do
       it 'should allow to fetch the canteen feed again' do
-        #workaround for: visit canteen_url canteen
-        canteen
-        click_on 'Meine Mensen'
-        click_on "Mensa bearbeiten"
+        visit canteen_path canteen
 
         click_on 'Frage Feed ab'
 
