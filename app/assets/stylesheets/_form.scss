@@ -22,6 +22,10 @@ form {
     label {
       display: block;
       font-weight: bold;
+
+      &[class^="icon-"]:before, &[class*=" icon-"]:before {
+        margin-right: .4em;
+      }
     }
 
     input[type="text"] {
