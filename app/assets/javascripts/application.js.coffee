@@ -12,13 +12,14 @@ $ ->
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 18)
 
-    $(".map").each ->
+    $(".map:not(.edit_map)").each ->
       map = L.map(@, scrollWheelZoom: false, maxZoom: 16)
       L.control.locate().addTo(map);
       map.addLayer tileLayer
 
       cluster = new L.MarkerClusterGroup showCoverageOnHover: false
       markers = $(@).data("markers")
+      markers = [] unless $.isArray markers
       for m in markers
         marker = L.marker([m.lat, m.lng], { title: m.title })
         marker.bindPopup "<a class=\"popup-link\" href=\"#{m.url}\">#{m.title}</a><br />" if m.url?
