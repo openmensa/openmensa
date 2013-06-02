@@ -18,5 +18,6 @@
             tr
               td colspan="3" = messages.first.to_html
 
+  - content_for :navigation do
+    = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
   = render partial: 'users/nav'
-  = render partial: 'common/canteen_actions', locals: { canteen: @canteen}

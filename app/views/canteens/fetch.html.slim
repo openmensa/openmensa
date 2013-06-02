@@ -22,6 +22,7 @@
 
   aside.span4
     = render partial: 'common/favorites', locals: { user: current_user }
+    = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
     section
       header
         h2=t :canteen, :address
