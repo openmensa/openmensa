@@ -24,6 +24,12 @@ class Message < ActiveRecord::Base
     I18n.t("messages.text_mail.#{self.class.name.underscore}", data)
   end
 
+  def to_json
+    {
+      'type' => self.class.name.underscore
+    }
+  end
+
   protected
   def set_default_values
     self.data ||= {}
@@ -42,6 +48,14 @@ class FeedFetchError < Message
   def code=(c); data[:code] = c end
   def message; data[:message] end
   def message=(m); data[:message] = m end
+
+  def to_json
+    {
+      'type' => self.class.name.underscore,
+      'code' => code,
+      'message' => message
+    }
+  end
 end
 
 
@@ -62,6 +76,15 @@ class FeedValidationError < Message
   end
   def to_text_mail
     I18n.t("messages.text_mail.feed_validation_error.#{kind.to_s}", data)
+  end
+
+  def to_json
+    {
+      'type' => self.class.name.underscore,
+      'kind' => kind,
+      'version' => code,
+      'message' => message
+    }
   end
 end
 

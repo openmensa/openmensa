@@ -1,6 +1,6 @@
 class CanteensController < ApplicationController
   before_filter :new_resource, only: [ :new, :create ]
-  before_filter :load_resource, only: [ :show, :update, :edit ]
+  before_filter :load_resource, only: [ :show, :update, :edit, :fetch ]
   load_and_authorize_resource
 
   def index
@@ -39,6 +39,24 @@ class CanteensController < ApplicationController
     end
 
     @meals = @canteen.meals.where(date: @date)
+  end
+
+  def fetch
+    if current_user.cannot? :manage, @canteen and \
+        @canteen.last_fetched_at and \
+        @canteen.last_fetched_at > Time.zone.now - 15.minutes
+      return error_too_many_requests
+    end
+    updater = OpenMensa::Updater.new(@canteen)
+    @result = {
+      'status' => updater.update ? 'ok' : 'error'
+    }
+    json = @result.dup.update updater.stats
+    @result.update updater.stats(false) if current_user.can? :manage, @canteen
+    respond_to do |format|
+      format.html
+      format.json { render json: json }
+    end
   end
 
 private

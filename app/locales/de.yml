@@ -89,6 +89,20 @@ de:
     fetch_needed_message: Die gezeigten Esseninformationen sind veraltet. Aktuelle Anpassungen des Speiseplanes werden nicht gezeigt.
     no_fetch_ever: 'Noch keine Daten'
     no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald.'
+    feed_updated: Der Mensa-Feed wurde erfolgreich aktualisiert!
+    feed_update_error: Der Mensa-Feed konnte nicht abgerufen werden!
+    added_days: '%{count} Tage hinzugefügt.'
+    updated_days: '%{count} Tage aktualisiert.'
+    added_meals: '%{count} Essen hinzugefügt.'
+    updated_meals: '%{count} Essen aktualisiert.'
+    removed_meals: '%{count} Essen gelöscht.'
+    actions: Mensa verwalten
+
+  canteen_actions:
+    open_messages: Mensa-Mitteilungen
+    fetch_feed: Feed abfragen
+    open_meals: Mensa-Seite
+    open_feed: Feed-URL öffen
 
   helpers:
     label:

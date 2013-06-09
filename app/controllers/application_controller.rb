@@ -59,6 +59,7 @@ class ApplicationController < BaseController
 
   def error_not_found; error status: :not_found end
   def error_access_denied; error status: :unauthorized end
+  def error_too_many_requests; error status: :too_many_requests end
 
   def render_error(error)
     layout = error[:layout] || 'application'

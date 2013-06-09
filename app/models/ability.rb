@@ -7,6 +7,7 @@ class Ability
     alias_action :delete, :to => :destroy
 
     can :show, Canteen
+    can :fetch, Canteen
 
     if user.logged?
       can [ :show, :update ], User, id: user.id

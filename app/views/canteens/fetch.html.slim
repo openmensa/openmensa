@@ -1,0 +1,33 @@
+
+.row
+  .span8
+    section
+      = render partial: 'canteen_header', locals: { user: current_user, canteen: @canteen }
+      .content
+        - if @result['status'] == 'ok'
+          p=t :canteen, :feed_updated
+          - if @result.has_key? 'days' and @result.has_key? 'meals'
+            ul
+              li=t :canteen, :added_days, count: @result['days']['added']
+              li=t :canteen, :updated_days, count: @result['days']['updated']
+              li=t :canteen, :added_meals, count: @result['meals']['added']
+              li=t :canteen, :updated_meals, count: @result['meals']['updated']
+              li=t :canteen, :removed_meals, count: @result['meals']['removed']
+        - else
+          p.alert-error= t :canteen, :feed_update_error
+          - if @result.has_key? 'errors'
+            ul
+              - @result['errors'].each do |error|
+                li= error.to_html
+
+  aside.span4
+    = render partial: 'common/favorites', locals: { user: current_user }
+    - if current_user.can? :manage, @canteen
+      = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
+    section
+      header
+        h2=t :canteen, :address
+      = map @canteen
+      .content
+        address= @canteen.address
+    = render partial: 'canteen_status', locals: { canteen: @canteen }

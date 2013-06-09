@@ -72,6 +72,17 @@ describe "Developers" do
       end
     end
 
+    context 'on my canteen page' do
+      it 'should allow to fetch the canteen feed again' do
+        visit canteen_path canteen
+
+        click_on 'Feed abfragen'
+
+        page.should have_content 'Der Mensa-Feed konnte nicht abgerufen werden!'
+        page.should have_content canteen.name
+      end
+    end
+
     context "on my messages page" do
       let(:message) { FactoryGirl.create :feedValidationError, canteen: canteen, kind: :invalid_xml }
       before { message; click_on "Statusmitteilungen" }

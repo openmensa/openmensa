@@ -1,0 +1,9 @@
+section
+  header
+    h2=t :canteen, :actions
+  ul.favs
+    li=link_to t(:canteen_actions, :open_meals), canteen_path(canteen), class: 'icon-coffee'
+    li=link_to t(:edit_canteen), edit_user_canteen_path(canteen.user, canteen), class: 'icon-edit'
+    li=link_to t(:canteen_actions, :open_messages), [ canteen.user, canteen, :messages], class: 'icon-envelope'
+    li=link_to t(:canteen_actions, :fetch_feed), fetch_canteen_path(canteen), class: 'icon-refresh'
+    li=link_to t(:canteen_actions, :open_feed), canteen.url, class: 'icon-external-link'
