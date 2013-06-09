@@ -8,7 +8,7 @@
 
   aside.span4
     = render partial: 'common/favorites', locals: { user: current_user }
-    - if current_user.can? :manager, @canteen
+    - if current_user.can? :manage, @canteen
       = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
     section
       header

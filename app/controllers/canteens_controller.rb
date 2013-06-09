@@ -52,7 +52,7 @@ class CanteensController < ApplicationController
       'status' => updater.update ? 'ok' : 'error'
     }
     json = @result.dup.update updater.stats
-    @result.update updater.stats(false) if current_user.can? :manager, @canteen
+    @result.update updater.stats(false) if current_user.can? :manage, @canteen
     respond_to do |format|
       format.html
       format.json { render json: json }
