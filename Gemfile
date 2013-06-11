@@ -21,6 +21,7 @@ gem 'chronic', '~> 0.9.1'
 gem 'whenever', require: false
 
 gem 'rack-piwik', require: 'rack/piwik'
+gem 'rakwik'
 gem 'geocoder'
 gem 'leaflet-rails', '~> 0.4.2.beta1'
 gem 'nokogiri'

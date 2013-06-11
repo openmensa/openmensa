@@ -83,4 +83,7 @@ Openmensa::Application.configure do
 
   # Piwik tracking
   config.middleware.use Rack::Piwik, :piwik_url => 'dev.altimos.de/piwik', :piwik_id => '3'
+
+  config.middleware.use Rakwik::Tracker, piwik_url: 'http://dev.altimos.de/piwik.php',
+                        site_id: '4', token_auth: ENV['RAKWIK_AUTH_TOKEN'] if ENV['RAKWIK_AUTH_TOKEN']
 end
