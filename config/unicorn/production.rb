@@ -68,4 +68,11 @@ after_fork do |server, worker|
 
   # Redis and Memcached would go here but their connections are established
   # on demand, so the master never opens a socket
+
+  # EventMachine
+  EM.stop if EM.reactor_running?
+  Thread.new { EM.run }
+
+  Signal.trap('INT')  { EM.stop }
+  Signal.trap('TERM') { EM.stop }
 end
