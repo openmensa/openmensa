@@ -58,6 +58,36 @@ before_fork do |server, worker|
 end
 
 
+class EventMachineInitializer
+  extend MonitorMixin
+
+  def self.start_reactor
+    unless EM.reactor_running? && EM.reactor_thread.alive?
+      if EM.reactor_running?
+        EM.stop_event_loop
+        EM.release_machine
+        EM.instance_variable_set('@reactor_running', false)
+      end
+
+      condition = new_cond
+
+      Thread.new do
+        EM.run do
+          EM.next_tick do
+            synchronize do
+              condition.signal
+            end
+          end
+        end
+      end
+
+      synchronize do
+        condition.wait_until { EM.reactor_running? }
+      end
+    end
+  end
+end
+
 after_fork do |server, worker|
   ##
   # Unicorn master loads the app then forks off workers - because of the way
@@ -70,9 +100,5 @@ after_fork do |server, worker|
   # on demand, so the master never opens a socket
 
   # EventMachine
-  EM.stop if EM.reactor_running?
-  Thread.new { EM.run }
-
-  Signal.trap('INT')  { EM.stop }
-  Signal.trap('TERM') { EM.stop }
+  EventMachineInitializer.start_reactor
 end
