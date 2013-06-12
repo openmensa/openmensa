@@ -187,8 +187,8 @@ class OpenMensa::Updater
 
   # all together
   def update(options={})
-    @today = options[:today] if options.has_key :today
-    @version = options[:version] if options.has_key :version
+    @today = options[:today] if options.has_key? :today
+    @version = options[:version] if options.has_key? :version
 
     return false unless fetch! and parse! and validate!
 

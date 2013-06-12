@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.string   "address"
     t.string   "url"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "last_fetched_at"
     t.integer  "fetch_hour"
     t.float    "longitude"
@@ -27,15 +27,15 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.string   "today_url"
   end
 
-  add_index "canteens", ["user_id"], name: "index_cafeterias_on_user_id", using: :btree
+  add_index "canteens", ["user_id"], name: "index_canteens_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.string   "message"
     t.integer  "user_id"
     t.integer  "commentee_id"
     t.string   "commentee_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "comments", ["commentee_id"], name: "index_comments_on_commentee_id", using: :btree
@@ -45,16 +45,16 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.integer  "canteen_id"
     t.date     "date"
     t.boolean  "closed",     default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "favorites", force: true do |t|
     t.integer  "canteen_id"
     t.integer  "user_id"
     t.integer  "priority"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "identities", force: true do |t|
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.string   "uid"
     t.string   "token"
     t.string   "secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
   create_table "meals", force: true do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "category"
     t.integer  "day_id"
     t.decimal  "price_student",  precision: 8, scale: 2
@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.string   "type",       null: false
     t.string   "priority",   null: false
     t.text     "data",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "messages", ["canteen_id"], name: "index_messages_on_canteen_id", using: :btree
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
 
   create_table "notes", force: true do |t|
     t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "notes", ["name"], name: "index_notes_on_name", unique: true, using: :btree
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.string   "uid",          null: false
     t.string   "secret",       null: false
     t.string   "redirect_uri", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
@@ -151,8 +151,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
     t.integer  "value"
     t.integer  "meal_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ratings", ["meal_id"], name: "index_ratings_on_meal_id", using: :btree
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(version: 20130612084052) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "time_zone"
     t.string   "language",       limit: 2
     t.string   "login"
