@@ -73,6 +73,7 @@ de:
 
   canteen:
     url: Feed-Url
+    today_url: Feed-Url für das Essen von heute
     name: Name
     address: Adresse
     fetch_hour: Frühste Abrufstunde

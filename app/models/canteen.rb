@@ -23,7 +23,7 @@ class Canteen < ActiveRecord::Base
     read_attribute(:fetch_hour_default) || 8
   end
 
-  def fetch
-    OpenMensa::Updater.new(self).update
+  def fetch(options={})
+    OpenMensa::Updater.new(self, options).update
   end
 end
