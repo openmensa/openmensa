@@ -32,9 +32,11 @@ describe "Developers" do
         click_on "Mensa bearbeiten"
 
         new_url = "http://example.org/canteens.xml"
+        new_url_2 = "http://example.org/canteens-today.xml"
         new_name = "Test-Mensa"
         new_address = "Essensweg 34, 12345 Hunger, Deutschlandasd"
         fill_in "Feed-Url", with: new_url
+        fill_in "Feed-Url für das Essen von heute", with: new_url_2
         fill_in "Name", with: new_name
         fill_in "Adresse", with: new_address
         click_on "Speichern"
@@ -42,6 +44,7 @@ describe "Developers" do
         canteen.reload
 
         canteen.url.should == new_url
+        canteen.today_url.should == new_url_2
         canteen.name.should == new_name
         canteen.address.should == new_address
 

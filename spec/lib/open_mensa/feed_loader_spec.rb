@@ -1,8 +1,10 @@
 require 'spec_helper'
+require_dependency 'message'
 
 describe OpenMensa::FeedLoader do
   let(:canteen) { FactoryGirl.create :canteen, url: 'http://example.com/canteen_feed.xml' }
   let(:loader) { OpenMensa::FeedLoader.new(canteen) }
+  let(:today_loader) { OpenMensa::FeedLoader.new(canteen, today: true) }
 
   before do
     stub_request(:any, 'example.com/canteen_feed.xml').
@@ -34,6 +36,11 @@ describe OpenMensa::FeedLoader do
       loader.load!.read.should == mock_content('canteen_feed.xml')
     end
 
+    it 'should load data from canteen today URL' do
+      canteen.today_url = 'http://example.com/data.xml'
+      today_loader.load!.read.should == '<xml>'
+    end
+
     it 'should follow temporary redirects (1)' do
       canteen.url = 'http://example.com/307.xml'
       loader.load!.read.should == '<xml>'
@@ -61,6 +68,13 @@ describe OpenMensa::FeedLoader do
       loader.load!
 
       canteen.url.should == 'http://example.com/data.xml'
+    end
+
+    it 'should follow update canteen today URL on permanent redirect' do
+      canteen.today_url = 'http://example.com/301.xml'
+      today_loader.load!
+
+      canteen.today_url.should == 'http://example.com/data.xml'
     end
 
     it 'should raise an error on 500' do

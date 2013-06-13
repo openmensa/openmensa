@@ -40,12 +40,12 @@ module OpenMensa
     # occurs. Returns loaded data as StringIO on success.
     #
     def load!
-      return nil unless canteen.url.present?
+      return nil unless url.present?
 
       load_feed @options[:follow] ? @options[:depth] : 0
 
     rescue URI::InvalidURIError => error
-      raise FeedLoadError.new("Invalid URL (#{canteen.url}) for canteen #{canteen.id}.", error)
+      raise FeedLoadError.new("Invalid URL (#{url}) for canteen #{canteen.id}.", error)
     rescue => error
       raise FeedLoadError.new("Error while loading feed.", error)
     end
@@ -58,13 +58,22 @@ module OpenMensa
         {
             follow: true,
             update: true,
+            today: false,
             depth: 2,
         }
       end
     end
 
+    def url
+      if @options[:today]
+        canteen.today_url
+      else
+        canteen.url
+      end
+    end
+
     def uri
-      @uri ||= URI.parse canteen.url
+      @uri ||= URI.parse url
     end
 
   private
@@ -85,8 +94,12 @@ module OpenMensa
 
     def update_url(new_url)
       Rails.logger.warn "Update URL of canteen #{canteen.id} to '#{new_url}'."
-      FeedUrlUpdatedInfo.create canteen: canteen, old_url: canteen.url, new_url: new_url
-      canteen.update_attributes! url: new_url
+      FeedUrlUpdatedInfo.create canteen: canteen, old_url: url, new_url: new_url
+      if @options[:today]
+        canteen.update_attributes! today_url: new_url
+      else
+        canteen.update_attributes! url: new_url
+      end
     end
   end
 end

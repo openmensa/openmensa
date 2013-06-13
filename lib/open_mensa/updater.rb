@@ -7,9 +7,11 @@ class OpenMensa::Updater
   attr_reader :errors
   attr_reader :added_days, :updated_days, :added_meals, :updated_meals, :removed_meals
 
-  def initialize(canteen, version = nil)
+  def initialize(canteen, options={})
+    options = {version: nil, today: false}.update options
     @canteen = canteen
-    @version = version
+    @version = options[:version]
+    @today = options[:today]
     reset_stats
   end
 
@@ -29,7 +31,7 @@ class OpenMensa::Updater
 
   # 1. Fetch feed data
   def fetch!
-    @data = OpenMensa::FeedLoader.new(canteen).load!
+    @data = OpenMensa::FeedLoader.new(canteen, today: @today).load!
   rescue OpenMensa::FeedLoader::FeedLoadError => error
     error.cause.tap do |err|
       case err
@@ -184,7 +186,10 @@ class OpenMensa::Updater
 
 
   # all together
-  def update
+  def update(options={})
+    @today = options[:today] if options.has_key? :today
+    @version = options[:version] if options.has_key? :version
+
     return false unless fetch! and parse! and validate!
 
     update_canteen case version

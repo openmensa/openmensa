@@ -23,7 +23,12 @@ class Canteen < ActiveRecord::Base
     read_attribute(:fetch_hour_default) || 8
   end
 
-  def fetch
-    OpenMensa::Updater.new(self).update
+  def fetch(options={})
+    OpenMensa::Updater.new(self, options).update
+  end
+
+  def fetch_if_needed
+    return false unless ((fetch_hour || fetch_hour_default) .. 14).include? Time.now.hour
+    fetch today: !last_fetched_at.nil? && last_fetched_at.to_date == Time.zone.now.to_date
   end
 end
