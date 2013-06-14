@@ -28,7 +28,7 @@ class Canteen < ActiveRecord::Base
   end
 
   def fetch_if_needed
-    return false unless ((fetch_hour || fetch_hour_default) .. 14).include? Time.now.hour
+    return false unless ((fetch_hour || fetch_hour_default) .. 14).include? Time.zone.now.hour
     fetch today: !last_fetched_at.nil? && last_fetched_at.to_date == Time.zone.now.to_date
   end
 end
