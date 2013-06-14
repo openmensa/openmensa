@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0.rc1'
+gem 'rails', '~> 4.0.0.rc2'
 gem 'jquery-rails'
 
 gem 'slim', '~> 1.3'
@@ -55,7 +55,6 @@ group :production do
 end
 
 group :development do
-  gem 'thin', platforms: :ruby
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
