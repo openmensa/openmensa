@@ -50,6 +50,14 @@ FactoryGirl.define do
         FactoryGirl.create :tomorrow, :with_meals, canteen: canteen
       end
     end
+
+    trait :with_unordered_meals do
+      after(:create) do |canteen|
+        FactoryGirl.create :yesterday, :with_unordered_meals, canteen: canteen
+        FactoryGirl.create :today, :with_unordered_meals, canteen: canteen
+        FactoryGirl.create :tomorrow, :with_unordered_meals, canteen: canteen
+      end
+    end
   end
 
   factory :day do
@@ -66,6 +74,14 @@ FactoryGirl.define do
         FactoryGirl.create :meal, day: day
         FactoryGirl.create :meal, day: day
         FactoryGirl.create :meal, day: day
+      end
+    end
+
+    trait :with_unordered_meals do
+      after(:create) do |day|
+        FactoryGirl.create :meal, day: day, pos: 2
+        FactoryGirl.create :meal, day: day, pos: 1
+        FactoryGirl.create :meal, day: day, pos: 3
       end
     end
   end

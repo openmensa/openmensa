@@ -4,7 +4,7 @@ class Api::V2::MealsController < Api::BaseController
   def default_scope(scope)
     @canteen = Canteen.find params[:canteen_id]
     @day = @canteen.days.find_by_date! params[:day_id]
-    scope.where(day_id: @day.id)
+    scope.where(day_id: @day.id).order :pos
   end
 
   def canteen_meals

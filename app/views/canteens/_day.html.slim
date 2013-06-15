@@ -7,7 +7,7 @@
     h3= t(:closed_day_title)
     p= t(:closed_day_message)
 - else
-  - day.meals.group_by(&:category).each do |category, meals|
+  - day.meals.order(:pos).group_by(&:category).each do |category, meals|
     li
       h3= category
       ul

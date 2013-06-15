@@ -37,7 +37,7 @@ describe "canteens/show.html.slim" do
     end
   end
 
-  context 'with meals' do
+  context 'with a meal' do
     let(:day) { FactoryGirl.create(:today, canteen: canteen) }
     let(:meal) { FactoryGirl.create(:meal, day: day) }
     before do
@@ -76,6 +76,22 @@ describe "canteens/show.html.slim" do
 
       rendered.should include('vegan')
       rendered.should include('vegetarisch')
+
+    end
+
+  end
+  context 'with meals' do
+    let(:day) { FactoryGirl.create(:today, :with_unordered_meals, canteen: canteen) }
+    before { day }
+    it 'should render an ordered list of meals' do
+      render
+
+      mealPositions = []
+      day.meals.order(:pos).each do |meal|
+        mealPositions << rendered.index(meal.name)
+      end
+
+      mealPositions.should == mealPositions.sort
     end
   end
 
