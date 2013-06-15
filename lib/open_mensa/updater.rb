@@ -77,10 +77,11 @@ class OpenMensa::Updater
 
 
   # 3. process data
-  def add_meal(day, category, meal)
+  def add_meal(day, category, meal, pos=nil)
     day.meals.create(
       category: category,
       name: meal.children.find { |node| node.name == 'name' }.content,
+      pos: pos,
       prices: meal.children.inject({}) do |prices, node|
         prices[node['role']] = node.content if node.name == 'price' and @version == 2
         prices
@@ -91,7 +92,7 @@ class OpenMensa::Updater
     @changed = true
   end
 
-  def update_meal(meal, category, meal_data)
+  def update_meal(meal, category, meal_data, pos=nil)
     meal.prices = meal_data.children.inject({student: nil, employee: nil, pupil: nil, other: nil}) do |prices, node|
       prices[node['role']] = node.content if node.name == 'price' and @version == 2
       prices
@@ -99,7 +100,10 @@ class OpenMensa::Updater
     meal.notes = meal_data.children.select { |n| n.name == 'note' }.map(&:content)
     if meal.changed?
       @updated_meals += 1
+      meal.pos = pos
       meal.save
+    elsif pos != meal.pos
+      meal.update_attributes pos: pos
     end
   end
 
@@ -110,11 +114,13 @@ class OpenMensa::Updater
       day.closed = true
       day.save!
     else
+      pos = 1
       day_data.element_children.each do |category|
         category.element_children.inject([]) do |names, meal|
           name = meal.children.find { |node| node.name == 'name' }.content
           unless names.include? name
-            add_meal(day, category['name'], meal)
+            add_meal(day, category['name'], meal, pos)
+            pos +=1
             names << name
           end
           names
@@ -142,16 +148,18 @@ class OpenMensa::Updater
         memo[[value.category, value.name.to_s]] = value
         memo
       end
+      pos = 1
       day_data.element_children.each do |category|
         category.element_children.each do |meal|
           name = meal.children.find { |node| node.name == 'name' }.content
           meal_obj = names[[category['name'], name]]
           if meal_obj.is_a? Meal
-            update_meal meal_obj, category['name'], meal
+            update_meal meal_obj, category['name'], meal, pos
             names[[category['name'], name ]] = false
           elsif meal_obj.nil?
-            add_meal day, category['name'], meal
+            add_meal day, category['name'], meal, pos
           end
+          pos += 1
         end
       end
       names.keep_if { |key, meal| meal }

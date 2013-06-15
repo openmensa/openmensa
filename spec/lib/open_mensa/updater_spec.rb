@@ -210,7 +210,8 @@ describe OpenMensa::Updater do
         canteen.days.size.should == 1
         day = canteen.days.first
         day.meals.size.should == 3
-        day.meals.order(:category).map(&:category).should == [category2_name, category1_name, category1_name]
+        day.meals.order(:pos).map(&:name).should == [category1_meal1_name, category1_meal2_name, category2_meal1_name]
+        day.meals.order(:pos).pluck(:pos).should == [1, 2, 3]
 
         updater.added_days.should == 1
         updater.should be_changed
@@ -361,7 +362,8 @@ describe OpenMensa::Updater do
         updater.update_day(today, day)
 
         today.meals.size.should == 2
-        today.meals.map(&:name) == [meal.name, meal_name]
+        today.meals.order(:pos).pluck(:name).should == [meal.name, meal_name]
+        today.meals.order(:pos).pluck(:pos).should == [1, 2]
 
         updater.should be_changed
         updater.added_meals.should == 1

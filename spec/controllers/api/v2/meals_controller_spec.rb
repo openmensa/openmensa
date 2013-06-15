@@ -6,7 +6,7 @@ describe Api::V2::MealsController do
   let(:json) { JSON.parse response.body }
 
   describe "GET index" do
-    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
+    let(:canteen) { FactoryGirl.create :canteen, :with_unordered_meals }
     let(:day) { canteen.days.first! }
     before { canteen }
 
@@ -22,7 +22,7 @@ describe Api::V2::MealsController do
       get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
       response.status.should == 200
 
-      json[0].should == {
+      json[1].should == {
         id: day.meals.first.id,
         name: day.meals.first.name,
         category: day.meals.first.category,
@@ -34,6 +34,15 @@ describe Api::V2::MealsController do
         },
         notes: []
       }.as_json
+    end
+
+    context 'with unordered list of meals' do
+      it 'should return list ordered' do
+        get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
+        response.status.should == 200
+
+        json.map { |m| m['id'].to_i }.should == Meal.where(day: day).order(:pos).pluck(:id)
+      end
     end
 
     context "meal node" do
@@ -53,14 +62,14 @@ describe Api::V2::MealsController do
   describe "GET canteen_meals" do
     let(:canteen) do
       c = FactoryGirl.create :canteen, :with_meals
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 2.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 3.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 4.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 5.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 6.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 7.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 8.days)
-      c.days << FactoryGirl.create(:day, :with_meals, canteen: c, date: Date.today + 9.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 2.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 3.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 4.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 5.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 6.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 7.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 8.days)
+      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 9.days)
       c.save!
       c
     end
@@ -88,6 +97,15 @@ describe Api::V2::MealsController do
         json.should have(5).items
         json[0]['date'].should == (Date.today + 5.day).iso8601
         json[4]['date'].should == (Date.today + 9.day).iso8601
+      end
+
+      it 'should answer with a ordered list of meals' do
+        get :canteen_meals, canteen_id: canteen.id, format: :json, start: (Date.today + 2.day).iso8601
+        response.status.should == 200
+        json.each do |day|
+          dayModel = Day.find_by date: day['date'], canteen: canteen
+          day['meals'].map { |m| m['id'] }.should == Meal.where(day: dayModel).order(:pos).pluck(:id)
+        end
       end
     end
   end
