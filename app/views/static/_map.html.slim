@@ -1,7 +1,7 @@
 #index_map.row.reversed
   - if current_user.internal?
     section.index-map
-      = map Canteen.all.to_a
+      = map Canteen.all.to_a, hash: true
   - else
     .span4
       = render partial: 'common/favorites', locals: { user: current_user }

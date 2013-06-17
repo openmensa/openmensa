@@ -34,7 +34,10 @@ $ ->
       if map.getZoom() > 16
         map.setZoom 16
 
-      new L.Hash map
+      if $(@).data('hash')
+        new L.Hash map
+      else
+        map
 
     $('[data-map="interactive"]').each ->
       map = L.map(@, scrollWheelZoom: true)
