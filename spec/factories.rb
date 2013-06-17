@@ -9,6 +9,13 @@ FactoryGirl.define do
     after(:create) do |user|
       FactoryGirl.create(:identity, user: user)
     end
+
+    trait :with_favs do
+      after(:create) do |user|
+        FactoryGirl.create :favorite, user: user
+        FactoryGirl.create :favorite, user: user
+      end
+    end
   end
 
   factory :admin, parent: :user do

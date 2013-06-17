@@ -160,3 +160,5 @@ de:
   mailer:
     daily_report:
       subject: 'OpenMensa: Aktuelle Feed-Mitteilungen'
+    today_menu:
+      subject: 'OpenMensa: Das Essensangebot für heute'

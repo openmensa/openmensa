@@ -1,0 +1,20 @@
+In ihren favorisierten Mensen gibt es <%= @date %> folgene Speißeplan:
+
+<% @canteens.each do |c| %>
+<%=c.name %>
+===================
+<%- @day = c.days.find_by(date: @date) -%>
+
+<% if not @day %>
+Keine Essensinformationen
+<% elsif @day.closed? -%>
+Die Mensa ist geschlossen!
+<% else -%>
+<% @day.meals.order(:pos).each do |m| %>
+- <%= c.name %>: <%= m.name %>
+<% end -%>
+<% end %>
+
+Zum vollständigen Speiseplan: <%= canteen_url(c, @date) %>
+
+<% end %>
