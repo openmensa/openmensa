@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130614182527) do
+ActiveRecord::Schema.define(version: 20130624180623) do
 
   create_table "canteens", force: true do |t|
     t.string   "name"
@@ -68,6 +68,12 @@ ActiveRecord::Schema.define(version: 20130614182527) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "mail_notifications", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "meals", force: true do |t|
     t.string   "name"

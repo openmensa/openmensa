@@ -28,3 +28,7 @@ end
 every :day, :at => '9am' do
   rake 'om:daily_report'
 end
+
+every :day, :at => '8am' do
+  rake 'om:menu_mails'
+end

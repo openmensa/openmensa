@@ -153,4 +153,8 @@ FactoryGirl.define do
     association :user
     association :canteen
   end
+
+  factory :mail_notification do
+    association :user
+  end
 end

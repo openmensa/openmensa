@@ -19,4 +19,8 @@ namespace :om do
   task :daily_report => :environment do
     OpenMensa::DailyReportTask.new.do
   end
+
+  task :menu_mails => :environment do
+    OpenMensa::MenuMailsTask.new.do
+  end
 end
