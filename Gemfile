@@ -37,6 +37,7 @@ gem 'api-responder'
 gem 'pg', platforms: :ruby
 gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'jruby-openssl', platforms: :jruby
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass', '~> 3.2.0'
