@@ -10,7 +10,7 @@ class Api::V2::MealsController < Api::BaseController
   def canteen_meals
     @canteen = Canteen.find params[:canteen_id]
 
-    @days = @canteen.days
+    @days = @canteen.days.includes(meals: :notes)
     begin
       date = Date.strptime(params[:start] || '', '%Y-%m-%d')
       @days = @days.where('days.date >= ?', date).where('days.date < ?', date + 7.days)
