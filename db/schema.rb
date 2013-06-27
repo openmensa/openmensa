@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130614182527) do
+ActiveRecord::Schema.define(version: 20130627151558) do
 
   create_table "canteens", force: true do |t|
     t.string   "name"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20130614182527) do
     t.integer "meal_id"
     t.integer "note_id"
   end
+
+  add_index "meals_notes", ["meal_id"], name: "index_meals_notes_on_meal_id", using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "canteen_id"
