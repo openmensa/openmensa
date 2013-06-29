@@ -10,7 +10,7 @@ class Api::V2::MealsController < Api::BaseController
   def canteen_meals
     @canteen = Canteen.find params[:canteen_id]
 
-    @days = @canteen.days.includes(:meals)
+    @days = @canteen.days.includes(meals: :notes)
     begin
       date = Date.strptime(params[:start] || '', '%Y-%m-%d')
       @days = @days.where('days.date >= ?', date).where('days.date < ?', date + 7.days)
@@ -18,6 +18,6 @@ class Api::V2::MealsController < Api::BaseController
       @days = @days.where('days.date >= ?', Date.today).where('days.date < ?', Date.today + 7.days)
     end
 
-    respond_with @days, include: [ :meals ]
+    respond_with DayDecorator.decorate_collection(@days), include: [ :meals ]
   end
 end

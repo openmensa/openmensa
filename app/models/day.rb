@@ -2,7 +2,7 @@ class Day < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :canteen
-  has_many :meals, -> { order(:pos).includes(:notes) }
+  has_many :meals, -> { order(:pos) }
 
   validates :date, :canteen_id, presence: true
   validates :date, uniqueness: { scope: :canteen_id }
