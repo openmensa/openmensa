@@ -22,7 +22,7 @@ describe Api::V2::MealsController do
       get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
       response.status.should == 200
 
-      json[1].should == {
+      json[0].should == {
         id: day.meals.first.id,
         name: day.meals.first.name,
         category: day.meals.first.category,
