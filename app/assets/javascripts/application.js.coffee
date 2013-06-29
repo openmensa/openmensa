@@ -2,6 +2,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require turbolinks
+#= require turbolinks-piwik
 #= require leaflet
 #= require leaflet.markercluster
 #= require leaflet.control.locate
