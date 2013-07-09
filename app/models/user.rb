@@ -109,7 +109,7 @@ class AnonymousUser < User
   def destructible?; false end
 
   def self.instance
-    user = @user_instance || find_by_login(login_id)
+    user = @user_instance || unscoped.find_by(login: login_id)
     return user if user
 
     user = self.new
