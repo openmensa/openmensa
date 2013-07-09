@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130629214122) do
+ActiveRecord::Schema.define(version: 20130629222312) do
 
   create_table "canteens", force: true do |t|
     t.string   "name"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20130629214122) do
     t.datetime "updated_at"
   end
 
+  add_index "days", ["canteen_id"], name: "index_days_on_canteen_id", using: :btree
+
   create_table "favorites", force: true do |t|
     t.integer  "canteen_id"
     t.integer  "user_id"
@@ -83,6 +85,7 @@ ActiveRecord::Schema.define(version: 20130629214122) do
     t.integer  "pos"
   end
 
+  add_index "meals", ["day_id"], name: "index_meals_on_day_id", using: :btree
   add_index "meals", ["pos"], name: "index_meals_on_pos", using: :btree
 
   create_table "meals_notes", force: true do |t|
