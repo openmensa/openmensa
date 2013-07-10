@@ -449,7 +449,7 @@ describe OpenMensa::Updater do
         today.meals(force_reload=true).size.should == 1
         today.meals.first.should == meal2
 
-        ids.map { |id| Meal.find_by_id id }.should == [nil, meal2]
+        ids.map { |id| Meal.find_by_id id }.should == [meal2. nil]
 
         updater.removed_meals.should == 1
         updater.should be_changed
