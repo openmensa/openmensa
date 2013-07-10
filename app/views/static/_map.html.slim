@@ -1,7 +1,9 @@
 #index_map.row.reversed
+  - canteens = Canteen.all
   - if current_user.internal?
     section.index-map
-      = map Canteen.all.to_a, hash: true
+      - cache [ canteens ] do
+        = map canteens.to_a, hash: true
   - else
     .span4
       = render partial: 'common/favorites', locals: { user: current_user }
@@ -11,5 +13,5 @@
         .index-map
           / form.search
           /   input#query
-          = map Canteen.all, hash: true
-
+          - cache [ canteens ] do
+            = map canteens.to_a, hash: true
