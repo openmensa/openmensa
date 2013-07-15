@@ -14,13 +14,12 @@ preload_app!
 bind 'unix:' + File.realpath('tmp/sockets') + '/web.sock'
 
 # Setup pid and state file
-pidfile    'tmp/pids/puma.pid'
-state_path 'tmp/pids/puma.state'
+pidfile    'tmp/puma/pid'
+state_path 'tmp/puma/state'
+activate_control_app
 
 # Log to /application/current/log/ files, we are already in RAILS_ROOT
 stdout_redirect 'log/puma.log', 'log/puma.err.log', true if RAILS_ENV == 'production'
 
 # Set server environment
 environment RAILS_ENV
-
-activate_control_app
