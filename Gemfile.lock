@@ -72,6 +72,7 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    capistrano-puma (0.0.1)
     capistrano-unicorn (0.1.9)
       capistrano
     capistrano_colors (0.5.5)
@@ -237,6 +238,10 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
       spoon (~> 0.0)
+    puma (2.3.2)
+      rack (>= 1.1, < 2.0)
+    puma (2.3.2-java)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-link_headers (2.2.1)
       rack
@@ -374,6 +379,7 @@ DEPENDENCIES
   brakeman
   cancan
   capistrano
+  capistrano-puma
   capistrano-unicorn
   capistrano_colors
   capybara
@@ -405,6 +411,7 @@ DEPENDENCIES
   paginate-responder (~> 1.3)
   pg
   poltergeist
+  puma
   rack-piwik
   rails (~> 4.0.0)
   rails-i18n

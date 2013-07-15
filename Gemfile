@@ -54,6 +54,7 @@ end
 
 group :production do
   gem 'unicorn', platforms: :ruby
+  gem 'puma'
 end
 
 group :development do
@@ -61,6 +62,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
   gem 'capistrano-unicorn'
+  gem 'capistrano-puma', require: false
   gem 'brakeman'
 
   gem 'guard-rspec', require: false
