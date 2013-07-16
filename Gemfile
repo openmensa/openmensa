@@ -61,8 +61,6 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'capistrano_colors'
-  gem 'capistrano-unicorn'
-  gem 'capistrano-puma', require: false
   gem 'brakeman'
 
   gem 'guard-rspec', require: false
