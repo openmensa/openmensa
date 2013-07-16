@@ -53,7 +53,6 @@ group :assets do
 end
 
 group :production do
-  gem 'unicorn', platforms: :ruby
   gem 'puma'
 end
 
