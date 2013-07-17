@@ -5,7 +5,7 @@ begin
 
   if (env = ENV_CONFIG[Rails.env])
     env.each do |key, str|
-      ENV[key] = str.to_s
+      ENV[key] ||= str.to_s
     end
   end
 rescue
