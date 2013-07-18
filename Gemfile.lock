@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/jgraichen/leaflet-rails.git
+  revision: 2f325a538fa98a98fbd2d4d60966b0b8b1eaaa5b
+  specs:
+    leaflet-rails (0.6.2)
+
+GIT
   remote: git://github.com/jgraichen/rakwik.git
   revision: bfe5d4d2d1abab6b8731bd96f99f01bf8ac086c5
   specs:
@@ -161,7 +167,6 @@ GEM
       bouncy-castle-java (>= 1.5.0147)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    leaflet-rails (0.6.2)
     libv8 (3.11.8.17)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
@@ -387,7 +392,7 @@ DEPENDENCIES
   inherited_resources
   jquery-rails
   jruby-openssl
-  leaflet-rails (~> 0.6.2)
+  leaflet-rails (~> 0.6.2)!
   listen
   newrelic_rpm
   nokogiri
