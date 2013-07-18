@@ -72,7 +72,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
-  gem 'rspec', '<= 2.13.0' # TODO: @mswart Replace `rspec_reset`
 end
 
 group :test do
