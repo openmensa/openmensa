@@ -2,8 +2,9 @@
   - canteens = Canteen.all
   - if current_user.internal?
     section.index-map
-      - cache [ canteens ] do
-        = map canteens.to_a, hash: true
+      div
+        - cache [ canteens ] do
+          = map canteens.to_a, hash: true
   - else
     .span4
       = render partial: 'common/favorites', locals: { user: current_user }
