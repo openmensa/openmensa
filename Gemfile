@@ -24,7 +24,7 @@ gem 'whenever', require: false
 gem 'rack-piwik', require: 'rack/piwik'
 gem 'rakwik', github: 'jgraichen/rakwik'
 gem 'geocoder'
-gem 'leaflet-rails', '~> 0.4.2.beta1'
+gem 'leaflet-rails', '~> 0.6.2'
 gem 'nokogiri'
 gem 'draper', '~> 1.0'
 gem 'inherited_resources'
