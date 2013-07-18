@@ -15,7 +15,7 @@ $ ->
       maxZoom: 18)
 
     $('[data-map="map"]').each ->
-      map = L.map(@, scrollWheelZoom: false, maxZoom: 16)
+      map = L.map(@, scrollWheelZoom: false, maxZoom: 18)
       L.control.locate().addTo(map);
       map.addLayer tileLayer
 
