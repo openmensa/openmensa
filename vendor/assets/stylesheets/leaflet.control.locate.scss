@@ -12,11 +12,11 @@
 }
 
 .leaflet-touch .leaflet-control-locate a {
-  background-image: image-url("images/locate_touch.png");
+  background-image: image-url("locate_touch.png");
 }
 
 .leaflet-control-locate.requesting a {
-  background-image: image-url("images/spinner.gif");
+  background-image: image-url("spinner.gif");
   background-position: 50% 50%;
 }
 
