@@ -1,6 +1,6 @@
 database: &common
   adapter: postgresql
-  pool: 5
+  pool: 20
 
 development:
   <<: *common
