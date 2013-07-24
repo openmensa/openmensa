@@ -14,7 +14,7 @@ section.status
       p
         =t :canteen, :last_update_at
         br
-        =l canteen.last_fetched_at
+        = timeago_tag canteen.last_fetched_at
   - else
     header: h3
       i.icon-warning-sign
@@ -24,4 +24,4 @@ section.status
       p
         =t :canteen, :last_update_at
         br
-        =l canteen.last_fetched_at
+        = timeago_tag canteen.last_fetched_at

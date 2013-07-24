@@ -14,7 +14,7 @@ gem 'omniauth-google-oauth2'
 gem 'rails-i18n'
 gem 'cancan'
 gem 'gravtastic'
-gem 'rails-timeago', '>= 1.3.0'
+gem 'rails-timeago', '~> 2.0'
 gem 'bcrypt-ruby',   '~> 3.0.0'
 
 # whenever dependency with Ruby 2.0 compatibility
