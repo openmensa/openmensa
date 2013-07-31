@@ -21,7 +21,7 @@ gem 'bcrypt-ruby',   '~> 3.0.0'
 gem 'chronic', '~> 0.9.1'
 gem 'whenever', require: false
 
-gem 'rack-piwik', require: 'rack/piwik'
+gem 'rack-piwik', require: 'rack/piwik', github: 'jgraichen/rack-piwik'
 gem 'rakwik', github: 'jgraichen/rakwik'
 gem 'geocoder'
 gem 'leaflet-rails', '~> 0.6.2', github: 'jgraichen/leaflet-rails' # Until icon asset path logic fixed and released.

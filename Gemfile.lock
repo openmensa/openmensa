@@ -5,6 +5,12 @@ GIT
     leaflet-rails (0.6.2)
 
 GIT
+  remote: git://github.com/jgraichen/rack-piwik.git
+  revision: 7b897da863401d9c575a9e11a57062e5ae96edb9
+  specs:
+    rack-piwik (0.2.2)
+
+GIT
   remote: git://github.com/jgraichen/rakwik.git
   revision: bfe5d4d2d1abab6b8731bd96f99f01bf8ac086c5
   specs:
@@ -246,7 +252,6 @@ GEM
     rack (1.5.2)
     rack-link_headers (2.2.2)
       rack
-    rack-piwik (0.2.2)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.0)
@@ -408,7 +413,7 @@ DEPENDENCIES
   pg
   poltergeist
   puma
-  rack-piwik
+  rack-piwik!
   rails (~> 4.0.0)
   rails-i18n
   rails-timeago (~> 2.0)
