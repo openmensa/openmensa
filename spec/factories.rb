@@ -35,8 +35,9 @@ FactoryGirl.define do
 
   factory :canteen do
     sequence(:name) { |n| "Mensa ##{n}"}
-    address         "Marble Street, 12345 City"
-    url             "http://example.com/canteen_feed.xml"
+    address 'Marble Street, 12345 City'
+    url 'http://example.com/canteen_feed.xml'
+    city 'City'
 
     sequence(:latitude)  { |n| (n % 180) - 90 }
     sequence(:longitude) { |n| (n % 360) - 180 }
@@ -106,7 +107,7 @@ FactoryGirl.define do
     association :day
 
     trait :with_notes do
-      notes [ "Note M1", "Note M2", "Note M3" ]
+      notes [ 'Note M1', 'Note M2', 'Note M3']
     end
   end
 

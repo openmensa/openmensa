@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130629222312) do
+ActiveRecord::Schema.define(version: 20130804181349) do
 
   create_table "canteens", force: true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20130629222312) do
     t.float    "longitude"
     t.float    "latitude"
     t.string   "today_url"
+    t.string   "city"
   end
 
   add_index "canteens", ["user_id"], name: "index_canteens_on_user_id", using: :btree

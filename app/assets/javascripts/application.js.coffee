@@ -9,6 +9,7 @@
 #= require leaflet.markercluster
 #= require leaflet.control.locate
 #= require leaflet.hash
+#= require jquery.autocomplete
 
 $ ->
   jQuery.timeago.settings.lang = 'de';
@@ -52,7 +53,7 @@ $ ->
       lat = $ $(@).data("lat")
       lng = $ $(@).data("lng")
 
-      marker = L.marker [lat.attr('value'), lng.attr('value')], { draggable: true }
+      marker = L.marker [lat.attr('value') || 0, lng.attr('value') || 0], { draggable: true }
       marker.on "drag dragend", (marker) ->
         lat.attr 'value', marker.target.getLatLng().lat
         lng.attr 'value', marker.target.getLatLng().lng
@@ -72,4 +73,9 @@ $ ->
       setTimeout ->
         el.parent().fadeOut()
       , timeout
+
+    $('[data-autocomplete]').each ->
+      el = $ @
+      el.autocomplete lookup: el.data('autocomplete'), maxHeight: 150
+
   $(document).trigger 'page:change'

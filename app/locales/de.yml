@@ -76,6 +76,7 @@ de:
     today_url: Feed-Url für das Essen von heute
     name: Name
     address: Adresse
+    city: Stadt / Region
     fetch_hour: Frühste Abrufstunde
     fetch_hour_hour: '%{hour} Uhr'
     fetch_hour_default: Standard

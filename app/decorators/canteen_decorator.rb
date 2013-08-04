@@ -21,6 +21,7 @@ class CanteenDecorator < Draper::Decorator
     {
       id: model.id,
       name: model.name,
+      city: model.city,
       address: model.address,
       coordinates: coordinates
     }

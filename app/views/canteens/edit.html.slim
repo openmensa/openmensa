@@ -4,28 +4,14 @@
       header
         h2= t :edit_canteen
       .content
-        = form_for [@user, @canteen] do |f|
-          p
-            = f.label :url, t(:canteen, :url)
-            = f.text_field :url
-          p
-            = f.label :today_url, t(:canteen, :today_url)
-            = f.text_field :today_url
-          p
-            = f.label :name, t(:canteen, :name)
-            = f.text_field :name
-          p
-            = f.label :address, t(:canteen, :address)
-            = f.text_field :address
-          p
-            = f.label :fetch_hour, t(:canteen, :fetch_hour)
-            = f.select :fetch_hour, options_for_select((0..23).map{ |n| [ t(:canteen, :fetch_hour_hour, hour: n), n] }),  include_blank: t(:canteen, :fetch_hour_default)
+        = form_for [@user, @canteen] do |form|
+          = render partial: 'form', object: form
           .row
             .span6
               p
-                = f.label :address, t(:canteen, :latitude_and_longitude)
-                = f.text_field :latitude, readonly: true
-                = f.text_field :longitude, readonly: true
+                = form.label :address, t(:canteen, :latitude_and_longitude)
+                = form.text_field :latitude, readonly: true
+                = form.text_field :longitude, readonly: true
             .span6
               p
                 label.icon-comment-alt
