@@ -23,7 +23,7 @@ $ ->
       L.control.locate().addTo(map);
       map.addLayer tileLayer
 
-      cluster = new L.MarkerClusterGroup showCoverageOnHover: false
+      cluster = new L.MarkerClusterGroup showCoverageOnHover: false, maxClusterRadius: 40
       markers = $(@).data("markers")
       markers = [] unless $.isArray markers
       for m in markers
