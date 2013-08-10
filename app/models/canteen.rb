@@ -9,7 +9,7 @@ class Canteen < ActiveRecord::Base
   has_many :meals, through: :days
   has_many :messages
 
-  validates :address, :name, :user_id, presence: true
+  validates :address, :city, :name, :user_id, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :geocode?

@@ -69,6 +69,6 @@ private
   end
 
   def canteen_params
-    params.require(:canteen).permit(:address, :name, :url, :today_url, :fetch_hour, :latitude, :longitude)
+    params.require(:canteen).permit(:address, :name, :url, :today_url, :fetch_hour, :latitude, :longitude, :city)
   end
 end

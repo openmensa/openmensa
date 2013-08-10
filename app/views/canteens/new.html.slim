@@ -4,22 +4,8 @@
       header
         h2= t :add_canteen
       .content
-        = form_for [@user, @canteen] do |f|
-          p
-            = f.label :url, t(:canteen, :url)
-            = f.text_field :url, :placeholder => t(:placeholder, :canteen, :url)
-          p
-            = f.label :today_url, t(:canteen, :today_url)
-            = f.text_field :today_url
-          p
-            = f.label :name, t(:canteen, :name)
-            = f.text_field :name, :placeholder => t(:placeholder, :canteen, :name)
-          p
-            = f.label :address, t(:canteen, :address)
-            = f.text_field :address, :placeholder => t(:placeholder, :canteen, :address)
-          p
-            = f.label :fetch_hour, t(:canteen, :fetch_hour)
-            = f.select :fetch_hour, options_for_select((0..23).map{ |n| [ t(:canteen, :fetch_hour_hour, hour: n), n] }),  include_blank: t(:canteen, :fetch_hour_default)
+        = form_for [@user, @canteen] do |form|
+          = render partial: 'form', object: form
           p
             = submit_tag t(:add)
 
