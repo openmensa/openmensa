@@ -83,12 +83,20 @@ describe 'Developers' do
     end
 
     context 'on my canteen page' do
+      let(:updater) { OpenMensa::Updater.new(canteen) }
+
+      before do
+        updater
+        OpenMensa::Updater.should_receive(:new).with(canteen).and_return updater
+      end
+
       it 'should allow to fetch the canteen feed again' do
+        updater.should_receive(:update).and_return true
         visit canteen_path canteen
 
         click_on 'Feed abfragen'
 
-        page.should have_content 'Der Mensa-Feed konnte nicht abgerufen werden!'
+        page.should have_content 'Der Mensa-Feed wurde erfolgreich aktualisiert!'
         page.should have_content canteen.name
       end
     end
