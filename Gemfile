@@ -27,7 +27,8 @@ gem 'geocoder'
 gem 'leaflet-rails', '~> 0.6.2', github: 'jgraichen/leaflet-rails' # Until icon asset path logic fixed and released.
 gem 'nokogiri'
 gem 'draper', '~> 1.0'
-gem 'inherited_resources'
+#gem 'inherited_resources'
+gem 'responders'
 gem 'has_scope'
 gem 'will_paginate'
 gem 'paginate-responder', '~> 1.3'
@@ -64,10 +65,6 @@ group :development do
 
   gem 'guard-rspec', require: false
   gem 'listen'
-
-  # For debugging on MRI 2.0
-  gem 'ruby-debug-ide', '>= 0.4.17.beta14', require: false, platforms: :ruby
-  gem 'debase', '>= 0.0.2', require: false, platforms: :ruby
 end
 
 group :development, :test do
