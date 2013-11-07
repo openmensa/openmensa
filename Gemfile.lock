@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/jgraichen/rack-piwik.git
-  revision: 7b897da863401d9c575a9e11a57062e5ae96edb9
+  revision: 5013d1bbfe43174092fa5a3a6e4bf5085ae11f75
   specs:
     rack-piwik (0.2.2)
 
