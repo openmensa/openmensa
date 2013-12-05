@@ -24,7 +24,7 @@ gem 'whenever', require: false
 gem 'rack-piwik', require: 'rack/piwik', github: 'jgraichen/rack-piwik'
 gem 'rakwik', github: 'jgraichen/rakwik'
 gem 'geocoder'
-gem 'leaflet-rails', '~> 0.6.2', github: 'jgraichen/leaflet-rails' # Until icon asset path logic fixed and released.
+gem 'leaflet-rails', '~> 0.7.0'
 gem 'nokogiri'
 gem 'draper', '~> 1.0'
 #gem 'inherited_resources'
