@@ -21,6 +21,7 @@ gem 'bcrypt-ruby',   '~> 3.0.0'
 gem 'chronic', '~> 0.9.1'
 gem 'whenever', require: false
 
+gem 'rack-cors', require: 'rack/cors'
 gem 'rack-piwik', require: 'rack/piwik', github: 'jgraichen/rack-piwik'
 gem 'rakwik', github: 'jgraichen/rakwik'
 gem 'geocoder'

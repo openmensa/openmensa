@@ -40,5 +40,12 @@ module Openmensa
       end
       raise 'No database configuration found.'
     end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '/api/*', headers: :any, methods: :get, credentials: false
+      end
+    end
   end
 end

@@ -245,6 +245,7 @@ GEM
     puma (2.7.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
+    rack-cors (0.2.9)
     rack-link_headers (2.2.2)
       rack
     rack-test (0.6.2)
@@ -409,6 +410,7 @@ DEPENDENCIES
   pg
   poltergeist
   puma
+  rack-cors
   rack-piwik!
   rails (~> 4.0.0)
   rails-i18n
