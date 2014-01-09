@@ -44,7 +44,7 @@ module Openmensa
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource '/api/*', headers: :any, methods: :get, credentials: false
+        resource '/api/*', headers: :any, expose: %w(Link X-OM-Api-Version X-Total-Pages), methods: :get, credentials: false
       end
     end
   end
