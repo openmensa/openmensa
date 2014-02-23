@@ -84,6 +84,8 @@ group :test do
   gem 'factory_girl_rails', '>= 3.3.0', require: false
 end
 
+gem 'rubysl', platform: :rbx
+
 # load Gemfile.local
 local_gemfile = File.dirname(__FILE__) + '/Gemfile.local'
 if File.file?(local_gemfile)
