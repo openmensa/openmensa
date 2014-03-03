@@ -1,6 +1,6 @@
 
 # fix strange port numbers due to proxy
-unless Rails.env.development?
+if Rails.env.production?
   OmniAuth.config.full_host = 'https://openmensa.org'
 end
 
