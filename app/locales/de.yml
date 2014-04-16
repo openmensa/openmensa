@@ -104,7 +104,7 @@ de:
     removed_meals: '%{count} Essen gelöscht.'
     actions: Mensa verwalten
     activation:
-      successful_activated: "Die Mensa nun im Betrieb!"
+      successful_activated: "Die Mensa ist nun im Betrieb!"
       errored_activated: "Die Mensa konnte nicht aktiviert werden!"
       successful_deactivated: "Die Mensa ist nun außer Betrieb! Sie wird nicht mehr aufgelistet oder abgerufen."
       errored_deactivated: "Die Mensa konnte nicht außer Betrieb genommen werden."

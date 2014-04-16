@@ -112,7 +112,7 @@ describe 'Developers' do
         it 'should allow to disable the canteen' do
           click_on 'Mensa in Betrieb nehmen'
 
-          page.should have_content 'Die Mensa nun im Betrieb!'
+          page.should have_content 'Die Mensa ist nun im Betrieb!'
           page.should have_content canteen.name
         end
       end
