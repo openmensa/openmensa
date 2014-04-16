@@ -61,6 +61,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :disabled_canteen, parent: :canteen do
+    active false
+  end
+
   factory :day do
     date { Time.zone.now }
 

@@ -9,6 +9,8 @@ class Canteen < ActiveRecord::Base
   has_many :meals, through: :days
   has_many :messages
 
+  scope :active, -> { where(active: true) }
+
   validates :address, :city, :name, :user_id, presence: true
 
   geocoded_by :address

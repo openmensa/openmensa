@@ -21,6 +21,6 @@ class Api::V2::CanteensController < Api::BaseController
   end
 
   def find_collection
-    apply_scopes Canteen.all.order(:id)
+    apply_scopes Canteen.active.order(:id)
   end
 end

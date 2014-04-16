@@ -1,5 +1,5 @@
 #index_map.row.reversed
-  - canteens = Canteen.all
+  - canteens = Canteen.active
   - if current_user.internal?
     section.index-map
         - cache [ canteens ] do
