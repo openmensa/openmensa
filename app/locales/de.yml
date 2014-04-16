@@ -13,6 +13,8 @@ de:
   my_canteens: Meine Mensen
   add_canteen: Neue Mensa hinzufügen
   edit_canteen: Mensa bearbeiten
+  deactivate_canteen: Mensa außer Betrieb nehmen
+  activate_canteen: Mensa in Betrieb nehmen
   my_messages: Statusmitteilungen
 
   service:
@@ -91,6 +93,8 @@ de:
     fetch_needed_message: Die gezeigten Esseninformationen sind veraltet. Aktuelle Anpassungen des Speiseplanes werden nicht gezeigt.
     no_fetch_ever: 'Noch keine Daten'
     no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald.'
+    out_of_order: 'Mensa ist außer Betrieb.'
+    out_of_order_message: 'Der Betrieb dieser Mensa ist (aktuell) eingestellt. Es werden keine Speisepläne mehr abgefragt.'
     feed_updated: Der Mensa-Feed wurde erfolgreich aktualisiert!
     feed_update_error: Der Mensa-Feed konnte nicht abgerufen werden!
     added_days: '%{count} Tage hinzugefügt.'
@@ -99,6 +103,12 @@ de:
     updated_meals: '%{count} Essen aktualisiert.'
     removed_meals: '%{count} Essen gelöscht.'
     actions: Mensa verwalten
+    activation:
+      successful_activated: "Die Mensa nun im Betrieb!"
+      errored_activated: "Die Mensa konnte nicht aktiviert werden!"
+      successful_deactivated: "Die Mensa ist nun außer Betrieb! Sie wird nicht mehr aufgelistet oder abgerufen."
+      errored_deactivated: "Die Mensa konnte nicht außer Betrieb genommen werden."
+    deactivated: " (Außer Betrieb)"
 
   canteen_actions:
     open_messages: Mensa-Mitteilungen

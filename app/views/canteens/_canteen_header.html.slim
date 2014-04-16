@@ -8,3 +8,5 @@ header#canteen-header
         = link_to [canteen, :favorite], title: t('favorites.add_as_favorite'), method: :post, class: :fav do
           i.icon-star-empty
     = canteen.name
+    - unless canteen.active
+      span.outoforder = t(:'canteen.deactivated')

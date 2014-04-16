@@ -14,6 +14,7 @@
           table
             - @canteens.each do |c|
               tr
+                td: i class=canteen_state_icon(c.fetch_state)
                 td=c.name
                 td=c.address
                 td.actions

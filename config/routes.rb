@@ -15,6 +15,7 @@ Openmensa::Application.routes.draw do
   get '/c/:id/fetch' => 'canteens#fetch', as: :fetch_canteen
   resources :canteens, path: 'c', only: [ :show ] do
     resource :favorite, only: [ :create, :destroy ]
+    resource :active, controller: :canteen_activation, only: [:create, :destroy ]
   end
   resources :users, path: 'u' do
     resources :favorites, path: 'favs', only: [ :index ]

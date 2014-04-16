@@ -18,6 +18,15 @@ describe "canteens/show.html.slim" do
     rendered.should include(canteen.name)
   end
 
+  context 'with deactived canteen' do
+    it 'should contain a deactivation info' do
+      canteen.update_attribute :active, false
+      render
+      rendered.should match /#{canteen.name}.*\(Außer Betrieb\)/
+      rendered.should include("Mensa ist außer Betrieb")
+    end
+  end
+
   context 'without meals' do
     it 'should list information about missing meal' do
       render

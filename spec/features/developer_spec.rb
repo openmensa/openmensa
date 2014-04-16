@@ -86,18 +86,35 @@ describe 'Developers' do
       let(:updater) { OpenMensa::Updater.new(canteen) }
 
       before do
-        updater
-        OpenMensa::Updater.should_receive(:new).with(canteen).and_return updater
+        visit canteen_path canteen
       end
 
       it 'should allow to fetch the canteen feed again' do
-        updater.should_receive(:update).and_return true
-        visit canteen_path canteen
+        expect(OpenMensa::Updater).to receive(:new).with(canteen).and_return updater
+        expect(updater).to receive(:update).and_return true
 
         click_on 'Feed abfragen'
 
         page.should have_content 'Der Mensa-Feed wurde erfolgreich aktualisiert!'
         page.should have_content canteen.name
+      end
+
+      it 'should allow to disable the canteen' do
+        click_on 'Mensa außer Betrieb nehmen'
+
+        page.should have_content 'Die Mensa ist nun außer Betrieb!'
+        page.should have_content canteen.name
+      end
+
+      context 'with deactivated canteen' do
+        let(:canteen) { FactoryGirl.create :disabled_canteen, user_id: developer.id }
+
+        it 'should allow to disable the canteen' do
+          click_on 'Mensa in Betrieb nehmen'
+
+          page.should have_content 'Die Mensa nun im Betrieb!'
+          page.should have_content canteen.name
+        end
       end
     end
 
