@@ -90,4 +90,40 @@ describe Canteen do
       end
     end
   end
+
+  describe '#fetch_state' do
+    subject { canteen.fetch_state }
+
+    context 'when canteen is disabled' do
+      before do
+        canteen.update_attribute :active, false
+      end
+
+      it { should eq :out_of_order }
+    end
+
+    context 'when updated in the last 24 hours' do
+      before do
+        canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hour
+      end
+
+      it { should eq :fetch_up_to_date }
+    end
+
+    context 'when updated earlier than 24 hours ago' do
+      before do
+        canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hour
+      end
+
+      it { should eq :fetch_needed }
+    end
+
+    context 'when never updated' do
+      before do
+        canteen.update_attribute :last_fetched_at, nil
+      end
+
+      it { should eq :no_fetch_ever }
+    end
+  end
 end

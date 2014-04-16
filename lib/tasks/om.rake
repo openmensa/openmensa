@@ -3,7 +3,7 @@ namespace :om do
   task :fetch => :environment do
     Rails.logger.info "[#{Time.zone.now}] Fetch canteen data..."
 
-    Canteen.pluck(:id).each do |canteen_id|
+    Canteen.active.pluck(:id).each do |canteen_id|
       canteen = Canteen.find canteen_id
 
       begin

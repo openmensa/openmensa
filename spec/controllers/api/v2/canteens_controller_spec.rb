@@ -45,6 +45,15 @@ describe Api::V2::CanteensController do
       response.headers['Link'].to_s.should include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
     end
 
+    context 'should not included disabled canteens' do
+      let!(:disabled_canteen) { FactoryGirl.create :disabled_canteen }
+      before { get :index, format: :json }
+      subject { json }
+
+      it { should be_an(Array) }
+      it { should have(1).item }
+    end
+
     context '&limit' do
       it 'should limit list to given limit parameter' do
         100.times { FactoryGirl.create :canteen }
@@ -170,8 +179,8 @@ describe Api::V2::CanteensController do
   end
 
   describe 'GET show' do
-    let(:canteen) { FactoryGirl.create :canteen }
-    before        { canteen }
+    let!(:canteen) { FactoryGirl.create :canteen }
+    before { get :show, id: canteen.id, format: :json }
 
     it 'should answer with canteen' do
       get :show, id: canteen.id, format: :json
@@ -187,6 +196,21 @@ describe Api::V2::CanteensController do
                            canteen.longitude
                        ]
       }.as_json
+    end
+
+    context 'and a disabled canteens' do
+      let(:canteen) { FactoryGirl.create :disabled_canteen }
+      subject { json }
+
+      context 'response' do
+        subject { response }
+        its(:status) { should == 200 }
+      end
+
+      context 'json' do
+        subject { json }
+        its(['id']) { should be canteen.id }
+      end
     end
   end
 end
