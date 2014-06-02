@@ -16,7 +16,7 @@ if OMNI_CONFIG
   end
 end
 
-OMNI_CONFIG.each do |key, data|
+(OMNI_CONFIG || []).each do |key, data|
   Rails.configuration.omniauth_services ||= []
   Rails.configuration.omniauth_services << key
 end

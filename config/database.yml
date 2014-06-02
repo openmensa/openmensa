@@ -13,6 +13,9 @@ test:
   <<: *common
   database: openmensa_test
 
+assets:
+  <<: *common
+
 production:
   <<: *common
   database: openmensa
