@@ -12,6 +12,13 @@ GIT
       em-http-request
       rack
 
+GIT
+  remote: git://github.com/mswart/geocoder.git
+  revision: dcd345a47b48725158854ff9509518a9038ba7b8
+  branch: order_by_without_select
+  specs:
+    geocoder (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -130,7 +137,6 @@ GEM
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
     formatador (0.2.4)
-    geocoder (1.1.9)
     gravtastic (3.2.6)
     guard (2.6.0)
       formatador (>= 0.2.4)
@@ -572,7 +578,7 @@ DEPENDENCIES
   draper (~> 1.0)
   factory_girl_rails (>= 3.3.0)
   font-awesome-sass-rails (>= 3.0.2.2)
-  geocoder
+  geocoder!
   gravtastic
   guard-rspec
   has_scope
