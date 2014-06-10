@@ -9,7 +9,7 @@ Cany::Specification.new do
 
   use :bundler
   use :rails do
-    assets_env 'assets'
+    assets_env 'development'
   end
 
   prepare do
