@@ -10,6 +10,14 @@ We provided a standardized format to access and provide these information. This 
 We are currently focused on Germany but are interested to open to other countries.
 
 
+## Dependencies
+
+* Ruby 2.x
+* Gems (rails 4.1, for other see Gemfile)
+* PostgreSQL as database backend
+* whenever regular tasks (fetching menus, sending emails)
+
+
 ## Getting started
 
 1. install needed gems
