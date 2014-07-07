@@ -1,0 +1,19 @@
+Cany::Specification.new do
+  name 'openmensa'
+  version "1.0+t#{Time.now.utc.strftime('%Y%m%d%H%M')}" + (ENV.key?('BUILD_NUMBER') ? "+b#{ENV['BUILD_NUMBER']}" : '')
+  description 'OpenMensa is a free database to exchange canteen information and meal menus'
+  maintainer_name 'OpenMensa Developer'
+  maintainer_email 'dev@openmensa.org'
+  website 'https://openmensa.org'
+  licence 'AGPL'
+
+  use :bundler
+  use :rails do
+    assets_env 'development'
+  end
+
+  prepare do
+    version = `dpkg-parsechangelog | grep Version: | cut -d: -f2`.strip
+    recipe(:bundler).configure :env_vars, DEB_VERSION: version
+  end
+end

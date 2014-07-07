@@ -73,6 +73,7 @@ GEM
       terminal-table (~> 1.4)
     builder (3.2.2)
     cancan (1.6.10)
+    cany (0.5.1)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -565,6 +566,7 @@ DEPENDENCIES
   bourbon
   brakeman
   cancan
+  cany (~> 0.5.0)
   capistrano
   capistrano_colors
   capybara
