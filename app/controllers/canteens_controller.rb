@@ -38,7 +38,7 @@ class CanteensController < ApplicationController
       @date  = Time.zone.now.to_date
     end
 
-    @meals = @canteen.meals.where(date: @date)
+    @meals = @canteen.meals.for @date
   end
 
   def fetch

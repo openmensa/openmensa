@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.4'
+gem 'rails', '>= 4.1.4'
 gem 'jquery-rails'
 gem 'turbolinks'
 
@@ -24,7 +24,7 @@ gem 'whenever', require: false
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-piwik', require: 'rack/piwik', github: 'jgraichen/rack-piwik'
 gem 'rakwik', github: 'jgraichen/rakwik'
-gem 'geocoder'
+gem 'geocoder', github: 'mswart/geocoder', branch: 'order_by_without_select'
 gem 'leaflet-rails', '~> 0.7.0'
 gem 'nokogiri'
 gem 'draper', '~> 1.0'
@@ -66,6 +66,7 @@ group :development do
 
   gem 'guard-rspec', require: false
   gem 'listen'
+  gem 'spring'
 end
 
 group :development, :test do

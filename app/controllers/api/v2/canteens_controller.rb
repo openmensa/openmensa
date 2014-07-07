@@ -9,7 +9,7 @@ class Api::V2::CanteensController < Api::BaseController
     end
 
     if place
-      scope.reorder('distance ASC').near(place, value[2] ? value[2].to_f : 10, units: :km)
+      scope.reorder('').near(place, value[2] ? value[2].to_f : 10, units: :km, order_by_without_select: :distance)
     else
       scope
     end

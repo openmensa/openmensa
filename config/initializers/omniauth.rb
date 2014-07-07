@@ -4,7 +4,7 @@ if Rails.env.production?
   OmniAuth.config.full_host = 'https://openmensa.org'
 end
 
-OMNI_FILE = ENV['OMNI_FILE'] || Rails.root.join('config', 'omniauth.yml')
+OMNI_FILE = Rails.application.secrets.omni_file || Rails.root.join('config', 'omniauth.yml')
 OMNI_CONFIG = YAML.load_file(OMNI_FILE)[Rails.env]
 
 if OMNI_CONFIG
