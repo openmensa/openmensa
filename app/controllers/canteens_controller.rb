@@ -33,9 +33,9 @@ class CanteensController < ApplicationController
 
   def show
     if params[:date]
-      @date  = Date.parse params[:date]
+      @date  = Date.parse params[:date].to_s
     else
-      @date  = Time.zone.now.to_date
+      @date  = Time.zone.now
     end
 
     @meals = @canteen.meals.for @date

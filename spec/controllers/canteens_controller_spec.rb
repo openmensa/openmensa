@@ -18,9 +18,9 @@ describe CanteensController, :type => :controller do
     end
 
     it 'should fetch meals for given date parameter' do
-      get :show, id: canteen.id, date: Time.zone.now.to_date + 1.day
+      get :show, id: canteen.id, date: Time.zone.now + 1.day
 
-      expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now.to_date + 1.day)
+      expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now + 1.day)
     end
   end
 
