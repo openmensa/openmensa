@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require_dependency 'message'
 
-describe 'Developers' do
+describe 'Developers', :type => :feature do
   let(:user) { FactoryGirl.create :user }
   let(:developer) { FactoryGirl.create :developer }
   let(:canteen) { FactoryGirl.create :canteen, user_id: developer.id }
@@ -29,7 +29,7 @@ describe 'Developers' do
         select 'Standard', from: 'Frühste Abrufstunde'
         click_on 'Hinzufügen'
 
-        page.should have_content 'Die Mensa wurde erfolgreich hinzugefügt.'
+        expect(page).to have_content 'Die Mensa wurde erfolgreich hinzugefügt.'
       end
 
       it 'should be able to edit own canteens' do
@@ -50,13 +50,13 @@ describe 'Developers' do
 
         canteen.reload
 
-        canteen.url.should == new_url
-        canteen.today_url.should == new_url_2
-        canteen.name.should == new_name
-        canteen.address.should == new_address
-        canteen.city.should == new_city
+        expect(canteen.url).to eq(new_url)
+        expect(canteen.today_url).to eq(new_url_2)
+        expect(canteen.name).to eq(new_name)
+        expect(canteen.address).to eq(new_address)
+        expect(canteen.city).to eq(new_city)
 
-        page.should have_content 'Mensa gespeichert.'
+        expect(page).to have_content 'Mensa gespeichert.'
       end
 
       it 'should allow to set fetch_hour for meal' do
@@ -67,7 +67,7 @@ describe 'Developers' do
 
         canteen.reload
 
-        canteen.fetch_hour.should == 9
+        expect(canteen.fetch_hour).to eq(9)
       end
 
       it 'should allow to set fetch_hour to default' do
@@ -78,7 +78,7 @@ describe 'Developers' do
 
         canteen.reload
 
-        canteen.fetch_hour.should be_nil
+        expect(canteen.fetch_hour).to be_nil
       end
     end
 
@@ -95,15 +95,15 @@ describe 'Developers' do
 
         click_on 'Feed abfragen'
 
-        page.should have_content 'Der Mensa-Feed wurde erfolgreich aktualisiert!'
-        page.should have_content canteen.name
+        expect(page).to have_content 'Der Mensa-Feed wurde erfolgreich aktualisiert!'
+        expect(page).to have_content canteen.name
       end
 
       it 'should allow to disable the canteen' do
         click_on 'Mensa außer Betrieb nehmen'
 
-        page.should have_content 'Die Mensa ist nun außer Betrieb!'
-        page.should have_content canteen.name
+        expect(page).to have_content 'Die Mensa ist nun außer Betrieb!'
+        expect(page).to have_content canteen.name
       end
 
       context 'with deactivated canteen' do
@@ -112,8 +112,8 @@ describe 'Developers' do
         it 'should allow to disable the canteen' do
           click_on 'Mensa in Betrieb nehmen'
 
-          page.should have_content 'Die Mensa ist nun im Betrieb!'
-          page.should have_content canteen.name
+          expect(page).to have_content 'Die Mensa ist nun im Betrieb!'
+          expect(page).to have_content canteen.name
         end
       end
     end
@@ -127,21 +127,21 @@ describe 'Developers' do
 
       it 'should allow to view own messages' do
         click_on canteen.name
-        page.should have_content message.canteen.name
-        page.should have_content message.message
+        expect(page).to have_content message.canteen.name
+        expect(page).to have_content message.message
       end
     end
 
     context 'on profile page' do
       it 'should allow to activate (daily) report mails' do
-        developer.send_reports?.should be_false
+        expect(developer.send_reports?).to be_falsey
 
         check 'Sende Error-Reports per Mail (maximal täglich)'
         click_on 'Speichern'
 
         developer.reload
 
-        developer.send_reports?.should be_true
+        expect(developer.send_reports?).to be_truthy
       end
 
       it 'should allow to deactivate (daily) report mails' do
@@ -153,7 +153,7 @@ describe 'Developers' do
 
         developer.reload
 
-        developer.send_reports?.should be_false
+        expect(developer.send_reports?).to be_falsey
       end
 
       it 'should not be able to remove email' do

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe "canteens/show.html.slim" do
+describe "canteens/show.html.slim", :type => :view do
   let(:user) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen) }
 
@@ -10,20 +10,20 @@ describe "canteens/show.html.slim" do
     assign(:canteen, canteen)
     assign(:date, Time.zone.now.to_date)
 
-    view.stub(:current_user) { user }
+    allow(view).to receive(:current_user) { user }
   end
 
   it "should contain canteen name" do
     render
-    rendered.should include(canteen.name)
+    expect(rendered).to include(canteen.name)
   end
 
   context 'with deactived canteen' do
     it 'should contain a deactivation info' do
       canteen.update_attribute :active, false
       render
-      rendered.should match /#{canteen.name}.*\(Außer Betrieb\)/
-      rendered.should include("Mensa ist außer Betrieb")
+      expect(rendered).to match /#{canteen.name}.*\(Außer Betrieb\)/
+      expect(rendered).to include("Mensa ist außer Betrieb")
     end
   end
 
@@ -31,7 +31,7 @@ describe "canteens/show.html.slim" do
     it 'should list information about missing meal' do
       render
 
-      rendered.should include('keine Angebote')
+      expect(rendered).to include('keine Angebote')
     end
   end
 
@@ -42,7 +42,7 @@ describe "canteens/show.html.slim" do
     it "should show a closed notice" do
       render
 
-      rendered.should include('geschlossen')
+      expect(rendered).to include('geschlossen')
     end
   end
 
@@ -55,12 +55,12 @@ describe "canteens/show.html.slim" do
 
     it 'should list names of category' do
       render
-      rendered.should include(meal.category)
+      expect(rendered).to include(meal.category)
     end
 
     it 'should include name of meal' do
       render
-      rendered.should include(meal.category)
+      expect(rendered).to include(meal.category)
     end
 
     it 'should include prices of meal' do
@@ -69,13 +69,13 @@ describe "canteens/show.html.slim" do
 
       render
 
-      rendered.should include('Student')
-      rendered.should include('1,22 €')
-      rendered.should include('Mitarbeiter')
-      rendered.should include('1,70 €')
-      rendered.should include('Gäste')
-      rendered.should include('2,20 €')
-      rendered.should_not include("Schüler")
+      expect(rendered).to include('Student')
+      expect(rendered).to include('1,22 €')
+      expect(rendered).to include('Mitarbeiter')
+      expect(rendered).to include('1,70 €')
+      expect(rendered).to include('Gäste')
+      expect(rendered).to include('2,20 €')
+      expect(rendered).not_to include("Schüler")
     end
 
     it 'should include notes of meal' do
@@ -83,8 +83,8 @@ describe "canteens/show.html.slim" do
 
       render
 
-      rendered.should include('vegan')
-      rendered.should include('vegetarisch')
+      expect(rendered).to include('vegan')
+      expect(rendered).to include('vegetarisch')
 
     end
 
@@ -100,7 +100,7 @@ describe "canteens/show.html.slim" do
         mealPositions << rendered.index(meal.name)
       end
 
-      mealPositions.should == mealPositions.sort
+      expect(mealPositions).to eq(mealPositions.sort)
     end
   end
 
@@ -108,18 +108,18 @@ describe "canteens/show.html.slim" do
     canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hour
     render
 
-    rendered.should include('Daten aktuell')
+    expect(rendered).to include('Daten aktuell')
   end
 
   it 'should print a warning on canteens fetched earlier then 24 hour ago' do
     canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hour
     render
-    rendered.should include('Aktualisierung notwendig')
+    expect(rendered).to include('Aktualisierung notwendig')
   end
 
   it 'should print error on never fetched canteens' do
     canteen.update_attribute :last_fetched_at, nil
     render
-    rendered.should include('Noch keine Daten')
+    expect(rendered).to include('Noch keine Daten')
   end
 end

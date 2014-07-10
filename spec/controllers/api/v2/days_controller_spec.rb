@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V2::DaysController do
+describe Api::V2::DaysController, :type => :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -12,20 +12,20 @@ describe Api::V2::DaysController do
 
     it "should answer with a list" do
       get :index, canteen_id: canteen.id, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json.should be_an(Array)
-      json.should have(1).item
+      expect(json).to be_an(Array)
+      expect(json.size).to eq(1)
     end
 
     it "should answer with a list of day nodes" do
       get :index, canteen_id: canteen.id, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json[0].should == {
+      expect(json[0]).to eq({
         :date => day.date.iso8601,
         :closed => day.closed
-      }.as_json
+      }.as_json)
     end
 
     context "&start" do
@@ -44,10 +44,10 @@ describe Api::V2::DaysController do
       it "should default to today if not given" do
         get :index, canteen_id: canteen.id, format: :json
 
-        json.should have(3).items
-        json[0]['date'].should == today.date.iso8601
-        json[1]['date'].should == tomorrow.date.iso8601
-        json[2]['date'].should == (tomorrow.date + 1).iso8601
+        expect(json).to have(3).items
+        expect(json[0]['date']).to eq(today.date.iso8601)
+        expect(json[1]['date']).to eq(tomorrow.date.iso8601)
+        expect(json[2]['date']).to eq((tomorrow.date + 1).iso8601)
       end
     end
   end
@@ -59,12 +59,12 @@ describe Api::V2::DaysController do
 
     it "should answer with day" do
       get :show, canteen_id: canteen.id, id: day.to_param, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json.should == {
+      expect(json).to eq({
         :date => day.date.iso8601,
         :closed => day.closed
-      }.as_json
+      }.as_json)
     end
   end
 end

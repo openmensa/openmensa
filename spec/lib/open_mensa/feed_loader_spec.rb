@@ -33,27 +33,27 @@ describe OpenMensa::FeedLoader do
 
   describe '#load!' do
     it 'should load data from canteen URL' do
-      loader.load!.read.should == mock_content('canteen_feed.xml')
+      expect(loader.load!.read).to eq(mock_content('canteen_feed.xml'))
     end
 
     it 'should load data from canteen today URL' do
       canteen.today_url = 'http://example.com/data.xml'
-      today_loader.load!.read.should == '<xml>'
+      expect(today_loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects (1)' do
       canteen.url = 'http://example.com/307.xml'
-      loader.load!.read.should == '<xml>'
+      expect(loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects (2)' do
       canteen.url = 'http://example.com/302.xml'
-      loader.load!.read.should == '<xml>'
+      expect(loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects (3)' do
       canteen.url = 'http://example.com/303.xml'
-      loader.load!.read.should == '<xml>'
+      expect(loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects for a maximum of 2 redirect by default' do
@@ -67,14 +67,14 @@ describe OpenMensa::FeedLoader do
       canteen.url = 'http://example.com/301.xml'
       loader.load!
 
-      canteen.url.should == 'http://example.com/data.xml'
+      expect(canteen.url).to eq('http://example.com/data.xml')
     end
 
     it 'should follow update canteen today URL on permanent redirect' do
       canteen.today_url = 'http://example.com/301.xml'
       today_loader.load!
 
-      canteen.today_url.should == 'http://example.com/data.xml'
+      expect(canteen.today_url).to eq('http://example.com/data.xml')
     end
 
     it 'should raise an error on 500' do

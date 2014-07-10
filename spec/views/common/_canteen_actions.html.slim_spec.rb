@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + "/../../spec_helper"
 require_dependency 'message'
 
-describe "common/_canteen_actions.html.slim" do
+describe "common/_canteen_actions.html.slim", :type => :view do
   let(:owner) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
   before do
@@ -12,30 +12,30 @@ describe "common/_canteen_actions.html.slim" do
   subject { rendered }
 
   it 'should contain a link to the canteen feed' do
-    rendered.should include(canteen.url)
-    rendered.should include('Feed-URL öffen')
+    expect(rendered).to include(canteen.url)
+    expect(rendered).to include('Feed-URL öffen')
   end
 
   it 'should cantain a link to edit the canteen' do
-    rendered.should include('Mensa bearbeiten')
+    expect(rendered).to include('Mensa bearbeiten')
   end
 
   it 'should cantain a link to deactivate the canteen' do
-    rendered.should include('Mensa außer Betrieb nehmen')
+    expect(rendered).to include('Mensa außer Betrieb nehmen')
   end
 
   context 'with deactivate canteen' do
     let(:canteen) { FactoryGirl.create(:disabled_canteen, user: owner) }
     it 'should cantain a link to activate the canteen' do
-      rendered.should include('Mensa in Betrieb nehmen')
+      expect(rendered).to include('Mensa in Betrieb nehmen')
     end
   end
 
   it 'should cantain a link to view the canteen\' messages' do
-    rendered.should include('Mensa-Mitteilungen')
+    expect(rendered).to include('Mensa-Mitteilungen')
   end
 
   it 'should contain a link to the canteen meal page' do
-    rendered.should include('Mensa-Seite')
+    expect(rendered).to include('Mensa-Seite')
   end
 end

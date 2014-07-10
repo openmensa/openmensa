@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe MessageMailer do
+describe MessageMailer, :type => :mailer do
   describe 'daily_report' do
     let(:user) { FactoryGirl.create :developer }
     let(:canteens) {[
@@ -17,34 +17,34 @@ describe MessageMailer do
     let(:mail) { MessageMailer.daily_report(user) }
 
     it 'should sent to the user\'s eMail' do
-      mail.to.should == [user.email]
+      expect(mail.to).to eq([user.email])
     end
 
     it 'should contains openmensa in subject' do
-      mail.subject.should include('OpenMensa')
+      expect(mail.subject).to include('OpenMensa')
     end
 
     it 'should send in the name of the OpenMensa development team' do
-      mail.from.should == ['mail@openmensa.org']
+      expect(mail.from).to eq(['mail@openmensa.org'])
     end
 
     it 'should include all new messages for every canteen' do
       messages # create messages
 
       content = mail.body.encoded
-      content.should include(canteens[0].name)
-      content.should include(messages[1].code.to_s)
-      content.should include(messages[1].message)
-      content.should include(messages[2].version.to_s)
-      content.should include(messages[2].message)
+      expect(content).to include(canteens[0].name)
+      expect(content).to include(messages[1].code.to_s)
+      expect(content).to include(messages[1].message)
+      expect(content).to include(messages[2].version.to_s)
+      expect(content).to include(messages[2].message)
 
-      content.should include(canteens[1].name)
-      content.should include(messages[3].old_url)
-      content.should include(messages[3].new_url)
+      expect(content).to include(canteens[1].name)
+      expect(content).to include(messages[3].old_url)
+      expect(content).to include(messages[3].new_url)
     end
 
     it 'should not contain canteens without message' do
-      mail.body.encoded.should_not include(canteens[2].name)
+      expect(mail.body.encoded).not_to include(canteens[2].name)
     end
   end
 end

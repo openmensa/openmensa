@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../lib/open_mensa.rb'
 require File.dirname(__FILE__) + "/../../spec_helper"
 require 'message'
 
-describe "messages/index.html.slim" do
+describe "messages/index.html.slim", :type => :view do
   let(:user) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen, user: user) }
   let(:messages) {[
@@ -13,7 +13,7 @@ describe "messages/index.html.slim" do
   ]}
 
   before do
-    controller.stub(:current_user) { User.new }
+    allow(controller).to receive(:current_user) { User.new }
     assign(:user, user)
     assign(:canteen, canteen)
     assign(:messages, messages)
@@ -22,10 +22,10 @@ describe "messages/index.html.slim" do
   end
 
   it "should list canteens with their messages" do
-    rendered.should include(canteen.name)
-    rendered.should include(messages[1].code.to_s)
-    rendered.should include(messages[1].message)
-    rendered.should include(messages[2].version.to_s)
-    rendered.should include(messages[2].message)
+    expect(rendered).to include(canteen.name)
+    expect(rendered).to include(messages[1].code.to_s)
+    expect(rendered).to include(messages[1].message)
+    expect(rendered).to include(messages[2].version.to_s)
+    expect(rendered).to include(messages[2].message)
   end
 end

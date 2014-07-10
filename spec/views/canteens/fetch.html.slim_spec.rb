@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + "/../../spec_helper"
 require_dependency 'message'
 
-describe "canteens/fetch.html.slim" do
+describe "canteens/fetch.html.slim", :type => :view do
   let(:owner) { FactoryGirl.create :user }
   let(:other) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
@@ -35,7 +35,7 @@ describe "canteens/fetch.html.slim" do
     before do
       assign(:user, owner)
       assign(:canteen, canteen)
-      view.stub(:current_user) { owner }
+      allow(view).to receive(:current_user) { owner }
     end
 
     it 'should display updated entities' do
@@ -43,13 +43,13 @@ describe "canteens/fetch.html.slim" do
 
       render
 
-      rendered.should include('Der Mensa-Feed wurde erfolgreich aktualisiert!')
+      expect(rendered).to include('Der Mensa-Feed wurde erfolgreich aktualisiert!')
 
-      rendered.should include('101 Tage hinzugefügt')
-      rendered.should include('102 Tage aktualisiert')
-      rendered.should include('201 Essen hinzugefügt')
-      rendered.should include('202 Essen aktualisiert')
-      rendered.should include('203 Essen gelöscht')
+      expect(rendered).to include('101 Tage hinzugefügt')
+      expect(rendered).to include('102 Tage aktualisiert')
+      expect(rendered).to include('201 Essen hinzugefügt')
+      expect(rendered).to include('202 Essen aktualisiert')
+      expect(rendered).to include('203 Essen gelöscht')
     end
 
     it 'should display fetch errors' do
@@ -57,9 +57,9 @@ describe "canteens/fetch.html.slim" do
 
       render
 
-      rendered.should include('Der Mensa-Feed konnte nicht abgerufen werden!')
+      expect(rendered).to include('Der Mensa-Feed konnte nicht abgerufen werden!')
 
-      rendered.should include('Could not fetch')
+      expect(rendered).to include('Could not fetch')
     end
   end
 
@@ -67,7 +67,7 @@ describe "canteens/fetch.html.slim" do
     before do
       assign(:user, other)
       assign(:canteen, canteen)
-      view.stub(:current_user) { other }
+      allow(view).to receive(:current_user) { other }
     end
 
     it 'should not display updated entities' do
@@ -75,13 +75,13 @@ describe "canteens/fetch.html.slim" do
 
       render
 
-      rendered.should include('Der Mensa-Feed wurde erfolgreich aktualisiert!')
+      expect(rendered).to include('Der Mensa-Feed wurde erfolgreich aktualisiert!')
 
-      rendered.should_not include('101 Tage hinzugefügt')
-      rendered.should_not include('102 Tage aktualisiert')
-      rendered.should_not include('103 Essen hinzugefügt')
-      rendered.should_not include('104 Essen aktualisiert')
-      rendered.should_not include('105 Essen gelöscht')
+      expect(rendered).not_to include('101 Tage hinzugefügt')
+      expect(rendered).not_to include('102 Tage aktualisiert')
+      expect(rendered).not_to include('103 Essen hinzugefügt')
+      expect(rendered).not_to include('104 Essen aktualisiert')
+      expect(rendered).not_to include('105 Essen gelöscht')
     end
 
     it 'should display fetch errors' do
@@ -89,9 +89,9 @@ describe "canteens/fetch.html.slim" do
 
       render
 
-      rendered.should include('Der Mensa-Feed konnte nicht abgerufen werden!')
+      expect(rendered).to include('Der Mensa-Feed konnte nicht abgerufen werden!')
 
-      rendered.should_not include('Could not fetch')
+      expect(rendered).not_to include('Could not fetch')
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'API routing within' do
+describe 'API routing within', :type => :routing do
   context '/api/v2' do
     let(:base) { '/api/v2' }
 

@@ -1,26 +1,26 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe CanteensController do
+describe CanteensController, :type => :controller do
   describe '#show' do
     let(:canteen) { FactoryGirl.create :canteen, :with_meals }
 
     it "should fetch canteen" do
       get :show, id: canteen.id
 
-      assigns(:canteen).should == canteen
+      expect(assigns(:canteen)).to eq canteen
     end
 
     it "canteen's meals for today" do
       get :show, id: canteen.id
 
-      assigns(:meals).should == canteen.meals.for(Time.zone.now)
+      expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now)
     end
 
     it 'should fetch meals for given date parameter' do
       get :show, id: canteen.id, date: Time.zone.now.to_date + 1.day
 
-      assigns(:meals).should == canteen.meals.for(Time.zone.now.to_date + 1.day)
+      expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now.to_date + 1.day)
     end
   end
 
@@ -32,9 +32,9 @@ describe CanteensController do
       patch :update, user_id: canteen.user.id, id: canteen.id, canteen: { name: 'NewName' }
 
       canteen.reload
-      canteen.name.should_not == 'NewName'
+      expect(canteen.name).to_not eq 'NewName'
 
-      response.status.should == 401
+      expect(response.status).to eq 401
     end
   end
 
@@ -46,14 +46,14 @@ describe CanteensController do
 
     before do
       updater
-      OpenMensa::Updater.should_receive(:new).with(canteen).and_return updater
+      expect(OpenMensa::Updater).to receive(:new).with(canteen).and_return updater
     end
 
     it 'should run openmensa updater' do
-      updater.should_receive(:update).and_return true
+      expect(updater).to receive(:update).and_return true
       get :fetch, id: canteen.id, format: :json
 
-      response.status.should == 200
+      expect(response.status).to eq 200
     end
 
     context 'should return update information' do
@@ -73,35 +73,35 @@ describe CanteensController do
       end
 
       before do
-        updater.should_receive(:update).and_return true
-        updater.should_receive(:added_days).at_least(:once).and_return 1
-        updater.should_receive(:updated_days).at_least(:once).and_return 0
-        updater.should_receive(:added_meals).at_least(:once).and_return 3
-        updater.should_receive(:updated_meals).at_least(:once).and_return 4
-        updater.should_receive(:removed_meals).at_least(:once).and_return 5
+        expect(updater).to receive(:update).and_return true
+        expect(updater).to receive(:added_days).at_least(:once).and_return 1
+        expect(updater).to receive(:updated_days).at_least(:once).and_return 0
+        expect(updater).to receive(:added_meals).at_least(:once).and_return 3
+        expect(updater).to receive(:updated_meals).at_least(:once).and_return 4
+        expect(updater).to receive(:removed_meals).at_least(:once).and_return 5
       end
 
       it 'and render them for canteen owner' do
         set_current_user owner
         get :fetch, id: canteen.id, format: :json
 
-        response.status.should == 200
-        response.content_type.should == 'application/json'
+        expect(response.status).to eq  200
+        expect(response.content_type).to eq 'application/json'
 
-        json.should == successfull_json
+        expect(json).to eq successfull_json
 
-        assigns(:result).should == json
+        expect(assigns(:result)).to eq json
       end
 
       it 'and not render them for normal user' do
         get :fetch, id: canteen.id, format: :json
 
-        response.status.should == 200
-        response.content_type.should == 'application/json'
+        expect(response.status). to eq 200
+        expect(response.content_type).to eq 'application/json'
 
-        json.should == successfull_json
+        expect(json).to eq successfull_json
 
-        assigns(:result).should == { 'status' => 'ok' }
+        expect(assigns(:result)).to eq({ 'status' => 'ok' })
       end
     end
 
@@ -112,8 +112,8 @@ describe CanteensController do
                                 code: 404)
       end
       before do
-        updater.should_receive(:update).and_return false
-        updater.should_receive(:errors).at_least(:once).and_return do
+        expect(updater).to receive(:update).and_return false
+        expect(updater).to receive(:errors).at_least(:once) do
           [ feed_fetch_error ]
         end
       end
@@ -135,42 +135,42 @@ describe CanteensController do
         set_current_user owner
         get :fetch, id: canteen.id, format: :json
 
-        response.status.should == 200
-        response.content_type.should == 'application/json'
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq 'application/json'
 
-        json.should == json_error
+        expect(json).to eq json_error
 
-        assigns(:result).should == {
+        expect(assigns(:result)).to eq ({
           'status' => 'error',
           'errors' => [ feed_fetch_error ]
-        }
+        })
       end
 
       it 'and not render them for normal users' do
         get :fetch, id: canteen.id, format: :json
 
-        response.status.should == 200
-        response.content_type.should == 'application/json'
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq 'application/json'
 
-        json.should == json_error
+        expect(json).to eq json_error
 
-        assigns(:result).should == { 'status' => 'error'}
+        expect(assigns(:result)).to eq({ 'status' => 'error'})
       end
     end
 
     it 'should only allow one fetch per minute' do
-      OpenMensa::Updater.new(canteen).should_not_receive(:update)
+      expect(OpenMensa::Updater.new(canteen)).to_not receive(:update)
       canteen.update_attribute :last_fetched_at, Time.zone.now - 14.minutes
       get :fetch, id: canteen.id, format: :json
-      response.status.should == 429
+      expect(response.status).to eq 429
     end
 
     it 'should updates from canteen owner every time' do
       set_current_user owner
-      updater.should_receive(:update).and_return true
+      expect(updater).to receive(:update).and_return true
       canteen.update_attribute :last_fetched_at, Time.zone.now
       get :fetch, id: canteen.id, format: :json
-      response.status.should == 200
+      expect(response.status).to eq 200
     end
   end
 end

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe "canteens/index.html.slim" do
+describe "canteens/index.html.slim", :type => :view do
   let(:user) { FactoryGirl.create :user }
   let(:canteens) {[
     FactoryGirl.create(:canteen),
@@ -9,7 +9,7 @@ describe "canteens/index.html.slim" do
   ]}
 
   before do
-    controller.stub(:current_user) { User.new }
+    allow(controller).to receive(:current_user) { User.new }
     assign(:user, user)
     assign(:canteens, canteens)
 
@@ -17,7 +17,7 @@ describe "canteens/index.html.slim" do
   end
 
   it "should list canteens" do
-    rendered.should include(canteens[0].name)
-    rendered.should include(canteens[1].name)
+    expect(rendered).to include(canteens[0].name)
+    expect(rendered).to include(canteens[1].name)
   end
 end

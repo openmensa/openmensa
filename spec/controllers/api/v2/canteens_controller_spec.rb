@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V2::CanteensController do
+describe Api::V2::CanteensController, :type => :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -11,17 +11,17 @@ describe Api::V2::CanteensController do
 
     it 'should answer with a list' do
       get :index, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json.should be_an(Array)
-      json.should have(1).item
+      expect(json).to be_an(Array)
+      expect(json.size).to eq(1)
     end
 
     it 'should answer with a list of canteen nodes' do
       get :index, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json[0].should == {
+      expect(json[0]).to eq({
           id:          canteen.id,
           name:        canteen.name,
           city:        canteen.city,
@@ -30,19 +30,19 @@ describe Api::V2::CanteensController do
                            canteen.latitude,
                            canteen.longitude
                        ]
-      }.as_json
+      }.as_json)
     end
 
     it 'should add link headers' do
       100.times { FactoryGirl.create :canteen }
-      Canteen.count.should > 100
+      expect(Canteen.count).to be > 100
 
       get :index, format: :json
 
-      response.status.should == 200
-      response.headers['Link'].to_s.should include('<http://test.host/api/v2/canteens?page=1>; rel="first"')
-      response.headers['Link'].to_s.should include('<http://test.host/api/v2/canteens?page=2>; rel="next"')
-      response.headers['Link'].to_s.should include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
+      expect(response.status).to eq(200)
+      expect(response.headers['Link'].to_s).to include('<http://test.host/api/v2/canteens?page=1>; rel="first"')
+      expect(response.headers['Link'].to_s).to include('<http://test.host/api/v2/canteens?page=2>; rel="next"')
+      expect(response.headers['Link'].to_s).to include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
     end
 
     context 'should not included disabled canteens' do
@@ -50,61 +50,61 @@ describe Api::V2::CanteensController do
       before { get :index, format: :json }
       subject { json }
 
-      it { should be_an(Array) }
-      it { should have(1).item }
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to have(1).item }
     end
 
     context '&limit' do
       it 'should limit list to given limit parameter' do
         100.times { FactoryGirl.create :canteen }
-        Canteen.count.should > 100
+        expect(Canteen.count).to be > 100
 
         get :index, format: :json, limit: '20'
 
-        response.status.should == 200
-        json.should have(20).items
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(20)
       end
 
       it 'should limit list to 100 if given limit parameter exceed 100' do
         100.times { FactoryGirl.create :canteen }
-        Canteen.count.should > 100
+        expect(Canteen.count).to be > 100
 
         get :index, format: :json, limit: "120"
 
-        response.status.should == 200
-        json.should have(100).items
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(100)
       end
     end
 
     context '&per_page' do
       it 'should limit list to 50 canteens by default' do
         100.times { FactoryGirl.create :canteen }
-        Canteen.count.should > 100
+        expect(Canteen.count).to be > 100
 
         get :index, format: :json
 
-        response.status.should == 200
-        json.should have(50).items
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(50)
       end
 
       it 'should limit list to given limit parameter' do
         100.times { FactoryGirl.create :canteen }
-        Canteen.count.should > 100
+        expect(Canteen.count).to be > 100
 
         get :index, format: :json, per_page: '20'
 
-        response.status.should == 200
-        json.should have(20).items
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(20)
       end
 
       it 'should limit list to 100 if given limit parameter exceed 100' do
         100.times { FactoryGirl.create :canteen }
-        Canteen.count.should > 100
+        expect(Canteen.count).to be > 100
 
         get :index, format: :json, per_page: '120'
 
-        response.status.should == 200
-        json.should have(100).items
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(100)
       end
     end
 
@@ -117,13 +117,13 @@ describe Api::V2::CanteensController do
       it 'should find canteens within distance around a point' do
         get :index, format: :json, near: { lat: 0.0, lng: 0.15, dist: 100 }
 
-        json.should have(3).items
+        expect(json).to have(3).items
       end
 
       it 'should find canteens within default distance around a point' do
         get :index, format: :json, near: { lat: 0.05, lng: 0.1 }
 
-        json.should have(1).items
+        expect(json).to have(1).items
       end
     end
 
@@ -138,9 +138,9 @@ describe Api::V2::CanteensController do
       it 'should return canteens with given ids' do
         get :index, format: :json, ids: [ canteen.id, second_canteen.id ].join(',')
 
-        json.should have(2).items
-        json[0]['id'].should == canteen.id
-        json[1]['id'].should == second_canteen.id
+        expect(json).to have(2).items
+        expect(json[0]['id']).to eq(canteen.id)
+        expect(json[1]['id']).to eq(second_canteen.id)
       end
     end
 
@@ -171,9 +171,9 @@ describe Api::V2::CanteensController do
       it 'should return canteens near a specified place' do
         get :index, format: :json, near: { place: 'Potsdam' }
 
-        json.should have(2).item
-        json[0]['name'].should == palais.name
-        json[1]['name'].should == griebnitzsee.name
+        expect(json).to have(2).item
+        expect(json[0]['name']).to eq(palais.name)
+        expect(json[1]['name']).to eq(griebnitzsee.name)
       end
     end
   end
@@ -184,9 +184,9 @@ describe Api::V2::CanteensController do
 
     it 'should answer with canteen' do
       get :show, id: canteen.id, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json.should == {
+      expect(json).to eq({
           id:          canteen.id,
           name:        canteen.name,
           city:        canteen.city,
@@ -195,7 +195,7 @@ describe Api::V2::CanteensController do
                            canteen.latitude,
                            canteen.longitude
                        ]
-      }.as_json
+      }.as_json)
     end
 
     context 'and a disabled canteens' do

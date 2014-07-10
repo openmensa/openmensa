@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V2::MealsController do
+describe Api::V2::MealsController, :type => :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -12,17 +12,17 @@ describe Api::V2::MealsController do
 
     it "should answer with a list" do
       get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json.should be_an(Array)
-      json.should have(3).item
+      expect(json).to be_an(Array)
+      expect(json.size).to eq(3)
     end
 
     it "should answer with a list of meal nodes" do
       get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
-      response.status.should == 200
+      expect(response.status).to eq(200)
 
-      json[0].should == {
+      expect(json[0]).to eq({
         id: day.meals.first.id,
         name: day.meals.first.name,
         category: day.meals.first.category,
@@ -33,15 +33,15 @@ describe Api::V2::MealsController do
           others: day.meals.first.price_other.try(:to_f)
         },
         notes: []
-      }.as_json
+      }.as_json)
     end
 
     context 'with unordered list of meals' do
       it 'should return list ordered' do
         get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
-        response.status.should == 200
+        expect(response.status).to eq(200)
 
-        json.map { |m| m['id'].to_i }.should == Meal.where(day: day).order(:pos).pluck(:id)
+        expect(json.map { |m| m['id'].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
       end
     end
 
@@ -52,9 +52,9 @@ describe Api::V2::MealsController do
 
       it "should include notes" do
         get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
-        response.status.should == 200
+        expect(response.status).to eq(200)
 
-        json[0]['notes'].should =~ meal.notes.map(&:name)
+        expect(json[0]['notes'].sort).to match(meal.notes.map(&:name))
       end
     end
   end
@@ -76,35 +76,35 @@ describe Api::V2::MealsController do
 
     it "should answer with 7 days from now and their meals" do
       get :canteen_meals, canteen_id: canteen.id, format: :json
-      response.status.should == 200
-      json.should have(7).items
-      json[0]['date'].should == (Date.today).iso8601
-      json[1]['date'].should == (Date.today + 1.day).iso8601
-      json[6]['date'].should == (Date.today + 6.day).iso8601
+      expect(response.status).to eq(200)
+      expect(json.size).to eq(7)
+      expect(json[0]['date']).to eq((Date.today).iso8601)
+      expect(json[1]['date']).to eq((Date.today + 1.day).iso8601)
+      expect(json[6]['date']).to eq((Date.today + 6.day).iso8601)
     end
 
     context "&start" do
       it "should answer with up to 7 days from given date and their meals" do
         get :canteen_meals, canteen_id: canteen.id, format: :json, start: (Date.today + 1.day).iso8601
-        response.status.should == 200
-        json.should have(7).items
-        json[0]['date'].should == (Date.today + 1.day).iso8601
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(7)
+        expect(json[0]['date']).to eq((Date.today + 1.day).iso8601)
       end
 
       it "should answer with up to 7 days from given date and their meals (2)" do
         get :canteen_meals, canteen_id: canteen.id, format: :json, start: (Date.today + 5.day).iso8601
-        response.status.should == 200
-        json.should have(5).items
-        json[0]['date'].should == (Date.today + 5.day).iso8601
-        json[4]['date'].should == (Date.today + 9.day).iso8601
+        expect(response.status).to eq(200)
+        expect(json.size).to eq(5)
+        expect(json[0]['date']).to eq((Date.today + 5.day).iso8601)
+        expect(json[4]['date']).to eq((Date.today + 9.day).iso8601)
       end
 
       it 'should answer with a ordered list of meals' do
         get :canteen_meals, canteen_id: canteen.id, format: :json, start: (Date.today + 2.day).iso8601
-        response.status.should == 200
+        expect(response.status).to eq(200)
         json.each do |day|
           dayModel = Day.find_by date: day['date'], canteen: canteen
-          day['meals'].map { |m| m['id'] }.should == Meal.where(day: dayModel).order(:pos).pluck(:id)
+          expect(day['meals'].map { |m| m['id'] }).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
         end
       end
     end

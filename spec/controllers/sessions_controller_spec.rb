@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe SessionsController do
+describe SessionsController, :type => :controller do
   describe '#create' do
     before do
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
@@ -20,19 +20,19 @@ describe SessionsController do
 
       expect { get :create, provider: 'test' }.to change { User.all.count }.from(0).to(1)
 
-      response.should redirect_to(root_path)
+      expect(response).to redirect_to(root_path)
     end
 
     it 'should redirect to back url' do
       get :create, provider: 'twitter', ref: '/mypath'
 
-      response.should redirect_to('/mypath')
+      expect(response).to redirect_to('/mypath')
     end
 
     it 'should only redirect to own host' do
       get :create, provider: 'twitter', ref: 'http://twitter.com/path'
 
-      response.should redirect_to('/')
+      expect(response).to redirect_to('/')
     end
   end
 end

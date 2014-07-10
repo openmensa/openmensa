@@ -7,10 +7,8 @@
 //= require_self
 
 @import 'font-awesome';
-@import 'addons/clearfix';
-@import 'addons/prefixer';
 
-@import 'css3/box-sizing';
+@import 'bourbon';
 
 * { @include box-sizing(border-box); }
 

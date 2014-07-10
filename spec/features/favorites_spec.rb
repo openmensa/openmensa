@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Favorites: " do
+describe "Favorites: ", :type => :feature do
   context 'User' do
     let(:user) { FactoryGirl.create :user }
     let(:canteen) { FactoryGirl.create :canteen, user: user }
@@ -17,21 +17,21 @@ describe "Favorites: " do
 
       click_on "Als Favorit markieren"
 
-      user.should have_favorite(canteen)
-      page.should have_link 'Favorit entfernen'
+      expect(user).to have_favorite(canteen)
+      expect(page).to have_link 'Favorit entfernen'
     end
 
     it 'can delete a favorite' do
       favorite
 
-      user.should have_favorite(canteen)
+      expect(user).to have_favorite(canteen)
 
       visit canteen_path(canteen)
 
       click_on 'Favorit entfernen'
 
-      user.should_not have_favorite(canteen)
-      page.should have_link 'Als Favorit markieren'
+      expect(user).not_to have_favorite(canteen)
+      expect(page).to have_link 'Als Favorit markieren'
     end
 
     it 'can list its favorites' do
@@ -41,8 +41,8 @@ describe "Favorites: " do
       click_on 'Mein Profil'
       click_on 'Favoriten'
 
-      page.should have_link favorite.canteen.name
-      page.should have_link favorite2.canteen.name
+      expect(page).to have_link favorite.canteen.name
+      expect(page).to have_link favorite2.canteen.name
     end
 
     it 'can access favorite via start page directly' do
@@ -50,11 +50,11 @@ describe "Favorites: " do
 
       visit root_path
 
-      page.should have_content('Meine Favoriten')
+      expect(page).to have_content('Meine Favoriten')
 
       click_on favorite.canteen.name
 
-      page.should have_content favorite.canteen.name
+      expect(page).to have_content favorite.canteen.name
     end
   end
 
@@ -64,13 +64,13 @@ describe "Favorites: " do
     it 'should have not favorite link on canteen page' do
       visit canteen_path(canteen)
 
-      page.should_not have_link 'Als Favorit markieren'
+      expect(page).not_to have_link 'Als Favorit markieren'
     end
 
     it 'should have a start page without favorite menu' do
       visit root_path
 
-      page.should_not have_content('Meine Favoriten')
+      expect(page).not_to have_content('Meine Favoriten')
     end
   end
 end

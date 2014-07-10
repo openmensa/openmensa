@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Meal do
+describe Meal, :type => :model do
   let(:meal) { FactoryGirl.create :meal }
 
-  it { should_not accept_values_for(:name, "", nil) }
-  it { should_not accept_values_for(:category, "", nil) }
-  it { should_not accept_values_for(:day_id, "", nil) }
+  it { is_expected.not_to accept_values_for(:name, "", nil) }
+  it { is_expected.not_to accept_values_for(:category, "", nil) }
+  it { is_expected.not_to accept_values_for(:day_id, "", nil) }
 
   describe '#prices' do
     it 'should only contain setted values' do
@@ -15,7 +15,7 @@ describe Meal do
         price_other: 2.7,
         price_pupil: nil
       })
-      meal.prices.should == { student: 1.7, other: 2.7 }
+      expect(meal.prices).to eq student: 1.7, other: 2.7
     end
 
     it 'should could contain all values' do
@@ -25,14 +25,14 @@ describe Meal do
         price_other: 2.7,
         price_pupil: 1.89
       })
-      meal.prices.should == { student: 1.7, other: 2.7, employee: 3.37, pupil: 1.89 }
+      expect(meal.prices).to eq student: 1.7, other: 2.7, employee: 3.37, pupil: 1.89
     end
   end
 
   describe '#prices=' do
     it 'should ignore empty hashes' do
       meal.prices = {}
-      meal.should_not be_changed
+      expect(meal).to_not be_changed
     end
 
     it 'should update given roles' do
@@ -43,11 +43,11 @@ describe Meal do
         price_pupil: nil
       })
       meal.prices = { employee: 1.89, other: nil }
-      meal.price_student.should == 1.7
-      meal.price_employee.should == 1.89
-      meal.price_pupil.should == nil
-      meal.price_other.should == nil
-      meal.should be_changed
+      expect(meal.price_student).to eq 1.7
+      expect(meal.price_employee).to eq 1.89
+      expect(meal.price_pupil).to be_nil
+      expect(meal.price_other).to be_nil
+      expect(meal).to be_changed
     end
   end
 
@@ -55,25 +55,25 @@ describe Meal do
     it 'should to clear notes list' do
       meal.notes << FactoryGirl.create(:note)
       meal.notes << FactoryGirl.create(:note)
-      meal.notes.size.should == 2
+      expect(meal.notes.size).to eq 2
       meal.notes = []
-      meal.notes.size.should be_zero
+      expect(meal.notes.size).to be_zero
     end
 
     it 'should add new notes' do
-      meal.notes.size.should == 0
+      expect(meal.notes.size).to eq 0
       meal.notes = ['vegan', 'vegetarisch']
-      meal.notes.size.should == 2
-      meal.notes.map(&:name).should == [ 'vegan', 'vegetarisch' ]
+      expect(meal.notes.size).to eq 2
+      expect(meal.notes.map(&:name)).to match [ 'vegan', 'vegetarisch' ]
     end
 
     it 'should removed old notes' do
       meal.notes << note = FactoryGirl.create(:note)
       oldname = note.name
-      meal.notes.size.should == 1
+      expect(meal.notes.size).to eq 1
       meal.notes = [oldname + '2']
-      meal.notes.size.should == 1
-      meal.notes.first.name.should == oldname + '2'
+      expect(meal.notes.size).to eq 1
+      expect(meal.notes.first.name).to eq(oldname + '2')
     end
   end
 end

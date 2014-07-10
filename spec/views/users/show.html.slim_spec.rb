@@ -1,11 +1,11 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe "users/show.html.slim" do
+describe "users/show.html.slim", :type => :view do
   let(:user) { FactoryGirl.create :user }
 
   before do
-    controller.stub(:current_user) { User.new }
+    allow(controller).to receive(:current_user) { User.new }
     assign(:user, user)
 
     user.identities.create! FactoryGirl.attributes_for(:identity, provider: 'github')
@@ -15,6 +15,6 @@ describe "users/show.html.slim" do
   end
 
   it "should not show add identity button if all providers are bound" do
-    rendered.should_not include("Identität hinzufügen")
+    expect(rendered).not_to include("Identität hinzufügen")
   end
 end

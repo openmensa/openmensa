@@ -1,14 +1,14 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Authentication" do
+describe "Authentication", :type => :feature do
   describe "Login" do
     it "should login using Twitter" do
       visit root_path
       click_link "Anmelden"
       click_link "Twitter"
 
-      page.body.should include("Mein Profil")
+      expect(page.body).to include("Mein Profil")
     end
 
     it "should login using GitHub" do
@@ -16,7 +16,7 @@ describe "Authentication" do
       click_link "Anmelden"
       click_link "GitHub"
 
-      page.body.should include("Mein Profil")
+      expect(page.body).to include("Mein Profil")
     end
   end
 
@@ -29,7 +29,7 @@ describe "Authentication" do
       visit root_path
       click_link "Abmelden"
 
-      User.current.should == User.anonymous
+      expect(User.current).to eq(User.anonymous)
     end
   end
 end
