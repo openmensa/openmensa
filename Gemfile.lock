@@ -94,7 +94,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.3)
+    coffee-script-source (1.7.0)
     cookiejar (0.3.2)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -587,7 +587,6 @@ DEPENDENCIES
   capybara
   chronic (~> 0.9.1)
   coffee-rails (~> 4.0.0)
-  coffee-script-source (~> 1.6.1)
   decorate-responder
   draper (~> 1.0)
   factory_girl_rails (>= 3.3.0)
@@ -622,7 +621,7 @@ DEPENDENCIES
   rspec-rails (~> 2.0)
   rubysl
   rvm-capistrano
-  sass (~> 3.2.0)
+  sass
   sass-rails (~> 4.0.0)
   simplecov
   simplecov-rcov
