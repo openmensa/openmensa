@@ -595,7 +595,7 @@ DEPENDENCIES
   puma
   rack-cors
   rack-piwik!
-  rails (>= 4.1.4)
+  rails (~> 4.1.4)
   rails-i18n
   rails-timeago (~> 2.0)
   rakwik (~> 0.4, >= 0.4.3)
