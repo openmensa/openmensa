@@ -4,8 +4,13 @@ require 'rubygems'
 unless ENV['DRB']
   require 'simplecov'
   require 'simplecov-rcov'
-  require 'support/coverage'
-  SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
+  require 'coveralls'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    Coveralls::SimpleCov::Formatter,
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::RcovFormatter,
+  ]
   SimpleCov.start 'rails'
 end
 

@@ -82,6 +82,7 @@ group :test do
   gem 'capybara',       require: false
   gem 'poltergeist',    require: false
   gem 'turn',           require: false
+  gem 'coveralls',      require: false
   gem 'simplecov',      require: false
   gem 'simplecov-rcov', require: false
   gem 'factory_girl_rails', '>= 3.3.0', require: false
