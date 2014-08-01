@@ -58,9 +58,6 @@ group :production do
 end
 
 group :development do
-  gem 'capistrano'
-  gem 'rvm-capistrano'
-  gem 'capistrano_colors'
   gem 'brakeman'
 
   gem 'guard-rspec', require: false
