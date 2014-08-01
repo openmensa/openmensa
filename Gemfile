@@ -4,7 +4,7 @@ gem 'rails', '~> 4.1.4'
 gem 'jquery-rails'
 gem 'turbolinks'
 
-gem 'slim', '~> 1.3'
+gem 'slim', '~> 2.0'
 gem 'oj', platforms: :ruby
 gem 'omniauth'
 gem 'omniauth-github'
@@ -15,10 +15,8 @@ gem 'rails-i18n'
 gem 'cancan'
 gem 'gravtastic'
 gem 'rails-timeago', '~> 2.0'
-gem 'bcrypt-ruby',   '~> 3.0.0'
+gem 'bcrypt-ruby',   '~> 3.0'
 
-# whenever dependency with Ruby 2.0 compatibility
-gem 'chronic', '~> 0.9.1'
 gem 'whenever', require: false
 
 gem 'rack-cors', require: 'rack/cors'
