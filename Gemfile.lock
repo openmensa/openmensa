@@ -5,14 +5,6 @@ GIT
     rack-piwik (0.2.2)
 
 GIT
-  remote: git://github.com/jgraichen/rakwik.git
-  revision: 85a1d7fbad829f59eadcf59e0b548e27a5c7210d
-  specs:
-    rakwik (0.4.2)
-      em-http-request
-      rack
-
-GIT
   remote: git://github.com/mswart/geocoder.git
   revision: dcd345a47b48725158854ff9509518a9038ba7b8
   branch: order_by_without_select
@@ -258,6 +250,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
+    rakwik (0.4.3)
+      em-http-request
+      rack
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -607,7 +602,7 @@ DEPENDENCIES
   rails (>= 4.1.4)
   rails-i18n
   rails-timeago (~> 2.0)
-  rakwik!
+  rakwik (~> 0.4, >= 0.4.3)
   responders
   rspec-collection_matchers
   rspec-its
