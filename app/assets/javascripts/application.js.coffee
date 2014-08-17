@@ -25,8 +25,12 @@ $ ->
       map.addLayer tileLayer
 
       cluster = new L.MarkerClusterGroup showCoverageOnHover: false, maxClusterRadius: 40
-      markers = $(@).data("markers")
-      markers = [] unless $.isArray markers
+      markers = []
+      if $.isArray (mrks = $(@).data("markers"))
+        for m in mrks
+          if m.lat? && m.lng? && !isNaN(m.lat) && !isNaN(m.lng)
+            markers.push m
+
       for m in markers
         marker = L.marker([m.lat, m.lng], { title: m.title })
         marker.bindPopup "<a class=\"popup-link\" href=\"#{m.url}\">#{m.title}</a><br />" if m.url?
