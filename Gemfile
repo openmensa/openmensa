@@ -40,7 +40,8 @@ gem 'jruby-openssl', platforms: :jruby
 gem 'newrelic_rpm'
 
 group :assets do
-  gem 'sass'
+  gem 'sass', '~> 3.2.19' # 3.4 results in
+    # "#content section header ul.actions a" failed to @extend "%action-link".
   gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
 
@@ -48,7 +49,7 @@ group :assets do
   gem 'therubyrhino', platforms: :jruby
   gem 'font-awesome-sass-rails', '>= 3.0.2.2'
   gem 'uglifier', '>= 1.0.3'
-  gem 'bourbon'
+  gem 'bourbon', '~> 3.2'
 end
 
 group :production do
