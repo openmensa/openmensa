@@ -50,7 +50,7 @@ describe Api::V2::CanteensController, :type => :controller do
       end
     end
 
-    context 'with null latitude' do
+    context 'with null longitude' do
       let(:canteen) { FactoryGirl.create :canteen, latitude: 0.0, longitude: nil }
 
       it 'should answer with null coordinates' do
