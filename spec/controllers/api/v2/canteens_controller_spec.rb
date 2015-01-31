@@ -33,6 +33,57 @@ describe Api::V2::CanteensController, :type => :controller do
       }.as_json)
     end
 
+    context 'with null latitude' do
+      let(:canteen) { FactoryGirl.create :canteen, latitude: nil, longitude: 0.0 }
+
+      it 'should answer with null coordinates' do
+        get :index, format: :json
+        expect(response.status).to eq(200)
+
+        expect(json[0]).to eq({
+            id:          canteen.id,
+            name:        canteen.name,
+            city:        canteen.city,
+            address:     canteen.address,
+            coordinates: nil
+        }.as_json)
+      end
+    end
+
+    context 'with null latitude' do
+      let(:canteen) { FactoryGirl.create :canteen, latitude: 0.0, longitude: nil }
+
+      it 'should answer with null coordinates' do
+        get :index, format: :json
+        expect(response.status).to eq(200)
+
+        expect(json[0]).to eq({
+            id:          canteen.id,
+            name:        canteen.name,
+            city:        canteen.city,
+            address:     canteen.address,
+            coordinates: nil
+        }.as_json)
+      end
+    end
+
+    context 'with both null coordinates' do
+      let(:canteen) { FactoryGirl.create :canteen, latitude: nil, longitude: nil }
+
+      it 'should answer with null coordinates' do
+        get :index, format: :json
+        expect(response.status).to eq(200)
+
+        expect(json[0]).to eq({
+            id:          canteen.id,
+            name:        canteen.name,
+            city:        canteen.city,
+            address:     canteen.address,
+            coordinates: nil
+        }.as_json)
+      end
+    end
+
     it 'should add link headers' do
       100.times { FactoryGirl.create :canteen }
       expect(Canteen.count).to be > 100

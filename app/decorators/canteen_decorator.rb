@@ -3,6 +3,7 @@ class CanteenDecorator < Draper::Decorator
   decorates :canteen
 
   def coordinates
+    return nil if model.latitude.nil? or model.longitude.nil?
     [ model.latitude, model.longitude ]
   end
 
