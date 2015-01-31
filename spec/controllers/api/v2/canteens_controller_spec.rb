@@ -227,6 +227,44 @@ describe Api::V2::CanteensController, :type => :controller do
         expect(json[1]['name']).to eq(griebnitzsee.name)
       end
     end
+
+    context '&hasCoordinates' do
+      let(:griebnitzsee) do
+        FactoryGirl.create :canteen,
+                           name: 'Mensa Griebnitzsee',
+                           address: 'August-Bebel-Str. 89, 14482 Potsdam',
+                           latitude: 52.3935353446923,
+                           longitude: 13.1278145313263
+      end
+
+      let(:unknown) do
+        FactoryGirl.create :canteen,
+                           name: 'Mensa Am Neuen Palais',
+                           address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
+                           latitude: nil,
+                           longitude: nil
+      end
+
+      before do
+        griebnitzsee
+        unknown
+      end
+
+      it 'should return only canteens when hasCoordinates is true' do
+        get :index, format: :json, hasCoordinates: 'true'
+
+        expect(json).to have(2).item
+        expect(json[0]['name']).to eq(canteen.name)
+        expect(json[1]['name']).to eq(griebnitzsee.name)
+      end
+
+      it 'should return only canteens when hasCoordinates is false' do
+        get :index, format: :json, hasCoordinates: 'false'
+
+        expect(json).to have(1).item
+        expect(json[0]['name']).to eq(unknown.name)
+      end
+    end
   end
 
   describe 'GET show' do

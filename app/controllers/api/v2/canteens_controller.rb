@@ -20,6 +20,14 @@ class Api::V2::CanteensController < Api::BaseController
     scope.where(id: ids)
   end
 
+  has_scope :hasCoordinates do |controller, scope, value|
+    if value != 'false' and value != '0' and value
+      scope.where('latitude IS NOT NULL and longitude IS NOT NULL')
+    else
+      scope.where('latitude IS NULL and longitude IS NULL')
+    end
+  end
+
   def find_collection
     apply_scopes Canteen.active.order(:id)
   end
