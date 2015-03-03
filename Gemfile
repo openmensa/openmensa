@@ -42,7 +42,7 @@ gem 'newrelic_rpm'
 group :assets do
   gem 'sass', '~> 3.2.19' # 3.4 results in
     # "#content section header ul.actions a" failed to @extend "%action-link".
-  gem 'sass-rails',   '~> 4.0.0'
+  gem 'sass-rails',   '~> 4.0.0', '>= 4.0.2'
   gem 'coffee-rails', '~> 4.0.0'
 
   gem 'therubyracer', '~> 0.10', platforms: :ruby
