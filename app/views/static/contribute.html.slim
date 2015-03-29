@@ -1,0 +1,75 @@
+.row
+  .span8
+    section
+      header
+        h1 Entwickle mit an OpenMensa
+      .content
+        p
+          ' Openmensa besteht aus verschiedene Komponenten. Jeder ist ein bisschen anders und hat ihrer eigenen Aufgaben und Herausforderungen. Sollte dir keine Zusagen, freuen wir uns auch über deine
+          = link_to support_path do
+            ' Unterstützung.
+    section
+      header
+        h1 Schreibe mit an Parsern
+      .content
+        p
+          ' Ermögliche es OpenMensa die Daten von noch mehr Kantinen anbieten zu können.
+          ' Schreibe dazu einen Parser, damit OpenMensa die Daten abfragen kann.
+          = link_to 'http://doc.openmensa.org/parsers/' do
+            ' Unsere Developer-Seite liefert alle notwendigen Informationen
+            ' um einen eigenen Parser zu schreiben.
+        p
+          ' Der Quelltext zu vielen Parsern ist öffentlich und kann gerne als Grundlage genutzt werden:
+        ul
+          li
+            a href="https://github.com/mswart/openmensa-parsers" die größte Sammlung an Parsern für verschiende Studentenwerke
+          li
+            a href="https://github.com/kaifabian/om-parser-potsdam" Parser für das Studentenwerk Potsdam
+          li
+            a href="https://github.com/kaifabian/om-parser-berlin" Parser für der Berliner Mensen
+        p
+          ' Sofern du Python als Programmiersprache für den Parser nutzten willst, sollte du dir
+          a href="https://github.com/mswart/pyopenmensa" PyOpenMensa
+          '  anschauen. Es nimmt viele übliche Aufgaben beim Parser entwickeln ab. Die ausführliche Dokumentation findest du
+          a href="http://pyom.devtation.de" hier.
+
+    section
+      header
+        h1 Apps fürs Smartphone oder für'n Desktop
+      .content
+        p
+          ' Dir fehlt eine App für deinen Desktop oder dein Betreibssystem?
+          ' Nutze unseren
+          = link_to 'API', 'http://doc.openmensa.org/api/v2/'
+          ', um deine individuelle App zu schreiben.
+        p
+          ' Du nutzt schon eine existiere App? Hilf mit diese zu verbessern:
+        ul
+          li
+            = link_to 'https://github.com/domoritz/open-mensa-android/' do
+              ' OpenMensa Android App
+          li
+            = link_to 'http://cooperrs.de/openmensa.html' do
+              ' OpenMensa iOS App
+        .clearfix
+
+    section
+      header
+        h1 Die Platform selbst
+      .content
+        p
+          = image_tag image_path('rails.png'), class: 'illustrate'
+          ' Openmensa ist ein in
+          = link_to 'http://rubyonrails.org/' do
+            ' RubyOnRails
+          ' geschriebene Webanwendung. Das Projekt liegt auf
+          = link_to 'https://github.com/openmensa/openmensa' do
+            ' GitHub.
+          ' Wir freuen uns über jeden, der mithelft OpenMensa weiterzuentwickeln.
+        p
+          ' Lies die ReadMe, schau durch die offenen Issues um ein Gefühl für OpenMensa zu bekommen.
+          ' Bei Fragen melde dich per Mail oder besuche uns im IRC-Channel #openmensa auf Freenode.
+        .clearfix
+
+  .span4
+    = render 'sidebar'
