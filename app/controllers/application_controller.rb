@@ -33,10 +33,6 @@ class ApplicationController < BaseController
     super
   end
 
-  def current_ability
-    current_user.ability
-  end
-
   def flash_for(node, flashs = {})
     flash[node] ||= {}
     flash[node].merge! flashs
