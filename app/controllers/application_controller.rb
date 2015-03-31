@@ -4,28 +4,26 @@ class ApplicationController < BaseController
 
   before_action :setup_user
 
-  rescue_from ::CanCan::AccessDenied,         with: :error_access_denied unless Rails.env.development?
-  rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found     unless Rails.env.development?
+  unless Rails.env.development?
+    rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
+    rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found
+  end
 
   # **** setup ****
 
   def setup_user
-    user = find_current_user
-    if user && user.logged?
-      self.current_user = user
-      Time.zone         = current_user.time_zone
-      I18n.locale       = current_user.language
-    end
+    user = User.find_by id: session[:user_id]
+    return unless user && user.logged?
+
+    self.current_user = user
+    Time.zone         = current_user.time_zone
+    I18n.locale       = current_user.language
 
     if params[:user_id]
       @user = User.find params[:user_id]
     else
       @user = current_user
     end
-  end
-
-  def find_current_user
-    User.find_by_id(session[:user_id])
   end
 
   # **** accessors & helpers ****
@@ -47,12 +45,12 @@ class ApplicationController < BaseController
   # **** authentication ****
 
   def require_authentication!
-    unless current_user.logged?
-      # redirect_to login_url(ref: request.fullpath)
+    if current_user.logged?
+      true
+    else
       error_access_denied
-      return false
+      false
     end
-    true
   end
 
   # **** error handling and rendering ****
