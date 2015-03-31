@@ -42,6 +42,7 @@ Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 
 Metrics/LineLength:
+  Max: 100
   Exclude:
     - '**/*_spec.rb'
     - 'spec/factories.rb'
