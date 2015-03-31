@@ -2,7 +2,8 @@
 sudo: false
 language: ruby
 rvm:
-- '2.0.0'
+- '2.2'
 - '2.1'
+- '2.0'
 before_script: bundle exec rake ci:setup
 script: bundle exec rake ci:spec

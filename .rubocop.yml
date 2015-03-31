@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'db/schema.rb'
+    - 'bin/*'
   RunRailsCops: true
 
 Style/AlignParameters:
