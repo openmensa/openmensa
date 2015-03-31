@@ -4,7 +4,7 @@ gem 'rails', '~> 4.1.7'
 gem 'jquery-rails'
 gem 'turbolinks'
 
-gem 'slim', '~> 2.0'
+gem 'slim'
 gem 'oj', platforms: :ruby
 gem 'omniauth'
 gem 'omniauth-github'
@@ -14,8 +14,8 @@ gem 'omniauth-google-oauth2'
 gem 'rails-i18n'
 gem 'cancan'
 gem 'gravtastic'
-gem 'rails-timeago', '~> 2.0'
-gem 'bcrypt-ruby',   '~> 3.0'
+gem 'rails-timeago'
+gem 'bcrypt'
 
 gem 'whenever', require: false
 
@@ -25,12 +25,11 @@ gem 'rakwik', '~> 0.4', '>= 0.4.3', require: false
 gem 'geocoder', github: 'mswart/geocoder', branch: 'order_by_without_select'
 gem 'leaflet-rails', '~> 0.7.0'
 gem 'nokogiri'
-gem 'draper', '~> 1.0'
-#gem 'inherited_resources'
+gem 'draper'
 gem 'responders'
 gem 'has_scope'
 gem 'will_paginate'
-gem 'paginate-responder', '~> 1.3'
+gem 'paginate-responder'
 gem 'decorate-responder'
 gem 'api-responder'
 
