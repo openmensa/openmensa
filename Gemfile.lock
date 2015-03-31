@@ -63,7 +63,7 @@ GEM
       sass (~> 3.0)
       terminal-table (~> 1.4)
     builder (3.2.2)
-    cancan (1.6.10)
+    cancancan (1.10.1)
     cany (0.5.4)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -578,7 +578,7 @@ DEPENDENCIES
   bcrypt
   bourbon (~> 3.2)
   brakeman
-  cancan
+  cancancan
   cany (~> 0.5.0)
   capybara
   coffee-rails (~> 4.0.0)
