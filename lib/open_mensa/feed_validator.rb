@@ -1,5 +1,4 @@
 module OpenMensa
-
   # The OpenMensa validator provide methods to validate feed
   # XML input again the OpenMense canteen feed scheme version
   # one or two. It also allows to auto detect used feed version.
@@ -97,7 +96,8 @@ module OpenMensa
       @schema ||= load_schema detect_version!
     end
 
-  private
+    private
+
     def detect_version
       version  = (document.root.nil? ? nil : document.root[:version].to_i)
       @version = version unless schema_file(version).nil?

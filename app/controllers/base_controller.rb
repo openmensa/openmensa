@@ -1,5 +1,5 @@
 class BaseController < ActionController::Base
-  before_filter :base_setup
+  before_action :base_setup
 
   # **** setup ****
 
@@ -29,11 +29,11 @@ class BaseController < ActionController::Base
   # **** errors ****
 
   def error(error)
-    error = { :message => error } unless error.is_a?(Hash)
+    error = {message: error} unless error.is_a?(Hash)
 
     error[:status] ||= :internal_server_error
-    error[:message] = t(:message, :scope => error[:message]) if error[:message].is_a?(Symbol)
-    error[:message] = t(:message, :scope => "errors.#{error[:status]}") if error[:message].nil?
+    error[:message] = t(:message, scope: error[:message]) if error[:message].is_a?(Symbol)
+    error[:message] = t(:message, scope: "errors.#{error[:status]}") if error[:message].nil?
 
     error[:title] = t(:title, scope: error[:title]) if error[:title].is_a?(Symbol)
     error[:title] = t(:title, scope: "errors.#{error[:status]}") if error[:title].nil?

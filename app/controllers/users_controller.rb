@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :load_user, only: [ :show, :update ]
+  before_action :load_user, only: [:show, :update]
   load_and_authorize_resource
 
   def show
@@ -14,7 +14,8 @@ class UsersController < ApplicationController
     end
   end
 
-private
+  private
+
   def load_user
     @user = User.find(params[:id])
   end

@@ -3,11 +3,11 @@ class CanteenDecorator < Draper::Decorator
   decorates :canteen
 
   def coordinates
-    return nil if model.latitude.nil? or model.longitude.nil?
-    [ model.latitude, model.longitude ]
+    return nil if model.latitude.nil? || model.longitude.nil?
+    [model.latitude, model.longitude]
   end
 
-  def as_api_v1(options)
+  def as_api_v1(_options)
     {
       cafeteria: {
         id: model.id,
@@ -18,7 +18,7 @@ class CanteenDecorator < Draper::Decorator
     }
   end
 
-  def as_api_v2(options)
+  def as_api_v2(_options)
     {
       id: model.id,
       name: model.name,

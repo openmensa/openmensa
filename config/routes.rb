@@ -1,31 +1,30 @@
 Openmensa::Application.routes.draw do
-
-  namespace :api, defaults: { format: 'json' } do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v2 do
-      resources :canteens, only: [ :index, :show ] do
-        resources :days, only: [ :index, :show ] do
-          resources :meals, only: [ :index, :show ]
+      resources :canteens, only: [:index, :show] do
+        resources :days, only: [:index, :show] do
+          resources :meals, only: [:index, :show]
         end
         get 'meals' => 'meals#canteen_meals'
       end
     end
   end
 
-  get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: { date: /\d{4}-\d{2}-\d{2}/ }
+  get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
   get '/c/:id/fetch' => 'canteens#fetch', as: :fetch_canteen
-  resources :canteens, path: 'c', only: [ :show ] do
-    resource :favorite, only: [ :create, :destroy ]
-    resource :active, controller: :canteen_activation, only: [:create, :destroy ]
+  resources :canteens, path: 'c', only: [:show] do
+    resource :favorite, only: [:create, :destroy]
+    resource :active, controller: :canteen_activation, only: [:create, :destroy]
   end
   resources :users, path: 'u' do
-    resources :favorites, path: 'favs', only: [ :index ]
-    resources :identities, path: 'ids', only: [ :new, :create, :destroy ]
-    resources :canteens, path: 'c', only: [ :index, :new, :create, :edit, :update ] do
-      resources :messages, path: 'm', only: [ :index ]
+    resources :favorites, path: 'favs', only: [:index]
+    resources :identities, path: 'ids', only: [:new, :create, :destroy]
+    resources :canteens, path: 'c', only: [:index, :new, :create, :edit, :update] do
+      resources :messages, path: 'm', only: [:index]
     end
     get 'm', to: 'messages#overview', as: :messages
   end
-  resources :favorites, path: 'favs', only: [ :index ]
+  resources :favorites, path: 'favs', only: [:index]
 
   get '/auth',                    to: 'sessions#new',      as: :login
   get '/auth/signoff',            to: 'sessions#destroy',  as: :logout

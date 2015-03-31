@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe UsersController, :type => :controller do
+describe UsersController, type: :controller do
   let(:user) { FactoryGirl.create :user }
 
   describe '#show' do
@@ -39,7 +39,7 @@ describe UsersController, :type => :controller do
 
     context 'as anonymous' do
       it 'should not be accessible' do
-        put :update, id: user.id, user: { user_name: 'Bobby' }
+        put :update, id: user.id, user: {user_name: 'Bobby'}
 
         expect(response.status).to eq(401)
       end
@@ -48,7 +48,7 @@ describe UsersController, :type => :controller do
     context 'as user' do
       it 'should be allow to update to my profile' do
         set_current_user user
-        put :update, id: user.id, user: { user_name: 'Bobby' }
+        put :update, id: user.id, user: {user_name: 'Bobby'}
 
         expect(response.status).to eq(302)
       end
@@ -57,7 +57,7 @@ describe UsersController, :type => :controller do
     context 'as admin' do
       it 'should not be accessible' do
         set_current_user FactoryGirl.create(:admin)
-        put :update, id: user.id, user: { user_name: 'Bobby' }
+        put :update, id: user.id, user: {user_name: 'Bobby'}
 
         expect(response.status).to eq(302)
       end

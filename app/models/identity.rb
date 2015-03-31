@@ -3,11 +3,11 @@ require 'bcrypt'
 class Identity < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  SERVICES = [ :twitter, :google, :facebook, :github ]
+  SERVICES = [:twitter, :google, :facebook, :github]
 
   belongs_to :user
 
-  validates_presence_of   :provider, :uid
+  validates_presence_of :provider, :uid
   validates_uniqueness_of :uid, scope: :provider
 
   def self.from_omniauth(auth)

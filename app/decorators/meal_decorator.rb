@@ -15,7 +15,7 @@ class MealDecorator < Draper::Decorator
     }
   end
 
-  def as_api_v1(options)
+  def as_api_v1(_options)
     {
       meal: {
         id: model.id,
@@ -26,7 +26,7 @@ class MealDecorator < Draper::Decorator
     }
   end
 
-  def as_api_v2(options)
+  def as_api_v2(_options)
     {
       id: model.id,
       name: model.name,

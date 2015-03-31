@@ -8,7 +8,7 @@ module RelationCacheKey
     scope_sql = where(nil).select("#{table_name}.id, #{table_name}.updated_at").to_sql
 
     # PostgreSQL only
-    sql = "SELECT md5(array_agg(id || '-' || updated_at)::text) " +
+    sql = "SELECT md5(array_agg(id || '-' || updated_at)::text) " \
         "FROM (#{scope_sql}) as query"
 
     md5 = connection.select_value(sql)
@@ -16,7 +16,7 @@ module RelationCacheKey
     key = if md5.present?
             md5
           else
-            "empty"
+            'empty'
           end
 
     "#{model_name.cache_key}/#{key}"

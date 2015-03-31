@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe Api::V2::DaysController, :type => :controller do
+describe Api::V2::DaysController, type: :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
 
-  describe "GET index" do
+  describe 'GET index' do
     let(:day) { FactoryGirl.create :day }
     let(:canteen) { day.canteen }
     before { day }
 
-    it "should answer with a list" do
+    it 'should answer with a list' do
       get :index, canteen_id: canteen.id, format: :json
       expect(response.status).to eq(200)
 
@@ -18,17 +18,17 @@ describe Api::V2::DaysController, :type => :controller do
       expect(json.size).to eq(1)
     end
 
-    it "should answer with a list of day nodes" do
+    it 'should answer with a list of day nodes' do
       get :index, canteen_id: canteen.id, format: :json
       expect(response.status).to eq(200)
 
       expect(json[0]).to eq({
-        :date => day.date.iso8601,
-        :closed => day.closed
+        date: day.date.iso8601,
+        closed: day.closed
       }.as_json)
     end
 
-    context "&start" do
+    context '&start' do
       let(:today) { FactoryGirl.create :today, closed: true }
       let(:canteen) { today.canteen }
       let(:tomorrow) { FactoryGirl.create :tomorrow, canteen: canteen }
@@ -41,7 +41,7 @@ describe Api::V2::DaysController, :type => :controller do
         FactoryGirl.create :day, canteen: canteen, date: tomorrow.date + 1
       end
 
-      it "should default to today if not given" do
+      it 'should default to today if not given' do
         get :index, canteen_id: canteen.id, format: :json
 
         expect(json).to have(3).items
@@ -52,18 +52,18 @@ describe Api::V2::DaysController, :type => :controller do
     end
   end
 
-  describe "GET show" do
+  describe 'GET show' do
     let(:day) { FactoryGirl.create :day }
     let(:canteen) { day.canteen }
     before { canteen }
 
-    it "should answer with day" do
+    it 'should answer with day' do
       get :show, canteen_id: canteen.id, id: day.to_param, format: :json
       expect(response.status).to eq(200)
 
       expect(json).to eq({
-        :date => day.date.iso8601,
-        :closed => day.closed
+        date: day.date.iso8601,
+        closed: day.closed
       }.as_json)
     end
   end

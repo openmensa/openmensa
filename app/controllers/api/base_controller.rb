@@ -46,11 +46,11 @@ class Api::BaseController < ApiController
   # **** default api actions ****
 
   def index
-    respond_with self.collection
+    respond_with collection
   end
 
   def show
-    respond_with self.resource
+    respond_with resource
   end
 
   # paginate reponder methods

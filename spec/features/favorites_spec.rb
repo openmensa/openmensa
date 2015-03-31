@@ -1,7 +1,7 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + "/../spec_helper"
+require File.dirname(__FILE__) + '/../spec_helper'
 
-describe "Favorites: ", :type => :feature do
+describe 'Favorites: ', type: :feature do
   context 'User' do
     let(:user) { FactoryGirl.create :user }
     let(:canteen) { FactoryGirl.create :canteen, user: user }
@@ -15,7 +15,7 @@ describe "Favorites: ", :type => :feature do
     it 'can favorite a canteen' do
       visit canteen_path(canteen)
 
-      click_on "Als Favorit markieren"
+      click_on 'Als Favorit markieren'
 
       expect(user).to have_favorite(canteen)
       expect(page).to have_link 'Favorit entfernen'

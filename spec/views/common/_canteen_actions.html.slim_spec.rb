@@ -1,13 +1,13 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + "/../../spec_helper"
+require File.dirname(__FILE__) + '/../../spec_helper'
 require_dependency 'message'
 
-describe "common/_canteen_actions.html.slim", :type => :view do
+describe 'common/_canteen_actions.html.slim', type: :view do
   let(:owner) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
   before do
     render partial: 'canteen_actions', \
-      locals: { canteen: canteen}
+           locals: {canteen: canteen}
   end
   subject { rendered }
 

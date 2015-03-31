@@ -5,10 +5,10 @@ class Day < ActiveRecord::Base
   has_many :meals, -> { order(:pos) }
 
   validates :date, :canteen_id, presence: true
-  validates :date, uniqueness: { scope: :canteen_id }
+  validates :date, uniqueness: {scope: :canteen_id}
 
   def date=(date)
-    write_attribute :date, date.to_date unless date.nil?
+    self[:date] = date.to_date unless date.nil?
   end
 
   def to_param

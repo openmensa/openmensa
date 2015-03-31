@@ -36,7 +36,7 @@ module Openmensa
       files += %W(/config/database.#{RUBY_ENGINE}.yml /config/database.yml)
       files.each do |file|
         file = Rails.root.to_s + file
-        return YAML::load(ERB.new(IO.read(file)).result) if File.exists?(file)
+        return YAML.load(ERB.new(IO.read(file)).result) if File.exist?(file)
       end
       raise 'No database configuration found.'
     end

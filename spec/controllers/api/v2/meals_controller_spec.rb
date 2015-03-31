@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe Api::V2::MealsController, :type => :controller do
+describe Api::V2::MealsController, type: :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
 
-  describe "GET index" do
+  describe 'GET index' do
     let(:canteen) { FactoryGirl.create :canteen, :with_unordered_meals }
     let(:day) { canteen.days.first! }
     before { canteen }
 
-    it "should answer with a list" do
+    it 'should answer with a list' do
       get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
       expect(response.status).to eq(200)
 
@@ -18,7 +18,7 @@ describe Api::V2::MealsController, :type => :controller do
       expect(json.size).to eq(3)
     end
 
-    it "should answer with a list of meal nodes" do
+    it 'should answer with a list of meal nodes' do
       get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
       expect(response.status).to eq(200)
 
@@ -41,16 +41,16 @@ describe Api::V2::MealsController, :type => :controller do
         get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
         expect(response.status).to eq(200)
 
-        expect(json.map { |m| m['id'].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
+        expect(json.map {|m| m['id'].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
       end
     end
 
-    context "meal node" do
+    context 'meal node' do
       let(:meal) { FactoryGirl.create :meal, :with_notes }
       let(:day) { meal.day }
       let(:canteen) { meal.day.canteen }
 
-      it "should include notes" do
+      it 'should include notes' do
         get :index, canteen_id: canteen.id, day_id: day.to_param, format: :json
         expect(response.status).to eq(200)
 
@@ -59,7 +59,7 @@ describe Api::V2::MealsController, :type => :controller do
     end
   end
 
-  describe "GET canteen_meals" do
+  describe 'GET canteen_meals' do
     let(:canteen) do
       c = FactoryGirl.create :canteen, :with_meals
       c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 2.days)
@@ -74,7 +74,7 @@ describe Api::V2::MealsController, :type => :controller do
       c
     end
 
-    it "should answer with 7 days from now and their meals" do
+    it 'should answer with 7 days from now and their meals' do
       get :canteen_meals, canteen_id: canteen.id, format: :json
       expect(response.status).to eq(200)
       expect(json.size).to eq(7)
@@ -83,15 +83,15 @@ describe Api::V2::MealsController, :type => :controller do
       expect(json[6]['date']).to eq((Date.today + 6.day).iso8601)
     end
 
-    context "&start" do
-      it "should answer with up to 7 days from given date and their meals" do
+    context '&start' do
+      it 'should answer with up to 7 days from given date and their meals' do
         get :canteen_meals, canteen_id: canteen.id, format: :json, start: (Date.today + 1.day).iso8601
         expect(response.status).to eq(200)
         expect(json.size).to eq(7)
         expect(json[0]['date']).to eq((Date.today + 1.day).iso8601)
       end
 
-      it "should answer with up to 7 days from given date and their meals (2)" do
+      it 'should answer with up to 7 days from given date and their meals (2)' do
         get :canteen_meals, canteen_id: canteen.id, format: :json, start: (Date.today + 5.day).iso8601
         expect(response.status).to eq(200)
         expect(json.size).to eq(5)
@@ -104,7 +104,7 @@ describe Api::V2::MealsController, :type => :controller do
         expect(response.status).to eq(200)
         json.each do |day|
           dayModel = Day.find_by date: day['date'], canteen: canteen
-          expect(day['meals'].map { |m| m['id'] }).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
+          expect(day['meals'].map {|m| m['id'] }).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
         end
       end
     end

@@ -1,5 +1,4 @@
 module OpenMensa
-
   # The FeedLoader provides methods to load ad parse a canteen feed from
   # it's URL. It handles HTTP responses and redirects.
   #
@@ -47,19 +46,18 @@ module OpenMensa
     rescue URI::InvalidURIError => error
       raise FeedLoadError.new("Invalid URL (#{url}) for canteen #{canteen.id}.", error)
     rescue => error
-      raise FeedLoadError.new("Error while loading feed.", error)
+      raise FeedLoadError.new('Error while loading feed.', error)
     end
 
     class << self
-
       # Returns default options for new FeedLoaders.
       #
       def default_options
         {
-            follow: true,
-            update: true,
-            today: false,
-            depth: 2,
+          follow: true,
+          update: true,
+          today: false,
+          depth: 2
         }
       end
     end
@@ -76,16 +74,17 @@ module OpenMensa
       @uri ||= URI.parse url
     end
 
-  private
+    private
+
     def load_feed(allowed_redirects, uri = self.uri)
       open uri, redirect: false
 
     rescue OpenURI::HTTPRedirect => redirect
-      if !options[:follow] or allowed_redirects <= 0
-        raise FeedLoadError.new("Too much redirects.", redirect)
+      if !options[:follow] || allowed_redirects <= 0
+        raise FeedLoadError.new('Too much redirects.', redirect)
       end
 
-      if options[:update] and redirect.message.start_with? '301' # permanent redirect
+      if options[:update] && redirect.message.start_with?('301') # permanent redirect
         update_url redirect.uri.to_s
       end
 

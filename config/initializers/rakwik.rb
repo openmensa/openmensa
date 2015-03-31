@@ -1,4 +1,4 @@
-if Rails.env.production? or ENV['RAKWIK']
+if Rails.env.production? || ENV['RAKWIK']
   if Rails.application.secrets.rakwik_auth_token
     require 'rakwik'
 

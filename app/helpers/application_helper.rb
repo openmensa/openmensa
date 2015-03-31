@@ -1,13 +1,12 @@
 module ApplicationHelper
-
   def t(*attrs)
     options = attrs.extract_options!
     id      = attrs.join '.'
 
     options[:default] ||= "[[#{id}]]"
-    I18n.t(id, options.merge({ raise: true, default: nil})).html_safe
+    I18n.t(id, options.merge(raise: true, default: nil)).html_safe
   rescue
-    Rails.logger.warn $!
+    Rails.logger.warn $ERROR_INFO
     options[:default].to_s
   end
 
@@ -23,7 +22,7 @@ module ApplicationHelper
       end
     else
       content_tag :span, class: 'avatar', style: "width: #{options[:size]}px; height: #{options[:size]}px;" do
-        ""
+        ''
       end
     end
   end
@@ -38,7 +37,7 @@ module ApplicationHelper
   end
 
   def map(canteens, options = {})
-    canteens = [ canteens ] unless canteens.respond_to?(:map)
+    canteens = [canteens] unless canteens.respond_to?(:map)
     markers = canteens.map do |canteen|
       {
         lat: canteen.latitude,
@@ -47,7 +46,7 @@ module ApplicationHelper
         url: canteen_path(canteen)
       }
     end
-    content_tag :div, nil, class: 'map', id: (options[:id] || 'map'), data: { map: (options[:id] || 'map'), markers: markers.to_json, hash: options[:hash]}
+    content_tag :div, nil, class: 'map', id: (options[:id] || 'map'), data: {map: (options[:id] || 'map'), markers: markers.to_json, hash: options[:hash]}
   end
 
   def canteen_state_icon(fetch_state)
@@ -55,7 +54,7 @@ module ApplicationHelper
       out_of_order: :'icon-ban-circle',
       no_fetch_ever: :'icon-balt',
       fetch_up_to_date: :'icon-ok',
-      fetch_needed: :'icon-warning-sign',
+      fetch_needed: :'icon-warning-sign'
     }[fetch_state]
   end
 end

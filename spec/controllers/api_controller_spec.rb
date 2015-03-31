@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe ApiController, :type => :controller do
+describe ApiController, type: :controller do
   controller(ApiController) do
     def index
       render text: 'NOTHING'

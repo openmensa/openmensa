@@ -1,5 +1,5 @@
 class CanteenActivationController < ApplicationController
-  before_filter :load_resource
+  before_action :load_resource
   def create
     if @canteen.update_attributes active: true
       flash[:notice] = t('canteen.activation.successful_activated')
@@ -18,7 +18,8 @@ class CanteenActivationController < ApplicationController
     redirect_to canteen_path @canteen
   end
 
-private
+  private
+
   def load_resource
     @canteen = Canteen.find params[:canteen_id]
     authorize! :edit, @canteen

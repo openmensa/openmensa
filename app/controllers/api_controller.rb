@@ -1,8 +1,8 @@
 class ApiController < BaseController
-  rescue_from ::CanCan::AccessDenied,         :with => :error_access_denied
-  rescue_from ::ActiveRecord::RecordNotFound, :with => :error_not_found
+  rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
+  rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found
 
-  before_filter :setup_request
+  before_action :setup_request
 
   attr_reader :current_client
 
@@ -55,7 +55,7 @@ class ApiController < BaseController
     return @api_version unless value
     @api_version = value
 
-    before_filter do
+    before_action do
       set_api_version value
     end
   end

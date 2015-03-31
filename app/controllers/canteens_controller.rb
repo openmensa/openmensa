@@ -1,6 +1,6 @@
 class CanteensController < ApplicationController
-  before_filter :new_resource, only: [ :new, :create ]
-  before_filter :load_resource, only: [ :show, :update, :edit, :fetch ]
+  before_action :new_resource, only: [:new, :create]
+  before_action :load_resource, only: [:show, :update, :edit, :fetch]
   load_and_authorize_resource
 
   def index
@@ -42,9 +42,9 @@ class CanteensController < ApplicationController
   end
 
   def fetch
-    if current_user.cannot? :manage, @canteen and \
-        @canteen.last_fetched_at and \
-        @canteen.last_fetched_at > Time.zone.now - 15.minutes
+    if current_user.cannot?(:manage, @canteen) && \
+       @canteen.last_fetched_at && \
+       @canteen.last_fetched_at > Time.zone.now - 15.minutes
       return error_too_many_requests
     end
     updater = OpenMensa::Updater.new(@canteen)
@@ -59,7 +59,8 @@ class CanteensController < ApplicationController
     end
   end
 
-private
+  private
+
   def load_resource
     @canteen = Canteen.find params[:id]
   end

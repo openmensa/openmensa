@@ -19,12 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, "log/whenever.log"
+set :output, 'log/whenever.log'
 
 every :hour do
-  rake "om:fetch"
+  rake 'om:fetch'
 end
 
-every :day, :at => '9am' do
+every :day, at: '9am' do
   rake 'om:daily_report'
 end

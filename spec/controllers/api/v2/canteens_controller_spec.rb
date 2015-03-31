@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V2::CanteensController, :type => :controller do
+describe Api::V2::CanteensController, type: :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -22,14 +22,14 @@ describe Api::V2::CanteensController, :type => :controller do
       expect(response.status).to eq(200)
 
       expect(json[0]).to eq({
-          id:          canteen.id,
-          name:        canteen.name,
-          city:        canteen.city,
-          address:     canteen.address,
-          coordinates: [
-                           canteen.latitude,
-                           canteen.longitude
-                       ]
+        id:          canteen.id,
+        name:        canteen.name,
+        city:        canteen.city,
+        address:     canteen.address,
+        coordinates: [
+          canteen.latitude,
+          canteen.longitude
+        ]
       }.as_json)
     end
 
@@ -41,11 +41,11 @@ describe Api::V2::CanteensController, :type => :controller do
         expect(response.status).to eq(200)
 
         expect(json[0]).to eq({
-            id:          canteen.id,
-            name:        canteen.name,
-            city:        canteen.city,
-            address:     canteen.address,
-            coordinates: nil
+          id:          canteen.id,
+          name:        canteen.name,
+          city:        canteen.city,
+          address:     canteen.address,
+          coordinates: nil
         }.as_json)
       end
     end
@@ -58,11 +58,11 @@ describe Api::V2::CanteensController, :type => :controller do
         expect(response.status).to eq(200)
 
         expect(json[0]).to eq({
-            id:          canteen.id,
-            name:        canteen.name,
-            city:        canteen.city,
-            address:     canteen.address,
-            coordinates: nil
+          id:          canteen.id,
+          name:        canteen.name,
+          city:        canteen.city,
+          address:     canteen.address,
+          coordinates: nil
         }.as_json)
       end
     end
@@ -75,11 +75,11 @@ describe Api::V2::CanteensController, :type => :controller do
         expect(response.status).to eq(200)
 
         expect(json[0]).to eq({
-            id:          canteen.id,
-            name:        canteen.name,
-            city:        canteen.city,
-            address:     canteen.address,
-            coordinates: nil
+          id:          canteen.id,
+          name:        canteen.name,
+          city:        canteen.city,
+          address:     canteen.address,
+          coordinates: nil
         }.as_json)
       end
     end
@@ -120,7 +120,7 @@ describe Api::V2::CanteensController, :type => :controller do
         100.times { FactoryGirl.create :canteen }
         expect(Canteen.count).to be > 100
 
-        get :index, format: :json, limit: "120"
+        get :index, format: :json, limit: '120'
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(100)
@@ -166,13 +166,13 @@ describe Api::V2::CanteensController, :type => :controller do
       end
 
       it 'should find canteens within distance around a point' do
-        get :index, format: :json, near: { lat: 0.0, lng: 0.15, dist: 100 }
+        get :index, format: :json, near: {lat: 0.0, lng: 0.15, dist: 100}
 
         expect(json).to have(3).items
       end
 
       it 'should find canteens within default distance around a point' do
-        get :index, format: :json, near: { lat: 0.05, lng: 0.1 }
+        get :index, format: :json, near: {lat: 0.05, lng: 0.1}
 
         expect(json).to have(1).items
       end
@@ -187,7 +187,7 @@ describe Api::V2::CanteensController, :type => :controller do
       end
 
       it 'should return canteens with given ids' do
-        get :index, format: :json, ids: [ canteen.id, second_canteen.id ].join(',')
+        get :index, format: :json, ids: [canteen.id, second_canteen.id].join(',')
 
         expect(json).to have(2).items
         expect(json[0]['id']).to eq(canteen.id)
@@ -198,29 +198,29 @@ describe Api::V2::CanteensController, :type => :controller do
     context '&near[place]' do
       let(:griebnitzsee) do
         FactoryGirl.create :canteen,
-                           name: 'Mensa Griebnitzsee',
-                           address: 'August-Bebel-Str. 89, 14482 Potsdam',
-                           latitude: 52.3935353446923,
-                           longitude: 13.1278145313263
+          name: 'Mensa Griebnitzsee',
+          address: 'August-Bebel-Str. 89, 14482 Potsdam',
+          latitude: 52.3935353446923,
+          longitude: 13.1278145313263
       end
 
       let(:palais) do
         FactoryGirl.create :canteen,
-                           name: 'Mensa Am Neuen Palais',
-                           address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
-                           latitude: 52.399,
-                           longitude: 13.01494
+          name: 'Mensa Am Neuen Palais',
+          address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
+          latitude: 52.399,
+          longitude: 13.01494
       end
 
       before do
         griebnitzsee
         palais
-        stub_request(:get, 'http://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&q=Potsdam').
-          to_return(lambda { |request| File.new Rails.root.join(*%w{spec mocks nominatim.json}).to_s })
+        stub_request(:get, 'http://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&q=Potsdam')
+          .to_return(->(_request) { File.new Rails.root.join(*%w(spec mocks nominatim.json)).to_s })
       end
 
       it 'should return canteens near a specified place' do
-        get :index, format: :json, near: { place: 'Potsdam' }
+        get :index, format: :json, near: {place: 'Potsdam'}
 
         expect(json).to have(2).item
         expect(json[0]['name']).to eq(palais.name)
@@ -231,18 +231,18 @@ describe Api::V2::CanteensController, :type => :controller do
     context '&hasCoordinates' do
       let(:griebnitzsee) do
         FactoryGirl.create :canteen,
-                           name: 'Mensa Griebnitzsee',
-                           address: 'August-Bebel-Str. 89, 14482 Potsdam',
-                           latitude: 52.3935353446923,
-                           longitude: 13.1278145313263
+          name: 'Mensa Griebnitzsee',
+          address: 'August-Bebel-Str. 89, 14482 Potsdam',
+          latitude: 52.3935353446923,
+          longitude: 13.1278145313263
       end
 
       let(:unknown) do
         FactoryGirl.create :canteen,
-                           name: 'Mensa Am Neuen Palais',
-                           address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
-                           latitude: nil,
-                           longitude: nil
+          name: 'Mensa Am Neuen Palais',
+          address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
+          latitude: nil,
+          longitude: nil
       end
 
       before do
@@ -276,14 +276,14 @@ describe Api::V2::CanteensController, :type => :controller do
       expect(response.status).to eq(200)
 
       expect(json).to eq({
-          id:          canteen.id,
-          name:        canteen.name,
-          city:        canteen.city,
-          address:     canteen.address,
-          coordinates: [
-                           canteen.latitude,
-                           canteen.longitude
-                       ]
+        id:          canteen.id,
+        name:        canteen.name,
+        city:        canteen.city,
+        address:     canteen.address,
+        coordinates: [
+          canteen.latitude,
+          canteen.longitude
+        ]
       }.as_json)
     end
 

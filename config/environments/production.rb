@@ -71,9 +71,9 @@ Openmensa::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = {
-     :location => '/usr/sbin/sendmail', :arguments => '-i' }
+    location: '/usr/sbin/sendmail', arguments: '-i'}
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => "openmensa.org" }
+  config.action_mailer.default_url_options = {host: 'openmensa.org'}
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
@@ -85,5 +85,5 @@ Openmensa::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Piwik tracking
-  config.middleware.use Rack::Piwik, :piwik_url => 'dev.altimos.de/piwik', :piwik_id => '3'
+  config.middleware.use Rack::Piwik, piwik_url: 'dev.altimos.de/piwik', piwik_id: '3'
 end

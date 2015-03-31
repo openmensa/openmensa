@@ -1,7 +1,7 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + "/../../spec_helper"
+require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "users/show.html.slim", :type => :view do
+describe 'users/show.html.slim', type: :view do
   let(:user) { FactoryGirl.create :user }
 
   before do
@@ -14,7 +14,7 @@ describe "users/show.html.slim", :type => :view do
     render
   end
 
-  it "should not show add identity button if all providers are bound" do
-    expect(rendered).not_to include("Identität hinzufügen")
+  it 'should not show add identity button if all providers are bound' do
+    expect(rendered).not_to include('Identität hinzufügen')
   end
 end

@@ -7,7 +7,7 @@ describe OpenMensa::DailyReportTask do
   let(:developer) { FactoryGirl.create :developer, last_report_at: Time.zone.now - 1.day }
   let(:canteen) { FactoryGirl.create :canteen, user: developer }
 
-  context "#do" do
+  context '#do' do
     it 'should not send mail to user' do
       user
       expect(MessageMailer).not_to receive(:daily_report)

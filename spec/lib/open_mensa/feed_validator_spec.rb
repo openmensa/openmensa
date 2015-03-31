@@ -34,15 +34,15 @@ describe OpenMensa::FeedValidator do
     end
 
     it 'should raise an error on invalid XML' do
-      expect {
+      expect do
         OpenMensa::FeedValidator.new(invalid_xml).validate!
-      }.to raise_error(OpenMensa::FeedValidator::FeedValidationError)
+      end.to raise_error(OpenMensa::FeedValidator::FeedValidationError)
     end
 
     it 'should raise an error on non OpenMensa XML' do
-      expect {
+      expect do
         OpenMensa::FeedValidator.new(non_om_xml).validate!
-      }.to raise_error(OpenMensa::FeedValidator::InvalidFeedVersionError)
+      end.to raise_error(OpenMensa::FeedValidator::InvalidFeedVersionError)
     end
   end
 

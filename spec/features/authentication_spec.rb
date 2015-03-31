@@ -1,33 +1,33 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + "/../spec_helper"
+require File.dirname(__FILE__) + '/../spec_helper'
 
-describe "Authentication", :type => :feature do
-  describe "Login" do
-    it "should login using Twitter" do
+describe 'Authentication', type: :feature do
+  describe 'Login' do
+    it 'should login using Twitter' do
       visit root_path
-      click_link "Anmelden"
-      click_link "Twitter"
+      click_link 'Anmelden'
+      click_link 'Twitter'
 
-      expect(page.body).to include("Mein Profil")
+      expect(page.body).to include('Mein Profil')
     end
 
-    it "should login using GitHub" do
+    it 'should login using GitHub' do
       visit root_path
-      click_link "Anmelden"
-      click_link "GitHub"
+      click_link 'Anmelden'
+      click_link 'GitHub'
 
-      expect(page.body).to include("Mein Profil")
+      expect(page.body).to include('Mein Profil')
     end
   end
 
-  describe "Logout" do
+  describe 'Logout' do
     before :each do
       login FactoryGirl.create(:identity)
     end
 
-    it "should sign off a user if signed in" do
+    it 'should sign off a user if signed in' do
       visit root_path
-      click_link "Abmelden"
+      click_link 'Abmelden'
 
       expect(User.current).to eq(User.anonymous)
     end

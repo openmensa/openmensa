@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe SessionsController, :type => :controller do
+describe SessionsController, type: :controller do
   describe '#create' do
     before do
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]

@@ -1,8 +1,8 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + "/../../spec_helper"
+require File.dirname(__FILE__) + '/../../spec_helper'
 require_dependency 'message'
 
-describe "canteens/fetch.html.slim", :type => :view do
+describe 'canteens/fetch.html.slim', type: :view do
   let(:owner) { FactoryGirl.create :user }
   let(:other) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
@@ -11,7 +11,7 @@ describe "canteens/fetch.html.slim", :type => :view do
       'status' => 'ok',
       'days' => {
         'added' => 101,
-        'updated' => 102,
+        'updated' => 102
       },
       'meals' => {
         'added' => 201,
@@ -71,7 +71,7 @@ describe "canteens/fetch.html.slim", :type => :view do
     end
 
     it 'should not display updated entities' do
-      assign(:result, {'status' => 'ok'})
+      assign(:result, 'status' => 'ok')
 
       render
 
@@ -85,7 +85,7 @@ describe "canteens/fetch.html.slim", :type => :view do
     end
 
     it 'should display fetch errors' do
-      assign(:result, {'status' => 'error'})
+      assign(:result, 'status' => 'error')
 
       render
 

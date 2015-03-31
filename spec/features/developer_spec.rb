@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require_dependency 'message'
 
-describe 'Developers', :type => :feature do
+describe 'Developers', type: :feature do
   let(:user) { FactoryGirl.create :user }
   let(:developer) { FactoryGirl.create :developer }
   let(:canteen) { FactoryGirl.create :canteen, user_id: developer.id }

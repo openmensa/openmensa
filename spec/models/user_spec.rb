@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe User, :type => :model do
+describe User, type: :model do
   let(:user) { FactoryGirl.create :user }
   before { user }
   subject { user }
@@ -10,7 +10,7 @@ describe User, :type => :model do
   it { is_expected.not_to accept_values_for(:login, '', nil) }
   it { is_expected.to accept_values_for(:email, nil, '', 'abc@example.org', 'admin@altimos.de') }
   it { is_expected.not_to accept_values_for(:email, 'abc', '@domain', 'user@', 'root@local') }
-  it { is_expected.to accept_values_for(:name, 'John Smith', 'Yung Heng', 'K. Müller')}
+  it { is_expected.to accept_values_for(:name, 'John Smith', 'Yung Heng', 'K. Müller') }
   it { is_expected.not_to accept_values_for(:name, nil, '') }
   it { is_expected.to be_logged }
   it { is_expected.not_to be_admin }
@@ -31,10 +31,10 @@ describe User, :type => :model do
   end
 
   # reserved logins
-  it { is_expected.not_to accept_values_for(:login, 'anonymous', 'system')}
+  it { is_expected.not_to accept_values_for(:login, 'anonymous', 'system') }
 
   it 'should have a unique login' do
-    another_user = FactoryGirl.build(:user, :login => user.login)
+    another_user = FactoryGirl.build(:user, login: user.login)
     expect(another_user.login).to eq user.login
     expect(another_user).to_not be_valid
     expect(another_user.save).to be_falsey
@@ -90,7 +90,7 @@ describe User, :type => :model do
         FactoryGirl.create(:user)
 
         expect(User.all).to_not be_empty
-        expect(User.all.select { |u| u.login == 'anonymous' or u.login == 'system' }).to be_empty
+        expect(User.all.select {|u| u.login == 'anonymous' || u.login == 'system' }).to be_empty
       end
     end
   end
@@ -153,7 +153,7 @@ describe User, :type => :model do
     end
   end
 
-  describe "identities" do
+  describe 'identities' do
     subject { user.identities }
 
     it { is_expected.not_to be_empty }

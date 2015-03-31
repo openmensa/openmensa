@@ -21,7 +21,7 @@ class CreateDayTable < ActiveRecord::Migration
       Meal.all.each do |m|
         canteen = Canteen.find_by_id m.canteen_id
         # way is this needed:
-        if not canteen
+        unless canteen
           puts 'meals without canteen:', m.inspect
           m.destroy
           next
@@ -52,7 +52,7 @@ class CreateDayTable < ActiveRecord::Migration
       Meal.all.each do |m|
         day = Day.find_by_id(m.day_id)
         # way is this needed:
-        if not day
+        unless day
           puts 'meals without day:', m.inspect
           m.destroy
           next

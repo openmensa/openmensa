@@ -1,11 +1,11 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe CanteensController, :type => :controller do
+describe CanteensController, type: :controller do
   describe '#show' do
     let(:canteen) { FactoryGirl.create :canteen, :with_meals }
 
-    it "should fetch canteen" do
+    it 'should fetch canteen' do
       get :show, id: canteen.id
 
       expect(assigns(:canteen)).to eq canteen
@@ -31,7 +31,7 @@ describe CanteensController, :type => :controller do
     let(:user) { FactoryGirl.create :user }
 
     it 'should not be accessible by anonymous' do
-      patch :update, user_id: canteen.user.id, id: canteen.id, canteen: { name: 'NewName' }
+      patch :update, user_id: canteen.user.id, id: canteen.id, canteen: {name: 'NewName'}
 
       canteen.reload
       expect(canteen.name).to_not eq 'NewName'
@@ -42,7 +42,7 @@ describe CanteensController, :type => :controller do
 
   describe '#fetch' do
     let(:canteen) { FactoryGirl.create :canteen, :with_meals, user: owner }
-    let(:owner) { FactoryGirl.create :developer}
+    let(:owner) { FactoryGirl.create :developer }
     let(:updater) { OpenMensa::Updater.new(canteen) }
     let(:json) { JSON.parse response.body }
 
@@ -87,7 +87,7 @@ describe CanteensController, :type => :controller do
         set_current_user owner
         get :fetch, id: canteen.id, format: :json
 
-        expect(response.status).to eq  200
+        expect(response.status).to eq 200
         expect(response.content_type).to eq 'application/json'
 
         expect(json).to eq successfull_json
@@ -103,20 +103,20 @@ describe CanteensController, :type => :controller do
 
         expect(json).to eq successfull_json
 
-        expect(assigns(:result)).to eq({ 'status' => 'ok' })
+        expect(assigns(:result)).to eq('status' => 'ok')
       end
     end
 
     context 'should return occured errors' do
       let(:feed_fetch_error) do
         FeedFetchError.create(canteen: canteen,
-                                message: 'Could not fetch',
-                                code: 404)
+                              message: 'Could not fetch',
+                              code: 404)
       end
       before do
         expect(updater).to receive(:update).and_return false
         expect(updater).to receive(:errors).at_least(:once) do
-          [ feed_fetch_error ]
+          [feed_fetch_error]
         end
       end
 
@@ -144,7 +144,7 @@ describe CanteensController, :type => :controller do
 
         expect(assigns(:result)).to eq ({
           'status' => 'error',
-          'errors' => [ feed_fetch_error ]
+          'errors' => [feed_fetch_error]
         })
       end
 
@@ -156,7 +156,7 @@ describe CanteensController, :type => :controller do
 
         expect(json).to eq json_error
 
-        expect(assigns(:result)).to eq({ 'status' => 'error'})
+        expect(assigns(:result)).to eq('status' => 'error')
       end
     end
 

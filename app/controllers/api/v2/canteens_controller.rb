@@ -1,11 +1,11 @@
 class Api::V2::CanteensController < Api::BaseController
   respond_to :json
 
-  has_scope :near, using: [ :lat, :lng, :dist, :place ] do |controller, scope, value|
+  has_scope :near, using: [:lat, :lng, :dist, :place] do |_controller, scope, value|
     place = if value[3]
-      value[3].to_s
-    else
-      [ value[0].to_f, value[1].to_f ]
+              value[3].to_s
+            else
+              [value[0].to_f, value[1].to_f]
     end
 
     if place
@@ -15,13 +15,13 @@ class Api::V2::CanteensController < Api::BaseController
     end
   end
 
-  has_scope :ids do |controller, scope, value|
-    ids = value.split(',').map(&:to_i).select{|x| x > 0}.uniq
+  has_scope :ids do |_controller, scope, value|
+    ids = value.split(',').map(&:to_i).select {|x| x > 0 }.uniq
     scope.where(id: ids)
   end
 
-  has_scope :hasCoordinates do |controller, scope, value|
-    if value != 'false' and value != '0' and value
+  has_scope :hasCoordinates do |_controller, scope, value|
+    if value != 'false' && value != '0' && value
       scope.where('latitude IS NOT NULL and longitude IS NOT NULL')
     else
       scope.where('latitude IS NULL and longitude IS NULL')

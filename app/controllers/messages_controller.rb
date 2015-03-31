@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   def overview
     @canteens = @user.canteens.order(:name).map do |canteen|
       message = canteen.messages.order('created_at DESC').limit(1).first
-      [ canteen, MessageDecorator.new(message) ]
+      [canteen, MessageDecorator.new(message)]
     end
   end
 

@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   def new
     respond_to do |format|
-      format.html { redirect_to root_url and return if current_user.logged? }
+      format.html { redirect_to(root_url) && return if current_user.logged? }
     end
   end
 
@@ -19,12 +19,12 @@ class SessionsController < ApplicationController
   end
 
   def ref
-    return request.env['omniauth.params']['ref'] if request.env['omniauth.params'] and request.env['omniauth.params']['ref']
+    return request.env['omniauth.params']['ref'] if request.env['omniauth.params'] && request.env['omniauth.params']['ref']
     params[:ref]
   end
 
   def redirect_back(options = {})
-    if ref and ref[0] == '/'
+    if ref && ref[0] == '/'
       redirect_to url_for(ref), options
     else
       redirect_to root_url, options
@@ -40,7 +40,8 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-private
+  private
+
   def create_identity!(identity)
     if identity.new_record?
       identity.update_attributes! user: current_user

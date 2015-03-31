@@ -1,8 +1,7 @@
 
 FactoryGirl.define do
-
   factory :user do
-    sequence(:login) { |n| "user#{n}" }
+    sequence(:login) {|n| "user#{n}" }
     name 'John Doe'
     developer false
 
@@ -23,24 +22,24 @@ FactoryGirl.define do
   factory :identity do
     association :user
 
-    sequence(:uid) { |n| n.to_s.hash.to_s.gsub(/\D/, '') }
-    provider         'twitter'
-    token            'apiToken'
+    sequence(:uid) {|n| n.to_s.hash.to_s.gsub(/\D/, '') }
+    provider 'twitter'
+    token 'apiToken'
   end
 
   factory :application, class: 'Doorkeeper::Application' do
-    sequence(:name)         { |n| "OAuth2 Client ##{n}" }
-    sequence(:redirect_uri) { |n| "http://test.host/c#{n}/cb" }
+    sequence(:name)         {|n| "OAuth2 Client ##{n}" }
+    sequence(:redirect_uri) {|n| "http://test.host/c#{n}/cb" }
   end
 
   factory :canteen do
-    sequence(:name) { |n| "Mensa ##{n}"}
+    sequence(:name) {|n| "Mensa ##{n}" }
     address 'Marble Street, 12345 City'
     url 'http://example.com/canteen_feed.xml'
     city 'City'
 
-    sequence(:latitude)  { |n| (n % 180) - 90 }
-    sequence(:longitude) { |n| (n % 360) - 180 }
+    sequence(:latitude)  {|n| (n % 180) - 90 }
+    sequence(:longitude) {|n| (n % 360) - 180 }
 
     association :user
 
@@ -104,19 +103,19 @@ FactoryGirl.define do
   end
 
   factory :meal do
-    sequence(:category) { |n| "Meal ##{n}" }
+    sequence(:category) {|n| "Meal ##{n}" }
     name                { "The name of #{category}." }
-    sequence(:price_student) { |n| 0.51 + n * 0.2 }
+    sequence(:price_student) {|n| 0.51 + n * 0.2 }
 
     association :day
 
     trait :with_notes do
-      notes [ 'Note M1', 'Note M2', 'Note M3']
+      notes ['Note M1', 'Note M2', 'Note M3']
     end
   end
 
   factory :note do
-    sequence(:name)     { |n| "note #{n}" }
+    sequence(:name)     {|n| "note #{n}" }
   end
 
   factory :feedInvalidUrlError do
@@ -131,16 +130,16 @@ FactoryGirl.define do
   end
 
   factory :feedValidationError do
-    sequence(:version)  { |n| n % 2 + 1}
-    sequence(:kind)     { |n| [:invalid_xml, :unknown_version ][n % 2] }
+    sequence(:version)  {|n| n % 2 + 1 }
+    sequence(:kind)     {|n| [:invalid_xml, :unknown_version][n % 2] }
     message             { "#{version} no message" }
 
     association :canteen
   end
 
   factory :feedUrlUpdatedInfo do
-    sequence(:old_url)  { |n| "http://example.org/#{n}.xml" }
-    sequence(:new_url)  { |n| "http://example.com/#{n}.xml" }
+    sequence(:old_url)  {|n| "http://example.org/#{n}.xml" }
+    sequence(:new_url)  {|n| "http://example.com/#{n}.xml" }
 
     association :canteen
   end

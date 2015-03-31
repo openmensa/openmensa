@@ -1,7 +1,6 @@
 require 'nokogiri'
 
 module OpenMensa
-
   # FeedParser provide methods to parse XML input into an Nokogiri
   # XML document. There will be no validation or semantic check done.
   #
@@ -36,7 +35,7 @@ module OpenMensa
     def parse!
       @document = ::Nokogiri::XML::Document.parse(data).tap do |doc|
         @errors = doc.errors
-        raise ParserError.new("Error while parsing feed data.", errors) unless errors.empty?
+        raise ParserError.new('Error while parsing feed data.', errors) unless errors.empty?
       end
     end
 

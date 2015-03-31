@@ -14,8 +14,8 @@ unless ENV['DRB']
   SimpleCov.start 'rails'
 end
 
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -31,7 +31,7 @@ FactoryGirl.reload
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f }
 
 RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
@@ -61,7 +61,7 @@ RSpec.configure do |config|
 
     # Prevents you from mocking or stubbing a method that does not exist on
     # a real object. This is generally recommended.
-    #mocks.verify_partial_doubles = true
+    # mocks.verify_partial_doubles = true
   end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
@@ -89,16 +89,12 @@ RSpec.configure do |config|
   end
 
   OmniAuth.config.test_mode = true
-  OmniAuth.config.add_mock(:twitter, {
-    :uid => '12345',
-    :nickname => 'zapnap'
-  })
-  OmniAuth.config.add_mock(:github, {
-    :uid => '98765',
-    :nickname => 'zapnap'
-  })
+  OmniAuth.config.add_mock(:twitter,     uid: '12345',
+                                         nickname: 'zapnap')
+  OmniAuth.config.add_mock(:github,     uid: '98765',
+                                        nickname: 'zapnap')
 
   Capybara.default_host = 'http://example.org'
   Capybara.javascript_driver = :poltergeist
-  WebMock.disable_net_connect!(:allow_localhost => true)
+  WebMock.disable_net_connect!(allow_localhost: true)
 end

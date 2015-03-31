@@ -8,22 +8,21 @@ class Meal < ActiveRecord::Base
 
   validates :name, :category, :day_id, presence: true
 
-  scope :for, lambda { |date| where('days.date' => date.to_date) }
+  scope :for, ->(date) { where('days.date' => date.to_date) }
 
-  def date
-    day.date
-  end
+  delegate :date, to: :day
 
   def prices
     [:student, :employee, :pupil, :other].inject({}) do |prices, role|
-      price = read_attribute :"price_#{role}"
+      price = self[:"price_#{role}"]
       prices[role] = price if price
       prices
     end
   end
+
   def prices=(prices)
     prices.each do |role, price|
-      write_attribute :"price_#{role}", price
+      self[:"price_#{role}"] = price
     end
   end
 

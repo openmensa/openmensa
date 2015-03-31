@@ -1,7 +1,7 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + "/../../spec_helper"
+require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "canteens/show.html.slim", :type => :view do
+describe 'canteens/show.html.slim', type: :view do
   let(:user) { FactoryGirl.create :user }
   let(:canteen) { FactoryGirl.create(:canteen) }
 
@@ -13,7 +13,7 @@ describe "canteens/show.html.slim", :type => :view do
     allow(view).to receive(:current_user) { user }
   end
 
-  it "should contain canteen name" do
+  it 'should contain canteen name' do
     render
     expect(rendered).to include(canteen.name)
   end
@@ -23,7 +23,7 @@ describe "canteens/show.html.slim", :type => :view do
       canteen.update_attribute :active, false
       render
       expect(rendered).to match /#{canteen.name}.*\(Außer Betrieb\)/
-      expect(rendered).to include("Mensa ist außer Betrieb")
+      expect(rendered).to include('Mensa ist außer Betrieb')
     end
   end
 
@@ -39,7 +39,7 @@ describe "canteens/show.html.slim", :type => :view do
     let(:day) { FactoryGirl.create :day, :closed }
     let(:canteen) { day.canteen }
 
-    it "should show a closed notice" do
+    it 'should show a closed notice' do
       render
 
       expect(rendered).to include('geschlossen')
@@ -64,7 +64,7 @@ describe "canteens/show.html.slim", :type => :view do
     end
 
     it 'should include prices of meal' do
-      meal.prices = { student: 1.22, other: 2.20, employee: 1.7 }
+      meal.prices = {student: 1.22, other: 2.20, employee: 1.7}
       meal.save!
 
       render
@@ -75,19 +75,17 @@ describe "canteens/show.html.slim", :type => :view do
       expect(rendered).to include('1,70 €')
       expect(rendered).to include('Gäste')
       expect(rendered).to include('2,20 €')
-      expect(rendered).not_to include("Schüler")
+      expect(rendered).not_to include('Schüler')
     end
 
     it 'should include notes of meal' do
-      meal.notes = [ 'vegan', 'vegetarisch' ]
+      meal.notes = %w(vegan vegetarisch)
 
       render
 
       expect(rendered).to include('vegan')
       expect(rendered).to include('vegetarisch')
-
     end
-
   end
   context 'with meals' do
     let(:day) { FactoryGirl.create(:today, :with_unordered_meals, canteen: canteen) }

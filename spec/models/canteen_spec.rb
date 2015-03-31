@@ -1,39 +1,39 @@
 require 'spec_helper'
 
-describe Canteen, :type => :model do
+describe Canteen, type: :model do
   let(:canteen) { FactoryGirl.create :canteen }
 
-  it { is_expected.not_to accept_values_for(:name, nil, "") }
-  it { is_expected.not_to accept_values_for(:address, nil, "") }
+  it { is_expected.not_to accept_values_for(:name, nil, '') }
+  it { is_expected.not_to accept_values_for(:address, nil, '') }
 
-  describe "#fetch" do
+  describe '#fetch' do
     before do
-      stub_request(:any, "example.com/canteen_feed.xml").
-        to_return(:body => mock_file("canteen_feed.xml"), :status => 200)
-      stub_request(:any, "example.com/feed_v2.xml").
-        to_return(:body => mock_file("feed_v2.xml"), :status => 200)
+      stub_request(:any, 'example.com/canteen_feed.xml')
+        .to_return(body: mock_file('canteen_feed.xml'), status: 200)
+      stub_request(:any, 'example.com/feed_v2.xml')
+        .to_return(body: mock_file('feed_v2.xml'), status: 200)
       Timecop.freeze Time.zone.local(2012, 04, 16, 8, 5, 3)
     end
 
-    it "should fetch meals from remote source (version 1.0)" do
-      canteen.url = "http://example.com/canteen_feed.xml"
+    it 'should fetch meals from remote source (version 1.0)' do
+      canteen.url = 'http://example.com/canteen_feed.xml'
       canteen.fetch
       expect(canteen.meals).to have(9).items
     end
 
-    it "should fetch meals from remote source (version 2.0)" do
-      canteen.url = "http://example.com/feed_v2.xml"
+    it 'should fetch meals from remote source (version 2.0)' do
+      canteen.url = 'http://example.com/feed_v2.xml'
       canteen.fetch
       expect(canteen.meals).to have(9).items
     end
 
-    it "should fetch meals with explicit today = false option" do
-      canteen.url = "http://example.com/feed_v2.xml"
+    it 'should fetch meals with explicit today = false option' do
+      canteen.url = 'http://example.com/feed_v2.xml'
       canteen.fetch option: false
       expect(canteen.meals).to have(9).items
     end
 
-    it "should remove old meals" do
+    it 'should remove old meals' do
       FactoryGirl.create(:meal,
         day: FactoryGirl.create(:day,
           canteen: canteen,
@@ -47,7 +47,7 @@ describe Canteen, :type => :model do
 
     it 'should use the today_url if today is true' do
       canteen.url = 'now allowed'
-      canteen.today_url = "http://example.com/canteen_feed.xml"
+      canteen.today_url = 'http://example.com/canteen_feed.xml'
       canteen.fetch today: true
       expect(canteen.meals).to have(9).items
     end

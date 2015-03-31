@@ -18,6 +18,6 @@ class Api::V2::MealsController < Api::BaseController
       @days = @days.where('days.date >= ?', Date.today).where('days.date < ?', Date.today + 7.days)
     end
 
-    respond_with DayDecorator.decorate_collection(@days), include: [ :meals ]
+    respond_with DayDecorator.decorate_collection(@days), include: [:meals]
   end
 end

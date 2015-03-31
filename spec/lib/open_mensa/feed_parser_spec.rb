@@ -21,9 +21,9 @@ describe OpenMensa::FeedParser do
     end
 
     it 'should raise an error on non valid XML data' do
-      expect {
+      expect do
         OpenMensa::FeedParser.new(invalid_data).parse!
-      }.to raise_error(::OpenMensa::FeedParser::ParserError)
+      end.to raise_error(::OpenMensa::FeedParser::ParserError)
     end
   end
 end

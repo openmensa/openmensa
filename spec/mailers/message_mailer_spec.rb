@@ -1,19 +1,23 @@
-require "spec_helper"
+require 'spec_helper'
 
-describe MessageMailer, :type => :mailer do
+describe MessageMailer, type: :mailer do
   describe 'daily_report' do
     let(:user) { FactoryGirl.create :developer }
-    let(:canteens) {[
-      FactoryGirl.create(:canteen, user: user),
-      FactoryGirl.create(:canteen, user: user),
-      FactoryGirl.create(:canteen, user: user)
-    ]}
-    let(:messages) {[
-      FactoryGirl.create(:feedInvalidUrlError, canteen: canteens[0]),
-      FactoryGirl.create(:feedFetchError, canteen: canteens[0]),
-      FactoryGirl.create(:feedValidationError, canteen: canteens[0], kind: :invalid_xml),
-      FactoryGirl.create(:feedUrlUpdatedInfo, canteen: canteens[1])
-    ]}
+    let(:canteens) do
+      [
+        FactoryGirl.create(:canteen, user: user),
+        FactoryGirl.create(:canteen, user: user),
+        FactoryGirl.create(:canteen, user: user)
+      ]
+    end
+    let(:messages) do
+      [
+        FactoryGirl.create(:feedInvalidUrlError, canteen: canteens[0]),
+        FactoryGirl.create(:feedFetchError, canteen: canteens[0]),
+        FactoryGirl.create(:feedValidationError, canteen: canteens[0], kind: :invalid_xml),
+        FactoryGirl.create(:feedUrlUpdatedInfo, canteen: canteens[1])
+      ]
+    end
     let(:mail) { MessageMailer.daily_report(user) }
 
     it 'should sent to the user\'s eMail' do
