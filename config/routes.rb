@@ -22,9 +22,11 @@ Openmensa::Application.routes.draw do
     resources :canteens, path: 'c', only: [:index, :new, :create, :edit, :update] do
       resources :messages, path: 'm', only: [:index]
     end
+    resources :parsers
     get 'm', to: 'messages#overview', as: :messages
   end
   resources :favorites, path: 'favs', only: [:index]
+  resources :sources, only: [:update]
 
   get '/auth',                    to: 'sessions#new',      as: :login
   get '/auth/signoff',            to: 'sessions#destroy',  as: :logout

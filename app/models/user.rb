@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :messages, through: :canteens
   has_many :canteens
   has_many :favorites
+  has_many :parsers
 
   before_save :activate_developer_if_email
 

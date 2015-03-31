@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140416090251) do
+ActiveRecord::Schema.define(version: 20150331130527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,15 +32,15 @@ ActiveRecord::Schema.define(version: 20140416090251) do
     t.boolean  "active",          default: true
   end
 
-  add_index "canteens", ["user_id"], name: "index_canteens_on_user_id", using: :btree
+  add_index "canteens", ["user_id"], name: "index_cafeterias_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.string   "message"
     t.integer  "user_id"
     t.integer  "commentee_id"
     t.string   "commentee_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_index "comments", ["commentee_id"], name: "index_comments_on_commentee_id", using: :btree
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20140416090251) do
     t.integer  "canteen_id"
     t.date     "date"
     t.boolean  "closed",     default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "days", ["canteen_id"], name: "index_days_on_canteen_id", using: :btree
@@ -63,6 +63,21 @@ ActiveRecord::Schema.define(version: 20140416090251) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "feeds", force: true do |t|
+    t.integer  "source_id"
+    t.integer  "priority",        default: 0, null: false
+    t.string   "name",                        null: false
+    t.string   "url",                         null: false
+    t.string   "schedule",                    null: false
+    t.string   "retry"
+    t.string   "source_url"
+    t.datetime "last_fetched_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feeds", ["source_id", "name"], name: "index_feeds_on_source_id_and_name", unique: true, using: :btree
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -159,6 +174,17 @@ ActiveRecord::Schema.define(version: 20140416090251) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
+  create_table "parsers", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name",       null: false
+    t.string   "version"
+    t.text     "info_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "parsers", ["user_id", "name"], name: "index_parsers_on_user_id_and_name", unique: true, using: :btree
+
   create_table "ratings", force: true do |t|
     t.datetime "date"
     t.integer  "value"
@@ -170,6 +196,19 @@ ActiveRecord::Schema.define(version: 20140416090251) do
 
   add_index "ratings", ["meal_id"], name: "index_ratings_on_meal_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
+
+  create_table "sources", force: true do |t|
+    t.integer  "canteen_id"
+    t.integer  "parser_id"
+    t.integer  "priority"
+    t.string   "name",       null: false
+    t.string   "meta_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sources", ["canteen_id", "parser_id"], name: "index_sources_on_canteen_id_and_parser_id", unique: true, using: :btree
+  add_index "sources", ["parser_id", "name"], name: "index_sources_on_parser_id_and_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

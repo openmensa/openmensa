@@ -1,0 +1,9 @@
+p
+  = form.label :name, t(:source, :name)
+  = form.text_field :name
+p
+  = form.label :meta_url, t(:source, :meta_url)
+  = form.text_field :meta_url
+p
+  = form.label :parser_id, t(:source, :parser)
+  = form.select :parser_id, @user.parsers.map { |p| [ p.name, p.id] }

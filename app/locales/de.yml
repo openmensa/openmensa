@@ -10,6 +10,9 @@ de:
   my_identities: Meine Identitäten
   add_identity: Identität hinzufügen
   developer: Entwickler
+  parsers: Parser
+  create_parser: Neuen Parser anlegen
+  edit_parser: Parser editieren
   my_canteens: Meine Mensen
   add_canteen: Neue Mensa hinzufügen
   edit_canteen: Mensa bearbeiten
@@ -66,6 +69,7 @@ de:
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
     canteen_saved: "Mensa gespeichert."
+    parser_saved: "Parser gespeichert."
 
   profile:
     developer_settings: 'Entwickler-Einstellungen'
@@ -109,6 +113,15 @@ de:
       successful_deactivated: "Die Mensa ist nun außer Betrieb! Sie wird nicht mehr aufgelistet oder abgerufen."
       errored_deactivated: "Die Mensa konnte nicht außer Betrieb genommen werden."
     deactivated: " (Außer Betrieb)"
+
+  parser:
+    name: Name
+    info_url: Info-URL
+
+  source:
+    name: Name
+    meta_url: Meta-URL
+    parser: Parser
 
   canteen_actions:
     open_messages: Mensa-Mitteilungen
