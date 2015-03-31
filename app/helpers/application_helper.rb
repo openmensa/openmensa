@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def avatar(*attrs)
     options = attrs.extract_options!
-    user    = attrs.first || User.current
+    user    = attrs.first || current_user
     if user
       content_tag :span, class: 'avatar', style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : '' do
         image_tag user.gravatar_url(options).to_s,

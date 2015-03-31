@@ -67,20 +67,6 @@ describe User, type: :model do
       it { is_expected.not_to be_admin }
       it { is_expected.to be_internal }
     end
-
-    context '#current' do
-      it 'returns Anonymous by default' do
-        User.current = nil
-        expect(User.current).to be_an AnonymousUser
-      end
-
-      it 'stores a single user object' do
-        user = FactoryGirl.create(:user)
-        User.current = user
-
-        expect(User.current).to eq user
-      end
-    end
   end
 
   describe '@scopes' do

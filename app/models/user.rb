@@ -85,14 +85,6 @@ class User < ActiveRecord::Base
   end
 
   # -- class methods
-  def self.current
-    @current_user || anonymous
-  end
-
-  def self.current=(user)
-    @current_user = user
-  end
-
   def self.anonymous
     AnonymousUser.instance
   end

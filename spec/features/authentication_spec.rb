@@ -29,7 +29,7 @@ describe 'Authentication', type: :feature do
       visit root_path
       click_link 'Abmelden'
 
-      expect(User.current).to eq(User.anonymous)
+      expect(page.body).to_not include 'Mein Profil'
     end
   end
 end

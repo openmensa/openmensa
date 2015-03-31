@@ -1,28 +1,15 @@
 class BaseController < ActionController::Base
-  before_action :base_setup
-
-  # **** setup ****
-
-  def base_setup
-    User.current = User.anonymous
-  end
 
   # **** accessors ****
 
   def current_user
-    User.current
+    @current_user ||= User.anonymous
   end
+
+  attr_writer :current_user
   helper_method :current_user
 
-  def current_user=(user)
-    User.current = user
-  end
-
   def current_ability
-    @current_ability ||= setup_ability
-  end
-
-  def setup_ability
     current_user.ability
   end
 
