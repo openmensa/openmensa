@@ -1,6 +1,4 @@
 class Day < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   belongs_to :canteen
   has_many :meals, -> { order(:pos) }
 

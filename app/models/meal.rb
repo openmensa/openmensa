@@ -1,6 +1,4 @@
 class Meal < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   belongs_to :day
   has_one :canteen, through: :day
   has_many :comments, as: :commentee

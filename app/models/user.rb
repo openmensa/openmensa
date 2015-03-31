@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
   include Gravtastic
 
   has_many :identities

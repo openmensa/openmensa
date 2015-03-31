@@ -1,6 +1,4 @@
 class Message < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   belongs_to :canteen
   serialize :data, Hash
 
