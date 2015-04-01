@@ -32,7 +32,9 @@ html
         .row
           .span8
             p
-              | © 2012-2015 OpenMensa
+              | © 2012-
+              = Time.now.year
+              |  OpenMensa
               | &nbsp;&middot;&nbsp;
               = link_to 'Impressum', imprint_path
               | &nbsp;&middot;&nbsp;
