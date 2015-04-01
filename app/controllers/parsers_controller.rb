@@ -4,7 +4,7 @@ class ParsersController < ApplicationController
   load_and_authorize_resource
 
   def show
-    @sources = @parser.sources
+    @sources = @parser.sources.includes(:feeds)
   end
 
   def update

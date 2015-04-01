@@ -12,12 +12,14 @@ class MigrateParsers < ActiveRecord::Migration
                      source: s,
                      url: c.url,
                      schedule: '0 8 * * *',
-                     retry: '60 6'
+                     retry: '60 6',
+                     priority: 0
         if c.today_url.present?
           Feed.create! name: 'today',
                        source: s,
-                       url: c.url,
-                       schedule: '0 8-14 * * *'
+                       url: c.today_url,
+                       schedule: '0 8-14 * * *',
+                       priority: 10
         end
         c.url = nil
         c.today_url = nil

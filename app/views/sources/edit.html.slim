@@ -1,0 +1,12 @@
+.row
+  .span8
+    section
+      header
+        h2= t :edit_sources
+      .content
+        = form_for @source do |form|
+          = render partial: 'form', object: form
+          p
+            = submit_tag t(:save)
+
+  = render partial: 'users/nav'

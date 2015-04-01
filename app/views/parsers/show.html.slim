@@ -11,11 +11,28 @@
     - @sources.each do |s|
       section
         header
-          h2= s.name
+          h3
+            = "#{s.canteen.name} (#{s.name})"
+            ul.actions
+              li
+                = link_to edit_source_path(s), title: t(:edit_canteen) do
+                  i.icon-edit
         .content
-          = form_for s do |form|
-            = render 'source_form', form: form
-            p
-              = submit_tag t(:save)
-
+          dl
+            dt= t(:source, :meta_url)
+            dd= s.meta_url || t(:source, :no_meta_url)
+          - s.feeds.each do |f|
+            .feed
+              h4="Feed \"#{f.name}\""
+              dl
+                dt= t(:feed, :url)
+                dd= f.url
+                dt= t(:feed, :source_url)
+                dd= f.source_url || t(:feed, :no_source_url)
+                dt= t(:feed, :schedule)
+                dd= f.schedule
+                dt= t(:feed, :retry)
+                dd= f.retry || t(:feed, :no_retry)
+                dt= t(:feed, :last_fetched_at)
+                dd= f.last_fetched_at || t(:feed, :not_fetched_yet)
   = render partial: 'users/nav'

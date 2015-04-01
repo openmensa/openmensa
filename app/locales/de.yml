@@ -122,6 +122,17 @@ de:
     name: Name
     meta_url: Meta-URL
     parser: Parser
+    no_meta_url: keine
+
+  feed:
+    url: URL
+    source_url: Quelle
+    schedule: Abrufplan
+    retry: Wiederholungsinterval(e)
+    no_retry: nie
+    no_source_url: Keine Quelle verfügbar
+    not_fetched_yet: nie
+    last_fetched_at: Letzter Abruf
 
   canteen_actions:
     open_messages: Mensa-Mitteilungen

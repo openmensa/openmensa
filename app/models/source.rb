@@ -3,4 +3,5 @@ class Source < ActiveRecord::Base
 
   belongs_to :canteen
   belongs_to :parser
+  has_many :feeds, -> { order(:priority) }
 end

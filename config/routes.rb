@@ -26,7 +26,7 @@ Openmensa::Application.routes.draw do
     get 'm', to: 'messages#overview', as: :messages
   end
   resources :favorites, path: 'favs', only: [:index]
-  resources :sources, only: [:update]
+  resources :sources, only: [:update, :edit]
 
   get '/auth',                    to: 'sessions#new',      as: :login
   get '/auth/signoff',            to: 'sessions#destroy',  as: :logout
