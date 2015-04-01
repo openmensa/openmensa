@@ -167,7 +167,7 @@ $btn-success: #238625 !default;
 
 .btn-group {
   a {
-    @extend .button;
+    @extend .btn;
     border-radius: 0;
     border-right-width: 0;
     margin: 0;

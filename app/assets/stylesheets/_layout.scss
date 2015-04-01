@@ -252,7 +252,6 @@ header#header {
         }
 
         a {
-          @extend %action-link;
           &:hover { color: #333; }
         }
 
