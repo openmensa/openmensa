@@ -6,7 +6,7 @@ class MigrateParsers < ActiveRecord::Migration
         parserName = c.url[0..c.url.rindex('/')-1]
         p = Parser.find_or_create_by!(name: parserName, user_id: c.user_id)
         s = Source.create! parser: p,
-                           name: c.name,
+                           name: c.url[(c.url.rindex('/')+1)..400],
                            canteen: c
         Feed.create! name: 'full',
                      source: s,

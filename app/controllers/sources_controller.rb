@@ -5,10 +5,10 @@ class SourcesController < ApplicationController
   def update
     if @source.update source_params
       flash[:notice] = t 'message.source_saved'
-      redirect_to user_parser_path(@user, @source.parser)
+      redirect_to parser_path(@source.parser)
     else
       flash[:notice] = t 'message.source_invalid'
-      redirect_to user_parser_path(@user, @source.parser)
+      redirect_to parser_path(@source.parser)
     end
   end
 

@@ -150,4 +150,17 @@ FactoryGirl.define do
     association :user
     association :canteen
   end
+
+  factory :parser do
+    sequence(:name) {|n| "Parser ##{n}" }
+
+    association :user
+  end
+
+  factory :source do
+    sequence(:name) {|n| "source##{n}" }
+
+    association :parser
+    association :canteen
+  end
 end

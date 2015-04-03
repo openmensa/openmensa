@@ -200,7 +200,6 @@ ActiveRecord::Schema.define(version: 20150331130527) do
   create_table "sources", force: true do |t|
     t.integer  "canteen_id"
     t.integer  "parser_id"
-    t.integer  "priority"
     t.string   "name",       null: false
     t.string   "meta_url"
     t.datetime "created_at"

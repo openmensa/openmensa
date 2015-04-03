@@ -14,19 +14,11 @@ describe 'Developers', type: :feature do
     end
 
     context 'on my profile' do
-      it 'should be able to add a new parser' do
-      end
 
       it 'should be able to add a second parser' do
       end
 
-      it 'should be able to edit an own parser' do
-      end
-
       context 'with a parser with source list' do
-        it 'should be able to import the sources' do
-        end
-
         it 'should be able to update the sources' do
         end
       end
@@ -41,9 +33,6 @@ describe 'Developers', type: :feature do
       end
 
       it 'should be able to disable/delete a source' do
-      end
-
-      it 'should be able to edit my source' do
       end
 
       it 'should be able to manage the source via a meta data url' do

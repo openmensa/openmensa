@@ -19,6 +19,7 @@ de:
   deactivate_canteen: Mensa außer Betrieb nehmen
   activate_canteen: Mensa in Betrieb nehmen
   my_messages: Statusmitteilungen
+  edit_source: 'Editiere %{name}'
 
   service:
     twitter: Twitter
@@ -69,7 +70,9 @@ de:
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
     canteen_saved: "Mensa gespeichert."
-    parser_saved: "Parser gespeichert."
+    parser_created: 'Der Parser wurde erfolgreich angelegt.'
+    parser_saved: 'Der Parser wurde erfolgreich aktualisiert.'
+    source_saved: Die Quelle wurde erfolgeich aktualisiert.
 
   profile:
     developer_settings: 'Entwickler-Einstellungen'
@@ -117,6 +120,9 @@ de:
   parser:
     name: Name
     info_url: Info-URL
+    sources_added: '%{count} Quellen hinzugefügt.'
+    sources_updated: '%{count} Quellen aktualisiert.'
+    sources_deleted: '%{count} Quellen archiviert.'
 
   source:
     name: Name

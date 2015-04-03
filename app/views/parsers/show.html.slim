@@ -4,10 +4,13 @@
       header
         h2= t :edit_parser
       .content
-        = form_for [@user, @parser] do |form|
+        = form_for @parser do |form|
           = render partial: 'form', object: form
           p
             = submit_tag t(:save)
+        - if @parser.info_url.present?
+          = link_to sync_parser_path(@parser), class: "btn btn-primary", title: 'Aktualisiere Quellen mittels Info-URL', method: :post do
+            = 'Aktualisiere Quellen mittels Info-URL'
     - @sources.each do |s|
       section
         header
@@ -15,7 +18,7 @@
             = "#{s.canteen.name} (#{s.name})"
             ul.actions
               li
-                = link_to edit_source_path(s), title: t(:edit_canteen) do
+                = link_to edit_source_path(s), title: t(:edit_source, name: s.name) do
                   i.icon-edit
         .content
           dl
