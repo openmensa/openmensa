@@ -32,13 +32,59 @@
         	<xs:documentation>This stands for a single canteen.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="day" type="dayType" maxOccurs="unbounded"
-    			minOccurs="0">
+        	<xs:element name="day" type="dayType" maxOccurs="unbounded"
+        		minOccurs="0">
+        		<xs:annotation>
+        			<xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="name" type="xs:string" minOccurs="0"
+        		maxOccurs="1">
+        		<xs:annotation>
+        			<xs:documentation>Metadata: the canteen name</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="address" type="xs:string" minOccurs="0"
+        		maxOccurs="1">
+        		<xs:annotation>
+        			<xs:documentation>Metadata: the (postal) address</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="city" type="xs:string" minOccurs="0"
+        		maxOccurs="1">
+        		<xs:annotation>
+        			<xs:documentation>Metadata: the user-relevant city of this canteen</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="phone" type="xs:string" minOccurs="0"
+        		maxOccurs="1">
+        		<xs:annotation>
+        			<xs:documentation>Metadata: the phone number to contact the canteen (we highly recommend following the E.123 standard)</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="email" type="xs:string" minOccurs="0"
+        		maxOccurs="1">
+        		<xs:annotation>
+        			<xs:documentation>Metadata: the email address to contact the canteen (we highly recommend following the E.123 standard)</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
+        	<xs:element name="location" type="locationType"
+        		minOccurs="0" maxOccurs="1" >
+        		<xs:annotation>
+        			<xs:documentation>Metadata: the physical location of the canteen</xs:documentation>
+        		</xs:annotation></xs:element>
+        	<xs:element name="availability" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
-                	<xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
+                	<xs:documentation>Metadata: indicate whether the canteen can be used by everyone (public) or not (restricted)</xs:documentation>
                 </xs:annotation>
-            </xs:element>
-    	</xs:sequence>
+                <xs:simpleType>
+        			<xs:restriction base="xs:string">
+        				<xs:enumeration value="public"></xs:enumeration>
+        				<xs:enumeration value="restricted"></xs:enumeration>
+        			</xs:restriction>
+        		</xs:simpleType>
+        	</xs:element>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="dayType">
@@ -82,7 +128,8 @@
     		<xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1">
     			<xs:annotation>
     				<xs:documentation>Each category must contain at least one meal because else the category is useless.</xs:documentation>
-    			</xs:annotation></xs:element>
+    			</xs:annotation>
+    		</xs:element>
     	</xs:sequence>
     	<xs:attribute name="name" use="required">
             <xs:annotation>
@@ -151,5 +198,10 @@
     			</xs:attribute>
     		</xs:extension>
     	</xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="locationType">
+    	<xs:attribute name="latitude" type="xs:float" use="required"></xs:attribute>
+    	<xs:attribute name="longitude" type="xs:float" use="required"></xs:attribute>
     </xs:complexType>
 </xs:schema>
