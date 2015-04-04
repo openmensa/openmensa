@@ -38,7 +38,7 @@ describe 'Inform', type: :feature do
       expect(page).to have_link_to 'https://github.com/mswart/openmensa-parsers'
       expect(page).to have_link_to 'https://github.com/mswart/pyopenmensa'
 
-      expect(page).to have_content 'Apps fürs Smartphone'
+      expect(page).to have_content 'Apps für Smartphone'
       expect(page).to have_link_to 'https://github.com/domoritz/open-mensa-android/'
       expect(page).to have_link_to 'http://cooperrs.de/openmensa.html'
 
