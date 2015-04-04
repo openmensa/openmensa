@@ -1,6 +1,10 @@
 class SourcesController < ApplicationController
-  before_action :load_resource, only: [:update]
+  before_action :load_resource, only: [:update, :edit]
   load_and_authorize_resource
+
+  def edit
+    @new_feed = @source.feeds.new
+  end
 
   def update
     if @source.update source_params

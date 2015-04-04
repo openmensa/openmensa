@@ -19,7 +19,11 @@ de:
   deactivate_canteen: Mensa außer Betrieb nehmen
   activate_canteen: Mensa in Betrieb nehmen
   my_messages: Statusmitteilungen
-  edit_source: 'Editiere %{name}'
+  edit_named_source: 'Editiere %{name}'
+  edit_source: 'Editiere Quelle'
+  new_feed: Neuer Feed
+  create_feed: Feed anlegen
+  edit_feed: 'Feed %{name}'
 
   service:
     twitter: Twitter
@@ -73,6 +77,9 @@ de:
     parser_created: 'Der Parser wurde erfolgreich angelegt.'
     parser_saved: 'Der Parser wurde erfolgreich aktualisiert.'
     source_saved: Die Quelle wurde erfolgeich aktualisiert.
+    feed_created: Der neuer Feed wurde erfolgreich angelegt.
+    feed_updated: Der Feed wurde erfolgreich aktualisiert.
+    feed_deleted: Der Feed wurde erfolgreich geschlöscht.
 
   profile:
     developer_settings: 'Entwickler-Einstellungen'
@@ -131,6 +138,7 @@ de:
     no_meta_url: keine
 
   feed:
+    name: Name
     url: URL
     source_url: Quelle
     schedule: Abrufplan

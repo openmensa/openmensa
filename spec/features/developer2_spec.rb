@@ -78,17 +78,61 @@ describe 'Developers', type: :feature do
 
       context 'with a existing source without meta url' do
         let!(:source) { FactoryGirl.create :source, parser: parser }
+        let!(:feed) { FactoryGirl.create :feed, source: source }
 
         it 'should be able to edit the source' do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          fill_in 'Name', with: 'Testname'
-
-          click_on 'Speichern'
+          within(:xpath, '//section[header="Editiere Quelle"]') do
+            fill_in 'Name', with: 'Testname'
+            click_on 'Speichern'
+          end
 
           expect(page).to have_content 'Testname'
           expect(page).to have_content 'Die Quelle wurde erfolgeich aktualisiert.'
+        end
+
+        it 'should be able to add a new feed' do
+          click_on parser.name
+          click_on "Editiere #{source.name}"
+
+          within(:xpath, '//section[header="Neuer Feed"]') do
+            fill_in 'Name', with: 'Full'
+            fill_in 'URL', with: 'http://example.org/test/full.xml'
+            fill_in 'Wiederholungsinterval(e)', with: '10 3'
+          end
+
+          click_on 'Feed anlegen'
+
+          expect(page).to have_content 'Der neuer Feed wurde erfolgreich angelegt.'
+          expect(page).to have_content 'Feed Full'
+        end
+
+        it 'should be able to edit a feed' do
+          click_on parser.name
+          click_on "Editiere #{source.name}"
+
+          within(:xpath, '//section[header="Feed ' + feed.name + '"]') do
+            fill_in 'Name', with: 'Replacefeed'
+            fill_in 'Wiederholungsinterval(e)', with: ''
+            click_on 'Speichern'
+          end
+
+          expect(page).to have_content 'Der Feed wurde erfolgreich aktualisiert.'
+          expect(page).to have_content 'Replacefeed'
+        end
+
+        it 'should be able to delete/archive a feed' do
+          click_on parser.name
+          click_on "Editiere #{source.name}"
+
+          within(:xpath, '//section[header="Feed ' + feed.name + '"]') do
+            click_on 'Löschen'
+          end
+
+          expect(page).to have_content 'Der Feed wurde erfolgreich geschlöscht.'
+          expect(page).to_not have_content feed.name
         end
       end
     end

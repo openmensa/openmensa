@@ -139,7 +139,7 @@ FactoryGirl.define do
 
   factory :feedUrlUpdatedInfo do
     sequence(:old_url)  {|n| "http://example.org/#{n}.xml" }
-    sequence(:new_url)  {|n| "http://example.com/#{n}.xml" }
+  sequence(:new_url)  {|n| "http://example.com/#{n}.xml" }
 
     association :canteen
   end
@@ -162,5 +162,13 @@ FactoryGirl.define do
 
     association :parser
     association :canteen
+  end
+
+  factory :feed do
+    sequence(:name) {|n| "feed##{n}" }
+    sequence(:url) {|n| "example.org/feeds/#{n}.xml" }
+    schedule '0 8-14 * * *'
+
+    association :source
   end
 end

@@ -25,7 +25,10 @@ Openmensa::Application.routes.draw do
     get 'm', to: 'messages#overview', as: :messages
   end
   resources :favorites, path: 'favs', only: [:index]
-  resources :sources, only: [:update, :edit]
+  resources :sources, only: [:update, :edit] do
+    resources :feeds, only: [:create]
+  end
+  resources :feeds, only: [:update, :destroy]
   resources :parsers
   post '/parsers/:id/sync', to: 'parsers#sync', as: :sync_parser
 

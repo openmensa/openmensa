@@ -2,11 +2,34 @@
   .span8
     section
       header
-        h2= t :edit_sources
+        h2= t :edit_source
       .content
         = form_for @source do |form|
           = render partial: 'form', object: form
           p
             = submit_tag t(:save)
+
+    section
+      header
+        h2= t :new_feed
+      .content
+        = form_for [@source, @new_feed] do |form|
+          = render partial: 'feeds/form', object: form
+          p
+            = submit_tag t(:create_feed)
+
+    - @source.feeds.reject { |f| f.new_record? }.each do |feed|
+      section
+        header
+          h2= t :edit_feed, name: feed.name
+        .content
+          = form_for feed do |form|
+            = render partial: 'feeds/form', object: form
+            p
+              = submit_tag t(:save)
+            p
+              = link_to feed_path(feed), class: "btn btn-danger", title: 'Löschen', method: :delete do
+                = 'Löschen'
+
 
   = render partial: 'users/nav'
