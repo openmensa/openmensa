@@ -21,10 +21,17 @@
             </xs:element>
             <xs:element name="canteen" type="canteenType"></xs:element>
         </xs:sequence>
-        <xs:attribute name="version" type="xs:float" use="required">
-    		<xs:annotation>
-    			<xs:documentation>The version should be equal to 2.0 or 2.1.</xs:documentation>
-    		</xs:annotation></xs:attribute>
+        <xs:attribute name="version" use="required">
+        	<xs:annotation>
+        		<xs:documentation>The version should be equal to 2.0 or 2.1.</xs:documentation>
+        	</xs:annotation>
+        	<xs:simpleType>
+        		<xs:restriction base="xs:float">
+        			<xs:minInclusive value="2.0"></xs:minInclusive>
+        			<xs:maxInclusive value="2.1"></xs:maxInclusive>
+        		</xs:restriction>
+        	</xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="canteenType">
