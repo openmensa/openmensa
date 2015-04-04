@@ -85,6 +85,7 @@
         		</xs:simpleType>
         	</xs:element>
         	<xs:element name="times" type="timesType" minOccurs="0" maxOccurs="1"></xs:element>
+        	<xs:element name="feed" type="feedType" minOccurs="0" maxOccurs="unbounded"></xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -265,5 +266,34 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="feedType">
+    	<xs:sequence>
+    		<xs:element name="schedule" type="scheduleType" minOccurs="1" maxOccurs="1"></xs:element>
+    		<xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+    		<xs:element name="source" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+    	<xs:attribute name="priority" type="xs:int" use="optional"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="scheduleType">
+    	<xs:attribute name="dayOfMonth" type="xs:string"
+    		use="required">
+    	</xs:attribute>
+    	<xs:attribute name="dayOfWeek" type="xs:string"
+    		use="required">
+    	</xs:attribute>
+    	<xs:attribute name="month" type="xs:string" use="required"></xs:attribute>
+    	<xs:attribute name="hour" type="xs:string" use="required"></xs:attribute>
+    	<xs:attribute name="minute" type="xs:string" use="required"></xs:attribute>
+    	<xs:attribute name="retry" use="optional">
+    		<xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:pattern value="\d+\s+\d+(\s+\d+)?"></xs:pattern>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
     </xs:complexType>
 </xs:schema>
