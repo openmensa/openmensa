@@ -84,6 +84,7 @@
         			</xs:restriction>
         		</xs:simpleType>
         	</xs:element>
+        	<xs:element name="times" type="timesType" minOccurs="0" maxOccurs="1"></xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -203,5 +204,66 @@
     <xs:complexType name="locationType">
     	<xs:attribute name="latitude" type="xs:float" use="required"></xs:attribute>
     	<xs:attribute name="longitude" type="xs:float" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="timesType">
+    	<xs:sequence>
+    		<xs:element name="open" type="timesOpenType" minOccurs="0"
+    			maxOccurs="7">
+    		</xs:element>
+    		<xs:element name="closed" type="timesClosedType" minOccurs="0" maxOccurs="7"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="type" use="required">
+    		<xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:enumeration value="opening"></xs:enumeration>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="timesOpenType">
+    	<xs:attribute name="weekday" use="required">
+            <xs:annotation>
+            	<xs:documentation>The lowercase the English weekday name.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:enumeration value="monday"></xs:enumeration>
+    				<xs:enumeration value="tuesday"></xs:enumeration>
+    				<xs:enumeration value="wednesday"></xs:enumeration>
+    				<xs:enumeration value="thursday"></xs:enumeration>
+    				<xs:enumeration value="friday"></xs:enumeration>
+    				<xs:enumeration value="saturday"></xs:enumeration>
+    				<xs:enumeration value="sunday"></xs:enumeration>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
+    	<xs:attribute name="time" use="required">
+            <xs:annotation>
+            	<xs:documentation>A value of HH:mm-HH:mm to specify that the canteen has open within the given time interval.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:pattern value="\d\d:\d\d-\d\d:\d\d"></xs:pattern>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="timesClosedType">
+    	<xs:attribute name="weekday" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="monday"></xs:enumeration>
+                    <xs:enumeration value="tuesday"></xs:enumeration>
+                    <xs:enumeration value="wednesday"></xs:enumeration>
+                    <xs:enumeration value="thursday"></xs:enumeration>
+                    <xs:enumeration value="friday"></xs:enumeration>
+                    <xs:enumeration value="saturday"></xs:enumeration>
+                    <xs:enumeration value="sunday"></xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 </xs:schema>
