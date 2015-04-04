@@ -8,12 +8,22 @@
         	<xs:documentation>This is the required OpenMense root element always accompanied by a version attribute that explicitly tells the feed's version to the parser.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-    		<xs:element name="canteen" type="canteenType">
-    		</xs:element>
-    	</xs:sequence>
-    	<xs:attribute name="version" type="xs:float" use="required">
+            <xs:element name="version" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                	<xs:documentation>Defines the version of the parser. It has nothing to do with the canteen or its menu.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+            		<xs:restriction base="xs:string">
+            			<xs:minLength value="0"></xs:minLength>
+            			<xs:maxLength value="63"></xs:maxLength>
+            		</xs:restriction>
+            	</xs:simpleType>
+            </xs:element>
+            <xs:element name="canteen" type="canteenType"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:float" use="required">
     		<xs:annotation>
-    			<xs:documentation>The version should be equal to 2.0.</xs:documentation>
+    			<xs:documentation>The version should be equal to 2.0 or 2.1.</xs:documentation>
     		</xs:annotation></xs:attribute>
     </xs:complexType>
 
