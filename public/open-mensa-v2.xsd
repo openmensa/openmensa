@@ -19,7 +19,7 @@
             		</xs:restriction>
             	</xs:simpleType>
             </xs:element>
-            <xs:element name="canteen" type="canteenType"></xs:element>
+            <xs:element name="canteen" type="canteenType" minOccurs="1" maxOccurs="1"></xs:element>
         </xs:sequence>
         <xs:attribute name="version" use="required">
         	<xs:annotation>
@@ -275,11 +275,11 @@
     </xs:complexType>
 
     <xs:complexType name="feedType">
-    	<xs:sequence>
+        <xs:all>
     		<xs:element name="schedule" type="scheduleType" minOccurs="1" maxOccurs="1"></xs:element>
     		<xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
-    		<xs:element name="source" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
-    	</xs:sequence>
+    		<xs:element name="source" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+    	</xs:all>
     	<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
     	<xs:attribute name="priority" type="xs:int" use="optional"></xs:attribute>
     </xs:complexType>
