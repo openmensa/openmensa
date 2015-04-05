@@ -39,12 +39,6 @@
         	<xs:documentation>This stands for a single canteen.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-        	<xs:element name="day" type="dayType" maxOccurs="unbounded"
-        		minOccurs="0">
-        		<xs:annotation>
-        			<xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
         	<xs:element name="name" type="xs:string" minOccurs="0"
         		maxOccurs="1">
         		<xs:annotation>
@@ -93,6 +87,11 @@
         	</xs:element>
         	<xs:element name="times" type="timesType" minOccurs="0" maxOccurs="1"></xs:element>
         	<xs:element name="feed" type="feedType" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            <xs:element name="day" type="dayType" maxOccurs="unbounded" minOccurs="0">
+        		<xs:annotation>
+        			<xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
+        		</xs:annotation>
+        	</xs:element>
         </xs:sequence>
     </xs:complexType>
 
