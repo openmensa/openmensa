@@ -27,8 +27,8 @@
         	</xs:annotation>
         	<xs:simpleType>
         		<xs:restriction base="xs:float">
-        			<xs:minInclusive value="2.0"></xs:minInclusive>
-        			<xs:maxInclusive value="2.1"></xs:maxInclusive>
+        			<xs:enumeration value="2.0"></xs:enumeration>
+        			<xs:enumeration value="2.1"></xs:enumeration>
         		</xs:restriction>
         	</xs:simpleType>
         </xs:attribute>
