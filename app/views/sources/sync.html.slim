@@ -1,0 +1,16 @@
+
+.row
+  .span8
+    section
+      header
+        h2=t :source, :sync
+      .content
+          p
+            = t :source, :synced
+            ul
+              li=t :source, :feeds_added, count: @synchroniser.feeds_added
+              li=t :source, :feeds_updated, count: @synchroniser.feeds_updated
+              li=t :source, :feeds_deleted, count: @synchroniser.feeds_deleted
+
+  aside.span4
+    = render partial: 'users/nav'

@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.string   "address"
     t.string   "url"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.datetime "last_fetched_at"
     t.integer  "fetch_hour"
     t.float    "longitude"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.string   "today_url"
     t.string   "city"
     t.boolean  "active",          default: true
+    t.string   "state",           default: "wanted", null: false
   end
 
   add_index "canteens", ["user_id"], name: "index_cafeterias_on_user_id", using: :btree
@@ -60,8 +61,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.integer  "canteen_id"
     t.integer  "user_id"
     t.integer  "priority"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "feeds", force: true do |t|
@@ -85,8 +86,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.string   "uid"
     t.string   "token"
     t.string   "secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
@@ -94,8 +95,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
   create_table "meals", force: true do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "category"
     t.integer  "day_id"
     t.decimal  "price_student",  precision: 8, scale: 2
@@ -120,8 +121,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.string   "type",       null: false
     t.string   "priority",   null: false
     t.text     "data",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "messages", ["canteen_id"], name: "index_messages_on_canteen_id", using: :btree
@@ -129,8 +130,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
 
   create_table "notes", force: true do |t|
     t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "notes", ["name"], name: "index_notes_on_name", unique: true, using: :btree
@@ -168,8 +169,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.string   "uid",          null: false
     t.string   "secret",       null: false
     t.string   "redirect_uri", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
@@ -190,8 +191,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
     t.integer  "value"
     t.integer  "meal_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "ratings", ["meal_id"], name: "index_ratings_on_meal_id", using: :btree
@@ -212,8 +213,8 @@ ActiveRecord::Schema.define(version: 20150331130527) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "time_zone"
     t.string   "language",       limit: 2
     t.string   "login"

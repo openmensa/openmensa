@@ -34,5 +34,7 @@ class RestructureParsers < ActiveRecord::Migration
       t.timestamps
     end
     add_index :feeds, [:source_id, :name], unique: true
+
+    add_column :canteens, :state, :string, null: false, default: 'wanted'
   end
 end

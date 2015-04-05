@@ -9,7 +9,7 @@ class Canteen < ActiveRecord::Base
 
   scope :active, -> { where(active: true) }
 
-  validates :address, :city, :name, :user_id, presence: true
+  validates :city, :name, :user_id, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :geocode?

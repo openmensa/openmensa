@@ -24,6 +24,9 @@ de:
   new_feed: Neuer Feed
   create_feed: Feed anlegen
   edit_feed: 'Feed %{name}'
+  add_source: 'Neue Quelle/Mensa hinzufügen'
+  new_source: Neue Quelle hinzufügen
+  new_source_select_canteen: 'Mensa für neue Quelle auswählen'
 
   service:
     twitter: Twitter
@@ -80,6 +83,7 @@ de:
     feed_created: Der neuer Feed wurde erfolgreich angelegt.
     feed_updated: Der Feed wurde erfolgreich aktualisiert.
     feed_deleted: Der Feed wurde erfolgreich geschlöscht.
+    source_created: 'Quelle wurde erfolgeich hinzufgefügt.'
 
   profile:
     developer_settings: 'Entwickler-Einstellungen'
@@ -136,6 +140,13 @@ de:
     meta_url: Meta-URL
     parser: Parser
     no_meta_url: keine
+    sync: Synchroniziere Feeds
+    synced: Die Feeds wurden erfolgreich aktualisiert.
+    feeds_added: '%{count} Feeds hinzugefügt.'
+    feeds_updated: '%{count} Feeds aktualisiert.'
+    feeds_deleted: '%{count} Feeds gelöscht.'
+    use_wanted_canteen: 'Eine gewünschte Mensa nutzen'
+    create_canteen: 'Neue Mensa anlegen'
 
   feed:
     name: Name

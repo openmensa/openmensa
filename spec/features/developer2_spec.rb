@@ -65,6 +65,39 @@ describe 'Developers', type: :feature do
         expect(page).to have_content 'Der Parser wurde archiviert!'
       end
 
+      it 'it should be able to add a source with its canteen' do
+        click_on parser.name
+
+        click_on 'Neue Quelle/Mensa hinzufügen'
+
+        fill_in 'Name', with: 'Neue Mensa'
+        fill_in 'Stadt / Region', with: 'Regensburg'
+        click_on 'Neue Mensa anlegen'
+
+        fill_in 'Name', with: 'test'
+        fill_in 'Meta-URL', with: 'http://example.org/test/meta.xml'
+        click_on 'Hinzufügen'
+
+        expect(page).to have_content('Quelle wurde erfolgeich hinzufgefügt.')
+      end
+
+      context 'with wanted canteen' do
+        let!(:canteen) { FactoryGirl.create :canteen, state: 'wanted', name: 'Dies ist eine Gesuchte Mensa' }
+        it 'it should be able to add a source for a wanted canteen' do
+          click_on parser.name
+
+          click_on 'Neue Quelle/Mensa hinzufügen'
+
+          click_on 'Dies ist eine Gesuchte Mensa'
+
+          fill_in 'Name', with: 'test'
+          fill_in 'Meta-URL', with: 'http://example.org/test/meta.xml'
+          click_on 'Hinzufügen'
+
+          expect(page).to have_content('Quelle wurde erfolgeich hinzufgefügt.')
+        end
+      end
+
       context 'with archived parser' do
         it 'should be able to reactive a parser' do
           pending 'todo'
@@ -133,6 +166,34 @@ describe 'Developers', type: :feature do
 
           expect(page).to have_content 'Der Feed wurde erfolgreich geschlöscht.'
           expect(page).to_not have_content feed.name
+        end
+      end
+
+      context 'with a existing source with meta url' do
+        let!(:source) do
+          FactoryGirl.create :source, parser: parser,
+            meta_url: 'http://example.org/test/meta.xml'
+        end
+        let!(:feed) { FactoryGirl.create :feed, source: source, name: 'oldfeed' }
+
+        it 'should not be able to edit feeds' do
+          click_on parser.name
+          click_on "Editiere #{source.name}"
+
+          expect(page).to_not have_xpath('//section[header="Feed ' + feed.name + '"]')
+          expect(page).to_not have_xpath('//section[header="Neuer Feed"]')
+          expect(page).to_not have_link('Feed anlegen')
+        end
+
+        it 'should be able to let feeds sync via meta url' do
+          stub_request(:any, source.meta_url)
+            .to_return(body: mock_file('metafeed.xml'), status: 200)
+          click_on parser.name
+          click_on "Editiere #{source.name}"
+
+          click_on "Synchronisiere Feeds"
+          expect(page).to have_content '2 Feeds hinzugefügt.'
+          expect(page).to have_content '1 Feeds gelöscht.'
         end
       end
     end

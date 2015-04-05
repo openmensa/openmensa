@@ -14,37 +14,13 @@ describe 'Developers', type: :feature do
     end
 
     context 'on my profile' do
-
-      it 'should be able to add a second parser' do
-      end
-
-      context 'with a parser with source list' do
-        it 'should be able to update the sources' do
-        end
-      end
-
       it 'should be able to see the status of my parser' do
-      end
-
-      it 'should be able to add a new source to my parser' do
       end
 
       it 'should be able to move my source to another parser' do
       end
 
       it 'should be able to disable/delete a source' do
-      end
-
-      it 'should be able to manage the source via a meta data url' do
-      end
-
-      it 'shoulb be able to add an own feed' do
-      end
-
-      it 'should be abelt to edit a feed' do
-      end
-
-      it 'should be able to delete a feed' do
       end
     end
 

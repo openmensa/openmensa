@@ -1,5 +1,5 @@
 class MigrateParsers < ActiveRecord::Migration
-  def change
+  def up
     Canteen.transaction do
       Canteen.all.each do |c|
         next unless c.url.present?
@@ -23,6 +23,22 @@ class MigrateParsers < ActiveRecord::Migration
         end
         c.url = nil
         c.today_url = nil
+        c.state = 'working'
+        c.save!
+      end
+    end
+  end
+
+  def down
+    Canteen.transaction do
+      Canteen.all.each do |c|
+        c.sources.first.feeds.each do |f|
+          if f.name == 'full'
+            c.url = f.url
+          elsif f.name == 'today'
+            c.today_url = f.url
+          end
+        end
         c.save!
       end
     end

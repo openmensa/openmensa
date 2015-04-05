@@ -13,7 +13,11 @@ class CanteensController < ApplicationController
   def create
     if @canteen.update canteen_params
       flash[:notice] = t 'message.canteen_added'
-      redirect_to edit_user_canteen_path(@user, @canteen)
+      if params[:parser_id]
+        redirect_to new_parser_source_path(parser_id: params[:parser_id], canteen_id: @canteen)
+      else
+        redirect_to edit_user_canteen_path(@user, @canteen)
+      end
     else
       render action: :new
     end
