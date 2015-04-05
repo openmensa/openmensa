@@ -174,6 +174,7 @@ class OpenMensa::Updater
     days = canteen.days.inject({}) {|m, v| m[v.date.to_s] = v; m }
     day_updated = nil
     canteen_data.element_children.each do |day|
+      next if day.name != 'day'
       canteen.transaction do
         date = day['date']
         if days.key? date

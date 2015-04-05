@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openmensa version="2.1" xmlns="http://openmensa.org/open-mensa-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openmensa.org/open-mensa-v2 http://openmensa.org/open-mensa-v2.xsd">
+	<version>1.0+96ca2397651f4be3d3f98a6f46d605be55c41ebf-b10</version>
+	<canteen>
+		<!-- Studentenwerk Potsdam, Griebnitzsee -->
+		<day date="2012-05-29">
+			<category name="Essen 1">
+				<meal>
+					<name>Rührei mit Rahmspinat und Salzkartoffeln</name>
+					<note>ovo-lacto-vegetabil</note>
+					<price role="student">1.20</price>
+					<price role="employee">2.60</price>
+					<price role="other">3.00</price>
+				</meal>
+			</category>
+			<category name="Essen 2">
+				<meal>
+					<name>Hähnchengeschnetzeltes mit exotischen Früchten, dazu Bio-Reis und Mischsalat</name>
+					<note>mit Geflügelfleisch</note>
+					<price role="student">2.00</price>
+					<price role="employee">3.35</price>
+					<price role="other">4.00</price>
+				</meal>
+			</category>
+			<category name="Alternativ-Angebot">
+				<meal>
+					<name>Gemüse-Couscouspfanne mit Joghurt-Ingwer-Dip, dazu bunter Blattsalat</name>
+					<note>ovo-lacto-vegetabil</note>
+					<note>mensaVital</note>
+					<price role="student">2.30</price>
+					<price role="employee">3.65</price>
+					<price role="other">4.60</price>
+				</meal>
+			</category>
+		</day>
+
+		<!-- Studentenwerk München, Garching -->
+		<day date="2012-05-22">
+			<category name="Tagesgericht 1">
+				<meal>
+					<name>Kartoffelrösti mit Apfelmus</name>
+					<note>fleischloses Gericht</note>
+					<note>mit Farbstoff</note>
+					<note>mit Antioxidationsmittel</note>
+				</meal>
+			</category>
+			<category name="Beilagen">
+				<meal>
+					<name>Tagessuppe</name>
+				</meal>
+				<meal>
+					<name>Mischgemüse, natur</name>
+					<note>veganes Gericht</note>
+				</meal>
+			</category>
+		</day>
+
+		<!-- Studentenwerk Karlsruhe, Am Adenauerring -->
+		<day date="2012-05-27">
+			<category name="Linie 1">
+				<meal>
+					<name>Apfelstrudel mit Vanillesoße, Tagessuppe und Salat</name>
+				</meal>
+			</category>
+			<category name="Linie 2">
+				<meal>
+					<name>Pommes frittes</name>
+					<note>vegan</note>
+				</meal>
+			</category>
+			<category name="L6 Update">
+				<meal>
+					<name>Hamburger-, Salat-, Buffet</name>
+					<note>Rundfleisch</note>
+					<note>Schweinefleisch</note>
+				</meal>
+			</category>
+		</day>
+
+		<day date="2012-05-28">
+		    <closed/>
+		</day>
+		<name>Mensa Griebnitzsee</name>
+		<address>August-Bebel-Str. 89, 14482 Potsdam</address>
+		<city>Potsdam</city>
+		<phone>(0331) 977 3749/3748</phone>
+		<location latitude="52.3935353446923" longitude="13.1278145313263" />
+		<availability>public</availability>
+	</canteen>
+</openmensa>

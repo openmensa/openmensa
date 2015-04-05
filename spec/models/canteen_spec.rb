@@ -12,6 +12,8 @@ describe Canteen, type: :model do
         .to_return(body: mock_file('canteen_feed.xml'), status: 200)
       stub_request(:any, 'example.com/feed_v2.xml')
         .to_return(body: mock_file('feed_v2.xml'), status: 200)
+      stub_request(:any, 'example.com/feed_v21.xml')
+        .to_return(body: mock_file('feed_v21.xml'), status: 200)
       Timecop.freeze Time.zone.local(2012, 04, 16, 8, 5, 3)
     end
 
@@ -23,6 +25,12 @@ describe Canteen, type: :model do
 
     it 'should fetch meals from remote source (version 2.0)' do
       canteen.url = 'http://example.com/feed_v2.xml'
+      canteen.fetch
+      expect(canteen.meals).to have(9).items
+    end
+
+    it 'should fetch meals from remote source (version 2.1)' do
+      canteen.url = 'http://example.com/feed_v21.xml'
       canteen.fetch
       expect(canteen.meals).to have(9).items
     end
