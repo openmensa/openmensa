@@ -215,10 +215,13 @@
 
     <xs:complexType name="timesType">
     	<xs:sequence>
-    		<xs:element name="open" type="timesOpenType" minOccurs="0"
-    			maxOccurs="7">
-    		</xs:element>
-    		<xs:element name="closed" type="timesClosedType" minOccurs="0" maxOccurs="7"></xs:element>
+    	    <xs:element name="monday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+    	    <xs:element name="tuesday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+    	    <xs:element name="wednesday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="thursday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="friday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="saturday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="sunday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
     	</xs:sequence>
     	<xs:attribute name="type" use="required">
     		<xs:simpleType>
@@ -227,51 +230,6 @@
     			</xs:restriction>
     		</xs:simpleType>
     	</xs:attribute>
-    </xs:complexType>
-
-    <xs:complexType name="timesOpenType">
-    	<xs:attribute name="weekday" use="required">
-            <xs:annotation>
-            	<xs:documentation>The lowercase the English weekday name.</xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-    			<xs:restriction base="xs:string">
-    				<xs:enumeration value="monday"></xs:enumeration>
-    				<xs:enumeration value="tuesday"></xs:enumeration>
-    				<xs:enumeration value="wednesday"></xs:enumeration>
-    				<xs:enumeration value="thursday"></xs:enumeration>
-    				<xs:enumeration value="friday"></xs:enumeration>
-    				<xs:enumeration value="saturday"></xs:enumeration>
-    				<xs:enumeration value="sunday"></xs:enumeration>
-    			</xs:restriction>
-    		</xs:simpleType>
-    	</xs:attribute>
-    	<xs:attribute name="time" use="required">
-            <xs:annotation>
-            	<xs:documentation>A value of HH:mm-HH:mm to specify that the canteen has open within the given time interval.</xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-    			<xs:restriction base="xs:string">
-    				<xs:pattern value="\d\d:\d\d-\d\d:\d\d"></xs:pattern>
-    			</xs:restriction>
-    		</xs:simpleType>
-    	</xs:attribute>
-    </xs:complexType>
-
-    <xs:complexType name="timesClosedType">
-    	<xs:attribute name="weekday" use="required">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="monday"></xs:enumeration>
-                    <xs:enumeration value="tuesday"></xs:enumeration>
-                    <xs:enumeration value="wednesday"></xs:enumeration>
-                    <xs:enumeration value="thursday"></xs:enumeration>
-                    <xs:enumeration value="friday"></xs:enumeration>
-                    <xs:enumeration value="saturday"></xs:enumeration>
-                    <xs:enumeration value="sunday"></xs:enumeration>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="feedType">
@@ -301,5 +259,24 @@
     			</xs:restriction>
     		</xs:simpleType>
     	</xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="weekdayType">
+        <xs:attribute name="open" use="optional">
+            <xs:annotation>
+                <xs:documentation>A value of HH:mm-HH:mm to specify that the canteen has open within the given time interval.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="\d\d:\d\d-\d\d:\d\d"></xs:pattern>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="closed" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="true"></xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 </xs:schema>
