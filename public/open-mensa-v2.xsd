@@ -5,266 +5,252 @@
     
     <xs:complexType name="openmensaType">
         <xs:annotation>
-        	<xs:documentation>This is the required OpenMense root element always accompanied by a version attribute that explicitly tells the feed's version to the parser.</xs:documentation>
+            <xs:documentation>This is the required OpenMense root element always accompanied by a version attribute that explicitly tells the feed's version to the parser.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="version" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
-                	<xs:documentation>Defines the version of the parser. It has nothing to do with the canteen or its menu.</xs:documentation>
+                    <xs:documentation>Defines the version of the parser. It has nothing to do with the canteen or its menu.</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
-            		<xs:restriction base="xs:string">
-            			<xs:minLength value="0"></xs:minLength>
-            			<xs:maxLength value="63"></xs:maxLength>
-            		</xs:restriction>
-            	</xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="0"></xs:minLength>
+                        <xs:maxLength value="63"></xs:maxLength>
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:element>
             <xs:element name="canteen" type="canteenType" minOccurs="1" maxOccurs="1"></xs:element>
         </xs:sequence>
         <xs:attribute name="version" use="required">
-        	<xs:annotation>
-        		<xs:documentation>The version should be equal to 2.0 or 2.1.</xs:documentation>
-        	</xs:annotation>
-        	<xs:simpleType>
-        		<xs:restriction base="xs:float">
-        			<xs:enumeration value="2.0"></xs:enumeration>
-        			<xs:enumeration value="2.1"></xs:enumeration>
-        		</xs:restriction>
-        	</xs:simpleType>
+            <xs:annotation>
+                <xs:documentation>The version should be equal to 2.0 or 2.1.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:float">
+                    <xs:enumeration value="2.0"></xs:enumeration>
+                    <xs:enumeration value="2.1"></xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="canteenType">
         <xs:annotation>
-        	<xs:documentation>This stands for a single canteen.</xs:documentation>
+            <xs:documentation>This stands for a single canteen.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-        	<xs:element name="name" type="xs:string" minOccurs="0"
-        		maxOccurs="1">
-        		<xs:annotation>
-        			<xs:documentation>Metadata: the canteen name</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
-        	<xs:element name="address" type="xs:string" minOccurs="0"
-        		maxOccurs="1">
-        		<xs:annotation>
-        			<xs:documentation>Metadata: the (postal) address</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
-        	<xs:element name="city" type="xs:string" minOccurs="0"
-        		maxOccurs="1">
-        		<xs:annotation>
-        			<xs:documentation>Metadata: the user-relevant city of this canteen</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
-        	<xs:element name="phone" type="xs:string" minOccurs="0"
-        		maxOccurs="1">
-        		<xs:annotation>
-        			<xs:documentation>Metadata: the phone number to contact the canteen (we highly recommend following the E.123 standard)</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
-        	<xs:element name="email" type="xs:string" minOccurs="0"
-        		maxOccurs="1">
-        		<xs:annotation>
-        			<xs:documentation>Metadata: the email address to contact the canteen (we highly recommend following the E.123 standard)</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
-        	<xs:element name="location" type="locationType"
-        		minOccurs="0" maxOccurs="1" >
-        		<xs:annotation>
-        			<xs:documentation>Metadata: the physical location of the canteen</xs:documentation>
-        		</xs:annotation></xs:element>
-        	<xs:element name="availability" minOccurs="0" maxOccurs="1">
+            <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
-                	<xs:documentation>Metadata: indicate whether the canteen can be used by everyone (public) or not (restricted)</xs:documentation>
+                    <xs:documentation>Metadata: the canteen name</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Metadata: the (postal) address</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="city" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Metadata: the user-relevant city of this canteen</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="phone" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Metadata: the phone number to contact the canteen (we highly recommend following the E.123 standard)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="email" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Metadata: the email address to contact the canteen (we highly recommend following the E.123 standard)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="location" type="locationType" minOccurs="0" maxOccurs="1" >
+                <xs:annotation>
+                    <xs:documentation>Metadata: the physical location of the canteen</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="availability" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Metadata: indicate whether the canteen can be used by everyone (public) or not (restricted)</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
-        			<xs:restriction base="xs:string">
-        				<xs:enumeration value="public"></xs:enumeration>
-        				<xs:enumeration value="restricted"></xs:enumeration>
-        			</xs:restriction>
-        		</xs:simpleType>
-        	</xs:element>
-        	<xs:element name="times" type="timesType" minOccurs="0" maxOccurs="1"></xs:element>
-        	<xs:element name="feed" type="feedType" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="public"></xs:enumeration>
+                        <xs:enumeration value="restricted"></xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="times" type="timesType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="feed" type="feedType" minOccurs="0" maxOccurs="unbounded"></xs:element>
             <xs:element name="day" type="dayType" maxOccurs="unbounded" minOccurs="0">
-        		<xs:annotation>
-        			<xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
+                <xs:annotation>
+                    <xs:documentation>All meals of all categories are grouped by day. There may be no day elements at all - that's ok because for some days there are no meals.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="dayType">
         <xs:choice>
-        	<xs:element name="category" type="categoryType"
-        		maxOccurs="unbounded" minOccurs="1">
-        		<xs:annotation>
-        			<xs:documentation>Every meal must belong to a category so there should be at least one category since a day without any meals may be omitted completely else.</xs:documentation>
-        		</xs:annotation>
-        	</xs:element>
-        	<xs:element name="closed">
+            <xs:element name="category" type="categoryType" maxOccurs="unbounded" minOccurs="1">
                 <xs:annotation>
-                	<xs:documentation>Indicates that for the given day a canteen has closed (to distinguish from the case where there is - for some reason - no data). Should be used on weekends or explicit closing times on holidays.</xs:documentation>
+                    <xs:documentation>Every meal must belong to a category so there should be at least one category since a day without any meals may be omitted completely else.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="closed">
+                <xs:annotation>
+                    <xs:documentation>Indicates that for the given day a canteen has closed (to distinguish from the case where there is - for some reason - no data). Should be used on weekends or explicit closing times on holidays.</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
-        			<xs:restriction base="xs:string">
-        				<xs:maxLength value="0"></xs:maxLength>
-        			</xs:restriction>
-        		</xs:simpleType>
-        	</xs:element>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="0"></xs:maxLength>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
         </xs:choice>
-    	<xs:attribute name="date" use="required">
+        <xs:attribute name="date" use="required">
             <xs:annotation>
-            	<xs:documentation>This field specifies the date of the day as "YYYY-MM-DD.</xs:documentation>
+                <xs:documentation>This field specifies the date of the day as "YYYY-MM-DD.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
-                <xs:annotation>
-                	<xs:documentation></xs:documentation>
-                </xs:annotation>
                 <xs:restriction base="xs:string">
-    				<xs:pattern
-    					value="[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}">
-    				</xs:pattern>
-    			</xs:restriction>
-    		</xs:simpleType>
-    	</xs:attribute>
+                    <xs:pattern value="[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}"></xs:pattern>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="categoryType">
-    	<xs:sequence>
-    		<xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1">
-    			<xs:annotation>
-    				<xs:documentation>Each category must contain at least one meal because else the category is useless.</xs:documentation>
-    			</xs:annotation>
-    		</xs:element>
-    	</xs:sequence>
-    	<xs:attribute name="name" use="required">
+        <xs:sequence>
+            <xs:element name="meal" type="mealType" maxOccurs="unbounded" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Each category must contain at least one meal because else the category is useless.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" use="required">
             <xs:annotation>
-            	<xs:documentation>The name of the category, e.g. "Essen 1" or "Ausgabe A".</xs:documentation>
+                <xs:documentation>The name of the category, e.g. "Essen 1" or "Ausgabe A".</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
-            	<xs:restriction base="xs:string">
-            		<xs:minLength value="1"></xs:minLength>
-            		<xs:maxLength value="250"></xs:maxLength>
-            	</xs:restriction>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"></xs:minLength>
+                    <xs:maxLength value="250"></xs:maxLength>
+                </xs:restriction>
             </xs:simpleType>
-    	</xs:attribute>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="mealType">
-    	<xs:sequence>
-    		<xs:element name="name">
-    			<xs:annotation>
-    				<xs:documentation>The name of the meal, e.g. "Rinderhacksteak mit Kartoffeln". Shouldn't be more than a couple of words or a sentence in maximum. Additional text may go into several notes.</xs:documentation>
-    			</xs:annotation>
-    			<xs:simpleType>
-    				<xs:restriction base="xs:string">
-    					<xs:minLength value="1"></xs:minLength>
-    					<xs:maxLength value="250"></xs:maxLength>
-    				</xs:restriction>
-    			</xs:simpleType>
-    		</xs:element>
-    		<xs:element name="note" maxOccurs="unbounded" minOccurs="0">
+        <xs:sequence>
+            <xs:element name="name">
                 <xs:annotation>
-                	<xs:documentation>A note often resembles a properties of the associated meal like the ingredients used or some important annotations.</xs:documentation>
+                    <xs:documentation>The name of the meal, e.g. "Rinderhacksteak mit Kartoffeln". Shouldn't be more than a couple of words or a sentence in maximum. Additional text may go into several notes.</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
-                	<xs:restriction base="xs:string">
-                		<xs:minLength value="1"></xs:minLength>
-                		<xs:maxLength value="250"></xs:maxLength>
-                	</xs:restriction>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"></xs:minLength>
+                        <xs:maxLength value="250"></xs:maxLength>
+                    </xs:restriction>
                 </xs:simpleType>
-    		</xs:element>
-    		<xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
+            </xs:element>
+            <xs:element name="note" maxOccurs="unbounded" minOccurs="0">
                 <xs:annotation>
-                	<xs:documentation>This field contains a price in euro for a given role (because different prices may apply different groups of people). There mustn't be two price elements with the same role for a meal!</xs:documentation>
+                    <xs:documentation>A note often resembles a properties of the associated meal like the ingredients used or some important annotations.</xs:documentation>
                 </xs:annotation>
-    		</xs:element>
-    	</xs:sequence>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"></xs:minLength>
+                        <xs:maxLength value="250"></xs:maxLength>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
+                <xs:annotation>
+                    <xs:documentation>This field contains a price in euro for a given role (because different prices may apply different groups of people). There mustn't be two price elements with the same role for a meal!</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="priceType">
-    	<xs:simpleContent>
-    		<xs:extension base="xs:float">
-    			<xs:attribute name="role" use="required">
+        <xs:simpleContent>
+            <xs:extension base="xs:float">
+                <xs:attribute name="role" use="required">
                     <xs:annotation>
-                    	<xs:documentation>A price's role defines for which group of persons the price is valid:
+                        <xs:documentation>A price's role defines for which group of persons the price is valid:
 - pupils (some canteens do that)
 - students
 - employees (of your organization) or
 - others (people that do not belong to your organization or to any other group listed here).</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
-                    	<xs:restriction base="xs:string">
-                    		<xs:enumeration value="pupil"></xs:enumeration>
-                    		<xs:enumeration value="student"></xs:enumeration>
-                    		<xs:enumeration value="employee"></xs:enumeration>
-                    		<xs:enumeration value="other"></xs:enumeration>
-                    	</xs:restriction>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="pupil"></xs:enumeration>
+                            <xs:enumeration value="student"></xs:enumeration>
+                            <xs:enumeration value="employee"></xs:enumeration>
+                            <xs:enumeration value="other"></xs:enumeration>
+                        </xs:restriction>
                     </xs:simpleType>
-    			</xs:attribute>
-    		</xs:extension>
-    	</xs:simpleContent>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="locationType">
-    	<xs:attribute name="latitude" type="xs:float" use="required"></xs:attribute>
-    	<xs:attribute name="longitude" type="xs:float" use="required"></xs:attribute>
+        <xs:attribute name="latitude" type="xs:float" use="required"></xs:attribute>
+        <xs:attribute name="longitude" type="xs:float" use="required"></xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="timesType">
-    	<xs:sequence>
-    	    <xs:element name="monday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
-    	    <xs:element name="tuesday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
-    	    <xs:element name="wednesday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+        <xs:sequence>
+            <xs:element name="monday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="tuesday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="wednesday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
             <xs:element name="thursday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
             <xs:element name="friday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
             <xs:element name="saturday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
             <xs:element name="sunday" type="weekdayType" minOccurs="0" maxOccurs="1"></xs:element>
-    	</xs:sequence>
-    	<xs:attribute name="type" use="required">
-    		<xs:simpleType>
-    			<xs:restriction base="xs:string">
-    				<xs:enumeration value="opening"></xs:enumeration>
-    			</xs:restriction>
-    		</xs:simpleType>
-    	</xs:attribute>
+        </xs:sequence>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="opening"></xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="feedType">
         <xs:all>
-    		<xs:element name="schedule" type="scheduleType" minOccurs="1" maxOccurs="1"></xs:element>
-    		<xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
-    		<xs:element name="source" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
-    	</xs:all>
-    	<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
-    	<xs:attribute name="priority" type="xs:int" use="optional"></xs:attribute>
+            <xs:element name="schedule" type="scheduleType" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="source" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+        </xs:all>
+        <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="priority" type="xs:int" use="optional"></xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="scheduleType">
-    	<xs:attribute name="dayOfMonth" type="xs:string"
-    		use="required">
-    	</xs:attribute>
-    	<xs:attribute name="dayOfWeek" type="xs:string"
-    		use="required">
-    	</xs:attribute>
-    	<xs:attribute name="month" type="xs:string" use="required"></xs:attribute>
-    	<xs:attribute name="hour" type="xs:string" use="required"></xs:attribute>
-    	<xs:attribute name="minute" type="xs:string" use="required"></xs:attribute>
-    	<xs:attribute name="retry" use="optional">
-    		<xs:simpleType>
-    			<xs:restriction base="xs:string">
-    				<xs:pattern value="\d+\s+\d+(\s+\d+)?"></xs:pattern>
-    			</xs:restriction>
-    		</xs:simpleType>
-    	</xs:attribute>
+        <xs:attribute name="dayOfMonth" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="dayOfWeek" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="month" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="hour" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="minute" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="retry" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="\d+\s+\d+(\s+\d+)?"></xs:pattern>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="weekdayType">
         <xs:attribute name="open" use="optional">
             <xs:annotation>
-                <xs:documentation>A value of HH:mm-HH:mm to specify that the canteen has open within the given time interval.</xs:documentation></xs:annotation>
+                <xs:documentation>A value of HH:mm-HH:mm to specify that the canteen has open within the given time interval.</xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:pattern value="\d\d:\d\d-\d\d:\d\d"></xs:pattern>
