@@ -2,6 +2,13 @@
 <openmensa version="2.1" xmlns="http://openmensa.org/open-mensa-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openmensa.org/open-mensa-v2 http://openmensa.org/open-mensa-v2.xsd">
 	<version>1.0+96ca2397651f4be3d3f98a6f46d605be55c41ebf-b10</version>
 	<canteen>
+		<name>Mensa Griebnitzsee</name>
+		<address>August-Bebel-Str. 89, 14482 Potsdam</address>
+		<city>Potsdam</city>
+		<phone>(0331) 977 3749/3748</phone>
+		<location latitude="52.3935353446923" longitude="13.1278145313263" />
+		<availability>public</availability>
+		
 		<!-- Studentenwerk Potsdam, Griebnitzsee -->
 		<day date="2012-05-29">
 			<category name="Essen 1">
@@ -80,11 +87,5 @@
 		<day date="2012-05-28">
 		    <closed/>
 		</day>
-		<name>Mensa Griebnitzsee</name>
-		<address>August-Bebel-Str. 89, 14482 Potsdam</address>
-		<city>Potsdam</city>
-		<phone>(0331) 977 3749/3748</phone>
-		<location latitude="52.3935353446923" longitude="13.1278145313263" />
-		<availability>public</availability>
 	</canteen>
 </openmensa>
