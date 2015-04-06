@@ -223,21 +223,52 @@
 
     <xs:complexType name="feedType">
         <xs:all>
-            <xs:element name="schedule" type="scheduleType" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="schedule" type="scheduleType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The feed is accessed if the current time matches ALL these patterns of the schedule.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
             <xs:element name="source" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
         </xs:all>
-        <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="priority" type="xs:int" use="optional"></xs:attribute>
+        <xs:attribute name="name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>This unique name is only used by OpenMensa to match the given feed to previously saved feed data. But we recommend to choose descriptive names.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="priority" type="xs:int" use="optional">
+            <xs:annotation>
+                <xs:documentation>The default priority is 0. A feed can update/remove a meal if the priority is same or greater than the priority of the feed that created the menu.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="scheduleType">
-        <xs:attribute name="dayOfMonth" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="dayOfWeek" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="month" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="dayOfMonth" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Starts with 1, defaults to *.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="dayOfWeek" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Start with 0 meaning Sunday, defaults to *.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="month" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Defaults to *.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="hour" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="minute" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="minute" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Defaults to 0.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="retry" use="optional">
+            <xs:annotation>
+                <xs:documentation>Without this attribute OpenMensa does not retry to fetch the feed on errors.</xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:pattern value="\d+\s+\d+(\s+\d+)?"></xs:pattern>

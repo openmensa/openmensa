@@ -1,16 +1,14 @@
 #index_map.row.reversed
   - canteens = Canteen.active
-  - if current_user.internal?
+  .span4
+    - if current_user.internal?
+        = render partial: 'getstarted'
+    - else
+        = render partial: 'common/favorites', locals: { user: current_user }
+
+  .span8
     section.index-map
+        / form.search
+        /   input#query
         - cache [ canteens ] do
           = map canteens.to_a, hash: true
-  - else
-    .span4
-      = render partial: 'common/favorites', locals: { user: current_user }
-
-    .span8
-      section.index-map
-          / form.search
-          /   input#query
-          - cache [ canteens ] do
-            = map canteens.to_a, hash: true

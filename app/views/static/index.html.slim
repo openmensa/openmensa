@@ -5,25 +5,31 @@
   .span8
     section
       header
-        h1 OpenMensa - Die offene Mensa Datenbank.
+        h1 OpenMensa - Die offene Mensa-Datenbank.
       .content
+        = link_to about_path do
+          = image_tag image_path('compact.png'), id: 'compact', class: 'illustrate'
         p
           ' OpenMensa ist die kostenfreie Datenbank für Mensen und Cafeterien in Deutschland.
+          ' Wir stellen eine zentrale Austauschplattform zwischen Essensanbietern und Nutzern
+          ' bzw. deren Apps dar.
+          ' Hier findest du die Speisepläne zahlreicher Mensen und Cafés in Deutschland:
+        p.action
+          = link_to about_path, class: "btn btn-action", title: 'Erfahre mehr über OpenMensa' do
+            ' Erfahre mehr über OpenMensa
         p
-          ' Hier findest du die Speisepläne zahlreicher Mensen und Cafés in Deutschland.
-          ' Alle Daten werden von Parsern, die von der Community entwickelt werden, direkt von
-          ' den Internetseiten oder Portalen der Studentenwerke oder Cafeterien abgerufen und hier über
-          ' die die Webseite und API, für z.B. mobile Apps, bereit gestellt.
+          ' OpenMensa ist ein offenes, von der Community entwickeltes Projekt.
+          ' Interessierte entwickeln Parser, um die Daten direkt von den Internetseiten oder Portalen der Studentenwerke oder Cafeterien abgerufen, oder mobile Apps um diese Daten auf dem Smartphone einfach zu nutzen. Aber auch die OpenMensa selbst ist
+          = link_to 'offen', 'https://github.com/openmensa/openmensa'
+          '  und kann von jedem mit weiterentwickelt werden:
+        p.action
+          = link_to contribute_path, class: "btn btn-action", title: 'Arbeite mit an OpenMensa' do
+            ' Arbeite mit an OpenMensa
         p
-          ' Klicke oben auf der Karte einfach auf die Gegend, in der du eine Mensa oder ein Café suchst
-          ' und zoome so Stück für Stück in die Karte. Mit einem Klick auf einzelne Mensen, wirst du zur jeweiligen
-          ' Seite weitergeleitet und kannst durch das aktuelle und oft auch zuküftige Angebot blättern.
-        p
-          ' Außerdem kannst du Mensen auch gleich als Favoriten speichern um zukünftig direkt von der Startseite
-          ' auf deine bevorzugten Mensen und Cafeterias zugreifen zu können. Dazu kannst du dich einfach via
-          ' Facebook, Google, Twitter oder GitHub
-          = link_to 'anmelden', login_path
-          ' , ganz ohne Aufwand.
+          ' So oder so, OpenMensa lebt von den Menschen. Jeder ist willkommen und kann nach seinen Fähigkeiten dabei helfen OpenMensa zu verbessern:
+        p.action
+          = link_to support_path, class: "btn btn-action", title: 'Hilf mit bei OpenMensa' do
+            ' Hilf mit bei OpenMensa
 
   .span4
     section
@@ -57,3 +63,7 @@
           ' Schreib uns einfach eine kurze Nachricht an
           a href="mailto:info@openmensa.org" info@openmensa.org
           ' .
+        p
+          ' Beobache wie sich OpenMensa entwickelt und folge
+          a href="https://twitter.com/openmensa" class="icon-twitter" @openmensa
+          '  auf Twitter.

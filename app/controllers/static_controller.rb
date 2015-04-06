@@ -7,4 +7,13 @@ class StaticController < ApplicationController
 
   def impressum
   end
+
+  def about
+  end
+
+  def support
+  end
+
+  def contribute
+  end
 end

@@ -102,3 +102,19 @@
     }
   }
 }
+
+.static_controller {
+  p.action {
+    text-align: center;
+  }
+
+  img#compact {
+    width: 300px;
+  }
+
+  img.illustrate {
+    float: left;
+    padding-right: 5px;
+    padding-bottom: 5px;
+  }
+}
