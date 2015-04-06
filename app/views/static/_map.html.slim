@@ -4,7 +4,7 @@
     - if current_user.internal?
         = render partial: 'getstarted'
     - else
-        = render partial: 'common/favorites', locals: { user: current_user }
+        = render partial: 'common/favorites', locals: { user: current_user, missing_canteen: true }
 
   .span8
     section.index-map

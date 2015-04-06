@@ -10,9 +10,11 @@ Openmensa::Application.routes.draw do
     end
   end
 
+  resources :canteens, path: 'c', only: [:new, :create]
+  get '/wanted' => 'canteens#wanted', as: :wanted_canteens
   get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
   get '/c/:id/fetch' => 'canteens#fetch', as: :fetch_canteen
-  resources :canteens, path: 'c', only: [:show] do
+  resources :canteens, path: 'c', only: [:show, :new, :create] do
     resource :favorite, only: [:create, :destroy]
     resource :active, controller: :canteen_activation, only: [:create, :destroy]
   end

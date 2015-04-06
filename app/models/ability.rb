@@ -7,7 +7,9 @@ class Ability
     alias_action :delete, to: :destroy
 
     can :show, Canteen
+    can :create, Canteen
     can :fetch, Canteen
+    can :wanted, Canteen
 
     if user.logged?
       can [:show, :update], User, id: user.id
@@ -17,7 +19,6 @@ class Ability
 
     if user.developer?
       can :manage, Canteen, user_id: user.id
-      can :create, Canteen
       can :manage, Parser, user_id: user.id
       can :manage, Source, parser: {user_id: user.id}
       can :create, Source

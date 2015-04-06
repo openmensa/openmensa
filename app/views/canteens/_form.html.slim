@@ -1,10 +1,4 @@
 p
-  = form.label :url, t(:canteen, :url)
-  = form.text_field :url, placeholder: t(:placeholder, :canteen, :url)
-p
-  = form.label :today_url, t(:canteen, :today_url)
-  = form.text_field :today_url
-p
   = form.label :name, t(:canteen, :name)
   = form.text_field :name, placeholder: t(:placeholder, :canteen, :name)
 p
@@ -13,6 +7,3 @@ p
 p
   = form.label :address, t(:canteen, :address)
   = form.text_field :address, placeholder: t(:placeholder, :canteen, :address)
-p
-  = form.label :fetch_hour, t(:canteen, :fetch_hour)
-  = form.select :fetch_hour, options_for_select((0..23).map{ |n| [ t(:canteen, :fetch_hour_hour, hour: n), n] }),  include_blank: t(:canteen, :fetch_hour_default)

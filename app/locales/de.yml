@@ -27,6 +27,9 @@ de:
   add_source: 'Neue Quelle/Mensa hinzufügen'
   new_source: Neue Quelle hinzufügen
   new_source_select_canteen: 'Mensa für neue Quelle auswählen'
+  add_wanted_canteen: 'Gewünschte Mensa melden'
+  create_wanted_canteen: Mensa als gewünscht eintragen
+  wanted_canteens: Gewünschte Mensen
 
   service:
     twitter: Twitter
@@ -76,6 +79,7 @@ de:
       google_oauth2: "<b>Google</b> Identität entfernt."
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
+    wanted_canteen_added: Die Mensa wurde erfolgreich als gewünscht gespeichert.
     canteen_saved: "Mensa gespeichert."
     parser_created: 'Der Parser wurde erfolgreich angelegt.'
     parser_saved: 'Der Parser wurde erfolgreich aktualisiert.'

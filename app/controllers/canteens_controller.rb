@@ -8,17 +8,20 @@ class CanteensController < ApplicationController
   end
 
   def new
+    @canteens = Canteen.where state: 'wanted'
   end
 
   def create
     if @canteen.update canteen_params
-      flash[:notice] = t 'message.canteen_added'
       if params[:parser_id]
+        flash[:notice] = t 'message.canteen_added'
         redirect_to new_parser_source_path(parser_id: params[:parser_id], canteen_id: @canteen)
       else
-        redirect_to edit_user_canteen_path(@user, @canteen)
+        flash[:notice] = t 'message.wanted_canteen_added'
+        redirect_to wanted_canteens_path
       end
     else
+      @canteens = Canteen.where state: 'wanted'
       render action: :new
     end
   end
@@ -43,6 +46,10 @@ class CanteensController < ApplicationController
     end
 
     @meals = @canteen.meals.for @date
+  end
+
+  def wanted
+    @canteens = Canteen.where state: 'wanted'
   end
 
   def fetch
@@ -70,7 +77,11 @@ class CanteensController < ApplicationController
   end
 
   def new_resource
-    @canteen = @user.canteens.new
+    @canteen = if @user.nil? or @user.internal?
+      User.anonymous.canteens.new
+    else
+      @user.canteens.new
+    end
   end
 
   def canteen_params
