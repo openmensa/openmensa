@@ -34,6 +34,9 @@ Openmensa::Application.routes.draw do
   get '/auth/register',           to: 'sessions#register', as: :register
 
   get '/impressum', to: 'static#impressum', as: :imprint
+  get '/about', to: 'static#about', as: :about
+  get '/support', to: 'static#support', as: :support
+  get '/contribute', to: 'static#contribute', as: :contribute
 
   # get '/', to: 'application#index', as: :application_index
   root to: 'static#index'
