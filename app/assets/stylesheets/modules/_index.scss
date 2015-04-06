@@ -103,11 +103,11 @@
   }
 }
 
-.static_controller {
-  p.action {
-    text-align: center;
-  }
+p.action {
+  text-align: center;
+}
 
+.static_controller {
   img#compact {
     width: 300px;
   }

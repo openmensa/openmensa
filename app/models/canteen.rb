@@ -2,14 +2,15 @@ require 'open-uri'
 require 'rexml/document'
 
 class Canteen < ActiveRecord::Base
-  belongs_to :user
   has_many :days
   has_many :meals, through: :days
   has_many :messages
+  has_many :sources
+  has_many :data_proposals
 
   scope :active, -> { where(active: true) }
 
-  validates :city, :name, :user_id, presence: true
+  validates :city, :name, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :geocode?

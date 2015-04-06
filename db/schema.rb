@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331130527) do
+ActiveRecord::Schema.define(version: 20150331024406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,21 +19,19 @@ ActiveRecord::Schema.define(version: 20150331130527) do
   create_table "canteens", force: true do |t|
     t.string   "name"
     t.string   "address"
-    t.string   "url"
-    t.integer  "user_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.datetime "last_fetched_at"
-    t.integer  "fetch_hour"
     t.float    "longitude"
     t.float    "latitude"
-    t.string   "today_url"
     t.string   "city"
     t.boolean  "active",          default: true
     t.string   "state",           default: "wanted", null: false
+    t.string   "phone"
+    t.string   "email"
+    t.boolean  "availibility",    default: true
+    t.string   "openingTimes",                                    array: true
   end
-
-  add_index "canteens", ["user_id"], name: "index_cafeterias_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.string   "message"
@@ -47,6 +45,23 @@ ActiveRecord::Schema.define(version: 20150331130527) do
   add_index "comments", ["commentee_id"], name: "index_comments_on_commentee_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "data_proposals", force: true do |t|
+    t.integer  "canteen_id"
+    t.integer  "user_id"
+    t.string   "state",        default: "new", null: false
+    t.string   "name"
+    t.string   "city"
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "availibility"
+    t.string   "openingTimes",                              array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "days", force: true do |t|
     t.integer  "canteen_id"
     t.date     "date"
@@ -56,6 +71,15 @@ ActiveRecord::Schema.define(version: 20150331130527) do
   end
 
   add_index "days", ["canteen_id"], name: "index_days_on_canteen_id", using: :btree
+
+  create_table "error_reports", force: true do |t|
+    t.integer  "canteen_id"
+    t.integer  "user_id"
+    t.string   "state",      default: "new", null: false
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "favorites", force: true do |t|
     t.integer  "canteen_id"

@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :canteens
   has_many :favorites
   has_many :parsers
+  has_many :error_reports
+  has_many :data_proposals
+  has_many :canteens, through: :parsers
 
   before_save :activate_developer_if_email
 

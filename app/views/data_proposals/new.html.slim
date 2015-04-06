@@ -1,0 +1,50 @@
+.row
+  .span8
+    section
+      header
+        h2= t :correct_canteen_data
+      .content
+        p
+          ' Im folgenden kannst du für die Metainformationen
+          ' zur Kanteen andere Werte vorschlagen.
+          ' Wenn du ein Wert nicht geändert werden soll/muss,
+          ' lass das Feld einfach frei.
+          ' Die Änderungen müssen anschließend von einem
+          ' Verantwortlichen von OpenMensa bestätigt werden,
+          ' bevor die Informationen sichtbar sind.
+        = form_for [@canteen, @data_proposal] do |form|
+          p
+            = form.label :name, t(:canteen, :name)
+            = form.text_field :name, placeholder: @canteen.name
+          p
+            = form.label :city, t(:canteen, :city)
+            = form.text_field :city, placeholder: @canteen.city
+          p
+            = form.label :address, t(:canteen, :address)
+            = form.text_field :address, placeholder: @canteen.address
+          .row
+            .span6
+              p
+                = form.label :address, t(:canteen, :latitude_and_longitude)
+                = form.text_field :latitude, readonly: true, value: @canteen.latitude
+                = form.text_field :longitude, readonly: true, value: @canteen.longitude
+            .span6
+              p
+                label.icon-comment-alt
+                  = t :canteen, :map_marker
+                = t :notice, :map_marker
+          div.map#map data-sync="true" data-lat='#data_proposal_latitude' data-lng='#data_proposal_longitude' data-map="interactive"
+          p
+            = form.label :phone, t(:canteen, :phone)
+            = form.text_field :phone, placeholder: @canteen.phone
+          p
+            = form.label :email, t(:canteen, :email)
+            = form.text_field :email, placeholder: @canteen.email
+          p
+            = submit_tag t(:data_proposal, :create_button)
+
+  - unless @user.nil?
+    = render partial: 'users/nav'
+  - else
+    .span4
+      = render partial: 'static/sidebar'

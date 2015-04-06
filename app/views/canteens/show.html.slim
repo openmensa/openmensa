@@ -16,4 +16,7 @@
       = map @canteen
       .content
         address= @canteen.address
+        p.action
+          = link_to t(:canteen, :correct_data), new_canteen_data_proposals_path(@canteen), class: "btn btn-primary"
+    = render partial: 'report_error'
     = render partial: 'canteen_status', locals: { canteen: @canteen }

@@ -77,14 +77,10 @@ class CanteensController < ApplicationController
   end
 
   def new_resource
-    @canteen = if @user.nil? or @user.internal?
-      User.anonymous.canteens.new
-    else
-      @user.canteens.new
-    end
+    @canteen = Canteen.new
   end
 
   def canteen_params
-    params.require(:canteen).permit(:address, :name, :url, :today_url, :fetch_hour, :latitude, :longitude, :city)
+    params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city)
   end
 end

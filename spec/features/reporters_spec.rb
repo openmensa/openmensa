@@ -29,24 +29,23 @@ describe 'Reporters: ', type: :feature do
   end
 
   it 'should be able to report an issues for a canteen' do
-    pending 'todo'
     visit canteen_path(canteen)
 
     click_on 'Fehler melden'
 
-    fill_in 'Mitteilung', with: 'Die Preisinformationen werden nicht mehr korrekt abgetrennt!'
-    click_on 'Fehlerbereit senden'
+    fill_in 'Kurzbeschreibung', with: 'Die Preisinformationen werden nicht mehr korrekt abgetrennt!'
+    click_on 'Fehler melden'
+    expect(page).to have_content('Deine Fehler wurde erfolgreich weitergeleitet.')
   end
 
-  it 'shoulb be able to report correct canteen meta data' do
-    pending 'todo'
+  it 'should be able to report correct canteen meta data' do
     visit canteen_path(canteen)
 
     click_on 'Daten korrigieren'
 
-    fill_in 'Address', with: 'Neue Straße 4, 33024 Halsleben'
+    fill_in 'Adress', with: 'Neue Straße 4, 33024 Halsleben'
     fill_in 'Telefon', with: '0384 5833 005'
-    click_on 'Fehlerbereit senden'
+    click_on 'Korrekturvorschlag senden'
     expect(page).to have_content('Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.')
   end
 end

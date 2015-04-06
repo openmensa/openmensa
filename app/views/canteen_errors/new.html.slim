@@ -1,0 +1,22 @@
+.row
+  .span8
+    section
+      header
+        h2= t :report_canteen_error
+      .content
+        p
+          ' Beschreibe bitte kurz, welchen Fehler du beobachtest hast.
+          ' Wenn du eine Idee zur Fehlerursache oder weitere
+          ' Hintegrundinformationen hast, ergänze sie bitte auch.
+        = form_for [@canteen, @error_report] do |form|
+          p
+            = form.label :message, t(:canteen_error, :message)
+            = form.text_field :message
+          p
+            = submit_tag t(:canteen_error, :create_button)
+
+  - unless @user.nil?
+    = render partial: 'users/nav'
+  - else
+    .span4
+      = render partial: 'static/sidebar'

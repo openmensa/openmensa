@@ -10,6 +10,7 @@ class Ability
     can :create, Canteen
     can :fetch, Canteen
     can :wanted, Canteen
+    can :create, DataProposal
 
     if user.logged?
       can [:show, :update], User, id: user.id

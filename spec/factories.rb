@@ -35,13 +35,10 @@ FactoryGirl.define do
   factory :canteen do
     sequence(:name) {|n| "Mensa ##{n}" }
     address 'Marble Street, 12345 City'
-    url 'http://example.com/canteen_feed.xml'
     city 'City'
 
     sequence(:latitude)  {|n| (n % 180) - 90 }
     sequence(:longitude) {|n| (n % 360) - 180 }
-
-    association :user
 
     trait :with_meals do
       after(:create) do |canteen|
@@ -139,7 +136,7 @@ FactoryGirl.define do
 
   factory :feedUrlUpdatedInfo do
     sequence(:old_url)  {|n| "http://example.org/#{n}.xml" }
-  sequence(:new_url)  {|n| "http://example.com/#{n}.xml" }
+    sequence(:new_url)  {|n| "http://example.com/#{n}.xml" }
 
     association :canteen
   end
