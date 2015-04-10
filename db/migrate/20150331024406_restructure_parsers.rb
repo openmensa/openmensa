@@ -4,7 +4,8 @@ class RestructureParsers < ActiveRecord::Migration
       t.references :user
       t.string :name, null: false
       t.string :version, null: true
-      t.text :info_url, null: true
+      t.string :info_url, null: true
+      t.string :index_url, null: true
 
       t.timestamps
     end
@@ -29,7 +30,8 @@ class RestructureParsers < ActiveRecord::Migration
       t.string :schedule, null: false
       t.string :retry
       t.string :source_url, null: true
-      t.datetime :last_fetched_at
+      t.datetime :last_fetched_at, null: true
+      t.datetime :next_fetch_at, null: true
 
       t.timestamps
     end
@@ -61,12 +63,29 @@ class RestructureParsers < ActiveRecord::Migration
       t.timestamps
     end
 
+    create_table :feed_fetches do |t|
+      t.references :feed
+      t.string :state, null: false
+      t.string :reason, null: false
+      t.integer :added_days
+      t.integer :updated_days
+      t.integer :added_meals
+      t.integer :updated_meals
+      t.integer :removed_meals
+
+      t.datetime :executed_at, null: false
+    end
+
     change_table :canteens do |t|
       t.string :state, null: false, default: 'wanted'
       t.string :phone
       t.string :email
       t.boolean :availibility, default: true
       t.string :openingTimes, array: true
+    end
+
+    change_table :messages do |t|
+      t.references :messageable, polymorphic: true, index: true
     end
 
     reversible do |dir|
@@ -85,12 +104,13 @@ class RestructureParsers < ActiveRecord::Migration
               s = Source.create! parser: p,
                                  name: name,
                                  canteen: c
-              Feed.create! name: 'full',
+              feed = Feed.create! name: 'full',
                            source: s,
                            url: c.url,
                            schedule: '0 8 * * *',
                            retry: '60 6',
                            priority: 0
+              Message.where(canteen_id: c.id).update_all(messageable_id: feed.id, messageable_type: 'Feed')
               if c.today_url.present?
                 Feed.create! name: 'today',
                              source: s,

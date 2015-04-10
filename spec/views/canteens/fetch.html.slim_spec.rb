@@ -5,7 +5,9 @@ require_dependency 'message'
 describe 'canteens/fetch.html.slim', type: :view do
   let(:owner) { FactoryGirl.create :user }
   let(:other) { FactoryGirl.create :user }
-  let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
+  let(:parser) { FactoryGirl.create :parser, user: owner }
+  let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
+  let(:canteen) { FactoryGirl.create :canteen }
   let(:success_result) do
     {
       'status' => 'ok',

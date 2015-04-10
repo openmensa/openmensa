@@ -4,7 +4,9 @@ require_dependency 'message'
 
 describe 'common/_canteen_actions.html.slim', type: :view do
   let(:owner) { FactoryGirl.create :user }
-  let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
+  let(:parser) { FactoryGirl.create :parser, user: owner }
+  let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
+  let(:canteen) { FactoryGirl.create :canteen }
   before do
     render partial: 'canteen_actions', \
            locals: {canteen: canteen}
@@ -25,7 +27,7 @@ describe 'common/_canteen_actions.html.slim', type: :view do
   end
 
   context 'with deactivate canteen' do
-    let(:canteen) { FactoryGirl.create(:disabled_canteen, user: owner) }
+    let(:canteen) { FactoryGirl.create(:disabled_canteen) }
     it 'should cantain a link to activate the canteen' do
       expect(rendered).to include('Mensa in Betrieb nehmen')
     end

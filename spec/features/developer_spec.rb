@@ -5,7 +5,9 @@ require_dependency 'message'
 describe 'Developers', type: :feature do
   let(:user) { FactoryGirl.create :user }
   let(:developer) { FactoryGirl.create :developer }
-  let(:canteen) { FactoryGirl.create :canteen, user_id: developer.id }
+  let(:parser) { FactoryGirl.create :parser, user: developer }
+  let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
+  let(:canteen) { FactoryGirl.create :canteen }
 
   context 'as a developer' do
     before do
@@ -69,28 +71,6 @@ describe 'Developers', type: :feature do
 
         expect(page).to have_content 'Mensa gespeichert.'
       end
-
-      it 'should allow to set fetch_hour for meal' do
-        click_on 'Mensa bearbeiten'
-
-        select '9 Uhr', from: 'Frühste Abrufstunde'
-        click_on 'Speichern'
-
-        canteen.reload
-
-        expect(canteen.fetch_hour).to eq(9)
-      end
-
-      it 'should allow to set fetch_hour to default' do
-        click_on 'Mensa bearbeiten'
-
-        select 'Standard', from: 'Frühste Abrufstunde'
-        click_on 'Speichern'
-
-        canteen.reload
-
-        expect(canteen.fetch_hour).to be_nil
-      end
     end
 
     context 'on my canteen page' do
@@ -118,7 +98,7 @@ describe 'Developers', type: :feature do
       end
 
       context 'with deactivated canteen' do
-        let(:canteen) { FactoryGirl.create :disabled_canteen, user_id: developer.id }
+        let(:canteen) { FactoryGirl.create :disabled_canteen }
 
         it 'should allow to disable the canteen' do
           click_on 'Mensa in Betrieb nehmen'

@@ -6,7 +6,7 @@ describe 'Developers', type: :feature do
   let(:user) { FactoryGirl.create :user }
   let(:developer) { FactoryGirl.create :developer }
   let(:parser) { FactoryGirl.create :parser, user_id: developer.id }
-  let(:canteen) { FactoryGirl.create :canteen, user_id: developer.id }
+  let(:canteen) { FactoryGirl.create :canteen }
 
   context 'as a developer' do
     before do

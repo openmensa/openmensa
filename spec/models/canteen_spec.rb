@@ -4,7 +4,6 @@ describe Canteen, type: :model do
   let(:canteen) { FactoryGirl.create :canteen }
 
   it { is_expected.not_to accept_values_for(:name, nil, '') }
-  it { is_expected.not_to accept_values_for(:address, nil, '') }
 
   describe '#fetch' do
     before do

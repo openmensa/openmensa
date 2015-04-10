@@ -19,8 +19,8 @@ class Ability
     end
 
     if user.developer?
-      can :manage, Canteen, user_id: user.id
       can :manage, Parser, user_id: user.id
+      can :manage, Canteen, sources: {parser: {user_id: user.id}}
       can :manage, Source, parser: {user_id: user.id}
       can :create, Source
       can :manage, Feed, source: {parser: {user_id: user.id}}

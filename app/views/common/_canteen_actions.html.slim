@@ -3,11 +3,29 @@ section
     h2=t :canteen, :actions
   ul.favs
     li=link_to t(:canteen_actions, :open_meals), canteen_path(canteen), class: 'icon-coffee'
-    li=link_to t(:edit_canteen), edit_user_canteen_path(canteen.user, canteen), class: 'icon-edit'
+    li=link_to t(:edit_canteen), edit_canteen_path(canteen), class: 'icon-edit'
     - if canteen.active
         li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
     - else
         li=link_to t(:activate_canteen), canteen_active_path(canteen), method: :post, class: 'icon-play'
-    li=link_to t(:canteen_actions, :open_messages), [ canteen.user, canteen, :messages], class: 'icon-envelope'
-    li=link_to t(:canteen_actions, :fetch_feed), fetch_canteen_path(canteen), class: 'icon-refresh'
-    li=link_to t(:canteen_actions, :open_feed), canteen.url, class: 'icon-external-link'
+- canteen.feeds.select { |feed| can? :edit, feed }.each do |feed|
+  section
+    header
+      h3
+        = t :feed, :title, name: feed.name
+        ul.actions
+          li=link_to fetch_canteen_path(canteen), title: t(:canteen_actions, :fetch_feed) do
+            i.icon-refresh
+          li=link_to [canteen, :messages], title: t(:canteen_actions, :open_messages) do
+            i.icon-envelope
+    .content
+      /p=feed.state
+      p
+        = t :feed, :last_fetched_at
+        ' :
+        = timeago_tag feed.last_fetched_at
+      p
+        = t :feed, :next_fetch_at
+        ' :
+        = timeago_tag feed.next_fetch_at
+        = " (#{t(:feed, :schedule)}: #{feed.schedule})"

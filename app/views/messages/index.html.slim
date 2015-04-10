@@ -7,7 +7,6 @@
 
       .content
         h3= @canteen.name
-        p= @canteen.url
         table
           - @messages.group_by { |m| [m.type, m.data ] }.each do |d, messages|
             - messages.sort_by!(&:created_at)

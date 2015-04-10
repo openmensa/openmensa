@@ -17,7 +17,7 @@
             - @canteens.each do |canteen, message|
               tr
                 td: i class=message.icon_class
-                td= link_to canteen.name, [ canteen.user, canteen, :messages]
+                td= link_to canteen.name, [ canteen, :messages]
                 td= message.nil? ? '' : message.created_at
 
   = render partial: 'users/nav'

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Favorites: ', type: :feature do
   context 'User' do
     let(:user) { FactoryGirl.create :user }
-    let(:canteen) { FactoryGirl.create :canteen, user: user }
+    let(:canteen) { FactoryGirl.create :canteen }
     let(:favorite) { FactoryGirl.create :favorite, canteen: canteen, user: user }
     let(:favorite2) { FactoryGirl.create :favorite, user: user }
 

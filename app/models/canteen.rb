@@ -6,6 +6,7 @@ class Canteen < ActiveRecord::Base
   has_many :meals, through: :days
   has_many :messages
   has_many :sources
+  has_many :feeds, through: :sources
   has_many :data_proposals
 
   scope :active, -> { where(active: true) }

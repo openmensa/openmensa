@@ -5,7 +5,9 @@ require 'message'
 
 describe 'messages/index.html.slim', type: :view do
   let(:user) { FactoryGirl.create :user }
-  let(:canteen) { FactoryGirl.create(:canteen, user: user) }
+  let(:parser) { FactoryGirl.create :parser, user: user }
+  let(:source) { FactoryGirl.create :source, parser: parser }
+  let(:canteen) { source.canteen }
   let(:messages) {
     [
       FactoryGirl.create(:feedInvalidUrlError, canteen: canteen),

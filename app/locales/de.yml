@@ -170,6 +170,7 @@ de:
 
   feed:
     name: Name
+    title: 'Feed "%{name}"'
     url: URL
     source_url: Quelle
     schedule: Abrufplan
@@ -178,6 +179,7 @@ de:
     no_source_url: Keine Quelle verfügbar
     not_fetched_yet: nie
     last_fetched_at: Letzter Abruf
+    next_fetch_at: Nächster Abruf
 
   canteen_actions:
     open_messages: Mensa-Mitteilungen

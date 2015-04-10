@@ -89,6 +89,18 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "feed_fetches", force: true do |t|
+    t.integer  "feed_id"
+    t.string   "state",         null: false
+    t.string   "reason",        null: false
+    t.integer  "added_days"
+    t.integer  "updated_days"
+    t.integer  "added_meals"
+    t.integer  "updated_meals"
+    t.integer  "removed_meals"
+    t.datetime "executed_at",   null: false
+  end
+
   create_table "feeds", force: true do |t|
     t.integer  "source_id"
     t.integer  "priority",        default: 0, null: false
@@ -98,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.string   "retry"
     t.string   "source_url"
     t.datetime "last_fetched_at"
+    t.datetime "next_fetch_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -142,14 +155,17 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   create_table "messages", force: true do |t|
     t.integer  "canteen_id"
-    t.string   "type",       null: false
-    t.string   "priority",   null: false
-    t.text     "data",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "type",             null: false
+    t.string   "priority",         null: false
+    t.text     "data",             null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "messageable_id"
+    t.string   "messageable_type"
   end
 
   add_index "messages", ["canteen_id"], name: "index_messages_on_canteen_id", using: :btree
+  add_index "messages", ["messageable_id", "messageable_type"], name: "index_messages_on_messageable_id_and_messageable_type", using: :btree
   add_index "messages", ["type"], name: "index_messages_on_type", using: :btree
 
   create_table "notes", force: true do |t|
@@ -203,7 +219,8 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.integer  "user_id"
     t.string   "name",       null: false
     t.string   "version"
-    t.text     "info_url"
+    t.string   "info_url"
+    t.string   "index_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
