@@ -2,7 +2,7 @@
 .row
   .span8
     section
-      = render partial: 'canteen_header', locals: { user: current_user, canteen: @canteen }
+      = render partial: 'canteens/canteen_header', locals: { user: current_user, canteen: @feed.canteen }
       .content
         - if @result['status'] == 'ok'
           p=t :canteen, :feed_updated
@@ -22,12 +22,6 @@
 
   aside.span4
     = render partial: 'common/favorites', locals: { user: current_user }
-    - if current_user.can? :manage, @canteen
-      = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
-    section
-      header
-        h2=t :canteen, :address
-      = map @canteen
-      .content
-        address= @canteen.address
-    = render partial: 'canteen_status', locals: { canteen: @canteen }
+    - if current_user.can? :manage, @feed.canteen
+      = render partial: 'common/canteen_actions', locals: { canteen: @feed.canteen }
+    = render partial: 'canteens/canteen_status', locals: { canteen: @feed.canteen }

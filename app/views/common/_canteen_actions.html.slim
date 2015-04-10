@@ -14,16 +14,16 @@ section
       h3
         = t :feed, :title, name: feed.name
         ul.actions
-          li=link_to fetch_canteen_path(canteen), title: t(:canteen_actions, :fetch_feed) do
+          li=link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed) do
             i.icon-refresh
           li=link_to [canteen, :messages], title: t(:canteen_actions, :open_messages) do
             i.icon-envelope
     .content
-      /p=feed.state
-      p
-        = t :feed, :last_fetched_at
-        ' :
-        = timeago_tag feed.last_fetched_at
+      - feed.fetches.group('state').maximum(:executed_at).each do |state, date|
+        p
+          = t :feed, :"last_#{state}_at"
+          ' :
+          = timeago_tag date
       p
         = t :feed, :next_fetch_at
         ' :

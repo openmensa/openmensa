@@ -1,5 +1,6 @@
 class Message < ActiveRecord::Base
-  belongs_to :canteen
+  belongs_to :messageable, polymorphic: true
+
   serialize :data, Hash
 
   validates :priority, inclusion: {

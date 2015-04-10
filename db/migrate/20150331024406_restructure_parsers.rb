@@ -67,6 +67,7 @@ class RestructureParsers < ActiveRecord::Migration
       t.references :feed
       t.string :state, null: false
       t.string :reason, null: false
+      t.string :version, null: true
       t.integer :added_days
       t.integer :updated_days
       t.integer :added_meals

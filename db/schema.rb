@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.integer  "feed_id"
     t.string   "state",         null: false
     t.string   "reason",        null: false
+    t.string   "version"
     t.integer  "added_days"
     t.integer  "updated_days"
     t.integer  "added_meals"

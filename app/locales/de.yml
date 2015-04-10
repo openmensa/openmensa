@@ -108,9 +108,6 @@ de:
     city: Stadt / Region
     phone: Telefonnummer
     email: E-Mail
-    fetch_hour: Frühste Abrufstunde
-    fetch_hour_hour: '%{hour} Uhr'
-    fetch_hour_default: Standard
     latitude: Latitude
     longitude: Longitude
     latitude_and_longitude: "Latitude & Longitude"
@@ -179,6 +176,11 @@ de:
     no_source_url: Keine Quelle verfügbar
     not_fetched_yet: nie
     last_fetched_at: Letzter Abruf
+    last_changed_at: Letzte Veränderung
+    last_unchanged_at: Letzte Abruf
+    last_broken_at: Letzter permanenter Fehler
+    last_failed_at: Letzter temporärer Fehler
+    last_empty_at: Letzter leerer Abruf
     next_fetch_at: Nächster Abruf
 
   canteen_actions:

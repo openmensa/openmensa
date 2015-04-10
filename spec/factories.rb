@@ -168,4 +168,12 @@ FactoryGirl.define do
 
     association :source
   end
+
+  factory :feed_fetch do
+    state 'fetching'
+    reason 'manual'
+    version '2.0'
+
+    association :feed
+  end
 end

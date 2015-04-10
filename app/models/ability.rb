@@ -8,7 +8,7 @@ class Ability
 
     can :show, Canteen
     can :create, Canteen
-    can :fetch, Canteen
+    can :fetch, Feed
     can :wanted, Canteen
     can :create, DataProposal
 

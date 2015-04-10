@@ -1,6 +1,6 @@
 class FeedsController < ApplicationController
   before_action :new_resource, only: [:new, :create]
-  before_action :load_resource, only: [:update, :destroy]
+  before_action :load_resource, only: [:update, :destroy, :fetch]
   load_and_authorize_resource
 
   def create
@@ -27,6 +27,24 @@ class FeedsController < ApplicationController
       redirect_to edit_source_path(@feed.source_id)
     else
       # TODO
+    end
+  end
+
+  def fetch
+    if current_user.cannot?(:manage, @feed) && \
+       @feed.fetches.where('state != ?', 'fetching').maximum(:executed_at) && \
+       @feed.fetches.where('state != ?', 'fetching').maximum(:executed_at) > Time.zone.now - 15.minutes
+      return error_too_many_requests
+    end
+    updater = OpenMensa::Updater.new(@feed, 'manual')
+    @result = {
+      'status' => updater.update ? 'ok' : 'error'
+    }
+    json = @result.dup.update updater.stats
+    @result.update updater.stats(false) if current_user.can? :manage, @feed
+    respond_to do |format|
+      format.html
+      format.json { render json: json }
     end
   end
 

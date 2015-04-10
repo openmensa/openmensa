@@ -13,7 +13,6 @@ Openmensa::Application.routes.draw do
   resources :canteens, path: 'c', only: [:new, :create]
   get '/wanted' => 'canteens#wanted', as: :wanted_canteens
   get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
-  get '/c/:id/fetch' => 'canteens#fetch', as: :fetch_canteen
   resources :canteens, path: 'c', only: [:show, :new, :create, :edit, :update] do
     resource :favorite, only: [:create, :destroy]
     resource :active, controller: :canteen_activation, only: [:create, :destroy]
@@ -31,6 +30,7 @@ Openmensa::Application.routes.draw do
   resources :sources, only: [:create, :update, :edit] do
     resources :feeds, only: [:create]
   end
+  get '/feeds/:id/fetch' => 'feeds#fetch', as: :feed_fetch
   resources :feeds, only: [:update, :destroy]
   resources :parsers do
     resources :sources, only: [:new, :create]
