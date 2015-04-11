@@ -31,6 +31,7 @@ Openmensa::Application.routes.draw do
     resources :feeds, only: [:create]
   end
   get '/feeds/:id/fetch' => 'feeds#fetch', as: :feed_fetch
+  get '/feeds/:id/messages' => 'feeds#messages', as: :feed_messages
   resources :feeds, only: [:update, :destroy]
   resources :parsers do
     resources :sources, only: [:new, :create]

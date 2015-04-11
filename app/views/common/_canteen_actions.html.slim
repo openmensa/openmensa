@@ -8,16 +8,30 @@ section
         li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
     - else
         li=link_to t(:activate_canteen), canteen_active_path(canteen), method: :post, class: 'icon-play'
+- canteen.parsers.select { |parser| can? :edit, parser }.each do |parser|
+  section
+    header
+      h3
+        = t :parser, :title, name: parser.name
+    ul.favs
+     li=link_to t(:canteen_actions, :open_parser), parser_path(parser), class: 'icon-coffee'
+
 - canteen.feeds.select { |feed| can? :edit, feed }.each do |feed|
   section
     header
       h3
         = t :feed, :title, name: feed.name
         ul.actions
-          li=link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed) do
+          li=link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed, name: feed.name) do
             i.icon-refresh
-          li=link_to [canteen, :messages], title: t(:canteen_actions, :open_messages) do
+          li=link_to feed_messages_path(feed), title: t(:canteen_actions, :open_messages, name: feed.name) do
             i.icon-envelope
+          li=link_to feed.url, title: t(:canteen_actions, :open_feed, name: feed.name) do
+            /i.icon-file-code-o
+            i.icon-external-link
+          - if feed.source_url.present?
+            li=link_to feed.source_url, title: t(:canteen_actions, :open_source, name: feed.name) do
+              i.icon-external-link
     .content
       - feed.fetches.group('state').maximum(:executed_at).each do |state, date|
         p

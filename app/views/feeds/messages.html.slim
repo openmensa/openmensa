@@ -1,0 +1,46 @@
+
+.row
+  .span8
+    section
+      = render partial: 'canteens/canteen_header', locals: { user: current_user, canteen: @feed.canteen }
+
+      .content
+        table
+          tr
+            th rowspan="2" colspan="2"
+              = t :feed_fetch, :reason
+              '  /
+              = t :feed_fetch, :executed_at
+            th rowspan="2"= t :feed_fetch, :state
+            th colspan="2"= t :feed_fetch, :days
+            th colspan="3"= t :feed_fetch, :meals
+          tr
+            th.number
+              i.icon-plus
+            th.number
+              i.icon-refresh
+            th.number
+              i.icon-plus
+            th.number
+              i.icon-refresh
+            th.number
+              i.icon-minus
+          - reason_map = {'manual' => 'icon-user', 'schedule' => 'icon-calendar', 'retry' => 'icon-retweet'}
+          - @fetches.each do |fetch|
+            tr
+              td
+                i class=(reason_map[fetch.reason]) title=t(:feed_fetch, :reasons, fetch.reason)
+              td
+                = l fetch.executed_at, format: :short
+              td= t :feed_fetch, :states, fetch.state
+              td.number= fetch.added_days
+              td.number= fetch.updated_days
+              td.number= fetch.added_meals
+              td.number= fetch.updated_meals
+              td.number= fetch.removed_meals
+
+  aside.span4
+    = render partial: 'common/favorites', locals: { user: current_user }
+    - if current_user.can? :manage, @feed.canteen
+      = render partial: 'common/canteen_actions', locals: { canteen: @feed.canteen }
+    = render partial: 'canteens/canteen_status', locals: { canteen: @feed.canteen }

@@ -116,29 +116,22 @@ FactoryGirl.define do
   end
 
   factory :feedInvalidUrlError do
-    association :canteen
   end
 
   factory :feedFetchError do
     sequence(:code)
     message             { "#{code} no message" }
-
-    association :canteen
   end
 
   factory :feedValidationError do
     sequence(:version)  {|n| n % 2 + 1 }
     sequence(:kind)     {|n| [:invalid_xml, :unknown_version][n % 2] }
     message             { "#{version} no message" }
-
-    association :canteen
   end
 
   factory :feedUrlUpdatedInfo do
     sequence(:old_url)  {|n| "http://example.org/#{n}.xml" }
     sequence(:new_url)  {|n| "http://example.com/#{n}.xml" }
-
-    association :canteen
   end
 
   factory :favorite do
@@ -173,6 +166,7 @@ FactoryGirl.define do
     state 'fetching'
     reason 'manual'
     version '2.0'
+    executed_at { Time.zone.now }
 
     association :feed
   end

@@ -31,7 +31,7 @@ describe CanteensController, type: :controller do
     let(:user) { FactoryGirl.create :user }
 
     it 'should not be accessible by anonymous' do
-      patch :update, user_id: canteen.user.id, id: canteen.id, canteen: {name: 'NewName'}
+      patch :update, id: canteen.id, canteen: {name: 'NewName'}
 
       canteen.reload
       expect(canteen.name).to_not eq 'NewName'

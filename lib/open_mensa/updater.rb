@@ -18,11 +18,6 @@ class OpenMensa::Updater
   def reset_stats
     @changed = false
     @errors = []
-    fetch.added_meals = 0
-    fetch.updated_meals = 0
-    fetch.removed_meals = 0
-    fetch.added_days = 0
-    fetch.updated_days = 0
   end
 
   def changed?
@@ -59,7 +54,7 @@ class OpenMensa::Updater
     err.errors.take(2).each do |error|
       create_validation_error! :no_xml, error.message
     end
-    fetch.state = 'broken'
+    fetch.state = 'invalid'
     fetch.save!
     false
   end
@@ -74,14 +69,14 @@ class OpenMensa::Updater
     version
   rescue OpenMensa::FeedValidator::InvalidFeedVersionError
     create_validation_error! :unknown_version
-    fetch.state = 'broken'
+    fetch.state = 'invalid'
     fetch.save!
     false
   rescue OpenMensa::FeedValidator::FeedValidationError => err
     err.errors.take(2).each do |error|
       create_validation_error! :invalid_xml, error.message
     end
-    fetch.state = 'broken'
+    fetch.state = 'invalid'
     fetch.save!
     false
   end
@@ -219,16 +214,8 @@ class OpenMensa::Updater
 
     return false unless fetch! && parse! && validate!
 
-    update_canteen case version.to_i
-      when 1 then
-        @document.root
-      when 2 then
-        node = @document.root.children.first
-        node = node.next while node.name != 'canteen'
-        node
-      else
-        nil
-    end
+    fetch.init_counters
+    update_canteen extract_canteen_node
   end
 
   def stats(json = true)
@@ -264,6 +251,17 @@ class OpenMensa::Updater
     @errors << FeedFetchError.create(messageable: fetch,
                                      message: message,
                                      code: code)
+  end
+
+  def extract_canteen_node
+    case version.to_i
+      when 1 then
+        @document.root
+      when 2 then
+        node = @document.root.children.first
+        node = node.next while node.name != 'canteen'
+        node
+    end
   end
 
   def canteen

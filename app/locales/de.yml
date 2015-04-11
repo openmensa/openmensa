@@ -146,6 +146,7 @@ de:
     create_button: Korrekturvorschlag senden
 
   parser:
+    title: 'Parser %{name}'
     name: Name
     info_url: Info-URL
     sources_added: '%{count} Quellen hinzugefügt.'
@@ -179,15 +180,37 @@ de:
     last_changed_at: Letzte Veränderung
     last_unchanged_at: Letzte Abruf
     last_broken_at: Letzter permanenter Fehler
+    last_invalid_at: Letztes mal invalide Daten
     last_failed_at: Letzter temporärer Fehler
     last_empty_at: Letzter leerer Abruf
     next_fetch_at: Nächster Abruf
 
+  feed_fetch:
+    state: Ergebnis
+    reason: Grund
+    executed_at: Zeitpunkt
+    days: Tage
+    meals: Essen
+    states:
+      fetching: Abruf läuft
+      fetched_at: Letzter Abruf
+      changed: Veränderung
+      unchanged: Keine Veränderung
+      broken: permanenter Fehler
+      failed: temporärer Fehler
+      empty: Keine Daten
+      invalid: Invalide Daten
+    reasons:
+      manual: Durch User ausgelöst
+      schedule: Durch Feed-Schedule ausgelöst
+      retry: Wiederholung nach Fehler
+
   canteen_actions:
-    open_messages: Mensa-Mitteilungen
-    fetch_feed: Feed abfragen
-    open_meals: Mensa-Seite
-    open_feed: Feed-URL öffen
+    open_messages: 'Feed %{name}-Mitteilungen'
+    fetch_feed: 'Feed %{name} abrufen'
+    open_meals: 'Mensa-Seite'
+    open_feed: 'Feed %{name} öffnen'
+    open_parser: Parser öffnen
 
   helpers:
     label:

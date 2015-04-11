@@ -1,6 +1,6 @@
 class FeedsController < ApplicationController
   before_action :new_resource, only: [:new, :create]
-  before_action :load_resource, only: [:update, :destroy, :fetch]
+  before_action :load_resource, only: [:update, :destroy, :fetch, :messages]
   load_and_authorize_resource
 
   def create
@@ -46,6 +46,10 @@ class FeedsController < ApplicationController
       format.html
       format.json { render json: json }
     end
+  end
+
+  def messages
+    @fetches = @feed.fetches.order(:executed_at=>:desc)
   end
 
   private

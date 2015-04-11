@@ -7,6 +7,7 @@ describe 'Developers', type: :feature do
   let(:developer) { FactoryGirl.create :developer }
   let(:parser) { FactoryGirl.create :parser, user: developer }
   let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
+  let(:feed) { FactoryGirl.create :feed, source: source, name: 'debug' }
   let(:canteen) { FactoryGirl.create :canteen }
 
   context 'as a developer' do
@@ -32,19 +33,6 @@ describe 'Developers', type: :feature do
         click_on 'Meine Mensen'
       end
 
-      it 'should be able to add a new canteen feed' do
-        click_on 'Neue Mensa hinzufügen'
-
-        fill_in 'Feed-Url', with: 'http://example.org/canteens.xml'
-        fill_in 'Name', with: 'Test-Mensa'
-        fill_in 'Stadt', with: 'Hunger'
-        fill_in 'Adresse', with: 'Essensweg 34, 12345 Hunger, Deutschland'
-        select 'Standard', from: 'Frühste Abrufstunde'
-        click_on 'Hinzufügen'
-
-        expect(page).to have_content 'Die Mensa wurde erfolgreich hinzugefügt.'
-      end
-
       it 'should be able to edit own canteens' do
         click_on 'Mensa bearbeiten'
 
@@ -54,8 +42,6 @@ describe 'Developers', type: :feature do
         new_address = 'Essensweg 34, 12345 Hunger, Deutschlandasd'
         new_city = 'Halle'
 
-        fill_in 'Feed-Url', with: new_url
-        fill_in 'Feed-Url für das Essen von heute', with: new_url_2
         fill_in 'Name', with: new_name
         fill_in 'Stadt', with: new_city
         fill_in 'Adresse', with: new_address
@@ -63,8 +49,6 @@ describe 'Developers', type: :feature do
 
         canteen.reload
 
-        expect(canteen.url).to eq(new_url)
-        expect(canteen.today_url).to eq(new_url_2)
         expect(canteen.name).to eq(new_name)
         expect(canteen.address).to eq(new_address)
         expect(canteen.city).to eq(new_city)
@@ -74,17 +58,18 @@ describe 'Developers', type: :feature do
     end
 
     context 'on my canteen page' do
-      let(:updater) { OpenMensa::Updater.new(canteen) }
+      let(:updater) { OpenMensa::Updater.new(feed, 'manual') }
 
       before do
+        feed
         visit canteen_path canteen
       end
 
       it 'should allow to fetch the canteen feed again' do
-        expect(OpenMensa::Updater).to receive(:new).with(canteen).and_return updater
+        expect(OpenMensa::Updater).to receive(:new).with(feed, 'manual').and_return updater
         expect(updater).to receive(:update).and_return true
 
-        click_on 'Feed abfragen'
+        click_on 'Feed debug abrufen'
 
         expect(page).to have_content 'Der Mensa-Feed wurde erfolgreich aktualisiert!'
         expect(page).to have_content canteen.name
@@ -110,13 +95,14 @@ describe 'Developers', type: :feature do
     end
 
     context 'on my messages page' do
-      let(:message) { FactoryGirl.create :feedValidationError, canteen: canteen, kind: :invalid_xml }
+      let(:message) { FactoryGirl.create :feedValidationError, messageable: feed, kind: :invalid_xml }
       before do
         message
         click_on 'Statusmitteilungen'
       end
 
       it 'should allow to view own messages' do
+        pending 'needs porting'
         click_on canteen.name
         expect(page).to have_content message.canteen.name
         expect(page).to have_content message.message

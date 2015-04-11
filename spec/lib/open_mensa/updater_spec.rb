@@ -104,7 +104,7 @@ describe OpenMensa::Updater do
         expect(message.version).to eq(nil)
         expect(updater.errors).to eq([message])
       end
-      expect(updater.fetch.state).to eq 'broken'
+      expect(updater.fetch.state).to eq 'invalid'
     end
 
     it 'well-formatted but non-valid xml data' do
@@ -118,7 +118,7 @@ describe OpenMensa::Updater do
         expect(message.version).to eq('1.0')
         expect(updater.errors).to eq([message])
       end
-      expect(updater.fetch.state).to eq 'broken'
+      expect(updater.fetch.state).to eq 'invalid'
     end
 
     it 'valid but non-openmensa xml data' do
@@ -132,7 +132,7 @@ describe OpenMensa::Updater do
         expect(message.version).to eq(nil)
         expect(updater.errors).to eq([message])
       end
-      expect(updater.fetch.state).to eq 'broken'
+      expect(updater.fetch.state).to eq 'invalid'
     end
   end
 
@@ -168,6 +168,8 @@ describe OpenMensa::Updater do
     end
 
     context 'with new data' do
+      before { updater.fetch.init_counters }
+
       it 'should add a new meals to a day' do
         meal_name = 'Essen 1'
         meal_category = 'Hauptgricht'
@@ -298,6 +300,8 @@ describe OpenMensa::Updater do
     end
 
     context 'with old data' do
+      before { updater.fetch.init_counters }
+
       it 'should allow to close the canteen on given days' do
         # build xml data
         root_element << day = xml_node('day')
