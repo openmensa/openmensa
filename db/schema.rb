@@ -218,12 +218,13 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   create_table "parsers", force: true do |t|
     t.integer  "user_id"
-    t.string   "name",       null: false
+    t.string   "name",           null: false
     t.string   "version"
     t.string   "info_url"
     t.string   "index_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_report_at"
   end
 
   add_index "parsers", ["user_id", "name"], name: "index_parsers_on_user_id_and_name", unique: true, using: :btree

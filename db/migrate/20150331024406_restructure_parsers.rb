@@ -7,6 +7,8 @@ class RestructureParsers < ActiveRecord::Migration
       t.string :info_url, null: true
       t.string :index_url, null: true
 
+      t.datetime :last_report_at, null: true
+
       t.timestamps
     end
     add_index :parsers, [:user_id, :name], unique: true

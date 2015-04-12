@@ -156,7 +156,7 @@ FactoryGirl.define do
 
   factory :feed do
     sequence(:name) {|n| "feed##{n}" }
-    sequence(:url) {|n| "example.org/feeds/#{n}.xml" }
+    sequence(:url) {|n| "http://example.org/feeds/#{n}.xml" }
     schedule '0 8-14 * * *'
 
     association :source

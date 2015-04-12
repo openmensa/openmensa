@@ -266,4 +266,49 @@ de:
 
   mailer:
     daily_report:
-      subject: 'OpenMensa: Aktuelle Feed-Mitteilungen'
+      subject: 'OpenMensa - %{name}: %{msg}'
+      feed_singleton_msgs:
+        past:
+          failed:
+            one: '%{subject} ist fehlgeschlagen'
+            other: '%{subject} sind fehlgeschlagen'
+          broken:
+            one: '%{subject} ist fehlgeschlagen'
+            other: '%{subject} sind fehlgeschlagen'
+          invalid:
+            one: '%{subject} war invalid'
+            other: '%{subject} waren invalid'
+          broken_failed: '%{subject} sind fehlgeschlagen'
+          broken_invalid: '%{subject} sind fehlgeschlagen'
+          failed_invalid: '%{subject} sind fehlgeschlagen oder invalid'
+          broken_failed_invalid: '%{subject} sind fehlgeschlagen'
+        presence:
+          failed:
+            one: '%{subject} schlägt fehl'
+            other: '%{subject} schlagen fehl'
+          broken:
+            one: '%{subject} schlägt fehl'
+            other: '%{subject} schlagen fehl'
+          invalid:
+            one: '%{subject} ist invalid'
+            other: '%{subject} sind invalid'
+          broken_failed:
+            one: '%{subject} schlägt fehl'
+            other: '%{subject} schlagen fehl'
+          broken_invalid:
+            one: '%{subject} schlägt fehl'
+            other: '%{subject} schlagen fehl'
+          failed_invalid:
+            one: '%{subject} schlägt fehl oder ist invalid'
+            other: '%{subject} schlagen fehl oder sind invalid'
+          broken_failed_invalid:
+            one: '%{subject} schlägt fehl'
+            other: '%{subject} schlagen fehl'
+      feed_subjects:
+        one_feed: '%{name}-Feed von %{source}'
+        all_feeds: Alle Feeds
+        all_feeds_for: 'Alle Feeds von %{sources}'
+        all_feeds_with_name: 'Alle %{name}-Feeds'
+        all_feeds_with_name_for: 'Alle %{name}-Feeds von %{sources}'
+        some_feeds: 'Feeds'
+        some_feeds_for: 'Feeds von %{sources}'

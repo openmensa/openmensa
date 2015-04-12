@@ -3,45 +3,49 @@ require_dependency 'message'
 
 describe OpenMensa::DailyReportTask do
   let(:task) { OpenMensa::DailyReportTask.new }
-  let(:user) { FactoryGirl.create :user }
-  let(:developer) { FactoryGirl.create :developer, last_report_at: Time.zone.now - 1.day }
-  let(:canteen) { FactoryGirl.create :canteen, user: developer }
+  let(:parsers) { FactoryGirl.create_list :parser, 3 }
+  let(:message) do
+    ActionMailer::Base.mail to: 'test@example.org',
+                                from: 'info@openmensa.org',
+                                subject: 'test',
+                                body: 'test content'
+  end
+  let(:null_message) { ActionMailer::Base::NullMail.new }
+  before { Timecop.freeze }
 
   context '#do' do
-    it 'should not send mail to user' do
-      user
-      expect(MessageMailer).not_to receive(:daily_report)
+    it 'should issue daily_report for every parser' do
+      expect(ParserMailer).to receive(:daily_report).with(parsers[0], nil).and_return(null_message)
+      expect(ParserMailer).to receive(:daily_report).with(parsers[1], nil).and_return(null_message)
+      expect(ParserMailer).to receive(:daily_report).with(parsers[2], nil).and_return(null_message)
+
       task.do
     end
 
-    it 'should not send mail to developer without last_report_at' do
-      developer.send_reports = false
-      developer.save!
-      expect(developer.last_report_at).to be_nil
-      expect(developer.send_reports?).to be_falsey
-      FactoryGirl.create :feedValidationError, canteen: canteen
-      expect(MessageMailer).not_to receive(:daily_report)
+    it 'should set last_report_at for genereated mails' do
+      expect(ParserMailer).to receive(:daily_report).with(parsers[0], nil).and_return(message)
+      expect(ParserMailer).to receive(:daily_report).with(parsers[1], nil).and_return(message)
+      expect(ParserMailer).to receive(:daily_report).with(parsers[2], nil).and_return(null_message)
+
       task.do
+
+      expect(parsers[0].reload.last_report_at).to be_within(1).of(Time.zone.now)
+      expect(parsers[1].reload.last_report_at).to be_within(1).of(Time.zone.now)
     end
 
-    it 'should not send mail to developer without messages since last_report_at' do
-      e = FactoryGirl.create :feedValidationError, canteen: canteen, created_at: developer.last_report_at - 2.minutes
-      expect(MessageMailer).not_to receive(:daily_report)
-      task.do
-    end
+    it 'should use and set last_report_at for genereated mails' do
+      last_reports_at = [1.days.ago, 2.days.ago, 4.years.ago]
+      parsers[0].update_attribute :last_report_at, last_reports_at[0]
+      parsers[1].update_attribute :last_report_at, last_reports_at[1]
+      parsers[2].update_attribute :last_report_at, last_reports_at[2]
+      expect(ParserMailer).to receive(:daily_report).with(parsers[0], parsers[0].reload.last_report_at).and_return(message)
+      expect(ParserMailer).to receive(:daily_report).with(parsers[1], parsers[1].reload.last_report_at).and_return(message)
+      expect(ParserMailer).to receive(:daily_report).with(parsers[2], parsers[2].reload.last_report_at).and_return(ActionMailer::Base::NullMail.new)
 
-    it 'should send mail to developers with messages' do
-      e = FactoryGirl.create :feedValidationError, canteen: canteen
-      expect(MessageMailer).to receive(:daily_report).with(developer, [e]).and_return(double(deliver: true))
       task.do
-    end
 
-    it 'should updated last_report_at time' do
-      e = FactoryGirl.create :feedValidationError, canteen: canteen
-      expect(MessageMailer).to receive(:daily_report).with(developer, [e]).and_return(double(deliver: true))
-      task.do
-      developer.reload
-      expect(developer.last_report_at).to be >= e.created_at
+      expect(parsers[0].reload.last_report_at).to be_within(1).of(Time.zone.now)
+      expect(parsers[1].reload.last_report_at).to be_within(1).of(Time.zone.now)
     end
   end
 end

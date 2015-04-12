@@ -1,0 +1,35 @@
+In den letzten 24 Stunden sind folgende Probleme aufgetretten.
+Mehr Information finden Sie unter:
+<%= user_messages_url(@user, only_path: false) %>
+
+<% @notables.each do |source| %>
+
+<%=source.canteen.name %> (<%= source.name %>)
+===================
+<% source.feeds.select { |feed| feed.notable? }.each do |feed| %>
+
+* Feed <%= feed.name %> / <%= feed.url %>
+<% feed.messages do |message, count, first, last| %>
+  - <%= message.to_text_mail %>
+<% if count > 1 %>
+    Erstmals: <%=l first %>
+    Zuletzt: <%=l last %>
+    Anzahl: <%= count %>
+<% else %>
+    Zeitpunkt: <%=l first %>
+<% end %>
+<% end %>
+<% if source.feeds.any?(&:regular?) %>
+
+<% if source.feeds.select(&:regular?).size == 1 %>
+* Feed <%= source.feeds.select(&:regular?).first.name %> ist fehlerfrei.
+<% else %>
+* Feeds <%= source.feeds.select(&:regular?).map(&:name).join(", ") %> sind fehlerfrei.
+<% end %>
+<% end %>
+<% end %>
+
+<% end %>
+
+Die vollständige Liste mit Mitteilungen finden Sie unter:
+<%= user_messages_url(@user, only_path: false) %>
