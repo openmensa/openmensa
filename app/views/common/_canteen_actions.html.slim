@@ -4,10 +4,10 @@ section
   ul.favs
     li=link_to t(:canteen_actions, :open_meals), canteen_path(canteen), class: 'icon-coffee'
     li=link_to t(:edit_canteen), edit_canteen_path(canteen), class: 'icon-edit'
-    - if canteen.active
-        li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
-    - else
+    - if canteen.archived?
         li=link_to t(:activate_canteen), canteen_active_path(canteen), method: :post, class: 'icon-play'
+    - else
+        li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
 - canteen.parsers.select { |parser| can? :edit, parser }.each do |parser|
   section
     header

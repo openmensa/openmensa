@@ -6,7 +6,7 @@ class CanteenErrorsController < ApplicationController
   end
 
   def create
-    if @canteen.update_attributes active: true
+    if @error_report.update_attributes error_params
       flash[:notice] = t('message.error_reported')
       redirect_to canteen_path @canteen
     else
@@ -28,5 +28,9 @@ class CanteenErrorsController < ApplicationController
   def load_resource
     @canteen = Canteen.find params[:canteen_id]
     authorize! :show, @canteen
+  end
+
+  def error_params
+    params.require(:error_report).permit(:message)
   end
 end

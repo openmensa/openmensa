@@ -11,7 +11,7 @@
         = form_for [@canteen, @error_report] do |form|
           p
             = form.label :message, t(:canteen_error, :message)
-            = form.text_field :message
+            = form.text_area :message
           p
             = submit_tag t(:canteen_error, :create_button)
 

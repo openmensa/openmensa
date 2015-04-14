@@ -89,7 +89,7 @@ describe 'Developers', type: :feature do
       end
 
       context 'with deactivated canteen' do
-        let(:canteen) { FactoryGirl.create :disabled_canteen }
+        let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
 
         it 'should allow to disable the canteen' do
           click_on 'Mensa in Betrieb nehmen'

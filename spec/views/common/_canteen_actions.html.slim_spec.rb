@@ -23,7 +23,7 @@ describe 'common/_canteen_actions.html.slim', type: :view do
   end
 
   context 'with deactivate canteen' do
-    let(:canteen) { FactoryGirl.create(:disabled_canteen) }
+    let(:canteen) { FactoryGirl.create(:canteen, state: 'archived') }
     it 'should cantain a link to activate the canteen' do
       is_expected.to include('Mensa in Betrieb nehmen')
     end

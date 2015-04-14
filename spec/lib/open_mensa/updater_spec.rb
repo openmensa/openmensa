@@ -654,6 +654,26 @@ describe OpenMensa::Updater do
         expect(canteen.meals).to have(0).items
         expect(updater.fetch.state).to eq 'empty'
       end
+
+      it 'should activate a wanted canteen' do
+        canteen.update_attributes state: 'wanted'
+        feed.url = 'http://example.com/feed_v2.xml'
+        stub_request(:any, 'example.com/feed_v2.xml')
+          .to_return(body: mock_file('feed_v2.xml'), status: 200)
+        expect { updater.update }.to change { canteen.reload.state }.from('wanted').to('active')
+        expect(canteen.meals).to have(9).items
+        expect(updater.fetch.state).to eq 'changed'
+      end
+
+      it 'should activate a empty canteen' do
+        canteen.update_attributes state: 'empty'
+        feed.url = 'http://example.com/feed_v2.xml'
+        stub_request(:any, 'example.com/feed_v2.xml')
+          .to_return(body: mock_file('feed_v2.xml'), status: 200)
+        expect { updater.update }.to change { canteen.reload.state }.from('empty').to('active')
+        expect(canteen.meals).to have(9).items
+        expect(updater.fetch.state).to eq 'changed'
+      end
     end
   end
 end

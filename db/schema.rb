@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.float    "longitude"
     t.float    "latitude"
     t.string   "city"
-    t.boolean  "active",          default: true
     t.string   "state",           default: "wanted", null: false
     t.string   "phone"
     t.string   "email"
@@ -222,9 +221,9 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.string   "version"
     t.string   "info_url"
     t.string   "index_url"
+    t.datetime "last_report_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "last_report_at"
   end
 
   add_index "parsers", ["user_id", "name"], name: "index_parsers_on_user_id_and_name", unique: true, using: :btree

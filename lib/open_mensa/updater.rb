@@ -200,6 +200,7 @@ class OpenMensa::Updater
       fetch.state = 'empty'
     elsif changed?
       fetch.state = 'changed'
+      canteen.update_attributes state: 'active'
     else
       fetch.state = 'unchanged'
     end

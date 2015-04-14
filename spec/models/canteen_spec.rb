@@ -4,13 +4,15 @@ describe Canteen, type: :model do
   let(:canteen) { FactoryGirl.create :canteen }
 
   it { is_expected.not_to accept_values_for(:name, nil, '') }
+  it { is_expected.not_to accept_values_for(:state, nil, '', 'test') }
+  it { is_expected.to accept_values_for(:state, 'wanted', 'active', 'empty', 'archived') }
 
   describe '#fetch_state' do
     subject { canteen.fetch_state }
 
     context 'when canteen is disabled' do
       before do
-        canteen.update_attribute :active, false
+        canteen.update_attribute :state, 'archived'
       end
 
       it { is_expected.to eq :out_of_order }

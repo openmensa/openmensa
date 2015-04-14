@@ -33,6 +33,7 @@ FactoryGirl.define do
   end
 
   factory :canteen do
+    state 'active'
     sequence(:name) {|n| "Mensa ##{n}" }
     address 'Marble Street, 12345 City'
     city 'City'
@@ -41,6 +42,7 @@ FactoryGirl.define do
     sequence(:longitude) {|n| (n % 360) - 180 }
 
     trait :with_meals do
+      state 'empty'
       after(:create) do |canteen|
         FactoryGirl.create :yesterday, :with_meals, canteen: canteen
         FactoryGirl.create :today, :with_meals, canteen: canteen
@@ -49,16 +51,13 @@ FactoryGirl.define do
     end
 
     trait :with_unordered_meals do
+      state 'empty'
       after(:create) do |canteen|
         FactoryGirl.create :yesterday, :with_unordered_meals, canteen: canteen
         FactoryGirl.create :today, :with_unordered_meals, canteen: canteen
         FactoryGirl.create :tomorrow, :with_unordered_meals, canteen: canteen
       end
     end
-  end
-
-  factory :disabled_canteen, parent: :canteen do
-    active false
   end
 
   factory :day do

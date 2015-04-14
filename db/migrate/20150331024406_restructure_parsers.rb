@@ -123,13 +123,17 @@ class RestructureParsers < ActiveRecord::Migration
               end
               c.url = nil
               c.today_url = nil
-              c.state = 'working'
+              if c.active
+                c.state = 'active'
+              else
+                c.state = 'archived'
+              end
               c.save!
             end
           end
         end
         change_table :canteens do |t|
-          t.remove :url, :today_url, :fetch_hour, :user_id
+          t.remove :url, :today_url, :fetch_hour, :user_id, :active
         end
       end
 
@@ -139,6 +143,7 @@ class RestructureParsers < ActiveRecord::Migration
             t.string :url
             t.string :today_url, null: true
             t.integer :fetch_hour
+            t.boolean :active, default: false
             t.references :user
           end
           Canteen.reset_column_information
@@ -154,6 +159,8 @@ class RestructureParsers < ActiveRecord::Migration
                 end
               end
               c.user_id = s.parser.user_id
+              c.state = 'active'
+              c.active = c.state == 'archived'
               c.save!
             end
           end
