@@ -21,7 +21,7 @@ class DataProposalsController < ApplicationController
     @data_proposal = if @user.nil? or @user.internal?
       User.anonymous
     else
-      @data_proposal
+      @user
     end.data_proposals.new canteen: @canteen
   end
 

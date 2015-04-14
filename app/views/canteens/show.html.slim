@@ -16,6 +16,12 @@
       = map @canteen
       .content
         address= @canteen.address
+        - if @canteen.phone.present?
+          p.icon-phone#phone
+            =@canteen.phone
+        - if @canteen.email.present?
+          p.icon-envelope#email
+            =link_to @canteen.email, "mailto:#{@canteen.email}"
         p.action
           = link_to t(:canteen, :correct_data), new_canteen_data_proposals_path(@canteen), class: "btn btn-primary"
     = render partial: 'report_error'

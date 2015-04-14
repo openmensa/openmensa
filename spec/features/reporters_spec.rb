@@ -43,7 +43,7 @@ describe 'Reporters: ', type: :feature do
 
     click_on 'Daten korrigieren'
 
-    fill_in 'Adress', with: 'Neue Straße 4, 33024 Halsleben'
+    fill_in 'Adresse', with: 'Neue Straße 4, 33024 Halsleben'
     fill_in 'Telefon', with: '0384 5833 005'
     click_on 'Korrekturvorschlag senden'
     expect(page).to have_content('Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.')

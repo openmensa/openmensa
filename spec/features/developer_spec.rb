@@ -39,12 +39,16 @@ describe 'Developers', type: :feature do
         new_url = 'http://example.org/canteens.xml'
         new_url_2 = 'http://example.org/canteens-today.xml'
         new_name = 'Test-Mensa'
-        new_address = 'Essensweg 34, 12345 Hunger, Deutschlandasd'
+        new_address = 'Essensweg 34, 12345 Hunger, Deutschland'
         new_city = 'Halle'
+        new_phone = '0331 498 304/234'
+        new_email = 'test2@new-domain.org'
 
         fill_in 'Name', with: new_name
         fill_in 'Stadt', with: new_city
         fill_in 'Adresse', with: new_address
+        fill_in 'Telefonnummer', with: new_phone
+        fill_in 'E-Mail', with: new_email
         click_on 'Speichern'
 
         canteen.reload
@@ -52,6 +56,8 @@ describe 'Developers', type: :feature do
         expect(canteen.name).to eq(new_name)
         expect(canteen.address).to eq(new_address)
         expect(canteen.city).to eq(new_city)
+        expect(canteen.phone).to eq(new_phone)
+        expect(canteen.email).to eq(new_email)
 
         expect(page).to have_content 'Mensa gespeichert.'
       end

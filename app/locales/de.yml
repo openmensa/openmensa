@@ -233,6 +233,8 @@ de:
       url: http://mydomain.de/mensa-greuther-fuerth.xml
       name: Mensa Greuther Fürth
       address: Straße + Hausnummer, Postleitzahl + Stadt, Germany
+      email: test@example.org
+      phone: '(0331) 4040 389/390'
 
   messages:
     html:

@@ -63,6 +63,6 @@ class CanteensController < ApplicationController
   end
 
   def canteen_params
-    params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city)
+    params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city, :phone, :email)
   end
 end
