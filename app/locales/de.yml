@@ -86,7 +86,7 @@ de:
     longitude: Longitude
     latitude_and_longitude: "Latitude & Longitude"
     map_marker: "Marker verschieben"
-    last_update_at: 'Letzte Aktualisierung:'
+    last_update_at: 'Letzter Abruf:'
     fetch_up_to_date: Daten aktuell
     fetch_up_to_date_message: Die Essendaten wurden erst vor kurzem aktualisiert.
     fetch_needed: Aktualisierung notwendig
