@@ -24,5 +24,8 @@
             =link_to @canteen.email, "mailto:#{@canteen.email}"
         p.action
           = link_to t(:canteen, :correct_data), new_canteen_data_proposals_path(@canteen), class: "btn btn-primary"
-    = render partial: 'report_error'
+    - @canteen.sources.map(&:parser).each do |parser|
+      - if parser.info_box?
+        = render 'parser_info', parser: parser
+    = render partial: 'feedback'
     = render partial: 'canteen_status', locals: { canteen: @canteen }

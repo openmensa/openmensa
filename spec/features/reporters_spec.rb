@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Reporters: ', type: :feature do
   let!(:canteen) { FactoryGirl.create :canteen }
+  let(:parser) { FactoryGirl.create :parser }
+  let(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
 
   it 'should be able to register a intereseted canteen' do
     visit root_path
@@ -31,21 +33,33 @@ describe 'Reporters: ', type: :feature do
   it 'should be able to report an issues for a canteen' do
     visit canteen_path(canteen)
 
-    click_on 'Fehler melden'
+    click_on 'Rückmeldung geben'
 
     fill_in 'Kurzbeschreibung', with: 'Die Preisinformationen werden nicht mehr korrekt abgetrennt!'
-    click_on 'Fehler melden'
-    expect(page).to have_content('Deine Fehler wurde erfolgreich weitergeleitet.')
+    click_on 'Rückmeldung absenden'
+    expect(page).to have_content('Deine Feedback wurde erfolgreich weitergeleitet.')
   end
 
   it 'should be able to report correct canteen meta data' do
     visit canteen_path(canteen)
 
-    click_on 'Daten korrigieren'
+    click_on 'Daten korrigieren/ergänzen'
 
     fill_in 'Adresse', with: 'Neue Straße 4, 33024 Halsleben'
     fill_in 'Telefon', with: '0384 5833 005'
     click_on 'Korrekturvorschlag senden'
     expect(page).to have_content('Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.')
+  end
+
+  it 'should be able to take maintainership for obsolete parser' do
+    source
+    parser.update_attributes maintainer_wanted: true
+    visit canteen_path(canteen)
+
+    click_on 'Am Parser mitarbeiten'
+
+    fill_in 'Kurzbeschreibung', with: 'Ich kann Python. Melde ich mal ich will mithelfen.'
+    click_on 'Rückmeldung absenden'
+    expect(page).to have_content('Deine Feedback wurde erfolgreich weitergeleitet.')
   end
 end

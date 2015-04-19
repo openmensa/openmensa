@@ -30,7 +30,6 @@ de:
   add_wanted_canteen: 'Gewünschte Mensa melden'
   create_wanted_canteen: Mensa als gewünscht eintragen
   wanted_canteens: Gewünschte Mensen
-  report_canteen_error: Melde Fehler im Mensaspeisemenü
   correct_canteen_data: Mensadaten korrigieren
 
   service:
@@ -90,15 +89,18 @@ de:
     feed_updated: Der Feed wurde erfolgreich aktualisiert.
     feed_deleted: Der Feed wurde erfolgreich geschlöscht.
     source_created: 'Quelle wurde erfolgeich hinzufgefügt.'
-    error_reported: Deine Fehler wurde erfolgreich weitergeleitet.
-    error_report_failed: Der Fehlerbeschreibung konnte nicht gespeichert werden.
+    feedback_sumitted: Deine Feedback wurde erfolgreich weitergeleitet.
+    feedback_failed: Deine Fehlerbeschreibung konnte nicht gespeichert werden.
     data_proposal_created: Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.
 
   profile:
     developer_settings: 'Entwickler-Einstellungen'
     name: Name
     email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
-    send_reports: Sende Error-Reports per Mail (maximal täglich)
+    notify_email: "E-Mail für Fehlerberichte und ähnliches <small>(nicht öffentlich, Standardmäßig wird die normale E-Mail genommen)</small>"
+    public_email: "Öffentliche E-Mail <small>(optinal, wird neben den Mensen angezeigt)</small>"
+    public_name: 'Öffentlicher Name <small>(optinal, für Mensa-Seite)</small>'
+    info_url: 'Website <small>(optinal, für Mensa-Seite)</small>'
 
   canteen:
     url: Feed-Url
@@ -135,12 +137,14 @@ de:
       successful_deactivated: "Die Mensa ist nun außer Betrieb! Sie wird nicht mehr aufgelistet oder abgerufen."
       errored_deactivated: "Die Mensa konnte nicht außer Betrieb genommen werden."
     deactivated: " (Außer Betrieb)"
-    report_error: Fehler melden
-    correct_data: Daten korrigieren
+    give_feedback: Rückmeldung <small>(z.B. Fehler)</small>
+    correct_data: Daten korrigieren/ergänzen
+    parser_info: 'Über Parser "%{name}"'
 
-  canteen_error:
+  canteen_feedback:
     message: Kurzbeschreibung
-    create_button: 'Fehler melden'
+    create_button: 'Rückmeldung absenden'
+    give_feedback: 'Melde Fehler im Mensaspeisemenü oder gebe Feedback'
 
   data_proposal:
     create_button: Korrekturvorschlag senden
@@ -148,10 +152,13 @@ de:
   parser:
     title: 'Parser %{name}'
     name: Name
-    info_url: Info-URL
+    info_url: 'Info-URL <small>(Für Mensa-Seite)</small>'
+    index_url: 'Index-URL <small>(Auflistung der aktuellen Mensa-Liste dieses Parsers)</small>'
     sources_added: '%{count} Quellen hinzugefügt.'
     sources_updated: '%{count} Quellen aktualisiert.'
     sources_deleted: '%{count} Quellen archiviert.'
+    open_info_url: 'Besuche die Parser-Seite'
+    maintainer_wanted: 'Unterstützer für Parser erwünscht'
 
   source:
     name: Name

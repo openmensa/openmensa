@@ -71,15 +71,6 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   add_index "days", ["canteen_id"], name: "index_days_on_canteen_id", using: :btree
 
-  create_table "error_reports", force: true do |t|
-    t.integer  "canteen_id"
-    t.integer  "user_id"
-    t.string   "state",      default: "new", null: false
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "favorites", force: true do |t|
     t.integer  "canteen_id"
     t.integer  "user_id"
@@ -99,6 +90,15 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.integer  "updated_meals"
     t.integer  "removed_meals"
     t.datetime "executed_at",   null: false
+  end
+
+  create_table "feedbacks", force: true do |t|
+    t.integer  "canteen_id"
+    t.integer  "user_id"
+    t.string   "state",      default: "new", null: false
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "feeds", force: true do |t|
@@ -217,10 +217,11 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   create_table "parsers", force: true do |t|
     t.integer  "user_id"
-    t.string   "name",           null: false
+    t.string   "name",                              null: false
     t.string   "version"
     t.string   "info_url"
     t.string   "index_url"
+    t.boolean  "maintainer_wanted", default: false, null: false
     t.datetime "last_report_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -263,6 +264,10 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.boolean  "admin"
     t.boolean  "developer",                default: false
     t.datetime "last_report_at"
+    t.string   "public_email"
+    t.string   "public_name"
+    t.string   "notify_email"
+    t.string   "info_url"
   end
 
 end

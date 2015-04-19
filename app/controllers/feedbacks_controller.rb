@@ -1,4 +1,4 @@
-class CanteenErrorsController < ApplicationController
+class FeedbacksController < ApplicationController
   before_action :load_resource
   before_action :new_resource
 
@@ -6,11 +6,11 @@ class CanteenErrorsController < ApplicationController
   end
 
   def create
-    if @error_report.update_attributes error_params
-      flash[:notice] = t('message.error_reported')
+    if @feedback.update_attributes error_params
+      flash[:notice] = t('message.feedback_sumitted')
       redirect_to canteen_path @canteen
     else
-      flash[:error] = t('message.error_report_failed')
+      flash[:error] = t('message.feedback_failed')
       render action: :new
     end
   end
@@ -18,11 +18,11 @@ class CanteenErrorsController < ApplicationController
   private
 
   def new_resource
-    @error_report = if @user.nil? or @user.internal?
+    @feedback = if @user.nil? or @user.internal?
       User.anonymous
     else
       @user
-    end.error_reports.new
+    end.feedbacks.new
   end
 
   def load_resource
@@ -31,6 +31,6 @@ class CanteenErrorsController < ApplicationController
   end
 
   def error_params
-    params.require(:error_report).permit(:message)
+    params.require(:feedback).permit(:message)
   end
 end

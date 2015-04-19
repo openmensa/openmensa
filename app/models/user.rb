@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :canteens
   has_many :favorites
   has_many :parsers
-  has_many :error_reports
+  has_many :feedbacks
   has_many :data_proposals
   has_many :canteens, through: :parsers
 
@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true}
   validates :email, presence: true, if: :developer?
+  validates :public_name, presence: true, if: :info_url?
 
   default_scope -> { where.not(login: %w(anonymous system)) }
 
@@ -44,6 +45,10 @@ class User < ActiveRecord::Base
 
   def gravatars?
     true
+  end
+
+  def info_url?
+    info_url.present?
   end
 
   def language

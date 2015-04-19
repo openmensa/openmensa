@@ -27,8 +27,7 @@ section
           li=link_to feed_messages_path(feed), title: t(:canteen_actions, :open_messages, name: feed.name) do
             i.icon-envelope
           li=link_to feed.url, title: t(:canteen_actions, :open_feed, name: feed.name) do
-            /i.icon-file-code-o
-            i.icon-external-link
+            i.icon-code
           - if feed.source_url.present?
             li=link_to feed.source_url, title: t(:canteen_actions, :open_source, name: feed.name) do
               i.icon-external-link

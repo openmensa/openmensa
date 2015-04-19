@@ -30,6 +30,19 @@ describe User, type: :model do
     expect(user.save).to be_falsey
   end
 
+  it 'should require an public name for a info url' do
+    user = FactoryGirl.create :user
+
+    user.info_url = 'bob@example.org'
+    expect(user).to_not be_valid
+    expect(user.save).to be_falsey
+
+    user.public_name = 'Bob'
+
+    expect(user).to be_valid
+    user.save
+  end
+
   # reserved logins
   it { is_expected.not_to accept_values_for(:login, 'anonymous', 'system') }
 

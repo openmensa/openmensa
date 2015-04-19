@@ -14,13 +14,13 @@ describe 'Profile page', type: :feature do
     expect(page).to have_content('E-Mail')
 
     fill_in 'Name', with: 'Boby Short'
-    fill_in 'E-Mail', with: 'boby@altimos.de'
+    fill_in 'E-Mail (nicht öffentlich, wird für', with: 'boby@altimos.de'
     click_on 'Speichern'
 
     expect(page).to have_content('Profil gespeichert.')
 
     expect(find_field('Name').value).to eq('Boby Short')
-    expect(find_field('E-Mail').value).to eq('boby@altimos.de')
+    expect(find_field('E-Mail (nicht öffentlich, wird für').value).to eq('boby@altimos.de')
   end
 
   it 'should raise error when user tries to update with empty name' do
@@ -28,12 +28,12 @@ describe 'Profile page', type: :feature do
     expect(page).to have_content('E-Mail')
 
     fill_in 'Name', with: ''
-    fill_in 'E-Mail', with: 'boby@altimos.de'
+    fill_in 'E-Mail (nicht öffentlich, wird für', with: 'boby@altimos.de'
     click_on 'Speichern'
 
     expect(page).to have_content('muss ausgefüllt werden')
     expect(find_field('Name').value).to eq('')
-    expect(find_field('E-Mail').value).to eq('boby@altimos.de')
+    expect(find_field('E-Mail (nicht öffentlich, wird für').value).to eq('boby@altimos.de')
   end
 
   it 'should allow user to add an identity' do

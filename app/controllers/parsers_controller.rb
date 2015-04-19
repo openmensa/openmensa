@@ -45,6 +45,6 @@ class ParsersController < ApplicationController
   end
 
   def parser_params
-    params.require(:parser).permit(:name, :info_url)
+    params.require(:parser).permit(:name, :info_url, :index_url, :maintainer_wanted)
   end
 end

@@ -29,5 +29,49 @@ describe 'Canteen', type: :feature do
 
       expect(page).to have_content 'test@example.org'
     end
+
+    context 'parser info' do
+      let(:owner) { FactoryGirl.create :developer }
+      let(:parser) { FactoryGirl.create :parser, user: owner }
+      let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen}
+
+      it 'should per default not contain any parser info' do
+        visit canteen_path(canteen)
+        expect(page).to_not have_content('Über Parser')
+      end
+
+      it 'should contain user name if wanted' do
+        owner.update_attributes public_name: 'Hans Otto'
+        visit canteen_path(canteen)
+
+        expect(page).to have_content 'Der Parser wird von Hans Otto bereitgestellt.'
+      end
+
+      it 'should contain a user info page if wanted' do
+        info_url = 'https://github.com/hansotto'
+        owner.update_attributes public_name: 'Hans Otto', info_url: info_url
+        visit canteen_path(canteen)
+
+        expect(page).to have_link_to(info_url)
+      end
+
+      it 'should contain the user public email if wanted' do
+        public_email = 'test@example.com'
+        owner.update_attributes public_email: public_email
+        visit canteen_path(canteen)
+
+        expect(page).to have_content(public_email)
+        expect(page).to have_link_to("mailto:#{public_email}")
+      end
+
+      it 'should contain link to parser page if provided' do
+        info_url = 'https://github.com/hansotto/om-parser'
+        parser.update_attributes info_url: info_url
+        visit canteen_path(canteen)
+
+        expect(page).to have_link_to(info_url)
+        expect(page).to have_content(info_url)
+      end
+    end
   end
 end

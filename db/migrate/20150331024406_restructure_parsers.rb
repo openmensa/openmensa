@@ -6,6 +6,7 @@ class RestructureParsers < ActiveRecord::Migration
       t.string :version, null: true
       t.string :info_url, null: true
       t.string :index_url, null: true
+      t.boolean :maintainer_wanted, default: false, null: false
 
       t.datetime :last_report_at, null: true
 
@@ -56,7 +57,7 @@ class RestructureParsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :error_reports do |t|
+    create_table :feedbacks do |t|
       t.references :canteen
       t.references :user
       t.string :state, default: 'new', null: false
@@ -89,6 +90,13 @@ class RestructureParsers < ActiveRecord::Migration
 
     change_table :messages do |t|
       t.references :messageable, polymorphic: true, index: true
+    end
+
+    change_table :users do |t|
+      t.string :public_email, null: true
+      t.string :public_name, null: true
+      t.string :notify_email, null: true
+      t.string :info_url, null: true
     end
 
     reversible do |dir|
@@ -160,7 +168,7 @@ class RestructureParsers < ActiveRecord::Migration
               end
               c.user_id = s.parser.user_id
               c.state = 'active'
-              c.active = c.state == 'archived'
+              c.active = c.state == 'active'
               c.save!
             end
           end

@@ -116,31 +116,33 @@ describe 'Developers', type: :feature do
     end
 
     context 'on profile page' do
-      it 'should allow to activate (daily) report mails' do
-        expect(developer.send_reports?).to be_falsey
+      it 'should be able to set notification email' do
+        expect(developer.notify_email).to be_nil
 
-        check 'Sende Error-Reports per Mail (maximal täglich)'
+        fill_in 'E-Mail für Fehlerberichte', with: 'test+openmensa@example.com'
         click_on 'Speichern'
 
-        developer.reload
-
-        expect(developer.send_reports?).to be_truthy
+        expect(developer.reload.notify_email).to eq 'test+openmensa@example.com'
       end
 
-      it 'should allow to deactivate (daily) report mails' do
-        developer.send_reports = true
-        developer.save!
+      it 'should be able to set public information' do
+        expect(developer.public_name).to be_nil
+        expect(developer.public_email).to be_nil
+        expect(developer.info_url).to be_nil
 
-        uncheck 'Sende Error-Reports per Mail (maximal täglich)'
+        fill_in 'Website', with: 'http://example.org'
+        fill_in 'Öffentlicher Name', with: 'Hans Otto'
+        fill_in 'Öffentliche E-Mail', with: 'openmensa@example.org'
         click_on 'Speichern'
 
         developer.reload
-
-        expect(developer.send_reports?).to be_falsey
+        expect(developer.public_name).to eq 'Hans Otto'
+        expect(developer.public_email).to eq 'openmensa@example.org'
+        expect(developer.info_url).to eq 'http://example.org'
       end
 
       it 'should not be able to remove email' do
-        fill_in 'E-Mail', with: ''
+        fill_in 'E-Mail (nicht öffentlich, wird für', with: ''
         click_on 'Speichern'
 
         expect(page).to have_content('muss ausgefüllt werden')
@@ -155,7 +157,7 @@ describe 'Developers', type: :feature do
     end
 
     it 'should become a developer when he enters an email' do
-      fill_in 'E-Mail', with: 'boby@altimos.de'
+      fill_in 'E-Mail (nicht öffentlich, wird für', with: 'boby@altimos.de'
       click_on 'Speichern'
 
       user.reload
