@@ -40,18 +40,18 @@ describe 'Developers', type: :feature do
         expect(page).to have_content 'Der Parser wurde erfolgreich aktualisiert.'
       end
 
-      it 'should be able to import sources from info url' do
-        info_url = 'http://example.org/sources.json'
-        stub_request(:any, info_url)
+      it 'should be able to import sources from index url' do
+        index_url = 'http://example.org/sources.json'
+        stub_request(:any, index_url)
           .to_return(body: mock_file('sources.json'), status: 200)
 
         click_on parser.name
-        expect(page).to_not have_link('Aktualisiere Quellen mittels Info-URL')
+        expect(page).to_not have_link('Aktualisiere Quellen mittels Index-URL')
 
-        fill_in 'Info-URL', with: info_url
+        fill_in 'Index-URL', with: index_url
         click_on 'Speichern'
 
-        click_on 'Aktualisiere Quellen mittels Info-URL'
+        click_on 'Aktualisiere Quellen mittels Index-URL'
 
         expect(page).to have_content '2 Quellen hinzugefügt.'
       end

@@ -4,6 +4,7 @@ class Parser < ActiveRecord::Base
   belongs_to :user
   has_many :sources
   has_many :canteens, through: :sources
+  has_many :messages, as: :messageable
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
 

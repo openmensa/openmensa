@@ -8,9 +8,9 @@
           = render partial: 'form', object: form
           p
             = submit_tag t(:save)
-        - if @parser.info_url.present?
-          = link_to sync_parser_path(@parser), class: "btn btn-primary", title: 'Aktualisiere Quellen mittels Info-URL', method: :post do
-            = 'Aktualisiere Quellen mittels Info-URL'
+        - if @parser.index_url.present?
+          = link_to sync_parser_path(@parser), class: "btn btn-primary", title: 'Aktualisiere Quellen mittels Index-URL', method: :post do
+            = 'Aktualisiere Quellen mittels Index-URL'
         = link_to new_parser_source_path(@parser), class: "btn btn-primary", title: 'Neue Quelle/Mensa hinzufügen' do
           = 'Neue Quelle/Mensa hinzufügen'
     - @sources.each do |s|

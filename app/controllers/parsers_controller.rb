@@ -30,7 +30,7 @@ class ParsersController < ApplicationController
   end
 
   def sync
-    @synchroniser = OpenMensa::SourceSynchroniser.new @parser
+    @synchroniser = OpenMensa::ParserUpdater.new @parser
     @synchroniser.sync
   end
 

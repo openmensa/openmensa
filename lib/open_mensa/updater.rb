@@ -1,10 +1,9 @@
 require 'open-uri'
 require_dependency 'message'
 
-class OpenMensa::Updater
+class OpenMensa::Updater < OpenMensa::BaseUpdater
   include Nokogiri
-  attr_reader :feed, :fetch, :document, :version, :data
-  attr_reader :errors
+  attr_reader :feed, :fetch
 
   def initialize(feed, reason, options = {})
     options = {version: nil, today: false}.update options
@@ -15,13 +14,8 @@ class OpenMensa::Updater
     reset_stats
   end
 
-  def reset_stats
-    @changed = false
-    @errors = []
-  end
-
-  def changed?
-    @changed
+  def messageable
+    fetch
   end
 
   # 1. Fetch feed data
@@ -59,29 +53,20 @@ class OpenMensa::Updater
     false
   end
 
-  # 2. Validate XML document
+  # 3. Validate XML document
   def validate!
-    OpenMensa::FeedValidator.new(document).tap do |validator|
-      @version = validator.version
-      fetch.version = validator.version
-      validator.validate!
+    result = super
+    fetch.version = version
+    if result
+      result
+    else
+      fetch.state = 'invalid'
+      fetch.save!
+      false
     end
-    version
-  rescue OpenMensa::FeedValidator::InvalidFeedVersionError
-    create_validation_error! :unknown_version
-    fetch.state = 'invalid'
-    fetch.save!
-    false
-  rescue OpenMensa::FeedValidator::FeedValidationError => err
-    err.errors.take(2).each do |error|
-      create_validation_error! :invalid_xml, error.message
-    end
-    fetch.state = 'invalid'
-    fetch.save!
-    false
   end
 
-  # 3. process data
+  # 4. process data
   def add_meal(day, category, meal, pos = nil)
     day.meals.create(
       category: category,
@@ -240,19 +225,6 @@ class OpenMensa::Updater
   end
 
   private
-
-  def create_validation_error!(kind, message = nil)
-    @errors << FeedValidationError.create!(messageable: fetch,
-                                           version: version,
-                                           message: message,
-                                           kind: kind)
-  end
-
-  def create_fetch_error!(message, code = nil)
-    @errors << FeedFetchError.create(messageable: fetch,
-                                     message: message,
-                                     code: code)
-  end
 
   def extract_canteen_node
     case version.to_i
