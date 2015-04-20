@@ -30,11 +30,12 @@ class RestructureParsers < ActiveRecord::Migration
       t.integer :priority, default: 0, null: false
       t.string :name, null: false
       t.string :url, null: false
-      t.string :schedule, null: false
-      t.string :retry
+      t.string :schedule, null: true
+      t.integer :retry, array: true, null: true
       t.string :source_url, null: true
       t.datetime :last_fetched_at, null: true
       t.datetime :next_fetch_at, null: true
+      t.integer :current_retry, array: true, null: true
 
       t.timestamps
     end
@@ -119,7 +120,7 @@ class RestructureParsers < ActiveRecord::Migration
                            source: s,
                            url: c.url,
                            schedule: '0 8 * * *',
-                           retry: '60 6',
+                           retry: [60, 6],
                            priority: 0
               Message.where(canteen_id: c.id).update_all(messageable_id: feed.id, messageable_type: 'Feed')
               if c.today_url.present?

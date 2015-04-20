@@ -1,22 +1,21 @@
 namespace :om do
-  desc "Fetch data for all cafeterias"
-  task :fetch => :environment do
-    Rails.logger.info "[#{Time.zone.now}] Fetch canteen data..."
-
-    Canteen.active.pluck(:id).each do |canteen_id|
-      canteen = Canteen.find canteen_id
-
-      begin
-        canteen.fetch_if_needed
-      rescue => e
-        Rails.logger.warn "Error while fetching canteen data of #{canteen.id} (#{canteen.name}): #{e.message}"
-      end
-
-      GC.start
-    end
+  desc 'Fetch feed data'
+  task update_feeds: :environment do
+    OpenMensa::UpdateFeedsTask.new.do
   end
 
-  task :daily_report => :environment do
+  desc 'Fetch source meta data'
+  task update_sources: :environment do
+    OpenMensa::UpdateSourcesTask.new.do
+  end
+
+  desc 'Fetch parser index lists'
+  task update_parsers: :environment do
+    OpenMensa::UpdateParsersTask.new.do
+  end
+
+  desc 'Send parser reports to developer'
+  task daily_reports: :environment do
     OpenMensa::DailyReportTask.new.do
   end
 end

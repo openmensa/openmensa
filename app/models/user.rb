@@ -59,23 +59,6 @@ class User < ActiveRecord::Base
     self[:time_zone] || Rails.configuration.time_zone.to_s
   end
 
-  def send_reports?
-    !last_report_at.nil?
-  end
-
-  def send_reports=(bool)
-    if bool.is_a? String
-      bool = bool == '1'
-    end
-    return if bool == send_reports?
-    if bool
-      self[:last_report_at] = Time.zone.now
-    else
-      self[:last_report_at] = nil
-    end
-  end
-  alias_method :send_reports, :send_reports?
-
   def ability
     @ability ||= Ability.new(self)
   end

@@ -106,11 +106,12 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.integer  "priority",        default: 0, null: false
     t.string   "name",                        null: false
     t.string   "url",                         null: false
-    t.string   "schedule",                    null: false
-    t.string   "retry"
+    t.string   "schedule"
+    t.integer  "retry",                                    array: true
     t.string   "source_url"
     t.datetime "last_fetched_at"
     t.datetime "next_fetch_at"
+    t.integer  "current_retry",                            array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
