@@ -195,7 +195,6 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
 
   # all together
   def update(options = {})
-    @today = options[:today] if options.key? :today
     @version = options[:version] if options.key? :version
 
     return false unless fetch! && parse! && validate!
@@ -225,17 +224,6 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   private
-
-  def extract_canteen_node
-    case version.to_i
-      when 1 then
-        @document.root
-      when 2 then
-        node = @document.root.children.first
-        node = node.next while node.name != 'canteen'
-        node
-    end
-  end
 
   def canteen
     feed.canteen

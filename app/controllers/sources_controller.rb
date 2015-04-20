@@ -41,7 +41,7 @@ class SourcesController < ApplicationController
   end
 
   def sync
-    @synchroniser = OpenMensa::FeedSynchroniser.new @source
+    @synchroniser = OpenMensa::SourceUpdater.new @source
     @synchroniser.sync
   end
 

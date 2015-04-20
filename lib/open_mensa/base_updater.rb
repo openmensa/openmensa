@@ -14,7 +14,7 @@ class OpenMensa::BaseUpdater
 
   # validate XML document
   def validate!
-    OpenMensa::FeedValidator.new(document).tap do |validator|
+    OpenMensa::FeedValidator.new(document, version: @version).tap do |validator|
       @version = validator.version
       validator.validate!
     end
@@ -44,5 +44,16 @@ class OpenMensa::BaseUpdater
     @errors << FeedFetchError.create(messageable: messageable,
                                      message: message,
                                      code: code)
+  end
+
+  def extract_canteen_node
+    case version.to_i
+      when 1 then
+        @document.root
+      when 2 then
+        node = @document.root.children.first
+        node = node.next while node.name != 'canteen'
+        node
+    end
   end
 end

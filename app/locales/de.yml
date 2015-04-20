@@ -257,6 +257,10 @@ de:
         new_source: "Es gibt einen neuen Quelle/Mensa vorschlag: %{name} mit %{url}"
         source_archived: 'Die Mensa "%{name}" wurde archiviert.'
         source_reactivated: 'Die Mensa "%{name}" wurde reaktiviert.'
+      feed_changed:
+        created: 'Feed "%{name}" wurde neu angelegt.'
+        updated: 'Feed "%{name}" wurde aktualisiert.'
+        deleted: 'Feed "%{name}" wurde gelöscht.'
     text_mail:
       feed_invalid_url_error: "Die Feed-Url der Mensa ist nicht valid."
       feed_fetch_error: "Die Feed-Daten konnten nicht abgerufen werden: %{code} - %{message}"
@@ -271,6 +275,10 @@ de:
         new_source: "Es gibt einen neuen Quelle/Mensa vorschlag: %{name} mit %{url}"
         source_archived: 'Die Mensa "%{name}" wurde archiviert.'
         source_reactivated: 'Die Mensa "%{name}" wurde reaktiviert.'
+      feed_changed:
+        created: 'Feed "%{name}" wurde neu angelegt.'
+        updated: 'Feed "%{name}" wurde aktualisiert.'
+        deleted: 'Feed "%{name}" wurde gelöscht.'
     canteen: Mensa
     last_error_time: Letzte Fehlerzeit
 
