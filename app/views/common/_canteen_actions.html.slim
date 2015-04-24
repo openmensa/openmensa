@@ -8,13 +8,8 @@ section
         li=link_to t(:activate_canteen), canteen_active_path(canteen), method: :post, class: 'icon-play'
     - else
         li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
-- canteen.parsers.select { |parser| can? :edit, parser }.each do |parser|
-  section
-    header
-      h3
-        = t :parser, :title, name: parser.name
-    ul.favs
-     li=link_to t(:canteen_actions, :open_parser), parser_path(parser), class: 'icon-coffee'
+    - canteen.parsers.select { |parser| can? :edit, parser }.each do |parser|
+      li=link_to t(:canteen_actions, :open_parser, name: parser.name), parser_path(parser), class: 'icon-group'
 
 - canteen.feeds.select { |feed| can? :edit, feed }.each do |feed|
   section
@@ -36,9 +31,8 @@ section
         p
           = t :feed, :"last_#{state}_at"
           ' :
-          = timeago_tag date
+          = timeago_tag date.localtime
       p
         = t :feed, :next_fetch_at
         ' :
-        = timeago_tag feed.next_fetch_at
-        = " (#{t(:feed, :schedule)}: #{feed.schedule})"
+        = timeago_tag feed.next_fetch_at, title: proc { |time, options| t(:feed, :next_fetch, time: I18n.l(time, :format => options[:format]), schedule: feed.schedule) }

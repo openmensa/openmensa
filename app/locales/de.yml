@@ -179,6 +179,7 @@ de:
     url: URL
     source_url: Quelle
     schedule: Abrufplan
+    next_fetch: "%{time} (Plan: %{schedule})"
     retry: Wiederholungsinterval(e)
     no_retry: nie
     no_source_url: Keine Quelle verfügbar
