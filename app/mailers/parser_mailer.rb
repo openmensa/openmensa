@@ -135,7 +135,7 @@ class ParserMailer < ActionMailer::Base
     end
 
     def seen_states
-      @histogram.keys
+      @histogram.select {|k,v| %w(invalid failed broken).include? k }.keys
     end
 
     def messages
