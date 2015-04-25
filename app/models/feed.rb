@@ -9,4 +9,11 @@ class Feed < ActiveRecord::Base
   def canteen
     source.canteen
   end
+
+  def feed_timespans
+    {
+      lastday: fetches.where { executed_at > 1.day.ago },
+      total: fetches
+    }
+  end
 end

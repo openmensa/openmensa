@@ -293,6 +293,27 @@ de:
     deleted_error: Der Favorit konnt nicht gelöscht werden.
     howto_add: "Um eine Mensa als Favorit zu speichern, markiere sie auf der Mensa-Seite mit einem Stern."
 
+  sources_status:
+    source: 'Quelle'
+    canteen: 'Mensa'
+    city: 'Stadt'
+    feed_count: '#Feeds'
+    feedbacks: Feedbacks
+    actions: Aktionen
+
+  feeds_status:
+    states: Abrufstatie
+    source: 'Quelle'
+    feed: Feed
+    time_span: Zeitrahmen
+    total: "Insgesamt:"
+    percentage: "%{value}%"
+    lastday: "Letzte 24h:"
+
+  headlines:
+    sources_status: Quellenstatus
+    feeds_status: Feedstatus
+
   mailer:
     daily_report:
       subject: 'OpenMensa - %{name}: %{msg}'

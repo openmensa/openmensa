@@ -13,31 +13,99 @@
             = 'Aktualisiere Quellen mittels Index-URL'
         = link_to new_parser_source_path(@parser), class: "btn btn-primary", title: 'Neue Quelle/Mensa hinzufügen' do
           = 'Neue Quelle/Mensa hinzufügen'
-    - @sources.each do |s|
-      section
-        header
-          h3
-            = "#{s.canteen.name} (#{s.name})"
-            ul.actions
-              li
+    section
+      header
+        h2= t(:headlines, :sources_status)
+      .content
+        table
+          tr
+            th=t(:sources_status, :source)
+            th=t(:sources_status, :canteen)
+            th=t(:sources_status, :city)
+            th=t(:sources_status, :feed_count)
+            th.number
+              i.icon-comments title=t(:sources_status, :feedbacks)
+            th=t(:sources_status, :actions)
+          - @sources.each do |s|
+            tr
+              td=s.name
+              td=s.canteen.name
+              td=s.canteen.city
+              td.number=s.feeds.count
+              td.number=s.canteen.feedbacks.count
+              td
                 = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
                   i.icon-edit
-        .content
-          dl
-            dt= t(:source, :meta_url)
-            dd= s.meta_url || t(:source, :no_meta_url)
-          - s.feeds.each do |f|
-            .feed
-              h4="Feed \"#{f.name}\""
-              dl
-                dt= t(:feed, :url)
-                dd= f.url
-                dt= t(:feed, :source_url)
-                dd= f.source_url || t(:feed, :no_source_url)
-                dt= t(:feed, :schedule)
-                dd= f.schedule
-                dt= t(:feed, :retry)
-                dd= f.retry || t(:feed, :no_retry)
-                dt= t(:feed, :last_fetched_at)
-                dd= f.last_fetched_at || t(:feed, :not_fetched_yet)
+                / = link_to delete_source_path(s), title: t(:delete_named_source, name: s.name) do
+                  i.icon-delete
+    section
+      header
+        h2= t(:headlines, :feeds_status)
+      .content
+      table
+        tr
+          th rowspan=2 =t(:feeds_status, :source)
+          th rowspan=2 =t(:feeds_status, :feed)
+          th rowspan=2 =t(:feeds_status, :time_span)
+          th colspan=5 =t(:feeds_status, :states)
+        tr
+          th.number
+            i.icon-refresh title=t(:feed_fetch, :states, :changed)
+          th.number
+            i.icon-copy title=t(:feed_fetch, :states, :unchanged)
+          th.number
+            i.icon-circle-blank title=t(:feed_fetch, :states, :empty)
+          th.number
+            i.icon-warning-sign title=t(:feed_fetch, :states, :failed)
+          th.number
+            i.icon-bolt title=t(:feed_fetch, :states, :broken)
+        - @sources.each do |s|
+          - s.feeds.each_with_index do |f, i|
+            - f.feed_timespans.each do |span, fetches|
+              tr
+                - if span == :lastday
+                  - if i == 0
+                    td rowspan=s.feeds.count*2
+                      b=s.name
+                      br
+                      =s.canteen.name
+                  td rowspan=2 =f.name
+                - states = fetches.group('state').count
+                - total = states.values.sum / 100.0
+                td =t(:feeds_status, span)
+                td.number
+                  - if states['changed']
+                    = states['changed']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['changed'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['unchanged']
+                    = states['unchanged']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['unchanged'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['empty']
+                    = states['empty']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['empty'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['failed']
+                    = states['failed']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['failed'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['broken']
+                    = states['broken']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['broken'] / total).to_i)
+                  - else
+                    ' -
   = render partial: 'users/nav'

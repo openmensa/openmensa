@@ -9,6 +9,7 @@ class Canteen < ActiveRecord::Base
   has_many :parsers, through: :sources
   has_many :feeds, through: :sources
   has_many :data_proposals
+  has_many :feedbacks
 
   scope :active, -> { where('state IN (?)', ['active', 'empty']) }
 
