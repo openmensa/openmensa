@@ -48,7 +48,7 @@ describe OpenMensa::UpdateFeedsTask do
         feed = new_feed schedule: '0 8-9 * * *', retry: [10],
                         next_fetch_at: _8am, current_retry: [10]
         expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').and_return(failing_updater)
-        expect { task.do }.to change { feed.reload.next_fetch_at }.to(10.seconds.from_now)
+        expect { task.do }.to change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
       end
 
       it 'should decrement retry count on error' do
@@ -72,7 +72,7 @@ describe OpenMensa::UpdateFeedsTask do
                         next_fetch_at: _8am, current_retry: [10, 1, 15]
         expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
-          .to([15]).and change { feed.reload.next_fetch_at }.to(10.seconds.from_now)
+          .to([15]).and change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
       end
 
       it 'should should clear current_retry on last retry' do
@@ -80,7 +80,7 @@ describe OpenMensa::UpdateFeedsTask do
                         next_fetch_at: _8am, current_retry: [10, 1]
         expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
-          .to(nil).and change { feed.reload.next_fetch_at }.to(10.seconds.from_now)
+          .to(nil).and change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
       end
 
       it 'should should clear current_retry on last retry' do
@@ -88,7 +88,7 @@ describe OpenMensa::UpdateFeedsTask do
                         next_fetch_at: _8am, current_retry: [10, 1]
         expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
-          .to(nil).and change { feed.reload.next_fetch_at }.to(10.seconds.from_now)
+          .to(nil).and change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
       end
 
       it 'should use normal cron time if retry would be later' do
