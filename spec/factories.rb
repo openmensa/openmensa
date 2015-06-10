@@ -169,4 +169,11 @@ FactoryGirl.define do
 
     association :feed
   end
+
+  factory :feedback do
+    association :canteen
+    association :user
+
+    message 'Dies ist ein sehr langes Nutzerfeedback!'
+  end
 end

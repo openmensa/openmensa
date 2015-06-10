@@ -32,7 +32,7 @@
               td=s.canteen.name
               td=s.canteen.city
               td.number=s.feeds.count
-              td.number=s.canteen.feedbacks.count
+              td.number=link_to s.canteen.feedbacks.count, canteen_feedbacks_path(s.canteen), title: t(:feedbacks, :open, name: s.canteen.name)
               td
                 = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
                   i.icon-edit

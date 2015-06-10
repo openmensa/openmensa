@@ -8,6 +8,7 @@ section
         li=link_to t(:activate_canteen), canteen_active_path(canteen), method: :post, class: 'icon-play'
     - else
         li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
+    li=link_to t(:canteen_actions, :feedbacks), canteen_feedbacks_path(canteen), class: 'icon-envelope'
     - canteen.parsers.select { |parser| can? :edit, parser }.each do |parser|
       li=link_to t(:canteen_actions, :open_parser, name: parser.name), parser_path(parser), class: 'icon-group'
 

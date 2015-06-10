@@ -1,6 +1,6 @@
 class FeedbacksController < ApplicationController
   before_action :load_resource
-  before_action :new_resource
+  before_action :new_resource, except: :index
 
   def new
   end
@@ -15,6 +15,11 @@ class FeedbacksController < ApplicationController
     end
   end
 
+  def index
+    authorize! :edit, @canteen
+    @feedbacks = @canteen.feedbacks
+  end
+
   private
 
   def new_resource
@@ -22,7 +27,7 @@ class FeedbacksController < ApplicationController
       User.anonymous
     else
       @user
-    end.feedbacks.new
+    end.feedbacks.new canteen: @canteen
   end
 
   def load_resource

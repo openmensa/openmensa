@@ -140,6 +140,7 @@ de:
     give_feedback: Rückmeldung <small>(z.B. Fehler)</small>
     correct_data: Daten korrigieren/ergänzen
     parser_info: 'Über Parser "%{name}"'
+    feedbacks: Nutzerrückmeldungen
 
   canteen_feedback:
     message: Kurzbeschreibung
@@ -172,6 +173,10 @@ de:
     feeds_deleted: '%{count} Feeds gelöscht.'
     use_wanted_canteen: 'Eine gewünschte Mensa nutzen'
     create_canteen: 'Neue Mensa anlegen'
+
+  feedbacks:
+    no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!
+    open: "Öffne Feedbacks für %{name}"
 
   feed:
     name: Name
@@ -219,6 +224,7 @@ de:
     open_meals: 'Mensa-Seite'
     open_feed: 'Feed %{name} öffnen'
     open_parser: Parser öffnen
+    feedbacks: Nutzerrückmeldungen
 
   helpers:
     label:

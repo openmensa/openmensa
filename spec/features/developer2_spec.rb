@@ -110,7 +110,7 @@ describe 'Developers', type: :feature do
       end
 
       context 'with a existing source without meta url' do
-        let!(:source) { FactoryGirl.create :source, parser: parser }
+        let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
         let!(:feed) { FactoryGirl.create :feed, source: source }
 
         it 'should be able to edit the source' do
@@ -166,6 +166,34 @@ describe 'Developers', type: :feature do
 
           expect(page).to have_content 'Der Feed wurde erfolgreich geschlöscht.'
           expect(page).to_not have_content feed.name
+        end
+
+        context 'without feedbacks' do
+          it 'should be able to see a info about this state' do
+            visit canteen_path(canteen)
+
+            click_on 'Nutzerrückmeldungen'
+
+            expect(page).to have_content('Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!')
+          end
+        end
+
+        context 'with previous created feedback' do
+          let!(:feedback) { FactoryGirl.create :feedback, canteen: canteen }
+          it 'should be able to see the feedback\'s message' do
+            click_on parser.name
+            click_on "Öffne Feedbacks für #{canteen.name}"
+
+            expect(page).to have_content(feedback.message)
+          end
+
+          it 'should be able to see feedback via canteen page' do
+            visit canteen_path(canteen)
+
+            click_on 'Nutzerrückmeldungen'
+
+            expect(page).to have_content(feedback.message)
+          end
         end
       end
 

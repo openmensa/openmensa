@@ -31,6 +31,7 @@ describe 'Reporters: ', type: :feature do
   end
 
   it 'should be able to report an issues for a canteen' do
+    expect(Feedback.count).to eq 0
     visit canteen_path(canteen)
 
     click_on 'Rückmeldung geben'
@@ -38,6 +39,7 @@ describe 'Reporters: ', type: :feature do
     fill_in 'Kurzbeschreibung', with: 'Die Preisinformationen werden nicht mehr korrekt abgetrennt!'
     click_on 'Rückmeldung absenden'
     expect(page).to have_content('Deine Feedback wurde erfolgreich weitergeleitet.')
+    expect(Feedback.count).to eq 1
   end
 
   it 'should be able to report correct canteen meta data' do
