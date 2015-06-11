@@ -87,16 +87,18 @@ describe 'Developers', type: :feature do
 
         expect(page).to have_content 'Die Mensa ist nun außer Betrieb!'
         expect(page).to have_content canteen.name
+        expect(page).to_not have_link 'Mensa außer Betrieb nehmen'
       end
 
       context 'with deactivated canteen' do
         let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
 
-        it 'should allow to disable the canteen' do
+        it 'should allow to enable the canteen' do
           click_on 'Mensa in Betrieb nehmen'
 
           expect(page).to have_content 'Die Mensa ist nun im Betrieb!'
           expect(page).to have_content canteen.name
+          expect(page).to_not have_link 'Mensa in Betrieb nehmen'
         end
       end
     end
