@@ -36,6 +36,11 @@
               td
                 = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
                   i.icon-edit
+                  = t(:source, :resource)
+                ' ,
+                = link_to edit_canteen_path(s.canteen), title: t(:edit_named_canteen, name: s.canteen.name) do
+                  i.icon-edit
+                  = t(:canteen, :resource)
                 / = link_to delete_source_path(s), title: t(:delete_named_source, name: s.name) do
                   i.icon-delete
     section

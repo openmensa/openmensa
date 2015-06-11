@@ -19,7 +19,8 @@ de:
   deactivate_canteen: Mensa außer Betrieb nehmen
   activate_canteen: Mensa in Betrieb nehmen
   my_messages: Statusmitteilungen
-  edit_named_source: 'Editiere %{name}'
+  edit_named_source: 'Editiere %{name} (Quelle)'
+  edit_named_canteen: 'Editiere %{name} (Mensa)'
   edit_source: 'Editiere Quelle'
   new_feed: Neuer Feed
   create_feed: Feed anlegen
@@ -103,6 +104,7 @@ de:
     info_url: 'Website <small>(optinal, für Mensa-Seite)</small>'
 
   canteen:
+    resource: Mensa
     url: Feed-Url
     today_url: Feed-Url für das Essen von heute
     name: Name
@@ -162,6 +164,7 @@ de:
     maintainer_wanted: 'Unterstützer für Parser erwünscht'
 
   source:
+    resource: Quelle
     name: Name
     meta_url: Meta-URL
     parser: Parser

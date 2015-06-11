@@ -34,7 +34,8 @@ describe 'Developers', type: :feature do
       end
 
       it 'should be able to edit own canteens' do
-        click_on 'Mensa bearbeiten'
+        click_on parser.name
+        click_on "Editiere #{canteen.name}"
 
         new_url = 'http://example.org/canteens.xml'
         new_url_2 = 'http://example.org/canteens-today.xml'
