@@ -371,3 +371,6 @@ de:
         all_feeds_with_name_for: 'Alle %{name}-Feeds von %{sources}'
         some_feeds: 'Feeds'
         some_feeds_for: 'Feeds von %{sources}'
+      new_feedbacks:
+        one: 'Neue Rückmeldung für %{sources}'
+        other: 'Neue Rückmeldungen für %{sources}'

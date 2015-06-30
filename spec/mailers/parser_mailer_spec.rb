@@ -40,6 +40,38 @@ describe ParserMailer, type: :mailer do
       context 'with one feed' do
         let!(:feed) { FactoryGirl.create :feed, source: source }
 
+        context 'with new feedbacks' do
+          let!(:feedback) { FactoryGirl.create :feedback, canteen: feed.canteen }
+          it 'should inform about the new feedback' do
+            expect(mail).to_not be_null_mail
+
+            expect(mail.to).to eq [user.email]
+            expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{feed.source.name}"
+            expect(mail.body).to include feedback.message
+          end
+
+          context 'with feedback before data since' do
+            let(:feedback) { FactoryGirl.create :feedback, canteen: feed.canteen, created_at: data_since - 1.day }
+
+            it 'should not send a mail' do
+              expect(mail).to be_null_mail
+            end
+          end
+
+          context 'with multiple feedbacks' do
+            let!(:feedback2) { FactoryGirl.create :feedback, canteen: feed.canteen }
+
+            it 'should inform about the new feedback' do
+              expect(mail).to_not be_null_mail
+
+              expect(mail.to).to eq [user.email]
+              expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldungen für #{feed.source.name}"
+              expect(mail.body).to include feedback.message
+              expect(mail.body).to include feedback2.message
+            end
+          end
+        end
+
         context 'with no fetches' do
           it 'should not send a mail' do
             expect(mail).to be_null_mail
@@ -223,6 +255,32 @@ describe ParserMailer, type: :mailer do
         let!(:feed1_2) { FactoryGirl.create :feed, source: source }
         let!(:feed2_1) { FactoryGirl.create :feed, source: source2 }
         let!(:feed2_2) { FactoryGirl.create :feed, source: source2 }
+
+        context 'with new feedbacks' do
+          let!(:feedback) { FactoryGirl.create :feedback, canteen: source.canteen }
+          let!(:feedback2) { FactoryGirl.create :feedback, canteen: source2.canteen }
+
+          it 'should inform about the new feedback' do
+            expect(mail).to_not be_null_mail
+
+            expect(mail.to).to eq [user.email]
+            expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldungen für #{source.name}, #{source2.name}"
+            expect(mail.body).to include feedback.message
+            expect(mail.body).to include feedback2.message
+          end
+
+          context 'with feedback before data since' do
+            let(:feedback) { FactoryGirl.create :feedback, canteen: source.canteen, created_at: data_since - 1.day }
+
+            it 'should not include this feedback' do
+              expect(mail).to_not be_null_mail
+
+              expect(mail.to).to eq [user.email]
+              expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{source2.name}"
+              expect(mail.body).to include feedback2.message
+            end
+          end
+        end
 
         context 'with failed and one working feed per source' do
           before do

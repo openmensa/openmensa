@@ -6,6 +6,14 @@ Mehr Information finden Sie unter:
 
 <%=source.canteen.name %> (<%= source.name %>)
 ===================
+<% if source.new_feedback? %>
+<% source.feedbacks.each do |feedback| %>
+
+* Rückmeldung um <%=l feedback.created_at %>
+  <%= feedback.message %>
+<% end %>
+<% end %>
+<% if source.feeds.any?(&:notable?) %>
 <% source.feeds.select { |feed| feed.notable? }.each do |feed| %>
 
 * Feed <%= feed.name %> / <%= feed.url %>
@@ -28,6 +36,8 @@ Mehr Information finden Sie unter:
 <% end %>
 <% end %>
 <% end %>
+<% end %>
+
 
 <% end %>
 

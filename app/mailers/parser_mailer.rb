@@ -15,12 +15,17 @@ class ParserMailer < ActionMailer::Base
   def reason_mail_content!
     @notables = []
     @regulars = []
+    @fetch_errors = []
+    @feedbacks = []
     @parser.sources.each do |source|
       part = SourceMailerPart.new source, @data_since
+      @feedbacks << part if part.new_feedback?
       if part.notable?
+        @fetch_errors << part
         @notables << part
       else
         @regulars << part
+        @notables << part if part.new_feedback?
       end
     end
   end
@@ -30,7 +35,7 @@ class ParserMailer < ActionMailer::Base
   end
 
   def calculate_mail_subject
-    msg = feed_msg
+    msg = [feedback_msg, feed_msg].reject(&:nil?).join(' & ')
     t 'subject', name: @parser.name, msg: msg
   end
 
@@ -39,10 +44,11 @@ class ParserMailer < ActionMailer::Base
   end
 
   def feed_msg
+    return nil if @fetch_errors.empty?
     @notable_feeds = []
     @regular_feeds = []
     @tense = 'past'
-    @notables.each do |source|
+    @fetch_errors.each do |source|
       source.feeds.each do |feed|
         if feed.notable?
           @notable_feeds << feed
@@ -57,13 +63,18 @@ class ParserMailer < ActionMailer::Base
     t "feed_singleton_msgs.#{@tense}.#{descs.sort.join("_")}", subject: @subject, count: @count
   end
 
+  def feedback_msg
+    return nil if @feedbacks.empty?
+    t 'new_feedbacks', count: @feedbacks.map(&:feedback_count).inject(&:+), sources: @feedbacks.map(&:name).join(', ')
+  end
+
   def reason_feed_msg_subject!
     if @regular_feeds.empty?
       @count = 100
       @subject = if  @regulars.empty?
         t 'feed_subjects.all_feeds'
       else
-        t 'feed_subjects.all_feeds_for', sources: @notables.map(&:name).join(', ')
+        t 'feed_subjects.all_feeds_for', sources: @fetch_errors.map(&:name).join(', ')
       end
     elsif @notable_feeds.size == 1
       @count = 1
@@ -75,14 +86,14 @@ class ParserMailer < ActionMailer::Base
         t 'feed_subjects.all_feeds_with_name', name: @notable_feeds.first.name
       else
         t 'feed_subjects.all_feeds_with_name_for', name: @notable_feeds.first.name,
-                                                   sources: @notables.map(&:name).join(', ')
+                                                   sources: @fetch_errors.map(&:name).join(', ')
       end
     else
       @count = 100
       @subject = if @regulars.empty?
         t 'feed_subjects.some_feeds'
       else
-        t 'feed_subjects.some_feeds_for', sources: @notables.map(&:name).join(', ')
+        t 'feed_subjects.some_feeds_for', sources: @fetch_errors.map(&:name).join(', ')
       end
     end
   end
@@ -91,16 +102,26 @@ class ParserMailer < ActionMailer::Base
     extend Forwardable
     def_delegators :@source, :name, :canteen
     attr_reader :feeds
+    attr_reader :feedbacks
 
     def initialize(source, data_since)
       @source = source
       @feeds = source.feeds.map do |feed|
         FeedMailerPart.new feed, data_since
       end
+      @feedbacks = source.canteen.feedbacks.where('created_at > ?', data_since).to_a
     end
 
     def notable?
       @feeds.any?(&:notable?)
+    end
+
+    def new_feedback?
+      @feedbacks.any?
+    end
+
+    def feedback_count
+      @feedbacks.size
     end
   end
 
