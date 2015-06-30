@@ -24,8 +24,11 @@ Openmensa::Application.routes.draw do
     resources :favorites, path: 'favs', only: [:index]
     resources :identities, path: 'ids', only: [:new, :create, :destroy]
     resources :canteens, path: 'c', only: [:index, :new, :create]
+    resource :developer
     get 'm', to: 'messages#overview', as: :messages
   end
+  get 'activate/:token', to: 'developers#activate', as: :activate
+
   resources :favorites, path: 'favs', only: [:index]
   resources :sources, only: [:create, :update, :edit] do
     resources :feeds, only: [:create]

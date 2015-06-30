@@ -45,7 +45,7 @@ describe ParserMailer, type: :mailer do
           it 'should inform about the new feedback' do
             expect(mail).to_not be_null_mail
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{feed.source.name}"
             expect(mail.body).to include feedback.message
           end
@@ -64,7 +64,7 @@ describe ParserMailer, type: :mailer do
             it 'should inform about the new feedback' do
               expect(mail).to_not be_null_mail
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldungen für #{feed.source.name}"
               expect(mail.body).to include feedback.message
               expect(mail.body).to include feedback2.message
@@ -107,7 +107,7 @@ describe ParserMailer, type: :mailer do
             fetch = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed
             message = FactoryGirl.create :feedInvalidUrlError, messageable: fetch
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.to_text_mail
@@ -117,7 +117,7 @@ describe ParserMailer, type: :mailer do
             fetch = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed
             message = FactoryGirl.create :feedFetchError, messageable: fetch
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.code.to_s
@@ -128,7 +128,7 @@ describe ParserMailer, type: :mailer do
             fetch = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed
             message = FactoryGirl.create :feedValidationError, messageable: fetch, kind: :invalid_xml
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds sind invalid"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.version.to_s
@@ -142,7 +142,7 @@ describe ParserMailer, type: :mailer do
             message = FactoryGirl.create :feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago
             message2 = FactoryGirl.create :feedInvalidUrlError, messageable: fetch, created_at: 1.days.ago
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.to_text_mail
@@ -156,7 +156,7 @@ describe ParserMailer, type: :mailer do
             message = FactoryGirl.create :feedFetchError, messageable: fetch, created_at: 2.days.ago
             message2 = FactoryGirl.create :feedFetchError, messageable: fetch, code: message.code
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.code.to_s
@@ -171,7 +171,7 @@ describe ParserMailer, type: :mailer do
             message = FactoryGirl.create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 2.days.ago
             message2 = FactoryGirl.create :feedValidationError, messageable: fetch, kind: :invalid_xml, version: message.version
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds sind invalid"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.version.to_s
@@ -189,7 +189,7 @@ describe ParserMailer, type: :mailer do
             fetch2 = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed
             message2 = FactoryGirl.create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 1.days.ago
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl oder sind invalid"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.to_text_mail
@@ -213,7 +213,7 @@ describe ParserMailer, type: :mailer do
             fetch = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed
             message = FactoryGirl.create :feedInvalidUrlError, messageable: fetch
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} schlägt fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.to_text_mail
@@ -225,7 +225,7 @@ describe ParserMailer, type: :mailer do
             fetch = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed
             message = FactoryGirl.create :feedFetchError, messageable: fetch
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} schlägt fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.code.to_s
@@ -238,7 +238,7 @@ describe ParserMailer, type: :mailer do
             fetch = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed
             message = FactoryGirl.create :feedValidationError, messageable: fetch, kind: :invalid_xml
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} ist invalid"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.version.to_s
@@ -263,7 +263,7 @@ describe ParserMailer, type: :mailer do
           it 'should inform about the new feedback' do
             expect(mail).to_not be_null_mail
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldungen für #{source.name}, #{source2.name}"
             expect(mail.body).to include feedback.message
             expect(mail.body).to include feedback2.message
@@ -275,7 +275,7 @@ describe ParserMailer, type: :mailer do
             it 'should not include this feedback' do
               expect(mail).to_not be_null_mail
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{source2.name}"
               expect(mail.body).to include feedback2.message
             end
@@ -298,7 +298,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed2_1
               message2 = FactoryGirl.create :feedInvalidUrlError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.to_text_mail
@@ -316,7 +316,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed2_1
               message2 = FactoryGirl.create :feedFetchError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.code.to_s
@@ -336,7 +336,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed2_1
               message2 = FactoryGirl.create :feedValidationError, messageable: fetch2, kind: :invalid_xml
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds sind invalid"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.version.to_s
@@ -358,7 +358,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed2_1
               message2 = FactoryGirl.create :feedInvalidUrlError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.to_text_mail
@@ -376,7 +376,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed2_1
               message2 = FactoryGirl.create :feedFetchError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.code.to_s
@@ -396,7 +396,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed2_1
               message2 = FactoryGirl.create :feedValidationError, messageable: fetch2, kind: :invalid_xml
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds sind invalid"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.version.to_s
@@ -423,7 +423,7 @@ describe ParserMailer, type: :mailer do
             fetch2 = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed2_2
             message2 = FactoryGirl.create :feedInvalidUrlError, messageable: fetch2
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds von #{source2.name} schlagen fehl"
             expect(mail.body).to include feed2_1.url
             expect(mail.body).to include message.to_text_mail
@@ -441,7 +441,7 @@ describe ParserMailer, type: :mailer do
             fetch2 = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed2_2
             message2 = FactoryGirl.create :feedFetchError, messageable: fetch2
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds von #{source2.name} schlagen fehl"
             expect(mail.body).to include feed2_1.url
             expect(mail.body).to include message.code.to_s
@@ -461,7 +461,7 @@ describe ParserMailer, type: :mailer do
             fetch2 = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed2_2
             message2 = FactoryGirl.create :feedValidationError, messageable: fetch2, kind: :invalid_xml
 
-            expect(mail.to).to eq [user.email]
+            expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds von #{source2.name} sind invalid"
             expect(mail.body).to include feed2_1.url
             expect(mail.body).to include message.version.to_s
@@ -497,7 +497,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed2_1
               message2 = FactoryGirl.create :feedInvalidUrlError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds von #{source.name}, #{source2.name} schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.to_text_mail
@@ -515,7 +515,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed2_1
               message2 = FactoryGirl.create :feedFetchError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds von #{source.name}, #{source2.name} schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.code.to_s
@@ -535,7 +535,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed2_1
               message2 = FactoryGirl.create :feedValidationError, messageable: fetch2, kind: :invalid_xml
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds von #{source.name}, #{source2.name} sind invalid"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.version.to_s
@@ -557,7 +557,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'failed', feed: feed2_1
               message2 = FactoryGirl.create :feedInvalidUrlError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds von #{source.name}, #{source2.name} schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.to_text_mail
@@ -575,7 +575,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'broken', feed: feed2_1
               message2 = FactoryGirl.create :feedFetchError, messageable: fetch2
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds von #{source.name}, #{source2.name} schlagen fehl"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.code.to_s
@@ -595,7 +595,7 @@ describe ParserMailer, type: :mailer do
               fetch2 = FactoryGirl.create :feed_fetch, state: 'invalid', feed: feed2_1
               message2 = FactoryGirl.create :feedValidationError, messageable: fetch2, kind: :invalid_xml
 
-              expect(mail.to).to eq [user.email]
+              expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds von #{source.name}, #{source2.name} sind invalid"
               expect(mail.body).to include feed1_1.url
               expect(mail.body).to include message.version.to_s

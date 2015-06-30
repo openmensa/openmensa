@@ -7,7 +7,7 @@ class ParserMailer < ActionMailer::Base
     @data_since = data_since
     reason_mail_content!
     return nil unless mail_sending_needed?
-    mail to: @user.email, subject: calculate_mail_subject
+    mail to: @user.notify_email, subject: calculate_mail_subject
   end
 
   private

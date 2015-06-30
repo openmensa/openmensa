@@ -13,7 +13,7 @@
         - @user.parsers.order(:name).each do |p|
           li= link_to p.name, parser_path(p), class: 'icon-edit'
         li= link_to t(:create_parser), new_parser_path(@user), class: 'icon-plus'
-  - if can? :create, Canteen
+  - if @user.developer?
     section
       header
         h2= t :developer

@@ -6,6 +6,7 @@ de:
   logout: Abmelden
   settings: Einstellungen
   my_profile: Mein Profil
+  become_developer: Entwickler-Funktionen
   my_applications: Meine Anwendungen
   my_identities: Meine Identitäten
   add_identity: Identität hinzufügen
@@ -93,6 +94,14 @@ de:
     feedback_sumitted: Deine Feedback wurde erfolgreich weitergeleitet.
     feedback_failed: Deine Fehlerbeschreibung konnte nicht gespeichert werden.
     data_proposal_created: Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.
+    activate:
+      mail_sent: "Eine Bestätigungsmail wurde an %{mail} gesendet. Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse zu bestätigen."
+      mail_failed_to_send: "Leider konnte die Bestätigungsmail nicht gesendet werden. Versuche es später nochmal bzw. wende dich an das OpenMensa-Team!"
+      got_developer: "Die Entwickler-Funktionen wurden nun erfolgeich aktiviert!"
+      got_developer: "Die Entwickler-Funktionen wurden nun erfolgeich aktiviert!"
+      could_not_activate_link: 'Leider konnte die E-Mail nicht bestätigt werden.'
+      invalid_message: 'Der Aktivierungslink ist ungültig!'
+      already_developer: Du bist schon Entwickler und kannst du alle Funktionen nutzen.
 
   profile:
     developer_settings: 'Entwickler-Einstellungen'
@@ -374,3 +383,5 @@ de:
       new_feedbacks:
         one: 'Neue Rückmeldung für %{sources}'
         other: 'Neue Rückmeldungen für %{sources}'
+    verify_email:
+      subject: 'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'

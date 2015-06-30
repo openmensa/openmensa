@@ -15,7 +15,7 @@ FactoryGirl.define do
   end
 
   factory :developer, parent: :user do
-    email { "#{login}@example.org" }
+    notify_email { "#{login}@example.org" }
     developer true
   end
 

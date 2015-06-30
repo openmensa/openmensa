@@ -18,16 +18,14 @@ describe User, type: :model do
   it { expect(user.language).to eq I18n.locale.to_s }
   it { expect(user.time_zone).to eq 'Berlin' }
 
-  it 'should require an email if one was set before' do
-    user = FactoryGirl.create :user, email: ''
+  it 'setting a email should not get the user a developer' do
+    user = FactoryGirl.create :user
 
     user.email = 'bob@example.org'
     expect(user).to be_valid
     user.save
 
-    user.email = ''
-    expect(user).to_not be_valid
-    expect(user.save).to be_falsey
+    expect(user.reload).to_not be_developer
   end
 
   it 'should require an public name for a info url' do

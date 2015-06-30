@@ -10,6 +10,42 @@ describe 'Developers', type: :feature do
   let(:feed) { FactoryGirl.create :feed, source: source, name: 'debug' }
   let(:canteen) { FactoryGirl.create :canteen }
 
+  context 'as user' do
+    before do
+      login_as user
+      click_on 'Profil'
+    end
+
+    it 'I want to inform me about developer features' do
+      expect(page).to_not have_content('Entwickler-Einstellungen')
+      click_on 'Mehr zu Entwickler-Funktionen'
+      expect(page).to have_content('Was bringt es Entwickler zu sein?')
+      expect(page).to have_content('Was muss ich tun?')
+    end
+
+    it 'I want to become a developer' do
+      click_on 'Aktiviere Entwickler-Funktionen'
+
+      fill_in 'E-Mail für Fehlerberichte und ähnliches', with: 'test@example.org'
+
+      click_on 'Werde Entwickler'
+
+      expect(page).to have_content('Eine Bestätigungsmail wurde an test@example.org gesendet. Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse zu bestätigen.')
+
+      expect(ActionMailer::Base.deliveries).to_not be_empty
+
+      mail = ActionMailer::Base.deliveries.first
+      expect(mail.to).to match_array ['test@example.org']
+      expect(mail.subject).to eq 'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'
+
+      if mail.body.to_s =~ /(https?:\/\/[-a-zA-Z0-9=_.\/]+)/
+        visit $1
+      end
+
+      expect(user.reload).to be_developer
+    end
+  end
+
   context 'as a developer' do
     before do
       login_as developer
@@ -119,8 +155,7 @@ describe 'Developers', type: :feature do
     end
 
     context 'on profile page' do
-      it 'should be able to set notification email' do
-        expect(developer.notify_email).to be_nil
+      it 'should be able to update notification email' do
 
         fill_in 'E-Mail für Fehlerberichte', with: 'test+openmensa@example.com'
         click_on 'Speichern'
@@ -143,29 +178,6 @@ describe 'Developers', type: :feature do
         expect(developer.public_email).to eq 'openmensa@example.org'
         expect(developer.info_url).to eq 'http://example.org'
       end
-
-      it 'should not be able to remove email' do
-        fill_in 'E-Mail (nicht öffentlich, wird für', with: ''
-        click_on 'Speichern'
-
-        expect(page).to have_content('muss ausgefüllt werden')
-      end
-    end
-  end
-
-  context 'as a user' do
-    before do
-      login_as user
-      click_on 'Profil'
-    end
-
-    it 'should become a developer when he enters an email' do
-      fill_in 'E-Mail (nicht öffentlich, wird für', with: 'boby@altimos.de'
-      click_on 'Speichern'
-
-      user.reload
-      expect(user).to be_developer
-      expect(page).to have_content('Entwickler')
     end
   end
 end
