@@ -15,13 +15,13 @@ section
         ' Erfahre mehr auf der Parser-Seite:
         br
         =link_to parser.info_url, title: t(:parser, :open_info_url, name: parser.name), class: 'icon-external-link' do
-            = parser.info_url
+            = ' ' + parser.info_url
     - if parser.user.public_email.present?
       p
         ' Kontaktiere den Autor des Parsers:
         br
         =link_to 'mailto:' + parser.user.public_email, title: t(:parser, :open_info_url, name: parser.name), class: 'icon-envelope' do
-            = parser.user.public_email
+            = ' ' + parser.user.public_email
     - if parser.maintainer_wanted?
       p
         ' Es braucht Unterstüzung für diesen Parser,
