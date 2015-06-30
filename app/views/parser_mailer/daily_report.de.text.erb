@@ -1,22 +1,32 @@
-In den letzten 24 Stunden sind folgende Probleme aufgetretten.
+In den letzten 24 Stunden sind folgende Unregelmäßigkeiten aufgetretten.
 Mehr Information finden Sie unter:
-<%= user_messages_url(@user, only_path: false) %>
+<%= parser_url(@parser, only_path: false) %>
 
+<% @parser_messages.each do |message| %>
+
+- <%= message.to_text_mail %>
+<% end %>
 <% @notables.each do |source| %>
 
 <%=source.canteen.name %> (<%= source.name %>)
 ===================
-<% if source.new_feedback? %>
+<% source.messages.each do |message| %>
+
+* Mitteilung um <%=l message.created_at %>
+  <%= message.to_text_mail %>
+<% end %>
 <% source.feedbacks.each do |feedback| %>
 
 * Rückmeldung um <%=l feedback.created_at %>
   <%= feedback.message %>
 <% end %>
-<% end %>
-<% if source.feeds.any?(&:notable?) %>
-<% source.feeds.select { |feed| feed.notable? }.each do |feed| %>
+<% source.feeds.select(&:with_messages?).each do |feed| %>
 
 * Feed <%= feed.name %> / <%= feed.url %>
+<% feed.feed_messages.each do |message| %>
+  - Mitteilung um <%=l message.created_at %>
+    <%= message.to_text_mail %>
+<% end %>
 <% feed.messages do |message, count, first, last| %>
   - <%= message.to_text_mail %>
 <% if count > 1 %>
@@ -25,7 +35,6 @@ Mehr Information finden Sie unter:
     Anzahl: <%= count %>
 <% else %>
     Zeitpunkt: <%=l first %>
-<% end %>
 <% end %>
 <% if source.feeds.any?(&:regular?) %>
 
@@ -42,4 +51,4 @@ Mehr Information finden Sie unter:
 <% end %>
 
 Die vollständige Liste mit Mitteilungen finden Sie unter:
-<%= user_messages_url(@user, only_path: false) %>
+<%= parser_url(@parser, only_path: false) %>

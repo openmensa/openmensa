@@ -17,30 +17,46 @@ class ParserMailer < ActionMailer::Base
     @regulars = []
     @fetch_errors = []
     @feedbacks = []
+    @parser_messages = @parser.messages.where('created_at > ?', @data_since).to_a
+    @sources = []
     @parser.sources.each do |source|
       part = SourceMailerPart.new source, @data_since
+      @sources << part
       @feedbacks << part if part.new_feedback?
       if part.notable?
         @fetch_errors << part
         @notables << part
       else
         @regulars << part
-        @notables << part if part.new_feedback?
+        @notables << part if part.new_feedback? || part.messages? || part.feed_messages?
       end
     end
   end
 
   def mail_sending_needed?
-    !@notables.empty?
+    @notables.any? || @parser_messages.any?
   end
 
   def calculate_mail_subject
-    msg = [feedback_msg, feed_msg].reject(&:nil?).join(' & ')
+    msg = [messages_msg, feedback_msg, feed_msg].reject(&:nil?).join(' & ')
     t 'subject', name: @parser.name, msg: msg
   end
 
   def t(name, *args)
     super 'mailer.daily_report.' + name, *args
+  end
+
+  def messages_msg
+    subjects = []
+    subjects << t('parser_subject') unless @parser_messages.empty?
+    @sources.each do |source|
+      subjects << t('source_subject', name: source.name) if source.messages?
+      source.feeds.each do |feed|
+        subjects << t('feed_subject', source: source.name, feed: feed.name) if feed.feed_messages?
+      end
+    end
+    return nil if subjects.empty?
+    t 'messages_subject', subjects: subjects.join(', ')
   end
 
   def feed_msg
@@ -103,12 +119,14 @@ class ParserMailer < ActionMailer::Base
     def_delegators :@source, :name, :canteen
     attr_reader :feeds
     attr_reader :feedbacks
+    attr_reader :messages
 
     def initialize(source, data_since)
       @source = source
       @feeds = source.feeds.map do |feed|
         FeedMailerPart.new feed, data_since
       end
+      @messages = source.messages.where('created_at > ?', data_since).to_a
       @feedbacks = source.canteen.feedbacks.where('created_at > ?', data_since).to_a
     end
 
@@ -123,11 +141,20 @@ class ParserMailer < ActionMailer::Base
     def feedback_count
       @feedbacks.size
     end
+
+    def messages?
+      @messages.any?
+    end
+
+    def feed_messages?
+      @feeds.any?(&:feed_messages?)
+    end
   end
 
   class FeedMailerPart
     extend Forwardable
     def_delegators :@feed, :name, :url
+    attr_reader :feed_messages
 
     def initialize(feed, data_since)
       @feed = feed
@@ -136,23 +163,25 @@ class ParserMailer < ActionMailer::Base
       else
         feed.fetches.where('executed_at > ?', data_since)
       end.order(:executed_at).to_a
+      @feed_messages = feed.messages.where('created_at > ?', data_since).to_a
       build_state_histogram!
     end
 
     def build_state_histogram!
-      @histogram = @fetches.inject({}) do |histogram, fetch|
-        histogram[fetch.state] ||= 0
+      @histogram = @fetches.inject(Hash.new(0)) do |histogram, fetch|
         histogram[fetch.state] += 1
         histogram
       end
-      @histogram.default = 0
     end
 
     def notable?
       (@histogram['failed'] + @histogram['broken'] + @histogram['invalid']) > 0
     end
     def regular?
-      !notable?
+      !with_messages?
+    end
+    def with_messages?
+      notable? || feed_messages?
     end
 
     def seen_states
@@ -164,6 +193,10 @@ class ParserMailer < ActionMailer::Base
       messages.sort_by { |m| m.created_at }.group_by {|m| [m.type, m.data] }.each do |_, msgs|
         yield [msgs.first, msgs.size, msgs.first.created_at, msgs.last.created_at]
       end
+    end
+
+    def feed_messages?
+      @feed_messages.any?
     end
 
     def source_name

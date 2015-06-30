@@ -22,18 +22,64 @@ describe ParserMailer, type: :mailer do
     end
     let(:mail) { described_class.daily_report(parser, data_since) }
 
+    let(:parser_message) { FactoryGirl.create :feedUrlUpdatedInfo, messageable: parser }
+
+
     context 'without any source' do
       it 'should not send a mail' do
         expect(mail).to be_null_mail
       end
     end
 
+    context 'with parser messages' do
+      before { parser_message }
+
+      it 'should sent a mail' do
+        expect(mail).to_not be_null_mail
+
+        expect(mail.to).to eq [user.notify_email]
+        expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst"
+        expect(mail.body).to include parser_message.to_text_mail
+      end
+
+      context 'with old messages' do
+        let(:parser_message) { FactoryGirl.create :feedUrlUpdatedInfo, messageable: parser, created_at: data_since - 1.day }
+
+        it 'should not sent a mail for old messages' do
+          expect(mail).to be_null_mail
+        end
+      end
+    end
+
     context 'with source' do
       let!(:source) { FactoryGirl.create :source, parser: parser }
+      let(:source_message) { FactoryGirl.create :feedUrlUpdatedInfo, messageable: source }
 
       context 'but no feeds' do
         it 'should not send a mail' do
           expect(mail).to be_null_mail
+        end
+      end
+
+      context 'with source message' do
+        before { source_message }
+
+        it 'should send a mail' do
+          expect(mail).to_not be_null_mail
+
+          expect(mail.to).to eq [user.notify_email]
+          expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit #{source.name}"
+          expect(mail.body).to include source_message.to_text_mail
+        end
+
+        it 'should have a combined subject with parser messages' do
+          parser_message
+          expect(mail).to_not be_null_mail
+
+          expect(mail.to).to eq [user.notify_email]
+          expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst, #{source.name}"
+          expect(mail.body).to include parser_message.to_text_mail
+          expect(mail.body).to include source_message.to_text_mail
         end
       end
 
@@ -75,6 +121,30 @@ describe ParserMailer, type: :mailer do
         context 'with no fetches' do
           it 'should not send a mail' do
             expect(mail).to be_null_mail
+          end
+
+          context 'with feed message' do
+            let!(:feed_message) { FactoryGirl.create :feedUrlUpdatedInfo, messageable: feed }
+
+            it 'should send a mail' do
+              expect(mail).to_not be_null_mail
+
+              expect(mail.to).to eq [user.notify_email]
+              expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit #{feed.source.name}:#{feed.name}"
+              expect(mail.body).to include feed_message.to_text_mail
+            end
+
+            it 'should have a combined subject with parser messages' do
+              parser_message
+              source_message
+              expect(mail).to_not be_null_mail
+
+              expect(mail.to).to eq [user.notify_email]
+              expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst, #{source.name}, #{feed.source.name}:#{feed.name}"
+              expect(mail.body).to include parser_message.to_text_mail
+              expect(mail.body).to include source_message.to_text_mail
+              expect(mail.body).to include feed_message.to_text_mail
+            end
           end
 
           it 'with fetches before data_since should not send a mail' do

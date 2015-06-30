@@ -383,5 +383,9 @@ de:
       new_feedbacks:
         one: 'Neue Rückmeldung für %{sources}'
         other: 'Neue Rückmeldungen für %{sources}'
+      parser_subject: 'dem Parser selbst'
+      source_subject: '%{name}'
+      feed_subject: '%{source}:%{feed}'
+      messages_subject: 'Unregelmäßigkeiten mit %{subjects}'
     verify_email:
       subject: 'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'
