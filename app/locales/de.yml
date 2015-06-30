@@ -152,6 +152,7 @@ de:
     correct_data: Daten korrigieren/ergänzen
     parser_info: 'Über Parser "%{name}"'
     feedbacks: Nutzerrückmeldungen
+    data_proposals: Änderungsvorschläge
 
   canteen_feedback:
     message: Kurzbeschreibung
@@ -189,6 +190,12 @@ de:
   feedbacks:
     no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!
     open: "Öffne Feedbacks für %{name}"
+
+  data_proposals:
+    no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mena vor!
+    open: "Öffne Änderungsvorschläge für %{name}"
+    old: 'Alt:'
+    new: 'Neu:'
 
   feed:
     name: Name
@@ -237,6 +244,7 @@ de:
     open_feed: 'Feed %{name} öffnen'
     open_parser: Parser öffnen
     feedbacks: Nutzerrückmeldungen
+    data_proposals: Änderungsvorschläge
 
   helpers:
     label:
@@ -317,6 +325,7 @@ de:
     city: 'Stadt'
     feed_count: '#Feeds'
     feedbacks: Feedbacks
+    data_proposals: Änderungsvorschläge
     actions: Aktionen
 
   feeds_status:
@@ -383,6 +392,9 @@ de:
       new_feedbacks:
         one: 'Neue Rückmeldung für %{sources}'
         other: 'Neue Rückmeldungen für %{sources}'
+      new_data_proposals:
+        one: 'Neuer Änderungsvorschlag für %{sources}'
+        other: 'Neue Änderungsvorschläge für %{sources}'
       parser_subject: 'dem Parser selbst'
       source_subject: '%{name}'
       feed_subject: '%{source}:%{feed}'

@@ -118,6 +118,41 @@ describe ParserMailer, type: :mailer do
           end
         end
 
+        context 'with new data proposals' do
+          let!(:data_proposal) { FactoryGirl.create :data_proposal, canteen: feed.canteen }
+          it 'should inform about the new propsoal' do
+            expect(mail).to_not be_null_mail
+
+            expect(mail.to).to eq [user.notify_email]
+            expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neuer Änderungsvorschlag für #{feed.source.name}"
+            expect(mail.body).to include canteen_data_proposals_path(data_proposal.canteen)
+            expect(mail.body).to include "#{feed.canteen.city} -> #{data_proposal.city}"
+          end
+
+          context 'with feedback before data since' do
+            let(:data_proposal) { FactoryGirl.create :data_proposal, canteen: feed.canteen, created_at: data_since - 1.day }
+
+            it 'should not send a mail' do
+              expect(mail).to be_null_mail
+            end
+          end
+
+          context 'with multiple feedbacks' do
+            let!(:data_proposal2) { FactoryGirl.create :data_proposal, canteen: feed.canteen }
+
+            it 'should inform about the new feedback' do
+              expect(mail).to_not be_null_mail
+
+              expect(mail.to).to eq [user.notify_email]
+              expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Änderungsvorschläge für #{feed.source.name}"
+              expect(mail.body).to include canteen_data_proposals_path(data_proposal.canteen)
+              expect(mail.body).to include canteen_data_proposals_path(data_proposal2.canteen)
+              expect(mail.body).to include "#{feed.canteen.city} -> #{data_proposal.city}"
+              expect(mail.body).to include "#{feed.canteen.city} -> #{data_proposal2.city}"
+            end
+          end
+        end
+
         context 'with no fetches' do
           it 'should not send a mail' do
             expect(mail).to be_null_mail
@@ -348,6 +383,32 @@ describe ParserMailer, type: :mailer do
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{source2.name}"
               expect(mail.body).to include feedback2.message
+            end
+          end
+        end
+
+        context 'with new data propsoals' do
+          let!(:data_proposal) { FactoryGirl.create :data_proposal, canteen: source.canteen }
+          let!(:data_proposal2) { FactoryGirl.create :data_proposal, canteen: source2.canteen }
+
+          it 'should inform about the new data proposals' do
+            expect(mail).to_not be_null_mail
+
+            expect(mail.to).to eq [user.notify_email]
+            expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Änderungsvorschläge für #{source.name}, #{source2.name}"
+            expect(mail.body).to include "#{source.canteen.city} -> #{data_proposal.city}"
+            expect(mail.body).to include "#{source.canteen.city} -> #{data_proposal2.city}"
+          end
+
+          context 'with data proposal before data since' do
+            let(:data_proposal) { FactoryGirl.create :data_proposal, canteen: source.canteen, created_at: data_since - 1.day }
+
+            it 'should not include this data proposal' do
+              expect(mail).to_not be_null_mail
+
+              expect(mail.to).to eq [user.notify_email]
+              expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neuer Änderungsvorschlag für #{source2.name}"
+              expect(mail.body).to include "#{source.canteen.city} -> #{data_proposal2.city}"
             end
           end
         end

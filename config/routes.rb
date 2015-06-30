@@ -16,7 +16,7 @@ Openmensa::Application.routes.draw do
   resources :canteens, path: 'c', only: [:show, :new, :create, :edit, :update] do
     resource :favorite, only: [:create, :destroy]
     resource :active, controller: :canteen_activation, only: [:create, :destroy]
-    resource :data_proposals, path: 'proposals', only: [:new, :create]
+    resources :data_proposals, path: 'proposals', only: [:new, :create, :index]
     resources :feedbacks, only: [:new, :create, :index]
     resources :messages, path: 'm', only: [:index]
   end

@@ -176,4 +176,11 @@ FactoryGirl.define do
 
     message 'Dies ist ein sehr langes Nutzerfeedback!'
   end
+
+  factory :data_proposal do
+    association :user
+    association :canteen
+
+    city 'Lande!'
+  end
 end

@@ -25,6 +25,8 @@
             th=t(:sources_status, :feed_count)
             th.number
               i.icon-comments title=t(:sources_status, :feedbacks)
+            th.number
+              i.icon-exchange title=t(:sources_status, :data_proposals)
             th=t(:sources_status, :actions)
           - @sources.each do |s|
             tr
@@ -33,6 +35,7 @@
               td=s.canteen.city
               td.number=s.feeds.count
               td.number=link_to s.canteen.feedbacks.count, canteen_feedbacks_path(s.canteen), title: t(:feedbacks, :open, name: s.canteen.name)
+              td.number=link_to s.canteen.data_proposals.count, canteen_data_proposals_path(s.canteen), title: t(:data_proposals, :open, name: s.canteen.name)
               td
                 = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
                   i.icon-edit

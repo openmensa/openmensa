@@ -195,6 +195,24 @@ describe 'Developers', type: :feature do
             expect(page).to have_content(feedback.message)
           end
         end
+
+        context 'with previous created data proposals' do
+          let!(:data_proposal) { FactoryGirl.create :data_proposal, canteen: canteen }
+          it 'should be able to see the data_proposal' do
+            click_on parser.name
+            click_on "Öffne Änderungsvorschläge für #{canteen.name}"
+
+            expect(page).to have_content(data_proposal.city)
+          end
+
+          it 'should be able to see feedback via canteen page' do
+            visit canteen_path(canteen)
+
+            click_on 'Änderungsvorschläge'
+
+            expect(page).to have_content(data_proposal.city)
+          end
+        end
       end
 
       context 'with a existing source with meta url' do

@@ -15,6 +15,11 @@ class DataProposalsController < ApplicationController
     end
   end
 
+  def index
+    authorize! :edit, @canteen
+    @data_proposals = @canteen.data_proposals.order(created_at: :desc)
+  end
+
   private
 
   def new_resource

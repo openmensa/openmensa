@@ -23,6 +23,7 @@ class Ability
       can :manage, Canteen, sources: {parser: {user_id: user.id}}
       can :manage, Source, parser: {user_id: user.id}
       can :create, Source
+      can :index, DataProposal
       can :manage, Feed, source: {parser: {user_id: user.id}}
       can :manage, Message, canteen: {user_id: user.id}
     end

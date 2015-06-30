@@ -17,18 +17,20 @@ class ParserMailer < ActionMailer::Base
     @regulars = []
     @fetch_errors = []
     @feedbacks = []
+    @data_proposals = []
     @parser_messages = @parser.messages.where('created_at > ?', @data_since).to_a
     @sources = []
     @parser.sources.each do |source|
       part = SourceMailerPart.new source, @data_since
       @sources << part
       @feedbacks << part if part.new_feedback?
+      @data_proposals << part if part.new_proposal?
       if part.notable?
         @fetch_errors << part
         @notables << part
       else
         @regulars << part
-        @notables << part if part.new_feedback? || part.messages? || part.feed_messages?
+        @notables << part if part.new_feedback? || part.new_proposal? || part.messages? || part.feed_messages?
       end
     end
   end
@@ -38,7 +40,7 @@ class ParserMailer < ActionMailer::Base
   end
 
   def calculate_mail_subject
-    msg = [messages_msg, feedback_msg, feed_msg].reject(&:nil?).join(' & ')
+    msg = [messages_msg, feedback_msg, data_proposal_msg, feed_msg].reject(&:nil?).join(' & ')
     t 'subject', name: @parser.name, msg: msg
   end
 
@@ -84,6 +86,11 @@ class ParserMailer < ActionMailer::Base
     t 'new_feedbacks', count: @feedbacks.map(&:feedback_count).inject(&:+), sources: @feedbacks.map(&:name).join(', ')
   end
 
+  def data_proposal_msg
+    return nil if @data_proposals.empty?
+    t 'new_data_proposals', count: @data_proposals.map(&:proposal_count).inject(&:+), sources: @data_proposals.map(&:name).join(', ')
+  end
+
   def reason_feed_msg_subject!
     if @regular_feeds.empty?
       @count = 100
@@ -119,6 +126,7 @@ class ParserMailer < ActionMailer::Base
     def_delegators :@source, :name, :canteen
     attr_reader :feeds
     attr_reader :feedbacks
+    attr_reader :data_proposals
     attr_reader :messages
 
     def initialize(source, data_since)
@@ -128,6 +136,7 @@ class ParserMailer < ActionMailer::Base
       end
       @messages = source.messages.where('created_at > ?', data_since).to_a
       @feedbacks = source.canteen.feedbacks.where('created_at > ?', data_since).to_a
+      @data_proposals = source.canteen.data_proposals.where('created_at > ?', data_since).to_a
     end
 
     def notable?
@@ -138,8 +147,16 @@ class ParserMailer < ActionMailer::Base
       @feedbacks.any?
     end
 
+    def new_proposal?
+      @data_proposals.any?
+    end
+
     def feedback_count
       @feedbacks.size
+    end
+
+    def proposal_count
+      @data_proposals.size
     end
 
     def messages?
