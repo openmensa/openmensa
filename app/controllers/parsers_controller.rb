@@ -1,6 +1,6 @@
 class ParsersController < ApplicationController
   before_action :new_resource, only: [:new, :create]
-  before_action :load_resource, only: [:show, :update, :sync]
+  before_action :load_resource, only: [:show, :edit, :update, :sync]
   load_and_authorize_resource
 
   def new
@@ -17,6 +17,9 @@ class ParsersController < ApplicationController
 
   def show
     @sources = @parser.sources.includes(:feeds)
+  end
+
+  def edit
   end
 
   def update

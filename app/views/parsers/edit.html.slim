@@ -1,0 +1,11 @@
+.row
+  .span8
+    section
+      header
+        h2= t :edit_parser
+      .content
+        = form_for @parser do |form|
+          = render partial: 'form', object: form
+          p
+            = submit_tag t(:save)
+  = render partial: 'users/nav'

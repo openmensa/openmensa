@@ -172,6 +172,7 @@ de:
     sources_deleted: '%{count} Quellen archiviert.'
     open_info_url: 'Besuche die Parser-Seite'
     maintainer_wanted: 'Unterstützer für Parser erwünscht'
+    maintainer_is_wanted: 'Unterstützer für den Parser ist erwünscht'
 
   source:
     resource: Quelle

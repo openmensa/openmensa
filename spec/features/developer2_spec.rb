@@ -33,6 +33,7 @@ describe 'Developers', type: :feature do
     context 'with existing parser' do
       it 'should be able to edit a new parser' do
         click_on parser.name
+        click_on 'Ändere die Parser-Einstellungen'
 
         fill_in 'Name', with: 'Magdeburg'
         click_on 'Speichern'
@@ -48,6 +49,7 @@ describe 'Developers', type: :feature do
         click_on parser.name
         expect(page).to_not have_link('Aktualisiere Quellen mittels Index-URL')
 
+        click_on 'Ändere die Parser-Einstellungen'
         fill_in 'Index-URL', with: index_url
         click_on 'Speichern'
 
