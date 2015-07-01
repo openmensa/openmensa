@@ -22,7 +22,7 @@
       header
         h3= t :source, :create_canteen
       .content
-          = form_for [@user, @canteen] do |form|
+          = form_for [@canteen] do |form|
             = render partial: 'canteens/form', object: form
             p
               = hidden_field_tag :parser_id, @parser.id

@@ -32,7 +32,7 @@ class CanteensController < ApplicationController
   def update
     if @canteen.update canteen_params
       flash[:notice] = t 'message.canteen_saved'
-      redirect_to user_canteens_path(@user)
+      redirect_to parser_path(@canteen.parsers.first)
     else
       render action: :edit
     end

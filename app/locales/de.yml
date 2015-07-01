@@ -22,6 +22,7 @@ de:
   my_messages: Statusmitteilungen
   edit_named_source: 'Editiere %{name} (Quelle)'
   edit_named_canteen: 'Editiere %{name} (Mensa)'
+  open_named_canteen: 'Öffne %{name}'
   edit_source: 'Editiere Quelle'
   new_feed: Neuer Feed
   create_feed: Feed anlegen
@@ -187,6 +188,8 @@ de:
     feeds_deleted: '%{count} Feeds gelöscht.'
     use_wanted_canteen: 'Eine gewünschte Mensa nutzen'
     create_canteen: 'Neue Mensa anlegen'
+    open_messages: 'Mitteilungen für %{name}'
+    messages: Mitteilungen
 
   feedbacks:
     no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!
@@ -337,6 +340,7 @@ de:
     total: "Insgesamt:"
     percentage: "%{value}%"
     lastday: "Letzte 24h:"
+    lastweek: "Letzte Woche:"
 
   headlines:
     sources_status: Quellenstatus

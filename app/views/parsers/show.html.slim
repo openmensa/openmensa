@@ -32,32 +32,34 @@
         table
           tr
             th=t(:sources_status, :source)
-            th=t(:sources_status, :canteen)
+            th colspan=2 =t(:sources_status, :canteen)
             th=t(:sources_status, :city)
             th=t(:sources_status, :feed_count)
+            th.number
+              i.icon-envelope title=t(:sources_status, :messages)
             th.number
               i.icon-comments title=t(:sources_status, :feedbacks)
             th.number
               i.icon-exchange title=t(:sources_status, :data_proposals)
-            th=t(:sources_status, :actions)
           - @sources.each do |s|
             tr
-              td=s.name
-              td=s.canteen.name
-              td=s.canteen.city
-              td.number=s.feeds.count
-              td.number=link_to s.canteen.feedbacks.count, canteen_feedbacks_path(s.canteen), title: t(:feedbacks, :open, name: s.canteen.name)
-              td.number=link_to s.canteen.data_proposals.count, canteen_data_proposals_path(s.canteen), title: t(:data_proposals, :open, name: s.canteen.name)
               td
+                =s.name
+                '
                 = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
                   i.icon-edit
-                  = t(:source, :resource)
-                ' ,
+              td
+                = s.canteen.name
+              td
                 = link_to edit_canteen_path(s.canteen), title: t(:edit_named_canteen, name: s.canteen.name) do
                   i.icon-edit
-                  = t(:canteen, :resource)
-                / = link_to delete_source_path(s), title: t(:delete_named_source, name: s.name) do
-                  i.icon-delete
+                = link_to canteen_path(s.canteen), title: t(:open_named_canteen, name: s.canteen.name) do
+                  i.icon-coffee
+              td=s.canteen.city
+              td.number=s.feeds.count
+              td.number=link_to s.messages.count, source_messages_path(s), title: t(:source, :open_messages, name: s.name)
+              td.number=link_to s.canteen.feedbacks.count, canteen_feedbacks_path(s.canteen), title: t(:feedbacks, :open, name: s.canteen.name)
+              td.number=link_to s.canteen.data_proposals.count, canteen_data_proposals_path(s.canteen), title: t(:data_proposals, :open, name: s.canteen.name)
     section
       header
         h2= t(:headlines, :feeds_status)
@@ -85,11 +87,12 @@
               tr
                 - if span == :lastday
                   - if i == 0
-                    td rowspan=s.feeds.count*2
+                    td rowspan=s.feeds.count*f.feed_timespans.size
                       b=s.name
                       br
                       =s.canteen.name
-                  td rowspan=2 =f.name
+                  td rowspan=f.feed_timespans.size
+                    = link_to f.name, feed_messages_path(f)
                 - states = fetches.group('state').count
                 - total = states.values.sum / 100.0
                 td =t(:feeds_status, span)

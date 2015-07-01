@@ -215,6 +215,18 @@ describe 'Developers', type: :feature do
             expect(page).to have_content(data_proposal.city)
           end
         end
+
+        context 'with previous messsages' do
+          let!(:error) { FactoryGirl.create :feedUrlUpdatedInfo, messageable: source }
+
+          it 'should be able to view fetch messages / errors' do
+            click_on parser.name
+
+            click_on "Mitteilungen für #{source.name}"
+
+            expect(page).to have_content(error.to_html)
+          end
+        end
       end
 
       context 'with a existing source with meta url' do

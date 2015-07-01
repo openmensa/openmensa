@@ -13,6 +13,7 @@ class Feed < ActiveRecord::Base
   def feed_timespans
     {
       lastday: fetches.where { executed_at > 1.day.ago },
+      lastweek: fetches.where { executed_at > 1.week.ago },
       total: fetches
     }
   end

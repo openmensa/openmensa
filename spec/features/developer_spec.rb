@@ -52,52 +52,34 @@ describe 'Developers', type: :feature do
       click_on 'Profil'
     end
 
-    context 'on my profile' do
-      it 'should be able to see the status of my parser' do
-      end
+    it 'should be able to edit own canteens' do
+      click_on parser.name
+      click_on "Editiere #{canteen.name}"
 
-      it 'should be able to move my source to another parser' do
-      end
+      new_url = 'http://example.org/canteens.xml'
+      new_url_2 = 'http://example.org/canteens-today.xml'
+      new_name = 'Test-Mensa'
+      new_address = 'Essensweg 34, 12345 Hunger, Deutschland'
+      new_city = 'Halle'
+      new_phone = '0331 498 304/234'
+      new_email = 'test2@new-domain.org'
 
-      it 'should be able to disable/delete a source' do
-      end
-    end
+      fill_in 'Name', with: new_name
+      fill_in 'Stadt', with: new_city
+      fill_in 'Adresse', with: new_address
+      fill_in 'Telefonnummer', with: new_phone
+      fill_in 'E-Mail', with: new_email
+      click_on 'Speichern'
 
-    context 'on my canteens page' do
-      before do
-        canteen
-        click_on 'Meine Mensen'
-      end
+      canteen.reload
 
-      it 'should be able to edit own canteens' do
-        click_on parser.name
-        click_on "Editiere #{canteen.name}"
+      expect(canteen.name).to eq(new_name)
+      expect(canteen.address).to eq(new_address)
+      expect(canteen.city).to eq(new_city)
+      expect(canteen.phone).to eq(new_phone)
+      expect(canteen.email).to eq(new_email)
 
-        new_url = 'http://example.org/canteens.xml'
-        new_url_2 = 'http://example.org/canteens-today.xml'
-        new_name = 'Test-Mensa'
-        new_address = 'Essensweg 34, 12345 Hunger, Deutschland'
-        new_city = 'Halle'
-        new_phone = '0331 498 304/234'
-        new_email = 'test2@new-domain.org'
-
-        fill_in 'Name', with: new_name
-        fill_in 'Stadt', with: new_city
-        fill_in 'Adresse', with: new_address
-        fill_in 'Telefonnummer', with: new_phone
-        fill_in 'E-Mail', with: new_email
-        click_on 'Speichern'
-
-        canteen.reload
-
-        expect(canteen.name).to eq(new_name)
-        expect(canteen.address).to eq(new_address)
-        expect(canteen.city).to eq(new_city)
-        expect(canteen.phone).to eq(new_phone)
-        expect(canteen.email).to eq(new_email)
-
-        expect(page).to have_content 'Mensa gespeichert.'
-      end
+      expect(page).to have_content 'Mensa gespeichert.'
     end
 
     context 'on my canteen page' do
@@ -126,6 +108,18 @@ describe 'Developers', type: :feature do
         expect(page).to_not have_link 'Mensa außer Betrieb nehmen'
       end
 
+      context 'with previous fetches and errors' do
+        let!(:fetch) { FactoryGirl.create :feed_fetch, feed: feed, state: 'broken'}
+        let!(:error) { FactoryGirl.create :feedValidationError, messageable: fetch }
+
+        it 'should be able to view fetch messages / errors' do
+          click_on 'Feed debug-Mitteilungen'
+
+          expect(page).to have_content('permanenter Fehler')
+          expect(page).to have_content(error.to_html)
+        end
+      end
+
       context 'with deactivated canteen' do
         let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
 
@@ -139,24 +133,8 @@ describe 'Developers', type: :feature do
       end
     end
 
-    context 'on my messages page' do
-      let(:message) { FactoryGirl.create :feedValidationError, messageable: feed, kind: :invalid_xml }
-      before do
-        message
-        click_on 'Statusmitteilungen'
-      end
-
-      it 'should allow to view own messages' do
-        pending 'needs porting'
-        click_on canteen.name
-        expect(page).to have_content message.canteen.name
-        expect(page).to have_content message.message
-      end
-    end
-
     context 'on profile page' do
       it 'should be able to update notification email' do
-
         fill_in 'E-Mail für Fehlerberichte', with: 'test+openmensa@example.com'
         click_on 'Speichern'
 

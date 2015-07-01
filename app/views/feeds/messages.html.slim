@@ -28,7 +28,7 @@
           - reason_map = {'manual' => 'icon-user', 'schedule' => 'icon-calendar', 'retry' => 'icon-retweet'}
           - @fetches.each do |fetch|
             tr
-              td
+              td rowspan=fetch.messages.size+1
                 i class=(reason_map[fetch.reason]) title=t(:feed_fetch, :reasons, fetch.reason)
               td
                 = l fetch.executed_at, format: :short
@@ -38,6 +38,10 @@
               td.number= fetch.added_meals
               td.number= fetch.updated_meals
               td.number= fetch.removed_meals
+            - fetch.messages.each do |message|
+              tr
+                td colspan=7
+                  = message.to_html
 
   aside.span4
     = render partial: 'common/favorites', locals: { user: current_user }

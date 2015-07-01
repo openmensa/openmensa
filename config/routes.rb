@@ -23,9 +23,7 @@ Openmensa::Application.routes.draw do
   resources :users, path: 'u' do
     resources :favorites, path: 'favs', only: [:index]
     resources :identities, path: 'ids', only: [:new, :create, :destroy]
-    resources :canteens, path: 'c', only: [:index, :new, :create]
     resource :developer
-    get 'm', to: 'messages#overview', as: :messages
   end
   get 'activate/:token', to: 'developers#activate', as: :activate
 
@@ -41,6 +39,7 @@ Openmensa::Application.routes.draw do
   end
   post '/parsers/:id/sync', to: 'parsers#sync', as: :sync_parser
   post '/sources/:id/sync', to: 'sources#sync', as: :sync_source
+  get '/sources/:id/messages' => 'sources#messages', as: :source_messages
 
   get '/auth',                    to: 'sessions#new',      as: :login
   get '/auth/signoff',            to: 'sessions#destroy',  as: :logout
