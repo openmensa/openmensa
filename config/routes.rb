@@ -53,6 +53,8 @@ Openmensa::Application.routes.draw do
   get '/support', to: 'static#support', as: :support
   get '/contribute', to: 'static#contribute', as: :contribute
 
+  get '/menu(/:date)' => 'menu#show', as: :menu, constraints: {date: /\d{4}-\d{2}-\d{2}/}
+
   # get '/', to: 'application#index', as: :application_index
   root to: 'static#index'
 end

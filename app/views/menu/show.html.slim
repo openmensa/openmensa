@@ -1,0 +1,38 @@
+section
+  #remote-canteens-show
+    header.page-header
+      = link_to menu_path(date: (@date - 1.day)), class: :prev do
+        span
+      = link_to menu_path(date: (@date + 1.day)), class: :next do
+        span
+      h2.centered
+        - if @date.to_date == Time.zone.now.to_date
+          = t :today
+        - else
+          = l @date.to_date, format: :with_weekday
+
+- @canteens.each do |canteen|
+  .row
+    .span8
+      section
+        #remote-canteens-show
+          header.page-header
+            h2.centered = link_to canteen.name, canteen_path(canteen, day: @date)
+          ul.meals
+            = render partial: "canteens/day", locals: { day: canteen.days.find_by_date(@date) }
+
+    aside.span4
+      section
+        header
+          h2=t(:canteen, :address)
+        .content
+          address= canteen.address
+          - if canteen.phone.present?
+            p.icon-phone#phone
+              =canteen.phone
+          - if canteen.email.present?
+            p.icon-envelope#email
+              =link_to canteen.email, "mailto:#{obj[:canteen].email}"
+          p.action
+            = link_to t(:canteen, :correct_data), new_canteen_data_proposal_path(canteen), class: "btn btn-primary"
+      = render partial: 'canteens/canteen_status', locals: { canteen: canteen, error_link: true  }

@@ -27,5 +27,5 @@
     - @canteen.sources.map(&:parser).each do |parser|
       - if parser.info_box?
         = render 'parser_info', parser: parser
-    = render partial: 'feedback'
+    = render partial: 'feedback', locals: { canteen: @canteen }
     = render partial: 'canteen_status', locals: { canteen: @canteen }

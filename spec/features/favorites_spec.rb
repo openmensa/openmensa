@@ -5,8 +5,9 @@ describe 'Favorites: ', type: :feature do
   context 'User' do
     let(:user) { FactoryGirl.create :user }
     let(:canteen) { FactoryGirl.create :canteen }
+    let(:canteen2) { FactoryGirl.create :canteen }
     let(:favorite) { FactoryGirl.create :favorite, canteen: canteen, user: user }
-    let(:favorite2) { FactoryGirl.create :favorite, user: user }
+    let(:favorite2) { FactoryGirl.create :favorite, canteen: canteen2, user: user }
 
     before do
       login_as user
@@ -55,6 +56,16 @@ describe 'Favorites: ', type: :feature do
       click_on favorite.canteen.name
 
       expect(page).to have_content favorite.canteen.name
+    end
+
+    context 'with previous set favorites' do
+      before { favorite; favorite2 }
+
+      it 'should be redirected to menu page if start page is open directly' do
+        visit root_path
+
+        expect(current_path).to eq menu_path
+      end
     end
   end
 

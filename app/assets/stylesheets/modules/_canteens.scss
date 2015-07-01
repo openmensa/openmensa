@@ -60,7 +60,7 @@
   }
 }
 
-.canteens_controller {
+.canteens_controller, .menu_controller {
   .page-header {
     @extend %clearfix;
 

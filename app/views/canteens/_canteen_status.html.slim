@@ -9,3 +9,5 @@ section.status
         =t :canteen, :last_update_at
         br
         = timeago_tag canteen.last_fetched_at
+    p.action
+      = link_to 'Rückmeldung geben', new_canteen_feedback_path(canteen), class: "btn btn-primary"
