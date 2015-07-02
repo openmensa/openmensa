@@ -3,7 +3,7 @@ class StaticController < ApplicationController
   respond_to :html
 
   def index
-    if request.referer.blank? && @user.logged? && @user.favorites.any?
+    if request.referer.blank? && @user && @user.logged? && @user.favorites.any?
       redirect_to menu_path
     end
   end
