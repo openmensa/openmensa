@@ -117,5 +117,16 @@ describe OpenMensa::UpdateFeedsTask do
 
       task.do
     end
+
+    it 'should only fetch active feeds/sources' do
+      feed = new_feed schedule: '*/15 8-9 * * *', next_fetch_at: _815
+      feed3 = new_feed schedule: '0 8-9 * * *', next_fetch_at: _834
+      feed3.canteen.update_attributes state: 'archived'
+
+      expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').ordered.and_return(success_updater)
+      expect(OpenMensa::Updater).to_not receive(:new)
+
+      task.do
+    end
   end
 end
