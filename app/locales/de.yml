@@ -154,6 +154,11 @@ de:
     parser_info: 'Über Parser "%{name}"'
     feedbacks: Nutzerrückmeldungen
     data_proposals: Änderungsvorschläge
+    about: Die Mensa
+    more: "Mehr zu %{name}"
+
+  menu:
+    more_actions: "Auch für Fehlerberichte, Korrekturvorschläge ..."
 
   canteen_feedback:
     message: Kurzbeschreibung

@@ -17,14 +17,14 @@ section
       section
         #remote-canteens-show
           header.page-header
-            h2.centered = link_to canteen.name, canteen_path(canteen, day: @date)
+            h2.centered = canteen.name
           ul.meals
             = render partial: "canteens/day", locals: { day: canteen.days.find_by_date(@date) }
 
     aside.span4
       section
         header
-          h2=t(:canteen, :address)
+          h2=t(:canteen, :about)
         .content
           address= canteen.address
           - if canteen.phone.present?
@@ -33,6 +33,15 @@ section
           - if canteen.email.present?
             p.icon-envelope#email
               =link_to canteen.email, "mailto:#{obj[:canteen].email}"
+          h4
+            i class=canteen_state_icon(canteen.fetch_state)
+            =t :canteen, canteen.fetch_state
+          - unless canteen.fetch_state == :no_fetch_ever_message
+            p
+              =t :canteen, :last_update_at
+              br
+              = timeago_tag canteen.last_fetched_at
           p.action
-            = link_to t(:canteen, :correct_data), new_canteen_data_proposal_path(canteen), class: "btn btn-primary"
-      = render partial: 'canteens/canteen_status', locals: { canteen: canteen, error_link: true  }
+            = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen, day: @date), class: "btn btn-secondary"
+            br
+            = t :menu, :more_actions
