@@ -155,7 +155,8 @@ de:
     feedbacks: Nutzerrückmeldungen
     data_proposals: Änderungsvorschläge
     about: Die Mensa
-    more: "Mehr zu %{name}"
+    more: "Mehr zur Mensa"
+    more_with_name: "Mehr zu %{name}"
 
   menu:
     more_actions: "Auch für Fehlerberichte, Korrekturvorschläge ..."

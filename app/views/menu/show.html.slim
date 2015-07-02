@@ -10,41 +10,14 @@ section
           = t :today
         - else
           = l @date.to_date, format: :with_weekday
-
-- @canteens.each do |canteen|
-  .row
-    .span8
-      section
-        #remote-canteens-show
-          header.page-header
-            h2.centered = canteen.name
-          ul.meals
-            = render partial: "canteens/day", locals: { day: canteen.days.find_by_date(@date) }
-
-    aside.span4
-      section
-        header
-          h2=t(:canteen, :about)
-        .content
-          address= canteen.address
-          - if canteen.phone.present?
-            p.icon-phone#phone
-              =canteen.phone
-          - if canteen.email.present?
-            p.icon-envelope#email
-              =link_to canteen.email, "mailto:#{obj[:canteen].email}"
-          h4
-            i class=canteen_state_icon(canteen.fetch_state)
-            =t :canteen, canteen.fetch_state
-          - unless canteen.fetch_state == :no_fetch_ever_message
-            p
-              =t :canteen, :last_update_at
-              br
-              = timeago_tag canteen.last_fetched_at
-          p.action
-            - if @date.to_date == Time.zone.now.to_date
-              = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen), class: "btn btn-secondary"
-            - else
-              = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen, date: @date), class: "btn btn-secondary"
-            br
-            = t :menu, :more_actions
+.row
+  .span6
+    - pos = 0
+    - while pos < @canteens.size
+        = render partial: "canteen", locals: { canteen: @canteens[pos] }
+        - pos += 2
+  .span6
+    - pos = 1
+    - while pos < @canteens.size
+        = render partial: "canteen", locals: { canteen: @canteens[pos] }
+        - pos += 2
