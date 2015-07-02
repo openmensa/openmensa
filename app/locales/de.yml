@@ -159,6 +159,7 @@ de:
 
   menu:
     more_actions: "Auch für Fehlerberichte, Korrekturvorschläge ..."
+    open: Menü-Übersicht über alle Favoriten
 
   canteen_feedback:
     message: Kurzbeschreibung
@@ -327,6 +328,7 @@ de:
     deleted: Der Favorit wurde gelöscht.
     deleted_error: Der Favorit konnt nicht gelöscht werden.
     howto_add: "Um eine Mensa als Favorit zu speichern, markiere sie auf der Mensa-Seite mit einem Stern."
+    use_menu: "Anschließend siehst du auf der Menü-Seite eine Essensübersicht für alle deine Favoriten!"
 
   sources_status:
     source: 'Quelle'

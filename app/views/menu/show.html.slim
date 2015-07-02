@@ -42,6 +42,9 @@ section
               br
               = timeago_tag canteen.last_fetched_at
           p.action
-            = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen, day: @date), class: "btn btn-secondary"
+            - if @date.to_date == Time.zone.now.to_date
+              = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen), class: "btn btn-secondary"
+            - else
+              = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen, date: @date), class: "btn btn-secondary"
             br
             = t :menu, :more_actions

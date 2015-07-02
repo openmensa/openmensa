@@ -1,8 +1,15 @@
 section.favorites class="#{user.favorites.empty? ? "empty" : ""}"
-  header: h2 = t('favorites.my_favorites')
+  header
+    h2
+      = t('favorites.my_favorites')
+      ul.actions
+        li
+          = link_to menu_path, title: t(:menu, :open) do
+            i.icon-food
   - if user.favorites.empty?
     .content
       p=t('favorites.howto_add')
+      p=t('favorites.use_menu')
       - if defined? missing_canteen
         h3 Deine Mensa fehlt?
         p= link_to 'Melde die Mensa als gewünscht', new_canteen_path
