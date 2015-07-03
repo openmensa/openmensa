@@ -96,8 +96,17 @@ describe Api::V2::CanteensController, type: :controller do
       expect(response.headers['Link'].to_s).to include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
     end
 
+    context 'should not included wanted canteens' do
+      let!(:hidden_canteen) { FactoryGirl.create :canteen, state: 'wanted' }
+      before { get :index, format: :json }
+      subject { json }
+
+      it { is_expected.to be_an(Array) }
+      it { is_expected.to have(1).item }
+    end
+
     context 'should not included disabled canteens' do
-      let!(:disabled_canteen) { FactoryGirl.create :disabled_canteen }
+      let!(:hidden_canteen) { FactoryGirl.create :canteen, state: 'archived' }
       before { get :index, format: :json }
       subject { json }
 
@@ -287,8 +296,23 @@ describe Api::V2::CanteensController, type: :controller do
       }.as_json)
     end
 
-    context 'and a disabled canteens' do
-      let(:canteen) { FactoryGirl.create :disabled_canteen }
+    context 'and a wanted canteens' do
+      let(:canteen) { FactoryGirl.create :canteen, state: 'wanted' }
+      subject { json }
+
+      context 'response' do
+        subject { response }
+        its(:status) { should == 200 }
+      end
+
+      context 'json' do
+        subject { json }
+        its(['id']) { should be canteen.id }
+      end
+    end
+
+    context 'and a archived canteens' do
+      let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
       subject { json }
 
       context 'response' do

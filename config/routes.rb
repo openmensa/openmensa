@@ -10,21 +10,36 @@ Openmensa::Application.routes.draw do
     end
   end
 
+  resources :canteens, path: 'c', only: [:new, :create]
+  get '/wanted' => 'canteens#wanted', as: :wanted_canteens
   get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
-  get '/c/:id/fetch' => 'canteens#fetch', as: :fetch_canteen
-  resources :canteens, path: 'c', only: [:show] do
+  resources :canteens, path: 'c', only: [:show, :new, :create, :edit, :update] do
     resource :favorite, only: [:create, :destroy]
     resource :active, controller: :canteen_activation, only: [:create, :destroy]
+    resources :data_proposals, path: 'proposals', only: [:new, :create, :index]
+    resources :feedbacks, only: [:new, :create, :index]
+    resources :messages, path: 'm', only: [:index]
   end
   resources :users, path: 'u' do
     resources :favorites, path: 'favs', only: [:index]
     resources :identities, path: 'ids', only: [:new, :create, :destroy]
-    resources :canteens, path: 'c', only: [:index, :new, :create, :edit, :update] do
-      resources :messages, path: 'm', only: [:index]
-    end
-    get 'm', to: 'messages#overview', as: :messages
+    resource :developer
   end
+  get 'activate/:token', to: 'developers#activate', as: :activate
+
   resources :favorites, path: 'favs', only: [:index]
+  resources :sources, only: [:create, :update, :edit] do
+    resources :feeds, only: [:create]
+  end
+  get '/feeds/:id/fetch' => 'feeds#fetch', as: :feed_fetch
+  get '/feeds/:id/messages' => 'feeds#messages', as: :feed_messages
+  resources :feeds, only: [:update, :destroy]
+  resources :parsers do
+    resources :sources, only: [:new, :create]
+  end
+  post '/parsers/:id/sync', to: 'parsers#sync', as: :sync_parser
+  post '/sources/:id/sync', to: 'sources#sync', as: :sync_source
+  get '/sources/:id/messages' => 'sources#messages', as: :source_messages
 
   get '/auth',                    to: 'sessions#new',      as: :login
   get '/auth/signoff',            to: 'sessions#destroy',  as: :logout
@@ -37,6 +52,8 @@ Openmensa::Application.routes.draw do
   get '/about', to: 'static#about', as: :about
   get '/support', to: 'static#support', as: :support
   get '/contribute', to: 'static#contribute', as: :contribute
+
+  get '/menu(/:date)' => 'menu#show', as: :menu, constraints: {date: /\d{4}-\d{2}-\d{2}/}
 
   # get '/', to: 'application#index', as: :application_index
   root to: 'static#index'

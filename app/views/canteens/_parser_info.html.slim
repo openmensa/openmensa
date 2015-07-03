@@ -1,0 +1,33 @@
+section
+  header
+    h2=t :canteen, :parser_info, name: parser.name
+  .content
+    - if parser.user.public_name.present?
+      p
+        ' Der Parser wird von
+        - if parser.user.info_url.present?
+          =link_to parser.user.public_name, parser.user.info_url
+        - else
+          i= parser.user.public_name
+        '  bereitgestellt.
+    - if parser.info_url.present?
+      p
+        ' Erfahre mehr auf der Parser-Seite:
+        br
+        =link_to parser.info_url, title: t(:parser, :open_info_url, name: parser.name), class: 'icon-external-link' do
+            = ' ' + parser.info_url
+    - if parser.user.public_email.present?
+      p
+        ' Kontaktiere den Autor des Parsers:
+        br
+        =link_to 'mailto:' + parser.user.public_email, title: t(:parser, :open_info_url, name: parser.name), class: 'icon-envelope' do
+            = ' ' + parser.user.public_email
+    - if parser.maintainer_wanted?
+      p
+        ' Es braucht Unterstüzung für diesen Parser,
+        ' um ihn auch bei verändernden Anbieterseiten
+        ' stets aktuell zu halten.
+        ' Hast du Lust zu helfen? Dann melde dich beim
+        ' Autor des Parsers.
+      p.action
+        = link_to 'Am Parser mitarbeiten', new_canteen_feedback_path(@canteen), class: "btn btn-primary"

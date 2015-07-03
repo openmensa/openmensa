@@ -205,3 +205,8 @@ $btn-success: #238625 !default;
   @extend .btn;
   @include btn($btn-success, #fff);
 }
+
+.btn-danger {
+  @extend .btn;
+  @include btn(#EA1414, #fff);
+}

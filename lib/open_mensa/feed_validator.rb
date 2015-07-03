@@ -12,7 +12,7 @@ module OpenMensa
   #   FeedValidator.new(document, version: 1) # force scheme version
   #
   class FeedValidator
-    attr_reader :options, :version, :errors, :document
+    attr_reader :options, :errors, :document
 
     # A ValidationError will be raised if validation fails, scheme cannot be
     # loaded or document version cannot be determined.
@@ -42,7 +42,14 @@ module OpenMensa
       @options  = options
       @document = document
 
-      @version = @options[:version] || detect_version
+      @required_main_version = @options[:version]
+    end
+
+    # Which version has the processed xml
+    # String (1.0, 2.0, 2.1 ...)
+    #
+    def version
+      @version ||= detect_version
     end
 
     # Check if XML is valid for OpenMensa scheme. Will test for all versions
@@ -68,7 +75,7 @@ module OpenMensa
     def validate!
       @errors = schema.validate(document).to_a
       raise FeedValidationError.new('Error while validating document.', errors) unless errors.empty?
-      version
+      version.to_i
     end
 
     # Validates document using specified or detect scheme. Will return
@@ -93,20 +100,21 @@ module OpenMensa
     # Nokogiri XML schema.
     #
     def schema
-      @schema ||= load_schema detect_version!
+      @schema ||= load_schema version
     end
 
     private
 
     def detect_version
-      version  = (document.root.nil? ? nil : document.root[:version].to_i)
-      @version = version unless schema_file(version).nil?
-      self.version
-    end
-
-    def detect_version!
-      raise InvalidFeedVersionError.new('Cannot detect schema version.') unless detect_version
-      version
+      version  = (document.root.nil? ? nil : document.root[:version])
+      if @required_main_version && version && version.to_i != @required_main_version
+        raise InvalidFeedVersionError.new("Document version #{version} does not match #{@required_main_version}")
+      end
+      if schema_file(version).nil?
+        raise InvalidFeedVersionError.new('Cannot detect schema version.')
+      else
+        @version = version
+      end
     end
 
     def load_schema(version)
@@ -114,7 +122,7 @@ module OpenMensa
     end
 
     def schema_file(version)
-      case version
+      case version.to_i
         when 1 then ::Rails.root.join('public', 'open-mensa-v1.xsd').to_s
         when 2 then ::Rails.root.join('public', 'open-mensa-v2.xsd').to_s
         else nil

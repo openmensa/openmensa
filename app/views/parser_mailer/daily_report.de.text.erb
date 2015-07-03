@@ -1,0 +1,74 @@
+In den letzten 24 Stunden sind folgende Unregelmäßigkeiten aufgetretten.
+Mehr Information finden Sie unter:
+<%= parser_url(@parser, only_path: false) %>
+
+<% @parser_messages.each do |message| %>
+
+- <%= message.to_text_mail %>
+<% end %>
+<% @notables.each do |source| %>
+
+<%=source.canteen.name %> (<%= source.name %>)
+===================
+<% source.messages.each do |message| %>
+
+* Mitteilung um <%=l message.created_at %>
+  <%= message.to_text_mail %>
+<% end %>
+<% source.feedbacks.each do |feedback| %>
+
+* Rückmeldung um <%=l feedback.created_at %>
+  <%= feedback.message %>
+<% end %>
+<% source.data_proposals.each do |proposal| %>
+
+* Änderungsvorschlag um <%=l proposal.created_at %>
+   Mehr unter: <%= canteen_data_proposals_url(proposal.canteen, only_path: false) %>
+<% if proposal.name.present? %>
+   Name: <%= proposal.canteen.name %> -> <%= proposal.name %>
+<% end %>
+<% if proposal.city.present? %>
+   Region/Stadt: <%= proposal.canteen.city %> -> <%= proposal.city %>
+<% end %>
+<% if proposal.address.present? %>
+   Anschrift: <%= proposal.canteen.address %> -> <%= proposal.address %>
+<% end %>
+<% if proposal.phone.present? %>
+   Telefonnummer: <%= proposal.canteen.phone %> -> <%= proposal.phone %>
+<% end %>
+<% if proposal.email.present? %>
+   E-Mail: <%= proposal.canteen.email %> -> <%= proposal.email %>
+<% end %>
+<% end %>
+<% source.feeds.select(&:with_messages?).each do |feed| %>
+
+* Feed <%= feed.name %> / <%= feed.url %>
+<% feed.feed_messages.each do |message| %>
+  - Mitteilung um <%=l message.created_at %>
+    <%= message.to_text_mail %>
+<% end %>
+<% feed.messages do |message, count, first, last| %>
+  - <%= message.to_text_mail %>
+<% if count > 1 %>
+    Erstmals: <%=l first %>
+    Zuletzt: <%=l last %>
+    Anzahl: <%= count %>
+<% else %>
+    Zeitpunkt: <%=l first %>
+<% end %>
+<% if source.feeds.any?(&:regular?) %>
+
+<% if source.feeds.select(&:regular?).size == 1 %>
+* Feed <%= source.feeds.select(&:regular?).first.name %> ist fehlerfrei.
+<% else %>
+* Feeds <%= source.feeds.select(&:regular?).map(&:name).join(", ") %> sind fehlerfrei.
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+
+
+<% end %>
+
+Die vollständige Liste mit Mitteilungen finden Sie unter:
+<%= parser_url(@parser, only_path: false) %>

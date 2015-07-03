@@ -5,11 +5,12 @@
     ul.content.nav
       li= link_to t(:my_profile), user_path(@user)
       li= link_to t('favorites.my_favorites'), user_favorites_path(@user)
-  - if can? :create, Canteen
+  - if can? :create, Parser
     section
       header
-        h2= t :developer
-      ul.content.nav
-        li= link_to t(:my_canteens), user_canteens_path(@user)
-        li= link_to t(:my_messages), user_messages_path(@user)
+        h2= t :parsers
+      ul.content.nav.parsers
+        - @user.parsers.order(:name).each do |p|
+          li= link_to p.name, parser_path(p), class: 'icon-edit'
+        li= link_to t(:create_parser), new_parser_path(@user), class: 'icon-plus'
   = yield :navigation

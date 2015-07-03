@@ -1,0 +1,134 @@
+.row
+  .span8
+    section
+      header
+        h2= t :parser, :title, name: @parser.name
+      .content
+        - if @parser.info_url.present?
+          p
+            = t(:parser, :info_url)
+            ':
+            = @parser.info_url
+        - if @parser.index_url.present?
+          p
+            = t(:parser, :index_url)
+            ':
+            = @parser.index_url
+        - if @parser.maintainer_wanted?
+          p=t(:parser, :maintainer_is_wanted)
+        = link_to edit_parser_path(@parser), class: "btn btn-primary", title: 'Editieren' do
+          = 'Ändere die Parser-Einstellungen'
+        '
+        - if @parser.index_url.present?
+          = link_to sync_parser_path(@parser), class: "btn btn-primary", title: 'Aktualisiere Quellen mittels Index-URL', method: :post do
+            = 'Aktualisiere Quellen mittels Index-URL'
+          '
+        = link_to new_parser_source_path(@parser), class: "btn btn-primary", title: 'Neue Quelle/Mensa hinzufügen' do
+          = 'Neue Quelle/Mensa hinzufügen'
+    section
+      header
+        h2= t(:headlines, :sources_status)
+      .content
+        table
+          tr
+            th=t(:sources_status, :source)
+            th colspan=2 =t(:sources_status, :canteen)
+            th=t(:sources_status, :city)
+            th=t(:sources_status, :feed_count)
+            th.number
+              i.icon-envelope title=t(:sources_status, :messages)
+            th.number
+              i.icon-comments title=t(:sources_status, :feedbacks)
+            th.number
+              i.icon-exchange title=t(:sources_status, :data_proposals)
+          - @sources.each do |s|
+            tr
+              td
+                =s.name
+                '
+                = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
+                  i.icon-edit
+              td
+                = s.canteen.name
+              td
+                = link_to edit_canteen_path(s.canteen), title: t(:edit_named_canteen, name: s.canteen.name) do
+                  i.icon-edit
+                = link_to canteen_path(s.canteen), title: t(:open_named_canteen, name: s.canteen.name) do
+                  i.icon-coffee
+              td=s.canteen.city
+              td.number=s.feeds.count
+              td.number=link_to s.messages.count, source_messages_path(s), title: t(:source, :open_messages, name: s.name)
+              td.number=link_to s.canteen.feedbacks.count, canteen_feedbacks_path(s.canteen), title: t(:feedbacks, :open, name: s.canteen.name)
+              td.number=link_to s.canteen.data_proposals.count, canteen_data_proposals_path(s.canteen), title: t(:data_proposals, :open, name: s.canteen.name)
+    section
+      header
+        h2= t(:headlines, :feeds_status)
+      .content
+      table
+        tr
+          th rowspan=2 =t(:feeds_status, :source)
+          th rowspan=2 =t(:feeds_status, :feed)
+          th rowspan=2 =t(:feeds_status, :time_span)
+          th colspan=5 =t(:feeds_status, :states)
+        tr
+          th.number
+            i.icon-refresh title=t(:feed_fetch, :states, :changed)
+          th.number
+            i.icon-copy title=t(:feed_fetch, :states, :unchanged)
+          th.number
+            i.icon-circle-blank title=t(:feed_fetch, :states, :empty)
+          th.number
+            i.icon-warning-sign title=t(:feed_fetch, :states, :failed)
+          th.number
+            i.icon-bolt title=t(:feed_fetch, :states, :broken)
+        - @sources.each do |s|
+          - s.feeds.each_with_index do |f, i|
+            - f.feed_timespans.each do |span, fetches|
+              tr
+                - if span == :lastday
+                  - if i == 0
+                    td rowspan=s.feeds.count*f.feed_timespans.size
+                      b=s.name
+                      br
+                      =s.canteen.name
+                  td rowspan=f.feed_timespans.size
+                    = link_to f.name, feed_messages_path(f)
+                - states = fetches.group('state').count
+                - total = states.values.sum / 100.0
+                td =t(:feeds_status, span)
+                td.number
+                  - if states['changed']
+                    = states['changed']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['changed'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['unchanged']
+                    = states['unchanged']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['unchanged'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['empty']
+                    = states['empty']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['empty'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['failed']
+                    = states['failed']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['failed'] / total).to_i)
+                  - else
+                    ' -
+                td.number
+                  - if states['broken']
+                    = states['broken']
+                    br
+                    =t(:feeds_status, :percentage, value: (states['broken'] / total).to_i)
+                  - else
+                    ' -
+  = render partial: 'users/nav'

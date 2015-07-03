@@ -47,6 +47,19 @@ describe 'Inform', type: :feature do
       expect(page).to have_link 'RubyOnRails'
     end
 
+    it 'should be able to see the list of interested canteens' do
+      FactoryGirl.create :canteen, state: 'wanted',
+                                   name: 'Meine Liebligsmensa',
+                                   city: 'Hamburg'
+      visit root_path
+
+      click_on 'Arbeite mit an OpenMensa'
+
+      click_on 'Liste der gewünschten Mensen'
+
+      expect(page).to have_content 'Meine LiebligsmensaHamburg'
+    end
+
     it 'I want to find how to support openmensa' do
       visit root_path
 

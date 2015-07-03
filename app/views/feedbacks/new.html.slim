@@ -1,0 +1,28 @@
+.row
+  .span8
+    section
+      header
+        h2= t :canteen_feedback, :give_feedback
+      .content
+        p
+          ' Um welches Anliegen geht es? Möchtest du einen Fehler melden,
+          ' einen Tipp geben, auf zukünftige Veränderungen hinweisen
+          ' oder mit am Parser arbeiten?
+        p
+          b
+            ' Für Fehlermeldungen:
+          ' Beschreibe bitte kurz, welchen Fehler du beobachtest hast.
+          ' Wenn du eine Idee zur Fehlerursache oder weitere
+          ' Hintegrundinformationen hast, ergänze sie bitte auch.
+        = form_for [@canteen, @feedback] do |form|
+          p
+            = form.label :message, t(:canteen_feedback, :message)
+            = form.text_area :message
+          p
+            = submit_tag t(:canteen_feedback, :create_button)
+
+  - unless @user.nil?
+    = render partial: 'users/nav'
+  - else
+    .span4
+      = render partial: 'static/sidebar'

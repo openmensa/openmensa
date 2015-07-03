@@ -8,13 +8,20 @@ class CanteensController < ApplicationController
   end
 
   def new
+    @canteens = Canteen.where state: 'wanted'
   end
 
   def create
     if @canteen.update canteen_params
-      flash[:notice] = t 'message.canteen_added'
-      redirect_to edit_user_canteen_path(@user, @canteen)
+      if params[:parser_id]
+        flash[:notice] = t 'message.canteen_added'
+        redirect_to new_parser_source_path(parser_id: params[:parser_id], canteen_id: @canteen)
+      else
+        flash[:notice] = t 'message.wanted_canteen_added'
+        redirect_to wanted_canteens_path
+      end
     else
+      @canteens = Canteen.where state: 'wanted'
       render action: :new
     end
   end
@@ -25,7 +32,7 @@ class CanteensController < ApplicationController
   def update
     if @canteen.update canteen_params
       flash[:notice] = t 'message.canteen_saved'
-      redirect_to user_canteens_path(@user)
+      redirect_to parser_path(@canteen.parsers.first)
     else
       render action: :edit
     end
@@ -41,22 +48,8 @@ class CanteensController < ApplicationController
     @meals = @canteen.meals.for @date
   end
 
-  def fetch
-    if current_user.cannot?(:manage, @canteen) && \
-       @canteen.last_fetched_at && \
-       @canteen.last_fetched_at > Time.zone.now - 15.minutes
-      return error_too_many_requests
-    end
-    updater = OpenMensa::Updater.new(@canteen)
-    @result = {
-      'status' => updater.update ? 'ok' : 'error'
-    }
-    json = @result.dup.update updater.stats
-    @result.update updater.stats(false) if current_user.can? :manage, @canteen
-    respond_to do |format|
-      format.html
-      format.json { render json: json }
-    end
+  def wanted
+    @canteens = Canteen.where state: 'wanted'
   end
 
   private
@@ -66,10 +59,10 @@ class CanteensController < ApplicationController
   end
 
   def new_resource
-    @canteen = @user.canteens.new
+    @canteen = Canteen.new
   end
 
   def canteen_params
-    params.require(:canteen).permit(:address, :name, :url, :today_url, :fetch_hour, :latitude, :longitude, :city)
+    params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city, :phone, :email)
   end
 end

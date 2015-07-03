@@ -2,11 +2,35 @@
   .span8
     section
       header
-        h2= t :add_canteen
+        h2= t :add_wanted_canteen
       .content
-        = form_for [@user, @canteen] do |form|
+        p
+          ' Deine Mensa wird aktuell nicht auf OpenMensa gelistet?
+          ' Hier kannst du die wichtigen Daten deiner Mensa hinterlegen.
+          ' Andere Entwickler sehen den Wunsch zur Unterstützung zu dieser Mensa
+          ' und können einen gewünschten Parser schreiben.
+          ' Die Angabe des Namens und der Stadt/Region sind verpflichten,
+          '  die Adresse kann ausgelassen werden, wenn sie nicht gekannt ist.
+        h4 Bisherige Liste an interessierten Mensen
+        p
+          table
+            tr
+              td=t :canteen, :name
+              td=t :canteen, :city
+              td=t :canteen, :address
+            - @canteens.each do |c|
+              tr
+                td=c.name
+                td=c.city
+                td=c.address
+        h4 Neue Mensa hinzufügen
+        = form_for @canteen do |form|
           = render partial: 'form', object: form
           p
-            = submit_tag t(:add)
+            = submit_tag t(:create_wanted_canteen)
 
-  = render partial: 'users/nav'
+  - unless @user.nil?
+    = render partial: 'users/nav'
+  - else
+    .span4
+      = render partial: 'static/sidebar'

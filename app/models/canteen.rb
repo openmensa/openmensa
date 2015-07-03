@@ -2,38 +2,32 @@ require 'open-uri'
 require 'rexml/document'
 
 class Canteen < ActiveRecord::Base
-  belongs_to :user
   has_many :days
   has_many :meals, through: :days
   has_many :messages
+  has_many :sources
+  has_many :parsers, through: :sources
+  has_many :feeds, through: :sources
+  has_many :data_proposals
+  has_many :feedbacks
 
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where('state IN (?)', ['active', 'empty']) }
 
-  validates :address, :city, :name, :user_id, presence: true
+  validates :city, :name, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :geocode?
+
+  STATES = %w(wanted active empty archived)
+  validates :state, inclusion: { in: STATES, message: '%{value} is not a valid canteen state' }
 
   def geocode?
     return false unless Rails.env.production? || Rails.env.development?
     !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
   end
 
-  def fetch_hour_default
-    self[:fetch_hour_default] || 8
-  end
-
-  def fetch(options = {})
-    OpenMensa::Updater.new(self, options).update
-  end
-
-  def fetch_if_needed
-    return false unless ((fetch_hour || fetch_hour_default)..14).include? Time.zone.now.hour
-    fetch today: !last_fetched_at.nil? && last_fetched_at.to_date == Time.zone.now.to_date
-  end
-
   def fetch_state
-    if !active?
+    if archived?
       :out_of_order
     elsif last_fetched_at.nil?
       :no_fetch_ever
@@ -42,5 +36,9 @@ class Canteen < ActiveRecord::Base
     else
       :fetch_needed
     end
+  end
+
+  def archived?
+    state == 'archived'
   end
 end

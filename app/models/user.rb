@@ -5,13 +5,16 @@ class User < ActiveRecord::Base
   has_many :messages, through: :canteens
   has_many :canteens
   has_many :favorites
-
-  before_save :activate_developer_if_email
+  has_many :parsers
+  has_many :feedbacks
+  has_many :data_proposals
+  has_many :canteens, through: :parsers
 
   validates :login, presence: true, uniqueness: true, exclusion: %w(anonymous system)
   validates :name, presence: true
   validates :email, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true}
-  validates :email, presence: true, if: :developer?
+  validates :notify_email, presence: true, if: :developer?
+  validates :public_name, presence: true, if: :info_url?
 
   default_scope -> { where.not(login: %w(anonymous system)) }
 
@@ -42,6 +45,10 @@ class User < ActiveRecord::Base
     true
   end
 
+  def info_url?
+    info_url.present?
+  end
+
   def language
     self[:language] || Rails.configuration.i18n.default_locale.to_s
   end
@@ -49,23 +56,6 @@ class User < ActiveRecord::Base
   def time_zone
     self[:time_zone] || Rails.configuration.time_zone.to_s
   end
-
-  def send_reports?
-    !last_report_at.nil?
-  end
-
-  def send_reports=(bool)
-    if bool.is_a? String
-      bool = bool == '1'
-    end
-    return if bool == send_reports?
-    if bool
-      self[:last_report_at] = Time.zone.now
-    else
-      self[:last_report_at] = nil
-    end
-  end
-  alias_method :send_reports, :send_reports?
 
   def ability
     @ability ||= Ability.new(self)
@@ -97,12 +87,6 @@ class User < ActiveRecord::Base
       ).tap do |user|
       identity.update_attributes! user: user
     end
-  end
-
-  private
-
-  def activate_developer_if_email
-    self.developer = true unless email.to_s.empty?
   end
 end
 

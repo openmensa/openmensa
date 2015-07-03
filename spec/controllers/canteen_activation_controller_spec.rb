@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CanteenActivationController, type: :controller do
   describe '#create' do
-    let(:canteen) { FactoryGirl.create :disabled_canteen }
+    let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
     before do
       post :create, canteen_id: canteen.id
     end

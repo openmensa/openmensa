@@ -13,6 +13,7 @@
 
 $ ->
   jQuery.timeago.settings.lang = 'de';
+  jQuery.timeago.settings.allowFuture = true;
 
   $(document).bind 'page:change', ->
     tileLayer = L.tileLayer('//openmensa.org/tiles/{z}/{x}/{y}.png',

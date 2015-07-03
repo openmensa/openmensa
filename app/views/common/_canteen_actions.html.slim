@@ -3,11 +3,38 @@ section
     h2=t :canteen, :actions
   ul.favs
     li=link_to t(:canteen_actions, :open_meals), canteen_path(canteen), class: 'icon-coffee'
-    li=link_to t(:edit_canteen), edit_user_canteen_path(canteen.user, canteen), class: 'icon-edit'
-    - if canteen.active
-        li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
-    - else
+    li=link_to t(:edit_canteen), edit_canteen_path(canteen), class: 'icon-edit'
+    - if canteen.archived?
         li=link_to t(:activate_canteen), canteen_active_path(canteen), method: :post, class: 'icon-play'
-    li=link_to t(:canteen_actions, :open_messages), [ canteen.user, canteen, :messages], class: 'icon-envelope'
-    li=link_to t(:canteen_actions, :fetch_feed), fetch_canteen_path(canteen), class: 'icon-refresh'
-    li=link_to t(:canteen_actions, :open_feed), canteen.url, class: 'icon-external-link'
+    - else
+        li=link_to t(:deactivate_canteen), canteen_active_path(canteen), method: :delete, class: 'icon-stop'
+    li=link_to t(:canteen_actions, :feedbacks), canteen_feedbacks_path(canteen), class: 'icon-envelope'
+    li=link_to t(:canteen_actions, :data_proposals), canteen_data_proposals_path(canteen), class: 'icon-exchange'
+    - canteen.parsers.select { |parser| can? :edit, parser }.each do |parser|
+      li=link_to t(:canteen_actions, :open_parser, name: parser.name), parser_path(parser), class: 'icon-group'
+
+- canteen.feeds.select { |feed| can? :edit, feed }.each do |feed|
+  section
+    header
+      h3
+        = t :feed, :title, name: feed.name
+        ul.actions
+          li=link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed, name: feed.name) do
+            i.icon-refresh
+          li=link_to feed_messages_path(feed), title: t(:canteen_actions, :open_messages, name: feed.name) do
+            i.icon-envelope
+          li=link_to feed.url, title: t(:canteen_actions, :open_feed, name: feed.name) do
+            i.icon-code
+          - if feed.source_url.present?
+            li=link_to feed.source_url, title: t(:canteen_actions, :open_source, name: feed.name) do
+              i.icon-external-link
+    .content
+      - feed.fetches.group('state').maximum(:executed_at).each do |state, date|
+        p
+          = t :feed, :"last_#{state}_at"
+          ' :
+          = timeago_tag date.localtime
+      p
+        = t :feed, :next_fetch_at
+        ' :
+        = timeago_tag feed.next_fetch_at, title: proc { |time, options| t(:feed, :next_fetch, time: I18n.l(time, :format => options[:format]), schedule: feed.schedule) }

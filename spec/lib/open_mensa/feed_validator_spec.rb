@@ -7,12 +7,18 @@ describe OpenMensa::FeedValidator do
   let(:invalid_xml)  { Nokogiri::XML::Document.parse mock_content('feed_wellformated.xml') }
   let(:non_om_xml)   { Nokogiri::XML::Document.parse mock_content('carrier_ship.xml') }
 
-  let(:doc_v1) { Nokogiri::XML::Document.parse mock_content('canteen_feed.xml') }
-  let(:doc_v2)    { Nokogiri::XML::Document.parse mock_content('feed_v2.xml') }
+  let(:doc_v1)  { Nokogiri::XML::Document.parse mock_content('canteen_feed.xml') }
+  let(:doc_v2)  { Nokogiri::XML::Document.parse mock_content('feed_v2.xml') }
+  let(:doc_v21) { Nokogiri::XML::Document.parse mock_content('feed_v21.xml') }
 
   describe '#valid?' do
     it 'should return true on valid feeds' do
       expect(OpenMensa::FeedValidator.new(valid_xml)).to be_valid
+    end
+
+    it 'should return false on valid feed in wrong version' do
+      expect(OpenMensa::FeedValidator.new(doc_v2, version: 1)).to_not be_valid
+      expect(OpenMensa::FeedValidator.new(doc_v1, version: 2)).to_not be_valid
     end
 
     it 'should return false on invalid XML' do
@@ -81,14 +87,28 @@ describe OpenMensa::FeedValidator do
     it 'should return version after validating a feed (v1)' do
       OpenMensa::FeedValidator.new(doc_v1).tap do |vd|
         vd.validate!
-        expect(vd.version).to eq(1)
+        expect(vd.version).to eq('1.0')
       end
     end
 
     it 'should return version after validating a feed (v2)' do
       OpenMensa::FeedValidator.new(doc_v2).tap do |vd|
         vd.validate!
-        expect(vd.version).to eq(2)
+        expect(vd.version).to eq('2.0')
+      end
+    end
+
+    it 'should return version after validating a feed (v21)' do
+      OpenMensa::FeedValidator.new(doc_v21).tap do |vd|
+        vd.validate!
+        expect(vd.version).to eq('2.1')
+      end
+    end
+
+    it 'should return version after validating a feed (v21) and given fixed version' do
+      OpenMensa::FeedValidator.new(doc_v21, version: 2).tap do |vd|
+        vd.validate!
+        expect(vd.version).to eq('2.1')
       end
     end
   end

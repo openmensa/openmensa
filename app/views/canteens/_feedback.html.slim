@@ -1,0 +1,11 @@
+section
+  header
+    h2=t :canteen, :give_feedback
+  .content
+    p
+      ' Die Essensinformationen enthalten einen Fehler
+      ' oder sind gar nicht vorhanden? Du möchtest dem
+      ' Autor danken oder hast ein anderen Anliegen?
+      ' Berichte es dem Autor!
+    p.action
+      = link_to 'Rückmeldung geben', new_canteen_feedback_path(canteen), class: "btn btn-primary"

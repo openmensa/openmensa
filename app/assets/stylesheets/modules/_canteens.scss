@@ -3,7 +3,11 @@
 @import "responsive";
 @import "extends";
 
-.canteens_controller {
+#content {
+  #feedback_message {
+    width: 100%;
+    height: 5em;
+  }
   #canteen-header {
     padding: 95px 0 35px;
     background-color: #fff;
@@ -54,7 +58,9 @@
       color: $alert-error;
     }
   }
+}
 
+.canteens_controller, .menu_controller {
   .page-header {
     @extend %clearfix;
 

@@ -7,7 +7,7 @@ module OpenMensa
   #   FeedLoader.new(@canteen).load! # => String
   #
   class FeedLoader
-    attr_reader :canteen, :data, :error, :options
+    attr_reader :resource, :url_field, :data, :error, :options
 
     # A FeedLoadError will be raised if canteen feed cannot be loaded due
     # unavailability of feed or illegal response. FeedLoadError contains
@@ -30,9 +30,10 @@ module OpenMensa
     # * <tt>:depth</tt>  - Maximum number of redirects to follow.
     # * <tt>:update</tt> - If true canteen URL will be updated on a permanent redirect.
     #
-    def initialize(canteen, options = {})
+    def initialize(resource, url_field, options = {})
       @options = options.reverse_merge self.class.default_options
-      @canteen = canteen
+      @resource = resource
+      @url_field = url_field
     end
 
     # Loads feed data from canteens URL. Will raise a FeedLoadError if an error
@@ -44,7 +45,7 @@ module OpenMensa
       load_feed @options[:follow] ? @options[:depth] : 0
 
     rescue URI::InvalidURIError => error
-      raise FeedLoadError.new("Invalid URL (#{url}) for canteen #{canteen.id}.", error)
+      raise FeedLoadError.new("Invalid URL (#{url}) for #{resource}.", error)
     rescue => error
       raise FeedLoadError.new('Error while loading feed.', error)
     end
@@ -56,18 +57,13 @@ module OpenMensa
         {
           follow: true,
           update: true,
-          today: false,
           depth: 2
         }
       end
     end
 
     def url
-      if @options[:today]
-        canteen.today_url
-      else
-        canteen.url
-      end
+      resource.send url_field
     end
 
     def uri
@@ -92,13 +88,10 @@ module OpenMensa
     end
 
     def update_url(new_url)
-      Rails.logger.warn "Update URL of canteen #{canteen.id} to '#{new_url}'."
-      FeedUrlUpdatedInfo.create canteen: canteen, old_url: url, new_url: new_url
-      if @options[:today]
-        canteen.update_attributes! today_url: new_url
-      else
-        canteen.update_attributes! url: new_url
-      end
+      Rails.logger.warn "Update URL of #{resource} to '#{new_url}'."
+      FeedUrlUpdatedInfo.create messageable: resource, old_url: url, new_url: new_url
+
+      resource.update_attributes! url_field => new_url
     end
   end
 end

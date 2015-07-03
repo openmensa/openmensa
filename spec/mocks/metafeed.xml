@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openmensa version="2.1" xmlns="http://openmensa.org/open-mensa-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openmensa.org/open-mensa-v2 http://openmensa.org/open-mensa-v2.xsd">
+	<version>1.0+96ca2397651f4be3d3f98a6f46d605be55c41ebf-b10</version>
+	<canteen>
+		<name>Mensa Griebnitzsee</name>
+		<address>August-Bebel-Str. 89, 14482 Potsdam</address>
+		<city>Potsdam</city>
+		<phone>(0331) 977 3749/3748</phone>
+		<location latitude="52.3935353446923" longitude="13.1278145313263" />
+		<availability>public</availability>
+		<feed name="today" priority="0">
+			<schedule dayOfMonth="*" dayOfWeek="*" hour="8-14" retry="30 1" />
+			<url>http://kaifabian.de/om/potsdam/griebnitzsee.xml?today</url>
+			<source>http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html</source>
+		</feed>
+		<feed name="full" priority="1">
+			<schedule dayOfMonth="*" dayOfWeek="1" hour="8" retry="60 5 1440" />
+			<url>http://kaifabian.de/om/potsdam/griebnitzsee.xml</url>
+			<source>http://www.studentenwerk-potsdam.de/speiseplan/</source>
+		</feed>
+	</canteen>
+</openmensa>

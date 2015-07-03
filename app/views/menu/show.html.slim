@@ -1,0 +1,36 @@
+- if @canteens.size > 0
+  section
+    #remote-canteens-show
+      header.page-header
+        = link_to menu_path(date: (@date - 1.day)), class: :prev do
+          span
+        = link_to menu_path(date: (@date + 1.day)), class: :next do
+          span
+        h2.centered
+          - if @date.to_date == Time.zone.now.to_date
+            = t :today
+          - else
+            = l @date.to_date, format: :with_weekday
+  .row
+    .span6
+      - pos = 0
+      - while pos < @canteens.size
+          = render partial: "canteen", locals: { canteen: @canteens[pos] }
+          - pos += 2
+    .span6
+      - pos = 1
+      - while pos < @canteens.size
+          = render partial: "canteen", locals: { canteen: @canteens[pos] }
+          - pos += 2
+- else
+  = render partial: "static/map"
+.row
+    .span4
+      section
+    .span4
+      section
+        header.page-header
+          h3 = t(:menu, :add_more)
+        .content
+          p = t(:menu, :add_more_canteens)
+    .span4

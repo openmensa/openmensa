@@ -1,0 +1,30 @@
+.row
+  .span8
+    section
+      header
+        h2= t :new_source_select_canteen
+      .content
+        p
+          ' Die Quelle muss mit einer Mensa gekoppelt werden.
+          ' Wähle eine der erwünschten Mensen aus
+          '  oder erstelle eine neue. Wenn ein Meta-URL angegeben wird,
+          '  jetzt nur der Name der Canteen angegeben werden.
+    section
+      header
+        h3= t :source, :use_wanted_canteen
+      .content
+        p
+          ul
+            - @canteens.each do |canteen|
+              li=link_to ('?canteen_id=' + canteen.id.to_s), title: canteen.name do
+                = canteen.name
+    section
+      header
+        h3= t :source, :create_canteen
+      .content
+          = form_for [@canteen] do |form|
+            = render partial: 'canteens/form', object: form
+            p
+              = hidden_field_tag :parser_id, @parser.id
+              = submit_tag t(:source, :create_canteen)
+  = render partial: 'users/nav'

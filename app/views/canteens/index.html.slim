@@ -4,10 +4,6 @@
       header
         h2
           = t :my_canteens
-          ul.actions
-            li
-              = link_to new_user_canteen_path(@user), title: t(:add_canteen) do
-                i.icon-plus-sign
 
       .content
         - if @canteens.any?
@@ -18,7 +14,7 @@
                 td=c.name
                 td=c.address
                 td.actions
-                  = link_to edit_user_canteen_path(@user, c), title: t(:edit_canteen) do
+                  = link_to edit_canteen_path(c), title: t(:edit_canteen) do
                     i.icon-pencil
         - else
           p.add_notice= t :notice, :no_canteens

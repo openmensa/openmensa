@@ -212,12 +212,15 @@ GEM
       omniauth-oauth (~> 1.1)
     paginate-responder (1.4.1)
       rack-link_headers (>= 2.2)
+    parse-cron (0.1.4)
     pg (0.18.2)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    polyamorous (1.1.0)
+      activerecord (>= 3.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -325,6 +328,10 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    squeel (1.2.3)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      polyamorous (~> 1.1.0)
     temple (0.7.6)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
@@ -397,6 +404,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-twitter
   paginate-responder
+  parse-cron
   pg
   poltergeist
   puma
@@ -415,6 +423,7 @@ DEPENDENCIES
   simplecov-rcov
   slim
   spring
+  squeel
   therubyracer (~> 0.10)
   timecop
   turbolinks
@@ -425,4 +434,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.10.3
+   1.10.5

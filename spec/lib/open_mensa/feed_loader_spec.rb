@@ -2,9 +2,8 @@ require 'spec_helper'
 require_dependency 'message'
 
 describe OpenMensa::FeedLoader do
-  let(:canteen) { FactoryGirl.create :canteen, url: 'http://example.com/canteen_feed.xml' }
-  let(:loader) { OpenMensa::FeedLoader.new(canteen) }
-  let(:today_loader) { OpenMensa::FeedLoader.new(canteen, today: true) }
+  let(:feed) { FactoryGirl.create :feed, url: 'http://example.com/canteen_feed.xml' }
+  let(:loader) { OpenMensa::FeedLoader.new(feed, :url) }
 
   before do
     stub_request(:any, 'example.com/canteen_feed.xml')
@@ -36,63 +35,51 @@ describe OpenMensa::FeedLoader do
       expect(loader.load!.read).to eq(mock_content('canteen_feed.xml'))
     end
 
-    it 'should load data from canteen today URL' do
-      canteen.today_url = 'http://example.com/data.xml'
-      expect(today_loader.load!.read).to eq('<xml>')
-    end
-
     it 'should follow temporary redirects (1)' do
-      canteen.url = 'http://example.com/307.xml'
+      feed.url = 'http://example.com/307.xml'
       expect(loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects (2)' do
-      canteen.url = 'http://example.com/302.xml'
+      feed.url = 'http://example.com/302.xml'
       expect(loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects (3)' do
-      canteen.url = 'http://example.com/303.xml'
+      feed.url = 'http://example.com/303.xml'
       expect(loader.load!.read).to eq('<xml>')
     end
 
     it 'should follow temporary redirects for a maximum of 2 redirect by default' do
-      canteen.url = 'http://example.com/307-3.xml'
+      feed.url = 'http://example.com/307-3.xml'
       expect do
         loader.load!
       end.to raise_error(OpenMensa::FeedLoader::FeedLoadError)
     end
 
     it 'should follow update canteen URL on permanent redirect' do
-      canteen.url = 'http://example.com/301.xml'
+      feed.url = 'http://example.com/301.xml'
       loader.load!
 
-      expect(canteen.url).to eq('http://example.com/data.xml')
-    end
-
-    it 'should follow update canteen today URL on permanent redirect' do
-      canteen.today_url = 'http://example.com/301.xml'
-      today_loader.load!
-
-      expect(canteen.today_url).to eq('http://example.com/data.xml')
+      expect(feed.url).to eq('http://example.com/data.xml')
     end
 
     it 'should raise an error on 500' do
-      canteen.url = 'http://example.com/500.xml'
+      feed.url = 'http://example.com/500.xml'
       expect do
         loader.load!
       end.to raise_error(OpenMensa::FeedLoader::FeedLoadError)
     end
 
     it 'should raise an error on socket error' do
-      canteen.url = 'http://unknowndomain.org/'
+      feed.url = 'http://unknowndomain.org/'
       expect do
         loader.load!
       end.to raise_error(OpenMensa::FeedLoader::FeedLoadError)
     end
 
     it 'should raise an error on timeout' do
-      canteen.url = 'http://example.org/timeout.xml'
+      feed.url = 'http://example.org/timeout.xml'
       expect do
         loader.load!
       end.to raise_error(OpenMensa::FeedLoader::FeedLoadError)

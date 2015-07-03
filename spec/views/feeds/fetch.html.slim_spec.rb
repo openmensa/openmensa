@@ -2,10 +2,13 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 require_dependency 'message'
 
-describe 'canteens/fetch.html.slim', type: :view do
+describe 'feeds/fetch.html.slim', type: :view do
   let(:owner) { FactoryGirl.create :user }
   let(:other) { FactoryGirl.create :user }
-  let(:canteen) { FactoryGirl.create(:canteen, user: owner) }
+  let(:parser) { FactoryGirl.create :parser, user: owner }
+  let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
+  let(:canteen) { FactoryGirl.create :canteen }
+  let(:feed) { FactoryGirl.create :feed, source: source }
   let(:success_result) do
     {
       'status' => 'ok',
@@ -24,7 +27,7 @@ describe 'canteens/fetch.html.slim', type: :view do
     {
       'status' => 'error',
       'errors' => [
-        FeedFetchError.create(canteen: canteen,
+        FeedFetchError.create(messageable: feed,
                               message: 'Could not fetch',
                               code: 404)
       ]
@@ -34,7 +37,7 @@ describe 'canteens/fetch.html.slim', type: :view do
   context 'as canteen owner' do
     before do
       assign(:user, owner)
-      assign(:canteen, canteen)
+      assign(:feed, feed)
       allow(view).to receive(:current_user) { owner }
     end
 
@@ -67,6 +70,7 @@ describe 'canteens/fetch.html.slim', type: :view do
     before do
       assign(:user, other)
       assign(:canteen, canteen)
+      assign(:feed, feed)
       allow(view).to receive(:current_user) { other }
     end
 

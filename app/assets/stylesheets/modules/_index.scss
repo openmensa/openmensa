@@ -74,7 +74,7 @@
   a { background-image: image-url("bb.png"); }
 }
 
-.favs {
+.favs, .parsers {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -85,7 +85,7 @@
     display: block;
     text-align: left;
 
-    padding: 10px 0 9px 12px;
+    padding: 10px 0 9px 12px !important;
     border-top: 1px solid #ddd;
 
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
@@ -103,11 +103,11 @@
   }
 }
 
-.static_controller {
-  p.action {
-    text-align: center;
-  }
+p.action {
+  text-align: center;
+}
 
+.static_controller {
   img#compact {
     width: 300px;
   }
