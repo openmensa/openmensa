@@ -60,6 +60,16 @@ describe 'Favorites: ', type: :feature do
       expect(current_path).to eq canteen_path(favorite.canteen)
     end
 
+    it 'is redirected to canteen page on one favorite' do
+      favorite
+
+      visit root_path
+
+      expect(current_path).to eq canteen_path(favorite.canteen)
+
+      expect(page).to have_content favorite.canteen.name
+    end
+
     context 'with previous set favorites' do
       before { favorite; favorite2 }
 
