@@ -123,13 +123,13 @@ describe OpenMensa::SourceUpdater do
   context '#sync' do
     let(:today_feed) do
       source.feeds.create! name: 'today', priority: 0,
-                           schedule: '* 8-14 * * *', retry: '30 1',
+                           schedule: '0 8-14 * * *', retry: [30, 1],
                            url: 'http://kaifabian.de/om/potsdam/griebnitzsee.xml?today',
                            source_url: 'http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html'
     end
     let(:full_feed) do
-      source.feeds.create! name: 'full', priority: 0,
-                           schedule: '* 8 * 1 *', retry: '60 5 1440',
+      source.feeds.create! name: 'full', priority: 1,
+                           schedule: '0 8 * * 1', retry: [60, 5, 1440],
                            url: 'http://kaifabian.de/om/potsdam/griebnitzsee.xml',
                            source_url: 'http://www.studentenwerk-potsdam.de/speiseplan/'
     end
@@ -195,7 +195,7 @@ describe OpenMensa::SourceUpdater do
     it 'should update changed existing feeds' do
       stub_data mock_content('single_feed.xml')
       source.feeds.create! name: 'today', priority: 0,
-                           schedule: '* 8-14 * * *', retry: '30 1',
+                           schedule: '* 8-14 * * *', retry: [30, 1],
                            url: 'http://kaifabian.de/om/potsdam/griebnitzsee.xml',
                            source_url: 'http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html'
 
@@ -214,11 +214,11 @@ describe OpenMensa::SourceUpdater do
     it 'should delete removed feeds' do
       stub_data mock_content('single_feed.xml')
       source.feeds.create! name: 'today', priority: 0,
-                           schedule: '* 8-14 * * *', retry: '30 1',
+                           schedule: '0 8-14 * * *', retry: [30, 1],
                            url: 'http://kaifabian.de/om/potsdam/griebnitzsee.xml?today',
                            source_url: 'http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html'
-      source.feeds.create! name: 'full', priority: 0,
-                           schedule: '* 8 * * *',
+      source.feeds.create! name: 'full', priority: 1,
+                           schedule: '0 8 * * *',
                            url: 'http://kaifabian.de/om/potsdam/griebnitzsee.xml',
                            source_url: 'http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html'
 

@@ -177,7 +177,10 @@ de:
     name: Name
     info_url: 'Info-URL <small>(Für Mensa-Seite)</small>'
     index_url: 'Index-URL <small>(Auflistung der aktuellen Mensa-Liste dieses Parsers)</small>'
-    sources_added: '%{count} Quellen hinzugefügt.'
+    sync: 'Parser - Index-Liste synchronizieren'
+    synced: 'Die Liste der vom Parser bereitgestellten Quellen/Mensen wurde synchroniziert.'
+    sources_added: '%{count} Quellen neu.'
+    sources_created: '%{count} Quellen angelegt.'
     sources_updated: '%{count} Quellen aktualisiert.'
     sources_deleted: '%{count} Quellen archiviert.'
     open_info_url: 'Besuche die Parser-Seite'

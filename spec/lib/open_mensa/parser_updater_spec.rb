@@ -151,11 +151,76 @@ describe OpenMensa::ParserUpdater do
   end
 
   context '#sync' do
-    it 'create message for new source' do
-      stub_json test: 'http://example.org/test.xml'
+    context 'create message for new source, but no source/canteen' do
+      it 'if meta data cannot be fetched' do
+        stub_json test: 'http://example.org/test.xml'
+        stub_request(:any, 'http://example.org/test.xml')
+          .to_return(status: 500)
 
-      expect(updater.sync).to be_truthy
-      expect(updater.stats).to eq new: 1, updated: 0, archived: 0
+        expect(updater.sync).to be_truthy
+        expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
+        expect(Canteen.count).to eq 0
+
+        parser.messages.first.tap do |message|
+          expect(message).to be_a(SourceListChanged)
+          expect(message.kind).to eq(:new_source)
+          expect(message.name).to eq 'test'
+          expect(message.url).to eq 'http://example.org/test.xml'
+        end
+      end
+
+      it 'if meta data cannot be fetched' do
+        stub_json test: 'http://example.org/test.xml'
+        stub_request(:any, 'http://example.org/test.xml')
+          .to_return(body: mock_file('not_complete_metadata.xml'), status: 200)
+
+        expect { updater.sync }.to_not change { Canteen.count}.from 0
+        expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
+
+        parser.messages.first.tap do |message|
+          expect(message).to be_a(SourceListChanged)
+          expect(message.kind).to eq(:new_source)
+          expect(message.name).to eq 'test'
+          expect(message.url).to eq 'http://example.org/test.xml'
+        end
+      end
+    end
+
+    it 'create canteen and source for new source with complete meta data' do
+      stub_json test: 'http://example.org/test.xml'
+      stub_request(:any, 'http://example.org/test.xml')
+        .to_return(body: mock_file('metafeed.xml'), status: 200)
+
+      expect { updater.sync }.to change { Canteen.count }.from(0).to(1)
+      expect(updater.stats).to eq new: 0, created: 1, updated: 0, archived: 0
+
+      canteen = Canteen.last
+
+      expect(canteen.name).to eq 'Mensa Griebnitzsee'
+      expect(canteen.address).to eq 'August-Bebel-Str. 89, 14482 Potsdam'
+      expect(canteen.city).to eq 'Potsdam'
+      expect(canteen.phone).to eq '(0331) 977 3749/3748'
+      expect(canteen.latitude).to eq 52.3935353446923
+      expect(canteen.longitude).to eq 13.1278145313263
+
+      feeds = canteen.feeds.order(:priority)
+      expect(feeds.size).to eq 2
+
+      today = feeds.first
+      expect(today.name).to eq 'today'
+      expect(today.priority).to eq 0
+      expect(today.url).to eq 'http://kaifabian.de/om/potsdam/griebnitzsee.xml?today'
+      expect(today.source_url).to eq 'http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html'
+      expect(today.retry).to eq [30, 1]
+      expect(today.schedule).to eq '0 8-14 * * *'
+
+      full = feeds.second
+      expect(full.name).to eq 'full'
+      expect(full.priority).to eq 1
+      expect(full.url).to eq 'http://kaifabian.de/om/potsdam/griebnitzsee.xml'
+      expect(full.source_url).to eq 'http://www.studentenwerk-potsdam.de/speiseplan/'
+      expect(full.retry).to eq [60, 5, 1440]
+      expect(full.schedule).to eq '0 8 * * 1'
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)
@@ -169,7 +234,7 @@ describe OpenMensa::ParserUpdater do
       stub_json test: nil
 
       expect(updater.sync).to be_truthy
-      expect(updater.stats).to eq new: 1, updated: 0, archived: 0
+      expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)
@@ -186,7 +251,7 @@ describe OpenMensa::ParserUpdater do
                                            meta_url: 'http://example.com/test.xml'
 
       expect(updater.sync).to be_truthy
-      expect(updater.stats).to eq new: 0, updated: 1, archived: 0
+      expect(updater.stats).to eq new: 0, created: 0, updated: 1, archived: 0
       expect(source.reload.meta_url).to eq 'http://example.com/test/meta.xml'
 
       source.messages.first.tap do |message|
@@ -203,7 +268,7 @@ describe OpenMensa::ParserUpdater do
                                            meta_url: nil
 
       expect(updater.sync).to be_truthy
-      expect(updater.stats).to eq new: 0, updated: 1, archived: 0
+      expect(updater.stats).to eq new: 0, created: 0, updated: 1, archived: 0
       expect(source.reload.meta_url).to eq 'http://example.com/test/meta.xml'
 
       source.messages.first.tap do |message|
@@ -220,7 +285,7 @@ describe OpenMensa::ParserUpdater do
                                            meta_url: 'http://example.org/test/test2.xml'
 
       expect(updater.sync).to be_truthy
-      expect(updater.stats).to eq new: 0, updated: 0, archived: 1
+      expect(updater.stats).to eq new: 0, created: 0, updated: 0, archived: 1
       expect(source.canteen.reload.state).to eq 'archived'
 
       source.messages.first.tap do |message|
@@ -240,7 +305,7 @@ describe OpenMensa::ParserUpdater do
                                            meta_url: 'http://example.org/test/test2.xml'
 
       expect(updater.sync).to be_truthy
-      expect(updater.stats).to eq new: 1, updated: 0, archived: 0
+      expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
       expect(source.canteen.reload.state).to eq 'wanted'
 
       source.messages.first.tap do |message|

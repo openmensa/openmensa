@@ -1,6 +1,6 @@
 class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   attr_reader :parser
-  attr_reader :sources_added, :sources_updated, :sources_deleted
+  attr_reader :sources_added, :sources_created, :sources_updated, :sources_deleted
 
   def initialize(parser)
     @parser = parser
@@ -10,6 +10,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   def reset_stats
     super
     @sources_added = 0
+    @sources_created = 0
     @sources_updated = 0
     @sources_deleted = 0
   end
@@ -73,6 +74,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   def stats
     {
       new: @sources_added,
+      created: @sources_created,
       updated: @sources_updated,
       archived: @sources_deleted
     }
@@ -110,6 +112,13 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
     SourceListChanged.create! messageable: @parser,
                               kind: :new_source,
                               name: name, url: url
+    unless url.nil?
+      source = Source.new parser: @parser, name: name, meta_url: url
+      if OpenMensa::SourceCreator.new(source).sync
+        @sources_created += 1
+        @sources_added -= 1
+      end
+    end
     @sources_added += 1
   end
 

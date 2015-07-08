@@ -90,9 +90,9 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
       when 'source'
         data[:source_url] = element.content
       when 'schedule'
-        data[:retry] = element['retry']
-        data[:schedule] = [element['minute'] || '*', element['hour'], element['month'] || '*',
-                        element['dayOfWeek'], element['dayOfMonth']].join(' ')
+        data[:retry] = element['retry'].split(' ').map(&:to_i)
+        data[:schedule] = [element['minute'] || '0', element['hour'], element['dayOfMonth'],
+                           element['month'] || '*', element['dayOfWeek'], ].join(' ')
       end
     end
     data
@@ -117,8 +117,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     true
   end
 
-  def update_metadata(canteen_node)
-    canteen = @source.canteen
+  def extract_metadata(canteen, canteen_node)
     canteen_node.element_children.select do |node|
       case node.name
         when 'name'
@@ -135,6 +134,12 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
         when 'availability'
       end
     end
+  end
+
+  def update_metadata(canteen_node)
+    canteen = @source.canteen
+
+    extract_metadata(canteen, canteen_node)
     unless canteen.changed.empty?
       @changed = true
       new_data = {user: source.parser.user}
