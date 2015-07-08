@@ -4,7 +4,7 @@ include Nokogiri
 describe OpenMensa::Updater do
   let(:feed) { FactoryGirl.create :feed }
   let(:canteen) { feed.source.canteen }
-  let(:updater) { OpenMensa::Updater.new(feed, 'manual', version: 2) }
+  let(:updater) { OpenMensa::Updater.new(feed, 'manual', version: 2.1) }
   let(:today) { FactoryGirl.create :today, canteen: canteen }
   let(:document) { XML::Document.new }
   let(:root_element) do
