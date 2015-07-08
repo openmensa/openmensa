@@ -44,7 +44,14 @@ describe 'Developers', type: :feature do
       it 'should be able to import sources from index url' do
         index_url = 'http://example.org/sources.json'
         stub_request(:any, index_url)
-          .to_return(body: mock_file('sources.json'), status: 200)
+          .to_return(body: JSON.generate({
+            "left" => "http://example.org/left/meta.xml",
+            "right" => "http://example.org/right/meta.xml"
+          }), status: 200)
+        stub_request(:any, 'http://example.org/left/meta.xml')
+          .to_return(status: 404)
+        stub_request(:any, 'http://example.org/right/meta.xml')
+          .to_return(body: mock_file('metafeed.xml'), status: 200)
 
         click_on parser.name
         expect(page).to_not have_link('Aktualisiere Quellen mittels Index-URL')
@@ -55,7 +62,8 @@ describe 'Developers', type: :feature do
 
         click_on 'Aktualisiere Quellen mittels Index-URL'
 
-        expect(page).to have_content '2 Quellen hinzugefügt.'
+        expect(page).to have_content '1 Quellen neu.'
+        expect(page).to have_content '1 Quellen angelegt.'
       end
 
       it 'should be able to delete a parser' do

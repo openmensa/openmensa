@@ -3,10 +3,10 @@
   .span8
     section
       header
-        h2=t :parsers, :sync
+        h2=t :parser, :sync
       .content
           p
-            = t :parsers, :synced
+            = t :parser, :synced
             ul
               li=t :parser, :sources_added, count: @synchroniser.sources_added
               li=t :parser, :sources_created, count: @synchroniser.sources_created
