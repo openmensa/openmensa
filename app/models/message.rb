@@ -122,7 +122,7 @@ class FeedValidationError < Message
     {
       'type' => self.class.name.underscore,
       'kind' => kind,
-      'version' => code,
+      'version' => version,
       'message' => message
     }
   end
