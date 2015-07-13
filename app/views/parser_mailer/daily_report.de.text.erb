@@ -56,14 +56,14 @@ Mehr Information finden Sie unter:
 <% else %>
     Zeitpunkt: <%=l first %>
 <% end %>
+<% end %>
+<% end %>
 <% if source.feeds.any?(&:regular?) %>
 
 <% if source.feeds.select(&:regular?).size == 1 %>
 * Feed <%= source.feeds.select(&:regular?).first.name %> ist fehlerfrei.
 <% else %>
 * Feeds <%= source.feeds.select(&:regular?).map(&:name).join(", ") %> sind fehlerfrei.
-<% end %>
-<% end %>
 <% end %>
 <% end %>
 
