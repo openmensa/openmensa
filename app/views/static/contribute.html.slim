@@ -8,7 +8,7 @@ section
         h1 Entwickle mit an OpenMensa
       .content
         p
-          ' Openmensa besteht aus verschiedene Komponenten. Jeder ist ein bisschen anders und hat ihrer eigenen Aufgaben und Herausforderungen. Sollte dir keine zusagen, freuen wir uns auch über deine
+          ' Openmensa besteht aus verschiedene Komponenten. Jeder ist ein bisschen anders und hat ihrer eigenen Aufgaben und Herausforderungen. Sollte dir hiervon keine zusagen, freuen wir uns trotzdem über deine
           = link_to support_path do
             ' Unterstützung.
     section
@@ -19,9 +19,9 @@ section
           ' Ermögliche es OpenMensa, die Daten von noch mehr Kantinen anbieten zu können.
           ' Schreibe dazu einen Parser, damit OpenMensa die Daten abfragen kann.
           = link_to 'http://doc.openmensa.org/parsers/' do
-            ' Unsere Developer-Seite liefert alle notwendigen Informationen
+            ' Unsere Developer-Seite liefert alle notwendigen Informationen,
             ' um einen eigenen Parser zu schreiben.
-          ' Besuche die
+          ' Besuche auch die
           = link_to wanted_canteens_path do
             ' Liste der gewünschten Mensen
           ' .
@@ -33,11 +33,12 @@ section
           li
             a href="https://github.com/kaifabian/om-parser-potsdam" Parser für das Studentenwerk Potsdam
           li
-            a href="https://github.com/kaifabian/om-parser-berlin" Parser für der Berliner Mensen
+            a href="https://github.com/kaifabian/om-parser-berlin" Parser für die Berliner Mensen
         p
           ' Sofern du Python als Programmiersprache für den Parser nutzten willst, solltest du dir
           a href="https://github.com/mswart/pyopenmensa" PyOpenMensa
-          '  anschauen. Es nimmt viele übliche Aufgaben beim Entwickeln von Parsern ab. Die ausführliche Dokumentation findest du
+          '  anschauen. Viele Funktionen und Arbeiten, die häufig beim beim Entwickeln von Parsern anfallen, sind dort bereits implementiert. 
+          ' Die ausführliche Dokumentation dazu findest du
           a href="http://pyom.devtation.de" hier.
 
     section
@@ -45,7 +46,7 @@ section
         h1 Apps für Smartphone oder Desktop
       .content
         p
-          ' Dir fehlt eine App für deinen Desktop oder dein Betreibssystem?
+          ' Dir fehlt eine App für deinen Desktop oder dein Betriebssystem?
           ' Nutze unsere
           = link_to 'API', 'http://doc.openmensa.org/api/v2/'
           ', um deine individuelle App zu schreiben.
@@ -62,14 +63,14 @@ section
 
     section
       header
-        h1 Die Platform selbst
+        h1 Die Plattform selbst
       .content
         p
           = image_tag image_path('rails.png'), class: 'illustrate'
-          ' Openmensa ist ein in
+          ' OpenMensa ist eine in
           = link_to 'http://rubyonrails.org/' do
             ' RubyOnRails
-          ' geschriebene Webanwendung. Das Projekt liegt auf
+          ' geschriebene Webanwendung. Der Quelltext des Projekts liegt auf
           = link_to 'https://github.com/openmensa/openmensa' do
             ' GitHub.
           ' Wir freuen uns über jeden, der mithilft OpenMensa weiterzuentwickeln.

@@ -3,9 +3,9 @@
 [![Build Status](http://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa) [![Coverage Status](http://img.shields.io/coveralls/openmensa/openmensa/master.svg)](https://coveralls.io/r/openmensa/openmensa) [![Code Climate](http://img.shields.io/codeclimate/github/openmensa/openmensa.svg)](https://codeclimate.com/github/openmensa/openmensa) [![Dependency Status](http://img.shields.io/gemnasium/openmensa/openmensa.svg)](https://gemnasium.com/openmensa/openmensa)
 
 
-OpenMensa is a free database for canteen. We acting as central exchange for all canteen relevant information canteen list, canteen position, meal menus.
+OpenMensa is a free database for canteens. We act as a central exchange for all canteen relevant information, such as canteen list, canteen position and meal menus.
 
-We provided a standardized format to access and provide these information. This reduces the tasks for a canteen provider to make there meal menus on different end points (website, android, iOS ...).
+We provide a standardized format to access and provide this information. This reduces the workload for a canteen provider to make their meal menus available on different end points (website, android, iOS ...).
 
 We are currently focused on Germany but are interested to open to other countries.
 

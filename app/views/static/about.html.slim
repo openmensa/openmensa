@@ -16,9 +16,9 @@ section
         p
           ' Unter openmensa.org wird die zentrale Austauschplattform bereitgestellt.
           ' Wir verwalten die Liste der Kantinen, sowie deren Speisepläne.
-          ' Außerdem dient die Website der Bekanntmachung von OpenMensa.
-          ' Ziel ist es, damit möglichst viele zentralen Herausforderungen zu lösen.
-          ' Es soll möglichst einfach sein eine neue Mensa in OpenMensa zu unterstützen'
+          ' Außerdem dient die Webseite der Bekanntmachung von OpenMensa.
+          ' Ziel ist es, damit möglichst viele zentrale Herausforderungen zu lösen.
+          ' Es soll möglichst einfach sein, eine neue Mensa in OpenMensa zu unterstützen'
           ' oder mit den Daten von OpenMensa etwas neues zu kreieren.
     section
       header
@@ -26,9 +26,11 @@ section
       .content
         p
           ' OpenMensa selbst weiß nicht, wie es an die Speisepläne der Kantine kommt.
-          ' Dies ist die Aufgabe der Parser. Diese Softwarekomponenten werden von Menschen aus der
-          ' Community bereitgestellt. Ihre Aufgabe ist es die Speisepläne der einzelnen Mensa zu
-          ' verarbeiten und in einem standardisieren Format bereitzustellen.
+          ' Dies ist die Aufgabe der 
+          = link_to about_path, class: "btn btn-action", title: 'Parser' do
+          ' . Diese Softwarekomponenten werden von Menschen aus der
+          ' Community bereitgestellt. Ihre Aufgabe ist es, die Speisepläne der einzelnen Mensen zu
+          ' verarbeiten und in einem standardisierten Format bereitzustellen.
           ' Durch dieses einheitliche Format kann OpenMensa anschließend alle Angebote auf die
           ' gleiche Weise verarbeiten.
     section
@@ -38,9 +40,12 @@ section
         p
           ' OpenMensa bietet die Speisepläne über die Webseite an. Die Idee ist aber, dass
           ' die Nutzer einen möglichst einfachen Zugang zu den Essensinformationen haben.
-          ' Für die verschiedenen Smartphone-Betriebssysteme wurden daher native Apps entwickelt.
+          ' Für die verschiedenen Smartphone-Betriebssysteme wurden daher native Apps entwickelt,
+          ' die ihre Daten aus der 
+          = link_to 'OpenMensa API', 'http://doc.openmensa.org/api/v2/'
+          ' beziehen.
           ' Sie stellen die Daten auf einfachste Art und Weise dar und ermöglichen es den Nutzern
-          ' sich schnell zu informieren, was es zu essen gibt und wo es sich
-          ' lohnt hinzugehen.
+          ' sich schnell zu informieren, was es zu essen gibt, und wo es sich
+          ' lohnt, Essen zu gehen.
   .span4
     = render 'sidebar'
