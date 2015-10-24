@@ -205,7 +205,7 @@ de:
 
   feedbacks:
     no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!
-    open: "Öffenes Feedback für %{name}"
+    open: "Öffne Feedback für %{name}"
 
   data_proposals:
     no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mena vor!
