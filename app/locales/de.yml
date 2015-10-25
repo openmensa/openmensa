@@ -128,9 +128,9 @@ de:
     map_marker: "Marker verschieben"
     last_update_at: 'Letzter Abruf:'
     fetch_up_to_date: Daten aktuell
-    fetch_up_to_date_message: Die Essendaten wurden erst vor kurzem aktualisiert.
+    fetch_up_to_date_message: Die Essensdaten wurden erst vor kurzem aktualisiert.
     fetch_needed: Aktualisierung notwendig
-    fetch_needed_message: Die gezeigten Esseninformationen sind veraltet. Aktuelle Anpassungen des Speiseplanes werden nicht gezeigt.
+    fetch_needed_message: Die gezeigten Essensinformationen sind veraltet. Aktuelle Anpassungen des Speiseplanes werden nicht gezeigt.
     no_fetch_ever: 'Noch keine Daten'
     no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald.'
     out_of_order: 'Mensa ist außer Betrieb.'
@@ -167,7 +167,7 @@ de:
   canteen_feedback:
     message: Kurzbeschreibung
     create_button: 'Rückmeldung absenden'
-    give_feedback: 'Melde Fehler im Mensaspeisemenü oder gebe Feedback'
+    give_feedback: 'Melde Fehler im Mensaspeisemenü oder gib Feedback'
 
   data_proposal:
     create_button: Korrekturvorschlag senden
@@ -177,8 +177,8 @@ de:
     name: Name
     info_url: 'Info-URL <small>(Für Mensa-Seite)</small>'
     index_url: 'Index-URL <small>(Auflistung der aktuellen Mensa-Liste dieses Parsers)</small>'
-    sync: 'Parser - Index-Liste synchronizieren'
-    synced: 'Die Liste der vom Parser bereitgestellten Quellen/Mensen wurde synchroniziert.'
+    sync: 'Parser - Index-Liste synchronisieren'
+    synced: 'Die Liste der vom Parser bereitgestellten Quellen/Mensen wurde synchronisiert.'
     sources_added: '%{count} Quellen neu.'
     sources_created: '%{count} Quellen angelegt.'
     sources_updated: '%{count} Quellen aktualisiert.'
@@ -193,7 +193,7 @@ de:
     meta_url: Meta-URL
     parser: Parser
     no_meta_url: keine
-    sync: Synchroniziere Feeds
+    sync: Synchronisiere Feeds
     synced: Die Feeds wurden erfolgreich aktualisiert.
     feeds_added: '%{count} Feeds hinzugefügt.'
     feeds_updated: '%{count} Feeds aktualisiert.'
@@ -205,7 +205,7 @@ de:
 
   feedbacks:
     no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!
-    open: "Öffne Feedbacks für %{name}"
+    open: "Öffne Feedback für %{name}"
 
   data_proposals:
     no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mena vor!
@@ -332,7 +332,7 @@ de:
     added: Mensa wurde als dein Favorit gespeichert.
     added_error: Die Mensa konnte nicht als dein Favorit gespeichert werden!
     deleted: Der Favorit wurde gelöscht.
-    deleted_error: Der Favorit konnt nicht gelöscht werden.
+    deleted_error: Der Favorit konnte nicht gelöscht werden.
     howto_add: "Um eine Mensa als Favorit zu speichern, markiere sie auf der Mensa-Seite mit einem Stern."
     use_menu: "Anschließend siehst du auf der Menü-Seite eine Essensübersicht für alle deine Favoriten!"
 

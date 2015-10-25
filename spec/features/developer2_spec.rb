@@ -192,7 +192,7 @@ describe 'Developers', type: :feature do
           let!(:feedback) { FactoryGirl.create :feedback, canteen: canteen }
           it 'should be able to see the feedback\'s message' do
             click_on parser.name
-            click_on "Öffne Feedbacks für #{canteen.name}"
+            click_on "Öffne Feedback für #{canteen.name}"
 
             expect(page).to have_content(feedback.message)
           end
