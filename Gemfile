@@ -36,6 +36,7 @@ gem 'decorate-responder'
 gem 'api-responder'
 
 gem 'pg'
+gem 'skylight'
 
 group :assets do
   gem 'sass-rails', '~> 5.0'
