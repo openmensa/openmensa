@@ -36,7 +36,6 @@ gem 'decorate-responder'
 gem 'api-responder'
 
 gem 'pg'
-gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails', '~> 5.0'
