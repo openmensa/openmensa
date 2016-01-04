@@ -145,9 +145,9 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     haml (4.0.7)
       tilt
-    has_scope (0.7.0)
-      actionpack (>= 4.1, < 5.1)
-      activesupport (>= 4.1, < 5.1)
+    has_scope (0.6.0)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
     hashdiff (0.2.3)
     hashie (3.4.3)
     highline (1.7.8)
@@ -395,7 +395,7 @@ DEPENDENCIES
   geocoder!
   gravtastic
   guard-rspec
-  has_scope
+  has_scope (= 0.6.0)
   jquery-rails
   leaflet-rails (~> 0.7.0)
   listen
