@@ -84,6 +84,4 @@ Openmensa::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  # Piwik tracking
-  config.middleware.use Rack::Piwik, piwik_url: 'dev.altimos.de/piwik', piwik_id: '3'
 end

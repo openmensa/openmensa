@@ -22,8 +22,6 @@ gem 'parse-cron'
 
 gem 'squeel'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rack-piwik', require: 'rack/piwik', github: 'jgraichen/rack-piwik'
-gem 'rakwik', '~> 0.4', '>= 0.4.3', require: false
 gem 'geocoder', github: 'mswart/geocoder', branch: 'order_by_without_select'
 gem 'leaflet-rails', '~> 0.7.0'
 gem 'nokogiri'
