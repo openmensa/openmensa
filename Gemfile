@@ -55,7 +55,7 @@ group :development do
   gem 'brakeman'
 
   gem 'guard-rspec', require: false
-  gem 'listen'
+  gem 'listen', '< 3.1'  # 3.1 requires ruby 2.2
   gem 'spring'
 end
 
