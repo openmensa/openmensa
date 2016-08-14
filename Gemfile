@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1.10'
 gem 'jquery-rails'
-gem 'turbolinks'
+gem 'turbolinks', '< 5'
 
 gem 'slim'
 gem 'oj'
@@ -34,7 +34,6 @@ gem 'decorate-responder'
 gem 'api-responder'
 
 gem 'pg'
-gem 'skylight'
 
 group :assets do
   gem 'sass-rails', '~> 5.0'
