@@ -11,7 +11,7 @@ class DevelopersController < ApplicationController
     authorize! :edit, @user
     if @user.update user_params
       url = activate_url self.class.message_encryptor.encrypt_and_sign(@user.notify_email)
-      if VerifyMailer.verify_email(@user, url).deliver
+      if VerifyMailer.verify_email(@user, url).deliver_now
         flash_for :user, notice: t('message.activate.mail_sent', mail: @user.notify_email).html_safe
       else
         flash_for :user, error: t('message.activate.mail_failed_to_send', mail: @user.notify_email).html_safe

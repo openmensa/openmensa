@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.10'
+gem 'rails', '~> 4.2.0'
 gem 'jquery-rails'
 gem 'turbolinks', '< 5'
 
@@ -22,12 +22,12 @@ gem 'parse-cron'
 
 gem 'squeel'
 gem 'rack-cors', require: 'rack/cors'
-gem 'geocoder', github: 'mswart/geocoder', branch: 'order_by_without_select'
+gem 'geocoder', '~> 1.4'
 gem 'leaflet-rails', '~> 0.7.0'
 gem 'nokogiri'
 gem 'draper'
 gem 'responders'
-gem 'has_scope', '0.6.0'
+gem 'has_scope', '~> 0.7.0'
 gem 'will_paginate'
 gem 'paginate-responder'
 gem 'decorate-responder'
@@ -37,12 +37,12 @@ gem 'pg'
 
 group :assets do
   gem 'sass-rails', '~> 5.0'
-  gem 'coffee-rails', '~> 4.1.0'
+  gem 'coffee-rails', '~> 4.2.0'
 
-  gem 'therubyracer', '~> 0.10'
+  gem 'therubyracer', '~> 0.12.3'
 
-  gem 'font-awesome-sass-rails', '>= 3.0.2.2'
-  gem 'uglifier', '>= 1.3.0'
+  gem 'font-awesome-sass-rails', '~> 3.0.2.2'
+  gem 'uglifier', '~> 3.1'
   gem 'bourbon', '~> 3.2'
 end
 
@@ -63,6 +63,8 @@ group :development, :test do
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'cany', '~> 0.5.0'
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do

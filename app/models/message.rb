@@ -4,7 +4,7 @@ class Message < ActiveRecord::Base
   serialize :data, Hash
 
   validates :priority, inclusion: {
-    in: [:error, :warning, :info, :debug],
+    in: %w(error warning info debug),
     message: I18n.t(:no_valid_priority)
   }
 
