@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331024406) do
+ActiveRecord::Schema.define(version: 20170317110435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "canteens", force: true do |t|
+  create_table "canteens", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "last_fetched_at"
     t.float    "longitude"
     t.float    "latitude"
@@ -32,19 +32,19 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.string   "openingTimes",                                    array: true
   end
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.string   "message"
     t.integer  "user_id"
     t.integer  "commentee_id"
     t.string   "commentee_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "comments", ["commentee_id"], name: "index_comments_on_commentee_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "data_proposals", force: true do |t|
+  create_table "data_proposals", force: :cascade do |t|
     t.integer  "canteen_id"
     t.integer  "user_id"
     t.string   "state",        default: "new", null: false
@@ -61,25 +61,25 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.datetime "updated_at"
   end
 
-  create_table "days", force: true do |t|
+  create_table "days", force: :cascade do |t|
     t.integer  "canteen_id"
     t.date     "date"
     t.boolean  "closed",     default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "days", ["canteen_id"], name: "index_days_on_canteen_id", using: :btree
 
-  create_table "favorites", force: true do |t|
+  create_table "favorites", force: :cascade do |t|
     t.integer  "canteen_id"
     t.integer  "user_id"
     t.integer  "priority"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "feed_fetches", force: true do |t|
+  create_table "feed_fetches", force: :cascade do |t|
     t.integer  "feed_id"
     t.string   "state",         null: false
     t.string   "reason",        null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.datetime "executed_at",   null: false
   end
 
-  create_table "feedbacks", force: true do |t|
+  create_table "feedbacks", force: :cascade do |t|
     t.integer  "canteen_id"
     t.integer  "user_id"
     t.string   "state",      default: "new", null: false
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20150331024406) do
     t.datetime "updated_at"
   end
 
-  create_table "feeds", force: true do |t|
+  create_table "feeds", force: :cascade do |t|
     t.integer  "source_id"
     t.integer  "priority",        default: 0, null: false
     t.string   "name",                        null: false
@@ -118,23 +118,23 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   add_index "feeds", ["source_id", "name"], name: "index_feeds_on_source_id_and_name", unique: true, using: :btree
 
-  create_table "identities", force: true do |t|
+  create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
     t.string   "token"
     t.string   "secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
-  create_table "meals", force: true do |t|
+  create_table "meals", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "category"
     t.integer  "day_id"
     t.decimal  "price_student",  precision: 8, scale: 2
@@ -147,37 +147,37 @@ ActiveRecord::Schema.define(version: 20150331024406) do
   add_index "meals", ["day_id"], name: "index_meals_on_day_id", using: :btree
   add_index "meals", ["pos"], name: "index_meals_on_pos", using: :btree
 
-  create_table "meals_notes", force: true do |t|
+  create_table "meals_notes", force: :cascade do |t|
     t.integer "meal_id"
     t.integer "note_id"
   end
 
   add_index "meals_notes", ["meal_id"], name: "index_meals_notes_on_meal_id", using: :btree
 
-  create_table "messages", force: true do |t|
+  create_table "messages", force: :cascade do |t|
     t.integer  "canteen_id"
     t.string   "type",             null: false
     t.string   "priority",         null: false
-    t.text     "data",             null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "messageable_id"
     t.string   "messageable_type"
   end
 
   add_index "messages", ["canteen_id"], name: "index_messages_on_canteen_id", using: :btree
-  add_index "messages", ["messageable_id", "messageable_type"], name: "index_messages_on_messageable_id_and_messageable_type", using: :btree
+  add_index "messages", ["messageable_type", "messageable_id"], name: "index_messages_on_messageable_type_and_messageable_id", using: :btree
   add_index "messages", ["type"], name: "index_messages_on_type", using: :btree
 
-  create_table "notes", force: true do |t|
+  create_table "notes", force: :cascade do |t|
     t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "notes", ["name"], name: "index_notes_on_name", unique: true, using: :btree
 
-  create_table "oauth_access_grants", force: true do |t|
+  create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
     t.integer  "application_id",    null: false
     t.string   "token",             null: false
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
 
-  create_table "oauth_access_tokens", force: true do |t|
+  create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
     t.integer  "application_id",    null: false
     t.string   "token",             null: false
@@ -205,18 +205,18 @@ ActiveRecord::Schema.define(version: 20150331024406) do
   add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
-  create_table "oauth_applications", force: true do |t|
+  create_table "oauth_applications", force: :cascade do |t|
     t.string   "name",         null: false
     t.string   "uid",          null: false
     t.string   "secret",       null: false
     t.string   "redirect_uri", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
-  create_table "parsers", force: true do |t|
+  create_table "parsers", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name",                              null: false
     t.string   "version"
@@ -230,19 +230,19 @@ ActiveRecord::Schema.define(version: 20150331024406) do
 
   add_index "parsers", ["user_id", "name"], name: "index_parsers_on_user_id_and_name", unique: true, using: :btree
 
-  create_table "ratings", force: true do |t|
+  create_table "ratings", force: :cascade do |t|
     t.datetime "date"
     t.integer  "value"
     t.integer  "meal_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ratings", ["meal_id"], name: "index_ratings_on_meal_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
-  create_table "sources", force: true do |t|
+  create_table "sources", force: :cascade do |t|
     t.integer  "canteen_id"
     t.integer  "parser_id"
     t.string   "name",       null: false
@@ -254,11 +254,11 @@ ActiveRecord::Schema.define(version: 20150331024406) do
   add_index "sources", ["canteen_id", "parser_id"], name: "index_sources_on_canteen_id_and_parser_id", unique: true, using: :btree
   add_index "sources", ["parser_id", "name"], name: "index_sources_on_parser_id_and_name", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "time_zone"
     t.string   "language",       limit: 2
     t.string   "login"

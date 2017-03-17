@@ -47,5 +47,10 @@ module Openmensa
         resource '/api/*', headers: :any, expose: %w(Link X-OM-Api-Version X-Total-Pages), methods: :get, credentials: false
       end
     end
+
+    initializer 'load-patches' do
+      require 'patches/relation_cache_key'
+      require 'patches/squeel_deprecations'
+    end
   end
 end

@@ -6,11 +6,11 @@ unless ENV['DRB']
   require 'simplecov-rcov'
   require 'coveralls'
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
     Coveralls::SimpleCov::Formatter,
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::RcovFormatter,
-  ]
+  ])
   SimpleCov.start 'rails'
 end
 
