@@ -41,6 +41,7 @@ module Openmensa
 
     # Asset configuration
     config.assets.version = '1.0'
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
     # Add additional assets to the asset load path.
     # Rails.application.config.assets.paths << Emoji.images_path
