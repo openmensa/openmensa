@@ -61,7 +61,7 @@ class OpenMensa::UpdateFeedsTask
   def update_next_fetch_at(feed)
     @next_cron_time = CronParser.new(feed.schedule).next
     # no retry possible
-    if @feed_updated or feed.current_retry.nil?
+    if @feed_updated || feed.current_retry.nil? || feed.current_retry.size == 0
       return fetch_at_next_cron(feed)
     end
     next_retry_time = feed.current_retry[0].minutes.from_now
