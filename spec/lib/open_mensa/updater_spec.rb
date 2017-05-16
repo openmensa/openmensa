@@ -458,7 +458,7 @@ describe OpenMensa::Updater do
 
         updater.update_day(today, day)
 
-        expect(today.meals(force_reload = true).size).to eq(1)
+        expect(today.meals.reload.size).to eq(1)
         expect(today.meals.first).to eq(meal2)
 
         expect(ids.map {|id| Meal.find_by_id id }).to match_array([meal2, nil])

@@ -1,4 +1,4 @@
-class RemoveOauth < ActiveRecord::Migration
+class RemoveOauth < ActiveRecord::Migration[4.2]
   def up
     drop_table :oauth2_access_tokens
     drop_table :oauth2_authorization_codes

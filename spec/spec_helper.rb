@@ -20,7 +20,6 @@ require File.expand_path('../../config/environment', __FILE__)
 ActiveRecord::Migration.maintain_test_schema!
 
 require 'rspec/rails'
-require 'accept_values_for'
 require 'capybara/rspec'
 require 'factory_girl'
 require 'webmock/rspec'

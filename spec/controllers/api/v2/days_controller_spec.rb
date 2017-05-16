@@ -11,7 +11,7 @@ describe Api::V2::DaysController, type: :controller do
     before { day }
 
     it 'should answer with a list' do
-      get :index, canteen_id: canteen.id, format: :json
+      get :index, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
 
       expect(json).to be_an(Array)
@@ -19,7 +19,7 @@ describe Api::V2::DaysController, type: :controller do
     end
 
     it 'should answer with a list of day nodes' do
-      get :index, canteen_id: canteen.id, format: :json
+      get :index, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
 
       expect(json[0]).to eq({
@@ -42,7 +42,7 @@ describe Api::V2::DaysController, type: :controller do
       end
 
       it 'should default to today if not given' do
-        get :index, canteen_id: canteen.id, format: :json
+        get :index, format: :json, params: {canteen_id: canteen.id}
 
         expect(json).to have(3).items
         expect(json[0]['date']).to eq(today.date.iso8601)
@@ -58,7 +58,9 @@ describe Api::V2::DaysController, type: :controller do
     before { canteen }
 
     it 'should answer with day' do
-      get :show, canteen_id: canteen.id, id: day.to_param, format: :json
+      get :show, format: :json,
+        params: {canteen_id: canteen.id, id: day.to_param}
+
       expect(response.status).to eq(200)
 
       expect(json).to eq({

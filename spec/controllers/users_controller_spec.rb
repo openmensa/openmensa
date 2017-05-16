@@ -9,7 +9,7 @@ describe UsersController, type: :controller do
 
     context 'as anonymous' do
       it 'should not be accessible' do
-        get :show, id: user.id
+        get :show, params: {id: user.id}
 
         expect(response.status).to eq(401)
       end
@@ -18,7 +18,7 @@ describe UsersController, type: :controller do
     context 'as user' do
       it 'should be allow access to my profile' do
         set_current_user user
-        get :show, id: user.id
+        get :show, params: {id: user.id}
 
         expect(response.status).to eq(200)
       end
@@ -27,7 +27,7 @@ describe UsersController, type: :controller do
     context 'as admin' do
       it 'should not be accessible' do
         set_current_user FactoryGirl.create(:admin)
-        get :show, id: user.id
+        get :show, params: {id: user.id}
 
         expect(response.status).to eq(200)
       end
@@ -39,7 +39,7 @@ describe UsersController, type: :controller do
 
     context 'as anonymous' do
       it 'should not be accessible' do
-        put :update, id: user.id, user: {user_name: 'Bobby'}
+        put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 
         expect(response.status).to eq(401)
       end
@@ -48,7 +48,7 @@ describe UsersController, type: :controller do
     context 'as user' do
       it 'should be allow to update to my profile' do
         set_current_user user
-        put :update, id: user.id, user: {user_name: 'Bobby'}
+        put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 
         expect(response.status).to eq(302)
       end
@@ -57,7 +57,7 @@ describe UsersController, type: :controller do
     context 'as admin' do
       it 'should not be accessible' do
         set_current_user FactoryGirl.create(:admin)
-        put :update, id: user.id, user: {user_name: 'Bobby'}
+        put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 
         expect(response.status).to eq(302)
       end

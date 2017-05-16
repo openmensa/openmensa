@@ -1,4 +1,4 @@
-class CreateOauth2Models < ActiveRecord::Migration
+class CreateOauth2Models < ActiveRecord::Migration[4.2]
   def change
     create_table :oauth2_access_tokens do |t|
       t.references :user

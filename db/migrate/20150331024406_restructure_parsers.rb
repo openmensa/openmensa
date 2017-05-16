@@ -1,4 +1,4 @@
-class RestructureParsers < ActiveRecord::Migration
+class RestructureParsers < ActiveRecord::Migration[4.2]
   def change
     create_table :parsers do |t|
       t.references :user

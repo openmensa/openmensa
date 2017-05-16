@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'rexml/document'
 
-class Canteen < ActiveRecord::Base
+class Canteen < ApplicationRecord
   has_many :days
   has_many :meals, through: :days
   has_many :messages

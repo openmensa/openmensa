@@ -93,7 +93,7 @@
                       =s.canteen.name
                   td rowspan=f.feed_timespans.size
                     = link_to f.name, feed_messages_path(f)
-                - states = fetches.group('state').count
+                - states = fetches.group(:state).count
                 - total = states.values.sum / 100.0
                 td =t(:feeds_status, span)
                 td.number

@@ -11,13 +11,23 @@ class OpenMensa::UpdateFeedsTask
   end
 
   def fix_next_fetch_ats
-    disabled_feeds = Feed.joins { source.canteen }.where { source.canteen.state == 'archived' }.select(:id)
-    changes = Feed.where { ((schedule == nil) | id.in(disabled_feeds)) & (next_fetch_at != nil) }.update_all(next_fetch_at: nil)
-    Feed.where { (schedule != nil) & id.not_in(disabled_feeds) & (next_fetch_at == nil) }.each do |feed|
-      feed.next_fetch_at = CronParser.new(feed.schedule).last
-      feed.save!
-      changes += 1
-    end
+    disabled_feeds = Feed
+      .joins(source: :canteen)
+      .where.has { source.canteen.state == 'archived' }
+      .select(:id)
+
+    changes = Feed
+      .where.has { ((schedule == nil) | id.in(disabled_feeds)) & (next_fetch_at != nil) }
+      .update_all(next_fetch_at: nil)
+
+    Feed
+      .where.has { (schedule != nil) & id.not_in(disabled_feeds) & (next_fetch_at == nil) }
+      .each do |feed|
+        feed.next_fetch_at = CronParser.new(feed.schedule).last
+        feed.save!
+        changes += 1
+      end
+
     changes
   end
 

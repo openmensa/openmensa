@@ -1,8 +1,8 @@
-class Meal < ActiveRecord::Base
+class Meal < ApplicationRecord
   belongs_to :day
   has_one :canteen, through: :day
   has_many :comments, as: :commentee
-  has_and_belongs_to_many :notes, -> { uniq.readonly }, autosave: true
+  has_and_belongs_to_many :notes, autosave: true
 
   validates :name, :category, :day_id, presence: true
 

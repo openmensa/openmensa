@@ -5,7 +5,7 @@ describe CanteenActivationController, type: :controller do
   describe '#create' do
     let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
     before do
-      post :create, canteen_id: canteen.id
+      post :create, params: {canteen_id: canteen.id}
     end
     subject { response }
 
@@ -17,7 +17,7 @@ describe CanteenActivationController, type: :controller do
   describe '#destroy' do
     let(:canteen) { FactoryGirl.create :canteen }
     before do
-      delete :destroy, canteen_id: canteen.id
+      delete :destroy, params: {canteen_id: canteen.id}
     end
     subject { response }
 

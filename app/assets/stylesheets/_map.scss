@@ -1,5 +1,4 @@
-@import "css3/linear-gradient";
-@import "addons/font-family";
+@import "addons/font-stacks";
 @import "responsive";
 @import "variables";
 
@@ -10,7 +9,7 @@
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
   background-color: #4598d0;
   background-color: rgba(#4598d0, 0.9);
-  @include linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
+  background-image: linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
   border: 1px solid #597393;
   border: 1px solid rgba(#597393, 0.9);
   text-align: center;

@@ -11,6 +11,9 @@ Bundler.require(*Rails.groups(assets: %w(development test)))
 
 module Openmensa
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -28,6 +31,21 @@ module Openmensa
 
     # Loaded OmniAuth services will be stored here
     config.omniauth_services = []
+
+    # Configure parameter filtering for logging
+    config.filter_parameters += [:password]
+
+    # Session store
+    config.session_store :cookie_store, key: '_openmensa_session'
+    config.action_dispatch.cookies_serializer = :hybrid
+
+    # Asset configuration
+    config.assets.version = '1.0'
+
+    # Add additional assets to the asset load path.
+    # Rails.application.config.assets.paths << Emoji.images_path
+    # Add Yarn node_modules folder to the asset load path.
+    config.assets.paths << Rails.root.join('node_modules')
 
     # Load ruby platform specific database configuration
     def config.database_configuration

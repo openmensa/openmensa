@@ -1,4 +1,4 @@
-class AddNotesToMeal < ActiveRecord::Migration
+class AddNotesToMeal < ActiveRecord::Migration[4.2]
   def change
     create_table :notes do |t|
       t.string :name,         null: false

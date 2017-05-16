@@ -1,3 +1,3 @@
-class Note < ActiveRecord::Base
+class Note < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 end

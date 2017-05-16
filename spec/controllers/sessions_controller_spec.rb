@@ -18,19 +18,22 @@ describe SessionsController, type: :controller do
         'info' => nil
       }
 
-      expect { get :create, provider: 'test' }.to change { User.all.count }.from(0).to(1)
+      expect do
+        get :create, params: {provider: 'test'}
+      end.to change { User.all.count }.from(0).to(1)
 
       expect(response).to redirect_to(root_path)
     end
 
     it 'should redirect to back url' do
-      get :create, provider: 'twitter', ref: '/mypath'
+      get :create, params: {provider: 'twitter', ref: '/mypath'}
 
       expect(response).to redirect_to('/mypath')
     end
 
     it 'should only redirect to own host' do
-      get :create, provider: 'twitter', ref: 'http://twitter.com/path'
+      get :create,
+        params: {provider: 'twitter', ref: 'http://twitter.com/path'}
 
       expect(response).to redirect_to('/')
     end

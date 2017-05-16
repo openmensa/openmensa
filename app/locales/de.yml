@@ -72,15 +72,15 @@ de:
       facebook: "Deine Facebook Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
       google_oauth2: "Deine Google Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
     identity_added:
-      github: "<b>GitHub</b> Identität hinzugefügt."
-      twitter: "<b>Twitter</b> Identität hinzugefügt."
-      facebook: "<b>Facebook</b> Identität hinzugefügt."
-      google_oauth2: "<b>Google</b> Identität hinzugefügt."
+      github: "GitHub Identität hinzugefügt."
+      twitter: "Twitter Identität hinzugefügt."
+      facebook: "Facebook Identität hinzugefügt."
+      google_oauth2: "Google Identität hinzugefügt."
     identity_removed:
-      github: "<b>GitHub</b> Identität entfernt."
-      twitter: "<b>Twitter</b> Identität entfernt."
-      facebook: "<b>Facebook</b> Identität entfernt."
-      google_oauth2: "<b>Google</b> Identität entfernt."
+      github: "GitHub Identität entfernt."
+      twitter: "Twitter Identität entfernt."
+      facebook: "Facebook Identität entfernt."
+      google_oauth2: "Google Identität entfernt."
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
     wanted_canteen_added: Die Mensa wurde erfolgreich als gewünscht gespeichert.

@@ -224,7 +224,7 @@ describe OpenMensa::SourceUpdater do
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq created: 0, updated: 0, deleted: 1, new_metadata: false
-      expect(source.feeds(reload: true).size).to eq 1
+      expect(source.feeds.reload.size).to eq 1
 
       updater.errors.first.tap do |message|
         expect(message).to be_a(FeedChanged)

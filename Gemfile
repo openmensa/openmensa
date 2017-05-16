@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.0'
-gem 'jquery-rails'
-gem 'turbolinks', '< 5'
+gem 'rails', '~> 5.1.1'
+gem 'rails-i18n', '~> 5.0'
+gem 'turbolinks', '~> 5'
+
+gem 'puma', '~> 3.7'
 
 gem 'slim'
 gem 'oj'
@@ -11,7 +13,6 @@ gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'rails-i18n'
 gem 'cancancan'
 gem 'gravtastic'
 gem 'rails-timeago'
@@ -20,42 +21,40 @@ gem 'bcrypt'
 gem 'whenever', require: false
 gem 'parse-cron'
 
-gem 'squeel'
 gem 'rack-cors', require: 'rack/cors'
 gem 'geocoder', '~> 1.4'
-gem 'leaflet-rails', '~> 0.7.0'
+gem 'leaflet-rails', '~> 1.0'
 gem 'nokogiri'
-gem 'draper'
+gem 'draper', '~> 3.0'
 gem 'responders'
-gem 'has_scope', '~> 0.7.0'
+gem 'has_scope', '~> 0.7.1'
 gem 'will_paginate'
 gem 'paginate-responder'
 gem 'decorate-responder'
 gem 'api-responder'
+gem 'baby_squeel'
 
 gem 'pg'
 
 group :assets do
   gem 'sass-rails', '~> 5.0'
   gem 'coffee-rails', '~> 4.2.0'
+  gem 'jquery-rails'
 
-  gem 'therubyracer', '~> 0.12.3'
+  gem 'therubyracer'
 
   gem 'font-awesome-sass-rails', '~> 3.0.2.2'
   gem 'uglifier', '~> 3.1'
-  gem 'bourbon', '~> 3.2'
-end
-
-group :production do
-  gem 'puma'
+  gem 'bourbon', '~> 4.3'
 end
 
 group :development do
   gem 'brakeman'
 
   gem 'guard-rspec', require: false
-  gem 'listen', '< 3.1'  # 3.1 requires ruby 2.2
+  gem 'listen'
   gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
@@ -69,15 +68,16 @@ end
 
 group :test do
   gem 'timecop'
-  gem 'accept_values_for'
+  gem 'accept_values_for', github: 'bogdan/accept_values_for', ref: 'a5c02cb'
   gem 'webmock'
-  gem 'capybara',       require: false
-  gem 'poltergeist',    require: false
-  gem 'turn',           require: false
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'rails-controller-testing'
+  gem 'factory_girl_rails', '>= 3.3.0'
+
   gem 'coveralls',      require: false
   gem 'simplecov',      require: false
   gem 'simplecov-rcov', require: false
-  gem 'factory_girl_rails', '>= 3.3.0', require: false
 end
 
 # load Gemfile.local

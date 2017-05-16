@@ -18,7 +18,7 @@ describe FeedsController, type: :controller do
 
     it 'should run openmensa updater' do
       expect(updater).to receive(:update).and_return true
-      get :fetch, id: feed.id, format: :json
+      get :fetch, format: :json, params: {id: feed.id}
 
       expect(response.status).to eq 200
     end
@@ -50,7 +50,7 @@ describe FeedsController, type: :controller do
 
       it 'and render them for canteen owner' do
         set_current_user owner
-        get :fetch, id: feed.id, format: :json
+        get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status).to eq 200
         expect(response.content_type).to eq 'application/json'
@@ -61,7 +61,7 @@ describe FeedsController, type: :controller do
       end
 
       it 'and not render them for normal user' do
-        get :fetch, id: feed.id, format: :json
+        get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status). to eq 200
         expect(response.content_type).to eq 'application/json'
@@ -100,7 +100,7 @@ describe FeedsController, type: :controller do
 
       it 'and render them for canteen owner' do
         set_current_user owner
-        get :fetch, id: feed.id, format: :json
+        get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status).to eq 200
         expect(response.content_type).to eq 'application/json'
@@ -114,7 +114,7 @@ describe FeedsController, type: :controller do
       end
 
       it 'and not render them for normal users' do
-        get :fetch, id: feed.id, format: :json
+        get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status).to eq 200
         expect(response.content_type).to eq 'application/json'
@@ -128,7 +128,7 @@ describe FeedsController, type: :controller do
     it 'should only allow one fetch per 15 minute' do
       expect(updater).to_not receive(:update)
       FactoryGirl.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now - 14.minutes
-      get :fetch, id: feed.id, format: :json
+      get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 429
     end
 
@@ -136,7 +136,7 @@ describe FeedsController, type: :controller do
       set_current_user owner
       expect(updater).to receive(:update).and_return true
       FactoryGirl.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now
-      get :fetch, id: feed.id, format: :json
+      get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 200
     end
   end

@@ -1,4 +1,4 @@
-class Source < ActiveRecord::Base
+class Source < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :canteen

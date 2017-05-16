@@ -9,7 +9,7 @@
 @import 'font-awesome';
 @import 'bourbon';
 
-* { @include box-sizing(border-box); }
+* { box-sizing: border-box; }
 
 @import 'typography';
 @import 'layout';

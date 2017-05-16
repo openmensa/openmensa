@@ -1,4 +1,4 @@
-class AddCityToCanteen < ActiveRecord::Migration
+class AddCityToCanteen < ActiveRecord::Migration[4.2]
   def up
     add_column :canteens, :city, :string
 

@@ -1,6 +1,6 @@
-@import "addons/font-family";
-@import 'responsive';
-@import 'variables';
+@import "addons/font-stacks";
+@import "responsive";
+@import "variables";
 
 @mixin p {
   margin: 8px 0;

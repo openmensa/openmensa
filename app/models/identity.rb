@@ -1,6 +1,6 @@
 require 'bcrypt'
 
-class Identity < ActiveRecord::Base
+class Identity < ApplicationRecord
   SERVICES = [:twitter, :google, :facebook, :github]
 
   belongs_to :user

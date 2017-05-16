@@ -119,7 +119,7 @@ describe Api::V2::CanteensController, type: :controller do
         100.times { FactoryGirl.create :canteen }
         expect(Canteen.count).to be > 100
 
-        get :index, format: :json, limit: '20'
+        get :index, format: :json, params: {limit: '20'}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(20)
@@ -129,7 +129,7 @@ describe Api::V2::CanteensController, type: :controller do
         100.times { FactoryGirl.create :canteen }
         expect(Canteen.count).to be > 100
 
-        get :index, format: :json, limit: '120'
+        get :index, format: :json, params: {limit: '120'}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(100)
@@ -151,7 +151,7 @@ describe Api::V2::CanteensController, type: :controller do
         100.times { FactoryGirl.create :canteen }
         expect(Canteen.count).to be > 100
 
-        get :index, format: :json, per_page: '20'
+        get :index, format: :json, params: {per_page: '20'}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(20)
@@ -161,7 +161,7 @@ describe Api::V2::CanteensController, type: :controller do
         100.times { FactoryGirl.create :canteen }
         expect(Canteen.count).to be > 100
 
-        get :index, format: :json, per_page: '120'
+        get :index, format: :json, params: {per_page: '120'}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(100)
@@ -175,13 +175,14 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should find canteens within distance around a point' do
-        get :index, format: :json, near: {lat: 0.0, lng: 0.15, dist: 100}
+        get :index, format: :json,
+          params: {near: {lat: 0.0, lng: 0.15, dist: 100}}
 
         expect(json).to have(3).items
       end
 
       it 'should find canteens within default distance around a point' do
-        get :index, format: :json, near: {lat: 0.05, lng: 0.1}
+        get :index, format: :json, params: {near: {lat: 0.05, lng: 0.1}}
 
         expect(json).to have(1).items
       end
@@ -196,7 +197,8 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should return canteens with given ids' do
-        get :index, format: :json, ids: [canteen.id, second_canteen.id].join(',')
+        get :index, format: :json,
+          params: {ids: [canteen.id, second_canteen.id].join(',')}
 
         expect(json).to have(2).items
         expect(json[0]['id']).to eq(canteen.id)
@@ -229,7 +231,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should return canteens near a specified place' do
-        get :index, format: :json, near: {place: 'Potsdam'}
+        get :index, format: :json, params: {near: {place: 'Potsdam'}}
 
         expect(json).to have(2).item
         expect(json[0]['name']).to eq(palais.name)
@@ -260,7 +262,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should return only canteens when hasCoordinates is true' do
-        get :index, format: :json, hasCoordinates: 'true'
+        get :index, format: :json, params: {hasCoordinates: 'true'}
 
         expect(json).to have(2).item
         expect(json[0]['name']).to eq(canteen.name)
@@ -268,7 +270,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should return only canteens when hasCoordinates is false' do
-        get :index, format: :json, hasCoordinates: 'false'
+        get :index, format: :json, params: {hasCoordinates: 'false'}
 
         expect(json).to have(1).item
         expect(json[0]['name']).to eq(unknown.name)
@@ -278,10 +280,10 @@ describe Api::V2::CanteensController, type: :controller do
 
   describe 'GET show' do
     let!(:canteen) { FactoryGirl.create :canteen }
-    before { get :show, id: canteen.id, format: :json }
+    before { get :show, format: :json, params: {id: canteen.id} }
 
     it 'should answer with canteen' do
-      get :show, id: canteen.id, format: :json
+      get :show, format: :json, params: {id: canteen.id}
       expect(response.status).to eq(200)
 
       expect(json).to eq({

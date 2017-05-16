@@ -1,4 +1,4 @@
-class CreateDayTable < ActiveRecord::Migration
+class CreateDayTable < ActiveRecord::Migration[4.2]
   class Meal < ActiveRecord::Base
   end
   def up

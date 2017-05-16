@@ -1,4 +1,4 @@
-class FeedFetch < ActiveRecord::Base
+class FeedFetch < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :feed

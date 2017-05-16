@@ -1,4 +1,4 @@
-class Parser < ActiveRecord::Base
+class Parser < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :user
