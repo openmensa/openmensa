@@ -327,5 +327,21 @@ describe Api::V2::CanteensController, type: :controller do
         its(['id']) { should be canteen.id }
       end
     end
+
+    context 'and a replaced canteens' do
+      let(:replacement) { FactoryGirl.create :canteen, state: 'active'}
+      let(:canteen) { FactoryGirl.create :canteen, state: 'archived', replaced_by: replacement }
+      subject { json }
+
+      context 'response' do
+        subject { response }
+        its(:status) { should == 200 }
+      end
+
+      context 'json' do
+        subject { json }
+        its(['id']) { should be replacement.id }
+      end
+    end
   end
 end

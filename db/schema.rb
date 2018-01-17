@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317110435) do
+ActiveRecord::Schema.define(version: 20180117105826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170317110435) do
     t.string "email"
     t.boolean "availibility", default: true
     t.string "openingTimes", array: true
+    t.integer "replaced_by"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|

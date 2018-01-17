@@ -31,4 +31,13 @@ class Api::V2::CanteensController < Api::BaseController
   def find_collection
     apply_scopes Canteen.active.order(:id)
   end
+
+  def find_resource
+    canteen = super
+    if canteen.replaced?
+      return canteen.replaced_by
+    else
+      canteen
+    end
+  end
 end

@@ -10,6 +10,7 @@ class Canteen < ApplicationRecord
   has_many :feeds, through: :sources
   has_many :data_proposals
   has_many :feedbacks
+  belongs_to :replaced_by, class_name: 'Canteen', foreign_key: :replaced_by, optional: true
 
   scope :active, -> { where('state IN (?)', ['active', 'empty']) }
 
@@ -40,5 +41,9 @@ class Canteen < ApplicationRecord
 
   def archived?
     state == 'archived'
+  end
+
+  def replaced?
+    !read_attribute(:replaced_by).nil?
   end
 end
