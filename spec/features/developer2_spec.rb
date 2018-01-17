@@ -184,7 +184,7 @@ describe 'Developers', type: :feature do
 
             click_on 'Nutzerrückmeldungen'
 
-            expect(page).to have_content('Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!')
+            expect(page).to have_content('Aktuell liegen keine Nutzerrückmeldungen für diese Mensa vor!')
           end
         end
 
