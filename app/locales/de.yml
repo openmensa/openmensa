@@ -99,7 +99,6 @@ de:
       mail_sent: "Eine Bestätigungsmail wurde an %{mail} gesendet. Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse zu bestätigen."
       mail_failed_to_send: "Leider konnte die Bestätigungsmail nicht gesendet werden. Versuche es später nochmal bzw. wende dich an das OpenMensa-Team!"
       got_developer: "Die Entwickler-Funktionen wurden nun erfolgeich aktiviert!"
-      got_developer: "Die Entwickler-Funktionen wurden nun erfolgeich aktiviert!"
       could_not_activate_link: 'Leider konnte die E-Mail nicht bestätigt werden.'
       invalid_message: 'Der Aktivierungslink ist ungültig!'
       already_developer: Du bist schon Entwickler und kannst du alle Funktionen nutzen.
@@ -204,11 +203,11 @@ de:
     messages: Mitteilungen
 
   feedbacks:
-    no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mena vor!
+    no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mensa vor!
     open: "Öffne Feedback für %{name}"
 
   data_proposals:
-    no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mena vor!
+    no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mensa vor!
     open: "Öffne Änderungsvorschläge für %{name}"
     old: 'Alt:'
     new: 'Neu:'
