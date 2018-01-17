@@ -56,6 +56,9 @@ class CanteensController < ApplicationController
 
   def load_resource
     @canteen = Canteen.find params[:id]
+    if @canteen.replaced?
+      @canteen = @canteen.replaced_by
+    end
   end
 
   def new_resource

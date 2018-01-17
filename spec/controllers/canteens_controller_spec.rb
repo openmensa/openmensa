@@ -24,6 +24,18 @@ describe CanteensController, type: :controller do
       expect(assigns(:date)).to eq (Time.zone.now + 1.day).to_date
       expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now + 1.day)
     end
+
+    context ' with replaced canteen' do
+      let(:replaced) { FactoryGirl.create :canteen, state: 'archived', replaced_by: canteen }
+      it 'asdf' do
+        get :show, params: {id: replaced.id}
+
+        expect(assigns(:canteen)).to eq canteen
+
+        expect(assigns(:date)).to eq Date.today
+        expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now)
+      end
+    end
   end
 
   describe '#update' do
