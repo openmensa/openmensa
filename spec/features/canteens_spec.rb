@@ -2,8 +2,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Canteen', type: :feature do
-  let(:canteen)  { FactoryGirl.create :canteen }
-  let(:canteens) { [canteen] + (0..25).map { FactoryGirl.create :canteen } }
+  let(:canteen)  { FactoryBot.create :canteen }
+  let(:canteens) { [canteen] + (0..25).map { FactoryBot.create :canteen } }
 
   describe 'index map' do
     before { canteens }
@@ -31,9 +31,9 @@ describe 'Canteen', type: :feature do
     end
 
     context 'parser info' do
-      let(:owner) { FactoryGirl.create :developer }
-      let(:parser) { FactoryGirl.create :parser, user: owner }
-      let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen}
+      let(:owner) { FactoryBot.create :developer }
+      let(:parser) { FactoryBot.create :parser, user: owner }
+      let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen}
 
       it 'should per default not contain any parser info' do
         visit canteen_path(canteen)

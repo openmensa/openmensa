@@ -2,7 +2,7 @@ require 'spec_helper'
 include Nokogiri
 
 describe OpenMensa::ParserUpdater do
-  let(:parser) { FactoryGirl.create :parser, index_url: 'http://example.com/index.json' }
+  let(:parser) { FactoryBot.create :parser, index_url: 'http://example.com/index.json' }
   let(:updater) { described_class.new(parser) }
   def stub_data(body)
     stub_request(:any, parser.index_url)
@@ -246,7 +246,7 @@ describe OpenMensa::ParserUpdater do
 
     it 'should update source urls' do
       stub_json test: 'http://example.com/test/meta.xml'
-      source = FactoryGirl.create :source, parser: parser,
+      source = FactoryBot.create :source, parser: parser,
                                            name: 'test',
                                            meta_url: 'http://example.com/test.xml'
 
@@ -263,7 +263,7 @@ describe OpenMensa::ParserUpdater do
 
     it 'should add source urls if not existing' do
       stub_json test: 'http://example.com/test/meta.xml'
-      source = FactoryGirl.create :source, parser: parser,
+      source = FactoryBot.create :source, parser: parser,
                                            name: 'test',
                                            meta_url: nil
 
@@ -280,7 +280,7 @@ describe OpenMensa::ParserUpdater do
 
     it 'should add source urls if not existing' do
       stub_json({})
-      source = FactoryGirl.create :source, parser: parser,
+      source = FactoryBot.create :source, parser: parser,
                                            name: 'test',
                                            meta_url: 'http://example.org/test/test2.xml'
 
@@ -298,8 +298,8 @@ describe OpenMensa::ParserUpdater do
 
     it 'should reactive a archived source' do
       stub_json test: 'http://example.org/test/test2.xml'
-      canteen = FactoryGirl.create :canteen, state: 'archived'
-      source = FactoryGirl.create :source, parser: parser,
+      canteen = FactoryBot.create :canteen, state: 'archived'
+      source = FactoryBot.create :source, parser: parser,
                                            canteen: canteen,
                                            name: 'test',
                                            meta_url: 'http://example.org/test/test2.xml'

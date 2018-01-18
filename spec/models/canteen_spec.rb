@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Canteen, type: :model do
-  let(:canteen) { FactoryGirl.create :canteen }
+  let(:canteen) { FactoryBot.create :canteen }
 
   it { is_expected.not_to accept_values_for(:name, nil, '') }
   it { is_expected.not_to accept_values_for(:state, nil, '', 'test') }

@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require_dependency 'message'
 
 describe 'Developers', type: :feature do
-  let(:user) { FactoryGirl.create :user }
-  let(:developer) { FactoryGirl.create :developer }
-  let(:parser) { FactoryGirl.create :parser, user_id: developer.id }
-  let(:canteen) { FactoryGirl.create :canteen }
+  let(:user) { FactoryBot.create :user }
+  let(:developer) { FactoryBot.create :developer }
+  let(:parser) { FactoryBot.create :parser, user_id: developer.id }
+  let(:canteen) { FactoryBot.create :canteen }
 
   context 'as a developer' do
     before do
@@ -92,7 +92,7 @@ describe 'Developers', type: :feature do
       end
 
       context 'with wanted canteen' do
-        let!(:canteen) { FactoryGirl.create :canteen, state: 'wanted', name: 'Dies ist eine Gesuchte Mensa' }
+        let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Dies ist eine Gesuchte Mensa' }
         it 'it should be able to add a source for a wanted canteen' do
           click_on parser.name
 
@@ -120,8 +120,8 @@ describe 'Developers', type: :feature do
       end
 
       context 'with a existing source without meta url' do
-        let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
-        let!(:feed) { FactoryGirl.create :feed, source: source }
+        let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
+        let!(:feed) { FactoryBot.create :feed, source: source }
 
         it 'should be able to edit the source' do
           click_on parser.name
@@ -189,7 +189,7 @@ describe 'Developers', type: :feature do
         end
 
         context 'with previous created feedback' do
-          let!(:feedback) { FactoryGirl.create :feedback, canteen: canteen }
+          let!(:feedback) { FactoryBot.create :feedback, canteen: canteen }
           it 'should be able to see the feedback\'s message' do
             click_on parser.name
             click_on "Öffne Feedback für #{canteen.name}"
@@ -207,7 +207,7 @@ describe 'Developers', type: :feature do
         end
 
         context 'with previous created data proposals' do
-          let!(:data_proposal) { FactoryGirl.create :data_proposal, canteen: canteen }
+          let!(:data_proposal) { FactoryBot.create :data_proposal, canteen: canteen }
           it 'should be able to see the data_proposal' do
             click_on parser.name
             click_on "Öffne Änderungsvorschläge für #{canteen.name}"
@@ -225,7 +225,7 @@ describe 'Developers', type: :feature do
         end
 
         context 'with previous messsages' do
-          let!(:error) { FactoryGirl.create :feedUrlUpdatedInfo, messageable: source }
+          let!(:error) { FactoryBot.create :feedUrlUpdatedInfo, messageable: source }
 
           it 'should be able to view fetch messages / errors' do
             click_on parser.name
@@ -239,10 +239,10 @@ describe 'Developers', type: :feature do
 
       context 'with a existing source with meta url' do
         let!(:source) do
-          FactoryGirl.create :source, parser: parser,
+          FactoryBot.create :source, parser: parser,
             meta_url: 'http://example.org/test/meta.xml'
         end
-        let!(:feed) { FactoryGirl.create :feed, source: source, name: 'oldfeed' }
+        let!(:feed) { FactoryBot.create :feed, source: source, name: 'oldfeed' }
 
         it 'should not be able to edit feeds' do
           click_on parser.name

@@ -21,12 +21,12 @@ ActiveRecord::Migration.maintain_test_schema!
 
 require 'rspec/rails'
 require 'capybara/rspec'
-require 'factory_girl'
+require 'factory_bot'
 require 'webmock/rspec'
 require 'capybara/poltergeist'
 
 # Load factories
-FactoryGirl.reload
+FactoryBot.reload
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

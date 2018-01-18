@@ -3,11 +3,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe FeedsController, type: :controller do
   describe '#fetch' do
-    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
-    let(:parser) { FactoryGirl.create :parser, user: owner }
-    let(:source) { FactoryGirl.create :source, canteen: canteen, parser: parser }
-    let(:feed) { FactoryGirl.create :feed, source: source }
-    let(:owner) { FactoryGirl.create :developer }
+    let(:canteen) { FactoryBot.create :canteen, :with_meals }
+    let(:parser) { FactoryBot.create :parser, user: owner }
+    let(:source) { FactoryBot.create :source, canteen: canteen, parser: parser }
+    let(:feed) { FactoryBot.create :feed, source: source }
+    let(:owner) { FactoryBot.create :developer }
     let(:updater) { OpenMensa::Updater.new(feed, 'manual') }
     let(:json) { JSON.parse response.body }
 
@@ -127,7 +127,7 @@ describe FeedsController, type: :controller do
 
     it 'should only allow one fetch per 15 minute' do
       expect(updater).to_not receive(:update)
-      FactoryGirl.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now - 14.minutes
+      FactoryBot.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now - 14.minutes
       get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 429
     end
@@ -135,7 +135,7 @@ describe FeedsController, type: :controller do
     it 'should updates from canteen owner every time' do
       set_current_user owner
       expect(updater).to receive(:update).and_return true
-      FactoryGirl.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now
+      FactoryBot.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now
       get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 200
     end

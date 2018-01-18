@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe OpenMensa::UpdateFeedsTask do
   let(:task) { described_class.new }
-  let(:feed) { FactoryGirl.create :feed }
+  let(:feed) { FactoryBot.create :feed }
   let(:success_updater) { double('Updater', update: true) }
   let(:failing_updater) { double('Updater', update: false)}
   before { Timecop.freeze 2015, 4, 20, 8, 34, 30 }
 
   def new_feed(attrs={})
-    FactoryGirl.create :feed, attrs
+    FactoryBot.create :feed, attrs
   end
 
   let(:_9am) { Time.new 2015, 4, 20, 9, 0, 0 }

@@ -2,11 +2,11 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe 'canteens/index.html.slim', type: :view do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
   let(:canteens) {
     [
-      FactoryGirl.create(:canteen),
-      FactoryGirl.create(:canteen)
+      FactoryBot.create(:canteen),
+      FactoryBot.create(:canteen)
     ]
   }
 

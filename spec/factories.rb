@@ -1,12 +1,12 @@
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     sequence(:login) {|n| "user#{n}" }
     name 'John Doe'
     developer false
 
     after(:create) do |user|
-      FactoryGirl.create(:identity, user: user)
+      FactoryBot.create(:identity, user: user)
     end
   end
 
@@ -44,18 +44,18 @@ FactoryGirl.define do
     trait :with_meals do
       state 'empty'
       after(:create) do |canteen|
-        FactoryGirl.create :yesterday, :with_meals, canteen: canteen
-        FactoryGirl.create :today, :with_meals, canteen: canteen
-        FactoryGirl.create :tomorrow, :with_meals, canteen: canteen
+        FactoryBot.create :yesterday, :with_meals, canteen: canteen
+        FactoryBot.create :today, :with_meals, canteen: canteen
+        FactoryBot.create :tomorrow, :with_meals, canteen: canteen
       end
     end
 
     trait :with_unordered_meals do
       state 'empty'
       after(:create) do |canteen|
-        FactoryGirl.create :yesterday, :with_unordered_meals, canteen: canteen
-        FactoryGirl.create :today, :with_unordered_meals, canteen: canteen
-        FactoryGirl.create :tomorrow, :with_unordered_meals, canteen: canteen
+        FactoryBot.create :yesterday, :with_unordered_meals, canteen: canteen
+        FactoryBot.create :today, :with_unordered_meals, canteen: canteen
+        FactoryBot.create :tomorrow, :with_unordered_meals, canteen: canteen
       end
     end
   end
@@ -71,17 +71,17 @@ FactoryGirl.define do
 
     trait :with_meals do
       after(:create) do |day|
-        FactoryGirl.create :meal, day: day
-        FactoryGirl.create :meal, day: day
-        FactoryGirl.create :meal, day: day
+        FactoryBot.create :meal, day: day
+        FactoryBot.create :meal, day: day
+        FactoryBot.create :meal, day: day
       end
     end
 
     trait :with_unordered_meals do
       after(:create) do |day|
-        FactoryGirl.create :meal, day: day, pos: 2
-        FactoryGirl.create :meal, day: day, pos: 1
-        FactoryGirl.create :meal, day: day, pos: 3
+        FactoryBot.create :meal, day: day, pos: 2
+        FactoryBot.create :meal, day: day, pos: 1
+        FactoryBot.create :meal, day: day, pos: 3
       end
     end
   end

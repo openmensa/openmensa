@@ -6,7 +6,7 @@ describe Api::V2::MealsController, type: :controller do
   let(:json) { JSON.parse response.body }
 
   describe 'GET index' do
-    let(:canteen) { FactoryGirl.create :canteen, :with_unordered_meals }
+    let(:canteen) { FactoryBot.create :canteen, :with_unordered_meals }
     let(:day) { canteen.days.first! }
     before { canteen }
 
@@ -52,7 +52,7 @@ describe Api::V2::MealsController, type: :controller do
     end
 
     context 'meal node' do
-      let(:meal) { FactoryGirl.create :meal, :with_notes }
+      let(:meal) { FactoryBot.create :meal, :with_notes }
       let(:day) { meal.day }
       let(:canteen) { meal.day.canteen }
 
@@ -69,15 +69,15 @@ describe Api::V2::MealsController, type: :controller do
 
   describe 'GET canteen_meals' do
     let(:canteen) do
-      c = FactoryGirl.create :canteen, :with_meals
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 2.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 3.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 4.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 5.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 6.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 7.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 8.days)
-      c.days << FactoryGirl.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 9.days)
+      c = FactoryBot.create :canteen, :with_meals
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 2.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 3.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 4.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 5.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 6.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 7.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 8.days)
+      c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 9.days)
       c.save!
       c
     end

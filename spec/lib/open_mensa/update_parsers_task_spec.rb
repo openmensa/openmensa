@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OpenMensa::UpdateParsersTask do
   let(:task) { described_class.new }
-  let(:parsers) { FactoryGirl.create_list :parser, 3, index_url: 'http://example.org/index.josn' }
+  let(:parsers) { FactoryBot.create_list :parser, 3, index_url: 'http://example.org/index.josn' }
   let(:updater) { double('ParserUpdater', sync: true) }
 
   context '#do' do

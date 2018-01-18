@@ -22,7 +22,7 @@ describe 'Authentication', type: :feature do
 
   describe 'Logout' do
     before :each do
-      login FactoryGirl.create(:identity)
+      login FactoryBot.create(:identity)
     end
 
     it 'should sign off a user if signed in' do

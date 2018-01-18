@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OpenMensa::UpdateSourcesTask do
   let(:task) { described_class.new }
-  let(:sources) { FactoryGirl.create_list :source, 3, meta_url: 'http://example.com/meta.xml' }
+  let(:sources) { FactoryBot.create_list :source, 3, meta_url: 'http://example.com/meta.xml' }
   let(:updater) { double('SourceUpdater', sync: true) }
 
   context '#do' do

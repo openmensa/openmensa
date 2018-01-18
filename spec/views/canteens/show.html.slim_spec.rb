@@ -2,8 +2,8 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe 'canteens/show.html.slim', type: :view do
-  let(:user) { FactoryGirl.create :user }
-  let(:canteen) { FactoryGirl.create(:canteen) }
+  let(:user) { FactoryBot.create :user }
+  let(:canteen) { FactoryBot.create(:canteen) }
 
   before do
     assign(:user, user)
@@ -36,7 +36,7 @@ describe 'canteens/show.html.slim', type: :view do
   end
 
   context 'on closed day' do
-    let(:day) { FactoryGirl.create :day, :closed }
+    let(:day) { FactoryBot.create :day, :closed }
     let(:canteen) { day.canteen }
 
     it 'should show a closed notice' do
@@ -47,8 +47,8 @@ describe 'canteens/show.html.slim', type: :view do
   end
 
   context 'with a meal' do
-    let(:day) { FactoryGirl.create(:today, canteen: canteen) }
-    let(:meal) { FactoryGirl.create(:meal, day: day) }
+    let(:day) { FactoryBot.create(:today, canteen: canteen) }
+    let(:meal) { FactoryBot.create(:meal, day: day) }
     before do
       meal
     end
@@ -88,7 +88,7 @@ describe 'canteens/show.html.slim', type: :view do
     end
   end
   context 'with meals' do
-    let(:day) { FactoryGirl.create(:today, :with_unordered_meals, canteen: canteen) }
+    let(:day) { FactoryBot.create(:today, :with_unordered_meals, canteen: canteen) }
     before { day }
     it 'should render an ordered list of meals' do
       render

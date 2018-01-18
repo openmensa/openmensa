@@ -2,8 +2,8 @@ require 'spec_helper'
 include Nokogiri
 
 describe OpenMensa::SourceUpdater do
-  let(:parser) { FactoryGirl.create :parser }
-  let(:source) { FactoryGirl.create :source, parser: parser, meta_url: 'http://example.com/meta.xml' }
+  let(:parser) { FactoryBot.create :parser }
+  let(:source) { FactoryBot.create :source, parser: parser, meta_url: 'http://example.com/meta.xml' }
   let(:updater) { described_class.new(source) }
   def stub_data(body)
     stub_request(:any, source.meta_url)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Meal, type: :model do
-  let(:meal) { FactoryGirl.create :meal }
+  let(:meal) { FactoryBot.create :meal }
 
   it { is_expected.not_to accept_values_for(:name, '', nil) }
   it { is_expected.not_to accept_values_for(:category, '', nil) }
@@ -47,8 +47,8 @@ describe Meal, type: :model do
 
   describe '#notes=' do
     it 'should to clear notes list' do
-      meal.notes << FactoryGirl.create(:note)
-      meal.notes << FactoryGirl.create(:note)
+      meal.notes << FactoryBot.create(:note)
+      meal.notes << FactoryBot.create(:note)
       expect(meal.notes.size).to eq 2
       meal.notes = []
       expect(meal.notes.size).to be_zero
@@ -62,7 +62,7 @@ describe Meal, type: :model do
     end
 
     it 'should removed old notes' do
-      meal.notes << note = FactoryGirl.create(:note)
+      meal.notes << note = FactoryBot.create(:note)
       oldname = note.name
       expect(meal.notes.size).to eq 1
       meal.notes = [oldname + '2']

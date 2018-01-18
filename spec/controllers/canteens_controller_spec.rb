@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CanteensController, type: :controller do
   describe '#show' do
-    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
+    let(:canteen) { FactoryBot.create :canteen, :with_meals }
 
     it 'should fetch canteen' do
       get :show, params: {id: canteen.id}
@@ -26,7 +26,7 @@ describe CanteensController, type: :controller do
     end
 
     context ' with replaced canteen' do
-      let(:replaced) { FactoryGirl.create :canteen, state: 'archived', replaced_by: canteen }
+      let(:replaced) { FactoryBot.create :canteen, state: 'archived', replaced_by: canteen }
       it 'asdf' do
         get :show, params: {id: replaced.id}
 
@@ -39,8 +39,8 @@ describe CanteensController, type: :controller do
   end
 
   describe '#update' do
-    let(:canteen) { FactoryGirl.create :canteen, :with_meals }
-    let(:user) { FactoryGirl.create :user }
+    let(:canteen) { FactoryBot.create :canteen, :with_meals }
+    let(:user) { FactoryBot.create :user }
 
     it 'should not be accessible by anonymous' do
       patch :update, params: {id: canteen.id, canteen: {name: 'NewName'}}

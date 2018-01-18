@@ -3,12 +3,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require_dependency 'message'
 
 describe 'Developers', type: :feature do
-  let(:user) { FactoryGirl.create :user }
-  let(:developer) { FactoryGirl.create :developer }
-  let(:parser) { FactoryGirl.create :parser, user: developer }
-  let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
-  let(:feed) { FactoryGirl.create :feed, source: source, name: 'debug' }
-  let(:canteen) { FactoryGirl.create :canteen }
+  let(:user) { FactoryBot.create :user }
+  let(:developer) { FactoryBot.create :developer }
+  let(:parser) { FactoryBot.create :parser, user: developer }
+  let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
+  let(:feed) { FactoryBot.create :feed, source: source, name: 'debug' }
+  let(:canteen) { FactoryBot.create :canteen }
 
   context 'as user' do
     before do
@@ -109,8 +109,8 @@ describe 'Developers', type: :feature do
       end
 
       context 'with previous fetches and errors' do
-        let!(:fetch) { FactoryGirl.create :feed_fetch, feed: feed, state: 'broken'}
-        let!(:error) { FactoryGirl.create :feedValidationError, messageable: fetch }
+        let!(:fetch) { FactoryBot.create :feed_fetch, feed: feed, state: 'broken'}
+        let!(:error) { FactoryBot.create :feedValidationError, messageable: fetch }
 
         it 'should be able to view fetch messages / errors' do
           click_on 'Feed debug-Mitteilungen'
@@ -121,7 +121,7 @@ describe 'Developers', type: :feature do
       end
 
       context 'with deactivated canteen' do
-        let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
+        let(:canteen) { FactoryBot.create :canteen, state: 'archived' }
 
         it 'should allow to enable the canteen' do
           click_on 'Mensa in Betrieb nehmen'

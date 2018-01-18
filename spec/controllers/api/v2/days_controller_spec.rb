@@ -6,7 +6,7 @@ describe Api::V2::DaysController, type: :controller do
   let(:json) { JSON.parse response.body }
 
   describe 'GET index' do
-    let(:day) { FactoryGirl.create :day }
+    let(:day) { FactoryBot.create :day }
     let(:canteen) { day.canteen }
     before { day }
 
@@ -29,16 +29,16 @@ describe Api::V2::DaysController, type: :controller do
     end
 
     context '&start' do
-      let(:today) { FactoryGirl.create :today, closed: true }
+      let(:today) { FactoryBot.create :today, closed: true }
       let(:canteen) { today.canteen }
-      let(:tomorrow) { FactoryGirl.create :tomorrow, canteen: canteen }
-      let(:yesterday) { FactoryGirl.create :yesterday, canteen: canteen }
+      let(:tomorrow) { FactoryBot.create :tomorrow, canteen: canteen }
+      let(:yesterday) { FactoryBot.create :yesterday, canteen: canteen }
 
       before do
         today && tomorrow && yesterday
-        FactoryGirl.create :day, canteen: canteen, date: yesterday.date - 1
-        FactoryGirl.create :day, canteen: canteen, date: yesterday.date - 2
-        FactoryGirl.create :day, canteen: canteen, date: tomorrow.date + 1
+        FactoryBot.create :day, canteen: canteen, date: yesterday.date - 1
+        FactoryBot.create :day, canteen: canteen, date: yesterday.date - 2
+        FactoryBot.create :day, canteen: canteen, date: tomorrow.date + 1
       end
 
       it 'should default to today if not given' do
@@ -53,7 +53,7 @@ describe Api::V2::DaysController, type: :controller do
   end
 
   describe 'GET show' do
-    let(:day) { FactoryGirl.create :day }
+    let(:day) { FactoryBot.create :day }
     let(:canteen) { day.canteen }
     before { canteen }
 

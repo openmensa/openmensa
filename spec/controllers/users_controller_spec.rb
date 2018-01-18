@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UsersController, type: :controller do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
 
   describe '#show' do
     before { user }
@@ -26,7 +26,7 @@ describe UsersController, type: :controller do
 
     context 'as admin' do
       it 'should not be accessible' do
-        set_current_user FactoryGirl.create(:admin)
+        set_current_user FactoryBot.create(:admin)
         get :show, params: {id: user.id}
 
         expect(response.status).to eq(200)
@@ -56,7 +56,7 @@ describe UsersController, type: :controller do
 
     context 'as admin' do
       it 'should not be accessible' do
-        set_current_user FactoryGirl.create(:admin)
+        set_current_user FactoryBot.create(:admin)
         put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 
         expect(response.status).to eq(302)

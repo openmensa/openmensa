@@ -3,12 +3,12 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 require_dependency 'message'
 
 describe 'feeds/fetch.html.slim', type: :view do
-  let(:owner) { FactoryGirl.create :user }
-  let(:other) { FactoryGirl.create :user }
-  let(:parser) { FactoryGirl.create :parser, user: owner }
-  let!(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
-  let(:canteen) { FactoryGirl.create :canteen }
-  let(:feed) { FactoryGirl.create :feed, source: source }
+  let(:owner) { FactoryBot.create :user }
+  let(:other) { FactoryBot.create :user }
+  let(:parser) { FactoryBot.create :parser, user: owner }
+  let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
+  let(:canteen) { FactoryBot.create :canteen }
+  let(:feed) { FactoryBot.create :feed, source: source }
   let(:success_result) do
     {
       'status' => 'ok',

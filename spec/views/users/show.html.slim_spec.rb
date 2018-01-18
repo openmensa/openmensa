@@ -2,14 +2,14 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe 'users/show.html.slim', type: :view do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
 
   before do
     allow(controller).to receive(:current_user) { User.new }
     assign(:user, user)
 
-    user.identities.create! FactoryGirl.attributes_for(:identity, provider: 'github')
-    user.identities.create! FactoryGirl.attributes_for(:identity, provider: 'twitter')
+    user.identities.create! FactoryBot.attributes_for(:identity, provider: 'github')
+    user.identities.create! FactoryBot.attributes_for(:identity, provider: 'twitter')
 
     render
   end

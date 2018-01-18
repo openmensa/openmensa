@@ -6,7 +6,7 @@ describe Api::V2::CanteensController, type: :controller do
   let(:json) { JSON.parse response.body }
 
   describe 'GET index' do
-    let(:canteen) { FactoryGirl.create :canteen, latitude: 0.0, longitude: 0.0 }
+    let(:canteen) { FactoryBot.create :canteen, latitude: 0.0, longitude: 0.0 }
     before        { canteen }
 
     it 'should answer with a list' do
@@ -34,7 +34,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'with null latitude' do
-      let(:canteen) { FactoryGirl.create :canteen, latitude: nil, longitude: 0.0 }
+      let(:canteen) { FactoryBot.create :canteen, latitude: nil, longitude: 0.0 }
 
       it 'should answer with null coordinates' do
         get :index, format: :json
@@ -51,7 +51,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'with null longitude' do
-      let(:canteen) { FactoryGirl.create :canteen, latitude: 0.0, longitude: nil }
+      let(:canteen) { FactoryBot.create :canteen, latitude: 0.0, longitude: nil }
 
       it 'should answer with null coordinates' do
         get :index, format: :json
@@ -68,7 +68,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'with both null coordinates' do
-      let(:canteen) { FactoryGirl.create :canteen, latitude: nil, longitude: nil }
+      let(:canteen) { FactoryBot.create :canteen, latitude: nil, longitude: nil }
 
       it 'should answer with null coordinates' do
         get :index, format: :json
@@ -85,7 +85,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     it 'should add link headers' do
-      100.times { FactoryGirl.create :canteen }
+      100.times { FactoryBot.create :canteen }
       expect(Canteen.count).to be > 100
 
       get :index, format: :json
@@ -97,7 +97,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'should not included wanted canteens' do
-      let!(:hidden_canteen) { FactoryGirl.create :canteen, state: 'wanted' }
+      let!(:hidden_canteen) { FactoryBot.create :canteen, state: 'wanted' }
       before { get :index, format: :json }
       subject { json }
 
@@ -106,7 +106,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'should not included disabled canteens' do
-      let!(:hidden_canteen) { FactoryGirl.create :canteen, state: 'archived' }
+      let!(:hidden_canteen) { FactoryBot.create :canteen, state: 'archived' }
       before { get :index, format: :json }
       subject { json }
 
@@ -116,7 +116,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     context '&limit' do
       it 'should limit list to given limit parameter' do
-        100.times { FactoryGirl.create :canteen }
+        100.times { FactoryBot.create :canteen }
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {limit: '20'}
@@ -126,7 +126,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should limit list to 100 if given limit parameter exceed 100' do
-        100.times { FactoryGirl.create :canteen }
+        100.times { FactoryBot.create :canteen }
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {limit: '120'}
@@ -138,7 +138,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     context '&per_page' do
       it 'should limit list to 50 canteens by default' do
-        100.times { FactoryGirl.create :canteen }
+        100.times { FactoryBot.create :canteen }
         expect(Canteen.count).to be > 100
 
         get :index, format: :json
@@ -148,7 +148,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should limit list to given limit parameter' do
-        100.times { FactoryGirl.create :canteen }
+        100.times { FactoryBot.create :canteen }
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {per_page: '20'}
@@ -158,7 +158,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it 'should limit list to 100 if given limit parameter exceed 100' do
-        100.times { FactoryGirl.create :canteen }
+        100.times { FactoryBot.create :canteen }
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {per_page: '120'}
@@ -170,8 +170,8 @@ describe Api::V2::CanteensController, type: :controller do
 
     context '&near' do
       before do
-        FactoryGirl.create :canteen, latitude: 0.0, longitude: 0.1
-        FactoryGirl.create :canteen, latitude: 0.0, longitude: 0.2
+        FactoryBot.create :canteen, latitude: 0.0, longitude: 0.1
+        FactoryBot.create :canteen, latitude: 0.0, longitude: 0.2
       end
 
       it 'should find canteens within distance around a point' do
@@ -189,11 +189,11 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context '&ids' do
-      let(:second_canteen) { FactoryGirl.create :canteen }
+      let(:second_canteen) { FactoryBot.create :canteen }
       before do
-        FactoryGirl.create :canteen
+        FactoryBot.create :canteen
         second_canteen
-        FactoryGirl.create :canteen
+        FactoryBot.create :canteen
       end
 
       it 'should return canteens with given ids' do
@@ -208,7 +208,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     context '&near[place]' do
       let(:griebnitzsee) do
-        FactoryGirl.create :canteen,
+        FactoryBot.create :canteen,
           name: 'Mensa Griebnitzsee',
           address: 'August-Bebel-Str. 89, 14482 Potsdam',
           latitude: 52.3935353446923,
@@ -216,7 +216,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       let(:palais) do
-        FactoryGirl.create :canteen,
+        FactoryBot.create :canteen,
           name: 'Mensa Am Neuen Palais',
           address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
           latitude: 52.399,
@@ -241,7 +241,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     context '&hasCoordinates' do
       let(:griebnitzsee) do
-        FactoryGirl.create :canteen,
+        FactoryBot.create :canteen,
           name: 'Mensa Griebnitzsee',
           address: 'August-Bebel-Str. 89, 14482 Potsdam',
           latitude: 52.3935353446923,
@@ -249,7 +249,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       let(:unknown) do
-        FactoryGirl.create :canteen,
+        FactoryBot.create :canteen,
           name: 'Mensa Am Neuen Palais',
           address: 'Am Neuen Palais 10, Haus 12, 14469 Potsdam',
           latitude: nil,
@@ -279,7 +279,7 @@ describe Api::V2::CanteensController, type: :controller do
   end
 
   describe 'GET show' do
-    let!(:canteen) { FactoryGirl.create :canteen }
+    let!(:canteen) { FactoryBot.create :canteen }
     before { get :show, format: :json, params: {id: canteen.id} }
 
     it 'should answer with canteen' do
@@ -299,7 +299,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'and a wanted canteens' do
-      let(:canteen) { FactoryGirl.create :canteen, state: 'wanted' }
+      let(:canteen) { FactoryBot.create :canteen, state: 'wanted' }
       subject { json }
 
       context 'response' do
@@ -314,7 +314,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'and a archived canteens' do
-      let(:canteen) { FactoryGirl.create :canteen, state: 'archived' }
+      let(:canteen) { FactoryBot.create :canteen, state: 'archived' }
       subject { json }
 
       context 'response' do
@@ -329,8 +329,8 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'and a replaced canteens' do
-      let(:replacement) { FactoryGirl.create :canteen, state: 'active'}
-      let(:canteen) { FactoryGirl.create :canteen, state: 'archived', replaced_by: replacement }
+      let(:replacement) { FactoryBot.create :canteen, state: 'active'}
+      let(:canteen) { FactoryBot.create :canteen, state: 'archived', replaced_by: replacement }
       subject { json }
 
       context 'response' do

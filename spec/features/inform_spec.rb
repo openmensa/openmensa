@@ -48,7 +48,7 @@ describe 'Inform', type: :feature do
     end
 
     it 'should be able to see the list of interested canteens' do
-      FactoryGirl.create :canteen, state: 'wanted',
+      FactoryBot.create :canteen, state: 'wanted',
                                    name: 'Meine Liebligsmensa',
                                    city: 'Hamburg'
       visit root_path

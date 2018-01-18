@@ -2,10 +2,10 @@ require 'spec_helper'
 include Nokogiri
 
 describe OpenMensa::Updater do
-  let(:feed) { FactoryGirl.create :feed }
+  let(:feed) { FactoryBot.create :feed }
   let(:canteen) { feed.source.canteen }
   let(:updater) { OpenMensa::Updater.new(feed, 'manual', version: 2.1) }
-  let(:today) { FactoryGirl.create :today, canteen: canteen }
+  let(:today) { FactoryBot.create :today, canteen: canteen }
   let(:document) { XML::Document.new }
   let(:root_element) do
     n = XML::Node.new('openmensa', document)
@@ -307,7 +307,7 @@ describe OpenMensa::Updater do
         root_element << day = xml_node('day')
         day['date'] = today.date.to_s
         day << xml_node('closed')
-        meal = FactoryGirl.create :meal, day: today
+        meal = FactoryBot.create :meal, day: today
 
         # starting check
         expect(today.meals.size).to eq(1)
@@ -356,7 +356,7 @@ describe OpenMensa::Updater do
         meal_name = 'Essen 1'
 
         # close our test day
-        meal = FactoryGirl.create :meal, day: today
+        meal = FactoryBot.create :meal, day: today
 
         # build xml data
         root_element << day = xml_node('day')
@@ -382,7 +382,7 @@ describe OpenMensa::Updater do
       end
 
       it 'should update changed meals' do
-        meal1 = FactoryGirl.create :meal, day: today, prices: {student: 1.8, employee: 2.9, other: nil, pupil: nil}
+        meal1 = FactoryBot.create :meal, day: today, prices: {student: 1.8, employee: 2.9, other: nil, pupil: nil}
         meal1.notes = %w(vegan vegetarisch)
 
         # build xml data
@@ -412,7 +412,7 @@ describe OpenMensa::Updater do
 
       it 'should not update unchanged meals' do
         # close our test day
-        meal1 = FactoryGirl.create :meal, day: today, prices: {student: 1.8, employee: 2.9, other: nil, pupil: nil}
+        meal1 = FactoryBot.create :meal, day: today, prices: {student: 1.8, employee: 2.9, other: nil, pupil: nil}
         meal1.notes = %w(vegan vegetarisch)
 
         # build xml data
@@ -442,8 +442,8 @@ describe OpenMensa::Updater do
 
       it 'should drop disappeared meals' do
         # close our test day
-        meal1 = FactoryGirl.create :meal, day: today
-        meal2 = FactoryGirl.create :meal, day: today
+        meal1 = FactoryBot.create :meal, day: today
+        meal2 = FactoryBot.create :meal, day: today
 
         # build xml data
         root_element << day = xml_node('day')
@@ -469,7 +469,7 @@ describe OpenMensa::Updater do
 
       it 'should not update last_changed_at on unchanged meals' do
         # close our test day
-        meal1 = FactoryGirl.create :meal, day: today
+        meal1 = FactoryBot.create :meal, day: today
 
         # build xml data
         root_element << day = xml_node('day')
@@ -492,12 +492,12 @@ describe OpenMensa::Updater do
         allow(updater).to receive(:data).and_return mock_content('feed_v2.xml')
         updater.parse!
 
-        day1 = FactoryGirl.create :day, date: Date.new(2012, 05, 22), canteen: canteen
-        meal1 = FactoryGirl.create :meal, day: day1, name: 'Tagessuppe'
-        day2 = FactoryGirl.create :day, date: Date.new(2012, 05, 29), canteen: canteen
-        meal2 = FactoryGirl.create :meal, day: day2
-        meal3 = FactoryGirl.create :meal, day: day2
-        meal4 = FactoryGirl.create :meal, day: today
+        day1 = FactoryBot.create :day, date: Date.new(2012, 05, 22), canteen: canteen
+        meal1 = FactoryBot.create :meal, day: day1, name: 'Tagessuppe'
+        day2 = FactoryBot.create :day, date: Date.new(2012, 05, 29), canteen: canteen
+        meal2 = FactoryBot.create :meal, day: day2
+        meal3 = FactoryBot.create :meal, day: day2
+        meal4 = FactoryBot.create :meal, day: today
 
         canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
         expect(canteen.days.size).to eq(3)
@@ -534,7 +534,7 @@ describe OpenMensa::Updater do
       end
 
       it 'should not update days in the past' do
-        d = FactoryGirl.create :day, date: (Date.today - 2.days), canteen: canteen
+        d = FactoryBot.create :day, date: (Date.today - 2.days), canteen: canteen
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = d.date.to_s
@@ -551,7 +551,7 @@ describe OpenMensa::Updater do
       end
 
       it 'should update today' do
-        d = FactoryGirl.create :day, date: Date.today, canteen: canteen
+        d = FactoryBot.create :day, date: Date.today, canteen: canteen
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = d.date.to_s

@@ -2,9 +2,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Reporters: ', type: :feature do
-  let!(:canteen) { FactoryGirl.create :canteen }
-  let(:parser) { FactoryGirl.create :parser }
-  let(:source) { FactoryGirl.create :source, parser: parser, canteen: canteen }
+  let!(:canteen) { FactoryBot.create :canteen }
+  let(:parser) { FactoryBot.create :parser }
+  let(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
 
   it 'should be able to register a intereseted canteen' do
     visit root_path
@@ -20,7 +20,7 @@ describe 'Reporters: ', type: :feature do
   end
 
   context 'with a previous created canteen' do
-    let!(:canteen) { FactoryGirl.create :canteen, state: 'wanted', name: 'Meine Liebligsmensa', city: 'Hamburg'}
+    let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Meine Liebligsmensa', city: 'Hamburg'}
 
     it 'should see this canteen when registering an intereseted canteen' do
       visit root_path
