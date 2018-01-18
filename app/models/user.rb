@@ -130,15 +130,19 @@ class AnonymousUser < User
   end
 
   def self.instance
-    user = @user_instance || unscoped.find_by(login: login_id)
-    return user if user
+    @user_instance ||= unscoped.find_by(login: login_id)
+    return @user_instance if @user_instance
 
     user = new
     user.login = login_id
-    user.save validate: false
+    user.save! validate: false
     raise "Cannot create #{login_id} user." if user.new_record?
     @user_instance = user
     user
+  end
+
+  def self.clear!
+    @user_instance = nil
   end
 
   def self.login_id

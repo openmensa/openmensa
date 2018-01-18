@@ -85,6 +85,8 @@ RSpec.configure do |config|
 
   config.before :each do
     Timecop.return
+    # remove cached anonymous user
+    AnonymousUser.clear!
   end
 
   OmniAuth.config.test_mode = true
