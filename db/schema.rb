@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117105826) do
+ActiveRecord::Schema.define(version: 20180118205113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -257,4 +257,17 @@ ActiveRecord::Schema.define(version: 20180117105826) do
     t.string "info_url"
   end
 
+  add_foreign_key "canteens", "canteens", column: "replaced_by"
+  add_foreign_key "data_proposals", "canteens", on_delete: :cascade
+  add_foreign_key "data_proposals", "users", on_delete: :restrict
+  add_foreign_key "days", "canteens"
+  add_foreign_key "favorites", "canteens", on_delete: :cascade
+  add_foreign_key "favorites", "users", on_delete: :cascade
+  add_foreign_key "feed_fetches", "feeds", on_delete: :cascade
+  add_foreign_key "feedbacks", "canteens"
+  add_foreign_key "feeds", "sources", on_delete: :cascade
+  add_foreign_key "meals", "days"
+  add_foreign_key "parsers", "users"
+  add_foreign_key "sources", "canteens", on_delete: :cascade
+  add_foreign_key "sources", "parsers", on_delete: :cascade
 end
