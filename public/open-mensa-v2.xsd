@@ -176,7 +176,7 @@
     <xs:complexType name="priceType">
         <xs:simpleContent>
             <xs:extension base="xs:float">
-                <xs:attribute name="role" use="required">
+                <xs:attribute name="role">
                     <xs:annotation>
                         <xs:documentation>A price's role defines for which group of persons the price is valid:
 - pupils (some canteens do that)
