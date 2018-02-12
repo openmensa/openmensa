@@ -101,6 +101,14 @@ describe OpenMensa::SourceUpdater do
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to be_truthy
       expect(updater.validate!).to be_falsey
+
+      expect(source.messages.size).to eq 1
+      source.messages.first.tap do |message|
+        expect(message).to be_a(FeedValidationError)
+        expect(message.kind).to eq(:unknown_version)
+        expect(message.version).to be_nil
+        expect(updater.errors).to eq([message])
+      end
     end
 
     it 'should return 2.0 on valid v2.0 openmensa xml feeds' do
@@ -118,6 +126,37 @@ describe OpenMensa::SourceUpdater do
       expect(updater.validate!).to eq('2.1')
       expect(updater.version).to eq '2.1'
     end
+
+    it 'well-formatted but non-valid xml data' do
+      stub_data mock_content('feed_wellformated.xml')
+      expect(updater.fetch!).to be_truthy
+      expect(updater.parse!).to be_truthy
+      expect(updater.validate!).to be_falsey
+
+      expect(source.messages.size).to eq 1
+      source.messages.first.tap do |message|
+        expect(message).to be_a(FeedValidationError)
+        expect(message.kind).to eq(:unknown_version)
+        expect(message.version).to be_nil
+        expect(updater.errors).to eq([message])
+      end
+    end
+
+    it 'valid but non-openmensa xml data' do
+      stub_data mock_content('carrier_ship.xml')
+      expect(updater.fetch!).to be_truthy
+      expect(updater.parse!).to be_truthy
+      expect(updater.validate!).to be_falsey
+
+      expect(source.messages.size).to eq 1
+      source.messages.first.tap do |message|
+        expect(message).to be_a(FeedValidationError)
+        expect(message.kind).to eq(:unknown_version)
+        expect(message.version).to eq(nil)
+        expect(updater.errors).to eq([message])
+      end
+    end
+
   end
 
   context '#sync' do

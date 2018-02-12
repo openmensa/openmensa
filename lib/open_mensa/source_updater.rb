@@ -48,7 +48,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   # 3. validate against OpenMensa Feed schema
   def validate!
-    @version = 2
+    @min_version = 2
     super
   end
 
