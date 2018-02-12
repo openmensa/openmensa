@@ -10,6 +10,8 @@ class OpenMensa::UpdateFeedsTask
     fetch_needed_feeds
   end
 
+  private
+
   def fix_next_fetch_ats
     disabled_feeds = Feed
       .joins(source: :canteen)
@@ -23,7 +25,7 @@ class OpenMensa::UpdateFeedsTask
     Feed
       .where.has { (schedule != nil) & id.not_in(disabled_feeds) & (next_fetch_at == nil) }
       .each do |feed|
-        feed.next_fetch_at = CronParser.new(feed.schedule).last
+        feed.next_fetch_at = process_schedule(feed, :last)
         feed.save!
         changes += 1
       end
@@ -59,7 +61,7 @@ class OpenMensa::UpdateFeedsTask
   end
 
   def update_next_fetch_at(feed)
-    @next_cron_time = CronParser.new(feed.schedule).next
+    @next_cron_time = process_schedule(feed, :next)
     # no retry possible
     if @feed_updated || feed.current_retry.nil? || feed.current_retry.size == 0
       return fetch_at_next_cron(feed)
@@ -81,5 +83,11 @@ class OpenMensa::UpdateFeedsTask
         feed.current_retry = nil
       end
     end
+  end
+
+  def process_schedule(feed, state)
+    CronParser.new(feed.schedule).send state
+  rescue ArgumentError
+    CronParser.new('0 8 * * *').send state
   end
 end

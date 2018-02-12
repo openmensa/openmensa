@@ -13,6 +13,7 @@ describe OpenMensa::UpdateFeedsTask do
 
   let(:_9am) { Time.new 2015, 4, 20, 9, 0, 0 }
   let(:_8am) { Time.new 2015, 4, 20, 8, 0, 0 }
+  let(:next_8am) { Time.new 2015, 4, 21, 8, 0, 0 }
   let(:_815) { Time.new 2015, 4, 20, 8, 15, 0 }
   let(:_835) { Time.new 2015, 4, 20, 8, 35, 0 }
   let(:_834) { Time.new 2015, 4, 20, 8, 34, 0 }
@@ -27,6 +28,12 @@ describe OpenMensa::UpdateFeedsTask do
       feed = new_feed schedule: '0 8-9 * * *', retry: nil
       expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').and_return(success_updater)
       expect { task.do }.to change { feed.reload.next_fetch_at }.to(_9am)
+    end
+
+    it 'should report and fallback on new feeds with invalid schedule' do
+      feed = new_feed schedule: '0 8-9 asdf * *', retry: nil
+      expect(OpenMensa::Updater).to receive(:new).with(feed, 'schedule').and_return(success_updater)
+      expect { task.do }.to change { feed.reload.next_fetch_at }.to(next_8am)
     end
 
     context 'with successful fetch' do
