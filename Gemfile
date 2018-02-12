@@ -39,7 +39,7 @@ gem 'decorate-responder'
 gem 'api-responder'
 gem 'baby_squeel'
 
-gem 'pg'
+gem 'pg', '< 1.0' # missing compability with rails
 
 group :assets do
   gem 'sass-rails', '~> 5.0'
@@ -73,7 +73,7 @@ end
 
 group :test do
   gem 'timecop'
-  gem 'accept_values_for', github: 'bogdan/accept_values_for', ref: 'a5c02cb'
+  gem 'accept_values_for', '>= 0.7.4'
   gem 'webmock'
   gem 'capybara'
   gem 'poltergeist'
