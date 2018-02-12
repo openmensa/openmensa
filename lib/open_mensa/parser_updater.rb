@@ -44,7 +44,11 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   end
 
   def validate!
-    @document.each do |name, url|
+    unless @document.respond_to? :each_pair
+      create_validation_error! :invalid_json, 'JSON must contain an object with name, url pairs'
+      return false
+    end
+    @document.each_pair do |name, url|
       next if url.nil?
       next if url.is_a?(String) and url.present?
       create_validation_error! :invalid_json, 'URL must be a string or null'
@@ -57,7 +61,8 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
     return false unless fetch! && parse! && validate!
 
     sources = source_mapping
-    document.each do |name, url|
+
+    document.each_pair do |name, url|
       if sources.key? name
         update_source sources.fetch(name), url
         sources.delete name
@@ -65,7 +70,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
         new_source name, url
       end
     end
-    sources.each do |name, source|
+    sources.each_pair do |name, source|
       archive_source source
     end
     true

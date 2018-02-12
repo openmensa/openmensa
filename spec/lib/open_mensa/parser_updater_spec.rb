@@ -119,6 +119,21 @@ describe OpenMensa::ParserUpdater do
   end
 
   context '#validate' do
+    it 'should reject non object documents' do
+      stub_data('[["test", "http://test.xml"], ["test2", "http://test.xml"]]')
+      expect(updater.fetch!).to be_truthy
+      expect(updater.parse!).to be_truthy
+      expect(updater.validate!).to be_falsey
+
+      parser.messages.first.tap do |message|
+        expect(message).to be_a(FeedValidationError)
+        expect(message.kind).to eq(:invalid_json)
+        expect(message.version).to eq(nil)
+        expect(message.message).to eq('JSON must contain an object with name, url pairs')
+        expect(updater.errors).to eq([message])
+      end
+    end
+
     it 'valid but expected json (invalid value for name)' do
       stub_data('{"test": 4}')
       expect(updater.fetch!).to be_truthy
