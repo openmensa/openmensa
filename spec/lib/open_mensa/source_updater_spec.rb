@@ -240,7 +240,9 @@ describe OpenMensa::SourceUpdater do
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq created: 0, updated: 1, deleted: 0, new_metadata: false
-      expect(source.feeds[0].reload.url).to eq 'http://kaifabian.de/om/potsdam/griebnitzsee.xml?today'
+      feed = source.feeds[0].reload
+      expect(feed.url).to eq 'http://kaifabian.de/om/potsdam/griebnitzsee.xml?today'
+      expect(feed.schedule).to eq '0 8-14 * * *'
 
       updater.errors.first.tap do |message|
         expect(message).to be_a(FeedChanged)

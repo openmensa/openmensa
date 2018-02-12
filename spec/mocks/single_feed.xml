@@ -3,7 +3,7 @@
 	<version>1.0+96ca2397651f4be3d3f98a6f46d605be55c41ebf-b10</version>
 	<canteen>
 		<feed name="today" priority="0">
-			<schedule dayOfMonth="*" dayOfWeek="*" hour="8-14" retry="30 1" />
+			<schedule hour="8-14" retry="30 1" />
 			<url>http://kaifabian.de/om/potsdam/griebnitzsee.xml?today</url>
 			<source>http://www.studentenwerk-potsdam.de/mensa-griebnitzsee.html</source>
 		</feed>
