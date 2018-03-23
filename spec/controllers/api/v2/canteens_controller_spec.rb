@@ -226,7 +226,7 @@ describe Api::V2::CanteensController, type: :controller do
       before do
         griebnitzsee
         palais
-        stub_request(:get, 'http://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&q=Potsdam')
+        stub_request(:get, 'https://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&q=Potsdam')
           .to_return(->(_request) { File.new Rails.root.join(*%w(spec mocks nominatim.json)).to_s })
       end
 
