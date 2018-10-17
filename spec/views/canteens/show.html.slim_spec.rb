@@ -69,7 +69,7 @@ describe 'canteens/show.html.slim', type: :view do
 
       render
 
-      expect(rendered).to include('Student')
+      expect(rendered).to include('Studierende')
       expect(rendered).to include('1,22 €')
       expect(rendered).to include('Mitarbeiter')
       expect(rendered).to include('1,70 €')
