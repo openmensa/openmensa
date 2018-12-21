@@ -73,6 +73,11 @@
   a { background-image: image-url("bb.png"); }
 }
 
+.ubuntu {
+  @extend .appbox;
+  a { background-image: image-url("ubuntu.png"); }
+}
+
 .favs, .parsers {
   list-style: none;
   padding: 0;
