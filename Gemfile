@@ -39,7 +39,7 @@ gem 'decorate-responder'
 gem 'api-responder'
 gem 'baby_squeel'
 
-gem 'pg', '< 1.0' # missing compability with rails
+gem 'pg', '~> 1.0' # missing compability with rails
 
 group :assets do
   gem 'autoprefixer-rails', '~> 9.2'
@@ -79,7 +79,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'rails-controller-testing'
-  gem 'factory_bot_rails', '>= 3.3.0'
+  gem 'factory_bot_rails', '~> 4.11'
 
   gem 'coveralls',      require: false
   gem 'simplecov',      require: false
