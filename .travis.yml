@@ -1,10 +1,10 @@
----
-sudo: false
-dist: trusty
+dist: xenial
 language: ruby
+services:
+- postgresql
 rvm:
-- '2.4.1'
-- '2.3.4'
+- '2.6.1'
+- '2.3.8'
 before_install: export TZ=Europe/Berlin
 before_script: bundle exec rake ci:setup
 script: bundle exec rake ci:spec
