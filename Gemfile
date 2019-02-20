@@ -42,7 +42,7 @@ gem 'baby_squeel'
 gem 'pg', '~> 1.0' # missing compability with rails
 
 group :assets do
-  gem 'autoprefixer-rails', '~> 9.2'
+  gem 'autoprefixer-rails', '~> 9.4'
   gem 'sass-rails', '~> 5.0'
   gem 'coffee-rails', '~> 4.2.0'
   gem 'jquery-rails'
