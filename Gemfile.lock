@@ -210,7 +210,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    paginate-responder (2.0.0)
+    paginate-responder (2.1.0)
       rack-link_headers (>= 2.2)
     parallel (1.13.0)
     parse-cron (0.1.4)
