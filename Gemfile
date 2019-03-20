@@ -9,7 +9,7 @@ gem 'rails', '~> 5.1.1'
 gem 'rails-i18n', '~> 5.0'
 gem 'turbolinks', '~> 5'
 
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 
 gem 'slim'
 gem 'oj'
