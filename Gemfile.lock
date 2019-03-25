@@ -233,7 +233,7 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.1)
     rack (2.0.6)
-    rack-cors (1.0.2)
+    rack-cors (1.0.3)
     rack-link_headers (2.2.2)
       rack
     rack-test (1.1.0)
