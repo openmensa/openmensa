@@ -3,8 +3,7 @@ language: ruby
 services:
 - postgresql
 rvm:
-- '2.6.1'
-- '2.3.8'
+- '2.6.2'
 before_install: export TZ=Europe/Berlin
 before_script: bundle exec rake ci:setup
 script: bundle exec rake ci:spec
