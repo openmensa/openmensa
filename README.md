@@ -12,8 +12,8 @@ We are currently focused on Germany but are interested to open to other countrie
 
 ## Dependencies
 
-* Ruby 2.x (> 2.1)
-* Gems (rails 4.2, for other see Gemfile)
+* Ruby 2.6
+* Gems (rails 5.1, for other see Gemfile)
 * PostgreSQL as database backend
 * whenever regular tasks (fetching menus, sending emails)
 
