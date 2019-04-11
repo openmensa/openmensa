@@ -64,7 +64,7 @@ GEM
     brakeman (4.5.0)
     builder (3.2.3)
     byebug (11.0.1)
-    cancancan (2.3.0)
+    cancancan (3.0.0)
     cany (0.5.7)
     capybara (3.16.2)
       addressable
