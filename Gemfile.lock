@@ -66,7 +66,7 @@ GEM
     byebug (11.0.1)
     cancancan (2.3.0)
     cany (0.5.7)
-    capybara (3.16.1)
+    capybara (3.16.2)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -232,7 +232,7 @@ GEM
       pry (~> 0.10)
     public_suffix (3.0.3)
     puma (3.12.1)
-    rack (2.0.6)
+    rack (2.0.7)
     rack-cors (1.0.3)
     rack-link_headers (2.2.2)
       rack
@@ -276,7 +276,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    regexp_parser (1.3.0)
+    regexp_parser (1.4.0)
     request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.1)
