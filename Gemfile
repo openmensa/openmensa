@@ -28,7 +28,7 @@ gem 'parse-cron'
 
 gem 'rack-cors', require: 'rack/cors'
 gem 'geocoder', '~> 1.4'
-gem 'leaflet-rails', '~> 1.0'
+gem 'leaflet-rails', '~> 1.4'
 gem 'nokogiri'
 gem 'draper', '~> 3.1'
 gem 'responders'
