@@ -41,6 +41,8 @@ gem 'baby_squeel'
 
 gem 'pg', '~> 1.0' # missing compability with rails
 
+gem 'sentry-raven'
+
 group :assets do
   gem 'autoprefixer-rails', '~> 9.5'
   gem 'sass-rails', '~> 5.0'
