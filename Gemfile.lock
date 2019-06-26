@@ -231,7 +231,8 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.10)
     public_suffix (3.1.0)
-    puma (3.12.1)
+    puma (4.0.0)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-cors (1.0.3)
     rack-link_headers (2.2.2)
@@ -425,7 +426,7 @@ DEPENDENCIES
   poltergeist
   pry
   pry-byebug
-  puma (~> 3.12)
+  puma (~> 4.0)
   rack-cors
   rails (~> 5.1.1)
   rails-controller-testing
