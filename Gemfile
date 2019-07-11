@@ -53,7 +53,7 @@ group :assets do
 
   gem 'font-awesome-sass-rails', '~> 3.0.2.2'
   gem 'uglifier', '~> 4.1'
-  gem 'bourbon', '~> 5.1'
+  gem 'bourbon', '~> 6.0'
 end
 
 group :development do
