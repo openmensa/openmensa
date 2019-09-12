@@ -1,7 +1,7 @@
 # OpenMensa - Die offene Mensa Datenbank.
 
-[![Build Status](http://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa) 
-[![Coverage Status](http://img.shields.io/coveralls/openmensa/openmensa/master.svg)](https://coveralls.io/r/openmensa/openmensa) 
+[![Build Status](https://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa) 
+[![Coverage Status](https://img.shields.io/coveralls/openmensa/openmensa/master.svg)](https://coveralls.io/r/openmensa/openmensa) 
 [![Maintainability](https://api.codeclimate.com/v1/badges/270f7e58f7eaa3e9429f/maintainability)](https://codeclimate.com/github/openmensa/openmensa/maintainability)
 
 OpenMensa is a free database for canteens. We act as a central exchange for all canteen relevant information, such as canteen list, canteen position and meal menus.
