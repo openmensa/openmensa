@@ -37,7 +37,6 @@ gem 'will_paginate'
 gem 'paginate-responder', '~> 2.0'
 gem 'decorate-responder', '~> 2.0'
 gem 'api-responder'
-gem 'baby_squeel'
 
 gem 'pg', '~> 1.0' # missing compability with rails
 

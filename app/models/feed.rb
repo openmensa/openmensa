@@ -4,8 +4,21 @@ class Feed < ApplicationRecord
   belongs_to :source
   has_many :fetches, class_name: 'FeedFetch'
   has_many :messages, as: :messageable
+
   scope :fetch_needed, -> {
-    where.has { next_fetch_at < Time.zone.now }.order(:next_fetch_at)
+    where('next_fetch_at < ?', Time.zone.now).order(:next_fetch_at)
+  }
+
+  scope :archived, lambda {
+    joins(source: :canteen).where(sources: {canteens: {state: 'archived'}})
+  }
+
+  scope :inactive, lambda {
+    where('(schedule IS NULL OR id IN (?))', Feed.archived.select(:id))
+  }
+
+  scope :active, lambda {
+    where('(schedule IS NOT NULL AND id NOT IN (?))', Feed.archived.select(:id))
   }
 
   def canteen
@@ -14,8 +27,8 @@ class Feed < ApplicationRecord
 
   def feed_timespans
     {
-      lastday: fetches.where.has { executed_at > 1.day.ago },
-      lastweek: fetches.where.has { executed_at > 1.week.ago },
+      lastday: fetches.where('executed_at > ?', 1.day.ago),
+      lastweek: fetches.where('executed_at > ?', 1.week.ago),
       total: fetches
     }
   end
