@@ -13,22 +13,15 @@ class OpenMensa::UpdateFeedsTask
   private
 
   def fix_next_fetch_ats
-    disabled_feeds = Feed
-      .joins(source: :canteen)
-      .where.has { source.canteen.state == 'archived' }
-      .select(:id)
+    changes = Feed.inactive
+      .where.not(next_fetch_at: nil)
+      .update_all(next_fetch_at: nil) # rubocop:disable Rails/SkipsModelValidations
 
-    changes = Feed
-      .where.has { ((schedule == nil) | id.in(disabled_feeds)) & (next_fetch_at != nil) }
-      .update_all(next_fetch_at: nil)
-
-    Feed
-      .where.has { (schedule != nil) & id.not_in(disabled_feeds) & (next_fetch_at == nil) }
-      .each do |feed|
-        feed.next_fetch_at = process_schedule(feed, :last)
-        feed.save!
-        changes += 1
-      end
+    Feed.active.where(next_fetch_at: nil).each do |feed|
+      feed.next_fetch_at = process_schedule(feed, :last)
+      feed.save!
+      changes += 1
+    end
 
     changes
   end
