@@ -1,4 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
+
+require 'rails'
 
 # Pick the frameworks you want:
 require 'active_record/railtie'
@@ -6,6 +8,9 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
 
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+#
 # Assets should be precompiled for production (so we don't need the gems loaded then)
 Bundler.require(*Rails.groups(assets: %w(development test)))
 
@@ -40,14 +45,18 @@ module Openmensa
     config.session_store :cookie_store, key: '_openmensa_session'
     config.action_dispatch.cookies_serializer = :hybrid
 
-    # Asset configuration
+    # Version of your assets, change this if you want to expire all your assets.
     config.assets.version = '1.0'
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
     # Add additional assets to the asset load path.
     # Rails.application.config.assets.paths << Emoji.images_path
     # Add Yarn node_modules folder to the asset load path.
     config.assets.paths << Rails.root.join('node_modules')
+
+    # Precompile additional assets.
+    # application.js, application.css, and all non-JS/CSS in the app/assets
+    # folder are already added.
+    # config.assets.precompile += %w( admin.js admin.css )
 
     # Load ruby platform specific database configuration
     def config.database_configuration
