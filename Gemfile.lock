@@ -1,9 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    accept_values_for (0.7.5)
-      activemodel (>= 4.2, < 6.0)
-      rspec (>= 2.0, < 4.0)
+    accept_values_for (0.9.0)
+      activemodel (>= 5.0, < 6.1)
+      rspec (>= 3.0, < 4.0)
     actioncable (5.1.7)
       actionpack (= 5.1.7)
       nio4r (~> 2.0)
