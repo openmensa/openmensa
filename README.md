@@ -1,7 +1,8 @@
 # OpenMensa - Die offene Mensa Datenbank.
 
-[![Build Status](http://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa) [![Coverage Status](http://img.shields.io/coveralls/openmensa/openmensa/master.svg)](https://coveralls.io/r/openmensa/openmensa) [![Code Climate](http://img.shields.io/codeclimate/github/openmensa/openmensa.svg)](https://codeclimate.com/github/openmensa/openmensa) [![Dependency Status](http://img.shields.io/gemnasium/openmensa/openmensa.svg)](https://gemnasium.com/openmensa/openmensa)
-
+[![Build Status](http://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa) 
+[![Coverage Status](http://img.shields.io/coveralls/openmensa/openmensa/master.svg)](https://coveralls.io/r/openmensa/openmensa) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/270f7e58f7eaa3e9429f/maintainability)](https://codeclimate.com/github/openmensa/openmensa/maintainability)
 
 OpenMensa is a free database for canteens. We act as a central exchange for all canteen relevant information, such as canteen list, canteen position and meal menus.
 
@@ -22,15 +23,15 @@ We are currently focused on Germany but are interested to open to other countrie
 
 1. install needed gems
 
-   ```ruby
-   bundle install
-   ```
+    ```ruby
+    bundle install
+    ```
 
 2. Run test suite
 
-  ```ruby
-  bundle exec rake
-  ```
+    ```ruby
+    bundle exec rake
+    ```
 
 
 ## Contributing
@@ -49,4 +50,4 @@ We are currently focused on Germany but are interested to open to other countrie
 
 AGPL License
 
-Copyright, 2014 OpenMensa
+Copyright, 2014-2019 OpenMensa
