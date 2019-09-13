@@ -1,9 +1,18 @@
 dist: xenial
 language: ruby
+cache: bundler
+
 services:
-- postgresql
+  - postgresql
+
 rvm:
-- '2.6.2'
-before_install: export TZ=Europe/Berlin
-before_script: bundle exec rake ci:setup
-script: bundle exec rake ci:spec
+  - '2.6.4'
+
+before_install:
+  - export TZ=Europe/Berlin
+
+before_script:
+  - bundle exec rake ci:setup
+
+script:
+  - bundle exec rake ci:spec
