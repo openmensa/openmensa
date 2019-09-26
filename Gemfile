@@ -52,7 +52,7 @@ group :assets do
   gem 'mini_racer'
 
   gem 'font-awesome-sass-rails', '~> 3.0.2.2'
-  gem 'uglifier', '~> 4.1'
+  gem 'uglifier', '~> 4.2'
   gem 'bourbon', '~> 6.0'
 end
 
