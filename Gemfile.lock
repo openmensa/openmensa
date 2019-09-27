@@ -332,7 +332,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sentry-raven (2.11.2)
+    sentry-raven (2.11.3)
       faraday (>= 0.7.6, < 1.0)
     shellany (0.0.1)
     simplecov (0.16.1)
