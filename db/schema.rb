@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118205113) do
+ActiveRecord::Schema.define(version: 2019_09_28_104431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 20180118205113) do
     t.integer "updated_meals"
     t.integer "removed_meals"
     t.datetime "executed_at", null: false
+    t.index ["executed_at"], name: "index_feed_fetches_on_executed_at"
+    t.index ["feed_id"], name: "index_feed_fetches_on_feed_id"
   end
 
   create_table "feedbacks", id: :serial, force: :cascade do |t|
