@@ -11,48 +11,47 @@ gem 'turbolinks', '~> 5'
 
 gem 'puma', '~> 4.2'
 
-gem 'slim'
-gem 'oj'
-gem 'omniauth'
-gem 'omniauth-github'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-gem 'cancancan', '~> 2.0'
-gem 'gravtastic'
-gem 'rails-timeago'
 gem 'bcrypt'
-
-gem 'whenever', require: false
-gem 'parse-cron'
-
-gem 'rack-cors', require: 'rack/cors'
-gem 'geocoder', '~> 1.4'
-gem 'leaflet-rails', '~> 1.0'
 gem 'nokogiri'
-gem 'draper', '~> 3.1'
-gem 'responders'
-gem 'has_scope', '~> 0.7.1'
-gem 'will_paginate'
-gem 'paginate-responder', '~> 2.0'
-gem 'decorate-responder', '~> 2.0'
-gem 'api-responder'
+gem 'oj'
+gem 'pg', '~> 1.0'
+gem 'slim'
 
-gem 'pg', '~> 1.0' # missing compability with rails
+gem 'cancancan', '~> 2.0'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+
+gem 'parse-cron'
+gem 'rack-cors', require: 'rack/cors'
+gem 'whenever', require: false
+
+gem 'geocoder', '~> 1.4'
+gem 'gravtastic'
+gem 'leaflet-rails', '~> 1.0'
+gem 'rails-timeago'
+
+gem 'api-responder'
+gem 'decorate-responder', '~> 2.0'
+gem 'draper', '~> 3.1'
+gem 'has_scope', '~> 0.7.1'
+gem 'paginate-responder', '~> 2.0'
+gem 'responders'
+gem 'will_paginate'
 
 gem 'sentry-raven'
 
 group :assets do
   gem 'autoprefixer-rails', '~> 9.6'
-  gem 'sass-rails', '~> 6.0'
-  gem 'coffee-rails', '~> 4.2.0'
-  gem 'jquery-rails'
-
-  gem 'mini_racer'
-
-  gem 'font-awesome-sass-rails', '~> 3.0.2.2'
-  gem 'uglifier', '~> 4.2'
   gem 'bourbon', '~> 6.0'
+  gem 'coffee-rails', '~> 4.2.0'
+  gem 'font-awesome-sass-rails', '~> 3.0.2.2'
+  gem 'jquery-rails'
+  gem 'mini_racer'
+  gem 'sass-rails', '~> 6.0'
+  gem 'uglifier', '~> 4.2'
 end
 
 group :development do
@@ -63,27 +62,29 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
 
-  gem 'rubocop', '~> 0.58.1', require: false
+  gem 'rubocop', '~> 0.74.0', require: false
+  gem 'rubocop-performance', '~> 1.4', require: false
+  gem 'rubocop-rails', '~> 2.3', require: false
   gem 'rubocop-rspec', '~> 1.29', require: false
 end
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'rspec-its'
-  gem 'rspec-collection_matchers'
   gem 'cany', '~> 0.5.0'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
+  gem 'rspec-rails'
 end
 
 group :test do
-  gem 'timecop'
   gem 'accept_values_for', '>= 0.7.4'
-  gem 'webmock'
   gem 'capybara'
+  gem 'factory_bot_rails', '~> 5.1'
   gem 'poltergeist'
   gem 'rails-controller-testing'
-  gem 'factory_bot_rails', '~> 5.1'
+  gem 'timecop'
+  gem 'webmock'
 
   gem 'coveralls',      require: false
   gem 'simplecov',      require: false

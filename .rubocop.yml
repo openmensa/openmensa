@@ -1,4 +1,6 @@
 require:
+  - rubocop-performance
+  - rubocop-rails
   - rubocop-rspec
 
 AllCops:
@@ -16,6 +18,7 @@ AllCops:
 
 Rails:
   Enabled: true
+
 
 
 # -----------------------------------------------------------------------------
@@ -52,10 +55,13 @@ RSpec/MultipleExpectations:
 RSpec/NestedGroups:
   Max: 5
 
+
+
+
 # -----------------------------------------------------------------------------
 #                                   Layout
 
-Layout/AlignParameters:
+Layout/AlignArguments:
   EnforcedStyle: with_fixed_indentation
 
 Layout/CaseIndentation:
@@ -64,6 +70,18 @@ Layout/CaseIndentation:
     - case
     - end
   IndentOneStep: true
+
+# This is currently broken:
+#   https://github.com/rubocop-hq/rubocop/issues/7212
+#
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -161,9 +179,3 @@ Style/Semicolon:
 
 Style/SignalException:
   EnforcedStyle: only_raise
-
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: comma
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
