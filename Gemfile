@@ -86,9 +86,8 @@ group :test do
   gem 'timecop'
   gem 'webmock'
 
-  gem 'coveralls',      require: false
-  gem 'simplecov',      require: false
-  gem 'simplecov-rcov', require: false
+  gem 'codecov', require: false
+  gem 'simplecov', require: false
 end
 
 # load Gemfile.local

@@ -1,21 +1,18 @@
+# frozen_string_literal: true
+
 require 'rubygems'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter 'spec'
+end
 
-# Setup coverage
-unless ENV['DRB']
-  require 'simplecov'
-  require 'simplecov-rcov'
-  require 'coveralls'
-
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-    Coveralls::SimpleCov::Formatter,
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::RcovFormatter,
-  ])
-  SimpleCov.start 'rails'
+if ENV['CI']
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -83,7 +80,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.before :each do
+  config.before do
     Timecop.return
   end
 
