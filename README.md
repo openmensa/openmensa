@@ -1,7 +1,7 @@
 # OpenMensa - Die offene Mensa Datenbank.
 
-[![Build Status](https://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa) 
-[![Coverage Status](https://img.shields.io/coveralls/openmensa/openmensa/master.svg)](https://coveralls.io/r/openmensa/openmensa) 
+[![Build Status](https://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa)
+[![Coverage](https://codecov.io/gh/openmensa/openmensa/branch/master/graph/badge.svg)](https://codecov.io/gh/openmensa/openmensa)
 [![Maintainability](https://api.codeclimate.com/v1/badges/270f7e58f7eaa3e9429f/maintainability)](https://codeclimate.com/github/openmensa/openmensa/maintainability)
 
 OpenMensa is a free database for canteens. We act as a central exchange for all canteen relevant information, such as canteen list, canteen position and meal menus.
@@ -14,7 +14,7 @@ We are currently focused on Germany but are interested to open to other countrie
 ## Dependencies
 
 * Ruby 2.6
-* Gems (rails 5.1, for other see Gemfile)
+* Gems (Rails 5.5, for other see Gemfile)
 * PostgreSQL as database backend
 * whenever regular tasks (fetching menus, sending emails)
 
@@ -48,6 +48,6 @@ We are currently focused on Germany but are interested to open to other countrie
 
 ## License
 
-AGPL License
+AGPLv3 License
 
 Copyright, 2014-2019 OpenMensa
