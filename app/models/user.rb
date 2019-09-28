@@ -73,19 +73,32 @@ class User < ApplicationRecord
     favorites.where(canteen_id: canteen).any?
   end
 
-  # -- class methods
-  def self.anonymous
-    AnonymousUser.instance
-  end
+  class << self
+    def create_omniauth(info, identity)
+      info ||= {}
+      create(
+        name: (info['name'] || identity.uid),
+        login: (info['login'] || identity.uid),
+        email: info['email']
+        ).tap do |user|
+        identity.update_attributes! user: user
+      end
+    end
 
-  def self.create_omniauth(info, identity)
-    info ||= {}
-    create(
-      name: (info['name'] || identity.uid),
-      login: (info['login'] || identity.uid),
-      email: info['email']
-      ).tap do |user|
-      identity.update_attributes! user: user
+    def anonymous
+      anonymous = AnonymousUser.unscoped.find_by(login: 'anonymous')
+      return anonymous if anonymous
+
+      ::ActiveRecord::Base.transaction do
+        # Acquire table lock to ensure they cannot be two anonymous created concurrently
+        ::ActiveRecord::Base.connection.execute("LOCK users IN EXCLUSIVE MODE;")
+
+        # Look for anonymous user again as it could have been created concurrently
+        # between the check above and getting the table lock
+        record = AnonymousUser.unscoped.find_or_initialize_by(login: 'anonymous')
+        record.save! validate: false if record.new_record?
+        record
+      end
     end
   end
 end
@@ -127,25 +140,5 @@ class AnonymousUser < User
 
   def destructible?
     false
-  end
-
-  def self.instance
-    @user_instance ||= unscoped.find_by(login: login_id)
-    return @user_instance if @user_instance
-
-    user = new
-    user.login = login_id
-    user.save! validate: false
-    raise "Cannot create #{login_id} user." if user.new_record?
-    @user_instance = user
-    user
-  end
-
-  def self.clear!
-    @user_instance = nil
-  end
-
-  def self.login_id
-    'anonymous'
   end
 end
