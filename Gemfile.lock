@@ -312,7 +312,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
-    rubocop-performance (1.4.1)
+    rubocop-performance (1.5.0)
       rubocop (>= 0.71.0)
     rubocop-rails (2.3.2)
       rack (>= 1.1)
@@ -432,7 +432,7 @@ DEPENDENCIES
   rspec-its
   rspec-rails
   rubocop (~> 0.75.0)
-  rubocop-performance (~> 1.4)
+  rubocop-performance (~> 1.5)
   rubocop-rails (~> 2.3)
   rubocop-rspec (~> 1.36)
   sass-rails (~> 6.0)
