@@ -115,7 +115,7 @@ GEM
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
     formatador (0.2.5)
-    geocoder (1.5.1)
+    geocoder (1.5.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gravtastic (3.2.6)
@@ -398,7 +398,7 @@ DEPENDENCIES
   draper (~> 3.1)
   factory_bot_rails (~> 5.1)
   font-awesome-sass-rails (~> 3.0.2.2)
-  geocoder (~> 1.4)
+  geocoder (~> 1.5)
   gravtastic
   guard-rspec
   has_scope (~> 0.7.1)
