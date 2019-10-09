@@ -439,6 +439,7 @@ DEPENDENCIES
   slim
   spring
   spring-commands-rspec
+  sprockets (~> 3.7)
   timecop
   turbolinks (~> 5)
   uglifier (~> 4.2)
