@@ -209,9 +209,9 @@ GEM
       rack
     paginate-responder (2.1.0)
       rack-link_headers (>= 2.2)
-    parallel (1.17.0)
+    parallel (1.18.0)
     parse-cron (0.1.4)
-    parser (2.6.4.1)
+    parser (2.6.5.0)
       ast (~> 2.4.0)
     pg (1.1.4)
     poltergeist (1.18.1)
@@ -304,7 +304,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
-    rubocop (0.75.0)
+    rubocop (0.75.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -428,7 +428,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails
-  rubocop (~> 0.75.0)
+  rubocop (~> 0.75.1)
   rubocop-performance (~> 1.5)
   rubocop-rails (~> 2.3)
   rubocop-rspec (~> 1.36)
