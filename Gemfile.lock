@@ -63,7 +63,7 @@ GEM
     brakeman (4.7.0)
     builder (3.2.3)
     byebug (11.0.1)
-    cancancan (2.3.0)
+    cancancan (3.0.1)
     cany (0.5.7)
     capybara (3.29.0)
       addressable
@@ -388,7 +388,7 @@ DEPENDENCIES
   bcrypt
   bourbon (~> 6.0)
   brakeman
-  cancancan (~> 2.0)
+  cancancan (~> 3.0)
   cany (~> 0.5.0)
   capybara
   codecov
