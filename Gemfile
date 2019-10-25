@@ -8,7 +8,7 @@ end
 gem 'rails', '~> 5.2.3'
 gem 'rails-i18n', '~> 5.0'
 gem 'turbolinks', '~> 5'
-gem 'sprockets', '~> 3.7'
+gem 'sprockets', '~> 4.0'
 
 gem 'puma', '~> 4.2'
 
