@@ -10,7 +10,7 @@ gem 'rails-i18n', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'sprockets', '~> 4.0'
 
-gem 'puma', '~> 4.2'
+gem 'puma', '~> 4.3'
 
 gem 'bcrypt'
 gem 'nokogiri'
