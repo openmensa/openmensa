@@ -228,8 +228,8 @@ GEM
     puma (4.3.0)
       nio4r (~> 2.0)
     rack (2.0.7)
-    rack-cors (1.0.6)
-      rack (>= 1.6.0)
+    rack-cors (1.1.0)
+      rack (>= 2.0.0)
     rack-link_headers (2.2.2)
       rack
     rack-test (1.1.0)
