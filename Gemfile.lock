@@ -209,7 +209,7 @@ GEM
       rack
     paginate-responder (2.1.0)
       rack-link_headers (>= 2.2)
-    parallel (1.19.0)
+    parallel (1.19.1)
     parse-cron (0.1.4)
     parser (2.6.5.0)
       ast (~> 2.4.0)
@@ -317,7 +317,7 @@ GEM
     rubocop-rails (2.3.2)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
-    rubocop-rspec (1.36.0)
+    rubocop-rspec (1.37.0)
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     safe_yaml (1.0.5)
@@ -432,7 +432,7 @@ DEPENDENCIES
   rubocop (~> 0.76.0)
   rubocop-performance (~> 1.5)
   rubocop-rails (~> 2.3)
-  rubocop-rspec (~> 1.36)
+  rubocop-rspec (~> 1.37)
   sass-rails (~> 6.0)
   sentry-raven
   simplecov
