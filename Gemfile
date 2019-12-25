@@ -15,7 +15,7 @@ gem 'puma', '~> 4.3'
 gem 'bcrypt'
 gem 'nokogiri'
 gem 'oj'
-gem 'pg', '~> 1.0'
+gem 'pg', '~> 1.2'
 gem 'slim'
 
 gem 'cancancan', '~> 3.0'
