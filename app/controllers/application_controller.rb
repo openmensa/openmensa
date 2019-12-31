@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < BaseController
   protect_from_forgery
   check_authorization

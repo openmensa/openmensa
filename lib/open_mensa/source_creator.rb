@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OpenMensa::SourceCreator < OpenMensa::SourceUpdater
   attr_reader :source
 

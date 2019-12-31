@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :ci do
   desc 'Setup service for CI'
   task :setup => %w(db:create:all db:setup) do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 def visit_with(path, params = nil)
   if params.nil?

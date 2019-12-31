@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def t(*attrs)
     options = attrs.extract_options!

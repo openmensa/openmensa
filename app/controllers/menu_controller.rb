@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MenuController < ApplicationController
   def show
     require_authentication!

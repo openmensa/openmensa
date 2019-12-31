@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OpenMensa::DailyReportTask
   def do
     Rails.logger.info "[#{Time.zone.now}] Sending daily reports to users ..."

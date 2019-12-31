@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DataProposalsController < ApplicationController
   before_action :load_resource
   before_action :new_resource, only: [:new, :create]

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 ENV_FILE = ENV['ENV_FILE'] || Rails.root.join('config', 'env.yml')
 begin

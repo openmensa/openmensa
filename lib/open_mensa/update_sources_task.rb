@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OpenMensa::UpdateSourcesTask
   def do
     Rails.logger.info "[#{Time.zone.now}] Fetch sources meta data..."

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CanteenDecorator < Draper::Decorator
   include ApiResponder::Formattable
   decorates :canteen

@@ -1,4 +1,5 @@
-# encoding: UTF-8
+# frozen_string_literal: true
+
 require File.dirname(__FILE__) + '/../spec_helper'
 require_dependency 'message'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CanteensController < ApplicationController
   before_action :new_resource, only: [:new, :create]
   before_action :load_resource, only: [:show, :update, :edit, :fetch]

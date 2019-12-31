@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DayDecorator < Draper::Decorator
   include ApiResponder::Formattable
   decorates :day

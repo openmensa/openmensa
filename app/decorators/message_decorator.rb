@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MessageDecorator < Draper::Decorator
   def icon_class
     return '' if model.nil?

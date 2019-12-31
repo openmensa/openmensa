@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CanteenActivationController < ApplicationController
   before_action :load_resource
   def create

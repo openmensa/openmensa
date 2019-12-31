@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :om do
   desc 'Fetch feed data'
   task update_feeds: :environment do

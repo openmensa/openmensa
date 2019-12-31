@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::BaseController < ApiController
   responders Responders::ApiResponder,
     Responders::DecorateResponder,

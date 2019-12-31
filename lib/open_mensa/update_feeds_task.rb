@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OpenMensa::UpdateFeedsTask
   attr_reader :next_cron_time
 

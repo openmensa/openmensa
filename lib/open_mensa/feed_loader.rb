@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OpenMensa
   # The FeedLoader provides methods to load ad parse a canteen feed from
   # it's URL. It handles HTTP responses and redirects.

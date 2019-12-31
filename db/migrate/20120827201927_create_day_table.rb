@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDayTable < ActiveRecord::Migration[4.2]
   class Meal < ActiveRecord::Base
   end

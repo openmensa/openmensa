@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RelationCacheKey
   # Compute the cache key of a group of records.
   #

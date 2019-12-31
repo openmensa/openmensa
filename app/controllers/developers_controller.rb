@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DevelopersController < ApplicationController
   skip_authorization_check only: %i(activate)
   def show

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OpenMensa
   # The OpenMensa validator provide methods to validate feed
   # XML input again the OpenMense canteen feed scheme version

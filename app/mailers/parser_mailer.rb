@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ParserMailer < ActionMailer::Base
   default from: 'mail@openmensa.org'
 

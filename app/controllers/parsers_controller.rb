@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ParsersController < ApplicationController
   before_action :new_resource, only: [:new, :create]
   before_action :load_resource, only: [:show, :edit, :update, :sync]

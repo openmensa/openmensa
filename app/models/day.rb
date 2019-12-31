@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Day < ApplicationRecord
   belongs_to :canteen
   has_many :meals, -> { order(:pos) }

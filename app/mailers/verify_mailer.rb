@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VerifyMailer < ActionMailer::Base
   default from: 'mail@openmensa.org'
 

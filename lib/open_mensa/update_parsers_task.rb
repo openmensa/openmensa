@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OpenMensa::UpdateParsersTask
   def do
     Rails.logger.info "[#{Time.zone.now}] Fetch parser index data..."

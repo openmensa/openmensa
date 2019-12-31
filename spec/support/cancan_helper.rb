@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 if defined?(ActiveModel)
   def be_able_to(actions, object, name = nil)

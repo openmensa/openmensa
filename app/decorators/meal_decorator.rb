@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MealDecorator < Draper::Decorator
   include ApiResponder::Formattable
   decorates :meal

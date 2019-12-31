@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   attr_reader :parser
   attr_reader :sources_added, :sources_created, :sources_updated, :sources_deleted

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Meal < ApplicationRecord
   belongs_to :day
   has_one :canteen, through: :day

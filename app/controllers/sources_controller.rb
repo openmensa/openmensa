@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SourcesController < ApplicationController
   before_action :load_resource, only: [:update, :edit, :sync]
   load_and_authorize_resource

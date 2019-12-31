@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiController < BaseController
   rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
   rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found

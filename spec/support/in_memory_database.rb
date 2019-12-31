@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def in_memory_database?
   Rails.configuration.database_configuration[ENV['RAILS_ENV']] &&
     Rails.configuration.database_configuration[ENV['RAILS_ENV']]['database'] == ':memory:'

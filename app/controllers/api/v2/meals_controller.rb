@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V2::MealsController < Api::BaseController
   respond_to :json
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedsController < ApplicationController
   before_action :new_resource, only: [:new, :create]
   before_action :load_resource, only: [:update, :destroy, :fetch, :messages]
