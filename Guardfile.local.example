@@ -1,8 +1,0 @@
-#
-# Put local extensions to Guardfile in a Guardfile.local.
-#
-
-#
-# Example for modern Linux systems using Gnome Shell
-#
-# notification :libnotify, :timeout => 2, :transient => true, :append => false, :urgency => :critical

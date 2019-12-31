@@ -60,7 +60,6 @@ end
 group :development do
   gem 'brakeman'
 
-  gem 'guard-rspec', require: false
   gem 'listen'
   gem 'spring'
   gem 'spring-commands-rspec'
@@ -92,7 +91,3 @@ group :test do
   gem 'codecov', require: false
   gem 'simplecov', require: false
 end
-
-# load Gemfile.local
-local_gemfile = File.dirname(__FILE__) + '/Gemfile.local'
-instance_eval Bundler.read_file(local_gemfile) if File.file?(local_gemfile)
