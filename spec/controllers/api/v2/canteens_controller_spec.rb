@@ -8,10 +8,9 @@ describe Api::V2::CanteensController, type: :controller do
   let(:json) { JSON.parse response.body }
 
   describe 'GET index' do
-    let(:canteen) { FactoryBot.create :canteen, latitude: 0.0, longitude: 0.0 }
-    before        { canteen }
+    let!(:canteen) { FactoryBot.create :canteen, latitude: 0.0, longitude: 0.0 }
 
-    it 'should answer with a list' do
+    it 'answers with a list' do
       get :index, format: :json
       expect(response.status).to eq(200)
 
@@ -19,15 +18,15 @@ describe Api::V2::CanteensController, type: :controller do
       expect(json.size).to eq(1)
     end
 
-    it 'should answer with a list of canteen nodes' do
+    it 'answers with a list of canteen nodes' do
       get :index, format: :json
       expect(response.status).to eq(200)
 
       expect(json[0]).to eq({
-        id:          canteen.id,
-        name:        canteen.name,
-        city:        canteen.city,
-        address:     canteen.address,
+        id: canteen.id,
+        name: canteen.name,
+        city: canteen.city,
+        address: canteen.address,
         coordinates: [
           canteen.latitude,
           canteen.longitude
@@ -38,15 +37,15 @@ describe Api::V2::CanteensController, type: :controller do
     context 'with null latitude' do
       let(:canteen) { FactoryBot.create :canteen, latitude: nil, longitude: 0.0 }
 
-      it 'should answer with null coordinates' do
+      it 'answers with null coordinates' do
         get :index, format: :json
         expect(response.status).to eq(200)
 
         expect(json[0]).to eq({
-          id:          canteen.id,
-          name:        canteen.name,
-          city:        canteen.city,
-          address:     canteen.address,
+          id: canteen.id,
+          name: canteen.name,
+          city: canteen.city,
+          address: canteen.address,
           coordinates: nil
         }.as_json)
       end
@@ -55,15 +54,15 @@ describe Api::V2::CanteensController, type: :controller do
     context 'with null longitude' do
       let(:canteen) { FactoryBot.create :canteen, latitude: 0.0, longitude: nil }
 
-      it 'should answer with null coordinates' do
+      it 'answers with null coordinates' do
         get :index, format: :json
         expect(response.status).to eq(200)
 
         expect(json[0]).to eq({
-          id:          canteen.id,
-          name:        canteen.name,
-          city:        canteen.city,
-          address:     canteen.address,
+          id: canteen.id,
+          name: canteen.name,
+          city: canteen.city,
+          address: canteen.address,
           coordinates: nil
         }.as_json)
       end
@@ -72,22 +71,22 @@ describe Api::V2::CanteensController, type: :controller do
     context 'with both null coordinates' do
       let(:canteen) { FactoryBot.create :canteen, latitude: nil, longitude: nil }
 
-      it 'should answer with null coordinates' do
+      it 'answers with null coordinates' do
         get :index, format: :json
         expect(response.status).to eq(200)
 
         expect(json[0]).to eq({
-          id:          canteen.id,
-          name:        canteen.name,
-          city:        canteen.city,
-          address:     canteen.address,
+          id: canteen.id,
+          name: canteen.name,
+          city: canteen.city,
+          address: canteen.address,
           coordinates: nil
         }.as_json)
       end
     end
 
-    it 'should add link headers' do
-      100.times { FactoryBot.create :canteen }
+    it 'adds link headers' do
+      FactoryBot.create_list :canteen, 100
       expect(Canteen.count).to be > 100
 
       get :index, format: :json
@@ -99,26 +98,32 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'should not included wanted canteens' do
-      let!(:hidden_canteen) { FactoryBot.create :canteen, state: 'wanted' }
-      before { get :index, format: :json }
       subject { json }
+
+      before do
+        FactoryBot.create :canteen, state: 'wanted'
+        get :index, format: :json
+      end
 
       it { is_expected.to be_an(Array) }
       it { is_expected.to have(1).item }
     end
 
     context 'should not included disabled canteens' do
-      let!(:hidden_canteen) { FactoryBot.create :canteen, state: 'archived' }
-      before { get :index, format: :json }
       subject { json }
+
+      before do
+        FactoryBot.create :canteen, state: 'archived'
+        get :index, format: :json
+      end
 
       it { is_expected.to be_an(Array) }
       it { is_expected.to have(1).item }
     end
 
     context '&limit' do
-      it 'should limit list to given limit parameter' do
-        100.times { FactoryBot.create :canteen }
+      it 'limits list to given limit parameter' do
+        FactoryBot.create_list :canteen, 100
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {limit: '20'}
@@ -127,8 +132,8 @@ describe Api::V2::CanteensController, type: :controller do
         expect(json.size).to eq(20)
       end
 
-      it 'should limit list to 100 if given limit parameter exceed 100' do
-        100.times { FactoryBot.create :canteen }
+      it 'limits list to 100 if given limit parameter exceed 100' do
+        FactoryBot.create_list :canteen, 100
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {limit: '120'}
@@ -139,8 +144,8 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context '&per_page' do
-      it 'should limit list to 50 canteens by default' do
-        100.times { FactoryBot.create :canteen }
+      it 'limits list to 50 canteens by default' do
+        FactoryBot.create_list :canteen, 100
         expect(Canteen.count).to be > 100
 
         get :index, format: :json
@@ -149,8 +154,8 @@ describe Api::V2::CanteensController, type: :controller do
         expect(json.size).to eq(50)
       end
 
-      it 'should limit list to given limit parameter' do
-        100.times { FactoryBot.create :canteen }
+      it 'limits list to given limit parameter' do
+        FactoryBot.create_list :canteen, 100
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {per_page: '20'}
@@ -159,8 +164,8 @@ describe Api::V2::CanteensController, type: :controller do
         expect(json.size).to eq(20)
       end
 
-      it 'should limit list to 100 if given limit parameter exceed 100' do
-        100.times { FactoryBot.create :canteen }
+      it 'limits list to 100 if given limit parameter exceed 100' do
+        FactoryBot.create_list :canteen, 100
         expect(Canteen.count).to be > 100
 
         get :index, format: :json, params: {per_page: '120'}
@@ -176,14 +181,14 @@ describe Api::V2::CanteensController, type: :controller do
         FactoryBot.create :canteen, latitude: 0.0, longitude: 0.2
       end
 
-      it 'should find canteens within distance around a point' do
+      it 'finds canteens within distance around a point' do
         get :index, format: :json,
-          params: {near: {lat: 0.0, lng: 0.15, dist: 100}}
+                    params: {near: {lat: 0.0, lng: 0.15, dist: 100}}
 
         expect(json).to have(3).items
       end
 
-      it 'should find canteens within default distance around a point' do
+      it 'finds canteens within default distance around a point' do
         get :index, format: :json, params: {near: {lat: 0.05, lng: 0.1}}
 
         expect(json).to have(1).items
@@ -192,15 +197,16 @@ describe Api::V2::CanteensController, type: :controller do
 
     context '&ids' do
       let(:second_canteen) { FactoryBot.create :canteen }
+
       before do
         FactoryBot.create :canteen
         second_canteen
         FactoryBot.create :canteen
       end
 
-      it 'should return canteens with given ids' do
+      it 'returns canteens with given ids' do
         get :index, format: :json,
-          params: {ids: [canteen.id, second_canteen.id].join(',')}
+                    params: {ids: [canteen.id, second_canteen.id].join(',')}
 
         expect(json).to have(2).items
         expect(json[0]['id']).to eq(canteen.id)
@@ -229,10 +235,10 @@ describe Api::V2::CanteensController, type: :controller do
         griebnitzsee
         palais
         stub_request(:get, 'https://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&q=Potsdam')
-          .to_return(->(_request) { File.new Rails.root.join(*%w(spec mocks nominatim.json)).to_s })
+          .to_return(->(_request) { File.new Rails.root.join('spec/mocks/nominatim.json').to_s })
       end
 
-      it 'should return canteens near a specified place' do
+      it 'returns canteens near a specified place' do
         get :index, format: :json, params: {near: {place: 'Potsdam'}}
 
         expect(json).to have(2).item
@@ -263,7 +269,7 @@ describe Api::V2::CanteensController, type: :controller do
         unknown
       end
 
-      it 'should return only canteens when hasCoordinates is true' do
+      it 'returns only canteens when hasCoordinates is true' do
         get :index, format: :json, params: {hasCoordinates: 'true'}
 
         expect(json).to have(2).item
@@ -271,7 +277,7 @@ describe Api::V2::CanteensController, type: :controller do
         expect(json[1]['name']).to eq(griebnitzsee.name)
       end
 
-      it 'should return only canteens when hasCoordinates is false' do
+      it 'returns only canteens when hasCoordinates is false' do
         get :index, format: :json, params: {hasCoordinates: 'false'}
 
         expect(json).to have(1).item
@@ -282,17 +288,18 @@ describe Api::V2::CanteensController, type: :controller do
 
   describe 'GET show' do
     let!(:canteen) { FactoryBot.create :canteen }
+
     before { get :show, format: :json, params: {id: canteen.id} }
 
-    it 'should answer with canteen' do
+    it 'answers with canteen' do
       get :show, format: :json, params: {id: canteen.id}
       expect(response.status).to eq(200)
 
       expect(json).to eq({
-        id:          canteen.id,
-        name:        canteen.name,
-        city:        canteen.city,
-        address:     canteen.address,
+        id: canteen.id,
+        name: canteen.name,
+        city: canteen.city,
+        address: canteen.address,
         coordinates: [
           canteen.latitude,
           canteen.longitude
@@ -301,48 +308,57 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context 'and a wanted canteens' do
-      let(:canteen) { FactoryBot.create :canteen, state: 'wanted' }
       subject { json }
+
+      let(:canteen) { FactoryBot.create :canteen, state: 'wanted' }
 
       context 'response' do
         subject { response }
-        its(:status) { should == 200 }
+
+        its(:status) { is_expected.to eq 200 }
       end
 
       context 'json' do
         subject { json }
-        its(['id']) { should be canteen.id }
+
+        its(['id']) { is_expected.to be canteen.id }
       end
     end
 
     context 'and a archived canteens' do
-      let(:canteen) { FactoryBot.create :canteen, state: 'archived' }
       subject { json }
+
+      let(:canteen) { FactoryBot.create :canteen, state: 'archived' }
 
       context 'response' do
         subject { response }
-        its(:status) { should == 200 }
+
+        its(:status) { is_expected.to eq 200 }
       end
 
       context 'json' do
         subject { json }
-        its(['id']) { should be canteen.id }
+
+        its(['id']) { is_expected.to be canteen.id }
       end
     end
 
     context 'and a replaced canteens' do
-      let(:replacement) { FactoryBot.create :canteen, state: 'active'}
-      let(:canteen) { FactoryBot.create :canteen, state: 'archived', replaced_by: replacement }
       subject { json }
+
+      let(:replacement) { FactoryBot.create :canteen, state: 'active' }
+      let(:canteen) { FactoryBot.create :canteen, state: 'archived', replaced_by: replacement }
 
       context 'response' do
         subject { response }
-        its(:status) { should == 200 }
+
+        its(:status) { is_expected.to eq 200 }
       end
 
       context 'json' do
         subject { json }
-        its(['id']) { should be replacement.id }
+
+        its(['id']) { is_expected.to be replacement.id }
       end
     end
   end

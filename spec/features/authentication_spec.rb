@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Authentication', type: :feature do
   describe 'Login' do
-    it 'should login using Twitter' do
+    it 'logins using Twitter' do
       visit root_path
       click_link 'Anmelden'
       click_link 'Twitter'
@@ -12,7 +12,7 @@ describe 'Authentication', type: :feature do
       expect(page.body).to include('Mein Profil')
     end
 
-    it 'should login using GitHub' do
+    it 'logins using GitHub' do
       visit root_path
       click_link 'Anmelden'
       click_link 'GitHub'
@@ -22,15 +22,15 @@ describe 'Authentication', type: :feature do
   end
 
   describe 'Logout' do
-    before :each do
+    before do
       login FactoryBot.create(:identity)
     end
 
-    it 'should sign off a user if signed in' do
+    it 'signs off a user if signed in' do
       visit root_path
       click_link 'Abmelden'
 
-      expect(page.body).to_not include 'Mein Profil'
+      expect(page.body).not_to include 'Mein Profil'
     end
   end
 end

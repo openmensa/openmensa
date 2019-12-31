@@ -8,8 +8,8 @@ describe Day, type: :model do
   it { is_expected.not_to accept_values_for(:date, nil, '') }
   it { is_expected.not_to accept_values_for(:canteen_id, nil, '') }
 
-  it 'should have unique date per canteen' do
+  it 'has unique date per canteen' do
     same_day = FactoryBot.build :day, canteen: day.canteen, date: day.date
-    expect(same_day).to_not be_valid
+    expect(same_day).not_to be_valid
   end
 end

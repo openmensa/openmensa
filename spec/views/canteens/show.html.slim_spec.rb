@@ -14,13 +14,13 @@ describe 'canteens/show.html.slim', type: :view do
     allow(view).to receive(:current_user) { user }
   end
 
-  it 'should contain canteen name' do
+  it 'contains canteen name' do
     render
     expect(rendered).to include(canteen.name)
   end
 
   context 'with deactived canteen' do
-    it 'should contain a deactivation info' do
+    it 'contains a deactivation info' do
       canteen.update_attribute :state, 'archived'
       render
       expect(rendered).to match /#{canteen.name}.*\(Außer Betrieb\)/
@@ -29,7 +29,7 @@ describe 'canteens/show.html.slim', type: :view do
   end
 
   context 'without meals' do
-    it 'should list information about missing meal' do
+    it 'lists information about missing meal' do
       render
 
       expect(rendered).to include('keine Angebote')
@@ -40,7 +40,7 @@ describe 'canteens/show.html.slim', type: :view do
     let(:day) { FactoryBot.create :day, :closed }
     let(:canteen) { day.canteen }
 
-    it 'should show a closed notice' do
+    it 'shows a closed notice' do
       render
 
       expect(rendered).to include('geschlossen')
@@ -50,21 +50,22 @@ describe 'canteens/show.html.slim', type: :view do
   context 'with a meal' do
     let(:day) { FactoryBot.create(:today, canteen: canteen) }
     let(:meal) { FactoryBot.create(:meal, day: day) }
+
     before do
       meal
     end
 
-    it 'should list names of category' do
+    it 'lists names of category' do
       render
       expect(rendered).to include(meal.category)
     end
 
-    it 'should include name of meal' do
+    it 'includes name of meal' do
       render
       expect(rendered).to include(meal.category)
     end
 
-    it 'should include prices of meal' do
+    it 'includes prices of meal' do
       meal.prices = {student: 1.22, other: 2.20, employee: 1.7}
       meal.save!
 
@@ -79,8 +80,8 @@ describe 'canteens/show.html.slim', type: :view do
       expect(rendered).not_to include('Schüler')
     end
 
-    it 'should include notes of meal' do
-      meal.notes = %w(vegan vegetarisch)
+    it 'includes notes of meal' do
+      meal.notes = %w[vegan vegetarisch]
 
       render
 
@@ -88,10 +89,13 @@ describe 'canteens/show.html.slim', type: :view do
       expect(rendered).to include('vegetarisch')
     end
   end
+
   context 'with meals' do
     let(:day) { FactoryBot.create(:today, :with_unordered_meals, canteen: canteen) }
+
     before { day }
-    it 'should render an ordered list of meals' do
+
+    it 'renders an ordered list of meals' do
       render
 
       mealPositions = []
@@ -103,20 +107,20 @@ describe 'canteens/show.html.slim', type: :view do
     end
   end
 
-  it 'should print up-to-date on canteens fetched in the last 24 hour' do
-    canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hour
+  it 'prints up-to-date on canteens fetched in the last 24 hour' do
+    canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hours
     render
 
     expect(rendered).to include('Daten aktuell')
   end
 
-  it 'should print a warning on canteens fetched earlier then 24 hour ago' do
-    canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hour
+  it 'prints a warning on canteens fetched earlier then 24 hour ago' do
+    canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hours
     render
     expect(rendered).to include('Aktualisierung notwendig')
   end
 
-  it 'should print error on never fetched canteens' do
+  it 'prints error on never fetched canteens' do
     canteen.update_attribute :last_fetched_at, nil
     render
     expect(rendered).to include('Noch keine Daten')

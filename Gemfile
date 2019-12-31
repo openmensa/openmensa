@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
 gem 'rails', '~> 5.2.4'
 gem 'rails-i18n', '~> 5.0'
-gem 'turbolinks', '~> 5'
 gem 'sprockets', '~> 4.0'
+gem 'turbolinks', '~> 5'
 
 gem 'puma', '~> 4.3'
 
@@ -95,6 +95,4 @@ end
 
 # load Gemfile.local
 local_gemfile = File.dirname(__FILE__) + '/Gemfile.local'
-if File.file?(local_gemfile)
-  self.instance_eval Bundler.read_file(local_gemfile)
-end
+instance_eval Bundler.read_file(local_gemfile) if File.file?(local_gemfile)

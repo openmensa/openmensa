@@ -18,7 +18,7 @@ describe 'Developers', type: :feature do
     end
 
     it 'I want to inform me about developer features' do
-      expect(page).to_not have_content('Entwickler-Einstellungen')
+      expect(page).not_to have_content('Entwickler-Einstellungen')
       click_on 'Mehr zu Entwickler-Funktionen'
       expect(page).to have_content('Was bringt es Entwickler zu sein?')
       expect(page).to have_content('Was muss ich tun?')
@@ -33,14 +33,14 @@ describe 'Developers', type: :feature do
 
       expect(page).to have_content('Eine Bestätigungsmail wurde an test@example.org gesendet. Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse zu bestätigen.')
 
-      expect(ActionMailer::Base.deliveries).to_not be_empty
+      expect(ActionMailer::Base.deliveries).not_to be_empty
 
       mail = ActionMailer::Base.deliveries.first
       expect(mail.to).to match_array ['test@example.org']
       expect(mail.subject).to eq 'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'
 
-      if mail.body.to_s =~ /(https?:\/\/[-a-zA-Z0-9=_.\/]+)/
-        visit $1
+      if mail.body.to_s =~ %r{(https?://[-a-zA-Z0-9=_./]+)}
+        visit Regexp.last_match(1)
       end
 
       expect(user.reload).to be_developer
@@ -53,7 +53,7 @@ describe 'Developers', type: :feature do
       click_on 'Profil'
     end
 
-    it 'should be able to edit own canteens' do
+    it 'is able to edit own canteens' do
       click_on parser.name
       click_on "Editiere #{canteen.name}"
 
@@ -91,7 +91,7 @@ describe 'Developers', type: :feature do
         visit canteen_path canteen
       end
 
-      it 'should allow to fetch the canteen feed again' do
+      it 'allows to fetch the canteen feed again' do
         expect(OpenMensa::Updater).to receive(:new).with(feed, 'manual').and_return updater
         expect(updater).to receive(:update).and_return true
 
@@ -101,19 +101,19 @@ describe 'Developers', type: :feature do
         expect(page).to have_content canteen.name
       end
 
-      it 'should allow to disable the canteen' do
+      it 'allows to disable the canteen' do
         click_on 'Mensa außer Betrieb nehmen'
 
         expect(page).to have_content 'Die Mensa ist nun außer Betrieb!'
         expect(page).to have_content canteen.name
-        expect(page).to_not have_link 'Mensa außer Betrieb nehmen'
+        expect(page).not_to have_link 'Mensa außer Betrieb nehmen'
       end
 
       context 'with previous fetches and errors' do
-        let!(:fetch) { FactoryBot.create :feed_fetch, feed: feed, state: 'broken'}
+        let!(:fetch) { FactoryBot.create :feed_fetch, feed: feed, state: 'broken' }
         let!(:error) { FactoryBot.create :feedValidationError, messageable: fetch }
 
-        it 'should be able to view fetch messages / errors' do
+        it 'is able to view fetch messages / errors' do
           click_on 'Feed debug-Mitteilungen'
 
           expect(page).to have_content('permanenter Fehler')
@@ -124,25 +124,25 @@ describe 'Developers', type: :feature do
       context 'with deactivated canteen' do
         let(:canteen) { FactoryBot.create :canteen, state: 'archived' }
 
-        it 'should allow to enable the canteen' do
+        it 'allows to enable the canteen' do
           click_on 'Mensa in Betrieb nehmen'
 
           expect(page).to have_content 'Die Mensa ist nun im Betrieb!'
           expect(page).to have_content canteen.name
-          expect(page).to_not have_link 'Mensa in Betrieb nehmen'
+          expect(page).not_to have_link 'Mensa in Betrieb nehmen'
         end
       end
     end
 
     context 'on profile page' do
-      it 'should be able to update notification email' do
+      it 'is able to update notification email' do
         fill_in 'E-Mail für Fehlerberichte', with: 'test+openmensa@example.com'
         click_on 'Speichern'
 
         expect(developer.reload.notify_email).to eq 'test+openmensa@example.com'
       end
 
-      it 'should be able to set public information' do
+      it 'is able to set public information' do
         expect(developer.public_name).to be_nil
         expect(developer.public_email).to be_nil
         expect(developer.info_url).to be_nil

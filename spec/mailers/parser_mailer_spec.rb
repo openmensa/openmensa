@@ -9,6 +9,7 @@ describe ParserMailer, type: :mailer do
       allow_any_instance_of(ActionMailer::Base::NullMail).to receive(:null_mail?).and_return(true)
       allow_any_instance_of(Mail::Message).to receive(:null_mail?).and_return(false)
     end
+
     let(:user) { FactoryBot.create :developer }
     let(:parser) { FactoryBot.create :parser, user: user }
     let(:data_since) { 7.days.ago }
@@ -26,9 +27,8 @@ describe ParserMailer, type: :mailer do
 
     let(:parser_message) { FactoryBot.create :feedUrlUpdatedInfo, messageable: parser }
 
-
     context 'without any source' do
-      it 'should not send a mail' do
+      it 'does not send a mail' do
         expect(mail).to be_null_mail
       end
     end
@@ -36,8 +36,8 @@ describe ParserMailer, type: :mailer do
     context 'with parser messages' do
       before { parser_message }
 
-      it 'should sent a mail' do
-        expect(mail).to_not be_null_mail
+      it 'sents a mail' do
+        expect(mail).not_to be_null_mail
 
         expect(mail.to).to eq [user.notify_email]
         expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst"
@@ -47,7 +47,7 @@ describe ParserMailer, type: :mailer do
       context 'with old messages' do
         let(:parser_message) { FactoryBot.create :feedUrlUpdatedInfo, messageable: parser, created_at: data_since - 1.day }
 
-        it 'should not sent a mail for old messages' do
+        it 'does not sent a mail for old messages' do
           expect(mail).to be_null_mail
         end
       end
@@ -58,7 +58,7 @@ describe ParserMailer, type: :mailer do
       let(:source_message) { FactoryBot.create :feedUrlUpdatedInfo, messageable: source }
 
       context 'but no feeds' do
-        it 'should not send a mail' do
+        it 'does not send a mail' do
           expect(mail).to be_null_mail
         end
       end
@@ -66,17 +66,17 @@ describe ParserMailer, type: :mailer do
       context 'with source message' do
         before { source_message }
 
-        it 'should send a mail' do
-          expect(mail).to_not be_null_mail
+        it 'sends a mail' do
+          expect(mail).not_to be_null_mail
 
           expect(mail.to).to eq [user.notify_email]
           expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit #{source.name}"
           expect(mail.body).to include source_message.to_text_mail
         end
 
-        it 'should have a combined subject with parser messages' do
+        it 'has a combined subject with parser messages' do
           parser_message
-          expect(mail).to_not be_null_mail
+          expect(mail).not_to be_null_mail
 
           expect(mail.to).to eq [user.notify_email]
           expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst, #{source.name}"
@@ -90,8 +90,9 @@ describe ParserMailer, type: :mailer do
 
         context 'with new feedbacks' do
           let!(:feedback) { FactoryBot.create :feedback, canteen: feed.canteen }
-          it 'should inform about the new feedback' do
-            expect(mail).to_not be_null_mail
+
+          it 'informs about the new feedback' do
+            expect(mail).not_to be_null_mail
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{feed.source.name}"
@@ -101,7 +102,7 @@ describe ParserMailer, type: :mailer do
           context 'with feedback before data since' do
             let(:feedback) { FactoryBot.create :feedback, canteen: feed.canteen, created_at: data_since - 1.day }
 
-            it 'should not send a mail' do
+            it 'does not send a mail' do
               expect(mail).to be_null_mail
             end
           end
@@ -109,8 +110,8 @@ describe ParserMailer, type: :mailer do
           context 'with multiple feedbacks' do
             let!(:feedback2) { FactoryBot.create :feedback, canteen: feed.canteen }
 
-            it 'should inform about the new feedback' do
-              expect(mail).to_not be_null_mail
+            it 'informs about the new feedback' do
+              expect(mail).not_to be_null_mail
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldungen für #{feed.source.name}"
@@ -122,8 +123,9 @@ describe ParserMailer, type: :mailer do
 
         context 'with new data proposals' do
           let!(:data_proposal) { FactoryBot.create :data_proposal, canteen: feed.canteen }
-          it 'should inform about the new propsoal' do
-            expect(mail).to_not be_null_mail
+
+          it 'informs about the new propsoal' do
+            expect(mail).not_to be_null_mail
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neuer Änderungsvorschlag für #{feed.source.name}"
@@ -134,7 +136,7 @@ describe ParserMailer, type: :mailer do
           context 'with feedback before data since' do
             let(:data_proposal) { FactoryBot.create :data_proposal, canteen: feed.canteen, created_at: data_since - 1.day }
 
-            it 'should not send a mail' do
+            it 'does not send a mail' do
               expect(mail).to be_null_mail
             end
           end
@@ -142,8 +144,8 @@ describe ParserMailer, type: :mailer do
           context 'with multiple feedbacks' do
             let!(:data_proposal2) { FactoryBot.create :data_proposal, canteen: feed.canteen }
 
-            it 'should inform about the new feedback' do
-              expect(mail).to_not be_null_mail
+            it 'informs about the new feedback' do
+              expect(mail).not_to be_null_mail
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Änderungsvorschläge für #{feed.source.name}"
@@ -156,25 +158,25 @@ describe ParserMailer, type: :mailer do
         end
 
         context 'with no fetches' do
-          it 'should not send a mail' do
+          it 'does not send a mail' do
             expect(mail).to be_null_mail
           end
 
           context 'with feed message' do
             let!(:feed_message) { FactoryBot.create :feedUrlUpdatedInfo, messageable: feed }
 
-            it 'should send a mail' do
-              expect(mail).to_not be_null_mail
+            it 'sends a mail' do
+              expect(mail).not_to be_null_mail
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit #{feed.source.name}:#{feed.name}"
               expect(mail.body).to include feed_message.to_text_mail
             end
 
-            it 'should have a combined subject with parser messages' do
+            it 'has a combined subject with parser messages' do
               parser_message
               source_message
-              expect(mail).to_not be_null_mail
+              expect(mail).not_to be_null_mail
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst, #{source.name}, #{feed.source.name}:#{feed.name}"
@@ -192,17 +194,18 @@ describe ParserMailer, type: :mailer do
 
           context 'with data_since be nil' do
             let(:data_since) { nil }
-            it 'should send a mail' do
+
+            it 'sends a mail' do
               fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed, executed_at: 9.days.ago
               message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
-              expect(mail).to_not be_null_mail
+              expect(mail).not_to be_null_mail
             end
           end
         end
 
         context 'with working fetches' do
-          %w(changed unchanged empty).each do |state|
-            it "should not send a mail on #{state} fetches" do
+          %w[changed unchanged empty].each do |state|
+            it "does not send a mail on #{state} fetches" do
               FactoryBot.create :feed_fetch, state: state, feed: feed
               expect(mail).to be_null_mail
             end
@@ -210,7 +213,7 @@ describe ParserMailer, type: :mailer do
         end
 
         context 'with one feed error' do
-          it "should send a mail on failed fetches" do
+          it 'sends a mail on failed fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed
             message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
 
@@ -220,7 +223,7 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include message.to_text_mail
           end
 
-          it "should send a mail on broken fetches" do
+          it 'sends a mail on broken fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed
             message = FactoryBot.create :feedFetchError, messageable: fetch
 
@@ -231,7 +234,7 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include message.message
           end
 
-          it "should send a mail on invalid fetches" do
+          it 'sends a mail on invalid fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed
             message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
 
@@ -244,10 +247,10 @@ describe ParserMailer, type: :mailer do
         end
 
         context 'with multiple but same feed errors' do
-          it "should send a mail on failed fetches" do
+          it 'sends a mail on failed fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed
             message = FactoryBot.create :feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago
-            message2 = FactoryBot.create :feedInvalidUrlError, messageable: fetch, created_at: 1.days.ago
+            message2 = FactoryBot.create :feedInvalidUrlError, messageable: fetch, created_at: 1.day.ago
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
@@ -258,7 +261,7 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include "Zuletzt: #{I18n.l message2.created_at}"
           end
 
-          it "should send a mail on broken fetches" do
+          it 'sends a mail on broken fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed
             message = FactoryBot.create :feedFetchError, messageable: fetch, created_at: 2.days.ago
             message2 = FactoryBot.create :feedFetchError, messageable: fetch, code: message.code
@@ -273,7 +276,7 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include "Zuletzt: #{I18n.l message2.created_at}"
           end
 
-          it "should send a mail on invalid fetches" do
+          it 'sends a mail on invalid fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed
             message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 2.days.ago
             message2 = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml, version: message.version
@@ -284,17 +287,17 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include message.version.to_s
             expect(mail.body).to include message.message
             expect(mail.body).to include 'Anzahl: 2'
-            expect(mail.body).to include "Erstmals: #{I18n.l message.created_at }"
-            expect(mail.body).to include "Zuletzt: #{I18n.l message2.created_at }"
+            expect(mail.body).to include "Erstmals: #{I18n.l message.created_at}"
+            expect(mail.body).to include "Zuletzt: #{I18n.l message2.created_at}"
           end
         end
 
         context 'with multiple and different feed errors' do
-          it "should send a mail on failed fetches" do
+          it 'sends a mail on failed fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed
             message = FactoryBot.create :feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago
             fetch2 = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed
-            message2 = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 1.days.ago
+            message2 = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 1.day.ago
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl oder sind invalid"
@@ -316,7 +319,8 @@ describe ParserMailer, type: :mailer do
           before do
             FactoryBot.create :feed_fetch, state: 'changed', feed: feed2
           end
-          it "should send a mail on failed fetches" do
+
+          it 'sends a mail on failed fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed
             message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
 
@@ -324,11 +328,11 @@ describe ParserMailer, type: :mailer do
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} schlägt fehl"
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.to_text_mail
-            expect(mail.body).to_not include feed2.url
+            expect(mail.body).not_to include feed2.url
             expect(mail.body).to include "Feed #{feed2.name} ist fehlerfrei."
           end
 
-          it "should send a mail on broken fetches" do
+          it 'sends a mail on broken fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed
             message = FactoryBot.create :feedFetchError, messageable: fetch
 
@@ -337,11 +341,11 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.code.to_s
             expect(mail.body).to include message.message
-            expect(mail.body).to_not include feed2.url
+            expect(mail.body).not_to include feed2.url
             expect(mail.body).to include "Feed #{feed2.name} ist fehlerfrei."
           end
 
-          it "should send a mail on invalid fetches" do
+          it 'sends a mail on invalid fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed
             message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
 
@@ -350,7 +354,7 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include feed.url
             expect(mail.body).to include message.version.to_s
             expect(mail.body).to include message.message
-            expect(mail.body).to_not include feed2.url
+            expect(mail.body).not_to include feed2.url
             expect(mail.body).to include "Feed #{feed2.name} ist fehlerfrei."
           end
         end
@@ -367,8 +371,8 @@ describe ParserMailer, type: :mailer do
           let!(:feedback) { FactoryBot.create :feedback, canteen: source.canteen }
           let!(:feedback2) { FactoryBot.create :feedback, canteen: source2.canteen }
 
-          it 'should inform about the new feedback' do
-            expect(mail).to_not be_null_mail
+          it 'informs about the new feedback' do
+            expect(mail).not_to be_null_mail
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldungen für #{source.name}, #{source2.name}"
@@ -379,8 +383,8 @@ describe ParserMailer, type: :mailer do
           context 'with feedback before data since' do
             let(:feedback) { FactoryBot.create :feedback, canteen: source.canteen, created_at: data_since - 1.day }
 
-            it 'should not include this feedback' do
-              expect(mail).to_not be_null_mail
+            it 'does not include this feedback' do
+              expect(mail).not_to be_null_mail
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Rückmeldung für #{source2.name}"
@@ -393,8 +397,8 @@ describe ParserMailer, type: :mailer do
           let!(:data_proposal) { FactoryBot.create :data_proposal, canteen: source.canteen }
           let!(:data_proposal2) { FactoryBot.create :data_proposal, canteen: source2.canteen }
 
-          it 'should inform about the new data proposals' do
-            expect(mail).to_not be_null_mail
+          it 'informs about the new data proposals' do
+            expect(mail).not_to be_null_mail
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neue Änderungsvorschläge für #{source.name}, #{source2.name}"
@@ -405,8 +409,8 @@ describe ParserMailer, type: :mailer do
           context 'with data proposal before data since' do
             let(:data_proposal) { FactoryBot.create :data_proposal, canteen: source.canteen, created_at: data_since - 1.day }
 
-            it 'should not include this data proposal' do
-              expect(mail).to_not be_null_mail
+            it 'does not include this data proposal' do
+              expect(mail).not_to be_null_mail
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Neuer Änderungsvorschlag für #{source2.name}"
@@ -425,7 +429,7 @@ describe ParserMailer, type: :mailer do
             let(:feed2_1) { FactoryBot.create :feed, source: source2, name: feed1_1.name }
             let(:feed2_2) { FactoryBot.create :feed, source: source2, name: feed1_2.name }
 
-            it "should send a mail on failed fetches" do
+            it 'sends a mail on failed fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed1_1
               message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'failed', feed: feed2_1
@@ -437,13 +441,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include message.to_text_mail
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.to_text_mail
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on broken fetches" do
+            it 'sends a mail on broken fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed1_1
               message = FactoryBot.create :feedFetchError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'broken', feed: feed2_1
@@ -457,13 +461,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.code.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on invalid fetches" do
+            it 'sends a mail on invalid fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed1_1
               message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
               fetch2 = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed2_1
@@ -477,15 +481,15 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.version.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
           end
 
           context 'with same names' do
-            it "should send a mail on failed fetches" do
+            it 'sends a mail on failed fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed1_1
               message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'failed', feed: feed2_1
@@ -497,13 +501,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include message.to_text_mail
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.to_text_mail
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on broken fetches" do
+            it 'sends a mail on broken fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed1_1
               message = FactoryBot.create :feedFetchError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'broken', feed: feed2_1
@@ -517,13 +521,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.code.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on invalid fetches" do
+            it 'sends a mail on invalid fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed1_1
               message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
               fetch2 = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed2_1
@@ -537,9 +541,9 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.version.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
           end
@@ -550,7 +554,8 @@ describe ParserMailer, type: :mailer do
             FactoryBot.create :feed_fetch, state: 'changed', feed: feed1_1
             FactoryBot.create :feed_fetch, state: 'changed', feed: feed1_2
           end
-          it "should send a mail on failed fetches" do
+
+          it 'sends a mail on failed fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed2_1
             message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
             fetch2 = FactoryBot.create :feed_fetch, state: 'failed', feed: feed2_2
@@ -562,13 +567,13 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include message.to_text_mail
             expect(mail.body).to include feed2_2.url
             expect(mail.body).to include message2.to_text_mail
-            expect(mail.body).to_not include source.canteen.name
-            expect(mail.body).to_not include source.name
-            expect(mail.body).to_not include feed1_1.url
-            expect(mail.body).to_not include feed1_2.url
+            expect(mail.body).not_to include source.canteen.name
+            expect(mail.body).not_to include source.name
+            expect(mail.body).not_to include feed1_1.url
+            expect(mail.body).not_to include feed1_2.url
           end
 
-          it "should send a mail on broken fetches" do
+          it 'sends a mail on broken fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed2_1
             message = FactoryBot.create :feedFetchError, messageable: fetch
             fetch2 = FactoryBot.create :feed_fetch, state: 'broken', feed: feed2_2
@@ -582,13 +587,13 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include feed2_2.url
             expect(mail.body).to include message2.code.to_s
             expect(mail.body).to include message2.message
-            expect(mail.body).to_not include source.canteen.name
-            expect(mail.body).to_not include source.name
-            expect(mail.body).to_not include feed1_1.url
-            expect(mail.body).to_not include feed1_2.url
+            expect(mail.body).not_to include source.canteen.name
+            expect(mail.body).not_to include source.name
+            expect(mail.body).not_to include feed1_1.url
+            expect(mail.body).not_to include feed1_2.url
           end
 
-          it "should send a mail on invalid fetches" do
+          it 'sends a mail on invalid fetches' do
             fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed2_1
             message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
             fetch2 = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed2_2
@@ -602,10 +607,10 @@ describe ParserMailer, type: :mailer do
             expect(mail.body).to include feed2_2.url
             expect(mail.body).to include message2.version.to_s
             expect(mail.body).to include message2.message
-            expect(mail.body).to_not include source.canteen.name
-            expect(mail.body).to_not include source.name
-            expect(mail.body).to_not include feed1_1.url
-            expect(mail.body).to_not include feed1_2.url
+            expect(mail.body).not_to include source.canteen.name
+            expect(mail.body).not_to include source.name
+            expect(mail.body).not_to include feed1_1.url
+            expect(mail.body).not_to include feed1_2.url
           end
         end
 
@@ -613,6 +618,7 @@ describe ParserMailer, type: :mailer do
           let!(:source3) { FactoryBot.create :source, parser: parser }
           let!(:feed3_1) { FactoryBot.create :feed, source: source3 }
           let!(:feed3_2) { FactoryBot.create :feed, source: source3 }
+
           before do
             FactoryBot.create :feed_fetch, state: 'changed', feed: feed1_2
             FactoryBot.create :feed_fetch, state: 'changed', feed: feed2_2
@@ -624,7 +630,7 @@ describe ParserMailer, type: :mailer do
             let(:feed2_1) { FactoryBot.create :feed, source: source2, name: feed1_1.name }
             let(:feed2_2) { FactoryBot.create :feed, source: source2, name: feed1_2.name }
 
-            it "should send a mail on failed fetches" do
+            it 'sends a mail on failed fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed1_1
               message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'failed', feed: feed2_1
@@ -636,13 +642,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include message.to_text_mail
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.to_text_mail
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on broken fetches" do
+            it 'sends a mail on broken fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed1_1
               message = FactoryBot.create :feedFetchError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'broken', feed: feed2_1
@@ -656,13 +662,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.code.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on invalid fetches" do
+            it 'sends a mail on invalid fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed1_1
               message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
               fetch2 = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed2_1
@@ -676,15 +682,15 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.version.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
           end
 
           context 'with different names' do
-            it "should send a mail on failed fetches" do
+            it 'sends a mail on failed fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'failed', feed: feed1_1
               message = FactoryBot.create :feedInvalidUrlError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'failed', feed: feed2_1
@@ -696,13 +702,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include message.to_text_mail
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.to_text_mail
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on broken fetches" do
+            it 'sends a mail on broken fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'broken', feed: feed1_1
               message = FactoryBot.create :feedFetchError, messageable: fetch
               fetch2 = FactoryBot.create :feed_fetch, state: 'broken', feed: feed2_1
@@ -716,13 +722,13 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.code.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
 
-            it "should send a mail on invalid fetches" do
+            it 'sends a mail on invalid fetches' do
               fetch = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed1_1
               message = FactoryBot.create :feedValidationError, messageable: fetch, kind: :invalid_xml
               fetch2 = FactoryBot.create :feed_fetch, state: 'invalid', feed: feed2_1
@@ -736,9 +742,9 @@ describe ParserMailer, type: :mailer do
               expect(mail.body).to include feed2_1.url
               expect(mail.body).to include message2.version.to_s
               expect(mail.body).to include message2.message
-              expect(mail.body).to_not include feed1_2.url
+              expect(mail.body).not_to include feed1_2.url
               expect(mail.body).to include "Feed #{feed1_2.name} ist fehlerfrei."
-              expect(mail.body).to_not include feed2_2.url
+              expect(mail.body).not_to include feed2_2.url
               expect(mail.body).to include "Feed #{feed2_2.name} ist fehlerfrei."
             end
           end

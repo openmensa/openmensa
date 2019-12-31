@@ -17,7 +17,7 @@ describe FeedsController, type: :controller do
       allow(OpenMensa::Updater).to receive(:new).with(feed, 'manual').and_return updater
     end
 
-    it 'should run openmensa updater' do
+    it 'runs openmensa updater' do
       expect(updater).to receive(:update).and_return true
       get :fetch, format: :json, params: {id: feed.id}
 
@@ -29,11 +29,11 @@ describe FeedsController, type: :controller do
         {
           'status' => 'ok',
           'days' => {
-            'added'   => 1,
+            'added' => 1,
             'updated' => 0
           },
           'meals' => {
-            'added'   => 3,
+            'added' => 3,
             'updated' => 4,
             'removed' => 5
           }
@@ -126,14 +126,14 @@ describe FeedsController, type: :controller do
       end
     end
 
-    it 'should only allow one fetch per 15 minute' do
-      expect(updater).to_not receive(:update)
+    it 'only allows one fetch per 15 minute' do
+      expect(updater).not_to receive(:update)
       FactoryBot.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now - 14.minutes
       get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 429
     end
 
-    it 'should updates from canteen owner every time' do
+    it 'updates from canteen owner every time' do
       set_current_user owner
       expect(updater).to receive(:update).and_return true
       FactoryBot.create :feed_fetch, feed: feed, state: 'failed', executed_at: Time.zone.now

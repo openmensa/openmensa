@@ -15,7 +15,7 @@ describe 'users/show.html.slim', type: :view do
     render
   end
 
-  it 'should not show add identity button if all providers are bound' do
+  it 'does not show add identity button if all providers are bound' do
     expect(rendered).not_to include('Identität hinzufügen')
   end
 end

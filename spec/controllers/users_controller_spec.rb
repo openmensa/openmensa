@@ -9,7 +9,7 @@ describe UsersController, type: :controller do
     before { user }
 
     context 'as anonymous' do
-      it 'should not be accessible' do
+      it 'is not accessible' do
         get :show, params: {id: user.id}
 
         expect(response.status).to eq(401)
@@ -17,7 +17,7 @@ describe UsersController, type: :controller do
     end
 
     context 'as user' do
-      it 'should be allow access to my profile' do
+      it 'is allow access to my profile' do
         set_current_user user
         get :show, params: {id: user.id}
 
@@ -26,7 +26,7 @@ describe UsersController, type: :controller do
     end
 
     context 'as admin' do
-      it 'should not be accessible' do
+      it 'is not accessible' do
         set_current_user FactoryBot.create(:admin)
         get :show, params: {id: user.id}
 
@@ -39,7 +39,7 @@ describe UsersController, type: :controller do
     before { user }
 
     context 'as anonymous' do
-      it 'should not be accessible' do
+      it 'is not accessible' do
         put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 
         expect(response.status).to eq(401)
@@ -47,7 +47,7 @@ describe UsersController, type: :controller do
     end
 
     context 'as user' do
-      it 'should be allow to update to my profile' do
+      it 'is allow to update to my profile' do
         set_current_user user
         put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 
@@ -56,7 +56,7 @@ describe UsersController, type: :controller do
     end
 
     context 'as admin' do
-      it 'should not be accessible' do
+      it 'is not accessible' do
         set_current_user FactoryBot.create(:admin)
         put :update, params: {id: user.id, user: {user_name: 'Bobby'}}
 

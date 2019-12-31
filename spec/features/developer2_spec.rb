@@ -19,7 +19,7 @@ describe 'Developers', type: :feature do
     context 'without existing parser' do
       let(:parser) {}
 
-      it 'should be able to add a new parser' do
+      it 'is able to add a new parser' do
         click_on 'Neuen Parser anlegen'
         expect(page).to have_link_to 'http://doc.openmensa.org/parsers/'
         expect(page).to have_link_to 'http://doc.openmensa.org/feed/v2/'
@@ -32,7 +32,7 @@ describe 'Developers', type: :feature do
     end
 
     context 'with existing parser' do
-      it 'should be able to edit a new parser' do
+      it 'is able to edit a new parser' do
         click_on parser.name
         click_on 'Ändere die Parser-Einstellungen'
 
@@ -42,20 +42,20 @@ describe 'Developers', type: :feature do
         expect(page).to have_content 'Der Parser wurde erfolgreich aktualisiert.'
       end
 
-      it 'should be able to import sources from index url' do
+      it 'is able to import sources from index url' do
         index_url = 'http://example.org/sources.json'
         stub_request(:any, index_url)
-          .to_return(body: JSON.generate({
-            "left" => "http://example.org/left/meta.xml",
-            "right" => "http://example.org/right/meta.xml"
-          }), status: 200)
+          .to_return(body: JSON.generate(
+            'left' => 'http://example.org/left/meta.xml',
+            'right' => 'http://example.org/right/meta.xml'
+          ), status: 200)
         stub_request(:any, 'http://example.org/left/meta.xml')
           .to_return(status: 404)
         stub_request(:any, 'http://example.org/right/meta.xml')
           .to_return(body: mock_file('metafeed.xml'), status: 200)
 
         click_on parser.name
-        expect(page).to_not have_link('Aktualisiere Quellen mittels Index-URL')
+        expect(page).not_to have_link('Aktualisiere Quellen mittels Index-URL')
 
         click_on 'Ändere die Parser-Einstellungen'
         fill_in 'Index-URL', with: index_url
@@ -67,7 +67,7 @@ describe 'Developers', type: :feature do
         expect(page).to have_content '1 Quellen angelegt.'
       end
 
-      it 'should be able to delete a parser' do
+      it 'is able to delete a parser' do
         pending 'todo'
         click_on parser.name
 
@@ -76,7 +76,7 @@ describe 'Developers', type: :feature do
         expect(page).to have_content 'Der Parser wurde archiviert!'
       end
 
-      it 'it should be able to add a source with its canteen' do
+      it 'should be able to add a source with its canteen' do
         click_on parser.name
 
         click_on 'Neue Quelle/Mensa hinzufügen'
@@ -94,7 +94,8 @@ describe 'Developers', type: :feature do
 
       context 'with wanted canteen' do
         let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Dies ist eine Gesuchte Mensa' }
-        it 'it should be able to add a source for a wanted canteen' do
+
+        it 'should be able to add a source for a wanted canteen' do
           click_on parser.name
 
           click_on 'Neue Quelle/Mensa hinzufügen'
@@ -110,7 +111,7 @@ describe 'Developers', type: :feature do
       end
 
       context 'with archived parser' do
-        it 'should be able to reactive a parser' do
+        it 'is able to reactive a parser' do
           pending 'todo'
           click_on 'Neuen Parser anlegen'
 
@@ -124,7 +125,7 @@ describe 'Developers', type: :feature do
         let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
         let!(:feed) { FactoryBot.create :feed, source: source }
 
-        it 'should be able to edit the source' do
+        it 'is able to edit the source' do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
@@ -137,7 +138,7 @@ describe 'Developers', type: :feature do
           expect(page).to have_content 'Die Quelle wurde erfolgeich aktualisiert.'
         end
 
-        it 'should be able to add a new feed' do
+        it 'is able to add a new feed' do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
@@ -153,7 +154,7 @@ describe 'Developers', type: :feature do
           expect(page).to have_content 'Feed Full'
         end
 
-        it 'should be able to edit a feed' do
+        it 'is able to edit a feed' do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
@@ -167,7 +168,7 @@ describe 'Developers', type: :feature do
           expect(page).to have_content 'Replacefeed'
         end
 
-        it 'should be able to delete/archive a feed' do
+        it 'is able to delete/archive a feed' do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
@@ -176,11 +177,11 @@ describe 'Developers', type: :feature do
           end
 
           expect(page).to have_content 'Der Feed wurde erfolgreich geschlöscht.'
-          expect(page).to_not have_content feed.name
+          expect(page).not_to have_content feed.name
         end
 
         context 'without feedbacks' do
-          it 'should be able to see a info about this state' do
+          it 'is able to see a info about this state' do
             visit canteen_path(canteen)
 
             click_on 'Nutzerrückmeldungen'
@@ -191,14 +192,15 @@ describe 'Developers', type: :feature do
 
         context 'with previous created feedback' do
           let!(:feedback) { FactoryBot.create :feedback, canteen: canteen }
-          it 'should be able to see the feedback\'s message' do
+
+          it 'is able to see the feedbacks message' do
             click_on parser.name
             click_on "Öffne Feedback für #{canteen.name}"
 
             expect(page).to have_content(feedback.message)
           end
 
-          it 'should be able to see feedback via canteen page' do
+          it 'is able to see feedback via canteen page' do
             visit canteen_path(canteen)
 
             click_on 'Nutzerrückmeldungen'
@@ -209,14 +211,15 @@ describe 'Developers', type: :feature do
 
         context 'with previous created data proposals' do
           let!(:data_proposal) { FactoryBot.create :data_proposal, canteen: canteen }
-          it 'should be able to see the data_proposal' do
+
+          it 'is able to see the data_proposal' do
             click_on parser.name
             click_on "Öffne Änderungsvorschläge für #{canteen.name}"
 
             expect(page).to have_content(data_proposal.city)
           end
 
-          it 'should be able to see feedback via canteen page' do
+          it 'is able to see feedback via canteen page' do
             visit canteen_path(canteen)
 
             click_on 'Änderungsvorschläge'
@@ -228,7 +231,7 @@ describe 'Developers', type: :feature do
         context 'with previous messsages' do
           let!(:error) { FactoryBot.create :feedUrlUpdatedInfo, messageable: source }
 
-          it 'should be able to view fetch messages / errors' do
+          it 'is able to view fetch messages / errors' do
             click_on parser.name
 
             click_on "Mitteilungen für #{source.name}"
@@ -241,26 +244,26 @@ describe 'Developers', type: :feature do
       context 'with a existing source with meta url' do
         let!(:source) do
           FactoryBot.create :source, parser: parser,
-            meta_url: 'http://example.org/test/meta.xml'
+                                     meta_url: 'http://example.org/test/meta.xml'
         end
         let!(:feed) { FactoryBot.create :feed, source: source, name: 'oldfeed' }
 
-        it 'should not be able to edit feeds' do
+        it 'is not able to edit feeds' do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          expect(page).to_not have_xpath('//section[header="Feed ' + feed.name + '"]')
-          expect(page).to_not have_xpath('//section[header="Neuer Feed"]')
-          expect(page).to_not have_link('Feed anlegen')
+          expect(page).not_to have_xpath('//section[header="Feed ' + feed.name + '"]')
+          expect(page).not_to have_xpath('//section[header="Neuer Feed"]')
+          expect(page).not_to have_link('Feed anlegen')
         end
 
-        it 'should be able to let feeds sync via meta url' do
+        it 'is able to let feeds sync via meta url' do
           stub_request(:any, source.meta_url)
             .to_return(body: mock_file('metafeed.xml'), status: 200)
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          click_on "Synchronisiere Feeds"
+          click_on 'Synchronisiere Feeds'
           expect(page).to have_content '2 Feeds hinzugefügt.'
           expect(page).to have_content '1 Feeds gelöscht.'
         end

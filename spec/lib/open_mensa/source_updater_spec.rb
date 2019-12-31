@@ -7,13 +7,14 @@ describe OpenMensa::SourceUpdater do
   let(:parser) { FactoryBot.create :parser }
   let(:source) { FactoryBot.create :source, parser: parser, meta_url: 'http://example.com/meta.xml' }
   let(:updater) { described_class.new(source) }
+
   def stub_data(body)
     stub_request(:any, source.meta_url)
       .to_return(body: body, status: 200)
   end
 
-  context '#fetch' do
-    it 'should skip invalid urls' do
+  describe '#fetch' do
+    it 'skips invalid urls' do
       source.update_attribute :meta_url, ':///:asdf'
       expect(updater.fetch!).to be_falsey
       m = source.messages.first
@@ -21,12 +22,12 @@ describe OpenMensa::SourceUpdater do
       expect(updater.errors).to eq([m])
     end
 
-    it 'should receive feed data via http' do
+    it 'receives feed data via http' do
       stub_data '<xml>'
       expect(updater.fetch!.read).to eq('<xml>')
     end
 
-    it 'should update meta url on 301 responses' do
+    it 'updates meta url on 301 responses' do
       stub_request(:any, 'example.com/301.xml')
         .to_return(status: 301, headers: {location: 'http://example.com/meta.xml'})
       stub_data '<xml>'
@@ -39,7 +40,7 @@ describe OpenMensa::SourceUpdater do
       expect(m.new_url).to eq('http://example.com/meta.xml')
     end
 
-    it 'should not update meta url on 302 responses' do
+    it 'does not update meta url on 302 responses' do
       stub_request(:any, 'example.com/302.xml')
         .to_return(status: 302, headers: {location: 'http://example.com/meta.xml'})
       stub_data '<xml>'
@@ -48,7 +49,7 @@ describe OpenMensa::SourceUpdater do
       expect(source.reload.meta_url).to eq('http://example.com/302.xml')
     end
 
-    it 'should handle http errors correctly' do
+    it 'handles http errors correctly' do
       stub_request(:any, 'example.com/500.xml')
         .to_return(status: 500)
       source.update_attribute :meta_url, 'http://example.com/500.xml'
@@ -59,7 +60,7 @@ describe OpenMensa::SourceUpdater do
       expect(updater.errors).to eq([m])
     end
 
-    it 'should handle network errors correctly' do
+    it 'handles network errors correctly' do
       stub_request(:any, 'unknowndomain.org')
         .to_raise(SocketError.new('getaddrinfo: Name or service not known'))
       source.update_attribute :meta_url, 'http://unknowndomain.org'
@@ -70,7 +71,7 @@ describe OpenMensa::SourceUpdater do
       expect(updater.errors).to eq([m])
     end
 
-    it 'should handle network timeout ' do
+    it 'handles network timeout' do
       stub_request(:any, 'example.org/timeout.xml')
         .to_timeout
       source.update_attribute :meta_url, 'http://example.org/timeout.xml'
@@ -82,7 +83,7 @@ describe OpenMensa::SourceUpdater do
     end
   end
 
-  context '#parse' do
+  describe '#parse' do
     it 'non-xml data' do
       stub_data mock_content('feed_garbage.dat')
       expect(updater.fetch!).to be_truthy
@@ -97,8 +98,8 @@ describe OpenMensa::SourceUpdater do
     end
   end
 
-  context '#validate' do
-    it 'should not except 1.0 feeds (no meta attributes)' do
+  describe '#validate' do
+    it 'does not except 1.0 feeds (no meta attributes)' do
       stub_data mock_content('canteen_feed.xml')
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to be_truthy
@@ -113,7 +114,7 @@ describe OpenMensa::SourceUpdater do
       end
     end
 
-    it 'should return 2.0 on valid v2.0 openmensa xml feeds' do
+    it 'returns 2.0 on valid v2.0 openmensa xml feeds' do
       stub_data mock_content('feed_v2.xml')
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to be_truthy
@@ -121,7 +122,7 @@ describe OpenMensa::SourceUpdater do
       expect(updater.version).to eq '2.0'
     end
 
-    it 'should return 2.1 on valid v2.1 openmensa xml feeds' do
+    it 'returns 2.1 on valid v2.1 openmensa xml feeds' do
       stub_data mock_content('feed_v21.xml')
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to be_truthy
@@ -158,10 +159,9 @@ describe OpenMensa::SourceUpdater do
         expect(updater.errors).to eq([message])
       end
     end
-
   end
 
-  context '#sync' do
+  describe '#sync' do
     let(:today_feed) do
       source.feeds.create! name: 'today', priority: 0,
                            schedule: '0 8-14 * * *', retry: [30, 1],
@@ -178,26 +178,26 @@ describe OpenMensa::SourceUpdater do
     context 'and the metadata' do
       let(:canteen) { source.canteen }
 
-      it 'should not create a new data_proposal without data' do
+      it 'does not create a new data_proposal without data' do
         stub_data mock_content('feed2_empty.xml')
 
         expect do
           expect(updater.sync).to be_truthy
-        end.to_not change { source.canteen.data_proposals.size }
+        end.not_to change { source.canteen.data_proposals.size }
         expect(updater.stats).to eq created: 0, updated: 0, deleted: 0, new_metadata: false
       end
 
-      it 'should not create a new data_proposal without data but feeds' do
+      it 'does not create a new data_proposal without data but feeds' do
         stub_data mock_content('single_feed.xml')
         today_feed
 
         expect do
           expect(updater.sync).to be_truthy
-        end.to_not change { source.canteen.data_proposals.size }
+        end.not_to change { source.canteen.data_proposals.size }
         expect(updater.stats).to eq created: 0, updated: 0, deleted: 0, new_metadata: false
       end
 
-      it 'should create new data proposal on new data' do
+      it 'creates new data proposal on new data' do
         stub_data mock_content('metafeed.xml')
         today_feed
         full_feed
@@ -209,7 +209,7 @@ describe OpenMensa::SourceUpdater do
       end
     end
 
-    it 'should create new feeds' do
+    it 'creates new feeds' do
       stub_data mock_content('single_feed.xml')
 
       expect(updater.sync).to be_truthy
@@ -223,7 +223,7 @@ describe OpenMensa::SourceUpdater do
       end
     end
 
-    it 'should not update unchanged existing feeds' do
+    it 'does not update unchanged existing feeds' do
       stub_data mock_content('single_feed.xml')
       today_feed
 
@@ -233,7 +233,7 @@ describe OpenMensa::SourceUpdater do
       expect(updater.errors).to be_empty
     end
 
-    it 'should update changed existing feeds' do
+    it 'updates changed existing feeds' do
       stub_data mock_content('single_feed.xml')
       source.feeds.create! name: 'today', priority: 0,
                            schedule: '* 8-14 * * *', retry: [30, 1],
@@ -254,7 +254,7 @@ describe OpenMensa::SourceUpdater do
       end
     end
 
-    it 'should delete removed feeds' do
+    it 'deletes removed feeds' do
       stub_data mock_content('single_feed.xml')
       source.feeds.create! name: 'today', priority: 0,
                            schedule: '0 8-14 * * *', retry: [30, 1],

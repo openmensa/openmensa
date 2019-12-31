@@ -7,7 +7,7 @@ describe 'Reporters: ', type: :feature do
   let(:parser) { FactoryBot.create :parser }
   let(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
 
-  it 'should be able to register a intereseted canteen' do
+  it 'is able to register a intereseted canteen' do
     visit root_path
 
     click_on 'Melde die Mensa als gewünscht'
@@ -21,9 +21,9 @@ describe 'Reporters: ', type: :feature do
   end
 
   context 'with a previous created canteen' do
-    let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Meine Liebligsmensa', city: 'Hamburg'}
+    let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Meine Liebligsmensa', city: 'Hamburg' }
 
-    it 'should see this canteen when registering an intereseted canteen' do
+    it 'sees this canteen when registering an intereseted canteen' do
       visit root_path
 
       click_on 'Melde die Mensa als gewünscht'
@@ -31,7 +31,7 @@ describe 'Reporters: ', type: :feature do
     end
   end
 
-  it 'should be able to report an issues for a canteen' do
+  it 'is able to report an issues for a canteen' do
     expect(Feedback.count).to eq 0
     visit canteen_path(canteen)
 
@@ -43,7 +43,7 @@ describe 'Reporters: ', type: :feature do
     expect(Feedback.count).to eq 1
   end
 
-  it 'should be able to report correct canteen meta data' do
+  it 'is able to report correct canteen meta data' do
     visit canteen_path(canteen)
 
     click_on 'Daten korrigieren/ergänzen'
@@ -54,9 +54,9 @@ describe 'Reporters: ', type: :feature do
     expect(page).to have_content('Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.')
   end
 
-  it 'should be able to take maintainership for obsolete parser' do
+  it 'is able to take maintainership for obsolete parser' do
     source
-    parser.update_attributes maintainer_wanted: true
+    parser.update maintainer_wanted: true
     visit canteen_path(canteen)
 
     click_on 'Am Parser mitarbeiten'

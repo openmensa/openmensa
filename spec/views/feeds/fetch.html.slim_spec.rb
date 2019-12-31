@@ -42,7 +42,7 @@ describe 'feeds/fetch.html.slim', type: :view do
       allow(view).to receive(:current_user) { owner }
     end
 
-    it 'should display updated entities' do
+    it 'displays updated entities' do
       assign(:result, success_result)
 
       render
@@ -56,7 +56,7 @@ describe 'feeds/fetch.html.slim', type: :view do
       expect(rendered).to include('203 Essen gelöscht')
     end
 
-    it 'should display fetch errors' do
+    it 'displays fetch errors' do
       assign(:result, error_result)
 
       render
@@ -75,7 +75,7 @@ describe 'feeds/fetch.html.slim', type: :view do
       allow(view).to receive(:current_user) { other }
     end
 
-    it 'should not display updated entities' do
+    it 'does not display updated entities' do
       assign(:result, 'status' => 'ok')
 
       render
@@ -89,7 +89,7 @@ describe 'feeds/fetch.html.slim', type: :view do
       expect(rendered).not_to include('105 Essen gelöscht')
     end
 
-    it 'should display fetch errors' do
+    it 'displays fetch errors' do
       assign(:result, 'status' => 'error')
 
       render

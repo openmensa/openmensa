@@ -14,71 +14,71 @@ describe OpenMensa::FeedValidator do
   let(:doc_v21) { Nokogiri::XML::Document.parse mock_content('feed_v21.xml') }
 
   describe '#valid?' do
-    it 'should return true on valid feeds' do
-      expect(OpenMensa::FeedValidator.new(valid_xml)).to be_valid
+    it 'returns true on valid feeds' do
+      expect(described_class.new(valid_xml)).to be_valid
     end
 
-    it 'should return false on valid feed in wrong version' do
-      expect(OpenMensa::FeedValidator.new(doc_v2, version: 1)).to_not be_valid
-      expect(OpenMensa::FeedValidator.new(doc_v1, version: 2)).to_not be_valid
+    it 'returns false on valid feed in wrong version' do
+      expect(described_class.new(doc_v2, version: 1)).not_to be_valid
+      expect(described_class.new(doc_v1, version: 2)).not_to be_valid
     end
 
-    it 'should return false on invalid XML' do
-      expect(OpenMensa::FeedValidator.new(invalid_xml)).not_to be_valid
+    it 'returns false on invalid XML' do
+      expect(described_class.new(invalid_xml)).not_to be_valid
     end
 
-    it 'should return false on non OpenMensa XML' do
-      expect(OpenMensa::FeedValidator.new(non_om_xml)).not_to be_valid
+    it 'returns false on non OpenMensa XML' do
+      expect(described_class.new(non_om_xml)).not_to be_valid
     end
   end
 
   describe '#validate!' do
-    it 'should return version on valid feeds (1)' do
-      expect(OpenMensa::FeedValidator.new(valid_xml_v1).validate!).to eq(1)
+    it 'returns version on valid feeds (1)' do
+      expect(described_class.new(valid_xml_v1).validate!).to eq(1)
     end
 
-    it 'should return version on valid feeds (2)' do
-      expect(OpenMensa::FeedValidator.new(valid_xml).validate!).to eq(2)
+    it 'returns version on valid feeds (2)' do
+      expect(described_class.new(valid_xml).validate!).to eq(2)
     end
 
-    it 'should raise an error on invalid XML' do
+    it 'raises an error on invalid XML' do
       expect do
-        OpenMensa::FeedValidator.new(invalid_xml).validate!
+        described_class.new(invalid_xml).validate!
       end.to raise_error(OpenMensa::FeedValidator::FeedValidationError)
     end
 
-    it 'should raise an error on non OpenMensa XML' do
+    it 'raises an error on non OpenMensa XML' do
       expect do
-        OpenMensa::FeedValidator.new(non_om_xml).validate!
+        described_class.new(non_om_xml).validate!
       end.to raise_error(OpenMensa::FeedValidator::InvalidFeedVersionError)
     end
   end
 
   describe '#validate' do
-    it 'should return version on valid feeds (1)' do
-      expect(OpenMensa::FeedValidator.new(valid_xml_v1).validate).to eq(1)
+    it 'returns version on valid feeds (1)' do
+      expect(described_class.new(valid_xml_v1).validate).to eq(1)
     end
 
-    it 'should return version on valid feeds (2)' do
-      expect(OpenMensa::FeedValidator.new(valid_xml).validate).to eq(2)
+    it 'returns version on valid feeds (2)' do
+      expect(described_class.new(valid_xml).validate).to eq(2)
     end
 
-    it 'should return false on invalid XML' do
-      expect(OpenMensa::FeedValidator.new(invalid_xml).validate).to eq(false)
+    it 'returns false on invalid XML' do
+      expect(described_class.new(invalid_xml).validate).to eq(false)
     end
 
-    it 'should return false on non OpenMensa XML' do
-      expect(OpenMensa::FeedValidator.new(non_om_xml).validate).to eq(false)
+    it 'returns false on non OpenMensa XML' do
+      expect(described_class.new(non_om_xml).validate).to eq(false)
     end
   end
 
   describe '#validated?' do
-    it 'should return false before validating a feed' do
-      expect(OpenMensa::FeedValidator.new(valid_xml)).not_to be_validated
+    it 'returns false before validating a feed' do
+      expect(described_class.new(valid_xml)).not_to be_validated
     end
 
-    it 'should return true after validating valid feeds' do
-      OpenMensa::FeedValidator.new(valid_xml).tap do |vd|
+    it 'returns true after validating valid feeds' do
+      described_class.new(valid_xml).tap do |vd|
         vd.validate!
         expect(vd).to be_validated
       end
@@ -86,29 +86,29 @@ describe OpenMensa::FeedValidator do
   end
 
   describe '#version' do
-    it 'should return version after validating a feed (v1)' do
-      OpenMensa::FeedValidator.new(doc_v1).tap do |vd|
+    it 'returns version after validating a feed (v1)' do
+      described_class.new(doc_v1).tap do |vd|
         vd.validate!
         expect(vd.version).to eq('1.0')
       end
     end
 
-    it 'should return version after validating a feed (v2)' do
-      OpenMensa::FeedValidator.new(doc_v2).tap do |vd|
+    it 'returns version after validating a feed (v2)' do
+      described_class.new(doc_v2).tap do |vd|
         vd.validate!
         expect(vd.version).to eq('2.0')
       end
     end
 
-    it 'should return version after validating a feed (v21)' do
-      OpenMensa::FeedValidator.new(doc_v21).tap do |vd|
+    it 'returns version after validating a feed (v21)' do
+      described_class.new(doc_v21).tap do |vd|
         vd.validate!
         expect(vd.version).to eq('2.1')
       end
     end
 
-    it 'should return version after validating a feed (v21) and given fixed version' do
-      OpenMensa::FeedValidator.new(doc_v21, version: 2).tap do |vd|
+    it 'returns version after validating a feed (v21) and given fixed version' do
+      described_class.new(doc_v21, version: 2).tap do |vd|
         vd.validate!
         expect(vd.version).to eq('2.1')
       end

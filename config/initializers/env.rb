@@ -9,6 +9,6 @@ begin
       ENV[key] ||= str.to_s
     end
   end
-rescue
+rescue StandardError
   Rails.logger.warn "No ENV loaded from file #{ENV_FILE}."
 end

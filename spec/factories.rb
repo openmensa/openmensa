@@ -112,7 +112,7 @@ FactoryBot.define do
   end
 
   factory :note do
-    sequence(:name)     {|n| "note #{n}" }
+    sequence(:name) {|n| "note #{n}" }
   end
 
   factory :feedInvalidUrlError do
@@ -125,7 +125,7 @@ FactoryBot.define do
 
   factory :feedValidationError do
     sequence(:version)  {|n| n % 2 + 1 }
-    sequence(:kind)     {|n| [:invalid_xml, :unknown_version][n % 2] }
+    sequence(:kind)     {|n| %i[invalid_xml unknown_version][n % 2] }
     message             { "#{version} no message" }
   end
 

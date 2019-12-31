@@ -10,7 +10,7 @@ describe 'Profile page', type: :feature do
     click_link 'Profil'
   end
 
-  it 'should allow user to change name and email' do
+  it 'allows user to change name and email' do
     expect(page).to have_content('Name')
     expect(page).to have_content('E-Mail')
 
@@ -24,7 +24,7 @@ describe 'Profile page', type: :feature do
     expect(find_field('E-Mail (nicht öffentlich, wird für').value).to eq('boby@altimos.de')
   end
 
-  it 'should raise error when user tries to update with empty name' do
+  it 'raises error when user tries to update with empty name' do
     expect(page).to have_content('Name')
     expect(page).to have_content('E-Mail')
 
@@ -37,18 +37,18 @@ describe 'Profile page', type: :feature do
     expect(find_field('E-Mail (nicht öffentlich, wird für').value).to eq('boby@altimos.de')
   end
 
-  it 'should allow user to add an identity' do
+  it 'allows user to add an identity' do
     click_link 'Identität hinzufügen'
 
     expect { click_link 'GitHub' }.to change { Identity.all.count }.by(1)
 
     expect(Identity.last.provider).to eq('github')
 
-    expect(current_path).to eq(user_path(user))
+    expect(page).to have_current_path(user_path(user), ignore_query: true)
     expect(page).to have_content('GitHub Identität hinzugefügt.')
   end
 
-  it 'should allow user to remove an identity' do
+  it 'allows user to remove an identity' do
     click_link 'Identität hinzufügen'
     click_link 'GitHub'
 

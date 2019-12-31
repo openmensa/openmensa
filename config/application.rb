@@ -14,7 +14,7 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 #
 # Assets should be precompiled for production (so we don't need the gems loaded then)
-Bundler.require(*Rails.groups(assets: %w(development test)))
+Bundler.require(*Rails.groups(assets: %w[development test]))
 
 module Openmensa
   class Application < Rails::Application
@@ -63,7 +63,7 @@ module Openmensa
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource '/api/*', headers: :any, expose: %w(Link X-OM-Api-Version X-Total-Pages), methods: :get, credentials: false
+        resource '/api/*', headers: :any, expose: %w[Link X-OM-Api-Version X-Total-Pages], methods: :get, credentials: false
       end
     end
 

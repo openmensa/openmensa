@@ -11,9 +11,8 @@ Geocoder.configure(
   timeout: 3,
 
   # set default units to kilometers:
-  units: :km,
-
-# caching (see below for details):
-#:cache => Redis.new,
-#:cache_prefix => "..."
+  units: :km
+  # caching (see below for details):
+  #:cache => Redis.new,
+  #:cache_prefix => "..."
 )

@@ -48,10 +48,10 @@ describe 'Inform', type: :feature do
       expect(page).to have_link 'RubyOnRails'
     end
 
-    it 'should be able to see the list of interested canteens' do
+    it 'is able to see the list of interested canteens' do
       FactoryBot.create :canteen, state: 'wanted',
-                                   name: 'Meine Liebligsmensa',
-                                   city: 'Hamburg'
+                                  name: 'Meine Liebligsmensa',
+                                  city: 'Hamburg'
       visit root_path
 
       click_on 'Arbeite mit an OpenMensa'

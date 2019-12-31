@@ -3,41 +3,41 @@
 Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v2 do
-      resources :canteens, only: [:index, :show] do
-        resources :days, only: [:index, :show] do
-          resources :meals, only: [:index, :show]
+      resources :canteens, only: %i[index show] do
+        resources :days, only: %i[index show] do
+          resources :meals, only: %i[index show]
         end
         get 'meals' => 'meals#canteen_meals'
       end
     end
   end
 
-  resources :canteens, path: 'c', only: [:new, :create]
+  resources :canteens, path: 'c', only: %i[new create]
   get '/wanted' => 'canteens#wanted', as: :wanted_canteens
   get '/c/:id(/:date)' => 'canteens#show', as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
-  resources :canteens, path: 'c', only: [:show, :new, :create, :edit, :update] do
-    resource :favorite, only: [:create, :destroy]
-    resource :active, controller: :canteen_activation, only: [:create, :destroy]
-    resources :data_proposals, path: 'proposals', only: [:new, :create, :index]
-    resources :feedbacks, only: [:new, :create, :index]
+  resources :canteens, path: 'c', only: %i[show new create edit update] do
+    resource :favorite, only: %i[create destroy]
+    resource :active, controller: :canteen_activation, only: %i[create destroy]
+    resources :data_proposals, path: 'proposals', only: %i[new create index]
+    resources :feedbacks, only: %i[new create index]
     resources :messages, path: 'm', only: [:index]
   end
   resources :users, path: 'u' do
     resources :favorites, path: 'favs', only: [:index]
-    resources :identities, path: 'ids', only: [:new, :create, :destroy]
+    resources :identities, path: 'ids', only: %i[new create destroy]
     resource :developer
   end
   get 'activate/:token', to: 'developers#activate', as: :activate
 
   resources :favorites, path: 'favs', only: [:index]
-  resources :sources, only: [:create, :update, :edit] do
+  resources :sources, only: %i[create update edit] do
     resources :feeds, only: [:create]
   end
   get '/feeds/:id/fetch' => 'feeds#fetch', as: :feed_fetch
   get '/feeds/:id/messages' => 'feeds#messages', as: :feed_messages
-  resources :feeds, only: [:update, :destroy]
+  resources :feeds, only: %i[update destroy]
   resources :parsers do
-    resources :sources, only: [:new, :create]
+    resources :sources, only: %i[new create]
   end
   post '/parsers/:id/sync', to: 'parsers#sync', as: :sync_parser
   post '/sources/:id/sync', to: 'sources#sync', as: :sync_source

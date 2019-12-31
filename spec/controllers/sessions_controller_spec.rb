@@ -8,7 +8,7 @@ describe SessionsController, type: :controller do
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
     end
 
-    it 'should create user from omniauth hash w/o info node' do
+    it 'creates user from omniauth hash w/o info node' do
       request.env['omniauth.auth'] = {
         'provider' => 'test',
         'uid' => '123456',
@@ -26,15 +26,14 @@ describe SessionsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
 
-    it 'should redirect to back url' do
+    it 'redirects to back url' do
       get :create, params: {provider: 'twitter', ref: '/mypath'}
 
       expect(response).to redirect_to('/mypath')
     end
 
-    it 'should only redirect to own host' do
-      get :create,
-        params: {provider: 'twitter', ref: 'http://twitter.com/path'}
+    it 'only redirects to own host' do
+      get :create, params: {provider: 'twitter', ref: 'http://twitter.com/path'}
 
       expect(response).to redirect_to('/')
     end

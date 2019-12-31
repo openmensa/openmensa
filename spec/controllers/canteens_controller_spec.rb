@@ -6,28 +6,29 @@ describe CanteensController, type: :controller do
   describe '#show' do
     let(:canteen) { FactoryBot.create :canteen, :with_meals }
 
-    it 'should fetch canteen' do
+    it 'fetches canteen' do
       get :show, params: {id: canteen.id}
 
       expect(assigns(:canteen)).to eq canteen
     end
 
-    it "canteen's meals for today" do
+    it 'canteens meals for today' do
       get :show, params: {id: canteen.id}
 
       expect(assigns(:date)).to eq Date.today
       expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now)
     end
 
-    it 'should fetch meals for given date parameter' do
+    it 'fetches meals for given date parameter' do
       get :show, params: {id: canteen.id, date: Time.zone.now + 1.day}
 
       expect(assigns(:date)).to eq (Time.zone.now + 1.day).to_date
       expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now + 1.day)
     end
 
-    context ' with replaced canteen' do
+    context 'with replaced canteen' do
       let(:replaced) { FactoryBot.create :canteen, state: 'archived', replaced_by: canteen }
+
       it 'asdf' do
         get :show, params: {id: replaced.id}
 
@@ -43,11 +44,11 @@ describe CanteensController, type: :controller do
     let(:canteen) { FactoryBot.create :canteen, :with_meals }
     let(:user) { FactoryBot.create :user }
 
-    it 'should not be accessible by anonymous' do
+    it 'is not accessible by anonymous' do
       patch :update, params: {id: canteen.id, canteen: {name: 'NewName'}}
 
       canteen.reload
-      expect(canteen.name).to_not eq 'NewName'
+      expect(canteen.name).not_to eq 'NewName'
 
       expect(response.status).to eq 401
     end

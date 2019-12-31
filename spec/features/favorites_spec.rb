@@ -58,7 +58,7 @@ describe 'Favorites: ', type: :feature do
       click_on favorite.canteen.name
 
       expect(page).to have_content favorite.canteen.name
-      expect(current_path).to eq canteen_path(favorite.canteen)
+      expect(page).to have_current_path canteen_path(favorite.canteen), ignore_query: true
     end
 
     it 'is redirected to canteen page on one favorite' do
@@ -66,7 +66,7 @@ describe 'Favorites: ', type: :feature do
 
       visit root_path
 
-      expect(current_path).to eq canteen_path(favorite.canteen)
+      expect(page).to have_current_path canteen_path(favorite.canteen), ignore_query: true
 
       expect(page).to have_content favorite.canteen.name
     end
@@ -74,10 +74,10 @@ describe 'Favorites: ', type: :feature do
     context 'with previous set favorites' do
       before { favorite; favorite2 }
 
-      it 'should be redirected to menu page if start page is open directly' do
+      it 'is redirected to menu page if start page is open directly' do
         visit root_path
 
-        expect(current_path).to eq menu_path
+        expect(page).to have_current_path menu_path, ignore_query: true
 
         expect(page).to have_content(canteen.name)
         expect(page).to have_link("Mehr zu #{canteen.name}")
@@ -85,17 +85,17 @@ describe 'Favorites: ', type: :feature do
         expect(page).to have_link("Mehr zu #{canteen2.name}")
       end
 
-      it 'should be possible to open menu page from start page' do
+      it 'is possible to open menu page from start page' do
         visit root_path
         click_on 'OpenMensa' # we are on the menu page, lets open the start page
 
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path root_path, ignore_query: true
 
-        expect(page).to have_link("Menü-Übersicht über alle Favoriten")
+        expect(page).to have_link('Menü-Übersicht über alle Favoriten')
 
         click_on 'Menü-Übersicht über alle Favoriten'
 
-        expect(current_path).to eq menu_path
+        expect(page).to have_current_path menu_path, ignore_query: true
       end
     end
   end
@@ -103,13 +103,13 @@ describe 'Favorites: ', type: :feature do
   context 'anonymous' do
     let(:canteen) { FactoryBot.create :canteen }
 
-    it 'should have not favorite link on canteen page' do
+    it 'has not favorite link on canteen page' do
       visit canteen_path(canteen)
 
       expect(page).not_to have_link 'Als Favorit markieren'
     end
 
-    it 'should have a start page without favorite menu' do
+    it 'has a start page without favorite menu' do
       visit root_path
 
       expect(page).not_to have_content('Meine Favoriten')

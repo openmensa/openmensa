@@ -6,7 +6,7 @@ include Nokogiri
 describe OpenMensa::Updater do
   let(:feed) { FactoryBot.create :feed }
   let(:canteen) { feed.source.canteen }
-  let(:updater) { OpenMensa::Updater.new(feed, 'manual', version: 2.1) }
+  let(:updater) { described_class.new(feed, 'manual', version: 2.1) }
   let(:today) { FactoryBot.create :today, canteen: canteen }
   let(:document) { XML::Document.new }
   let(:root_element) do
@@ -14,9 +14,10 @@ describe OpenMensa::Updater do
     document.root = n
     n
   end
-  before { Timecop.freeze DateTime.new(2012, 04, 16, 8, 5, 3) }
 
-  context '#fetch' do
+  before { Timecop.freeze DateTime.new(2012, 0o4, 16, 8, 5, 3) }
+
+  describe '#fetch' do
     before do
       stub_request(:any, 'example.com/canteen_feed.xml')
         .to_return(body: mock_file('canteen_feed.xml'), status: 200)
@@ -34,7 +35,7 @@ describe OpenMensa::Updater do
         .to_timeout
     end
 
-    it 'should skip invalid urls' do
+    it 'skips invalid urls' do
       feed.update_attribute :url, ':///:asdf'
       expect(updater.fetch!).to be_falsey
       m = feed.messages.first
@@ -43,12 +44,12 @@ describe OpenMensa::Updater do
       expect(updater.fetch.state).to eq 'broken'
     end
 
-    it 'should receive feed data via http' do
+    it 'receives feed data via http' do
       feed.update_attribute :url, 'http://example.com/data.xml'
       expect(updater.fetch!.read).to eq('<xml>')
     end
 
-    it 'should update feed url on 301 responses' do
+    it 'updates feed url on 301 responses' do
       feed.update_attribute :url, 'http://example.com/301.xml'
       expect(updater.fetch!.read).to eq('<xml>')
       expect(feed.url).to eq('http://example.com/data.xml')
@@ -58,13 +59,13 @@ describe OpenMensa::Updater do
       expect(m.new_url).to eq('http://example.com/data.xml')
     end
 
-    it 'should not update feed url on 302 responses' do
+    it 'does not update feed url on 302 responses' do
       feed.update_attribute :url, 'http://example.com/302.xml'
       expect(updater.fetch!.read).to eq('<xml>')
       expect(feed.url).to eq('http://example.com/302.xml')
     end
 
-    it 'should handle http errors correctly' do
+    it 'handles http errors correctly' do
       feed.update_attribute :url, 'http://example.com/500.xml'
       expect(updater.fetch!).to be_falsey
       m = updater.fetch.messages.first
@@ -74,7 +75,7 @@ describe OpenMensa::Updater do
       expect(updater.fetch.state).to eq 'failed'
     end
 
-    it 'should handle network errors correctly' do
+    it 'handles network errors correctly' do
       feed.update_attribute :url, 'http://unknowndomain.org'
       expect(updater.fetch!).to be_falsey
       m = updater.fetch.messages.first
@@ -84,7 +85,7 @@ describe OpenMensa::Updater do
       expect(updater.fetch.state).to eq 'failed'
     end
 
-    it 'should handle network timeout ' do
+    it 'handles network timeout' do
       feed.update_attribute :url, 'http://example.org/timeout.xml'
       expect(updater.fetch!).to be_falsey
       m = updater.fetch.messages.first
@@ -138,21 +139,21 @@ describe OpenMensa::Updater do
     end
   end
 
-  it 'should return 1.0 on valid v1 openmensa xml feeds' do
+  it 'returns 1.0 on valid v1 openmensa xml feeds' do
     allow(updater).to receive(:data).and_return mock_content('canteen_feed.xml')
     updater.parse!
     expect(updater.validate!).to eq('1.0')
     expect(updater.fetch.version).to eq '1.0'
   end
 
-  it 'should return 2.0 on valid v2.0 openmensa xml feeds' do
+  it 'returns 2.0 on valid v2.0 openmensa xml feeds' do
     allow(updater).to receive(:data).and_return mock_content('feed_v2.xml')
     updater.parse!
     expect(updater.validate!).to eq('2.0')
     expect(updater.fetch.version).to eq '2.0'
   end
 
-  it 'should return 2.1 on valid v2.1 openmensa xml feeds' do
+  it 'returns 2.1 on valid v2.1 openmensa xml feeds' do
     allow(updater).to receive(:data).and_return mock_content('feed_v21.xml')
     updater.parse!
     expect(updater.validate!).to eq('2.1')
@@ -166,13 +167,13 @@ describe OpenMensa::Updater do
 
       expect do
         updater.update_canteen updater.document.root.child.next
-      end.to_not change { canteen.last_fetched_at }
+      end.not_to change(canteen, :last_fetched_at)
     end
 
     context 'with new data' do
       before { updater.fetch.init_counters }
 
-      it 'should add a new meals to a day' do
+      it 'adds a new meals to a day' do
         meal_name = 'Essen 1'
         meal_category = 'Hauptgricht'
 
@@ -189,13 +190,13 @@ describe OpenMensa::Updater do
         expect(today.meals.first.name).to eq(meal_name)
         expect(today.meals.first.prices[:student]).to eq(1.7)
         expect(today.meals.first.prices[:other]).to eq(2.7)
-        expect(today.meals.first.notes.map(&:name)).to match_array(%w(vegan vegetarisch))
+        expect(today.meals.first.notes.map(&:name)).to match_array(%w[vegan vegetarisch])
 
         expect(updater.fetch.added_meals).to eq(1)
         expect(updater).to be_changed
       end
 
-      it 'should add a new day with meals entries' do
+      it 'adds a new day with meals entries' do
         # data
         category1_name = 'Hauptgricht'
         category1_meal1_name = 'Essen 1'
@@ -232,7 +233,7 @@ describe OpenMensa::Updater do
         expect(updater).to be_changed
       end
 
-      it 'should add closed days entries' do
+      it 'adds closed days entries' do
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = Time.zone.today.to_s
@@ -252,7 +253,7 @@ describe OpenMensa::Updater do
         expect(updater).to be_changed
       end
 
-      it 'should update last_fetch_at and not last_changed_at' do
+      it 'updates last_fetch_at and not last_changed_at' do
         allow(updater).to receive(:data).and_return mock_content('feed_v2.xml')
         updater.parse!
 
@@ -266,7 +267,7 @@ describe OpenMensa::Updater do
         expect(canteen.updated_at).to eq(updated_at)
       end
 
-      it 'should not add dates in the past' do
+      it 'does not add dates in the past' do
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = (Time.zone.today - 2.days).to_s
@@ -283,7 +284,7 @@ describe OpenMensa::Updater do
         expect(updater).not_to be_changed
       end
 
-      it 'should add information about today' do
+      it 'adds information about today' do
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = Date.today.to_s
@@ -304,7 +305,7 @@ describe OpenMensa::Updater do
     context 'with old data' do
       before { updater.fetch.init_counters }
 
-      it 'should allow to close the canteen on given days' do
+      it 'allows to close the canteen on given days' do
         # build xml data
         root_element << day = xml_node('day')
         day['date'] = today.date.to_s
@@ -324,7 +325,7 @@ describe OpenMensa::Updater do
         expect(updater).to be_changed
       end
 
-      it 'should allow to reopen a canteen on given days' do
+      it 'allows to reopen a canteen on given days' do
         # data
         category_name = 'Hauptessen'
         meal_name = 'Essen 1'
@@ -337,7 +338,7 @@ describe OpenMensa::Updater do
         day['date'] = today.date.to_s
         day << category = xml_node('category')
         category['name'] = category_name
-        category <<  xml_meal(meal_name)
+        category << xml_meal(meal_name)
 
         # starting check
         expect(today.meals.size).to eq(0)
@@ -352,7 +353,7 @@ describe OpenMensa::Updater do
         expect(updater).to be_changed
       end
 
-      it 'should add new meals' do
+      it 'adds new meals' do
         # data
         category_name = 'Hauptessen'
         meal_name = 'Essen 1'
@@ -383,9 +384,9 @@ describe OpenMensa::Updater do
         expect(updater.fetch.added_meals).to eq(1)
       end
 
-      it 'should update changed meals' do
+      it 'updates changed meals' do
         meal1 = FactoryBot.create :meal, day: today, prices: {student: 1.8, employee: 2.9, other: nil, pupil: nil}
-        meal1.notes = %w(vegan vegetarisch)
+        meal1.notes = %w[vegan vegetarisch]
 
         # build xml data
         root_element << day = xml_node('day')
@@ -406,16 +407,16 @@ describe OpenMensa::Updater do
 
         expect(today.meals.size).to eq(1)
         expect(today.meals.first.prices).to eq(student: 1.7, other: 2.7)
-        expect(today.meals.first.notes.map(&:name)).to match_array(%w(vegan scharf))
+        expect(today.meals.first.notes.map(&:name)).to match_array(%w[vegan scharf])
         expect(today.meals.first.name).to eq(meal1.name)
         expect(today.meals.first.updated_at).to be > updated_at
         expect(updater.fetch.updated_meals).to eq(1)
       end
 
-      it 'should not update unchanged meals' do
+      it 'does not update unchanged meals' do
         # close our test day
         meal1 = FactoryBot.create :meal, day: today, prices: {student: 1.8, employee: 2.9, other: nil, pupil: nil}
-        meal1.notes = %w(vegan vegetarisch)
+        meal1.notes = %w[vegan vegetarisch]
 
         # build xml data
         root_element << day = xml_node('day')
@@ -436,13 +437,13 @@ describe OpenMensa::Updater do
 
         expect(today.meals.size).to eq(1)
         expect(today.meals.first.prices).to eq(student: 1.8, employee: 2.9)
-        expect(today.meals.first.notes.map(&:name)).to match_array(%w(vegan vegetarisch))
+        expect(today.meals.first.notes.map(&:name)).to match_array(%w[vegan vegetarisch])
         expect(today.meals.first.name).to eq(meal1.name)
         expect(today.meals.first.updated_at).to eq(updated_at)
         expect(updater.fetch.updated_meals).to eq(0)
       end
 
-      it 'should drop disappeared meals' do
+      it 'drops disappeared meals' do
         # close our test day
         meal1 = FactoryBot.create :meal, day: today
         meal2 = FactoryBot.create :meal, day: today
@@ -463,13 +464,13 @@ describe OpenMensa::Updater do
         expect(today.meals.reload.size).to eq(1)
         expect(today.meals.first).to eq(meal2)
 
-        expect(ids.map {|id| Meal.find_by_id id }).to match_array([meal2, nil])
+        expect(ids.map {|id| Meal.find_by id: id }).to match_array([meal2, nil])
 
         expect(updater.fetch.removed_meals).to eq(1)
         expect(updater).to be_changed
       end
 
-      it 'should not update last_changed_at on unchanged meals' do
+      it 'does not update last_changed_at on unchanged meals' do
         # close our test day
         meal1 = FactoryBot.create :meal, day: today
 
@@ -490,13 +491,13 @@ describe OpenMensa::Updater do
         expect(meal1.updated_at).to eq(updated_at)
       end
 
-      it 'should update last_fetch_at and not last_changed_at' do
+      it 'updates last_fetch_at and not last_changed_at' do
         allow(updater).to receive(:data).and_return mock_content('feed_v2.xml')
         updater.parse!
 
-        day1 = FactoryBot.create :day, date: Date.new(2012, 05, 22), canteen: canteen
+        day1 = FactoryBot.create :day, date: Date.new(2012, 0o5, 22), canteen: canteen
         meal1 = FactoryBot.create :meal, day: day1, name: 'Tagessuppe'
-        day2 = FactoryBot.create :day, date: Date.new(2012, 05, 29), canteen: canteen
+        day2 = FactoryBot.create :day, date: Date.new(2012, 0o5, 29), canteen: canteen
         meal2 = FactoryBot.create :meal, day: day2
         meal3 = FactoryBot.create :meal, day: day2
         meal4 = FactoryBot.create :meal, day: today
@@ -515,7 +516,7 @@ describe OpenMensa::Updater do
         expect(canteen.updated_at).to eq(updated_at)
       end
 
-      it 'should set last_fetched_at on unchanged feed data with days' do
+      it 'sets last_fetched_at on unchanged feed data with days' do
         allow(updater).to receive(:data).and_return mock_content('feed_v2.xml')
         updater.parse!
 
@@ -527,7 +528,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        Timecop.freeze Time.now + 1.hour
+        Timecop.freeze Time.zone.now + 1.hour
 
         updater.update_canteen updater.document.root.child.next
 
@@ -535,7 +536,7 @@ describe OpenMensa::Updater do
         expect(canteen.updated_at).to eq(updated_at)
       end
 
-      it 'should not update days in the past' do
+      it 'does not update days in the past' do
         d = FactoryBot.create :day, date: (Date.today - 2.days), canteen: canteen
         # build xml data
         root_element << day = xml_node('day')
@@ -552,7 +553,7 @@ describe OpenMensa::Updater do
         expect(updater).not_to be_changed
       end
 
-      it 'should update today' do
+      it 'updates today' do
         d = FactoryBot.create :day, date: Date.today, canteen: canteen
         # build xml data
         root_element << day = xml_node('day')
@@ -572,8 +573,8 @@ describe OpenMensa::Updater do
       end
     end
 
-    context '#update' do
-      it 'should handle compact document' do
+    describe '#update' do
+      it 'handles compact document' do
         feed.url = 'http://example.org/compact.xml'
         stub_request(:any, 'example.org/compact.xml')
           .to_return(body: mock_file('feed2_compact.xml'), status: 200)
@@ -582,7 +583,7 @@ describe OpenMensa::Updater do
         expect(canteen.meals.size).to eq(4)
       end
 
-      it 'should merge double meal names correctly' do
+      it 'merges double meal names correctly' do
         feed.url = 'http://example.org/double.xml'
         stub_request(:any, 'example.org/double.xml')
           .to_return(body: mock_file('feed2_doubleMeals.xml'), status: 200)
@@ -594,12 +595,12 @@ describe OpenMensa::Updater do
         expect(canteen.meals.size).to eq(3)
       end
 
-      it 'should not change data on same feed' do
+      it 'does not change data on same feed' do
         feed.url = 'http://example.org/compact.xml'
         stub_request(:any, 'example.org/compact.xml')
           .to_return(body: mock_file('feed2_compact.xml'), status: 200)
         # first
-        first_updater = OpenMensa::Updater.new(feed, 'manual', version: 2)
+        first_updater = described_class.new(feed, 'manual', version: 2)
         expect(first_updater.update).to be_truthy
         # second
         expect(updater.update).to be_truthy
@@ -611,7 +612,7 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq 'unchanged'
       end
 
-      it 'should fetch meals from remote source (version 1.0)' do
+      it 'fetches meals from remote source (version 1.0)' do
         feed.url = 'http://example.com/canteen_feed.xml'
         stub_request(:any, 'example.com/canteen_feed.xml')
           .to_return(body: mock_file('canteen_feed.xml'), status: 200)
@@ -620,7 +621,7 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq 'changed'
       end
 
-      it 'should fetch meals from remote source (version 2.0)' do
+      it 'fetches meals from remote source (version 2.0)' do
         feed.url = 'http://example.com/feed_v2.xml'
         stub_request(:any, 'example.com/feed_v2.xml')
           .to_return(body: mock_file('feed_v2.xml'), status: 200)
@@ -629,7 +630,7 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq 'changed'
       end
 
-      it 'should fetch meals from remote source (version 2.1)' do
+      it 'fetches meals from remote source (version 2.1)' do
         feed.url = 'http://example.com/feed_v21.xml'
         stub_request(:any, 'example.com/feed_v21.xml')
           .to_return(body: mock_file('feed_v21.xml'), status: 200)
@@ -638,7 +639,7 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq 'changed'
       end
 
-      it 'should detect empty feeds' do
+      it 'detects empty feeds' do
         feed.url = 'http://example.com/feed2_empty.xml'
         stub_request(:any, 'example.com/feed2_empty.xml')
           .to_return(body: mock_file('feed2_empty.xml'), status: 200)
@@ -647,18 +648,18 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq 'empty'
       end
 
-      it 'should handling feeds with only past days as empty feeds' do
+      it 'handlings feeds with only past days as empty feeds' do
         feed.url = 'http://example.com/feed_v2.xml'
         stub_request(:any, 'example.com/feed_v2.xml')
           .to_return(body: mock_file('feed_v2.xml'), status: 200)
-        Timecop.freeze DateTime.new(2015, 04, 16, 8, 5, 3)
+        Timecop.freeze DateTime.new(2015, 0o4, 16, 8, 5, 3)
         updater.update
         expect(canteen.meals).to have(0).items
         expect(updater.fetch.state).to eq 'empty'
       end
 
-      it 'should activate a wanted canteen' do
-        canteen.update_attributes state: 'wanted'
+      it 'activates a wanted canteen' do
+        canteen.update state: 'wanted'
         feed.url = 'http://example.com/feed_v2.xml'
         stub_request(:any, 'example.com/feed_v2.xml')
           .to_return(body: mock_file('feed_v2.xml'), status: 200)
@@ -667,8 +668,8 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq 'changed'
       end
 
-      it 'should activate a empty canteen' do
-        canteen.update_attributes state: 'empty'
+      it 'activates a empty canteen' do
+        canteen.update state: 'empty'
         feed.url = 'http://example.com/feed_v2.xml'
         stub_request(:any, 'example.com/feed_v2.xml')
           .to_return(body: mock_file('feed_v2.xml'), status: 200)

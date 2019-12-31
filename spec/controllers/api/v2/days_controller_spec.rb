@@ -10,9 +10,10 @@ describe Api::V2::DaysController, type: :controller do
   describe 'GET index' do
     let(:day) { FactoryBot.create :day }
     let(:canteen) { day.canteen }
+
     before { day }
 
-    it 'should answer with a list' do
+    it 'answers with a list' do
       get :index, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
 
@@ -20,7 +21,7 @@ describe Api::V2::DaysController, type: :controller do
       expect(json.size).to eq(1)
     end
 
-    it 'should answer with a list of day nodes' do
+    it 'answers with a list of day nodes' do
       get :index, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
 
@@ -43,7 +44,7 @@ describe Api::V2::DaysController, type: :controller do
         FactoryBot.create :day, canteen: canteen, date: tomorrow.date + 1
       end
 
-      it 'should default to today if not given' do
+      it 'defaults to today if not given' do
         get :index, format: :json, params: {canteen_id: canteen.id}
 
         expect(json).to have(3).items
@@ -57,11 +58,12 @@ describe Api::V2::DaysController, type: :controller do
   describe 'GET show' do
     let(:day) { FactoryBot.create :day }
     let(:canteen) { day.canteen }
+
     before { canteen }
 
-    it 'should answer with day' do
+    it 'answers with day' do
       get :show, format: :json,
-        params: {canteen_id: canteen.id, id: day.to_param}
+                 params: {canteen_id: canteen.id, id: day.to_param}
 
       expect(response.status).to eq(200)
 
