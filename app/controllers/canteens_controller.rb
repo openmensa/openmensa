@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CanteensController < ApplicationController
-  before_action :new_resource, only: [:new, :create]
-  before_action :load_resource, only: [:show, :update, :edit, :fetch]
+class CanteensController < WebController
+  before_action :new_resource, only: %i[new create]
+  before_action :load_resource, only: %i[show update edit fetch]
   load_and_authorize_resource
 
   def index
@@ -28,8 +28,7 @@ class CanteensController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @canteen.update canteen_params
@@ -41,11 +40,11 @@ class CanteensController < ApplicationController
   end
 
   def show
-    if params[:date]
-      @date  = Date.parse params[:date].to_s
-    else
-      @date  = Time.zone.now.to_date
-    end
+    @date = if params[:date]
+              Date.parse params[:date].to_s
+            else
+              Time.zone.now.to_date
+            end
 
     @meals = @canteen.meals.for @date
   end
@@ -58,9 +57,7 @@ class CanteensController < ApplicationController
 
   def load_resource
     @canteen = Canteen.find params[:id]
-    if @canteen.replaced?
-      @canteen = @canteen.replaced_by
-    end
+    @canteen = @canteen.replaced_by if @canteen.replaced?
   end
 
   def new_resource

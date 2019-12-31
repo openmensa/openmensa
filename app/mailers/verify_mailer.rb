@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class VerifyMailer < ActionMailer::Base
-  default from: 'mail@openmensa.org'
-
+class VerifyMailer < ApplicationMailer
   def verify_email(user, url)
     @user = user
     @url = url

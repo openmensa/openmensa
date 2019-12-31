@@ -7,7 +7,7 @@ module ApplicationHelper
 
     options[:default] ||= "[[#{id}]]"
     I18n.t(id, options.merge(raise: true, default: nil)).html_safe
-  rescue
+  rescue StandardError
     Rails.logger.warn $ERROR_INFO
     options[:default].to_s
   end
@@ -18,7 +18,7 @@ module ApplicationHelper
     if user
       content_tag :span, class: 'avatar', style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : '' do
         image_tag user.gravatar_url(options).to_s,
-          alt:   user.name,
+          alt: user.name,
           class: 'avatar',
           style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ''
       end

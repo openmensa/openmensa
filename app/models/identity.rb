@@ -3,19 +3,19 @@
 require 'bcrypt'
 
 class Identity < ApplicationRecord
-  SERVICES = [:twitter, :google, :facebook, :github]
+  SERVICES = %i[twitter google facebook github].freeze
 
   belongs_to :user
 
-  validates_presence_of :provider, :uid
-  validates_uniqueness_of :uid, scope: :provider
+  validates :provider, :uid, presence: true
+  validates :uid, uniqueness: {scope: :provider}
 
   def self.from_omniauth(auth)
     find_omniauth(auth) || new_with_omniauth(auth)
   end
 
   def self.find_omniauth(auth)
-    find_by_provider_and_uid(auth['provider'], auth['uid'].to_s)
+    find_by(provider: auth['provider'], uid: auth['uid'].to_s)
   end
 
   def self.new_with_omniauth(auth, user = nil)

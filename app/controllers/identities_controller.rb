@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class IdentitiesController < ApplicationController
+class IdentitiesController < WebController
   load_and_authorize_resource
 
   def new

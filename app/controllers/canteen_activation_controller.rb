@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-class CanteenActivationController < ApplicationController
+class CanteenActivationController < WebController
   before_action :load_resource
+
   def create
-    if @canteen.update_attributes state: 'wanted'
+    if @canteen.update state: 'wanted'
       flash[:notice] = t('canteen.activation.successful_activated')
     else
       flash[:error] = t('canteen.activation.errored_activated')
@@ -12,7 +13,7 @@ class CanteenActivationController < ApplicationController
   end
 
   def destroy
-    if @canteen.update_attributes state: 'archived'
+    if @canteen.update state: 'archived'
       flash[:notice] = t('canteen.activation.successful_deactivated')
     else
       flash[:error] = t('canteen.activation.errored_deactivated')

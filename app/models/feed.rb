@@ -7,7 +7,7 @@ class Feed < ApplicationRecord
   has_many :fetches, class_name: 'FeedFetch'
   has_many :messages, as: :messageable
 
-  scope :fetch_needed, -> {
+  scope :fetch_needed, lambda {
     where('next_fetch_at < ?', Time.zone.now).order(:next_fetch_at)
   }
 
@@ -23,9 +23,7 @@ class Feed < ApplicationRecord
     where('(schedule IS NOT NULL AND id NOT IN (?))', Feed.archived.select(:id))
   }
 
-  def canteen
-    source.canteen
-  end
+  delegate :canteen, to: :source
 
   def feed_timespans
     {

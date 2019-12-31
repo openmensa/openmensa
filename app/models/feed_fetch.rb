@@ -6,12 +6,12 @@ class FeedFetch < ApplicationRecord
   belongs_to :feed
   has_many :messages, as: :messageable
 
-  STATES = %w(fetching failed broken invalid empty unchanged changed)
-  REASONS = %w(schedule retry manual)
+  STATES = %w[fetching failed broken invalid empty unchanged changed].freeze
+  REASONS = %w[schedule retry manual].freeze
 
   validates :executed_at, :reason, presence: true
-  validates :state, inclusion: { in: STATES, message: '%{value} is not a valid feed state' }
-  validates :reason, inclusion: { in: REASONS, message: '%{value} is not a valid feed state' }
+  validates :state, inclusion: {in: STATES, message: '%{value} is not a valid feed state'}
+  validates :reason, inclusion: {in: REASONS, message: '%{value} is not a valid feed state'}
 
   def init_counters
     self.added_meals = 0

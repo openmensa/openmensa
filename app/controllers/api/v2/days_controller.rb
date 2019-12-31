@@ -18,6 +18,6 @@ class Api::V2::DaysController < Api::BaseController
   end
 
   def find_resource
-    scoped_resource.find_by_date! params[:id]
+    scoped_resource.find_by! date: params[:id]
   end
 end

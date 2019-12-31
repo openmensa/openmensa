@@ -6,7 +6,7 @@ class Message < ApplicationRecord
   serialize :data, Hash
 
   validates :priority, inclusion: {
-    in: %w(error warning info debug),
+    in: %w[error warning info debug],
     message: I18n.t(:no_valid_priority)
   }
 
@@ -36,7 +36,7 @@ class Message < ApplicationRecord
     I18n.t("messages.text_mail.#{self.class.name.underscore}", data)
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'type' => self.class.name.underscore
     }
@@ -74,7 +74,7 @@ class FeedFetchError < Message
     data[:message] = m
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'type' => self.class.name.underscore,
       'code' => code,
@@ -85,7 +85,7 @@ end
 
 class FeedValidationError < Message
   validates :kind, inclusion: {
-    in: [:no_xml, :no_json, :unknown_version, :invalid_xml, :invalid_json]
+    in: %i[no_xml no_json unknown_version invalid_xml invalid_json]
   }
 
   def version
@@ -120,7 +120,7 @@ class FeedValidationError < Message
     I18n.t("messages.text_mail.feed_validation_error.#{kind}", data)
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'type' => self.class.name.underscore,
       'kind' => kind,
@@ -132,7 +132,7 @@ end
 
 class SourceListChanged < Message
   validates :kind, inclusion: {
-    in: [:new_source, :source_archived, :source_reactivated]
+    in: %i[new_source source_archived source_reactivated]
   }
 
   def kind
@@ -167,7 +167,7 @@ class SourceListChanged < Message
     I18n.t("messages.text_mail.source_list_changed.#{kind}", data)
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'type' => self.class.name.underscore,
       'kind' => kind,
@@ -179,7 +179,7 @@ end
 
 class FeedChanged < Message
   validates :kind, inclusion: {
-    in: [:created, :updated, :deleted]
+    in: %i[created updated deleted]
   }
 
   def kind
@@ -206,11 +206,11 @@ class FeedChanged < Message
     I18n.t("messages.text_mail.feed_updated.#{kind}", data)
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'type' => self.class.name.underscore,
       'kind' => kind,
-      'name' => name,
+      'name' => name
     }
   end
 end

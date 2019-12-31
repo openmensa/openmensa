@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StaticController < ApplicationController
+class StaticController < WebController
   skip_authorization_check
   respond_to :html
 
@@ -15,15 +15,11 @@ class StaticController < ApplicationController
     end
   end
 
-  def impressum
-  end
+  def impressum; end
 
-  def about
-  end
+  def about; end
 
-  def support
-  end
+  def support; end
 
-  def contribute
-  end
+  def contribute; end
 end

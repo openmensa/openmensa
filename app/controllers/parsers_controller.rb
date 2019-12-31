@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class ParsersController < ApplicationController
-  before_action :new_resource, only: [:new, :create]
-  before_action :load_resource, only: [:show, :edit, :update, :sync]
+class ParsersController < WebController
+  before_action :new_resource, only: %i[new create]
+  before_action :load_resource, only: %i[show edit update sync]
   load_and_authorize_resource
 
-  def new
-  end
+  def new; end
 
   def create
     if @parser.update parser_params
@@ -21,8 +20,7 @@ class ParsersController < ApplicationController
     @sources = @parser.sources.includes(:feeds)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @parser.update parser_params

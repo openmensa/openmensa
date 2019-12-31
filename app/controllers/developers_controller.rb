@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class DevelopersController < ApplicationController
-  skip_authorization_check only: %i(activate)
+class DevelopersController < WebController
+  skip_authorization_check only: %i[activate]
   def show
     authorize! :edit, @user
     if @user.developer?
@@ -31,7 +31,7 @@ class DevelopersController < ApplicationController
       flash[:error] = t('message.activate.unknown_token')
       return
     end
-    if user.update_attributes developer: true
+    if user.update developer: true
       flash[:notice] = t('message.activate.got_developer')
     else
       flash[:error] = t('message.activate.could_not_activate_link')
@@ -41,9 +41,10 @@ class DevelopersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:public_name, :info_url,
-                                 :notify_email, :public_email)
+      :notify_email, :public_email)
   end
 
   class << self

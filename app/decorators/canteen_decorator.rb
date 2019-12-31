@@ -6,6 +6,7 @@ class CanteenDecorator < Draper::Decorator
 
   def coordinates
     return nil if model.latitude.nil? || model.longitude.nil?
+
     [model.latitude, model.longitude]
   end
 
@@ -15,7 +16,7 @@ class CanteenDecorator < Draper::Decorator
         id: model.id,
         name: model.name,
         address: model.address,
-        meals: model.meals.where('date < ? AND date >= ?', (Time.zone.now + 2.day).to_date, Time.zone.now.to_date).decorate
+        meals: model.meals.where('date < ? AND date >= ?', (Time.zone.now + 2.days).to_date, Time.zone.now.to_date).decorate
       }
     }
   end

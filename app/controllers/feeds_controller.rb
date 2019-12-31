@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class FeedsController < ApplicationController
-  before_action :new_resource, only: [:new, :create]
-  before_action :load_resource, only: [:update, :destroy, :fetch, :messages]
+class FeedsController < WebController
+  before_action :new_resource, only: %i[new create]
+  before_action :load_resource, only: %i[update destroy fetch messages]
   load_and_authorize_resource
 
   def create
@@ -38,6 +38,7 @@ class FeedsController < ApplicationController
        @feed.fetches.where('state != ?', 'fetching').maximum(:executed_at) > Time.zone.now - 15.minutes
       return error_too_many_requests
     end
+
     updater = OpenMensa::Updater.new(@feed, 'manual')
     @result = {
       'status' => updater.update ? 'ok' : 'error'
@@ -51,7 +52,7 @@ class FeedsController < ApplicationController
   end
 
   def messages
-    @fetches = @feed.fetches.order(:executed_at=>:desc)
+    @fetches = @feed.fetches.order(executed_at: :desc)
   end
 
   private

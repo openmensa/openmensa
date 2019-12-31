@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class UsersController < WebController
   load_and_authorize_resource
 
-  def show
-  end
+  def show; end
 
   def update
     if @user.update user_params
@@ -19,6 +18,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :public_name, :info_url,
-                                 :email, :notify_email, :public_email)
+      :email, :notify_email, :public_email)
   end
 end

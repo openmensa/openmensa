@@ -1,81 +1,46 @@
 # frozen_string_literal: true
 
-class ApplicationController < BaseController
-  protect_from_forgery
-  check_authorization
+class ApplicationController < ActionController::Base
+  # **** accessors ****
 
-  before_action :setup_user
-
-  unless Rails.env.development?
-    rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
-    rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found
+  def current_user
+    @current_user ||= User.anonymous
   end
 
-  # **** setup ****
+  attr_writer :current_user
+  helper_method :current_user
 
-  def setup_user
-    user = User.find_by id: session[:user_id]
-    return unless user && user.logged?
+  def current_ability
+    current_user.ability
+  end
 
-    self.current_user = user
-    Time.zone         = current_user.time_zone
-    I18n.locale       = current_user.language
+  # **** errors ****
 
-    if params[:user_id]
-      @user = User.find params[:user_id]
-    else
-      @user = current_user
+  def error(error)
+    error = {message: error} unless error.is_a?(Hash)
+
+    error[:status] ||= :internal_server_error
+
+    if error[:message].is_a?(Symbol)
+      error[:message] = t(:message, scope: error[:message])
     end
-  end
 
-  # **** accessors & helpers ****
-
-  def current_user=(user)
-    session[:user_id] = user ? user.id : nil
-    super
-  end
-
-  def flash_for(node, flashs = {})
-    flash[node] ||= {}
-    flash[node].merge! flashs
-  end
-
-  # **** authentication ****
-
-  def require_authentication!
-    if current_user.logged?
-      true
-    else
-      error_access_denied
-      false
+    if error[:message].nil?
+      error[:message] = t(:message, scope: "errors.#{error[:status]}")
     end
-  end
 
-  # **** error handling and rendering ****
+    if error[:title].is_a?(Symbol)
+      error[:title] = t(:title, scope: error[:title])
+    end
 
-  def error_not_found
-    error status: :not_found
-  end
+    if error[:title].nil?
+      error[:title] = t(:title, scope: "errors.#{error[:status]}")
+    end
 
-  def error_access_denied
-    error status: :unauthorized
-  end
-
-  def error_too_many_requests
-    error status: :too_many_requests
+    render_error error
   end
 
   def render_error(error)
-    layout = error[:layout] || 'application'
-    file   = error[:file] || 'common/error'
-
-    @title   = error[:title]
-    @message = error[:message]
-
-    if (params[:format] || 'html') == 'html'
-      render template: file, layout: layout, status: error[:status]
-    else
-      super
-    end
+    head error[:status]
   end
 end

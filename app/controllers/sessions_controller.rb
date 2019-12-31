@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SessionsController < ApplicationController
+class SessionsController < WebController
   skip_authorization_check
 
   def new
@@ -21,7 +21,10 @@ class SessionsController < ApplicationController
   end
 
   def ref
-    return request.env['omniauth.params']['ref'] if request.env['omniauth.params'] && request.env['omniauth.params']['ref']
+    if request.env['omniauth.params'] && request.env['omniauth.params']['ref']
+      return request.env['omniauth.params']['ref']
+    end
+
     params[:ref]
   end
 
@@ -46,7 +49,7 @@ class SessionsController < ApplicationController
 
   def create_identity!(identity)
     if identity.new_record?
-      identity.update_attributes! user: current_user
+      identity.update! user: current_user
       redirect_back notice: t('message.identity_added.' + identity.provider, name: identity.user.name).html_safe
     else
       redirect_back alert: t('message.identity_taken.' + identity.provider, name: identity.user.name)

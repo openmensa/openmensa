@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ApiController < BaseController
+class ApiController < ApplicationController
   rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
   rescue_from ::ActiveRecord::RecordNotFound, with: :error_not_found
 
@@ -17,7 +17,7 @@ class ApiController < BaseController
   def set_content_type
     params[:format] = params[:format].to_s.downcase
 
-    if %w(json xml msgpack).include? params[:format]
+    if %w[json xml msgpack].include? params[:format]
       response.content_type = {
         json: 'application/json',
         xml: 'application/xml',
@@ -55,6 +55,7 @@ class ApiController < BaseController
 
   def self.api_version(value = nil)
     return @api_version unless value
+
     @api_version = value
 
     before_action do

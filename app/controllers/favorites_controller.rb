@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FavoritesController < ApplicationController
+class FavoritesController < WebController
   load_and_authorize_resource
 
   def create
@@ -14,7 +14,7 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    f = current_user.favorites.find_by_canteen_id params[:canteen_id]
+    f = current_user.favorites.find_by canteen_id: params[:canteen_id]
     if f.destroy
       flash[:notice] = t('favorites.deleted')
     else

@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class DataProposalsController < ApplicationController
+class DataProposalsController < WebController
   before_action :load_resource
-  before_action :new_resource, only: [:new, :create]
+  before_action :new_resource, only: %i[new create]
   load_and_authorize_resource
 
-  def new
-  end
+  def new; end
 
   def create
     if @data_proposal.update data_proposal_params
@@ -25,10 +24,10 @@ class DataProposalsController < ApplicationController
   private
 
   def new_resource
-    @data_proposal = if @user.nil? or @user.internal?
-      User.anonymous
-    else
-      @user
+    @data_proposal = if @user.nil? || @user.internal?
+                       User.anonymous
+                     else
+                       @user
     end.data_proposals.new canteen: @canteen
   end
 

@@ -8,7 +8,7 @@ class Parser < ApplicationRecord
   has_many :canteens, through: :sources
   has_many :messages, as: :messageable
 
-  validates :name, presence: true, uniqueness: { scope: :user_id }
+  validates :name, presence: true, uniqueness: {scope: :user_id}
 
   def info_box?
     [

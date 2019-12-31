@@ -3,7 +3,7 @@
 class Api::V2::CanteensController < Api::BaseController
   respond_to :json
 
-  has_scope :near, using: [:lat, :lng, :dist, :place] do |_controller, scope, value|
+  has_scope :near, using: %i[lat lng dist place] do |_controller, scope, value|
     place = if value[3]
               value[3].to_s
             else
@@ -37,7 +37,7 @@ class Api::V2::CanteensController < Api::BaseController
   def find_resource
     canteen = super
     if canteen.replaced?
-      return canteen.replaced_by
+      canteen.replaced_by
     else
       canteen
     end

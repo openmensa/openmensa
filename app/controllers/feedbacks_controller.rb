@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-class FeedbacksController < ApplicationController
+class FeedbacksController < WebController
   before_action :load_resource
   before_action :new_resource, except: :index
 
-  def new
-  end
+  def new; end
 
   def create
-    if @feedback.update_attributes error_params
+    if @feedback.update error_params
       flash[:notice] = t('message.feedback_sumitted')
       redirect_to canteen_path @canteen
     else
@@ -25,10 +24,10 @@ class FeedbacksController < ApplicationController
   private
 
   def new_resource
-    @feedback = if @user.nil? or @user.internal?
-      User.anonymous
-    else
-      @user
+    @feedback = if @user.nil? || @user.internal?
+                  User.anonymous
+                else
+                  @user
     end.feedbacks.new canteen: @canteen
   end
 

@@ -13,10 +13,9 @@ class Meal < ApplicationRecord
   delegate :date, to: :day
 
   def prices
-    [:student, :employee, :pupil, :other].inject({}) do |prices, role|
+    %i[student employee pupil other].each_with_object({}) do |role, prices|
       price = self[:"price_#{role}"]
       prices[role] = price if price
-      prices
     end
   end
 

@@ -12,13 +12,13 @@ class User < ApplicationRecord
   has_many :data_proposals
   has_many :canteens, through: :parsers
 
-  validates :login, presence: true, uniqueness: true, exclusion: %w(anonymous system)
+  validates :login, presence: true, uniqueness: true, exclusion: %w[anonymous system]
   validates :name, presence: true
   validates :email, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true}
   validates :notify_email, presence: true, if: :developer?
   validates :public_name, presence: true, if: :info_url?
 
-  default_scope -> { where.not(login: %w(anonymous system)) }
+  default_scope -> { where.not(login: %w[anonymous system]) }
 
   gravtastic secure: true, default: :mm, filetype: :gif, size: 100
 
@@ -40,6 +40,7 @@ class User < ApplicationRecord
 
   def destroy
     return false unless destructible?
+
     super
   end
 
@@ -82,8 +83,8 @@ class User < ApplicationRecord
         name: (info['name'] || identity.uid),
         login: (info['login'] || identity.uid),
         email: info['email']
-        ).tap do |user|
-        identity.update_attributes! user: user
+      ).tap do |user|
+        identity.update! user: user
       end
     end
 
@@ -93,7 +94,7 @@ class User < ApplicationRecord
 
       ::ActiveRecord::Base.transaction do
         # Acquire table lock to ensure they cannot be two anonymous created concurrently
-        ::ActiveRecord::Base.connection.execute("LOCK users IN EXCLUSIVE MODE;")
+        ::ActiveRecord::Base.connection.execute('LOCK users IN EXCLUSIVE MODE;')
 
         # Look for anonymous user again as it could have been created concurrently
         # between the check above and getting the table lock
@@ -109,7 +110,9 @@ class AnonymousUser < User
   validate :single_user
 
   def single_user
-    errors.add_to_base 'An anonymous user already exists.' if self.class.find_by_login(self.class.login_id)
+    if self.class.find_by(login: self.class.login_id)
+      errors.add_to_base 'An anonymous user already exists.'
+    end
   end
 
   def logged?

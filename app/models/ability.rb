@@ -15,7 +15,7 @@ class Ability
     can :create, DataProposal
 
     if user.logged?
-      can [:show, :update], User, id: user.id
+      can %i[show update], User, id: user.id
       can :manage, Identity, user_id: user.id
       can :manage, Favorite, user_id: user.id
     end

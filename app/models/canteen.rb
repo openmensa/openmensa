@@ -14,19 +14,20 @@ class Canteen < ApplicationRecord
   has_many :feedbacks
   belongs_to :replaced_by, class_name: 'Canteen', foreign_key: :replaced_by, optional: true
 
-  scope :active, -> { where('state IN (?)', ['active', 'empty']) }
+  scope :active, -> { where('state IN (?)', %w[active empty]) }
 
   validates :city, :name, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :geocode?
 
-  STATES = %w(wanted active empty archived)
-  validates :state, inclusion: { in: STATES, message: '%{value} is not a valid canteen state' }
+  STATES = %w[wanted active empty archived].freeze
+  validates :state, inclusion: {in: STATES, message: '%{value} is not a valid canteen state'}
 
   def geocode?
     return false unless Rails.env.production? || Rails.env.development?
-    !(address.blank? || (!latitude.blank? && !longitude.blank?)) || address_changed?
+
+    !(address.blank? || (latitude.present? && longitude.present?)) || address_changed?
   end
 
   def fetch_state
@@ -46,6 +47,6 @@ class Canteen < ApplicationRecord
   end
 
   def replaced?
-    !read_attribute(:replaced_by).nil?
+    !self[:replaced_by].nil?
   end
 end
