@@ -71,7 +71,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'cany', '~> 0.5.0'
   gem 'pry'
   gem 'pry-byebug'
   gem 'rspec-collection_matchers'
