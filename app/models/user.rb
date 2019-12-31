@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   validates :login, presence: true, uniqueness: true, exclusion: %w[anonymous system]
   validates :name, presence: true
-  validates :email, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true, allow_nil: true}
+  validates :email, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, allow_blank: true}
   validates :notify_email, presence: true, if: :developer?
   validates :public_name, presence: true, if: :info_url?
 
