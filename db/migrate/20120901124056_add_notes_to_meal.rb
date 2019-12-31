@@ -3,7 +3,7 @@
 class AddNotesToMeal < ActiveRecord::Migration[4.2]
   def change
     create_table :notes do |t|
-      t.string :name,         null: false
+      t.string :name, null: false
       t.timestamps
     end
     add_index :notes, :name, unique: true

@@ -109,9 +109,10 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
             Canteen.reset_column_information
             Canteen.all.each do |c|
               next unless c.url.present?
-              parserName = c.url[0..c.url.rindex('/')-1]
+
+              parserName = c.url[0..c.url.rindex('/') - 1]
               p = Parser.find_or_create_by!(name: parserName, user_id: c.user_id)
-              name = c.url[(c.url.rindex('/')+1)..400]
+              name = c.url[(c.url.rindex('/') + 1)..400]
               if name =~ /^([^.]+)\.[^.]+$/
                 name = $1
               end
@@ -119,11 +120,11 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
                                  name: name,
                                  canteen: c
               feed = Feed.create! name: 'full',
-                           source: s,
-                           url: c.url,
-                           schedule: '0 8 * * *',
-                           retry: [60, 6],
-                           priority: 0
+                                  source: s,
+                                  url: c.url,
+                                  schedule: '0 8 * * *',
+                                  retry: [60, 6],
+                                  priority: 0
               Message.where(canteen_id: c.id).update_all(messageable_id: feed.id, messageable_type: 'Feed')
               if c.today_url.present?
                 Feed.create! name: 'today',
@@ -162,6 +163,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
             Canteen.all.each do |c|
               s = c.sources.first
               next if s.nil?
+
               s.feeds.each do |f|
                 if f.name == 'full'
                   c.url = f.url
