@@ -1,18 +1,15 @@
-dist: xenial
+dist: bionic
 language: ruby
 cache: bundler
-
-services:
-  - postgresql
-
-rvm:
-  - '2.6.4'
+services: [postgresql]
+rvm: '2.6.5'
 
 before_install:
-  - export TZ=Europe/Berlin
+- export TZ=Europe/Berlin
 
 before_script:
-  - bundle exec rake ci:setup
+- bundle exec rake db:create:all db:setup
 
 script:
-  - bundle exec rake ci:spec
+- bundle exec rake spec
+- bundle exec rubocop --parallel
