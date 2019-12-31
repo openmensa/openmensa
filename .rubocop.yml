@@ -61,7 +61,7 @@ RSpec/NestedGroups:
 # -----------------------------------------------------------------------------
 #                                   Layout
 
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 
 Layout/CaseIndentation:
@@ -71,17 +71,17 @@ Layout/CaseIndentation:
     - end
   IndentOneStep: true
 
-# This is currently broken:
-#   https://github.com/rubocop-hq/rubocop/issues/7212
-#
-Layout/EmptyLinesAroundAccessModifier:
-  Enabled: false
-
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+
+Layout/LineLength:
+  Exclude:
+    - 'db/**/*'
+    - 'spec/**/*'
+    - 'config/**/*'
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -93,7 +93,6 @@ Layout/SpaceInsideBlockBraces:
 
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
-
 
 
 # -----------------------------------------------------------------------------
@@ -121,12 +120,6 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Max: 200
-
-Metrics/LineLength:
-  Exclude:
-    - 'db/**/*'
-    - 'spec/**/*'
-    - 'config/**/*'
 
 Metrics/MethodLength:
   Exclude:
