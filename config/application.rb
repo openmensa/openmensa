@@ -60,18 +60,6 @@ module Openmensa
     # folder are already added.
     # config.assets.precompile += %w( admin.js admin.css )
 
-    # Load ruby platform specific database configuration
-    def config.database_configuration
-      files = []
-      files += %W(/config/database.#{ENV['DB_ENV']}.#{RUBY_ENGINE}.yml /config/database.#{ENV['DB_ENV']}.yml) if ENV['DB_ENV']
-      files += %W(/config/database.#{RUBY_ENGINE}.yml /config/database.yml)
-      files.each do |file|
-        file = Rails.root.to_s + file
-        return YAML.load(ERB.new(IO.read(file)).result) if File.exist?(file)
-      end
-      raise 'No database configuration found.'
-    end
-
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
