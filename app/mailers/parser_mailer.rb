@@ -107,7 +107,7 @@ class ParserMailer < ApplicationMailer
                    t 'feed_subjects.all_feeds'
                  else
                    t 'feed_subjects.all_feeds_for', sources: @fetch_errors.map(&:name).join(', ')
-      end
+                 end
     elsif @notable_feeds.size == 1
       @count = 1
       @subject = t 'feed_subjects.one_feed', name: @notable_feeds.first.name,
@@ -119,14 +119,14 @@ class ParserMailer < ApplicationMailer
                  else
                    t 'feed_subjects.all_feeds_with_name_for', name: @notable_feeds.first.name,
                                                               sources: @fetch_errors.map(&:name).join(', ')
-      end
+                 end
     else
       @count = 100
       @subject = if @regulars.empty?
                    t 'feed_subjects.some_feeds'
                  else
                    t 'feed_subjects.some_feeds_for', sources: @fetch_errors.map(&:name).join(', ')
-      end
+                 end
     end
   end
 
@@ -185,11 +185,12 @@ class ParserMailer < ApplicationMailer
     def initialize(feed, data_since)
       @feed = feed
       @fetches = if data_since.nil?
-                   feed.fetches
+                   feed.fetches.order(:executed_at)
                  else
-                   feed.fetches.where('executed_at > ?', data_since)
-      end.order(:executed_at).to_a
+                   feed.fetches.where('executed_at > ?', data_since).order(:executed_at)
+                 end
       @feed_messages = feed.messages.where('created_at > ?', data_since).to_a
+
       build_state_histogram!
     end
 

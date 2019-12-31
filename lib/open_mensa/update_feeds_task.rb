@@ -33,10 +33,10 @@ class OpenMensa::UpdateFeedsTask
       feed = Feed.find feed_id
 
       reason = if feed.retry == feed.current_retry
-        'schedule'
-      else
-        'retry'
-      end
+                 'schedule'
+               else
+                 'retry'
+               end
       begin
         @feed_updated = OpenMensa::Updater.new(feed, reason).update
       rescue => e

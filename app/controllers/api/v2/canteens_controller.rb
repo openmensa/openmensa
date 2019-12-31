@@ -8,7 +8,7 @@ class Api::V2::CanteensController < Api::BaseController
               value[3].to_s
             else
               [value[0].to_f, value[1].to_f]
-    end
+            end
 
     if place
       scope.reorder('').near(place, value[2] ? value[2].to_f : 10, units: :km, order_by_without_select: :distance)

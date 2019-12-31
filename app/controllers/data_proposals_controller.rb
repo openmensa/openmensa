@@ -24,11 +24,15 @@ class DataProposalsController < WebController
   private
 
   def new_resource
-    @data_proposal = if @user.nil? || @user.internal?
-                       User.anonymous
-                     else
-                       @user
-    end.data_proposals.new canteen: @canteen
+    @data_proposal = user.data_proposals.new canteen: @canteen
+  end
+
+  def user
+    if @user.nil? || @user.internal?
+      User.anonymous
+    else
+      @user
+    end
   end
 
   def load_resource
