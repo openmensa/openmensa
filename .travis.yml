@@ -12,4 +12,4 @@ before_script:
 
 script:
 - bundle exec rake spec
-- bundle exec rubocop --parallel
+- bundle exec rubocop --parallel --fail-level E
