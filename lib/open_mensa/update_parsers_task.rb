@@ -6,7 +6,7 @@ class OpenMensa::UpdateParsersTask
 
     Parser.all.pluck(:id).each do |parser_id|
       parser = Parser.find parser_id
-      next unless parser.index_url.present?
+      next if parser.index_url.blank?
 
       OpenMensa::ParserUpdater.new(parser).sync
 

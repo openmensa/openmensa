@@ -37,7 +37,9 @@ module OpenMensa
     def parse!
       @document = ::Nokogiri::XML::Document.parse(data).tap do |doc|
         @errors = doc.errors
-        raise ParserError.new('Error while parsing feed data.', errors) unless errors.empty?
+        unless errors.empty?
+          raise ParserError.new('Error while parsing feed data.', errors)
+        end
       end
     end
 

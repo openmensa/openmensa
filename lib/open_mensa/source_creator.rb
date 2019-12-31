@@ -8,9 +8,8 @@ class OpenMensa::SourceCreator < OpenMensa::SourceUpdater
     return false unless fetch! && parse! && validate!
 
     canteen = create_canteen extract_canteen_node
-    if canteen.nil? or !canteen.valid?
-      return false
-    end
+    return false if canteen.nil? || !canteen.valid?
+
     source.canteen = canteen
     source.save
 
@@ -19,12 +18,12 @@ class OpenMensa::SourceCreator < OpenMensa::SourceUpdater
     true
   end
 
-
   private
 
   def create_feeds(canteen)
     canteen.element_children.select do |node|
       next unless node.name == 'feed'
+
       create_feed node
     end
     true

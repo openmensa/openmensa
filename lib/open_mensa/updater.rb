@@ -11,7 +11,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
     options = {version: nil, today: false}.update options
     @feed = feed
     @fetch = FeedFetch.create! feed: feed, executed_at: Time.zone.now,
-                              reason: reason, state: 'fetching'
+                               reason: reason, state: 'fetching'
     @version = options[:version]
     reset_stats
   end
@@ -23,8 +23,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   # 1. Fetch feed data
   def fetch!
     @data = OpenMensa::FeedLoader.new(feed, :url).load!
-  rescue OpenMensa::FeedLoader::FeedLoadError => error
-    error.cause.tap do |err|
+  rescue OpenMensa::FeedLoader::FeedLoadError => e
+    e.cause.tap do |err|
       case err
         when URI::InvalidURIError
           Rails.logger.warn "Invalid URI (#{feed.url}) for #{feed.canteen.id} (#{feed.name})"
@@ -46,8 +46,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   def parse!
     @version  = nil
     @document = OpenMensa::FeedParser.new(data).parse!
-  rescue OpenMensa::FeedParser::ParserError => err
-    err.errors.take(2).each do |error|
+  rescue OpenMensa::FeedParser::ParserError => e
+    e.errors.take(2).each do |error|
       create_validation_error! :no_xml, error.message
     end
     fetch.state = 'invalid'
@@ -74,9 +74,10 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       category: category,
       name: meal.children.find {|node| node.name == 'name' }.content,
       pos: pos,
-      prices: meal.children.inject({}) do |prices, node|
-        prices[node['role']] = node.content if node.name == 'price' && version.to_i == 2
-        prices
+      prices: meal.children.each_with_object({}) do |node, prices|
+        if node.name == 'price' && version.to_i == 2
+          prices[node['role']] = node.content
+        end
       end,
       notes: meal.children.select {|n| n.name == 'note' }.map(&:content)
     )
@@ -85,9 +86,10 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def update_meal(meal, _category, meal_data, pos = nil)
-    meal.prices = meal_data.children.inject(student: nil, employee: nil, pupil: nil, other: nil) do |prices, node|
-      prices[node['role']] = node.content if node.name == 'price' && version.to_i == 2
-      prices
+    meal.prices = meal_data.children.each_with_object(student: nil, employee: nil, pupil: nil, other: nil) do |node, prices|
+      if node.name == 'price' && version.to_i == 2
+        prices[node['role']] = node.content
+      end
     end
     meal.notes = meal_data.children.select {|n| n.name == 'note' }.map(&:content)
     if meal.changed?
@@ -96,12 +98,13 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       meal.pos = pos
       meal.save
     elsif pos != meal.pos
-      meal.update_attributes pos: pos
+      meal.update pos: pos
     end
   end
 
   def add_day(day_data)
     return if Date.parse(day_data['date']) < Date.today
+
     day = canteen.days.create(date: Date.parse(day_data['date']))
     if day_data.children.any? {|node| node.name == 'closed' }
       day.closed = true
@@ -109,14 +112,13 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
     else
       pos = 1
       day_data.element_children.each do |category|
-        category.element_children.inject([]) do |names, meal|
+        category.element_children.each_with_object([]) do |meal, names|
           name = meal.children.find {|node| node.name == 'name' }.content
-          unless names.include? name
-            add_meal(day, category['name'], meal, pos)
-            pos += 1
-            names << name
-          end
-          names
+          next if names.include? name
+
+          add_meal(day, category['name'], meal, pos)
+          pos += 1
+          names << name
         end
       end
     end
@@ -126,6 +128,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
 
   def update_day(day, day_data)
     return if Date.parse(day_data['date']) < Date.today
+
     if day_data.children.any? {|node| node.name == 'closed' }
       @changed = !day.closed?
       fetch.updated_days += 1 unless day.closed?
@@ -137,9 +140,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
         fetch.updated_days += 1
         @changed = true
       end
-      names = day.meals.inject({}) do |memo, value|
+      names = day.meals.each_with_object({}) do |value, memo|
         memo[[value.category, value.name.to_s]] = value
-        memo
       end
       pos = 1
       day_data.element_children.each do |category|
@@ -156,7 +158,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
         end
       end
       names.keep_if {|_key, meal| meal }
-      if names.size > 0
+      unless names.empty?
         fetch.removed_meals += names.size
         names.each_value(&:destroy)
         @changed = true
@@ -165,11 +167,12 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def update_canteen(canteen_data)
-    days = canteen.days.inject({}) {|m, v| m[v.date.to_s] = v; m }
+    days = canteen.days.each_with_object({}) {|v, m| m[v.date.to_s] = v; }
     day_updated = nil
     canteen_data.element_children.each do |day|
       next if day.name != 'day'
       next if Date.parse(day['date']) < Date.today
+
       canteen.transaction do
         date = day['date']
         if days.key? date
@@ -180,14 +183,12 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
         day_updated = true
       end
     end
-    if day_updated
-      canteen.update_column :last_fetched_at, Time.zone.now
-    end
+    canteen.update_column :last_fetched_at, Time.zone.now if day_updated
     if !day_updated
       fetch.state = 'empty'
     elsif changed?
       fetch.state = 'changed'
-      canteen.update_attributes state: 'active'
+      canteen.update state: 'active'
     else
       fetch.state = 'unchanged'
     end
@@ -206,7 +207,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def stats(json = true)
-    if errors.size > 0
+    if !errors.empty?
       {
         'errors' => json ? errors.map(&:to_json) : errors
       }

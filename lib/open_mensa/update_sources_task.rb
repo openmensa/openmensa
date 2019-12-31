@@ -6,7 +6,7 @@ class OpenMensa::UpdateSourcesTask
 
     Source.all.pluck(:id).each do |source_id|
       source = Source.find source_id
-      next unless source.meta_url.present?
+      next if source.meta_url.blank?
       next if source.canteen.archived?
 
       OpenMensa::SourceUpdater.new(source).sync

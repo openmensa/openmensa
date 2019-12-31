@@ -39,7 +39,7 @@ class OpenMensa::UpdateFeedsTask
                end
       begin
         @feed_updated = OpenMensa::Updater.new(feed, reason).update
-      rescue => e
+      rescue StandardError => e
         Rails.logger.warn "Error while fetching feed data of #{feed.id} (#{e.message})"
       end
 
@@ -58,25 +58,24 @@ class OpenMensa::UpdateFeedsTask
   def update_next_fetch_at(feed)
     @next_cron_time = process_schedule(feed, :next)
     # no retry possible
-    if @feed_updated || feed.current_retry.nil? || feed.current_retry.size == 0
+    if @feed_updated || feed.current_retry.nil? || feed.current_retry.empty?
       return fetch_at_next_cron(feed)
     end
+
     next_retry_time = feed.current_retry[0].minutes.from_now
     # retry after next fetch?
-    if next_retry_time > next_cron_time
-      return fetch_at_next_cron(feed)
-    end
+    return fetch_at_next_cron(feed) if next_retry_time > next_cron_time
+
     feed.next_fetch_at = next_retry_time
     return if feed.current_retry.size < 2 # no retry limit?
+
     # update current retry
     feed.current_retry_will_change! # fix ActiveRecords array handling
     feed.current_retry[1] -= 1
     if feed.current_retry[1] <= 0
       feed.current_retry.shift # current interval
       feed.current_retry.shift # current limit
-      if feed.current_retry.empty?
-        feed.current_retry = nil
-      end
+      feed.current_retry = nil if feed.current_retry.empty?
     end
   end
 

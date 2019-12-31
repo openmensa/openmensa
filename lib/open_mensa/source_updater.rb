@@ -23,8 +23,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   # 1. Fetch feed data
   def fetch!
     @data = OpenMensa::FeedLoader.new(source, :meta_url).load!
-  rescue OpenMensa::FeedLoader::FeedLoadError => error
-    error.cause.tap do |err|
+  rescue OpenMensa::FeedLoader::FeedLoadError => e
+    e.cause.tap do |err|
       case err
         when URI::InvalidURIError
           Rails.logger.warn "Invalid Meta-URI (#{source.meta_url}) for #{source.name})"
@@ -41,8 +41,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   # 2. Parse XML data
   def parse!
     @document = OpenMensa::FeedParser.new(data).parse!
-  rescue OpenMensa::FeedParser::ParserError => err
-    err.errors.take(2).each do |error|
+  rescue OpenMensa::FeedParser::ParserError => e
+    e.errors.take(2).each do |error|
       create_validation_error! :no_xml, error.message
     end
     false
@@ -73,13 +73,11 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     }
   end
 
-
   private
 
   def feeds_mapping
-    @source.feeds.inject({}) do |memo, feed|
+    @source.feeds.each_with_object({}) do |feed, memo|
       memo[feed.name] = feed
-      memo
     end
   end
 
@@ -87,19 +85,21 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     data = {}
     element.element_children.each do |element|
       case element.name
-      when 'url'
-        data[:url] = element.content
-      when 'source'
-        data[:source_url] = element.content
-      when 'schedule'
-        data[:retry] = element['retry'].split(' ').map(&:to_i) if element.key? 'retry'
-        data[:schedule] = [
-          element['minute'] || '0',
-          element['hour'],
-          element['dayOfMonth'] || '*',
-          element['month'] || '*',
-          element['dayOfWeek'] || '*',
-        ].join(' ')
+        when 'url'
+          data[:url] = element.content
+        when 'source'
+          data[:source_url] = element.content
+        when 'schedule'
+          if element.key? 'retry'
+            data[:retry] = element['retry'].split(' ').map(&:to_i)
+          end
+          data[:schedule] = [
+            element['minute'] || '0',
+            element['hour'],
+            element['dayOfMonth'] || '*',
+            element['month'] || '*',
+            element['dayOfWeek'] || '*'
+          ].join(' ')
       end
     end
     data
@@ -110,6 +110,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
     canteen.element_children.select do |node|
       next unless node.name == 'feed'
+
       name = node['name']
       if feeds.key? name
         update_feed feeds.fetch(name), node
@@ -118,7 +119,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
         create_feed node
       end
     end
-    feeds.each do |name, feed|
+    feeds.each do |_name, feed|
       delete_feed feed
     end
     true
@@ -150,9 +151,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     unless canteen.changed.empty?
       @changed = true
       new_data = {user: source.parser.user}
-      new_data = canteen.changes.inject(new_data) do |memo, (attr, (old, new))|
+      new_data = canteen.changes.each_with_object(new_data) do |(attr, (_old, new)), memo|
         memo[attr] = new
-        memo
       end
       canteen.data_proposals.find_or_create_by! new_data
     end
@@ -169,7 +169,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   def update_feed(feed, node)
     feed.assign_attributes feed_data node
-    unless (feed.changed - %w(created_at updated_at)).empty?
+    unless (feed.changed - %w[created_at updated_at]).empty?
       feed.save!
       feed_changed!(feed, feed, :updated)
       @feeds_updated += 1

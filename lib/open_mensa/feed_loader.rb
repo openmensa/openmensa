@@ -42,14 +42,13 @@ module OpenMensa
     # occurs. Returns loaded data as StringIO on success.
     #
     def load!
-      return nil unless url.present?
+      return nil if url.blank?
 
       load_feed @options[:follow] ? @options[:depth] : 0
-
-    rescue URI::InvalidURIError => error
-      raise FeedLoadError.new("Invalid URL (#{url}) for #{resource}.", error)
-    rescue => error
-      raise FeedLoadError.new('Error while loading feed.', error)
+    rescue URI::InvalidURIError => e
+      raise FeedLoadError.new("Invalid URL (#{url}) for #{resource}.", e)
+    rescue StandardError => e
+      raise FeedLoadError.new('Error while loading feed.', e)
     end
 
     class << self
@@ -76,24 +75,23 @@ module OpenMensa
 
     def load_feed(allowed_redirects, uri = self.uri)
       open uri, redirect: false
-
-    rescue OpenURI::HTTPRedirect => redirect
+    rescue OpenURI::HTTPRedirect => e
       if !options[:follow] || allowed_redirects <= 0
-        raise FeedLoadError.new('Too much redirects.', redirect)
+        raise FeedLoadError.new('Too much redirects.', e)
       end
 
-      if options[:update] && redirect.message.start_with?('301') # permanent redirect
-        update_url redirect.uri.to_s
-      end
+      if options[:update] && e.message.start_with?('301')
+        update_url e.uri.to_s
+      end # permanent redirect
 
-      load_feed allowed_redirects - 1, redirect.uri
+      load_feed allowed_redirects - 1, e.uri
     end
 
     def update_url(new_url)
       Rails.logger.warn "Update URL of #{resource} to '#{new_url}'."
       FeedUrlUpdatedInfo.create messageable: resource, old_url: url, new_url: new_url
 
-      resource.update_attributes! url_field => new_url
+      resource.update! url_field => new_url
     end
   end
 end

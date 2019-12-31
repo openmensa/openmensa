@@ -24,8 +24,8 @@ class OpenMensa::BaseUpdater
   rescue OpenMensa::FeedValidator::InvalidFeedVersionError
     create_validation_error! :unknown_version
     false
-  rescue OpenMensa::FeedValidator::FeedValidationError => err
-    err.errors.take(2).each do |error|
+  rescue OpenMensa::FeedValidator::FeedValidationError => e
+    e.errors.take(2).each do |error|
       create_validation_error! :invalid_xml, error.message
     end
     false
@@ -48,7 +48,7 @@ class OpenMensa::BaseUpdater
 
   def extract_canteen_node
     case version.to_i
-      when 1 then
+      when 1
         @document.root
       when 2 then
         node = @document.root.children.first
