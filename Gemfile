@@ -31,7 +31,7 @@ gem 'parse-cron'
 gem 'rack-cors', require: 'rack/cors'
 gem 'whenever', require: false
 
-gem 'geocoder', '~> 1.5'
+gem 'geocoder', '~> 1.6'
 gem 'gravtastic'
 gem 'leaflet-rails', '~> 1.0'
 gem 'rails-timeago'
