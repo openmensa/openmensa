@@ -68,11 +68,6 @@
   a { background-image: image-url("winphone.png"); }
 }
 
-.bb {
-  @extend .appbox;
-  a { background-image: image-url("bb.png"); }
-}
-
 .ubuntu {
   @extend .appbox;
   a { background-image: image-url("ubuntu.png"); }
