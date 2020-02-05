@@ -69,7 +69,6 @@ module Openmensa
 
     initializer 'load-patches' do
       require 'patches/relation_cache_key'
-      require 'patches/squeel_deprecations'
     end
   end
 end
