@@ -14,7 +14,7 @@ We are currently focused on Germany but are interested to open to other countrie
 ## Dependencies
 
 * Ruby 2.6
-* Gems (Rails 5.5, for other see Gemfile)
+* Gems (Rails 6.0, for other see Gemfile)
 * PostgreSQL as database backend
 * whenever regular tasks (fetching menus, sending emails)
 
@@ -50,4 +50,4 @@ We are currently focused on Germany but are interested to open to other countrie
 
 AGPLv3 License
 
-Copyright, 2014-2019 OpenMensa
+Copyright, 2014-2020 OpenMensa
