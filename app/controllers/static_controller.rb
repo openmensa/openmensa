@@ -15,7 +15,7 @@ class StaticController < WebController
     end
   end
 
-  def impressum; end
+  def contact; end
 
   def about; end
 

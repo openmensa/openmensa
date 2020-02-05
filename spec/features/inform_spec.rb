@@ -4,16 +4,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Inform', type: :feature do
   context 'as a interessed user' do
-    it 'I want to find the impressum' do
+    it 'I want to contact' do
       visit root_path
 
-      click_on 'Impressum'
+      click_on 'Kontakt'
 
-      expect(page).to have_content 'Impressum'
-      ['Kai Fabian', 'Jan Graichen', 'Christian Nicolai', 'Malte Swart'].each do |name|
-        expect(page).to have_content name
-      end
-      expect(page).to have_content 'Impressum'
+      expect(page).to have_content 'Kontakt'
+      expect(page).to have_link_to 'https://github.com/openmensa/openmensa'
       expect(page).to have_link_to 'mailto:info@openmensa.org'
     end
 

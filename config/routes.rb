@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get '/auth/failure',            to: 'sessions#failure',  as: :auth_failure
   get '/auth/register',           to: 'sessions#register', as: :register
 
-  get '/impressum', to: 'static#impressum', as: :imprint
+  get '/contact', to: 'static#contact', as: :contact
   get '/about', to: 'static#about', as: :about
   get '/support', to: 'static#support', as: :support
   get '/contribute', to: 'static#contribute', as: :contribute
