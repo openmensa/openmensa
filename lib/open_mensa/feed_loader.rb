@@ -74,7 +74,7 @@ module OpenMensa
     private
 
     def load_feed(allowed_redirects, uri = self.uri)
-      open uri, redirect: false
+      uri.open(redirect: false)
     rescue OpenURI::HTTPRedirect => e
       if !options[:follow] || allowed_redirects <= 0
         raise FeedLoadError.new('Too much redirects.', e)
