@@ -9,7 +9,7 @@ AllCops:
     - 'db/schema.rb'
     - 'vendor/**/*'
   TargetRubyVersion: 2.6
-  TargetRailsVersion: 5.2
+  TargetRailsVersion: 6.0
 
 
 

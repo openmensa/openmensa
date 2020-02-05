@@ -76,7 +76,7 @@ describe 'Developers', type: :feature do
         expect(page).to have_content 'Der Parser wurde archiviert!'
       end
 
-      it 'should be able to add a source with its canteen' do
+      it 'is able to add a source with its canteen' do
         click_on parser.name
 
         click_on 'Neue Quelle/Mensa hinzufügen'
@@ -95,7 +95,7 @@ describe 'Developers', type: :feature do
       context 'with wanted canteen' do
         let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Dies ist eine Gesuchte Mensa' }
 
-        it 'should be able to add a source for a wanted canteen' do
+        it 'is able to add a source for a wanted canteen' do
           click_on parser.name
 
           click_on 'Neue Quelle/Mensa hinzufügen'
