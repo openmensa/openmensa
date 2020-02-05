@@ -4,7 +4,6 @@
 #= require rails-timeago
 #= require locales/jquery.timeago.de.js
 #= require turbolinks
-#= require turbolinks-piwik
 #= require leaflet
 #= require leaflet.markercluster
 #= require leaflet.control.locate
