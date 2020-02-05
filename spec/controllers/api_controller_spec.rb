@@ -13,21 +13,21 @@ describe ApiController, type: :controller do
     context 'on json format' do
       it 'sets json content type' do
         get :index, format: 'json'
-        expect(response.content_type).to eq 'application/json'
+        expect(response.media_type).to eq 'application/json'
       end
     end
 
     context 'on xml format' do
       it 'sets xml content type' do
         get :index, format: 'xml'
-        expect(response.content_type).to eq 'application/xml'
+        expect(response.media_type).to eq 'application/xml'
       end
     end
 
     context 'on msgpack format' do
       it 'sets msgpack content type' do
         get :index, format: 'msgpack'
-        expect(response.content_type).to eq 'application/x-msgpack'
+        expect(response.media_type).to eq 'application/x-msgpack'
       end
     end
 

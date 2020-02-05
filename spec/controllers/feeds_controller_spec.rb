@@ -54,7 +54,7 @@ describe FeedsController, type: :controller do
         get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status).to eq 200
-        expect(response.content_type).to eq 'application/json'
+        expect(response.media_type).to eq 'application/json'
 
         expect(json).to eq successfull_json
 
@@ -65,7 +65,7 @@ describe FeedsController, type: :controller do
         get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status). to eq 200
-        expect(response.content_type).to eq 'application/json'
+        expect(response.media_type).to eq 'application/json'
 
         expect(json).to eq successfull_json
 
@@ -104,7 +104,7 @@ describe FeedsController, type: :controller do
         get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status).to eq 200
-        expect(response.content_type).to eq 'application/json'
+        expect(response.media_type).to eq 'application/json'
 
         expect(json).to eq json_error
 
@@ -118,7 +118,7 @@ describe FeedsController, type: :controller do
         get :fetch, format: :json, params: {id: feed.id}
 
         expect(response.status).to eq 200
-        expect(response.content_type).to eq 'application/json'
+        expect(response.media_type).to eq 'application/json'
 
         expect(json).to eq json_error
 
