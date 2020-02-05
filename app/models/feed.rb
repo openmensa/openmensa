@@ -16,11 +16,11 @@ class Feed < ApplicationRecord
   }
 
   scope :inactive, lambda {
-    where('(schedule IS NULL OR id IN (?))', Feed.archived.select(:id))
+    where('(schedule IS NULL OR id IN (?))', Feed.unscoped.archived.select(:id))
   }
 
   scope :active, lambda {
-    where('(schedule IS NOT NULL AND id NOT IN (?))', Feed.archived.select(:id))
+    where('(schedule IS NOT NULL AND id NOT IN (?))', Feed.unscoped.archived.select(:id))
   }
 
   delegate :canteen, to: :source
