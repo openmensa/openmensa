@@ -38,7 +38,7 @@ gem 'rails-timeago'
 
 gem 'api-responder'
 gem 'decorate-responder', '~> 2.1'
-gem 'draper', '~> 3.1'
+gem 'draper', '~> 4.0'
 gem 'has_scope', '~> 0.7.1'
 gem 'paginate-responder', '~> 2.0'
 gem 'responders'
