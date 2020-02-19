@@ -73,7 +73,7 @@ GEM
     bcrypt (3.1.13)
     bourbon (6.0.0)
       thor (~> 0.19)
-    brakeman (4.7.2)
+    brakeman (4.8.0)
     builder (3.2.4)
     byebug (11.1.1)
     cancancan (3.0.2)
