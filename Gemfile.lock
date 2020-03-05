@@ -99,7 +99,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -144,7 +144,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.3.0)
     jwt (2.2.1)
-    leaflet-rails (1.5.1)
+    leaflet-rails (1.6.0)
       rails (>= 4.2.0)
     libv8 (7.3.492.27.1)
     listen (3.2.1)
@@ -370,7 +370,7 @@ GEM
     will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby
@@ -394,7 +394,7 @@ DEPENDENCIES
   gravtastic
   has_scope (~> 0.7.1)
   jquery-rails
-  leaflet-rails (~> 1.0)
+  leaflet-rails (~> 1.6)
   listen
   mini_racer
   nokogiri
