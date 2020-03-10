@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_28_104431) do
+ActiveRecord::Schema.define(version: 2020_03_10_230654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,17 +30,6 @@ ActiveRecord::Schema.define(version: 2019_09_28_104431) do
     t.boolean "availibility", default: true
     t.string "openingTimes", array: true
     t.integer "replaced_by"
-  end
-
-  create_table "comments", id: :serial, force: :cascade do |t|
-    t.string "message"
-    t.integer "user_id"
-    t.string "commentee_type"
-    t.integer "commentee_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["commentee_id"], name: "index_comments_on_commentee_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "data_proposals", id: :serial, force: :cascade do |t|
@@ -171,42 +160,6 @@ ActiveRecord::Schema.define(version: 2019_09_28_104431) do
     t.index ["name"], name: "index_notes_on_name", unique: true
   end
 
-  create_table "oauth_access_grants", id: :serial, force: :cascade do |t|
-    t.integer "resource_owner_id", null: false
-    t.integer "application_id", null: false
-    t.string "token", null: false
-    t.integer "expires_in", null: false
-    t.string "redirect_uri", null: false
-    t.datetime "created_at", null: false
-    t.datetime "revoked_at"
-    t.string "scopes"
-    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
-  end
-
-  create_table "oauth_access_tokens", id: :serial, force: :cascade do |t|
-    t.integer "resource_owner_id"
-    t.integer "application_id", null: false
-    t.string "token", null: false
-    t.string "refresh_token"
-    t.integer "expires_in"
-    t.datetime "revoked_at"
-    t.datetime "created_at", null: false
-    t.string "scopes"
-    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
-    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
-    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
-  end
-
-  create_table "oauth_applications", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "uid", null: false
-    t.string "secret", null: false
-    t.string "redirect_uri", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
-  end
-
   create_table "parsers", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "name", null: false
@@ -218,17 +171,6 @@ ActiveRecord::Schema.define(version: 2019_09_28_104431) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "name"], name: "index_parsers_on_user_id_and_name", unique: true
-  end
-
-  create_table "ratings", id: :serial, force: :cascade do |t|
-    t.datetime "date"
-    t.integer "value"
-    t.integer "meal_id"
-    t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["meal_id"], name: "index_ratings_on_meal_id"
-    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "sources", id: :serial, force: :cascade do |t|
