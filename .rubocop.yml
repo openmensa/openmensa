@@ -130,9 +130,6 @@ Metrics/MethodLength:
 # -----------------------------------------------------------------------------
 #                                   Style
 
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
-
 #
 # Both styles or mixtures are reasonable
 #
@@ -145,6 +142,15 @@ Style/ClassAndModuleChildren:
 #
 Style/Documentation:
   Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+    Enabled: false
+
+Style/HashTransformValues:
+    Enabled: false
 
 Style/RaiseArgs:
   EnforcedStyle: compact
