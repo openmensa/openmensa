@@ -19,7 +19,13 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/ApplicationRecord:
+  Exclude:
+    - db/migrate/**/*
 
+Rails/SkipsModelValidations:
+  Exclude:
+    - db/migrate/**/*
 
 # -----------------------------------------------------------------------------
 #                                   RSPEC
@@ -111,6 +117,9 @@ Lint/AmbiguousBlockAssociation:
 # -----------------------------------------------------------------------------
 #                                   Metrics
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'db/**/*'
@@ -120,6 +129,9 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Max: 200
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
 
 Metrics/MethodLength:
   Exclude:
