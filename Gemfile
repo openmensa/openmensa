@@ -48,7 +48,7 @@ gem 'sentry-raven'
 
 group :assets do
   gem 'autoprefixer-rails', '~> 9.7'
-  gem 'bourbon', '~> 6.0'
+  gem 'bourbon', '~> 7.0'
   gem 'coffee-rails', '~> 5.0.0'
   gem 'font-awesome-sass-rails', '~> 3.0.2.2'
   gem 'jquery-rails'
