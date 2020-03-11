@@ -27,21 +27,26 @@ describe 'Developers', type: :feature do
     it 'I want to become a developer' do
       click_on 'Aktiviere Entwickler-Funktionen'
 
-      fill_in 'E-Mail für Fehlerberichte und ähnliches', with: 'test@example.org'
+      fill_in 'E-Mail für Fehlerberichte und ähnliches',
+        with: 'test@example.org'
 
       click_on 'Werde Entwickler'
 
-      expect(page).to have_content('Eine Bestätigungsmail wurde an test@example.org gesendet. Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse zu bestätigen.')
+      expect(page).to have_content \
+        'Eine Bestätigungsmail wurde an test@example.org gesendet. ' \
+        'Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse ' \
+        'zu bestätigen.'
 
-      expect(ActionMailer::Base.deliveries).not_to be_empty
+      open_email 'test@example.org'
 
-      mail = ActionMailer::Base.deliveries.first
-      expect(mail.to).to match_array ['test@example.org']
-      expect(mail.subject).to eq 'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'
+      expect(current_email.subject).to eq \
+        'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'
 
-      if mail.body.to_s =~ %r{(https?://[-a-zA-Z0-9=_./]+)}
-        visit Regexp.last_match(1)
-      end
+      expect(current_email).to have_content \
+        'Diese Mail wird versendet, um die E-Mail test@example.org ' \
+        'zu bestätigen.'
+
+      current_email.click_link 'activate'
 
       expect(user.reload).to be_developer
     end

@@ -55,7 +55,7 @@ describe 'Inform', type: :feature do
 
       click_on 'Liste der gewünschten Mensen'
 
-      expect(page).to have_content 'Meine LiebligsmensaHamburg'
+      expect(page).to have_content /Meine Liebligsmensa\s+Hamburg/
     end
 
     it 'I want to find how to support openmensa' do

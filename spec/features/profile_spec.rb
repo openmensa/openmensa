@@ -40,7 +40,13 @@ describe 'Profile page', type: :feature do
   it 'allows user to add an identity' do
     click_link 'Identität hinzufügen'
 
-    expect { click_link 'GitHub' }.to change { Identity.all.count }.by(1)
+    expect do
+      click_link 'GitHub'
+      # Ensure we're back on the profile page
+      expect(page).to have_content 'Meine Identitäten'
+    end.to change {
+      Identity.all.count
+    }.by(1)
 
     expect(Identity.last.provider).to eq('github')
 
@@ -52,7 +58,14 @@ describe 'Profile page', type: :feature do
     click_link 'Identität hinzufügen'
     click_link 'GitHub'
 
-    expect { click_link 'Twitter Identität entfernen' }.to change {
+    # Ensure we're back on the profile page
+    expect(page).to have_content 'Meine Identitäten'
+
+    expect do
+      click_link 'Twitter Identität entfernen'
+      # Ensure we're back on the profile page
+      expect(page).to have_content 'Meine Identitäten'
+    end.to change {
       Identity.all.count
     }.from(2).to(1)
 

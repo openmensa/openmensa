@@ -9,7 +9,7 @@ describe 'Authentication', type: :feature do
       click_link 'Anmelden'
       click_link 'Twitter'
 
-      expect(page.body).to include('Mein Profil')
+      expect(page).to have_content 'Abmelden'
     end
 
     it 'logins using GitHub' do
@@ -17,7 +17,7 @@ describe 'Authentication', type: :feature do
       click_link 'Anmelden'
       click_link 'GitHub'
 
-      expect(page.body).to include('Mein Profil')
+      expect(page).to have_content 'Abmelden'
     end
   end
 
@@ -30,7 +30,7 @@ describe 'Authentication', type: :feature do
       visit root_path
       click_link 'Abmelden'
 
-      expect(page.body).not_to include 'Mein Profil'
+      expect(page).not_to have_content 'Abmelden'
     end
   end
 end

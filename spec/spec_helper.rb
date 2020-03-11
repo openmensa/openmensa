@@ -16,11 +16,12 @@ require File.expand_path('../config/environment', __dir__)
 
 ActiveRecord::Migration.maintain_test_schema!
 
-require 'rspec/rails'
+require 'capybara/cuprite'
+require 'capybara/email/rspec'
 require 'capybara/rspec'
 require 'factory_bot'
+require 'rspec/rails'
 require 'webmock/rspec'
-require 'capybara/poltergeist'
 
 # Load factories
 FactoryBot.reload
@@ -85,12 +86,25 @@ RSpec.configure do |config|
   end
 
   OmniAuth.config.test_mode = true
-  OmniAuth.config.add_mock(:twitter,     uid: '12345',
-                                         nickname: 'zapnap')
-  OmniAuth.config.add_mock(:github,     uid: '98765',
-                                        nickname: 'zapnap')
+  OmniAuth.config.add_mock(:twitter, uid: '12345',
+                                     nickname: 'zapnap')
+  OmniAuth.config.add_mock(:github, uid: '98765',
+                                    nickname: 'zapnap')
 
-  Capybara.default_host = 'http://example.org'
-  Capybara.javascript_driver = :poltergeist
+  headless = ENV['CI'] || !%w[0 false off].include?(ENV.fetch('HEADLESS', 'on').downcase)
+  if headless
+    warn 'INFO: Running feature specs in headless browser.'
+  end
+
+  Capybara.default_driver = :cuprite
+
+  Capybara.register_driver(:cuprite) do |app|
+    Capybara::Cuprite::Driver.new(app,
+      headless: headless,
+      window_size: [1280, 800],
+      inspector: true,
+    )
+  end
+
   WebMock.disable_net_connect!(allow_localhost: true)
 end
