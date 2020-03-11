@@ -32,7 +32,6 @@
 
   .favorites, .getstarted {
     background-image: image-url("hbg.png");
-    height: 500px;
 
     .content, ul {
       background: #fff;
@@ -72,7 +71,6 @@
 
     .favorites {
       width: 100%;
-      height: auto;
       border-bottom: none;
 
       &.empty { display: none; visibility: hidden; }
