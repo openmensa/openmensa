@@ -8,7 +8,7 @@ class AddNotesToMeal < ActiveRecord::Migration[4.2]
     end
     add_index :notes, :name, unique: true
 
-    create_table :meals_notes do |t|
+    create_table :meals_notes do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.references :meal
       t.references :note
     end

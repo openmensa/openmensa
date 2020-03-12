@@ -21,14 +21,14 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
       Meal.reset_column_information
       count = 0
       Meal.all.each do |m|
-        canteen = Canteen.find_by_id m.canteen_id
+        canteen = Canteen.find_by id: m.canteen_id
         # way is this needed:
         unless canteen
-          puts 'meals without canteen:', m.inspect
+          say "WARN: Meal without canteen: #{m}"
           m.destroy
           next
         end
-        day = canteen.days.find_by_date m.read_attribute(:date)
+        day = canteen.days.find_by date: m.read_attribute(:date)
         day ||= canteen.days.create date: m.read_attribute(:date)
         m.update_column :day_id, day.id
         count += 1
@@ -37,8 +37,10 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
     end
 
     # 3. remove obsolete columns
-    remove_column :meals, :canteen_id
-    remove_column :meals, :date
+    change_table :meals, bulk: true do |t|
+      t.remove :canteen_id
+      t.remove :date
+    end
   end
 
   def down
@@ -52,10 +54,10 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
     say_with_time 'updating meals' do
       Meal.reset_column_information
       Meal.all.each do |m|
-        day = Day.find_by_id(m.day_id)
+        day = Day.find_by(id: m.day_id)
         # way is this needed:
         unless day
-          puts 'meals without day:', m.inspect
+          say "WARN: Meal without day: #{m}"
           m.destroy
           next
         end

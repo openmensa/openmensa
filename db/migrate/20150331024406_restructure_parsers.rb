@@ -14,7 +14,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :parsers, [:user_id, :name], unique: true
+    add_index :parsers, %i[user_id name], unique: true
 
     create_table :sources do |t|
       t.references :canteen
@@ -24,8 +24,8 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :sources, [:canteen_id, :parser_id], unique: true
-    add_index :sources, [:parser_id, :name], unique: true
+    add_index :sources, %i[canteen_id parser_id], unique: true
+    add_index :sources, %i[parser_id name], unique: true
 
     create_table :feeds do |t|
       t.references :source
@@ -41,7 +41,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :feeds, [:source_id, :name], unique: true
+    add_index :feeds, %i[source_id name], unique: true
 
     create_table :data_proposals do |t|
       t.references :canteen
@@ -69,7 +69,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    create_table :feed_fetches do |t|
+    create_table :feed_fetches do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.references :feed
       t.string :state, null: false
       t.string :reason, null: false
@@ -83,7 +83,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
       t.datetime :executed_at, null: false
     end
 
-    change_table :canteens do |t|
+    change_table :canteens, bulk: true do |t|
       t.string :state, null: false, default: 'wanted'
       t.string :phone
       t.string :email
@@ -95,7 +95,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
       t.references :messageable, polymorphic: true, index: true
     end
 
-    change_table :users do |t|
+    change_table :users, bulk: true do |t|
       t.string :public_email, null: true
       t.string :public_name, null: true
       t.string :notify_email, null: true
@@ -108,14 +108,12 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
           Canteen.transaction do
             Canteen.reset_column_information
             Canteen.all.each do |c|
-              next unless c.url.present?
+              next if c.url.blank?
 
-              parserName = c.url[0..c.url.rindex('/') - 1]
-              p = Parser.find_or_create_by!(name: parserName, user_id: c.user_id)
+              parser_name = c.url[0..c.url.rindex('/') - 1]
+              p = Parser.find_or_create_by!(name: parser_name, user_id: c.user_id)
               name = c.url[(c.url.rindex('/') + 1)..400]
-              if name =~ /^([^.]+)\.[^.]+$/
-                name = $1
-              end
+              name = Regexp.last_match(1) if name =~ /^([^.]+)\.[^.]+$/
               s = Source.create! parser: p,
                                  name: name,
                                  canteen: c
@@ -135,11 +133,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
               end
               c.url = nil
               c.today_url = nil
-              if c.active
-                c.state = 'active'
-              else
-                c.state = 'archived'
-              end
+              c.state = c.active ? 'active' : 'archived'
               c.save!
             end
           end
@@ -151,7 +145,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
 
       dir.down do
         say_with_time 'migration data' do
-          change_table :canteens do |t|
+          change_table :canteens, bulk: true do |t|
             t.string :url
             t.string :today_url, null: true
             t.integer :fetch_hour

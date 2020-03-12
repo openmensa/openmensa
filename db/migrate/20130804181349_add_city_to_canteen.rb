@@ -4,16 +4,16 @@ class AddCityToCanteen < ActiveRecord::Migration[4.2]
   def up
     add_column :canteens, :city, :string
 
-    puts 'Update cities...'
-
-    rgx = /\d{5}\s+(?<city>\w+)/
-    Canteen.where(city: nil).each do |canteen|
-      if (result = rgx.match(canteen.address))
-        canteen.update_attributes city: result[:city]
+    say_with_time 'Updating cities...' do
+      rgx = /\d{5}\s+(?<city>\w+)/
+      Canteen.where(city: nil).each do |canteen|
+        if (result = rgx.match(canteen.address))
+          canteen.update city: result[:city]
+        end
       end
-    end
 
-    puts "#{Canteen.where(city: nil).count} canteens without city left."
+      say "#{Canteen.where(city: nil).count} canteens without city left.", :subitem
+    end
   end
 
   def down

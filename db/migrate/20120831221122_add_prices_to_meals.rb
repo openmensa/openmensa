@@ -2,9 +2,11 @@
 
 class AddPricesToMeals < ActiveRecord::Migration[4.2]
   def change
-    add_column :meals, :price_student,  :decimal, precision: 8, scale: 2
-    add_column :meals, :price_employee, :decimal, precision: 8, scale: 2
-    add_column :meals, :price_pupil,    :decimal, precision: 8, scale: 2
-    add_column :meals, :price_other,    :decimal, precision: 8, scale: 2
+    change_table :meals, bulk: true do |t|
+      t.decimal :price_student, precision: 8, scale: 2
+      t.decimal :price_employee, precision: 8, scale: 2
+      t.decimal :price_pupil, precision: 8, scale: 2
+      t.decimal :price_other, precision: 8, scale: 2
+    end
   end
 end

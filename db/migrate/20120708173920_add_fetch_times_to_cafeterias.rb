@@ -2,7 +2,9 @@
 
 class AddFetchTimesToCafeterias < ActiveRecord::Migration[4.2]
   def change
-    add_column :cafeterias, :last_fetched_at, :datetime
-    add_column :cafeterias, :fetch_hour, :integer
+    change_table :cafeterias, bulk: true do |t|
+      t.datetime :last_fetched_at
+      t.integer :fetch_hour
+    end
   end
 end
