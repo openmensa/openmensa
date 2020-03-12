@@ -15,9 +15,13 @@ class Api::V2::MealsController < Api::BaseController
     @days = @canteen.days.includes(meals: :notes)
     begin
       date = Date.strptime(params[:start] || '', '%Y-%m-%d')
-      @days = @days.where('days.date >= ?', date).where('days.date < ?', date + 7.days)
+      @days = @days
+        .where('days.date >= ?', date)
+        .where('days.date < ?', date + 7.days)
     rescue ArgumentError
-      @days = @days.where('days.date >= ?', Date.today).where('days.date < ?', Date.today + 7.days)
+      @days = @days
+        .where('days.date >= ?', Time.zone.today)
+        .where('days.date < ?', Time.zone.today + 7.days)
     end
 
     respond_with DayDecorator.decorate_collection(@days), include: [:meals]

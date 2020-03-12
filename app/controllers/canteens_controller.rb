@@ -17,7 +17,10 @@ class CanteensController < WebController
     if @canteen.update canteen_params
       if params[:parser_id]
         flash[:notice] = t 'message.canteen_added'
-        redirect_to new_parser_source_path(parser_id: params[:parser_id], canteen_id: @canteen)
+        redirect_to new_parser_source_path(
+          parser_id: params[:parser_id],
+          canteen_id: @canteen
+        )
       else
         flash[:notice] = t 'message.wanted_canteen_added'
         redirect_to wanted_canteens_path
@@ -65,6 +68,8 @@ class CanteensController < WebController
   end
 
   def canteen_params
-    params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city, :phone, :email)
+    params
+      .require(:canteen)
+      .permit(:address, :name, :latitude, :longitude, :city, :phone, :email)
   end
 end

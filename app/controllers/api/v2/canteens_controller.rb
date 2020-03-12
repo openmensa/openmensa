@@ -11,14 +11,19 @@ class Api::V2::CanteensController < Api::BaseController
             end
 
     if place
-      scope.reorder('').near(place, value[2] ? value[2].to_f : 10, units: :km, order_by_without_select: :distance)
+      scope.reorder('').near(
+        place,
+        value[2] ? value[2].to_f : 10,
+        units: :km,
+        order_by_without_select: :distance
+      )
     else
       scope
     end
   end
 
   has_scope :ids do |_controller, scope, value|
-    ids = value.split(',').map(&:to_i).select {|x| x > 0 }.uniq
+    ids = value.split(',').map(&:to_i).select(&:positive?).uniq
     scope.where(id: ids)
   end
 

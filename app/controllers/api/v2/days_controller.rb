@@ -7,7 +7,7 @@ class Api::V2::DaysController < Api::BaseController
     begin
       value = Date.strptime(value, '%Y-%m-%d')
     rescue ArgumentError
-      value = Date.today
+      value = Time.zone.today
     end
     scope.where('days.date >= ?', value)
   end

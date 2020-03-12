@@ -40,6 +40,8 @@ class DataProposalsController < WebController
   end
 
   def data_proposal_params
-    params.require(:data_proposal).permit(:name, :city, :address, :latitude, :longitude, :phone, :email)
+    params
+      .require(:data_proposal)
+      .permit(:name, :city, :address, :latitude, :longitude, :phone, :email)
   end
 end

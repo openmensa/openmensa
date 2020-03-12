@@ -2,31 +2,45 @@
 
 class DevelopersController < WebController
   skip_authorization_check only: %i[activate]
+
+  # rubocop:disable Rails/OutputSafety
   def show
     authorize! :edit, @user
-    if @user.developer?
-      flash_for :user, notice: t('message.activate.already_developer').html_safe
-    end
-  end
+    return unless @user.developer?
 
+    flash_for :user,
+      notice: t('message.activate.already_developer').html_safe
+  end
+  # rubocop:enable all
+
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Rails/OutputSafety
   def update
     authorize! :edit, @user
-    if @user.update user_params
-      url = activate_url self.class.message_encryptor.encrypt_and_sign(@user.notify_email)
-      if VerifyMailer.verify_email(@user, url).deliver_now
-        flash_for :user, notice: t('message.activate.mail_sent', mail: @user.notify_email).html_safe
-      else
-        flash_for :user, error: t('message.activate.mail_failed_to_send', mail: @user.notify_email).html_safe
-      end
-      redirect_to @user
-    else
+
+    unless @user.update(user_params)
       render action: :show
+      return
     end
+
+    url = activate_url encrypt_and_sign(@user.notify_email)
+    if VerifyMailer.verify_email(@user, url).deliver_now
+      message = t('message.activate.mail_sent',
+        mail: @user.notify_email).html_safe
+      flash_for :user, notice: message
+    else
+      message = t('message.activate.mail_failed_to_send',
+        mail: @user.notify_email).html_safe
+      flash_for :user, error: message
+    end
+
+    redirect_to @user
   end
+  # rubocop:enable all
 
   def activate
     redirect_to root_url
-    user = User.find_by notify_email: self.class.message_encryptor.decrypt_and_verify(params[:token])
+    user = User.find_by(notify_email: decrypt_and_verify(params[:token]))
     unless user
       flash[:error] = t('message.activate.unknown_token')
       return
@@ -45,6 +59,14 @@ class DevelopersController < WebController
   def user_params
     params.require(:user).permit(:public_name, :info_url,
       :notify_email, :public_email)
+  end
+
+  def encrypt_and_sign(text)
+    self.class.message_encryptor.encrypt_and_sign(text)
+  end
+
+  def decrypt_and_verify(text)
+    self.class.message_encryptor.decrypt_and_verify(text)
   end
 
   class << self
