@@ -1,3 +1,0 @@
----
-# The authentication token for the application.
-authentication: <%= Rails.application.secrets.skylight_authentication %>
