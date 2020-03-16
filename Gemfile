@@ -20,7 +20,7 @@ gem 'oj'
 gem 'pg', '~> 1.2'
 gem 'slim'
 
-gem 'cancancan', '~> 3.0'
+gem 'cancancan', '~> 3.1'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
