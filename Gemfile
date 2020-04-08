@@ -82,7 +82,7 @@ group :test do
   gem 'accept_values_for', '>= 0.7.4'
   gem 'capybara', '~> 3.32'
   gem 'capybara-email', '~> 3.0'
-  gem 'cuprite', '~> 0.9.0'
+  gem 'cuprite', '~> 0.10'
   gem 'factory_bot_rails', '~> 5.1'
   gem 'rails-controller-testing'
   gem 'timecop'
