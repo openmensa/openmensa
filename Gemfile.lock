@@ -214,7 +214,7 @@ GEM
       rack-link_headers (>= 2.2)
     parallel (1.19.1)
     parse-cron (0.1.4)
-    parser (2.7.0.5)
+    parser (2.7.1.0)
       ast (~> 2.4.0)
     pg (1.2.3)
     pry (0.13.0)
@@ -317,7 +317,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-performance (1.5.2)
       rubocop (>= 0.71.0)
-    rubocop-rails (2.5.1)
+    rubocop-rails (2.5.2)
       activesupport
       rack (>= 1.1)
       rubocop (>= 0.72.0)
