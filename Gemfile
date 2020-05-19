@@ -7,8 +7,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 6.0.3'
-gem 'rails-i18n', '~> 6.0'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
+gem 'rails-i18n', '~> 6.0', '>= 6.0.0'
 gem 'sprockets', '~> 4.0'
 gem 'turbolinks', '~> 5'
 
@@ -33,15 +33,15 @@ gem 'whenever', require: false
 
 gem 'geocoder', '~> 1.6'
 gem 'gravtastic'
-gem 'leaflet-rails', '~> 1.6'
-gem 'rails-timeago'
+gem 'leaflet-rails', '~> 1.6', '>= 1.6.0'
+gem 'rails-timeago', '>= 2.18.0'
 
-gem 'api-responder'
-gem 'decorate-responder', '~> 2.1'
-gem 'draper', '~> 4.0'
-gem 'has_scope', '~> 0.7.1'
+gem 'api-responder', '>= 1.0.1'
+gem 'decorate-responder', '~> 2.1', '>= 2.1.0'
+gem 'draper', '~> 4.0', '>= 4.0.1'
+gem 'has_scope', '~> 0.7.2'
 gem 'paginate-responder', '~> 2.0'
-gem 'responders'
+gem 'responders', '>= 3.0.0'
 gem 'will_paginate'
 
 gem 'sentry-raven'
@@ -51,9 +51,9 @@ group :assets do
   gem 'bourbon', '~> 7.0'
   gem 'coffee-rails', '~> 5.0.0'
   gem 'font-awesome-sass-rails', '~> 3.0.2.2'
-  gem 'jquery-rails'
+  gem 'jquery-rails', '>= 4.4.0'
   gem 'mini_racer'
-  gem 'sass-rails', '~> 6.0'
+  gem 'sass-rails', '~> 6.0', '>= 6.0.0'
   gem 'uglifier', '~> 4.2'
 end
 
@@ -66,7 +66,7 @@ group :development do
 
   gem 'rubocop', '~> 0.83.0', require: false
   gem 'rubocop-performance', '~> 1.5', require: false
-  gem 'rubocop-rails', '~> 2.5', require: false
+  gem 'rubocop-rails', '~> 2.5', '>= 2.5.2', require: false
   gem 'rubocop-rspec', '~> 1.39', require: false
 end
 
@@ -79,12 +79,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'accept_values_for', '>= 0.7.4'
+  gem 'accept_values_for', '>= 0.9.0'
   gem 'capybara', '~> 3.32'
   gem 'capybara-email', '~> 3.0'
   gem 'cuprite', '~> 0.10'
-  gem 'factory_bot_rails', '~> 5.2'
-  gem 'rails-controller-testing'
+  gem 'factory_bot_rails', '~> 5.2', '>= 5.2.0'
+  gem 'rails-controller-testing', '>= 1.0.4'
   gem 'timecop'
   gem 'webmock'
 
