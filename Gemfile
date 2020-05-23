@@ -12,7 +12,7 @@ gem 'rails-i18n', '~> 6.0'
 gem 'sprockets', '~> 4.0'
 gem 'turbolinks', '~> 5'
 
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 4.3', '>= 4.3.5'
 
 gem 'bcrypt'
 gem 'nokogiri'
