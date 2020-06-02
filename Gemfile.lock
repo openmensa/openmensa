@@ -213,7 +213,7 @@ GEM
       rack-link_headers (>= 2.2)
     parallel (1.19.1)
     parse-cron (0.1.4)
-    parser (2.7.1.2)
+    parser (2.7.1.3)
       ast (~> 2.4.0)
     pg (1.2.3)
     pry (0.13.1)
@@ -306,10 +306,11 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
-    rubocop (0.84.0)
+    rubocop (0.85.0)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.7)
       rexml
       rubocop-ast (>= 0.0.3)
       ruby-progressbar (~> 1.7)
@@ -432,7 +433,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails (= 4.0.1)
-  rubocop (~> 0.84.0)
+  rubocop (~> 0.85.0)
   rubocop-performance (~> 1.6)
   rubocop-rails (~> 2.5)
   rubocop-rspec (~> 1.39)
