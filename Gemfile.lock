@@ -75,7 +75,7 @@ GEM
       thor (~> 1.0)
     brakeman (4.8.2)
     builder (3.2.4)
-    byebug (11.1.1)
+    byebug (11.1.3)
     cancancan (3.1.0)
     capybara (3.32.2)
       addressable
@@ -94,7 +94,7 @@ GEM
       json
       simplecov
       url
-    coderay (1.1.2)
+    coderay (1.1.3)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 5.2.0)
@@ -126,14 +126,14 @@ GEM
     factory_bot_rails (5.2.0)
       factory_bot (~> 5.2.0)
       railties (>= 4.2.0)
-    faraday (1.0.0)
+    faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ferrum (0.8)
       addressable (~> 2.6)
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
       websocket-driver (>= 0.6, < 0.8)
-    ffi (1.12.2)
+    ffi (1.13.0)
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
@@ -213,7 +213,7 @@ GEM
       rack-link_headers (>= 2.2)
     parallel (1.19.1)
     parse-cron (0.1.4)
-    parser (2.7.1.2)
+    parser (2.7.1.3)
       ast (~> 2.4.0)
     pg (1.2.3)
     pry (0.13.1)
@@ -270,7 +270,7 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
+    rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
@@ -328,7 +328,7 @@ GEM
     safe_yaml (1.0.5)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.2.1)
+    sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
@@ -373,9 +373,9 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    websocket-driver (0.7.1)
+    websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
     will_paginate (3.3.0)
@@ -407,7 +407,7 @@ DEPENDENCIES
   gravtastic
   has_scope (~> 0.7.1)
   jquery-rails
-  leaflet-rails (~> 1.6)
+  leaflet-rails (~> 1.6, >= 1.6.0)
   listen
   mini_racer
   nokogiri
@@ -424,7 +424,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 4.3, >= 4.3.5)
   rack-cors
-  rails (~> 6.0.3)
+  rails (~> 6.0.3, >= 6.0.3.1)
   rails-controller-testing
   rails-i18n (~> 6.0)
   rails-timeago
