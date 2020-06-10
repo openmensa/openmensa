@@ -90,7 +90,7 @@ GEM
       mail
     chronic (0.10.2)
     cliver (0.3.2)
-    codecov (0.1.16)
+    codecov (0.1.17)
       json
       simplecov
       url
