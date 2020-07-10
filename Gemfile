@@ -83,7 +83,7 @@ group :test do
   gem 'capybara', '~> 3.33'
   gem 'capybara-email', '~> 3.0'
   gem 'cuprite', '~> 0.10'
-  gem 'factory_bot_rails', '~> 6.0'
+  gem 'factory_bot_rails', '~> 6.1'
   gem 'rails-controller-testing'
   gem 'timecop'
   gem 'webmock'
