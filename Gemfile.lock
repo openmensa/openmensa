@@ -90,7 +90,7 @@ GEM
       mail
     chronic (0.10.2)
     cliver (0.3.2)
-    codecov (0.1.19)
+    codecov (0.2.1)
       colorize
       json
       simplecov
