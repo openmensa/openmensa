@@ -324,8 +324,8 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.87.0)
-    rubocop-rspec (1.42.0)
-      rubocop (>= 0.87.0)
+    rubocop-rspec (1.43.1)
+      rubocop (~> 0.87)
     ruby-progressbar (1.10.1)
     safe_yaml (1.0.5)
     sass-rails (6.0.0)
@@ -436,7 +436,7 @@ DEPENDENCIES
   rubocop (~> 0.89.1)
   rubocop-performance (~> 1.7)
   rubocop-rails (~> 2.7)
-  rubocop-rspec (~> 1.42)
+  rubocop-rspec (~> 1.43)
   sass-rails (~> 6.0)
   sentry-raven
   simplecov
