@@ -336,7 +336,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sentry-raven (3.0.3)
+    sentry-raven (3.0.4)
       faraday (>= 1.0)
     simplecov (0.19.0)
       docile (~> 1.1)
