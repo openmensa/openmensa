@@ -33,7 +33,7 @@ gem 'whenever', require: false
 
 gem 'geocoder', '~> 1.6'
 gem 'gravtastic'
-gem 'leaflet-rails', '~> 1.6', '>= 1.6.0'
+gem 'leaflet-rails', '~> 1.7'
 gem 'rails-timeago'
 
 gem 'api-responder'
