@@ -90,7 +90,7 @@ GEM
       mail
     chronic (0.10.2)
     cliver (0.3.2)
-    codecov (0.2.10)
+    codecov (0.2.11)
       json
       simplecov
     coderay (1.1.3)
