@@ -368,7 +368,7 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.7.0)
-    webmock (3.9.0)
+    webmock (3.9.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
