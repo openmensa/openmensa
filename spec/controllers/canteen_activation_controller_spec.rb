@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + "/../spec_helper"
 
 describe CanteenActivationController, type: :controller do
-  describe '#create' do
+  describe "#create" do
     subject { response }
 
-    let(:canteen) { FactoryBot.create :canteen, state: 'archived' }
+    let(:canteen) { FactoryBot.create :canteen, state: "archived" }
 
     before do
       post :create, params: {canteen_id: canteen.id}
     end
 
-    context 'as anonymous' do
+    context "as anonymous" do
       its(:status) { is_expected.to eq 401 }
     end
   end
 
-  describe '#destroy' do
+  describe "#destroy" do
     subject { response }
 
     let(:canteen) { FactoryBot.create :canteen }
@@ -26,7 +26,7 @@ describe CanteenActivationController, type: :controller do
       delete :destroy, params: {canteen_id: canteen.id}
     end
 
-    context 'as anonymous' do
+    context "as anonymous" do
       its(:status) { is_expected.to eq 401 }
     end
   end

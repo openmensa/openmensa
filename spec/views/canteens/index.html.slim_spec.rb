@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + '/../../spec_helper'
+require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe 'canteens/index.html.slim', type: :view do
+describe "canteens/index.html.slim", type: :view do
   let(:user) { FactoryBot.create :user }
   let(:canteens) do
     [
@@ -19,7 +19,7 @@ describe 'canteens/index.html.slim', type: :view do
     render
   end
 
-  it 'lists canteens' do
+  it "lists canteens" do
     expect(rendered).to include(canteens[0].name)
     expect(rendered).to include(canteens[1].name)
   end

@@ -21,20 +21,20 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, 'log/whenever.log'
+set :output, "log/whenever.log"
 
-every :day, at: '1am' do
-  rake 'om:update_parsers'
+every :day, at: "1am" do
+  rake "om:update_parsers"
 end
 
-every :day, at: '4am' do
-  rake 'om:update_sources'
+every :day, at: "4am" do
+  rake "om:update_sources"
 end
 
 every 5.minutes do
-  rake 'om:update_feeds'
+  rake "om:update_feeds"
 end
 
-every :day, at: '9am' do
-  rake 'om:daily_reports'
+every :day, at: "9am" do
+  rake "om:daily_reports"
 end

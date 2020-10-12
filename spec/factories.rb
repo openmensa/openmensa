@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:login) {|n| "user#{n}" }
-    name { 'John Doe' }
+    name { "John Doe" }
     developer { false }
 
     after(:create) do |user|
@@ -23,27 +23,27 @@ FactoryBot.define do
   factory :identity do
     association :user
 
-    sequence(:uid) {|n| n.to_s.hash.to_s.gsub(/\D/, '') }
-    provider { 'twitter' }
-    token { 'apiToken' }
+    sequence(:uid) {|n| n.to_s.hash.to_s.gsub(/\D/, "") }
+    provider { "twitter" }
+    token { "apiToken" }
   end
 
-  factory :application, class: 'Doorkeeper::Application' do
+  factory :application, class: "Doorkeeper::Application" do
     sequence(:name)         {|n| "OAuth2 Client ##{n}" }
     sequence(:redirect_uri) {|n| "http://test.host/c#{n}/cb" }
   end
 
   factory :canteen do
-    state { 'active' }
+    state { "active" }
     sequence(:name) {|n| "Mensa ##{n}" }
-    address { 'Marble Street, 12345 City' }
-    city { 'City' }
+    address { "Marble Street, 12345 City" }
+    city { "City" }
 
     sequence(:latitude)  {|n| (n % 180) - 90 }
     sequence(:longitude) {|n| (n % 360) - 180 }
 
     trait :with_meals do
-      state { 'empty' }
+      state { "empty" }
       after(:create) do |canteen|
         FactoryBot.create :yesterday, :with_meals, canteen: canteen
         FactoryBot.create :today, :with_meals, canteen: canteen
@@ -52,7 +52,7 @@ FactoryBot.define do
     end
 
     trait :with_unordered_meals do
-      state { 'empty' }
+      state { "empty" }
       after(:create) do |canteen|
         FactoryBot.create :yesterday, :with_unordered_meals, canteen: canteen
         FactoryBot.create :today, :with_unordered_meals, canteen: canteen
@@ -107,7 +107,7 @@ FactoryBot.define do
     association :day
 
     trait :with_notes do
-      notes { ['Note M1', 'Note M2', 'Note M3'] }
+      notes { ["Note M1", "Note M2", "Note M3"] }
     end
   end
 
@@ -157,15 +157,15 @@ FactoryBot.define do
   factory :feed do
     sequence(:name) {|n| "feed##{n}" }
     sequence(:url) {|n| "http://example.org/feeds/#{n}.xml" }
-    schedule { '0 8-14 * * *' }
+    schedule { "0 8-14 * * *" }
 
     association :source
   end
 
   factory :feed_fetch do
-    state { 'fetching' }
-    reason { 'manual' }
-    version { '2.0' }
+    state { "fetching" }
+    reason { "manual" }
+    version { "2.0" }
     executed_at { Time.zone.now }
 
     association :feed
@@ -175,13 +175,13 @@ FactoryBot.define do
     association :canteen
     association :user
 
-    message { 'Dies ist ein sehr langes Nutzerfeedback!' }
+    message { "Dies ist ein sehr langes Nutzerfeedback!" }
   end
 
   factory :data_proposal do
     association :user
     association :canteen
 
-    city { 'Lande!' }
+    city { "Lande!" }
   end
 end

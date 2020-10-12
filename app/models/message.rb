@@ -38,7 +38,7 @@ class Message < ApplicationRecord
 
   def to_json(*_args)
     {
-      'type' => self.class.name.underscore
+      "type" => self.class.name.underscore
     }
   end
 
@@ -76,9 +76,9 @@ class FeedFetchError < Message
 
   def to_json(*_args)
     {
-      'type' => self.class.name.underscore,
-      'code' => code,
-      'message' => message
+      "type" => self.class.name.underscore,
+      "code" => code,
+      "message" => message
     }
   end
 end
@@ -122,10 +122,10 @@ class FeedValidationError < Message
 
   def to_json(*_args)
     {
-      'type' => self.class.name.underscore,
-      'kind' => kind,
-      'version' => version,
-      'message' => message
+      "type" => self.class.name.underscore,
+      "kind" => kind,
+      "version" => version,
+      "message" => message
     }
   end
 end
@@ -169,10 +169,10 @@ class SourceListChanged < Message
 
   def to_json(*_args)
     {
-      'type' => self.class.name.underscore,
-      'kind' => kind,
-      'name' => name,
-      'url' => url
+      "type" => self.class.name.underscore,
+      "kind" => kind,
+      "name" => name,
+      "url" => url
     }
   end
 end
@@ -208,9 +208,9 @@ class FeedChanged < Message
 
   def to_json(*_args)
     {
-      'type' => self.class.name.underscore,
-      'kind' => kind,
-      'name' => name
+      "type" => self.class.name.underscore,
+      "kind" => kind,
+      "name" => name
     }
   end
 end

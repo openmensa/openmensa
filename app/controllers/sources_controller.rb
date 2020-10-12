@@ -11,19 +11,19 @@ class SourcesController < WebController
       @canteen = Canteen.find @canteen_id
       @source = Source.new canteen: @canteen, parser: @parser
     else
-      @canteens = Canteen.where state: 'wanted'
+      @canteens = Canteen.where state: "wanted"
       @canteen = Canteen.new
-      render action: 'select_canteen'
+      render action: "select_canteen"
     end
   end
 
   def create
     if @source.update source_params
-      flash[:notice] = t 'message.source_created'
+      flash[:notice] = t "message.source_created"
       redirect_to parser_path(@source.parser)
     else
       @canteen = @source.canteen
-      flash[:error] = t 'message.source_invalid'
+      flash[:error] = t "message.source_invalid"
       render action :new
     end
   end
@@ -34,10 +34,10 @@ class SourcesController < WebController
 
   def update
     if @source.update source_params
-      flash[:notice] = t 'message.source_saved'
+      flash[:notice] = t "message.source_saved"
       redirect_to parser_path(@source.parser)
     else
-      flash[:notice] = t 'message.source_invalid'
+      flash[:notice] = t "message.source_invalid"
       redirect_to parser_path(@source.parser)
     end
   end

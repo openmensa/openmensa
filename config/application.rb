@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails'
+require "rails"
 
 # Pick the frameworks you want:
-require 'active_record/railtie'
-require 'action_controller/railtie'
-require 'action_mailer/railtie'
-require 'sprockets/railtie'
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "sprockets/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -31,10 +31,10 @@ module Openmensa
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Berlin'
+    config.time_zone = "Berlin"
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join("app", "locales", "**", "*.{rb,yml}").to_s]
     config.i18n.default_locale = :de
 
     # Loaded OmniAuth services will be stored here
@@ -44,16 +44,16 @@ module Openmensa
     config.filter_parameters += [:password]
 
     # Session store
-    config.session_store :cookie_store, key: '_openmensa_session'
+    config.session_store :cookie_store, key: "_openmensa_session"
     config.action_dispatch.cookies_serializer = :hybrid
 
     # Version of your assets, change this if you want to expire all your assets.
-    config.assets.version = '1.0'
+    config.assets.version = "1.0"
 
     # Add additional assets to the asset load path.
     # Rails.application.config.assets.paths << Emoji.images_path
     # Add Yarn node_modules folder to the asset load path.
-    config.assets.paths << Rails.root.join('node_modules')
+    config.assets.paths << Rails.root.join("node_modules")
 
     # Precompile additional assets.
     # application.js, application.css, and all non-JS/CSS in the app/assets
@@ -62,13 +62,13 @@ module Openmensa
 
     config.middleware.use Rack::Cors do
       allow do
-        origins '*'
-        resource '/api/*', headers: :any, expose: %w[Link X-OM-Api-Version X-Total-Pages], methods: :get, credentials: false
+        origins "*"
+        resource "/api/*", headers: :any, expose: %w[Link X-OM-Api-Version X-Total-Pages], methods: :get, credentials: false
       end
     end
 
-    initializer 'load-patches' do
-      require 'patches/relation_cache_key'
+    initializer "load-patches" do
+      require "patches/relation_cache_key"
     end
   end
 end

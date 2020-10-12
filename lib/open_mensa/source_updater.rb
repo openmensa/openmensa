@@ -85,21 +85,21 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     data = {}
     element.element_children.each do |element|
       case element.name
-        when 'url'
+        when "url"
           data[:url] = element.content
-        when 'source'
+        when "source"
           data[:source_url] = element.content
-        when 'schedule'
-          if element.key? 'retry'
-            data[:retry] = element['retry'].split(' ').map(&:to_i)
+        when "schedule"
+          if element.key? "retry"
+            data[:retry] = element["retry"].split(" ").map(&:to_i)
           end
           data[:schedule] = [
-            element['minute'] || '0',
-            element['hour'],
-            element['dayOfMonth'] || '*',
-            element['month'] || '*',
-            element['dayOfWeek'] || '*'
-          ].join(' ')
+            element["minute"] || "0",
+            element["hour"],
+            element["dayOfMonth"] || "*",
+            element["month"] || "*",
+            element["dayOfWeek"] || "*"
+          ].join(" ")
       end
     end
     data
@@ -109,9 +109,9 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     feeds = feeds_mapping
 
     canteen.element_children.select do |node|
-      next unless node.name == 'feed'
+      next unless node.name == "feed"
 
-      name = node['name']
+      name = node["name"]
       if feeds.key? name
         update_feed feeds.fetch(name), node
         feeds.delete name
@@ -128,18 +128,18 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   def extract_metadata(canteen, canteen_node)
     canteen_node.element_children.select do |node|
       case node.name
-        when 'name'
+        when "name"
           canteen.name = node.content
-        when 'address'
+        when "address"
           canteen.address = node.content
-        when 'city'
+        when "city"
           canteen.city = node.content
-        when 'phone'
+        when "phone"
           canteen.phone = node.content
-        when 'location'
-          canteen.latitude = node['latitude'].to_f
-          canteen.longitude = node['longitude'].to_f
-        when 'availability'
+        when "location"
+          canteen.latitude = node["latitude"].to_f
+          canteen.longitude = node["longitude"].to_f
+        when "availability"
       end
     end
   end
@@ -160,8 +160,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   def create_feed(node)
     attrs = feed_data node
-    attrs[:name] = node['name']
-    attrs[:priority] = node['priority'].to_i
+    attrs[:name] = node["name"]
+    attrs[:priority] = node["priority"].to_i
     feed = @source.feeds.create! attrs
     feed_changed!(feed, feed, :created)
     @feeds_added += 1
@@ -183,7 +183,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   end
 
   def feed_changed!(messageable, feed, kind)
-    @errors << messageable.messages.create!(type: 'FeedChanged',
+    @errors << messageable.messages.create!(type: "FeedChanged",
                                             kind: kind,
                                             name: feed.name)
   end

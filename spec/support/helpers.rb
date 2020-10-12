@@ -5,7 +5,7 @@ def visit_with(path, params = nil)
     params = path
     path   = url
   end
-  visit path.to_s + (params.respond_to?(:to_param) ? params.to_param : '')
+  visit path.to_s + (params.respond_to?(:to_param) ? params.to_param : "")
 end
 
 def set_current_user(user)
@@ -13,11 +13,11 @@ def set_current_user(user)
 end
 
 def mock_file(file)
-  File.new Rails.root.join('spec', 'mocks', file)
+  File.new Rails.root.join("spec", "mocks", file)
 end
 
 def mock_content(file)
-  File.new(Rails.root.join('spec', 'mocks', file)).read
+  File.new(Rails.root.join("spec", "mocks", file)).read
 end
 
 def login_with(identity)
@@ -51,12 +51,12 @@ def auth_basic(client)
   unless client.is_a?(Hash)
     client = {id: client.identifier, secret: client.secret}
   end
-  {'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Basic.encode_credentials(client[:id], client[:secret])}
+  {"HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client[:id], client[:secret])}
 end
 
 def auth_bearer(token)
   token = token.token if token.respond_to?(:token)
-  {'HTTP_AUTHORIZATION' => "Bearer #{token}"}
+  {"HTTP_AUTHORIZATION" => "Bearer #{token}"}
 end
 
 def auth_via_oauth2(token)
@@ -68,8 +68,8 @@ def xml_node(name)
 end
 
 def xml_meal(meal_name)
-  meal = xml_node('meal')
-  meal << name = xml_node('name')
+  meal = xml_node("meal")
+  meal << name = xml_node("name")
   name << meal_name
   meal
 end

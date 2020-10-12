@@ -66,13 +66,13 @@ class WebController < ApplicationController
   end
 
   def render_error(error)
-    layout = error[:layout] || 'application'
-    file   = error[:file] || 'common/error'
+    layout = error[:layout] || "application"
+    file   = error[:file] || "common/error"
 
     @title   = error[:title]
     @message = error[:message]
 
-    if (params[:format] || 'html') == 'html'
+    if (params[:format] || "html") == "html"
       render template: file, layout: layout, status: error[:status]
     else
       super

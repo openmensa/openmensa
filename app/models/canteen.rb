@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-require 'rexml/document'
+require "open-uri"
+require "rexml/document"
 
 class Canteen < ApplicationRecord
   has_many :days
@@ -12,9 +12,9 @@ class Canteen < ApplicationRecord
   has_many :feeds, through: :sources
   has_many :data_proposals
   has_many :feedbacks
-  belongs_to :replaced_by, class_name: 'Canteen', foreign_key: :replaced_by, optional: true
+  belongs_to :replaced_by, class_name: "Canteen", foreign_key: :replaced_by, optional: true
 
-  scope :active, -> { where('state IN (?)', %w[active empty]) }
+  scope :active, -> { where("state IN (?)", %w[active empty]) }
 
   validates :city, :name, presence: true
 
@@ -22,7 +22,7 @@ class Canteen < ApplicationRecord
   after_validation :geocode, if: :geocode?
 
   STATES = %w[wanted active empty archived].freeze
-  validates :state, inclusion: {in: STATES, message: '%{value} is not a valid canteen state'}
+  validates :state, inclusion: {in: STATES, message: "%{value} is not a valid canteen state"}
 
   def geocode?
     return false unless Rails.env.production? || Rails.env.development?
@@ -43,7 +43,7 @@ class Canteen < ApplicationRecord
   end
 
   def archived?
-    state == 'archived'
+    state == "archived"
   end
 
   def replaced?

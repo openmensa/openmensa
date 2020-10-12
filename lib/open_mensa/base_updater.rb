@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-require_dependency 'message'
+require "open-uri"
+require_dependency "message"
 
 class OpenMensa::BaseUpdater
   attr_reader :errors, :version, :data, :document
@@ -52,7 +52,7 @@ class OpenMensa::BaseUpdater
         @document.root
       when 2 then
         node = @document.root.children.first
-        node = node.next while node.name != 'canteen'
+        node = node.next while node.name != "canteen"
         node
     end
   end

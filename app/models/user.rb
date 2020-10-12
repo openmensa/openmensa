@@ -80,25 +80,25 @@ class User < ApplicationRecord
     def create_omniauth(info, identity)
       info ||= {}
       create(
-        name: (info['name'] || identity.uid),
-        login: (info['login'] || identity.uid),
-        email: info['email']
+        name: (info["name"] || identity.uid),
+        login: (info["login"] || identity.uid),
+        email: info["email"]
       ).tap do |user|
         identity.update! user: user
       end
     end
 
     def anonymous
-      anonymous = AnonymousUser.unscoped.find_by(login: 'anonymous')
+      anonymous = AnonymousUser.unscoped.find_by(login: "anonymous")
       return anonymous if anonymous
 
       ::ActiveRecord::Base.transaction do
         # Acquire table lock to ensure they cannot be two anonymous created concurrently
-        ::ActiveRecord::Base.connection.execute('LOCK users IN EXCLUSIVE MODE;')
+        ::ActiveRecord::Base.connection.execute("LOCK users IN EXCLUSIVE MODE;")
 
         # Look for anonymous user again as it could have been created concurrently
         # between the check above and getting the table lock
-        record = AnonymousUser.unscoped.find_or_initialize_by(login: 'anonymous')
+        record = AnonymousUser.unscoped.find_or_initialize_by(login: "anonymous")
         record.save! validate: false if record.new_record?
         record
       end
@@ -111,7 +111,7 @@ class AnonymousUser < User
 
   def single_user
     if self.class.find_by(login: self.class.login_id)
-      errors.add_to_base 'An anonymous user already exists.'
+      errors.add_to_base "An anonymous user already exists."
     end
   end
 

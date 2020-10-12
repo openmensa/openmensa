@@ -5,7 +5,7 @@ Geocoder.configure(
 
   # geocoding service
   lookup: :nominatim,
-  http_headers: {'User-Agent' => 'RubyGeocoder openmensa.org / info@openmensa.org'},
+  http_headers: {"User-Agent" => "RubyGeocoder openmensa.org / info@openmensa.org"},
 
   # geocoding service request timeout, in seconds (default 3):
   timeout: 3,

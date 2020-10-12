@@ -46,7 +46,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
     create_table :data_proposals do |t|
       t.references :canteen
       t.references :user
-      t.string :state, default: 'new', null: false
+      t.string :state, default: "new", null: false
       t.string :name
       t.string :city
       t.string :address
@@ -63,7 +63,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
     create_table :feedbacks do |t|
       t.references :canteen
       t.references :user
-      t.string :state, default: 'new', null: false
+      t.string :state, default: "new", null: false
       t.text :message
 
       t.timestamps
@@ -84,7 +84,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
     end
 
     change_table :canteens, bulk: true do |t|
-      t.string :state, null: false, default: 'wanted'
+      t.string :state, null: false, default: "wanted"
       t.string :phone
       t.string :email
       t.boolean :availibility, default: true
@@ -104,36 +104,36 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
 
     reversible do |dir|
       dir.up do
-        say_with_time 'migration data' do
+        say_with_time "migration data" do
           Canteen.transaction do
             Canteen.reset_column_information
             Canteen.all.each do |c|
               next if c.url.blank?
 
-              parser_name = c.url[0..c.url.rindex('/') - 1]
+              parser_name = c.url[0..c.url.rindex("/") - 1]
               p = Parser.find_or_create_by!(name: parser_name, user_id: c.user_id)
-              name = c.url[(c.url.rindex('/') + 1)..400]
+              name = c.url[(c.url.rindex("/") + 1)..400]
               name = Regexp.last_match(1) if name =~ /^([^.]+)\.[^.]+$/
               s = Source.create! parser: p,
                                  name: name,
                                  canteen: c
-              feed = Feed.create! name: 'full',
+              feed = Feed.create! name: "full",
                                   source: s,
                                   url: c.url,
-                                  schedule: '0 8 * * *',
+                                  schedule: "0 8 * * *",
                                   retry: [60, 6],
                                   priority: 0
-              Message.where(canteen_id: c.id).update_all(messageable_id: feed.id, messageable_type: 'Feed')
+              Message.where(canteen_id: c.id).update_all(messageable_id: feed.id, messageable_type: "Feed")
               if c.today_url.present?
-                Feed.create! name: 'today',
+                Feed.create! name: "today",
                              source: s,
                              url: c.today_url,
-                             schedule: '0 8-14 * * *',
+                             schedule: "0 8-14 * * *",
                              priority: 10
               end
               c.url = nil
               c.today_url = nil
-              c.state = c.active ? 'active' : 'archived'
+              c.state = c.active ? "active" : "archived"
               c.save!
             end
           end
@@ -144,7 +144,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
       end
 
       dir.down do
-        say_with_time 'migration data' do
+        say_with_time "migration data" do
           change_table :canteens, bulk: true do |t|
             t.string :url
             t.string :today_url, null: true
@@ -159,15 +159,15 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
               next if s.nil?
 
               s.feeds.each do |f|
-                if f.name == 'full'
+                if f.name == "full"
                   c.url = f.url
-                elsif f.name == 'today'
+                elsif f.name == "today"
                   c.today_url = f.url
                 end
               end
               c.user_id = s.parser.user_id
-              c.state = 'active'
-              c.active = c.state == 'active'
+              c.state = "active"
+              c.active = c.state == "active"
               c.save!
             end
           end

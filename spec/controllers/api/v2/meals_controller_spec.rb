@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Api::V2::MealsController, type: :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
 
-  describe 'GET index' do
+  describe "GET index" do
     let(:canteen) { FactoryBot.create :canteen, :with_unordered_meals }
     let(:day) { canteen.days.first! }
 
     before { canteen }
 
-    it 'answers with a list' do
+    it "answers with a list" do
       get :index, format: :json,
                   params: {canteen_id: canteen.id, day_id: day.to_param}
 
@@ -23,7 +23,7 @@ describe Api::V2::MealsController, type: :controller do
       expect(json.size).to eq(3)
     end
 
-    it 'answers with a list of meal nodes' do
+    it "answers with a list of meal nodes" do
       get :index, format: :json,
                   params: {canteen_id: canteen.id, day_id: day.to_param}
 
@@ -43,34 +43,34 @@ describe Api::V2::MealsController, type: :controller do
       }.as_json)
     end
 
-    context 'with unordered list of meals' do
-      it 'returns list ordered' do
+    context "with unordered list of meals" do
+      it "returns list ordered" do
         get :index, format: :json,
                     params: {canteen_id: canteen.id, day_id: day.to_param}
 
         expect(response.status).to eq(200)
 
-        expect(json.map {|m| m['id'].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
+        expect(json.map {|m| m["id"].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
       end
     end
 
-    context 'meal node' do
+    context "meal node" do
       let(:meal) { FactoryBot.create :meal, :with_notes }
       let(:day) { meal.day }
       let(:canteen) { meal.day.canteen }
 
-      it 'includes notes' do
+      it "includes notes" do
         get :index, format: :json,
                     params: {canteen_id: canteen.id, day_id: day.to_param}
 
         expect(response.status).to eq(200)
 
-        expect(json[0]['notes'].sort).to match(meal.notes.map(&:name))
+        expect(json[0]["notes"].sort).to match(meal.notes.map(&:name))
       end
     end
   end
 
-  describe 'GET canteen_meals' do
+  describe "GET canteen_meals" do
     let(:canteen) do
       c = FactoryBot.create :canteen, :with_meals
       c.days << FactoryBot.create(:day, :with_unordered_meals, canteen: c, date: Date.today + 2.days)
@@ -85,43 +85,43 @@ describe Api::V2::MealsController, type: :controller do
       c
     end
 
-    it 'answers with 7 days from now and their meals' do
+    it "answers with 7 days from now and their meals" do
       get :canteen_meals, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
       expect(json.size).to eq(7)
-      expect(json[0]['date']).to eq(Date.today.iso8601)
-      expect(json[1]['date']).to eq((Date.today + 1.day).iso8601)
-      expect(json[6]['date']).to eq((Date.today + 6.days).iso8601)
+      expect(json[0]["date"]).to eq(Date.today.iso8601)
+      expect(json[1]["date"]).to eq((Date.today + 1.day).iso8601)
+      expect(json[6]["date"]).to eq((Date.today + 6.days).iso8601)
     end
 
-    context '&start' do
-      it 'answers with up to 7 days from given date and their meals' do
+    context "&start" do
+      it "answers with up to 7 days from given date and their meals" do
         get :canteen_meals, format: :json,
                             params: {canteen_id: canteen.id, start: (Date.today + 1.day).iso8601}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(7)
-        expect(json[0]['date']).to eq((Date.today + 1.day).iso8601)
+        expect(json[0]["date"]).to eq((Date.today + 1.day).iso8601)
       end
 
-      it 'answers with up to 7 days from given date and their meals (2)' do
+      it "answers with up to 7 days from given date and their meals (2)" do
         get :canteen_meals, format: :json,
                             params: {canteen_id: canteen.id, start: (Date.today + 5.days).iso8601}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(5)
-        expect(json[0]['date']).to eq((Date.today + 5.days).iso8601)
-        expect(json[4]['date']).to eq((Date.today + 9.days).iso8601)
+        expect(json[0]["date"]).to eq((Date.today + 5.days).iso8601)
+        expect(json[4]["date"]).to eq((Date.today + 9.days).iso8601)
       end
 
-      it 'answers with a ordered list of meals' do
+      it "answers with a ordered list of meals" do
         get :canteen_meals, format: :json,
                             params: {canteen_id: canteen.id, start: (Date.today + 2.days).iso8601}
 
         expect(response.status).to eq(200)
         json.each do |day|
-          dayModel = Day.find_by date: day['date'], canteen: canteen
-          expect(day['meals'].map {|m| m['id'] }).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
+          dayModel = Day.find_by date: day["date"], canteen: canteen
+          expect(day["meals"].map {|m| m["id"] }).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
         end
       end
     end

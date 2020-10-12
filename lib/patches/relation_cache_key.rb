@@ -15,7 +15,7 @@ module RelationCacheKey
 
     md5 = connection.select_value(sql)
 
-    key = md5.presence || 'empty'
+    key = md5.presence || "empty"
 
     "#{model_name.cache_key}/#{key}"
   end

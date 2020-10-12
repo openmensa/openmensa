@@ -22,7 +22,7 @@ class OpenMensa::SourceCreator < OpenMensa::SourceUpdater
 
   def create_feeds(canteen)
     canteen.element_children.select do |node|
-      next unless node.name == 'feed'
+      next unless node.name == "feed"
 
       create_feed node
     end

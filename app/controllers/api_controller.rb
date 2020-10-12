@@ -19,12 +19,12 @@ class ApiController < ApplicationController
 
     if %w[json xml msgpack].include? params[:format]
       response.content_type = {
-        json: 'application/json',
-        xml: 'application/xml',
-        msgpack: 'application/x-msgpack'
+        json: "application/json",
+        xml: "application/xml",
+        msgpack: "application/x-msgpack"
       }[params[:format].to_sym]
     else
-      render_error status: :not_acceptable, message: 'Unsupported format.'
+      render_error status: :not_acceptable, message: "Unsupported format."
       false
     end
   end
@@ -48,7 +48,7 @@ class ApiController < ApplicationController
   def custom_headers(options)
     options ||= {}
     options.each do |key, value|
-      key = key.to_s.camelize.gsub(/[^A-z]+/, '').gsub(/([A-Z])/, '-\1')
+      key = key.to_s.camelize.gsub(/[^A-z]+/, "").gsub(/([A-Z])/, '-\1')
       response.headers["X-OM#{key}"] = value.to_s
     end
   end

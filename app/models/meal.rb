@@ -7,7 +7,7 @@ class Meal < ApplicationRecord
 
   validates :name, :category, :day_id, presence: true
 
-  scope :for, ->(date) { where('days.date' => date.to_date) }
+  scope :for, ->(date) { where("days.date" => date.to_date) }
 
   delegate :date, to: :day
 

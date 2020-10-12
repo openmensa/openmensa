@@ -11,7 +11,7 @@ class Api::V2::CanteensController < Api::BaseController
             end
 
     if place
-      scope.reorder('').near(
+      scope.reorder("").near(
         place,
         value[2] ? value[2].to_f : 10,
         units: :km,
@@ -23,15 +23,15 @@ class Api::V2::CanteensController < Api::BaseController
   end
 
   has_scope :ids do |_controller, scope, value|
-    ids = value.split(',').map(&:to_i).select(&:positive?).uniq
+    ids = value.split(",").map(&:to_i).select(&:positive?).uniq
     scope.where(id: ids)
   end
 
   has_scope :hasCoordinates do |_controller, scope, value|
-    if value != 'false' && value != '0' && value
-      scope.where('latitude IS NOT NULL and longitude IS NOT NULL')
+    if value != "false" && value != "0" && value
+      scope.where("latitude IS NOT NULL and longitude IS NOT NULL")
     else
-      scope.where('latitude IS NULL and longitude IS NULL')
+      scope.where("latitude IS NULL and longitude IS NULL")
     end
   end
 

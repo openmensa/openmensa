@@ -7,7 +7,7 @@ class UsersController < WebController
 
   def update
     if @user.update user_params
-      flash_for :user, notice: t('message.profile_saved').html_safe
+      flash_for :user, notice: t("message.profile_saved").html_safe
       redirect_to @user
     else
       render action: :show

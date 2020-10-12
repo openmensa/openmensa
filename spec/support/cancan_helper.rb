@@ -11,7 +11,7 @@ class CancanMatcher # :nodoc:
     @actions = actions
     @object  = object
     @name    = name
-    @action  = '<unknown>'
+    @action  = "<unknown>"
   end
 
   def matches?(user)

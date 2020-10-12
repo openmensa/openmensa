@@ -9,7 +9,7 @@ class DataProposalsController < WebController
 
   def create
     if @data_proposal.update data_proposal_params
-      flash[:notice] = t 'message.data_proposal_created'
+      flash[:notice] = t "message.data_proposal_created"
       redirect_to canteen_path(@data_proposal.canteen)
     else
       render action: :new

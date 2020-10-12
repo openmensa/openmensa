@@ -33,9 +33,9 @@ class OpenMensa::UpdateFeedsTask
       feed = Feed.find feed_id
 
       reason = if feed.retry == feed.current_retry
-                 'schedule'
+                 "schedule"
                else
-                 'retry'
+                 "retry"
                end
       begin
         @feed_updated = OpenMensa::Updater.new(feed, reason).update
@@ -82,6 +82,6 @@ class OpenMensa::UpdateFeedsTask
   def process_schedule(feed, state)
     CronParser.new(feed.schedule).send state
   rescue ArgumentError
-    CronParser.new('0 8 * * *').send state
+    CronParser.new("0 8 * * *").send state
   end
 end

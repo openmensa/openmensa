@@ -1,237 +1,237 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + '/../spec_helper'
-require_dependency 'message'
+require File.dirname(__FILE__) + "/../spec_helper"
+require_dependency "message"
 
-describe 'Developers', type: :feature do
+describe "Developers", type: :feature do
   let(:user) { FactoryBot.create :user }
   let(:developer) { FactoryBot.create :developer }
   let(:parser) { FactoryBot.create :parser, user_id: developer.id }
   let(:canteen) { FactoryBot.create :canteen }
 
-  context 'as a developer' do
+  context "as a developer" do
     before do
       parser
       login_as developer
-      click_on 'Profil'
+      click_on "Profil"
     end
 
-    context 'without existing parser' do
+    context "without existing parser" do
       let(:parser) {}
 
-      it 'is able to add a new parser' do
-        click_on 'Neuen Parser anlegen'
-        expect(page).to have_link_to 'http://doc.openmensa.org/parsers/'
-        expect(page).to have_link_to 'http://doc.openmensa.org/feed/v2/'
+      it "is able to add a new parser" do
+        click_on "Neuen Parser anlegen"
+        expect(page).to have_link_to "http://doc.openmensa.org/parsers/"
+        expect(page).to have_link_to "http://doc.openmensa.org/feed/v2/"
 
-        fill_in 'Name', with: 'Magdeburg'
-        click_on 'Speichern'
+        fill_in "Name", with: "Magdeburg"
+        click_on "Speichern"
 
-        expect(page).to have_content 'Der Parser wurde erfolgreich angelegt.'
+        expect(page).to have_content "Der Parser wurde erfolgreich angelegt."
       end
     end
 
-    context 'with existing parser' do
-      it 'is able to edit a new parser' do
+    context "with existing parser" do
+      it "is able to edit a new parser" do
         click_on parser.name
-        click_on 'Ändere die Parser-Einstellungen'
+        click_on "Ändere die Parser-Einstellungen"
 
-        fill_in 'Name', with: 'Magdeburg'
-        click_on 'Speichern'
+        fill_in "Name", with: "Magdeburg"
+        click_on "Speichern"
 
-        expect(page).to have_content 'Der Parser wurde erfolgreich aktualisiert.'
+        expect(page).to have_content "Der Parser wurde erfolgreich aktualisiert."
       end
 
-      it 'is able to import sources from index url' do
-        index_url = 'http://example.org/sources.json'
+      it "is able to import sources from index url" do
+        index_url = "http://example.org/sources.json"
         stub_request(:any, index_url)
           .to_return(body: JSON.generate(
-            'left' => 'http://example.org/left/meta.xml',
-            'right' => 'http://example.org/right/meta.xml'
+            "left" => "http://example.org/left/meta.xml",
+            "right" => "http://example.org/right/meta.xml"
           ), status: 200)
-        stub_request(:any, 'http://example.org/left/meta.xml')
+        stub_request(:any, "http://example.org/left/meta.xml")
           .to_return(status: 404)
-        stub_request(:any, 'http://example.org/right/meta.xml')
-          .to_return(body: mock_file('metafeed.xml'), status: 200)
+        stub_request(:any, "http://example.org/right/meta.xml")
+          .to_return(body: mock_file("metafeed.xml"), status: 200)
 
         click_on parser.name
-        expect(page).not_to have_link('Aktualisiere Quellen mittels Index-URL')
+        expect(page).not_to have_link("Aktualisiere Quellen mittels Index-URL")
 
-        click_on 'Ändere die Parser-Einstellungen'
-        fill_in 'Index-URL', with: index_url
-        click_on 'Speichern'
+        click_on "Ändere die Parser-Einstellungen"
+        fill_in "Index-URL", with: index_url
+        click_on "Speichern"
 
-        click_on 'Aktualisiere Quellen mittels Index-URL'
+        click_on "Aktualisiere Quellen mittels Index-URL"
 
-        expect(page).to have_content '1 Quellen neu.'
-        expect(page).to have_content '1 Quellen angelegt.'
+        expect(page).to have_content "1 Quellen neu."
+        expect(page).to have_content "1 Quellen angelegt."
       end
 
-      it 'is able to delete a parser' do
-        pending 'todo'
+      it "is able to delete a parser" do
+        pending "todo"
         click_on parser.name
 
-        click_on 'Parser archivieren'
+        click_on "Parser archivieren"
 
-        expect(page).to have_content 'Der Parser wurde archiviert!'
+        expect(page).to have_content "Der Parser wurde archiviert!"
       end
 
-      it 'is able to add a source with its canteen' do
+      it "is able to add a source with its canteen" do
         click_on parser.name
 
-        click_on 'Neue Quelle/Mensa hinzufügen'
+        click_on "Neue Quelle/Mensa hinzufügen"
 
-        fill_in 'Name', with: 'Neue Mensa'
-        fill_in 'Stadt / Region', with: 'Regensburg'
-        click_on 'Neue Mensa anlegen'
+        fill_in "Name", with: "Neue Mensa"
+        fill_in "Stadt / Region", with: "Regensburg"
+        click_on "Neue Mensa anlegen"
 
-        fill_in 'Name', with: 'test'
-        fill_in 'Meta-URL', with: 'http://example.org/test/meta.xml'
-        click_on 'Hinzufügen'
+        fill_in "Name", with: "test"
+        fill_in "Meta-URL", with: "http://example.org/test/meta.xml"
+        click_on "Hinzufügen"
 
-        expect(page).to have_content('Quelle wurde erfolgeich hinzufgefügt.')
+        expect(page).to have_content("Quelle wurde erfolgeich hinzufgefügt.")
       end
 
-      context 'with wanted canteen' do
-        let!(:canteen) { FactoryBot.create :canteen, state: 'wanted', name: 'Dies ist eine Gesuchte Mensa' }
+      context "with wanted canteen" do
+        let!(:canteen) { FactoryBot.create :canteen, state: "wanted", name: "Dies ist eine Gesuchte Mensa" }
 
-        it 'is able to add a source for a wanted canteen' do
+        it "is able to add a source for a wanted canteen" do
           click_on parser.name
 
-          click_on 'Neue Quelle/Mensa hinzufügen'
+          click_on "Neue Quelle/Mensa hinzufügen"
 
-          click_on 'Dies ist eine Gesuchte Mensa'
+          click_on "Dies ist eine Gesuchte Mensa"
 
-          fill_in 'Name', with: 'test'
-          fill_in 'Meta-URL', with: 'http://example.org/test/meta.xml'
-          click_on 'Hinzufügen'
+          fill_in "Name", with: "test"
+          fill_in "Meta-URL", with: "http://example.org/test/meta.xml"
+          click_on "Hinzufügen"
 
-          expect(page).to have_content('Quelle wurde erfolgeich hinzufgefügt.')
+          expect(page).to have_content("Quelle wurde erfolgeich hinzufgefügt.")
         end
       end
 
-      context 'with archived parser' do
-        it 'is able to reactive a parser' do
-          pending 'todo'
-          click_on 'Neuen Parser anlegen'
+      context "with archived parser" do
+        it "is able to reactive a parser" do
+          pending "todo"
+          click_on "Neuen Parser anlegen"
 
           click_on "\#{parser.name}\" reaktivieren"
 
-          expect(page).to have_content 'Der Parser wurde reaktiviert!'
+          expect(page).to have_content "Der Parser wurde reaktiviert!"
         end
       end
 
-      context 'with a existing source without meta url' do
+      context "with a existing source without meta url" do
         let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
         let!(:feed) { FactoryBot.create :feed, source: source }
 
-        it 'is able to edit the source' do
+        it "is able to edit the source" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
           within(:xpath, '//section[header="Editiere Quelle"]') do
-            fill_in 'Name', with: 'Testname'
-            click_on 'Speichern'
+            fill_in "Name", with: "Testname"
+            click_on "Speichern"
           end
 
-          expect(page).to have_content 'Testname'
-          expect(page).to have_content 'Die Quelle wurde erfolgeich aktualisiert.'
+          expect(page).to have_content "Testname"
+          expect(page).to have_content "Die Quelle wurde erfolgeich aktualisiert."
         end
 
-        it 'is able to add a new feed' do
+        it "is able to add a new feed" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
           within(:xpath, '//section[header="Neuer Feed"]') do
-            fill_in 'Name', with: 'Full'
-            fill_in 'URL', with: 'http://example.org/test/full.xml'
-            fill_in 'Wiederholungsinterval(e)', with: '10 3'
+            fill_in "Name", with: "Full"
+            fill_in "URL", with: "http://example.org/test/full.xml"
+            fill_in "Wiederholungsinterval(e)", with: "10 3"
           end
 
-          click_on 'Feed anlegen'
+          click_on "Feed anlegen"
 
-          expect(page).to have_content 'Der neuer Feed wurde erfolgreich angelegt.'
-          expect(page).to have_content 'Feed Full'
+          expect(page).to have_content "Der neuer Feed wurde erfolgreich angelegt."
+          expect(page).to have_content "Feed Full"
         end
 
-        it 'is able to edit a feed' do
+        it "is able to edit a feed" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
           within(:xpath, '//section[header="Feed ' + feed.name + '"]') do
-            fill_in 'Name', with: 'Replacefeed'
-            fill_in 'Wiederholungsinterval(e)', with: ''
-            click_on 'Speichern'
+            fill_in "Name", with: "Replacefeed"
+            fill_in "Wiederholungsinterval(e)", with: ""
+            click_on "Speichern"
           end
 
-          expect(page).to have_content 'Der Feed wurde erfolgreich aktualisiert.'
-          expect(page).to have_content 'Replacefeed'
+          expect(page).to have_content "Der Feed wurde erfolgreich aktualisiert."
+          expect(page).to have_content "Replacefeed"
         end
 
-        it 'is able to delete/archive a feed' do
+        it "is able to delete/archive a feed" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
           within(:xpath, '//section[header="Feed ' + feed.name + '"]') do
-            click_on 'Löschen'
+            click_on "Löschen"
           end
 
-          expect(page).to have_content 'Der Feed wurde erfolgreich geschlöscht.'
+          expect(page).to have_content "Der Feed wurde erfolgreich geschlöscht."
           expect(page).not_to have_content feed.name
         end
 
-        context 'without feedbacks' do
-          it 'is able to see a info about this state' do
+        context "without feedbacks" do
+          it "is able to see a info about this state" do
             visit canteen_path(canteen)
 
-            click_on 'Nutzerrückmeldungen'
+            click_on "Nutzerrückmeldungen"
 
-            expect(page).to have_content('Aktuell liegen keine Nutzerrückmeldungen für diese Mensa vor!')
+            expect(page).to have_content("Aktuell liegen keine Nutzerrückmeldungen für diese Mensa vor!")
           end
         end
 
-        context 'with previous created feedback' do
+        context "with previous created feedback" do
           let!(:feedback) { FactoryBot.create :feedback, canteen: canteen }
 
-          it 'is able to see the feedbacks message' do
+          it "is able to see the feedbacks message" do
             click_on parser.name
             click_on "Öffne Feedback für #{canteen.name}"
 
             expect(page).to have_content(feedback.message)
           end
 
-          it 'is able to see feedback via canteen page' do
+          it "is able to see feedback via canteen page" do
             visit canteen_path(canteen)
 
-            click_on 'Nutzerrückmeldungen'
+            click_on "Nutzerrückmeldungen"
 
             expect(page).to have_content(feedback.message)
           end
         end
 
-        context 'with previous created data proposals' do
+        context "with previous created data proposals" do
           let!(:data_proposal) { FactoryBot.create :data_proposal, canteen: canteen }
 
-          it 'is able to see the data_proposal' do
+          it "is able to see the data_proposal" do
             click_on parser.name
             click_on "Öffne Änderungsvorschläge für #{canteen.name}"
 
             expect(page).to have_content(data_proposal.city)
           end
 
-          it 'is able to see feedback via canteen page' do
+          it "is able to see feedback via canteen page" do
             visit canteen_path(canteen)
 
-            click_on 'Änderungsvorschläge'
+            click_on "Änderungsvorschläge"
 
             expect(page).to have_content(data_proposal.city)
           end
         end
 
-        context 'with previous messsages' do
+        context "with previous messsages" do
           let!(:error) { FactoryBot.create :feedUrlUpdatedInfo, messageable: source }
 
-          it 'is able to view fetch messages / errors' do
+          it "is able to view fetch messages / errors" do
             click_on parser.name
 
             click_on "Mitteilungen für #{source.name}"
@@ -241,31 +241,31 @@ describe 'Developers', type: :feature do
         end
       end
 
-      context 'with a existing source with meta url' do
+      context "with a existing source with meta url" do
         let!(:source) do
           FactoryBot.create :source, parser: parser,
-                                     meta_url: 'http://example.org/test/meta.xml'
+                                     meta_url: "http://example.org/test/meta.xml"
         end
-        let!(:feed) { FactoryBot.create :feed, source: source, name: 'oldfeed' }
+        let!(:feed) { FactoryBot.create :feed, source: source, name: "oldfeed" }
 
-        it 'is not able to edit feeds' do
+        it "is not able to edit feeds" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
           expect(page).not_to have_xpath('//section[header="Feed ' + feed.name + '"]')
           expect(page).not_to have_xpath('//section[header="Neuer Feed"]')
-          expect(page).not_to have_link('Feed anlegen')
+          expect(page).not_to have_link("Feed anlegen")
         end
 
-        it 'is able to let feeds sync via meta url' do
+        it "is able to let feeds sync via meta url" do
           stub_request(:any, source.meta_url)
-            .to_return(body: mock_file('metafeed.xml'), status: 200)
+            .to_return(body: mock_file("metafeed.xml"), status: 200)
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          click_on 'Synchronisiere Feeds'
-          expect(page).to have_content '2 Feeds hinzugefügt.'
-          expect(page).to have_content '1 Feeds gelöscht.'
+          click_on "Synchronisiere Feeds"
+          expect(page).to have_content "2 Feeds hinzugefügt."
+          expect(page).to have_content "1 Feeds gelöscht."
         end
       end
     end

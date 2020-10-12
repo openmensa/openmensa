@@ -47,14 +47,14 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
 
   def validate!
     unless @document.respond_to? :each_pair
-      create_validation_error! :invalid_json, 'JSON must contain an object with name, url pairs'
+      create_validation_error! :invalid_json, "JSON must contain an object with name, url pairs"
       return false
     end
     @document.each_pair do |_name, url|
       next if url.nil?
       next if url.is_a?(String) && url.present?
 
-      create_validation_error! :invalid_json, 'URL must be a string or null'
+      create_validation_error! :invalid_json, "URL must be a string or null"
       return false
     end
     true
@@ -97,12 +97,12 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   end
 
   def update_source(source, url)
-    if source.canteen.state == 'archived'
+    if source.canteen.state == "archived"
       SourceListChanged.create! messageable: source,
                                 kind: :source_reactivated,
                                 name: source.name,
                                 url: url
-      source.canteen.update! state: 'wanted'
+      source.canteen.update! state: "wanted"
       @sources_added += 1
     end
     return if url.nil?
@@ -131,12 +131,12 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   end
 
   def archive_source(source)
-    return if source.canteen.state == 'archived'
+    return if source.canteen.state == "archived"
 
     SourceListChanged.create! messageable: source,
                               kind: :source_archived,
                               name: source.name
-    source.canteen.update! state: 'archived'
+    source.canteen.update! state: "archived"
     @sources_deleted += 1
   end
 end

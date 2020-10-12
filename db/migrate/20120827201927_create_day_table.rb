@@ -16,7 +16,7 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
     end
 
     # 2. migrate data
-    say_with_time 'updating meals' do
+    say_with_time "updating meals" do
       Day.reset_column_information
       Meal.reset_column_information
       count = 0
@@ -51,7 +51,7 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
     end
 
     # 2. migrate data
-    say_with_time 'updating meals' do
+    say_with_time "updating meals" do
       Meal.reset_column_information
       Meal.all.each do |m|
         day = Day.find_by(id: m.day_id)

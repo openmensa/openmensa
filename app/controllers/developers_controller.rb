@@ -9,7 +9,7 @@ class DevelopersController < WebController
     return unless @user.developer?
 
     flash_for :user,
-      notice: t('message.activate.already_developer').html_safe
+      notice: t("message.activate.already_developer").html_safe
   end
   # rubocop:enable all
 
@@ -25,11 +25,11 @@ class DevelopersController < WebController
 
     url = activate_url encrypt_and_sign(@user.notify_email)
     if VerifyMailer.verify_email(@user, url).deliver_now
-      message = t('message.activate.mail_sent',
+      message = t("message.activate.mail_sent",
         mail: @user.notify_email).html_safe
       flash_for :user, notice: message
     else
-      message = t('message.activate.mail_failed_to_send',
+      message = t("message.activate.mail_failed_to_send",
         mail: @user.notify_email).html_safe
       flash_for :user, error: message
     end
@@ -42,16 +42,16 @@ class DevelopersController < WebController
     redirect_to root_url
     user = User.find_by(notify_email: decrypt_and_verify(params[:token]))
     unless user
-      flash[:error] = t('message.activate.unknown_token')
+      flash[:error] = t("message.activate.unknown_token")
       return
     end
     if user.update developer: true
-      flash[:notice] = t('message.activate.got_developer')
+      flash[:notice] = t("message.activate.got_developer")
     else
-      flash[:error] = t('message.activate.could_not_activate_link')
+      flash[:error] = t("message.activate.could_not_activate_link")
     end
   rescue ActiveSupport::MessageEncryptor::InvalidMessage
-    flash[:error] = t('message.activate.invalid_message')
+    flash[:error] = t("message.activate.invalid_message")
   end
 
   private

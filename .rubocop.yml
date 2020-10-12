@@ -190,3 +190,6 @@ Style/Semicolon:
 
 Style/SignalException:
   EnforcedStyle: only_raise
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

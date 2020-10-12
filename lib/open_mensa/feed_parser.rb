@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'nokogiri'
+require "nokogiri"
 
 module OpenMensa
   # FeedParser provide methods to parse XML input into an Nokogiri
@@ -38,7 +38,7 @@ module OpenMensa
       @document = ::Nokogiri::XML::Document.parse(data).tap do |doc|
         @errors = doc.errors
         unless errors.empty?
-          raise ParserError.new('Error while parsing feed data.', errors)
+          raise ParserError.new("Error while parsing feed data.", errors)
         end
       end
     end

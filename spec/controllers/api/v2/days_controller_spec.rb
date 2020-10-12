@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Api::V2::DaysController, type: :controller do
   render_views
 
   let(:json) { JSON.parse response.body }
 
-  describe 'GET index' do
+  describe "GET index" do
     let(:day) { FactoryBot.create :day }
     let(:canteen) { day.canteen }
 
     before { day }
 
-    it 'answers with a list' do
+    it "answers with a list" do
       get :index, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
 
@@ -21,7 +21,7 @@ describe Api::V2::DaysController, type: :controller do
       expect(json.size).to eq(1)
     end
 
-    it 'answers with a list of day nodes' do
+    it "answers with a list of day nodes" do
       get :index, format: :json, params: {canteen_id: canteen.id}
       expect(response.status).to eq(200)
 
@@ -31,7 +31,7 @@ describe Api::V2::DaysController, type: :controller do
       }.as_json)
     end
 
-    context '&start' do
+    context "&start" do
       let(:today) { FactoryBot.create :today, closed: true }
       let(:canteen) { today.canteen }
       let(:tomorrow) { FactoryBot.create :tomorrow, canteen: canteen }
@@ -44,24 +44,24 @@ describe Api::V2::DaysController, type: :controller do
         FactoryBot.create :day, canteen: canteen, date: tomorrow.date + 1
       end
 
-      it 'defaults to today if not given' do
+      it "defaults to today if not given" do
         get :index, format: :json, params: {canteen_id: canteen.id}
 
         expect(json).to have(3).items
-        expect(json[0]['date']).to eq(today.date.iso8601)
-        expect(json[1]['date']).to eq(tomorrow.date.iso8601)
-        expect(json[2]['date']).to eq((tomorrow.date + 1).iso8601)
+        expect(json[0]["date"]).to eq(today.date.iso8601)
+        expect(json[1]["date"]).to eq(tomorrow.date.iso8601)
+        expect(json[2]["date"]).to eq((tomorrow.date + 1).iso8601)
       end
     end
   end
 
-  describe 'GET show' do
+  describe "GET show" do
     let(:day) { FactoryBot.create :day }
     let(:canteen) { day.canteen }
 
     before { canteen }
 
-    it 'answers with day' do
+    it "answers with day" do
       get :show, format: :json,
                  params: {canteen_id: canteen.id, id: day.to_param}
 

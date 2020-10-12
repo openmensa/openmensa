@@ -10,23 +10,23 @@ class CanteensController < WebController
   end
 
   def new
-    @canteens = Canteen.where state: 'wanted'
+    @canteens = Canteen.where state: "wanted"
   end
 
   def create
     if @canteen.update canteen_params
       if params[:parser_id]
-        flash[:notice] = t 'message.canteen_added'
+        flash[:notice] = t "message.canteen_added"
         redirect_to new_parser_source_path(
           parser_id: params[:parser_id],
           canteen_id: @canteen
         )
       else
-        flash[:notice] = t 'message.wanted_canteen_added'
+        flash[:notice] = t "message.wanted_canteen_added"
         redirect_to wanted_canteens_path
       end
     else
-      @canteens = Canteen.where state: 'wanted'
+      @canteens = Canteen.where state: "wanted"
       render action: :new
     end
   end
@@ -35,7 +35,7 @@ class CanteensController < WebController
 
   def update
     if @canteen.update canteen_params
-      flash[:notice] = t 'message.canteen_saved'
+      flash[:notice] = t "message.canteen_saved"
       redirect_to parser_path(@canteen.parsers.first)
     else
       render action: :edit
@@ -53,7 +53,7 @@ class CanteensController < WebController
   end
 
   def wanted
-    @canteens = Canteen.where state: 'wanted'
+    @canteens = Canteen.where state: "wanted"
   end
 
   private

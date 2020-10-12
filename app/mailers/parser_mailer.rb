@@ -19,7 +19,7 @@ class ParserMailer < ApplicationMailer
     @fetch_errors = []
     @feedbacks = []
     @data_proposals = []
-    @parser_messages = @parser.messages.where('created_at > ?', @data_since).to_a
+    @parser_messages = @parser.messages.where("created_at > ?", @data_since).to_a
     @sources = []
     @parser.sources.each do |source|
       part = SourceMailerPart.new source, @data_since
@@ -43,28 +43,28 @@ class ParserMailer < ApplicationMailer
   end
 
   def calculate_mail_subject
-    msg = [messages_msg, feedback_msg, data_proposal_msg, feed_msg].reject(&:nil?).join(' & ')
-    t 'subject', name: @parser.name, msg: msg
+    msg = [messages_msg, feedback_msg, data_proposal_msg, feed_msg].reject(&:nil?).join(" & ")
+    t "subject", name: @parser.name, msg: msg
   end
 
   def t(name, *args)
-    super 'mailer.daily_report.' + name, *args
+    super "mailer.daily_report." + name, *args
   end
 
   def messages_msg
     subjects = []
-    subjects << t('parser_subject') unless @parser_messages.empty?
+    subjects << t("parser_subject") unless @parser_messages.empty?
     @sources.each do |source|
-      subjects << t('source_subject', name: source.name) if source.messages?
+      subjects << t("source_subject", name: source.name) if source.messages?
       source.feeds.each do |feed|
         if feed.feed_messages?
-          subjects << t('feed_subject', source: source.name, feed: feed.name)
+          subjects << t("feed_subject", source: source.name, feed: feed.name)
         end
       end
     end
     return nil if subjects.empty?
 
-    t 'messages_subject', subjects: subjects.join(', ')
+    t "messages_subject", subjects: subjects.join(", ")
   end
 
   def feed_msg
@@ -72,7 +72,7 @@ class ParserMailer < ApplicationMailer
 
     @notable_feeds = []
     @regular_feeds = []
-    @tense = 'past'
+    @tense = "past"
     @fetch_errors.each do |source|
       source.feeds.each do |feed|
         if feed.notable?
@@ -80,7 +80,7 @@ class ParserMailer < ApplicationMailer
         else
           @regular_feeds << feed
         end
-        @tense = 'presence' if feed.presence?
+        @tense = "presence" if feed.presence?
       end
     end
     reason_feed_msg_subject!
@@ -91,41 +91,41 @@ class ParserMailer < ApplicationMailer
   def feedback_msg
     return nil if @feedbacks.empty?
 
-    t 'new_feedbacks', count: @feedbacks.map(&:feedback_count).inject(&:+), sources: @feedbacks.map(&:name).join(', ')
+    t "new_feedbacks", count: @feedbacks.map(&:feedback_count).inject(&:+), sources: @feedbacks.map(&:name).join(", ")
   end
 
   def data_proposal_msg
     return nil if @data_proposals.empty?
 
-    t 'new_data_proposals', count: @data_proposals.map(&:proposal_count).inject(&:+), sources: @data_proposals.map(&:name).join(', ')
+    t "new_data_proposals", count: @data_proposals.map(&:proposal_count).inject(&:+), sources: @data_proposals.map(&:name).join(", ")
   end
 
   def reason_feed_msg_subject!
     if @regular_feeds.empty?
       @count = 100
       @subject = if @regulars.empty?
-                   t 'feed_subjects.all_feeds'
+                   t "feed_subjects.all_feeds"
                  else
-                   t 'feed_subjects.all_feeds_for', sources: @fetch_errors.map(&:name).join(', ')
+                   t "feed_subjects.all_feeds_for", sources: @fetch_errors.map(&:name).join(", ")
                  end
     elsif @notable_feeds.size == 1
       @count = 1
-      @subject = t 'feed_subjects.one_feed', name: @notable_feeds.first.name,
+      @subject = t "feed_subjects.one_feed", name: @notable_feeds.first.name,
                                              source: @notable_feeds.first.source_name
     elsif @notable_feeds.map(&:name).uniq.size == 1
       @count = 100
       @subject = if @regulars.empty?
-                   t 'feed_subjects.all_feeds_with_name', name: @notable_feeds.first.name
+                   t "feed_subjects.all_feeds_with_name", name: @notable_feeds.first.name
                  else
-                   t 'feed_subjects.all_feeds_with_name_for', name: @notable_feeds.first.name,
-                                                              sources: @fetch_errors.map(&:name).join(', ')
+                   t "feed_subjects.all_feeds_with_name_for", name: @notable_feeds.first.name,
+                                                              sources: @fetch_errors.map(&:name).join(", ")
                  end
     else
       @count = 100
       @subject = if @regulars.empty?
-                   t 'feed_subjects.some_feeds'
+                   t "feed_subjects.some_feeds"
                  else
-                   t 'feed_subjects.some_feeds_for', sources: @fetch_errors.map(&:name).join(', ')
+                   t "feed_subjects.some_feeds_for", sources: @fetch_errors.map(&:name).join(", ")
                  end
     end
   end
@@ -143,9 +143,9 @@ class ParserMailer < ApplicationMailer
       @feeds = source.feeds.map do |feed|
         FeedMailerPart.new feed, data_since
       end
-      @messages = source.messages.where('created_at > ?', data_since).to_a
-      @feedbacks = source.canteen.feedbacks.where('created_at > ?', data_since).to_a
-      @data_proposals = source.canteen.data_proposals.where('created_at > ?', data_since).to_a
+      @messages = source.messages.where("created_at > ?", data_since).to_a
+      @feedbacks = source.canteen.feedbacks.where("created_at > ?", data_since).to_a
+      @data_proposals = source.canteen.data_proposals.where("created_at > ?", data_since).to_a
     end
 
     def notable?
@@ -187,9 +187,9 @@ class ParserMailer < ApplicationMailer
       @fetches = if data_since.nil?
                    feed.fetches.order(:executed_at)
                  else
-                   feed.fetches.where('executed_at > ?', data_since).order(:executed_at)
+                   feed.fetches.where("executed_at > ?", data_since).order(:executed_at)
                  end
-      @feed_messages = feed.messages.where('created_at > ?', data_since).to_a
+      @feed_messages = feed.messages.where("created_at > ?", data_since).to_a
 
       build_state_histogram!
     end
@@ -201,7 +201,7 @@ class ParserMailer < ApplicationMailer
     end
 
     def notable?
-      (@histogram['failed'] + @histogram['broken'] + @histogram['invalid']) > 0
+      (@histogram["failed"] + @histogram["broken"] + @histogram["invalid"]) > 0
     end
 
     def regular?

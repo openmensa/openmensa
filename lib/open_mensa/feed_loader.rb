@@ -48,7 +48,7 @@ module OpenMensa
     rescue URI::InvalidURIError => e
       raise FeedLoadError.new("Invalid URL (#{url}) for #{resource}.", e)
     rescue StandardError => e
-      raise FeedLoadError.new('Error while loading feed.', e)
+      raise FeedLoadError.new("Error while loading feed.", e)
     end
 
     class << self
@@ -77,10 +77,10 @@ module OpenMensa
       uri.open(redirect: false)
     rescue OpenURI::HTTPRedirect => e
       if !options[:follow] || allowed_redirects <= 0
-        raise FeedLoadError.new('Too much redirects.', e)
+        raise FeedLoadError.new("Too much redirects.", e)
       end
 
-      if options[:update] && e.message.start_with?('301')
+      if options[:update] && e.message.start_with?("301")
         update_url e.uri.to_s
       end # permanent redirect
 

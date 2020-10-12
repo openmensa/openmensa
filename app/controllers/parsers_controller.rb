@@ -9,7 +9,7 @@ class ParsersController < WebController
 
   def create
     if @parser.update parser_params
-      flash[:notice] = t 'message.parser_created'
+      flash[:notice] = t "message.parser_created"
       redirect_to parser_path(@parser)
     else
       render action: :new
@@ -24,7 +24,7 @@ class ParsersController < WebController
 
   def update
     if @parser.update parser_params
-      flash[:notice] = t 'message.parser_saved'
+      flash[:notice] = t "message.parser_saved"
       redirect_to parser_path @parser
     else
       show

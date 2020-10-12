@@ -8,10 +8,10 @@ class FeedbacksController < WebController
 
   def create
     if @feedback.update error_params
-      flash[:notice] = t('message.feedback_sumitted')
+      flash[:notice] = t("message.feedback_sumitted")
       redirect_to canteen_path @canteen
     else
-      flash[:error] = t('message.feedback_failed')
+      flash[:error] = t("message.feedback_failed")
       render action: :new
     end
   end

@@ -3,7 +3,7 @@
 module ApplicationHelper
   def t(*attrs)
     options = attrs.extract_options!
-    id      = attrs.join '.'
+    id      = attrs.join "."
 
     options[:default] ||= "[[#{id}]]"
     I18n.t(id, options.merge(raise: true, default: nil)).html_safe
@@ -16,15 +16,15 @@ module ApplicationHelper
     options = attrs.extract_options!
     user    = attrs.first || current_user
     if user
-      content_tag :span, class: 'avatar', style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : '' do
+      content_tag :span, class: "avatar", style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : "" do
         image_tag user.gravatar_url(options).to_s,
           alt: user.name,
-          class: 'avatar',
-          style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ''
+          class: "avatar",
+          style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ""
       end
     else
-      content_tag :span, class: 'avatar', style: "width: #{options[:size]}px; height: #{options[:size]}px;" do
-        ''
+      content_tag :span, class: "avatar", style: "width: #{options[:size]}px; height: #{options[:size]}px;" do
+        ""
       end
     end
   end
@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def body_classes
-    ["#{controller.controller_name}_controller", "#{params[:action] || 'unknown'}_action", @layout].join(' ').strip
+    ["#{controller.controller_name}_controller", "#{params[:action] || 'unknown'}_action", @layout].join(" ").strip
   end
 
   def map(canteens, options = {})
@@ -48,7 +48,7 @@ module ApplicationHelper
         url: canteen_path(canteen)
       }
     end
-    content_tag :div, nil, class: 'map', id: (options[:id] || 'map'), data: {map: (options[:id] || 'map'), markers: markers.to_json, hash: options[:hash]}
+    content_tag :div, nil, class: "map", id: (options[:id] || "map"), data: {map: (options[:id] || "map"), markers: markers.to_json, hash: options[:hash]}
   end
 
   def canteen_state_icon(fetch_state)

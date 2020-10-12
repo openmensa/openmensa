@@ -1,34 +1,34 @@
 # frozen_string_literal: true
 
-require 'rubygems'
-require 'simplecov'
-SimpleCov.start 'rails' do
-  add_filter 'spec'
+require "rubygems"
+require "simplecov"
+SimpleCov.start "rails" do
+  add_filter "spec"
 end
 
-if ENV['CI']
-  require 'codecov'
+if ENV["CI"]
+  require "codecov"
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../config/environment", __dir__)
 
 ActiveRecord::Migration.maintain_test_schema!
 
-require 'capybara/cuprite'
-require 'capybara/email/rspec'
-require 'capybara/rspec'
-require 'factory_bot'
-require 'rspec/rails'
-require 'webmock/rspec'
+require "capybara/cuprite"
+require "capybara/email/rspec"
+require "capybara/rspec"
+require "factory_bot"
+require "rspec/rails"
+require "webmock/rspec"
 
 # Load factories
 FactoryBot.reload
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join('spec/support/**/*.rb')].sort.each {|f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f }
 
 RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
@@ -86,14 +86,14 @@ RSpec.configure do |config|
   end
 
   OmniAuth.config.test_mode = true
-  OmniAuth.config.add_mock(:twitter, uid: '12345',
-                                     nickname: 'zapnap')
-  OmniAuth.config.add_mock(:github, uid: '98765',
-                                    nickname: 'zapnap')
+  OmniAuth.config.add_mock(:twitter, uid: "12345",
+                                     nickname: "zapnap")
+  OmniAuth.config.add_mock(:github, uid: "98765",
+                                    nickname: "zapnap")
 
-  headless = ENV['CI'] || !%w[0 false off].include?(ENV.fetch('HEADLESS', 'on').downcase)
+  headless = ENV["CI"] || !%w[0 false off].include?(ENV.fetch("HEADLESS", "on").downcase)
   if headless
-    warn 'INFO: Running feature specs in headless browser.'
+    warn "INFO: Running feature specs in headless browser."
   end
 
   Capybara.default_driver = :cuprite

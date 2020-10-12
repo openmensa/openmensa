@@ -77,7 +77,7 @@ module OpenMensa
     def validate!
       @errors = schema.validate(document).to_a
       unless errors.empty?
-        raise FeedValidationError.new('Error while validating document.', errors)
+        raise FeedValidationError.new("Error while validating document.", errors)
       end
 
       version.to_i
@@ -116,7 +116,7 @@ module OpenMensa
         raise InvalidFeedVersionError.new("Document version #{version} does not match #{@required_main_version}")
       end
       if schema_file(version).nil?
-        raise InvalidFeedVersionError.new('Cannot detect schema version.')
+        raise InvalidFeedVersionError.new("Cannot detect schema version.")
       else
         @version = version
       end
@@ -128,8 +128,8 @@ module OpenMensa
 
     def schema_file(version)
       case version.to_i
-          when 1 then ::Rails.root.join('public', 'open-mensa-v1.xsd').to_s
-          when 2 then ::Rails.root.join('public', 'open-mensa-v2.xsd').to_s
+          when 1 then ::Rails.root.join("public", "open-mensa-v1.xsd").to_s
+          when 2 then ::Rails.root.join("public", "open-mensa-v2.xsd").to_s
         end
     end
   end
