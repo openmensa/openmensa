@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   attr_writer :current_user
+
   helper_method :current_user
 
   def current_ability

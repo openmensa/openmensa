@@ -129,10 +129,7 @@ class ParserMailer < ApplicationMailer
   class SourceMailerPart
     extend Forwardable
     def_delegators :@source, :name, :canteen
-    attr_reader :feeds
-    attr_reader :feedbacks
-    attr_reader :data_proposals
-    attr_reader :messages
+    attr_reader :feeds, :feedbacks, :data_proposals, :messages
 
     def initialize(source, data_since)
       @source = source
