@@ -23,9 +23,56 @@ Rails/ApplicationRecord:
   Exclude:
     - db/migrate/**/*
 
+Rails/ActiveRecordCallbacksOrder: # (new in 2.7)
+  Enabled: true
+
+Rails/AfterCommitOverride: # (new in 2.8)
+  Enabled: true
+
+Rails/FindById: # (new in 2.7)
+  Enabled: true
+
+Rails/Inquiry: # (new in 2.7)
+  Enabled: true
+
+Rails/MailerName: # (new in 2.7)
+  Enabled: true
+
+Rails/MatchRoute: # (new in 2.7)
+  Enabled: true
+
+Rails/NegateInclude: # (new in 2.7)
+  Enabled: true
+
+Rails/Pluck: # (new in 2.7)
+  Enabled: true
+
+Rails/PluckInWhere: # (new in 2.7)
+  Enabled: true
+
+Rails/RenderInline: # (new in 2.7)
+  Enabled: true
+
+Rails/RenderPlainText: # (new in 2.7)
+  Enabled: true
+
+Rails/ShortI18n: # (new in 2.7)
+  Enabled: true
+
 Rails/SkipsModelValidations:
   Exclude:
     - db/migrate/**/*
+
+Rails/SquishedSQLHeredocs: # (new in 2.8)
+  Enabled: true
+
+Rails/WhereExists: # (new in 2.7)
+  Enabled: true
+
+Rails/WhereNot: # (new in 2.8)
+  Enabled: true
+
+
 
 # -----------------------------------------------------------------------------
 #                                   RSPEC
@@ -63,12 +110,14 @@ RSpec/NestedGroups:
 
 
 
-
 # -----------------------------------------------------------------------------
 #                                   Layout
 
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
+
+Layout/BeginEndAlignment:
+  Enabled: true
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -76,6 +125,9 @@ Layout/CaseIndentation:
     - case
     - end
   IndentOneStep: true
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
 
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
@@ -92,6 +144,9 @@ Layout/LineLength:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Layout/SpaceInsideBlockBraces:
   EnforcedStyle: space
   EnforcedStyleForEmptyBraces: no_space
@@ -99,6 +154,7 @@ Layout/SpaceInsideBlockBraces:
 
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+
 
 
 # -----------------------------------------------------------------------------
@@ -111,6 +167,75 @@ Layout/SpaceInsideHashLiteralBraces:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*_spec.rb'
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: true
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Lint/DuplicateRequire:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/EmptyFile:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/HashCompareByIdentity:
+  Enabled: true
+
+Lint/IdentityComparison:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/RedundantSafeNavigation:
+  Enabled: true
+
+Lint/SelfAssignment:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/TrailingCommaInAttributeDeclaration:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Lint/UselessMethodDefinition:
+  Enabled: true
+
+Lint/UselessTimes:
+  Enabled: true
 
 
 
@@ -142,6 +267,15 @@ Metrics/MethodLength:
 # -----------------------------------------------------------------------------
 #                                   Style
 
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
 #
 # Both styles or mixtures are reasonable
 #
@@ -149,23 +283,68 @@ Style/ClassAndModuleChildren:
   EnforcedStyle: compact
   Enabled: false
 
+Style/ClassEqualityComparison:
+  Enabled: true
+
+Style/CombinableLoops:
+  Enabled: true
+
 #
 # Would be better but unlikely...
 #
 Style/Documentation:
   Enabled: false
 
+Style/ExplicitBlockArgument:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: true
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
 Style/HashEachMethods:
   Enabled: false
 
+Style/HashLikeCase:
+  Enabled: true
+
 Style/HashTransformKeys:
-    Enabled: false
+  Enabled: false
 
 Style/HashTransformValues:
-    Enabled: false
+  Enabled: false
+
+Style/KeywordParametersOrder:
+  Enabled: true
+
+Style/OptionalBooleanParameter:
+  Enabled: true
 
 Style/RaiseArgs:
   EnforcedStyle: compact
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/RedundantSelfAssignment:
+  Enabled: true
 
 #
 # Quick single line rescues in specs
@@ -191,5 +370,49 @@ Style/Semicolon:
 Style/SignalException:
   EnforcedStyle: only_raise
 
+Style/SingleArgumentDig:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Style/SoleNestedConditional:
+  Enabled: true
+
+Style/StringConcatenation:
+  Enabled: true
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+
+
+# -----------------------------------------------------------------------------
+#                                   Style
+
+Performance/AncestorsInclude: # (new in 1.7)
+  Enabled: true
+
+Performance/BigDecimalWithNumericArgument: # (new in 1.7)
+  Enabled: true
+
+Performance/RedundantSortBlock: # (new in 1.7)
+  Enabled: true
+
+Performance/RedundantStringChars: # (new in 1.7)
+  Enabled: true
+
+Performance/ReverseFirst: # (new in 1.7)
+  Enabled: true
+
+Performance/SortReverse: # (new in 1.7)
+  Enabled: true
+
+Performance/Squeeze: # (new in 1.7)
+  Enabled: true
+
+Performance/StringInclude: # (new in 1.7)
+  Enabled: true
+
+Performance/Sum: # (new in 1.8)
+  Enabled: true
