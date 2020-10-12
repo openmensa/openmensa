@@ -4,21 +4,21 @@ require "spec_helper"
 
 describe OpenMensa::UpdateFeedsTask do
   let(:task) { described_class.new }
-  let(:feed) { FactoryBot.create :feed }
-  let(:success_updater) { double("Updater", update: true) }
-  let(:failing_updater) { double("Updater", update: false) }
-  before { Timecop.freeze 2015, 4, 20, 8, 34, 30 }
-
-  def new_feed(attrs = {})
-    FactoryBot.create :feed, attrs
-  end
-
   let(:_9am) { Time.zone.local 2015, 4, 20, 9, 0, 0 }
   let(:_8am) { Time.zone.local 2015, 4, 20, 8, 0, 0 }
   let(:next_8am) { Time.zone.local 2015, 4, 21, 8, 0, 0 }
   let(:_815) { Time.zone.local 2015, 4, 20, 8, 15, 0 }
   let(:_835) { Time.zone.local 2015, 4, 20, 8, 35, 0 }
   let(:_834) { Time.zone.local 2015, 4, 20, 8, 34, 0 }
+  let(:feed) { FactoryBot.create :feed }
+  let(:success_updater) { double("Updater", update: true) }
+  let(:failing_updater) { double("Updater", update: false) }
+
+  before { Timecop.freeze 2015, 4, 20, 8, 34, 30 }
+
+  def new_feed(attrs = {})
+    FactoryBot.create :feed, attrs
+  end
 
   describe "#do" do
     it "clears next_fetch_at for feeds without schedule" do

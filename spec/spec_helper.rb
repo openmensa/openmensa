@@ -92,9 +92,7 @@ RSpec.configure do |config|
                                     nickname: "zapnap")
 
   headless = ENV["CI"] || !%w[0 false off].include?(ENV.fetch("HEADLESS", "on").downcase)
-  if headless
-    warn "INFO: Running feature specs in headless browser."
-  end
+  warn "INFO: Running feature specs in headless browser." if headless
 
   Capybara.default_driver = :cuprite
 
@@ -102,8 +100,7 @@ RSpec.configure do |config|
     Capybara::Cuprite::Driver.new(app,
       headless: headless,
       window_size: [1280, 800],
-      inspector: true,
-    )
+      inspector: true)
   end
 
   WebMock.disable_net_connect!(allow_localhost: true)

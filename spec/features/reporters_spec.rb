@@ -17,7 +17,7 @@ describe "Reporters: ", type: :feature do
     click_on "Mensa als gewünscht eintragen"
 
     expect(page).to have_content "Die Mensa wurde erfolgreich als gewünscht gespeichert."
-    expect(page).to have_content /Meine Liebligsmensa\s+Hamburg/
+    expect(page).to have_content(/Meine Liebligsmensa\s+Hamburg/)
   end
 
   context "with a previous created canteen" do
@@ -27,7 +27,7 @@ describe "Reporters: ", type: :feature do
       visit root_path
 
       click_on "Melde die Mensa als gewünscht"
-      expect(page).to have_content /Meine Liebligsmensa\s+Hamburg/
+      expect(page).to have_content(/Meine Liebligsmensa\s+Hamburg/)
     end
   end
 

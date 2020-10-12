@@ -29,11 +29,11 @@ class Message < ApplicationRecord
   end
 
   def to_html
-    I18n.t("messages.html.#{self.class.name.underscore}", data)
+    I18n.t("messages.html.#{self.class.name.underscore}", **data)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.#{self.class.name.underscore}", data)
+    I18n.t("messages.text_mail.#{self.class.name.underscore}", **data)
   end
 
   def to_json(*_args)

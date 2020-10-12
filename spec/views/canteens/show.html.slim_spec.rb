@@ -23,7 +23,7 @@ describe "canteens/show.html.slim", type: :view do
     it "contains a deactivation info" do
       canteen.update_attribute :state, "archived"
       render
-      expect(rendered).to match /#{canteen.name}.*\(Außer Betrieb\)/
+      expect(rendered).to match(/#{canteen.name}.*\(Außer Betrieb\)/)
       expect(rendered).to include("Mensa ist außer Betrieb")
     end
   end

@@ -110,9 +110,7 @@ class AnonymousUser < User
   validate :single_user
 
   def single_user
-    if self.class.find_by(login: self.class.login_id)
-      errors.add_to_base "An anonymous user already exists."
-    end
+    errors.add_to_base "An anonymous user already exists." if self.class.find_by(login: self.class.login_id)
   end
 
   def logged?

@@ -76,8 +76,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   private
 
   def feeds_mapping
-    @source.feeds.each_with_object({}) do |feed, memo|
-      memo[feed.name] = feed
+    @source.feeds.index_by do |feed|
+      feed.name
     end
   end
 
@@ -90,9 +90,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
         when "source"
           data[:source_url] = element.content
         when "schedule"
-          if element.key? "retry"
-            data[:retry] = element["retry"].split(" ").map(&:to_i)
-          end
+          data[:retry] = element["retry"].split(" ").map(&:to_i) if element.key? "retry"
           data[:schedule] = [
             element["minute"] || "0",
             element["hour"],

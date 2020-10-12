@@ -48,9 +48,7 @@ def image(name)
 end
 
 def auth_basic(client)
-  unless client.is_a?(Hash)
-    client = {id: client.identifier, secret: client.secret}
-  end
+  client = {id: client.identifier, secret: client.secret} unless client.is_a?(Hash)
   {"HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(client[:id], client[:secret])}
 end
 

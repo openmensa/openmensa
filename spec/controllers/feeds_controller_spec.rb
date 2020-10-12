@@ -79,13 +79,6 @@ describe FeedsController, type: :controller do
                               message: "Could not fetch",
                               code: 404)
       end
-      before do
-        expect(updater).to receive(:update).and_return false
-        expect(updater).to receive(:errors).at_least(:once) do
-          [feed_fetch_error]
-        end
-      end
-
       let(:json_error) do
         {
           "status" => "error",
@@ -99,6 +92,13 @@ describe FeedsController, type: :controller do
         }
       end
 
+      before do
+        expect(updater).to receive(:update).and_return false
+        expect(updater).to receive(:errors).at_least(:once) do
+          [feed_fetch_error]
+        end
+      end
+
       it "and render them for canteen owner" do
         set_current_user owner
         get :fetch, format: :json, params: {id: feed.id}
@@ -108,7 +108,7 @@ describe FeedsController, type: :controller do
 
         expect(json).to eq json_error
 
-        expect(assigns(:result)).to eq ({
+        expect(assigns(:result)).to eq({
           "status" => "error",
           "errors" => [feed_fetch_error]
         })

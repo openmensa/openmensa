@@ -75,9 +75,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       name: meal.children.find {|node| node.name == "name" }.content,
       pos: pos,
       prices: meal.children.each_with_object({}) do |node, prices|
-        if node.name == "price" && version.to_i == 2
-          prices[node["role"]] = node.content
-        end
+        prices[node["role"]] = node.content if node.name == "price" && version.to_i == 2
       end,
       notes: meal.children.select {|n| n.name == "note" }.map(&:content)
     )
@@ -87,9 +85,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
 
   def update_meal(meal, _category, meal_data, pos = nil)
     meal.prices = meal_data.children.each_with_object(student: nil, employee: nil, pupil: nil, other: nil) do |node, prices|
-      if node.name == "price" && version.to_i == 2
-        prices[node["role"]] = node.content
-      end
+      prices[node["role"]] = node.content if node.name == "price" && version.to_i == 2
     end
     meal.notes = meal_data.children.select {|n| n.name == "note" }.map(&:content)
     if meal.changed?
@@ -140,8 +136,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
         fetch.updated_days += 1
         @changed = true
       end
-      names = day.meals.each_with_object({}) do |value, memo|
-        memo[[value.category, value.name.to_s]] = value
+      names = day.meals.index_by do |value|
+        [value.category, value.name.to_s]
       end
       pos = 1
       day_data.element_children.each do |category|
@@ -167,7 +163,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def update_canteen(canteen_data)
-    days = canteen.days.each_with_object({}) {|v, m| m[v.date.to_s] = v; }
+    days = canteen.days.index_by {|v| v.date.to_s; }
     day_updated = nil
     canteen_data.element_children.each do |day|
       next if day.name != "day"

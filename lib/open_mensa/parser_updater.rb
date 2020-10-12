@@ -91,8 +91,8 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   private
 
   def source_mapping
-    @parser.sources.each_with_object({}) do |source, memo|
-      memo[source.name] = source
+    @parser.sources.index_by do |source|
+      source.name
     end
   end
 

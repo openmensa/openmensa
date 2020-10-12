@@ -21,21 +21,13 @@ class ApplicationController < ActionController::Base
 
     error[:status] ||= :internal_server_error
 
-    if error[:message].is_a?(Symbol)
-      error[:message] = t(:message, scope: error[:message])
-    end
+    error[:message] = t(:message, scope: error[:message]) if error[:message].is_a?(Symbol)
 
-    if error[:message].nil?
-      error[:message] = t(:message, scope: "errors.#{error[:status]}")
-    end
+    error[:message] = t(:message, scope: "errors.#{error[:status]}") if error[:message].nil?
 
-    if error[:title].is_a?(Symbol)
-      error[:title] = t(:title, scope: error[:title])
-    end
+    error[:title] = t(:title, scope: error[:title]) if error[:title].is_a?(Symbol)
 
-    if error[:title].nil?
-      error[:title] = t(:title, scope: "errors.#{error[:status]}")
-    end
+    error[:title] = t(:title, scope: "errors.#{error[:status]}") if error[:title].nil?
 
     render_error error
   end

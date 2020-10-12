@@ -31,9 +31,7 @@ class ParserMailer < ApplicationMailer
         @notables << part
       else
         @regulars << part
-        if part.new_feedback? || part.new_proposal? || part.messages? || part.feed_messages?
-          @notables << part
-        end
+        @notables << part if part.new_feedback? || part.new_proposal? || part.messages? || part.feed_messages?
       end
     end
   end
@@ -57,9 +55,7 @@ class ParserMailer < ApplicationMailer
     @sources.each do |source|
       subjects << t("source_subject", name: source.name) if source.messages?
       source.feeds.each do |feed|
-        if feed.feed_messages?
-          subjects << t("feed_subject", source: source.name, feed: feed.name)
-        end
+        subjects << t("feed_subject", source: source.name, feed: feed.name) if feed.feed_messages?
       end
     end
     return nil if subjects.empty?

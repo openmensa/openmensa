@@ -50,7 +50,7 @@ class OpenMensa::BaseUpdater
     case version.to_i
       when 1
         @document.root
-      when 2 then
+      when 2
         node = @document.root.children.first
         node = node.next while node.name != "canteen"
         node
