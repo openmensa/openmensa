@@ -33,13 +33,13 @@ class SourcesController < WebController
   end
 
   def update
-    if @source.update source_params
-      flash[:notice] = t "message.source_saved"
-      redirect_to parser_path(@source.parser)
-    else
-      flash[:notice] = t "message.source_invalid"
-      redirect_to parser_path(@source.parser)
-    end
+    flash[:notice] = if @source.update source_params
+                       t "message.source_saved"
+                     else
+                       t "message.source_invalid"
+                     end
+
+    redirect_to parser_path(@source.parser)
   end
 
   def sync

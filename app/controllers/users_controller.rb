@@ -7,7 +7,7 @@ class UsersController < WebController
 
   def update
     if @user.update user_params
-      flash_for :user, notice: t("message.profile_saved").html_safe
+      flash_for :user, notice: t("message.profile_saved")
       redirect_to @user
     else
       render action: :show
@@ -17,7 +17,13 @@ class UsersController < WebController
   private
 
   def user_params
-    params.require(:user).permit(:name, :public_name, :info_url,
-      :email, :notify_email, :public_email)
+    params.require(:user).permit(
+      :email,
+      :info_url,
+      :name,
+      :notify_email,
+      :public_email,
+      :public_name
+    )
   end
 end

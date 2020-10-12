@@ -13,8 +13,6 @@ class DevelopersController < WebController
   end
   # rubocop:enable all
 
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Rails/OutputSafety
   def update
     authorize! :edit, @user
 
@@ -36,7 +34,6 @@ class DevelopersController < WebController
 
     redirect_to @user
   end
-  # rubocop:enable all
 
   def activate
     redirect_to root_url

@@ -50,9 +50,9 @@ class SessionsController < WebController
   def create_identity!(identity)
     if identity.new_record?
       identity.update! user: current_user
-      redirect_back notice: t("message.identity_added." + identity.provider, name: identity.user.name).html_safe
+      redirect_back notice: t("message.identity_added.#{identity.provider}", name: identity.user.name)
     else
-      redirect_back alert: t("message.identity_taken." + identity.provider, name: identity.user.name)
+      redirect_back alert: t("message.identity_taken.#{identity.provider}", name: identity.user.name)
     end
   end
 

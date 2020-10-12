@@ -43,7 +43,7 @@ class Api::BaseController < ApiController
 
   def self.decorator_class
     @decorator_class ||= \
-      ActiveSupport::Inflector.constantize(resource_name + "Decorator")
+      ActiveSupport::Inflector.constantize("#{resource_name}Decorator")
   end
 
   # **** default api actions ****
