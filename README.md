@@ -1,6 +1,6 @@
 # OpenMensa - Die offene Mensa Datenbank.
 
-[![Build Status](https://img.shields.io/travis/openmensa/openmensa/master.svg)](https://travis-ci.org/openmensa/openmensa)
+[![Build Status](https://img.shields.io/travis/com/openmensa/openmensa?logo=travis)](https://travis-ci.com/github/openmensa/openmensa)
 [![Coverage](https://codecov.io/gh/openmensa/openmensa/branch/master/graph/badge.svg)](https://codecov.io/gh/openmensa/openmensa)
 [![Maintainability](https://api.codeclimate.com/v1/badges/270f7e58f7eaa3e9429f/maintainability)](https://codeclimate.com/github/openmensa/openmensa/maintainability)
 
