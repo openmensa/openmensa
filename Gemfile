@@ -64,10 +64,10 @@ group :development do
   gem "spring"
   gem "spring-commands-rspec"
 
-  gem "rubocop", "~> 0.93.0", require: false
+  gem "rubocop", "~> 1.2.0", require: false
   gem "rubocop-performance", "~> 1.8", require: false
   gem "rubocop-rails", "~> 2.8", require: false
-  gem "rubocop-rspec", "~> 1.43", require: false
+  gem "rubocop-rspec", "~> 2.0", require: false
 end
 
 group :development, :test do
