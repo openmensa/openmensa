@@ -64,7 +64,7 @@ group :development do
   gem "spring"
   gem "spring-commands-rspec"
 
-  gem "rubocop", "~> 1.2.0", require: false
+  gem "rubocop", "~> 1.3.0", require: false
   gem "rubocop-performance", "~> 1.8", require: false
   gem "rubocop-rails", "~> 2.8", require: false
   gem "rubocop-rspec", "~> 2.0", require: false
