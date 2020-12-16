@@ -1,4 +1,5 @@
 database: &common
+  url: <%= ENV["DATABASE_URL"] %>
   adapter: postgresql
   pool: 20
 
