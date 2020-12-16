@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + "/../spec_helper"
+require "spec_helper"
 
 describe "Reporters: ", type: :feature do
   let!(:canteen) { FactoryBot.create :canteen }
@@ -21,7 +21,9 @@ describe "Reporters: ", type: :feature do
   end
 
   context "with a previous created canteen" do
-    let!(:canteen) { FactoryBot.create :canteen, state: "wanted", name: "Meine Liebligsmensa", city: "Hamburg" }
+    before do
+      FactoryBot.create :canteen, state: "wanted", name: "Meine Liebligsmensa", city: "Hamburg"
+    end
 
     it "sees this canteen when registering an intereseted canteen" do
       visit root_path

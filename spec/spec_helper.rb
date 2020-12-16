@@ -97,10 +97,14 @@ RSpec.configure do |config|
   Capybara.default_driver = :cuprite
 
   Capybara.register_driver(:cuprite) do |app|
-    Capybara::Cuprite::Driver.new(app,
+    Capybara::Cuprite::Driver.new(
+      app,
       headless: headless,
-      window_size: [1280, 800],
-      inspector: true)
+      inspector: true,
+      process_timeout: 120,
+      timeout: 120,
+      window_size: [1280, 800]
+    )
   end
 
   WebMock.disable_net_connect!(allow_localhost: true)
