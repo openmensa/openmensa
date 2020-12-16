@@ -113,11 +113,11 @@ class FeedValidationError < Message
   end
 
   def to_html
-    I18n.t("messages.html.feed_validation_error.#{kind}", data)
+    I18n.t("messages.html.feed_validation_error.#{kind}", **data)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.feed_validation_error.#{kind}", data)
+    I18n.t("messages.text_mail.feed_validation_error.#{kind}", **data)
   end
 
   def to_json(*_args)
