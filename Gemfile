@@ -47,7 +47,7 @@ gem "will_paginate"
 gem "sentry-raven"
 
 group :assets do
-  gem "autoprefixer-rails", "~> 10.1"
+  gem "autoprefixer-rails", "~> 10.2"
   gem "bourbon", "~> 7.0"
   gem "coffee-rails", "~> 5.0.0"
   gem "font-awesome-sass-rails", "~> 3.0.2.2"
