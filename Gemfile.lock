@@ -105,7 +105,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
-    crack (0.4.4)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     cuprite (0.11)
       capybara (>= 2.1, < 4)
@@ -376,7 +377,7 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (2.0.0)
-    webmock (3.11.0)
+    webmock (3.11.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
