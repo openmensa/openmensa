@@ -264,7 +264,7 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    rails-timeago (2.19.0)
+    rails-timeago (2.19.1)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
     railties (6.1.2.1)
