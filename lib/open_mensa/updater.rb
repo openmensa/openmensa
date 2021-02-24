@@ -16,6 +16,11 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
     reset_stats
   end
 
+  def reset_stats
+    super()
+    @unchanged_meals = 0
+  end
+
   def messageable
     fetch
   end
@@ -95,6 +100,9 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       meal.save
     elsif pos != meal.pos
       meal.update pos: pos
+      @unchanged_meals += 1
+    else
+      @unchanged_meals += 1
     end
   end
 
@@ -187,6 +195,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       canteen.update state: "active"
     else
       fetch.state = "unchanged"
+      canteen.update state: "active" if @unchanged_meals > 0
     end
     fetch.save!
     true

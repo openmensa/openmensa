@@ -668,6 +668,35 @@ describe OpenMensa::Updater do
         expect(updater.fetch.state).to eq "changed"
       end
 
+      it "activates a wanted canteen that already has meals" do
+        feed.url = "http://example.com/feed_v2.xml"
+        stub_request(:any, "example.com/feed_v2.xml")
+          .to_return(body: mock_file("feed_v2.xml"), status: 200)
+        # first
+        first_updater = described_class.new(feed, "manual", version: 2)
+        expect(first_updater.update).to be_truthy
+        expect(canteen.reload.state).to eq "active"
+        canteen.update state: "wanted"
+        # second
+        expect { updater.update }.to change { canteen.reload.state }.from("wanted").to("active")
+        expect(updater.fetch.state).to eq "unchanged"
+      end
+
+      it "does not active a wanted canteen if past meals only" do
+        feed.url = "http://example.com/feed_v2.xml"
+        stub_request(:any, "example.com/feed_v2.xml")
+          .to_return(body: mock_file("feed_v2_past_closed.xml"), status: 200)
+        # first
+        first_updater = described_class.new(feed, "manual", version: 2)
+        expect(first_updater.update).to be_truthy
+        expect(canteen.reload.state).to eq "active"
+        Timecop.freeze DateTime.new(2012, 05, 31, 8, 5, 3) # after all the meals in feed; only closed days follow
+        canteen.update state: "wanted"
+        # second
+        expect { updater.update }.to_not change { canteen.reload.state }.from("wanted")
+        expect(updater.fetch.state).to eq "unchanged"
+      end
+
       it "activates a empty canteen" do
         canteen.update state: "empty"
         feed.url = "http://example.com/feed_v2.xml"
