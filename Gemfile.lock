@@ -108,9 +108,9 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    cuprite (0.12)
+    cuprite (0.13)
       capybara (>= 2.1, < 4)
-      ferrum (~> 0.10.0)
+      ferrum (~> 0.11.0)
     decorate-responder (2.1.0)
       responders (>= 2, < 4)
     diff-lcs (1.4.4)
@@ -131,7 +131,7 @@ GEM
     faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
-    ferrum (0.10.2)
+    ferrum (0.11)
       addressable (~> 2.5)
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
@@ -406,7 +406,7 @@ DEPENDENCIES
   capybara-email (~> 3.0)
   codecov
   coffee-rails (~> 5.0.0)
-  cuprite (~> 0.12)
+  cuprite (~> 0.13)
   decorate-responder (~> 2.1)
   draper (~> 4.0)
   factory_bot_rails (~> 6.1)
