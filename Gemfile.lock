@@ -172,7 +172,7 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.6)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     mini_racer (0.3.1)
@@ -313,7 +313,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.11.0)
+    rubocop (1.12.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -442,7 +442,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails (= 5.0.1)
-  rubocop (~> 1.11.0)
+  rubocop (~> 1.12.0)
   rubocop-performance (~> 1.10)
   rubocop-rails (~> 2.9)
   rubocop-rspec (~> 2.2)
