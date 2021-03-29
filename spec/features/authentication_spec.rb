@@ -6,16 +6,16 @@ describe "Authentication", type: :feature do
   describe "Login" do
     it "logins using Twitter" do
       visit root_path
-      click_link "Anmelden"
-      click_link "Twitter"
+      click_on "Anmelden"
+      click_on "Twitter"
 
       expect(page).to have_content "Abmelden"
     end
 
     it "logins using GitHub" do
       visit root_path
-      click_link "Anmelden"
-      click_link "GitHub"
+      click_on "Anmelden"
+      click_on "GitHub"
 
       expect(page).to have_content "Abmelden"
     end
@@ -28,7 +28,7 @@ describe "Authentication", type: :feature do
 
     it "signs off a user if signed in" do
       visit root_path
-      click_link "Abmelden"
+      click_on "Abmelden"
 
       expect(page).not_to have_content "Abmelden"
     end

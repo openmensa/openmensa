@@ -38,10 +38,10 @@ describe "Profile page", type: :feature do
   end
 
   it "allows user to add an identity" do
-    click_link "Identität hinzufügen"
+    click_on "Identität hinzufügen"
 
     expect do
-      click_link "GitHub"
+      click_on "GitHub"
       # Ensure we're back on the profile page
       expect(page).to have_content "Meine Identitäten"
     end.to change {
@@ -55,14 +55,14 @@ describe "Profile page", type: :feature do
   end
 
   it "allows user to remove an identity" do
-    click_link "Identität hinzufügen"
-    click_link "GitHub"
+    click_on "Identität hinzufügen"
+    click_on "GitHub"
 
     # Ensure we're back on the profile page
     expect(page).to have_content "Meine Identitäten"
 
     expect do
-      click_link "Twitter Identität entfernen"
+      click_on "Twitter Identität entfernen"
       # Ensure we're back on the profile page
       expect(page).to have_content "Meine Identitäten"
     end.to change {

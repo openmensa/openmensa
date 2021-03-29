@@ -191,25 +191,29 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     oj (3.11.3)
-    omniauth (1.9.1)
+    omniauth (2.0.3)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
+      rack-protection
     omniauth-facebook (8.0.0)
       omniauth-oauth2 (~> 1.2)
-    omniauth-github (1.4.0)
-      omniauth (~> 1.5)
-      omniauth-oauth2 (>= 1.4.0, < 2.0)
-    omniauth-google-oauth2 (0.8.2)
+    omniauth-github (2.0.0)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.7.1)
+    omniauth-google-oauth2 (1.0.0)
       jwt (>= 2.0)
       oauth2 (~> 1.1)
-      omniauth (~> 1.1)
-      omniauth-oauth2 (>= 1.6)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.7.1)
     omniauth-oauth (1.2.0)
       oauth
       omniauth (>= 1.0, < 3)
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
+    omniauth-rails_csrf_protection (1.0.0)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
@@ -234,6 +238,8 @@ GEM
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-link_headers (2.3.0)
+      rack
+    rack-protection (2.1.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -420,10 +426,11 @@ DEPENDENCIES
   mini_racer
   nokogiri
   oj
-  omniauth (~> 1.0)
+  omniauth (~> 2.0)
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
+  omniauth-rails_csrf_protection (~> 1.0)
   omniauth-twitter
   paginate-responder (~> 2.0)
   parse-cron

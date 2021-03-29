@@ -156,16 +156,12 @@ $btn-success: #238625 !default;
 }
 
 .ident-buttons {
-  @include clearfix;
-  max-width: 310px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 16em;
+  margin: .5em auto;
 
   .btn-login {
     display: block;
-    width: 48%;
-    margin: 1%;
-    float: left;
+    width: 100%;
   }
 }
 

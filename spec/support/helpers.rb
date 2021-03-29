@@ -20,10 +20,6 @@ def mock_content(file)
   File.new(Rails.root.join("spec", "mocks", file)).read
 end
 
-def login_with(identity)
-  login(identity)
-end
-
 def login_as(user)
   login(user.identities.first)
 end
@@ -31,14 +27,18 @@ end
 def login(identity)
   old_mock = OmniAuth.config.mock_auth[identity.provider.to_sym]
 
-  OmniAuth.config.add_mock(identity.provider.to_sym,     uid: identity.uid,
-                                                         credentials: {
-                                                           token: identity.token,
-                                                           secret: identity.secret
-                                                         })
+  OmniAuth.config.add_mock(
+    identity.provider.to_sym,
+    uid: identity.uid,
+    credentials: {
+      token: identity.token,
+      secret: identity.secret
+    }
+  )
 
   visit logout_path
-  visit "/auth/#{identity.provider}"
+  visit login_path
+  click_on class: "btn-#{identity.provider}"
 
   OmniAuth.config.mock_auth[identity.provider.to_sym] = old_mock
 end

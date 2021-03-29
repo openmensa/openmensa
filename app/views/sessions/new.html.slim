@@ -6,9 +6,10 @@
         header
           h2=t :login_with
         .content
-          p.centered.ident-buttons
+          .ident-buttons
             - Rails.configuration.omniauth_services.each do |id|
-              = link_to auth_path(id), class: "btn btn-login btn-social btn-#{id}", title: t(:service, id) do
-                i.icon-large class="icon-#{id}"
-                = t(:service, id)
+              = form_tag auth_path(id) do
+                button type="submit" class="btn btn-login btn-social btn-#{id}" title=t(:service, id)
+                  i.icon-large class="icon-#{id}"
+                  = t(:service, id)
 
