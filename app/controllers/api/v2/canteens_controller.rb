@@ -3,7 +3,7 @@
 class Api::V2::CanteensController < Api::BaseController
   respond_to :json
 
-  has_scope :near, using: %i[lat lng dist place] do |_controller, scope, value|
+  has_scope :near, using: %i[lat lng dist place], allow_blank: true do |_controller, scope, value|
     place = if value[3]
               value[3].to_s
             else
