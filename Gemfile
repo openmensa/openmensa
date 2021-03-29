@@ -2,11 +2,6 @@
 
 source "https://rubygems.org"
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
 gem "rails", "~> 6.1.3"
 gem "rails-i18n", "~> 6.0"
 gem "sprockets", "~> 4.0"
@@ -22,10 +17,10 @@ gem "slim"
 
 gem "cancancan", "~> 3.2"
 gem "omniauth", "~> 2.0"
-gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "omniauth-twitter"
 
 gem "parse-cron"
