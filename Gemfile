@@ -21,7 +21,7 @@ gem "pg", "~> 1.2"
 gem "slim"
 
 gem "cancancan", "~> 3.2"
-gem "omniauth"
+gem "omniauth", "~> 1.0"
 gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"

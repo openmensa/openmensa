@@ -183,8 +183,8 @@ GEM
     nokogiri (1.11.2)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    oauth (0.5.4)
-    oauth2 (1.4.4)
+    oauth (0.5.5)
+    oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
       multi_json (~> 1.3)
@@ -204,9 +204,9 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.1)
       omniauth-oauth2 (>= 1.6)
-    omniauth-oauth (1.1.0)
+    omniauth-oauth (1.2.0)
       oauth
-      omniauth (~> 1.0)
+      omniauth (>= 1.0, < 3)
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
@@ -344,7 +344,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sentry-raven (3.1.1)
+    sentry-raven (3.1.2)
       faraday (>= 1.0)
     simplecov (0.21.2)
       docile (~> 1.1)
@@ -377,7 +377,7 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (2.0.0)
-    webmock (3.12.1)
+    webmock (3.12.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -420,7 +420,7 @@ DEPENDENCIES
   mini_racer
   nokogiri
   oj
-  omniauth
+  omniauth (~> 1.0)
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
