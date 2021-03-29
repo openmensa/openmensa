@@ -146,9 +146,9 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gravtastic (3.2.6)
-    has_scope (0.7.2)
-      actionpack (>= 4.1)
-      activesupport (>= 4.1)
+    has_scope (0.8.0)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
     hashdiff (1.0.1)
     hashie (4.1.0)
     i18n (1.8.9)
@@ -419,7 +419,7 @@ DEPENDENCIES
   font-awesome-sass-rails (~> 3.0.2.2)
   geocoder (~> 1.6)
   gravtastic
-  has_scope (~> 0.7.1)
+  has_scope (~> 0.8.0)
   jquery-rails
   leaflet-rails (~> 1.7)
   listen
