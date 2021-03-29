@@ -91,7 +91,7 @@ RSpec.configure do |config|
   OmniAuth.config.add_mock(:github, uid: "98765",
                                     nickname: "zapnap")
 
-  headless = ENV["CI"] || !%w[0 false off].include?(ENV.fetch("HEADLESS", "on").downcase)
+  headless = ENV["CI"] || %w[0 false off].exclude?(ENV.fetch("HEADLESS", "on").downcase)
   warn "INFO: Running feature specs in headless browser." if headless
 
   Capybara.default_driver = :cuprite
@@ -103,7 +103,8 @@ RSpec.configure do |config|
       inspector: true,
       process_timeout: 120,
       timeout: 120,
-      window_size: [1280, 800]
+      window_size: [1280, 800],
+      url_whitelist: ["http://127.0.0.1"]
     )
   end
 
