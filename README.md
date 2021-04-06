@@ -1,6 +1,6 @@
 # OpenMensa - Die offene Mensa Datenbank.
 
-[![Build Status](https://img.shields.io/travis/com/openmensa/openmensa?logo=travis)](https://travis-ci.com/github/openmensa/openmensa)
+[![GitHub Workflow Status (main branch)](https://img.shields.io/github/workflow/status/openmensa/openmensa/CI/main?logo=github)](https://github.com/openmensa/openmensa/actions?query=branch%3Amain+workflow%3A%22CI%22)
 [![Coverage](https://codecov.io/gh/openmensa/openmensa/branch/master/graph/badge.svg)](https://codecov.io/gh/openmensa/openmensa)
 [![Maintainability](https://api.codeclimate.com/v1/badges/270f7e58f7eaa3e9429f/maintainability)](https://codeclimate.com/github/openmensa/openmensa/maintainability)
 
@@ -9,14 +9,6 @@ OpenMensa is a free database for canteens. We act as a central exchange for all 
 We provide a standardized format to access and provide this information. This reduces the workload for a canteen provider to make their meal menus available on different end points (website, android, iOS ...).
 
 We are currently focused on Germany but are interested to open to other countries.
-
-
-## Dependencies
-
-* Ruby 2.6
-* Gems (Rails 6.0, for other see Gemfile)
-* PostgreSQL as database backend
-* whenever regular tasks (fetching menus, sending emails)
 
 
 ## Getting started
@@ -30,7 +22,7 @@ We are currently focused on Germany but are interested to open to other countrie
 2. Run test suite
 
     ```ruby
-    bundle exec rake
+    bundle exec rspec
     ```
 
 
@@ -50,4 +42,4 @@ We are currently focused on Germany but are interested to open to other countrie
 
 AGPLv3 License
 
-Copyright, 2014-2020 OpenMensa
+Copyright, 2014-2021 OpenMensa
