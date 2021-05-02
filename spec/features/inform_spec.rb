@@ -32,13 +32,13 @@ describe "Inform", type: :feature do
       click_on "Arbeite mit an OpenMensa"
 
       expect(page).to have_content "Schreibe mit an Parsern"
-      expect(page).to have_link_to "http://doc.openmensa.org/parsers/"
+      expect(page).to have_link_to "https://doc.openmensa.org/parsers/"
       expect(page).to have_link_to "https://github.com/mswart/openmensa-parsers"
       expect(page).to have_link_to "https://github.com/mswart/pyopenmensa"
 
       expect(page).to have_content "Apps für Smartphone"
       expect(page).to have_link_to "https://github.com/domoritz/open-mensa-android/"
-      expect(page).to have_link_to "http://cooperrs.de/openmensa.html"
+      expect(page).to have_link_to "https://cooperrs.de/openmensa.html"
 
       expect(page).to have_content "Die Plattform selbst"
       expect(page).to have_link_to "https://github.com/openmensa/openmensa"

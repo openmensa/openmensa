@@ -21,8 +21,8 @@ describe "Developers", type: :feature do
 
       it "is able to add a new parser" do
         click_on "Neuen Parser anlegen"
-        expect(page).to have_link_to "http://doc.openmensa.org/parsers/"
-        expect(page).to have_link_to "http://doc.openmensa.org/feed/v2/"
+        expect(page).to have_link_to "https://doc.openmensa.org/parsers/"
+        expect(page).to have_link_to "https://doc.openmensa.org/feed/v2/"
 
         fill_in "Name", with: "Magdeburg"
         click_on "Speichern"

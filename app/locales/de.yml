@@ -279,7 +279,7 @@ de:
 
   placeholder:
     canteen:
-      url: http://mydomain.de/mensa-greuther-fuerth.xml
+      url: https://mydomain.de/mensa-greuther-fuerth.xml
       name: Mensa Greuther Fürth
       address: Straße + Hausnummer, Postleitzahl + Stadt, Germany
       email: test@example.org

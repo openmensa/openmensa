@@ -16,7 +16,7 @@ $ ->
 
   $(document).bind 'turbolinks:load', ->
     tileLayer = L.tileLayer('//openmensa.org/tiles/{z}/{x}/{y}.png',
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
       maxZoom: 18)
 
     $('[data-map="map"]').each ->
