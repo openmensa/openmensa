@@ -44,8 +44,9 @@ module Openmensa
     config.filter_parameters += [:password]
 
     # Session store
-    config.session_store :cookie_store, key: "_openmensa_session"
+    config.session_store :cookie_store, key: "_openmensa_session", secure: Rails.env.production?
     config.action_dispatch.cookies_serializer = :hybrid
+    config.action_dispatch.cookies_same_site_protection = :lax
 
     # Version of your assets, change this if you want to expire all your assets.
     config.assets.version = "1.0"
