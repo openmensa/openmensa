@@ -64,7 +64,7 @@ describe FeedsController, type: :controller do
       it "and not render them for normal user" do
         get :fetch, format: :json, params: {id: feed.id}
 
-        expect(response.status). to eq 200
+        expect(response.status).to eq 200
         expect(response.media_type).to eq "application/json"
 
         expect(json).to eq successfull_json

@@ -7,6 +7,13 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   include Nokogiri
   attr_reader :feed, :fetch
 
+  DEFAULT_PRICES = {
+    student: nil,
+    employee: nil,
+    pupil: nil,
+    other: nil
+  }.freeze
+
   def initialize(feed, reason, options = {})
     options = {version: nil, today: false}.update options
     @feed = feed
@@ -89,7 +96,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def update_meal(meal, _category, meal_data, pos = nil)
-    meal.prices = meal_data.children.each_with_object(student: nil, employee: nil, pupil: nil, other: nil) do |node, prices|
+    meal.prices = meal_data.children.each_with_object(DEFAULT_PRICES.dup) do |node, prices|
       prices[node["role"]] = node.content if node.name == "price" && version.to_i == 2
     end
     meal.notes = meal_data.children.select {|n| n.name == "note" }.map(&:content)
@@ -212,11 +219,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def stats(json = true)
-    if !errors.empty?
-      {
-        "errors" => json ? errors.map(&:to_json) : errors
-      }
-    else
+    if errors.empty?
       {
         "days" => {
           "added" => fetch.added_days,
@@ -227,6 +230,10 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
           "updated" => fetch.updated_meals,
           "removed" => fetch.removed_meals
         }
+      }
+    else
+      {
+        "errors" => json ? errors.map(&:to_json) : errors
       }
     end
   end

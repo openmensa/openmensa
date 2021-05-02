@@ -14,7 +14,7 @@ class Canteen < ApplicationRecord
   has_many :feedbacks
   belongs_to :replaced_by, class_name: "Canteen", foreign_key: :replaced_by, optional: true
 
-  scope :active, -> { where("state IN (?)", %w[active empty]) }
+  scope :active, -> { where(state: %w[active empty]) }
 
   validates :city, :name, presence: true
 

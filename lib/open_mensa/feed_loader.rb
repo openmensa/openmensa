@@ -78,9 +78,8 @@ module OpenMensa
     rescue OpenURI::HTTPRedirect => e
       raise FeedLoadError.new("Too much redirects.", e) if !options[:follow] || allowed_redirects <= 0
 
-      if options[:update] && e.message.start_with?("301")
-        update_url e.uri.to_s
-      end # permanent redirect
+      # Permanent redirect
+      update_url(e.uri.to_s) if options[:update] && e.message.start_with?("301")
 
       load_feed allowed_redirects - 1, e.uri
     end

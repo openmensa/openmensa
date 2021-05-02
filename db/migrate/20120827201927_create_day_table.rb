@@ -3,6 +3,7 @@
 class CreateDayTable < ActiveRecord::Migration[4.2]
   class Meal < ActiveRecord::Base
   end
+
   def up
     # 1. add new entity
     create_table :days do |t|

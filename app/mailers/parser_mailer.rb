@@ -93,7 +93,8 @@ class ParserMailer < ApplicationMailer
   def data_proposal_msg
     return nil if @data_proposals.empty?
 
-    t "new_data_proposals", count: @data_proposals.map(&:proposal_count).inject(&:+), sources: @data_proposals.map(&:name).join(", ")
+    t "new_data_proposals", count: @data_proposals.map(&:proposal_count).inject(&:+),
+                            sources: @data_proposals.map(&:name).join(", ")
   end
 
   def reason_feed_msg_subject!

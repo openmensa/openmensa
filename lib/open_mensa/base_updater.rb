@@ -5,6 +5,7 @@ require_dependency "message"
 
 class OpenMensa::BaseUpdater
   attr_reader :errors, :version, :data, :document
+
   def reset_stats
     @changed = false
     @errors = []

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
-  attr_reader :source
-  attr_reader :feeds_added, :feeds_updated, :feeds_deleted
+  attr_reader :source, :feeds_added, :feeds_updated, :feeds_deleted
 
   def initialize(source)
     @source = source

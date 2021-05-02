@@ -690,10 +690,10 @@ describe OpenMensa::Updater do
         first_updater = described_class.new(feed, "manual", version: 2)
         expect(first_updater.update).to be_truthy
         expect(canteen.reload.state).to eq "active"
-        Timecop.freeze DateTime.new(2012, 05, 31, 8, 5, 3) # after all the meals in feed; only closed days follow
+        Timecop.freeze DateTime.new(2012, 5, 31, 8, 5, 3) # after all the meals in feed; only closed days follow
         canteen.update state: "wanted"
         # second
-        expect { updater.update }.to_not change { canteen.reload.state }.from("wanted")
+        expect { updater.update }.not_to change { canteen.reload.state }.from("wanted")
         expect(updater.fetch.state).to eq "unchanged"
       end
 
