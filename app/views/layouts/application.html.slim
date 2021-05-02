@@ -2,9 +2,10 @@ doctype 5
 html
   head
     title= title
-    = stylesheet_link_tag 'application', media: 'screen, projection'
-    = javascript_include_tag 'application'
+    = csp_meta_tag
     = csrf_meta_tags
+    = javascript_include_tag 'application'
+    = stylesheet_link_tag 'application', media: 'screen, projection'
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     / meta name="viewport" content="width=device-width"
