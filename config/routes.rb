@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   get "/c/:id(/:date)" => "canteens#show", as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
-  resources :canteens, path: "c", only: %i[show new create edit update] do
+  resources :canteens, path: "c", only: %i[show edit update] do
     resource :favorite, only: %i[create destroy]
     resource :active, controller: :canteen_activation, only: %i[create destroy]
     resources :data_proposals, path: "proposals", only: %i[new create index]

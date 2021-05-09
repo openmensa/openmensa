@@ -8,18 +8,6 @@ class CanteensController < WebController
     @canteens = @user.canteens.order(:name)
   end
 
-  def create
-    @canteen = Canteen.new
-
-    if @canteen.update(canteen_params)
-      flash[:notice] = t "message.canteen_added"
-      redirect_to new_parser_source_path(
-        parser_id: params[:parser_id],
-        canteen_id: @canteen
-      )
-    end
-  end
-
   def edit; end
 
   def update
