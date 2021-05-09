@@ -12,8 +12,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :canteens, path: "c", only: %i[new create]
-  get "/wanted" => "canteens#wanted", as: :wanted_canteens
   get "/c/:id(/:date)" => "canteens#show", as: :canteen, constraints: {date: /\d{4}-\d{2}-\d{2}/}
   resources :canteens, path: "c", only: %i[show new create edit update] do
     resource :favorite, only: %i[create destroy]
@@ -22,6 +20,7 @@ Rails.application.routes.draw do
     resources :feedbacks, only: %i[new create index]
     resources :messages, path: "m", only: [:index]
   end
+
   resources :users, path: "u" do
     resources :favorites, path: "favs", only: [:index]
     resources :identities, path: "ids", only: %i[new create destroy]
@@ -30,7 +29,7 @@ Rails.application.routes.draw do
   get "activate/:token", to: "developers#activate", as: :activate
 
   resources :favorites, path: "favs", only: [:index]
-  resources :sources, only: %i[create update edit] do
+  resources :sources, only: %i[update edit] do
     resources :feeds, only: [:create]
   end
   get "/feeds/:id/fetch" => "feeds#fetch", as: :feed_fetch

@@ -101,7 +101,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
                                 kind: :source_reactivated,
                                 name: source.name,
                                 url: url
-      source.canteen.update! state: "wanted"
+      source.canteen.update! state: "new"
       @sources_added += 1
     end
     return if url.nil?

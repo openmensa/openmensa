@@ -1,13 +1,17 @@
 .row
   .span8
-    section
-      header
-        h2= t :new_source
-      .content
-          = form_for @source do |form|
-            = render partial: 'form', object: form
-            p
-              = form.hidden_field :parser_id
-              = form.hidden_field :canteen_id
-              = submit_tag t(:add)
+    = form_for [@source.parser, @source] do |form|
+      section
+        header
+          h2= t :new_source
+        .content
+          = render partial: 'form', object: form
+      section
+        header
+          h2 = t :canteen_details
+        .content
+          = fields_for(:canteen, @canteen) do |f|
+            = render partial: 'canteens/form', object: f
+          p
+            = submit_tag t(:add)
   = render partial: 'users/nav'

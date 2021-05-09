@@ -21,7 +21,7 @@ class Canteen < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :geocode?
 
-  STATES = %w[wanted active empty archived].freeze
+  STATES = %w[new active empty archived].freeze
   validates :state, inclusion: {in: STATES, message: "%{value} is not a valid canteen state"}
 
   def geocode?

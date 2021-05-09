@@ -81,33 +81,19 @@ describe "Developers", type: :feature do
 
         click_on "Neue Quelle/Mensa hinzufügen"
 
-        fill_in "Name", with: "Neue Mensa"
-        fill_in "Stadt / Region", with: "Regensburg"
-        click_on "Neue Mensa anlegen"
+        within(:xpath, '//section[header="Neue Quelle hinzufügen"]') do
+          fill_in "Name", with: "test"
+          fill_in "Meta-URL", with: "http://example.org/test/meta.xml"
+        end
 
-        fill_in "Name", with: "test"
-        fill_in "Meta-URL", with: "http://example.org/test/meta.xml"
+        within(:xpath, '//section[header="Angaben zur Mensa"]') do
+          fill_in "canteen_name", with: "Neue Mensa"
+          fill_in "Stadt / Region", with: "Regensburg"
+        end
+
         click_on "Hinzufügen"
 
         expect(page).to have_content("Quelle wurde erfolgeich hinzufgefügt.")
-      end
-
-      context "with wanted canteen" do
-        let!(:canteen) { FactoryBot.create :canteen, state: "wanted", name: "Dies ist eine Gesuchte Mensa" }
-
-        it "is able to add a source for a wanted canteen" do
-          click_on parser.name
-
-          click_on "Neue Quelle/Mensa hinzufügen"
-
-          click_on "Dies ist eine Gesuchte Mensa"
-
-          fill_in "Name", with: "test"
-          fill_in "Meta-URL", with: "http://example.org/test/meta.xml"
-          click_on "Hinzufügen"
-
-          expect(page).to have_content("Quelle wurde erfolgeich hinzufgefügt.")
-        end
       end
 
       context "with archived parser" do

@@ -29,10 +29,7 @@ de:
   edit_feed: 'Feed %{name}'
   add_source: 'Neue Quelle/Mensa hinzufügen'
   new_source: Neue Quelle hinzufügen
-  new_source_select_canteen: 'Mensa für neue Quelle auswählen'
-  add_wanted_canteen: 'Gewünschte Mensa melden'
-  create_wanted_canteen: Mensa als gewünscht eintragen
-  wanted_canteens: Gewünschte Mensen
+  canteen_details: Angaben zur Mensa
   correct_canteen_data: Mensadaten korrigieren
 
   service:
@@ -83,7 +80,6 @@ de:
       google_oauth2: "Google Identität entfernt."
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
-    wanted_canteen_added: Die Mensa wurde erfolgreich als gewünscht gespeichert.
     canteen_saved: "Mensa gespeichert."
     parser_created: 'Der Parser wurde erfolgreich angelegt.'
     parser_saved: 'Der Parser wurde erfolgreich aktualisiert.'
@@ -197,7 +193,6 @@ de:
     feeds_added: '%{count} Feeds hinzugefügt.'
     feeds_updated: '%{count} Feeds aktualisiert.'
     feeds_deleted: '%{count} Feeds gelöscht.'
-    use_wanted_canteen: 'Eine gewünschte Mensa nutzen'
     create_canteen: 'Neue Mensa anlegen'
     open_messages: 'Mitteilungen für %{name}'
     messages: Mitteilungen

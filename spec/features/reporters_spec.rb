@@ -7,32 +7,6 @@ describe "Reporters: ", type: :feature do
   let(:parser) { FactoryBot.create :parser }
   let(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
 
-  it "is able to register a intereseted canteen" do
-    visit root_path
-
-    click_on "Melde die Mensa als gewünscht"
-
-    fill_in "Name", with: "Meine Liebligsmensa"
-    fill_in "Stadt / Region", with: "Hamburg"
-    click_on "Mensa als gewünscht eintragen"
-
-    expect(page).to have_content "Die Mensa wurde erfolgreich als gewünscht gespeichert."
-    expect(page).to have_content(/Meine Liebligsmensa\s+Hamburg/)
-  end
-
-  context "with a previous created canteen" do
-    before do
-      FactoryBot.create :canteen, state: "wanted", name: "Meine Liebligsmensa", city: "Hamburg"
-    end
-
-    it "sees this canteen when registering an intereseted canteen" do
-      visit root_path
-
-      click_on "Melde die Mensa als gewünscht"
-      expect(page).to have_content(/Meine Liebligsmensa\s+Hamburg/)
-    end
-  end
-
   it "is able to report an issues for a canteen" do
     expect(Feedback.count).to eq 0
     visit canteen_path(canteen)

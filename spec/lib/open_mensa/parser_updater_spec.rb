@@ -325,7 +325,7 @@ describe OpenMensa::ParserUpdater do
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
-      expect(source.canteen.reload.state).to eq "wanted"
+      expect(source.canteen.reload.state).to eq "new"
 
       source.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)

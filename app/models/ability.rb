@@ -3,6 +3,10 @@
 class Ability
   include CanCan::Ability
 
+  # We do not want guard clauses here to keep the same "style" for conditional
+  # permissions until the end.
+  #
+  # rubocop:disable Style/GuardClause
   def initialize(user)
     alias_action :new, to: :create
     alias_action :edit, to: :update
@@ -11,7 +15,6 @@ class Ability
     can :show, Canteen
     can :create, Canteen
     can :fetch, Feed
-    can :wanted, Canteen
     can :create, DataProposal
 
     if user.logged?
@@ -36,4 +39,5 @@ class Ability
       cannot :destroy, User, admin?: true
     end
   end
+  # rubocop:enable Style/GuardClause
 end

@@ -5,27 +5,23 @@ class SourcesController < WebController
   load_and_authorize_resource
 
   def new
-    @canteen_id = params[:canteen_id]
-    @parser = Parser.find params[:parser_id]
-    if @canteen_id.present?
-      @canteen = Canteen.find @canteen_id
-      @source = Source.new canteen: @canteen, parser: @parser
-    else
-      @canteens = Canteen.where state: "wanted"
-      @canteen = Canteen.new
-      render action: "select_canteen"
-    end
+    @source = Source.new(parser: parser)
+    @canteen = Canteen.new
   end
 
   def create
-    if @source.update source_params
+    @source = Source.new(source_params)
+    @canteen = Canteen.new(source_canteen_params)
+
+    ActiveRecord::Base.transaction do
+      @canteen.save!
+      @source.update!(parser: parser, canteen: @canteen)
+
       flash[:notice] = t "message.source_created"
       redirect_to parser_path(@source.parser)
-    else
-      @canteen = @source.canteen
-      flash[:error] = t "message.source_invalid"
-      render action :new
     end
+  rescue ActiveRecord::RecordInvalid
+    render :new
   end
 
   def edit
@@ -49,11 +45,19 @@ class SourcesController < WebController
 
   private
 
+  def parser
+    @parser ||= Parser.find(params.require(:parser_id))
+  end
+
   def load_resource
     @source = Source.find params[:id]
   end
 
   def source_params
-    params.require(:source).permit(:name, :meta_url, :parser_id, :canteen_id)
+    params.require(:source).permit(:name, :meta_url, :parser_id)
+  end
+
+  def source_canteen_params
+    params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city, :phone, :email)
   end
 end

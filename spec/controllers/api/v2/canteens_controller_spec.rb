@@ -97,11 +97,11 @@ describe Api::V2::CanteensController, type: :controller do
       expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
     end
 
-    context "should not included wanted canteens" do
+    context "should not included new canteens" do
       subject { json }
 
       before do
-        FactoryBot.create :canteen, state: "wanted"
+        FactoryBot.create :canteen, state: "new"
         get :index, format: :json
       end
 
@@ -307,10 +307,10 @@ describe Api::V2::CanteensController, type: :controller do
       }.as_json)
     end
 
-    context "and a wanted canteens" do
+    context "with a new canteen" do
       subject { json }
 
-      let(:canteen) { FactoryBot.create :canteen, state: "wanted" }
+      let(:canteen) { FactoryBot.create :canteen, state: "new" }
 
       context "response" do
         subject { response }
@@ -325,7 +325,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
     end
 
-    context "and a archived canteens" do
+    context "with an archived canteens" do
       subject { json }
 
       let(:canteen) { FactoryBot.create :canteen, state: "archived" }
@@ -343,7 +343,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
     end
 
-    context "and a replaced canteens" do
+    context "with a replaced canteen" do
       subject { json }
 
       let(:replacement) { FactoryBot.create :canteen, state: "active" }

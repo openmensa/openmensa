@@ -10,14 +10,7 @@ section.favorites class="#{user.favorites.empty? ? "empty" : ""}"
     .content
       p=t('favorites.howto_add')
       p=t('favorites.use_menu')
-      - if defined? missing_canteen
-        h3 Deine Mensa fehlt?
-        p= link_to 'Melde die Mensa als gewünscht', new_canteen_path
   - else
     ul.favs
       - user.favorites.each do |f|
         li = link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
-    - if defined? missing_canteen
-      .content
-        h3 Deine Mensa fehlt?
-        p= link_to 'Melde die Mensa als gewünscht', new_canteen_path

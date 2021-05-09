@@ -4,7 +4,7 @@ class CanteenActivationController < WebController
   before_action :load_resource
 
   def create
-    if @canteen.update state: "wanted"
+    if @canteen.update state: "new"
       flash[:notice] = t("canteen.activation.successful_activated")
     else
       flash[:error] = t("canteen.activation.errored_activated")

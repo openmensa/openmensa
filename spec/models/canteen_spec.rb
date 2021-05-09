@@ -7,7 +7,7 @@ describe Canteen, type: :model do
 
   it { is_expected.not_to accept_values_for(:name, nil, "") }
   it { is_expected.not_to accept_values_for(:state, nil, "", "test") }
-  it { is_expected.to accept_values_for(:state, "wanted", "active", "empty", "archived") }
+  it { is_expected.to accept_values_for(:state, "new", "active", "empty", "archived") }
 
   describe "#fetch_state" do
     subject { canteen.fetch_state }
