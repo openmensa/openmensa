@@ -40,7 +40,8 @@ gem "paginate-responder", "~> 2.0"
 gem "responders"
 gem "will_paginate"
 
-gem "sentry-raven"
+gem "sentry-rails"
+gem "sentry-ruby"
 
 group :assets do
   gem "autoprefixer-rails", "~> 10.2"
