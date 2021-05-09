@@ -49,7 +49,7 @@ group :assets do
   gem "jquery-rails"
   gem "mini_racer", "< 0.4.0"
   gem "sass-rails", "~> 6.0"
-  gem "uglifier", "~> 4.2"
+  gem "terser", "~> 1.1"
 end
 
 group :development do
