@@ -76,9 +76,5 @@ module Openmensa
       policy.script_src  :self
       policy.style_src   :self
     end
-
-    initializer "load-patches" do
-      require "patches/relation_cache_key"
-    end
   end
 end
