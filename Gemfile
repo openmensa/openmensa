@@ -5,7 +5,6 @@ source "https://rubygems.org"
 gem "rails", "~> 6.1.3"
 gem "rails-i18n", "~> 6.0"
 gem "sprockets", "~> 4.0"
-gem "turbolinks", "~> 5"
 
 gem "puma", "~> 5.2"
 
@@ -46,7 +45,6 @@ gem "sentry-ruby"
 group :assets do
   gem "autoprefixer-rails", "~> 10.2"
   gem "bourbon", "~> 7.0"
-  gem "coffee-rails", "~> 5.0.0"
   gem "font-awesome-sass-rails", "~> 3.0.2.2"
   gem "jquery-rails"
   gem "mini_racer"

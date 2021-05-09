@@ -4,8 +4,8 @@ html
     title= title
     = csp_meta_tag
     = csrf_meta_tags
-    = javascript_include_tag 'application'
-    = stylesheet_link_tag 'application', media: 'screen, projection'
+    = javascript_include_tag 'application', async: true, crossorigin: 'anonymous'
+    = stylesheet_link_tag 'application', crossorigin: 'anonymous', media: 'screen, projection'
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
