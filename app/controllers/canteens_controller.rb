@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CanteensController < WebController
-  before_action :load_resource, only: %i[show update edit fetch]
+  before_action :load_resource, only: %i[show update edit]
   load_and_authorize_resource
 
   def index
