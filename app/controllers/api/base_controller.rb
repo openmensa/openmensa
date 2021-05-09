@@ -59,10 +59,10 @@ class Api::BaseController < ApiController
   # paginate reponder methods
 
   def max_per_page
-    100
+    1500
   end
 
   def per_page
-    params[:per_page].try(:to_i) || params[:limit].try(:to_i) || 50
+    params[:per_page].try(:to_i) || params[:limit].try(:to_i) || 500
   end
 end

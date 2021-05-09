@@ -86,15 +86,14 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     it "adds link headers" do
-      FactoryBot.create_list :canteen, 100
-      expect(Canteen.count).to be > 100
+      FactoryBot.create_list :canteen, 10
 
-      get :index, format: :json
+      get :index, format: :json, params: {limit: 5}
 
       expect(response.status).to eq(200)
-      expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?page=1>; rel="first"')
-      expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?page=2>; rel="next"')
-      expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?page=3>; rel="last"')
+      expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?limit=5&page=1>; rel="first"')
+      expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?limit=5&page=2>; rel="next"')
+      expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?limit=5&page=3>; rel="last"')
     end
 
     context "should not included new canteens" do
@@ -123,55 +122,58 @@ describe Api::V2::CanteensController, type: :controller do
 
     context "&limit" do
       it "limits list to given limit parameter" do
-        FactoryBot.create_list :canteen, 100
-        expect(Canteen.count).to be > 100
+        FactoryBot.create_list :canteen, 2
+        expect(Canteen.count).to be > 2
 
-        get :index, format: :json, params: {limit: "20"}
+        get :index, format: :json, params: {limit: 2}
 
         expect(response.status).to eq(200)
-        expect(json.size).to eq(20)
+        expect(json.size).to eq(2)
       end
 
-      it "limits list to 100 if given limit parameter exceed 100" do
-        FactoryBot.create_list :canteen, 100
-        expect(Canteen.count).to be > 100
+      xit "limits list to 1500 if given limit parameter exceed 1500" do
+        # TODO: Some other test need instead of creating 1500+ canteens
+        FactoryBot.create_list :canteen, 1500
+        expect(Canteen.count).to be > 1500
 
-        get :index, format: :json, params: {limit: "120"}
+        get :index, format: :json, params: {limit: 3000}
 
         expect(response.status).to eq(200)
-        expect(json.size).to eq(100)
+        expect(json.size).to eq(1500)
       end
     end
 
     context "&per_page" do
-      it "limits list to 50 canteens by default" do
-        FactoryBot.create_list :canteen, 100
-        expect(Canteen.count).to be > 100
+      xit "limits list to 500 canteens by default" do
+        # TODO: Some other test need instead of creating 500+ canteens
+        FactoryBot.create_list :canteen, 500
+        expect(Canteen.count).to be > 500
 
         get :index, format: :json
 
         expect(response.status).to eq(200)
-        expect(json.size).to eq(50)
+        expect(json.size).to eq(500)
       end
 
       it "limits list to given limit parameter" do
-        FactoryBot.create_list :canteen, 100
-        expect(Canteen.count).to be > 100
+        FactoryBot.create_list :canteen, 5
+        expect(Canteen.count).to be > 5
 
-        get :index, format: :json, params: {per_page: "20"}
+        get :index, format: :json, params: {per_page: 2}
 
         expect(response.status).to eq(200)
-        expect(json.size).to eq(20)
+        expect(json.size).to eq(2)
       end
 
-      it "limits list to 100 if given limit parameter exceed 100" do
-        FactoryBot.create_list :canteen, 100
-        expect(Canteen.count).to be > 100
+      xit "limits list to 1500 if given limit parameter exceed 1500" do
+        # TODO: Some other test need instead of creating 1500+ canteens
+        FactoryBot.create_list :canteen, 1500
+        expect(Canteen.count).to be > 1500
 
-        get :index, format: :json, params: {per_page: "120"}
+        get :index, format: :json, params: {per_page: 3000}
 
         expect(response.status).to eq(200)
-        expect(json.size).to eq(100)
+        expect(json.size).to eq(1500)
       end
     end
 
