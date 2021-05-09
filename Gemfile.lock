@@ -157,6 +157,7 @@ GEM
     jwt (2.2.3)
     leaflet-rails (1.7.0)
       rails (>= 4.2.0)
+    libv8 (8.4.255.0)
     libv8 (8.4.255.0-x86_64-linux)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -179,6 +180,8 @@ GEM
     nio4r (2.5.7)
     nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    nokogiri (1.11.3-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.6)
     oauth2 (1.4.7)
@@ -401,6 +404,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   accept_values_for (>= 0.7.4)
