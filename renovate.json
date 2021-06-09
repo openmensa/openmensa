@@ -4,7 +4,7 @@
     ":dependencyDashboard",
     ":prHourlyLimitNone",
     ":prConcurrentLimitNone",
-    ":label(dependency-upgrade)"
+    ":label(dependencies)"
   ],
   "branchPrefix": "renovate-",
   "lockFileMaintenance": {
