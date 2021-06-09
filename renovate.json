@@ -1,6 +1,15 @@
 {
-  "extends": ["config:base"],
-  "lockFileMaintenance": { "enabled": true },
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":prHourlyLimitNone",
+    ":prConcurrentLimitNone",
+    ":label(dependency-upgrade)"
+  ],
+  "branchPrefix": "renovate-",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
