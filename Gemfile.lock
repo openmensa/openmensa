@@ -140,7 +140,7 @@ GEM
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
       websocket-driver (>= 0.6, < 0.8)
-    ffi (1.15.1)
+    ffi (1.15.3)
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
