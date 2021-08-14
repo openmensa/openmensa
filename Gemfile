@@ -70,7 +70,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "rspec-collection_matchers"
   gem "rspec-its"
-  gem "rspec-rails", "5.0.1"
+  gem "rspec-rails", "5.0.2"
 end
 
 group :test do
