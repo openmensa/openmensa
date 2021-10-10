@@ -133,6 +133,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
           canteen.city = node.content
         when "phone"
           canteen.phone = node.content
+        when "email"
+          canteen.email = node.content
         when "location"
           canteen.latitude = node["latitude"].to_f
           canteen.longitude = node["longitude"].to_f
