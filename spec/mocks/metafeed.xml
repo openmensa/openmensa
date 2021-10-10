@@ -6,6 +6,7 @@
 		<address>August-Bebel-Str. 89, 14482 Potsdam</address>
 		<city>Potsdam</city>
 		<phone>(0331) 977 3749/3748</phone>
+		<email>mensa-gs@studentenwerk-potsdam.de</email>
 		<location latitude="52.3935353446923" longitude="13.1278145313263" />
 		<availability>public</availability>
 		<feed name="today" priority="0">
