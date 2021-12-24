@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gem "rails", "~> 7.0.0"
 gem "rails-i18n", "~> 7.0"
 gem "sprockets", "~> 4.0"
+gem "sprockets-rails", "~> 3.4"
 
 gem "puma", "~> 5.5"
 
@@ -12,7 +13,7 @@ gem "bcrypt"
 gem "nokogiri"
 gem "oj"
 gem "pg", "~> 1.2"
-gem "slim"
+gem "slim", "~> 4.1"
 
 gem "cancancan", "~> 3.2"
 gem "omniauth", "~> 2.0"
