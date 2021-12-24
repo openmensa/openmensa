@@ -476,10 +476,11 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   simplecov
-  slim
+  slim (~> 4.1)
   spring
   spring-commands-rspec
   sprockets (~> 4.0)
+  sprockets-rails (~> 3.4)
   terser (~> 1.1)
   timecop
   webmock

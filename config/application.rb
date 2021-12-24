@@ -3,12 +3,18 @@
 require_relative "boot"
 
 require "rails"
-
 # Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
+# require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "sprockets/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
+require "action_view/railtie"
+# require "action_cable/engine"
+require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,7 +25,7 @@ Bundler.require(*Rails.groups(assets: %w[development test]))
 module Openmensa
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 7.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -41,7 +47,7 @@ module Openmensa
     config.omniauth_services = []
 
     # Configure parameter filtering for logging
-    config.filter_parameters += [:password]
+    config.filter_parameters += %i[password passw secret token _key crypt salt certificate otp ssn]
 
     # Session store
     config.session_store :cookie_store, key: "_openmensa_session", secure: Rails.env.production?
@@ -75,6 +81,15 @@ module Openmensa
       policy.object_src  :none
       policy.script_src  :self
       policy.style_src   :self
+    end
+
+    config.permissions_policy do |f|
+      f.camera      :none
+      f.gyroscope   :none
+      f.microphone  :none
+      f.usb         :none
+      f.fullscreen  :self
+      f.payment     :none
     end
   end
 end
