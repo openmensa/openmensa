@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + "/../../spec_helper"
+require_relative "../../spec_helper"
 
-describe "users/show.html.slim", type: :view do
+describe "users/show", type: :view do
   let(:user) { FactoryBot.create :user }
 
   before do

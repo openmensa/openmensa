@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + "/../../spec_helper"
+require_relative "../../spec_helper"
 require_dependency "message"
 
 describe "common/_canteen_actions.html.slim", type: :view do

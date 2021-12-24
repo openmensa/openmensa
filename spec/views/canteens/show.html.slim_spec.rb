@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + "/../../spec_helper"
+require_relative "../../spec_helper"
 
-describe "canteens/show.html.slim", type: :view do
+describe "canteens/show", type: :view do
   let(:user) { FactoryBot.create :user }
   let(:canteen) { FactoryBot.create(:canteen) }
 
@@ -60,11 +60,6 @@ describe "canteens/show.html.slim", type: :view do
       expect(rendered).to include(meal.category)
     end
 
-    it "includes name of meal" do
-      render
-      expect(rendered).to include(meal.category)
-    end
-
     it "includes prices of meal" do
       meal.prices = {student: 1.22, other: 2.20, employee: 1.7}
       meal.save!
@@ -98,12 +93,12 @@ describe "canteens/show.html.slim", type: :view do
     it "renders an ordered list of meals" do
       render
 
-      mealPositions = []
+      meal_positions = []
       day.meals.order(:pos).each do |meal|
-        mealPositions << rendered.index(meal.name)
+        meal_positions << rendered.index(meal.name)
       end
 
-      expect(mealPositions).to eq(mealPositions.sort)
+      expect(meal_positions).to eq(meal_positions.sort)
     end
   end
 

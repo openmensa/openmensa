@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + "/../../spec_helper"
+require_relative "../../spec_helper"
 require_dependency "message"
 
-describe "feeds/fetch.html.slim", type: :view do
+describe "feeds/fetch", type: :view do
   let(:owner) { FactoryBot.create :user }
   let(:other) { FactoryBot.create :user }
   let(:parser) { FactoryBot.create :parser, user: owner }
@@ -28,9 +28,11 @@ describe "feeds/fetch.html.slim", type: :view do
     {
       "status" => "error",
       "errors" => [
-        FeedFetchError.create(messageable: feed,
-                              message: "Could not fetch",
-                              code: 404)
+        FeedFetchError.create(
+          messageable: feed,
+          message: "Could not fetch",
+          code: 404
+        )
       ]
     }
   end
