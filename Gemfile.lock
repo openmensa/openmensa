@@ -334,9 +334,9 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.3)
-    rubocop (1.24.1)
+    rubocop (1.25.0)
       parallel (~> 1.10)
-      parser (>= 3.0.0.0)
+      parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
@@ -468,7 +468,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails (= 5.0.2)
-  rubocop (~> 1.24.0)
+  rubocop (~> 1.25.0)
   rubocop-performance (~> 1.10)
   rubocop-rails (~> 2.9)
   rubocop-rspec (~> 2.2)
