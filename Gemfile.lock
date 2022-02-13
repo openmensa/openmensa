@@ -181,6 +181,7 @@ GEM
     jwt (2.3.0)
     leaflet-rails (1.7.0)
       rails (>= 4.2.0)
+    libv8-node (16.10.0.0)
     libv8-node (16.10.0.0-x86_64-linux)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -194,6 +195,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.7.1)
     mini_racer (0.6.2)
       libv8-node (~> 16.10.0.0)
     minitest (5.15.0)
@@ -216,6 +218,9 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
+    nokogiri (1.13.1)
+      mini_portile2 (~> 2.7.0)
+      racc (~> 1.4)
     nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.8)
@@ -437,6 +442,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -505,4 +511,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   2.3.1
+   2.3.6
