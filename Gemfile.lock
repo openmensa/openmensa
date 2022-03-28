@@ -104,7 +104,7 @@ GEM
     codecov (0.6.0)
       simplecov (>= 0.15, < 0.22)
     coderay (1.1.3)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -239,7 +239,7 @@ GEM
       rack
     paginate-responder (2.1.0)
       rack-link_headers (>= 2.2)
-    parallel (1.22.0)
+    parallel (1.22.1)
     parse-cron (0.1.4)
     parser (3.1.1.0)
       ast (~> 2.4.1)
@@ -337,7 +337,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (1.26.0)
+    rubocop (1.26.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
