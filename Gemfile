@@ -7,7 +7,7 @@ gem "rails-i18n", "~> 7.0"
 gem "sprockets", "~> 4.0"
 gem "sprockets-rails", "~> 3.4"
 
-gem "puma", "~> 5.5"
+gem "puma", "~> 5.6"
 
 gem "bcrypt"
 gem "nokogiri"
