@@ -86,10 +86,8 @@ RSpec.configure do |config|
   end
 
   OmniAuth.config.test_mode = true
-  OmniAuth.config.add_mock(:twitter, uid: "12345",
-                                     nickname: "zapnap")
-  OmniAuth.config.add_mock(:github, uid: "98765",
-                                    nickname: "zapnap")
+  OmniAuth.config.add_mock(:twitter, uid: "12345", nickname: "zapnap")
+  OmniAuth.config.add_mock(:github, uid: "98765", nickname: "zapnap")
 
   headless = ENV["CI"] || %w[0 false off].exclude?(ENV.fetch("HEADLESS", "on").downcase)
   warn "INFO: Running feature specs in headless browser." if headless
