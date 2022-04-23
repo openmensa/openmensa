@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: "3.0"
           bundler-cache: true
 
       - name: Setup
@@ -41,7 +41,6 @@ jobs:
       - run: bundle exec rspec spec --tag ~type:feature --format doc
       - run: bundle exec rspec spec --tag type:feature --format doc
 
-
   rubocop:
     runs-on: ubuntu-20.04
 
@@ -49,9 +48,41 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: "3.0"
           bundler-cache: true
       - run: bundle exec rubocop --color --parallel --fail-level E
+
+  docker:
+    runs-on: ubuntu-22.04
+
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # https://github.com/marketplace/actions/build-and-push-docker-images
+      - uses: docker/setup-buildx-action@v2
+
+      - uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # https://github.com/docker/metadata-action#usage
+      - uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
   actionlint:
     runs-on: ubuntu-20.04

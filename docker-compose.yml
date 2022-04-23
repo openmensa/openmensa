@@ -1,0 +1,38 @@
+---
+version: "2.4"
+
+services:
+  postgres:
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: openmensa
+      POSTGRES_PASSWORD: openmensa
+      POSTGRES_DB: openmensa
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  openmensa:
+    image: ghcr.io/openmensa/openmensa:latest
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://openmensa:openmensa@postgres/openmensa
+    volumes:
+      - www:/mnt/www
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx:1.20-alpine
+    restart: always
+    volumes:
+      - www:/mnt/www:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "3000:8080"
+    depends_on:
+      - openmensa
+
+volumes:
+  postgres:
+  www:

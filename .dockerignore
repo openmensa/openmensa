@@ -1,0 +1,15 @@
+*
+!app/
+!bin/
+!config/
+!db/
+!lib/
+!public/
+public/assets/
+!vendor/
+!config.ru
+!Gemfile
+!Gemfile.lock
+!LICENSE*
+!Rakefile
+!entrypoint.sh
