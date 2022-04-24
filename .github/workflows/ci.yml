@@ -48,3 +48,15 @@ jobs:
           ruby-version: 2.7
           bundler-cache: true
       - run: bundle exec rubocop --color --parallel --fail-level E
+
+
+  actionlint:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Check workflow files
+      run: |
+        echo "::add-matcher::.github/actionlint-matcher.json"
+        bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        ./actionlint
