@@ -1,5 +1,8 @@
+---
 name: CI
+
 on: [push, pull_request]
+
 jobs:
   test:
     name: rspec
@@ -23,7 +26,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:secret@localhost:5432
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
@@ -38,11 +41,10 @@ jobs:
 
 
   rubocop:
-    name: rubocop
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
@@ -54,9 +56,9 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Check workflow files
-      run: |
-        echo "::add-matcher::.github/actionlint-matcher.json"
-        bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-        ./actionlint
+      - uses: actions/checkout@v3
+      - name: Check workflow files
+        run: |
+          echo "::add-matcher::.github/actionlint-matcher.json"
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint
