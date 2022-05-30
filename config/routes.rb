@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+module AdminConstraint
+  def self.matches?(request)
+    user = User.find_by(id: request.session[:user_id])
+    user&.logged? && user&.admin?
+  end
+end
+
 Rails.application.routes.draw do
   namespace :api, defaults: {format: "json"} do
     namespace :v2 do
@@ -58,4 +65,8 @@ Rails.application.routes.draw do
 
   # get '/', to: 'application#index', as: :application_index
   root to: "static#index"
+
+  constraints(AdminConstraint) do
+    mount GoodJob::Engine => "good_job"
+  end
 end
