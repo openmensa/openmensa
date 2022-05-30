@@ -10,6 +10,7 @@ gem "sprockets-rails", "~> 3.4"
 gem "puma", "~> 5.5"
 
 gem "bcrypt"
+gem "good_job", "~> 2.15"
 gem "nokogiri"
 gem "oj"
 gem "pg", "~> 1.2"
@@ -25,7 +26,6 @@ gem "omniauth-twitter"
 
 gem "parse-cron"
 gem "rack-cors", require: "rack/cors"
-gem "whenever", require: false
 
 gem "geocoder", "~> 1.6"
 gem "gravtastic"
