@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "open-uri"
-require "rexml/document"
-
 class Canteen < ApplicationRecord
   has_many :days
   has_many :meals, through: :days
