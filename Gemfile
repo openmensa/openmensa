@@ -8,6 +8,7 @@ gem "sprockets", "~> 4.0"
 gem "sprockets-rails", "~> 3.4"
 
 gem "puma", "~> 5.5"
+gem "sd_notify", "~> 0.1.1"
 
 gem "bcrypt"
 gem "good_job", "~> 2.15"

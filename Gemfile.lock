@@ -381,6 +381,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sd_notify (0.1.1)
     sentry-rails (5.3.1)
       railties (>= 5.0)
       sentry-ruby-core (~> 5.3.1)
@@ -488,6 +489,7 @@ DEPENDENCIES
   rubocop-rails (~> 2.9)
   rubocop-rspec (~> 2.2)
   sass-rails (~> 6.0)
+  sd_notify (~> 0.1.1)
   sentry-rails
   sentry-ruby
   simplecov
@@ -502,4 +504,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   2.3.11
+   2.3.15
