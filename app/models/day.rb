@@ -2,10 +2,9 @@
 
 class Day < ApplicationRecord
   belongs_to :canteen
-  has_many :meals, -> { order(:pos) }
+  has_many :meals, -> { order(:pos) }, dependent: :destroy, inverse_of: :day
 
-  validates :date, :canteen_id, presence: true
-  validates :date, uniqueness: {scope: :canteen_id}
+  validates :date, presence: true, uniqueness: {scope: :canteen_id}
 
   def date=(date)
     self[:date] = date.to_date unless date.nil?

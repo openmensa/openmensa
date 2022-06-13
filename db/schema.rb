@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_30_122413) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_13_203631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -50,12 +50,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_122413) do
   end
 
   create_table "days", id: :serial, force: :cascade do |t|
-    t.integer "canteen_id"
-    t.date "date"
+    t.integer "canteen_id", null: false
+    t.date "date", null: false
     t.boolean "closed", default: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["canteen_id"], name: "index_days_on_canteen_id"
+    t.index ["date", "canteen_id"], name: "index_days_on_date_and_canteen_id", unique: true
   end
 
   create_table "favorites", id: :serial, force: :cascade do |t|
@@ -235,13 +236,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_122413) do
   add_foreign_key "canteens", "canteens", column: "replaced_by"
   add_foreign_key "data_proposals", "canteens", on_delete: :cascade
   add_foreign_key "data_proposals", "users", on_delete: :restrict
-  add_foreign_key "days", "canteens"
+  add_foreign_key "days", "canteens", on_delete: :cascade
   add_foreign_key "favorites", "canteens", on_delete: :cascade
   add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "feed_fetches", "feeds", on_delete: :cascade
   add_foreign_key "feedbacks", "canteens"
   add_foreign_key "feeds", "sources", on_delete: :cascade
-  add_foreign_key "meals", "days"
+  add_foreign_key "meals", "days", on_delete: :cascade
+  add_foreign_key "messages", "canteens", on_delete: :cascade
   add_foreign_key "parsers", "users"
   add_foreign_key "sources", "canteens", on_delete: :cascade
   add_foreign_key "sources", "parsers", on_delete: :cascade

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Canteen < ApplicationRecord
-  has_many :days
+  has_many :days, dependent: :destroy
   has_many :meals, through: :days
-  has_many :messages
-  has_many :sources
+  has_many :messages, dependent: :destroy
+  has_many :sources, dependent: :destroy
   has_many :parsers, through: :sources
   has_many :feeds, through: :sources
-  has_many :data_proposals
-  has_many :feedbacks
+  has_many :data_proposals, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
   belongs_to :replaced_by, class_name: "Canteen", foreign_key: :replaced_by, optional: true
 
   scope :active, -> { where(state: %w[active empty]) }
@@ -19,7 +19,7 @@ class Canteen < ApplicationRecord
   after_validation :geocode, if: :geocode?
 
   STATES = %w[new active empty archived].freeze
-  validates :state, inclusion: {in: STATES, message: "%{value} is not a valid canteen state"}
+  validates :state, inclusion: {in: STATES, message: "%<value>s is not a valid canteen state"}
 
   def geocode?
     return false unless Rails.env.production? || Rails.env.development?
@@ -32,7 +32,7 @@ class Canteen < ApplicationRecord
       :out_of_order
     elsif last_fetched_at.nil?
       :no_fetch_ever
-    elsif last_fetched_at > Time.zone.now - 1.day
+    elsif last_fetched_at > 1.day.ago
       :fetch_up_to_date
     else
       :fetch_needed

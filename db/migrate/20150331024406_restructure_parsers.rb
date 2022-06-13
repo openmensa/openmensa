@@ -115,21 +115,21 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
               name = c.url[(c.url.rindex("/") + 1)..400]
               name = Regexp.last_match(1) if name =~ /^([^.]+)\.[^.]+$/
               s = Source.create! parser: p,
-                                 name: name,
-                                 canteen: c
+                name: name,
+                canteen: c
               feed = Feed.create! name: "full",
-                                  source: s,
-                                  url: c.url,
-                                  schedule: "0 8 * * *",
-                                  retry: [60, 6],
-                                  priority: 0
+                source: s,
+                url: c.url,
+                schedule: "0 8 * * *",
+                retry: [60, 6],
+                priority: 0
               Message.where(canteen_id: c.id).update_all(messageable_id: feed.id, messageable_type: "Feed")
               if c.today_url.present?
                 Feed.create! name: "today",
-                             source: s,
-                             url: c.today_url,
-                             schedule: "0 8-14 * * *",
-                             priority: 10
+                  source: s,
+                  url: c.today_url,
+                  schedule: "0 8-14 * * *",
+                  priority: 10
               end
               c.url = nil
               c.today_url = nil
@@ -159,10 +159,11 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
               next if s.nil?
 
               s.feeds.each do |f|
-                if f.name == "full"
-                  c.url = f.url
-                elsif f.name == "today"
-                  c.today_url = f.url
+                case f.name
+                  when "full"
+                    c.url = f.url
+                  when "today"
+                    c.today_url = f.url
                 end
               end
               c.user_id = s.parser.user_id
