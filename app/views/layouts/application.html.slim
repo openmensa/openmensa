@@ -45,17 +45,14 @@ html
       = render partial: 'common/flash', object: flash
       = yield
       footer#footer
-        .row
-          .span8
-            p
-              | © 2012-
-              = Time.now.year
-              |  OpenMensa
-              | &nbsp;&middot;&nbsp;
-              = link_to 'Kontakt', contact_path
-              | &nbsp;&middot;&nbsp;
-              = link_to 'Developer', 'https://doc.openmensa.org/'
-              | &nbsp;&middot;&nbsp;
-              = link_to 'Über OpenMensa', about_path
-              | &nbsp;&middot;&nbsp;
-              = link_to 'Hilf mit', support_path
+        ul
+          li
+            | © 2012-
+            = Time.now.year
+            |  OpenMensa
+          li= link_to 'Kontakt', contact_path
+          li= link_to 'Developer', 'https://doc.openmensa.org/'
+          li= link_to 'Über OpenMensa', about_path
+          li= link_to 'Hilf mit', support_path
+          - if REVISION
+            li.revision=REVISION[0..8]
