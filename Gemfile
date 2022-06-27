@@ -11,7 +11,7 @@ gem "puma", "~> 5.5"
 gem "sd_notify", "~> 0.1.1"
 
 gem "bcrypt"
-gem "good_job", "~> 2.15"
+gem "good_job", "~> 3.0"
 gem "nokogiri"
 gem "oj"
 gem "pg", "~> 1.2"
