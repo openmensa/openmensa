@@ -69,6 +69,9 @@ module Openmensa
     # folder are already added.
     # config.assets.precompile += %w( admin.js admin.css )
 
+    # Default URL for mails
+    config.action_mailer.default_url_options = {host: "openmensa.org", protocol: "https"}
+
     config.middleware.use Rack::Cors do
       allow do
         origins "*"
