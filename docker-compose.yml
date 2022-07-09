@@ -23,7 +23,7 @@ services:
       - postgres
 
   nginx:
-    image: nginx:1.20-alpine
+    image: nginx:1.23-alpine
     restart: always
     volumes:
       - www:/mnt/www:ro
