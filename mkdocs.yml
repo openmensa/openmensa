@@ -1,12 +1,15 @@
 site_name: OpenMensa
 site_url: https://doc.openmensa.org
 repo_url: https://github.com/openmensa/openmensa
+repo_name: openmensa/openmensa
+edit_uri: blob/master/docs/
 
 theme:
   name: material
   font: false
   icon:
     logo: material/library
+    repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
