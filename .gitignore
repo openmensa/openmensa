@@ -34,3 +34,6 @@ __pycache__/
 __pypackages__/
 .pdm.toml
 site/
+
+# Ignore docker volume
+/volume
