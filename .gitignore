@@ -23,9 +23,14 @@
 .rspec
 Gemfile.local
 Guardfile.local
-#Gemfile.lock
 
 /.idea
 *.iml
 .ruby-gemset
 public/assets
+
+# Ignore python things when building docs
+__pycache__/
+__pypackages__/
+.pdm.toml
+site/

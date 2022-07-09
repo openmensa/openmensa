@@ -1,0 +1,19 @@
+# markdownlint config
+
+# MD013/line-length: disable line length for all. We prefer lines as
+# long as paragraph with in-editor line breaks.
+MD013: false
+
+# MD033/no-inline-html: allow often need tags
+MD033:
+  allowed_elements:
+    - figure
+    - figcaption
+
+# MD046/code-block-style: code block style conflicting with
+# admonitions...
+MD046: false
+
+# MD048/code-fence-style: code fence style
+MD048:
+  style: backtick

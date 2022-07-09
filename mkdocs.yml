@@ -1,0 +1,64 @@
+site_name: OpenMensa
+site_url: https://doc.openmensa.org
+repo_url: https://github.com/openmensa/openmensa
+
+theme:
+  name: material
+  font: false
+  icon:
+    logo: material/library
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      toggle:
+        icon: material/eye-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/eye
+        name: Switch to light mode
+  features:
+    - content.code.annotate
+    - content.tabs.link
+    - navigation.expand
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - awesome-pages:
+      filename: .pages.yml
+      strict: false
+  - git-revision-date
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - mdx_truly_sane_lists:
+      nested_indent: 2
+      truly_sane: True
+  - meta
+  - pymdownx.details
+  - pymdownx.extra
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: True
+  - smarty
+  - toc:
+      permalink: True
