@@ -79,6 +79,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            # Tag for branch/pull request
+            type=ref,event=branch
+            type=ref,event=pr
+
             # set latest tag for default branch only if everything
             # before has been successful (e.g. rspec)
             type=raw,value=latest,enable={{ is_default_branch && success() }}
