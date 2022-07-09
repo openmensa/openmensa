@@ -15,13 +15,13 @@ theme:
       scheme: default
       primary: white
       toggle:
-        icon: material/eye-outline
+        icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
       toggle:
-        icon: material/eye
+        icon: material/brightness-4
         name: Switch to light mode
   features:
     - content.code.annotate
