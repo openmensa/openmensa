@@ -85,7 +85,7 @@ jobs:
 
             # set latest tag for default branch only if everything
             # before has been successful (e.g. rspec)
-            type=raw,value=latest,enable={{ is_default_branch && success() }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' && needs.rspec.result == 'success' }}
 
       - uses: docker/build-push-action@v2
         with:
