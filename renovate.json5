@@ -1,0 +1,47 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:base",
+    ":dependencyDashboard",
+    ":label(dependencies)",
+    "schedule:weekly",
+    ":maintainLockFilesWeekly",
+  ],
+
+  // Do not pin images in docker-compose. This one is only intended
+  // for local development. Pinning makes it harder to use a locally
+  // build image for testing.
+  "docker-compose": {
+    digest: {
+      enabled: false,
+    },
+  },
+
+  packageRules: [
+    {
+      matchUpdateTypes: [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+      ],
+      automerge: true,
+    },
+
+    // Group ruby interpreter bumps for docker, ruby-version, etc. all
+    // in one merge request.
+    {
+      matchPackageNames: ["ruby", "docker.io/ruby"],
+      groupName: "ruby",
+    },
+
+    // Do not bump ruby version (only security patches). We still need
+    // to coordinate these with deployment.
+    {
+      matchPackageNames: ["ruby", "docker.io/ruby"],
+      matchUpdateTypes: ["major", "minor"],
+      enabled: false,
+    },
+  ],
+}
