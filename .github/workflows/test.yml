@@ -37,8 +37,8 @@ jobs:
         run: |
           bundle exec rake db:create:all db:setup
           sudo bash -c "echo 127.0.1.2 openmensa.org >> /etc/hosts"
-      - run: bundle exec rspec spec --tag ~type:feature --format doc
-      - run: bundle exec rspec spec --tag type:feature --format doc
+      - run: bundle exec rspec spec --color --tag ~type:feature --format doc
+      - run: bundle exec rspec spec --color --tag type:feature --format doc
 
   rubocop:
     runs-on: ubuntu-20.04
