@@ -6,8 +6,7 @@ on:
   pull_request:
 
 jobs:
-  test:
-    name: rspec
+  rspec:
     runs-on: ubuntu-20.04
 
     services:
@@ -53,6 +52,9 @@ jobs:
       - run: bundle exec rubocop --color --parallel --fail-level E
 
   docker:
+    needs: rspec
+    if: always()
+
     runs-on: ubuntu-22.04
 
     env:
@@ -77,8 +79,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            # set latest tag for default branch
-            type=raw,value=latest,enable={{is_default_branch}}
+            # set latest tag for default branch only if everything
+            # before has been successful (e.g. rspec)
+            type=raw,value=latest,enable={{ is_default_branch && success() }}
 
       - uses: docker/build-push-action@v2
         with:
@@ -86,6 +89,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   actionlint:
     runs-on: ubuntu-20.04
