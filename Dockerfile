@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.4
 
-FROM docker.io/ruby:3.0.4-slim-bullseye AS build
+FROM docker.io/ruby:3.1.2-slim-bullseye AS build
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
@@ -34,7 +34,7 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:3.0.4-slim-bullseye
+FROM docker.io/ruby:3.1.2-slim-bullseye
 
 ENV RAILS_ENV=production
 
