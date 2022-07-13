@@ -72,6 +72,10 @@ module Openmensa
     # Default URL for mails
     config.action_mailer.default_url_options = {host: "openmensa.org", protocol: "https"}
 
+    # Allowed classes to be deserialized in YAML-encoded database
+    # columns
+    config.active_record.yaml_column_permitted_classes = [Symbol]
+
     config.middleware.use Rack::Cors do
       allow do
         origins "*"
