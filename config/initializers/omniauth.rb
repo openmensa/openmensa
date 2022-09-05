@@ -3,8 +3,8 @@
 # fix strange port numbers due to proxy
 OmniAuth.config.full_host = "https://openmensa.org" if Rails.env.production?
 
-OMNI_FILE = Rails.application.secrets.omni_file || Rails.root.join("config", "omniauth.yml")
-OMNI_CONFIG = YAML.load_file(OMNI_FILE)[Rails.env]
+OMNI_FILE = Rails.application.secrets.omni_file || Rails.root.join("config/omniauth.yml")
+OMNI_CONFIG = YAML.safe_load_file(OMNI_FILE, aliases: true)[Rails.env]
 
 if OMNI_CONFIG
   Rails.application.config.middleware.use OmniAuth::Builder do
