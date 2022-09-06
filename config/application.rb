@@ -69,7 +69,8 @@ module Openmensa
     # folder are already added.
     # config.assets.precompile += %w( admin.js admin.css )
 
-    # Default URL for mails
+    # Mailer settings
+    config.action_mailer.delivery_method = :sendmail
     config.action_mailer.default_url_options = {host: "openmensa.org", protocol: "https"}
 
     # Allowed classes to be deserialized in YAML-encoded database
