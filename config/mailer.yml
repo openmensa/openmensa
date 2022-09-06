@@ -1,0 +1,17 @@
+production:
+  delivery_method: smtp
+
+  smtp_settings:
+    address: "smtp.example.org"
+    port: 587
+    domain: "example.org"
+    user_name: "<username>"
+    password: "<password>"
+    authentication: "plain"
+    enable_starttls_auto: true
+    open_timeout: 5
+    read_timeout: 5
+
+  sendmail_settings:
+    location: /usr/sbin/sendmail
+    arguments: -i
