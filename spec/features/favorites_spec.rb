@@ -4,11 +4,11 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 describe "Favorites: ", type: :feature do
   context "User" do
-    let(:user) { FactoryBot.create :user }
-    let(:canteen) { FactoryBot.create :canteen }
-    let(:canteen2) { FactoryBot.create :canteen }
-    let(:favorite) { FactoryBot.create :favorite, canteen: canteen, user: user }
-    let(:favorite2) { FactoryBot.create :favorite, canteen: canteen2, user: user }
+    let(:user) { create :user }
+    let(:canteen) { create :canteen }
+    let(:canteen2) { create :canteen }
+    let(:favorite) { create :favorite, canteen: canteen, user: user }
+    let(:favorite2) { create :favorite, canteen: canteen2, user: user }
 
     before do
       login_as user
@@ -101,7 +101,7 @@ describe "Favorites: ", type: :feature do
   end
 
   context "anonymous" do
-    let(:canteen) { FactoryBot.create :canteen }
+    let(:canteen) { create :canteen }
 
     it "has not favorite link on canteen page" do
       visit canteen_path(canteen)

@@ -6,7 +6,7 @@ describe CanteenActivationController, type: :controller do
   describe "#create" do
     subject { response }
 
-    let(:canteen) { FactoryBot.create :canteen, state: "archived" }
+    let(:canteen) { create :canteen, state: "archived" }
 
     before do
       post :create, params: {canteen_id: canteen.id}
@@ -20,7 +20,7 @@ describe CanteenActivationController, type: :controller do
   describe "#destroy" do
     subject { response }
 
-    let(:canteen) { FactoryBot.create :canteen }
+    let(:canteen) { create :canteen }
 
     before do
       delete :destroy, params: {canteen_id: canteen.id}

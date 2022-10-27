@@ -3,14 +3,14 @@
 require_relative "../../spec_helper"
 
 describe "users/show", type: :view do
-  let(:user) { FactoryBot.create :user }
+  let(:user) { create :user }
 
   before do
     allow(controller).to receive(:current_user) { User.new }
     assign(:user, user)
 
-    user.identities.create! FactoryBot.attributes_for(:identity, provider: "github")
-    user.identities.create! FactoryBot.attributes_for(:identity, provider: "twitter")
+    user.identities.create! attributes_for(:identity, provider: "github")
+    user.identities.create! attributes_for(:identity, provider: "twitter")
 
     render
   end

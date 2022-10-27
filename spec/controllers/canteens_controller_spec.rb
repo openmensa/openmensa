@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 describe CanteensController, type: :controller do
   describe "#show" do
-    let(:canteen) { FactoryBot.create :canteen, :with_meals }
+    let(:canteen) { create :canteen, :with_meals }
 
     it "fetches canteen" do
       get :show, params: {id: canteen.id}
@@ -27,7 +27,7 @@ describe CanteensController, type: :controller do
     end
 
     context "with replaced canteen" do
-      let(:replaced) { FactoryBot.create :canteen, state: "archived", replaced_by: canteen }
+      let(:replaced) { create :canteen, state: "archived", replaced_by: canteen }
 
       it "asdf" do
         get :show, params: {id: replaced.id}
@@ -41,8 +41,8 @@ describe CanteensController, type: :controller do
   end
 
   describe "#update" do
-    let(:canteen) { FactoryBot.create :canteen, :with_meals }
-    let(:user) { FactoryBot.create :user }
+    let(:canteen) { create :canteen, :with_meals }
+    let(:user) { create :user }
 
     it "is not accessible by anonymous" do
       patch :update, params: {id: canteen.id, canteen: {name: "NewName"}}

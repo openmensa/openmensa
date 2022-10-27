@@ -81,6 +81,11 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  # Include FactoryBot methods, such as `#create`, `#build`, and
+  # `#attributes_for` into spec namespace. This is the recommended way
+  # on how to use these methods, and checked by a linter.
+  config.include FactoryBot::Syntax::Methods
+
   config.before do
     Timecop.return
   end

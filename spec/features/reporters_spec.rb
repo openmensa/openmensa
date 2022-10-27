@@ -3,9 +3,9 @@
 require "spec_helper"
 
 describe "Reporters: ", type: :feature do
-  let!(:canteen) { FactoryBot.create :canteen }
-  let(:parser) { FactoryBot.create :parser }
-  let(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
+  let!(:canteen) { create :canteen }
+  let(:parser) { create :parser }
+  let(:source) { create :source, parser: parser, canteen: canteen }
 
   it "is able to report an issues for a canteen" do
     expect(Feedback.count).to eq 0

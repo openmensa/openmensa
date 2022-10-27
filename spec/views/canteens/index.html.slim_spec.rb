@@ -3,11 +3,11 @@
 require_relative "../../spec_helper"
 
 describe "canteens/index", type: :view do
-  let(:user) { FactoryBot.create :user }
+  let(:user) { create :user }
   let(:canteens) do
     [
-      FactoryBot.create(:canteen),
-      FactoryBot.create(:canteen)
+      create(:canteen),
+      create(:canteen)
     ]
   end
 

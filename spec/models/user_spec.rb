@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe User, type: :model do
-  subject(:user) { FactoryBot.create :user }
+  subject(:user) { create :user }
 
   it { is_expected.to accept_values_for(:login, "first.last", "abc", "heinz_klein") }
   it { is_expected.not_to accept_values_for(:login, "", nil) }
@@ -18,7 +18,7 @@ describe User, type: :model do
   it { expect(user.time_zone).to eq "Berlin" }
 
   it "setting a email should not get the user a developer" do
-    user = FactoryBot.create :user
+    user = create :user
 
     user.email = "bob@example.org"
     expect(user).to be_valid
@@ -28,7 +28,7 @@ describe User, type: :model do
   end
 
   it "requires an public name for a info url" do
-    user = FactoryBot.create :user
+    user = create :user
 
     user.info_url = "bob@example.org"
     expect(user).not_to be_valid
@@ -44,21 +44,21 @@ describe User, type: :model do
   it { is_expected.not_to accept_values_for(:login, "anonymous", "system") }
 
   it "has a unique login" do
-    another_user = FactoryBot.build(:user, login: user.login)
+    another_user = build(:user, login: user.login)
     expect(another_user.login).to eq user.login
     expect(another_user).not_to be_valid
     expect(another_user.save).to be_falsey
   end
 
   it "can be destroyed" do
-    user = FactoryBot.create(:user)
+    user = create(:user)
     expect(user.destroy).to be_truthy
   end
 
   context "when admin" do
     subject { admin }
 
-    let(:admin) { FactoryBot.create(:admin) }
+    let(:admin) { create(:admin) }
 
     before { admin }
 
@@ -87,7 +87,7 @@ describe User, type: :model do
     describe "#all" do
       it "does not contain AnonymousUser" do
         described_class.anonymous # enforce that AnonymousUser and
-        FactoryBot.create(:user)
+        create(:user)
 
         expect(described_class.all).not_to be_empty
         expect(described_class.all.select {|u| u.login == "anonymous" || u.login == "system" }).to be_empty
@@ -99,7 +99,7 @@ describe User, type: :model do
     context "Anonymous" do
       subject { described_class.anonymous }
 
-      let(:user) { FactoryBot.create(:user) }
+      let(:user) { create(:user) }
 
       it { is_expected.not_to be_able_to(:index, described_class, "Users") }
       it { is_expected.not_to be_able_to(:new, described_class, "a User") }
@@ -119,8 +119,8 @@ describe User, type: :model do
     context "User" do
       subject { user }
 
-      let(:user) { FactoryBot.create :user }
-      let(:user2) { FactoryBot.create :user }
+      let(:user) { create :user }
+      let(:user2) { create :user }
 
       it { is_expected.not_to be_able_to(:index, described_class, "Users") }
       it { is_expected.not_to be_able_to(:new, described_class, "a User") }
@@ -140,9 +140,9 @@ describe User, type: :model do
     context "Administrator" do
       subject { admin }
 
-      let(:admin) { FactoryBot.create :admin }
-      let(:admin2) { FactoryBot.create :admin }
-      let(:user) { FactoryBot.create :user }
+      let(:admin) { create :admin }
+      let(:admin2) { create :admin }
+      let(:user) { create :user }
 
       it { is_expected.to be_able_to(:create, described_class, "Users") }
       it { is_expected.to be_able_to(:index, described_class, "Users") }

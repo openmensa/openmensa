@@ -4,12 +4,12 @@ require_relative "../../spec_helper"
 require_dependency "message"
 
 describe "feeds/fetch", type: :view do
-  let(:owner) { FactoryBot.create :user }
-  let(:other) { FactoryBot.create :user }
-  let(:parser) { FactoryBot.create :parser, user: owner }
-  let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
-  let(:canteen) { FactoryBot.create :canteen }
-  let(:feed) { FactoryBot.create :feed, source: source }
+  let(:owner) { create :user }
+  let(:other) { create :user }
+  let(:parser) { create :parser, user: owner }
+  let!(:source) { create :source, parser: parser, canteen: canteen }
+  let(:canteen) { create :canteen }
+  let(:feed) { create :feed, source: source }
   let(:success_result) do
     {
       "status" => "ok",

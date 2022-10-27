@@ -3,8 +3,8 @@
 require_relative "../../spec_helper"
 
 describe "canteens/show", type: :view do
-  let(:user) { FactoryBot.create :user }
-  let(:canteen) { FactoryBot.create(:canteen) }
+  let(:user) { create :user }
+  let(:canteen) { create(:canteen) }
 
   before do
     assign(:user, user)
@@ -37,7 +37,7 @@ describe "canteens/show", type: :view do
   end
 
   context "on closed day" do
-    let(:day) { FactoryBot.create :day, :closed }
+    let(:day) { create :day, :closed }
     let(:canteen) { day.canteen }
 
     it "shows a closed notice" do
@@ -48,8 +48,8 @@ describe "canteens/show", type: :view do
   end
 
   context "with a meal" do
-    let(:day) { FactoryBot.create(:today, canteen: canteen) }
-    let(:meal) { FactoryBot.create(:meal, day: day) }
+    let(:day) { create(:today, canteen: canteen) }
+    let(:meal) { create(:meal, day: day) }
 
     before do
       meal
@@ -86,7 +86,7 @@ describe "canteens/show", type: :view do
   end
 
   context "with meals" do
-    let(:day) { FactoryBot.create(:today, :with_unordered_meals, canteen: canteen) }
+    let(:day) { create(:today, :with_unordered_meals, canteen: canteen) }
 
     before { day }
 

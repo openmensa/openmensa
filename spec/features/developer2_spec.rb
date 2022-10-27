@@ -4,10 +4,10 @@ require File.dirname(__FILE__) + "/../spec_helper"
 require_dependency "message"
 
 describe "Developers", type: :feature do
-  let(:user) { FactoryBot.create :user }
-  let(:developer) { FactoryBot.create :developer }
-  let(:parser) { FactoryBot.create :parser, user_id: developer.id }
-  let(:canteen) { FactoryBot.create :canteen }
+  let(:user) { create :user }
+  let(:developer) { create :developer }
+  let(:parser) { create :parser, user_id: developer.id }
+  let(:canteen) { create :canteen }
 
   context "as a developer" do
     before do
@@ -108,8 +108,8 @@ describe "Developers", type: :feature do
       end
 
       context "with a existing source without meta url" do
-        let!(:source) { FactoryBot.create :source, parser: parser, canteen: canteen }
-        let!(:feed) { FactoryBot.create :feed, source: source }
+        let!(:source) { create :source, parser: parser, canteen: canteen }
+        let!(:feed) { create :feed, source: source }
 
         it "is able to edit the source" do
           click_on parser.name
@@ -177,7 +177,7 @@ describe "Developers", type: :feature do
         end
 
         context "with previous created feedback" do
-          let!(:feedback) { FactoryBot.create :feedback, canteen: canteen }
+          let!(:feedback) { create :feedback, canteen: canteen }
 
           it "is able to see the feedbacks message" do
             click_on parser.name
@@ -196,7 +196,7 @@ describe "Developers", type: :feature do
         end
 
         context "with previous created data proposals" do
-          let!(:data_proposal) { FactoryBot.create :data_proposal, canteen: canteen }
+          let!(:data_proposal) { create :data_proposal, canteen: canteen }
 
           it "is able to see the data_proposal" do
             click_on parser.name
@@ -215,7 +215,7 @@ describe "Developers", type: :feature do
         end
 
         context "with previous messsages" do
-          let!(:error) { FactoryBot.create :feedUrlUpdatedInfo, messageable: source }
+          let!(:error) { create :feedUrlUpdatedInfo, messageable: source }
 
           it "is able to view fetch messages / errors" do
             click_on parser.name
@@ -229,10 +229,10 @@ describe "Developers", type: :feature do
 
       context "with a existing source with meta url" do
         let!(:source) do
-          FactoryBot.create :source, parser: parser,
+          create :source, parser: parser,
                                      meta_url: "http://example.org/test/meta.xml"
         end
-        let!(:feed) { FactoryBot.create :feed, source: source, name: "oldfeed" }
+        let!(:feed) { create :feed, source: source, name: "oldfeed" }
 
         it "is not able to edit feeds" do
           click_on parser.name

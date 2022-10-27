@@ -4,7 +4,7 @@ require "spec_helper"
 include Nokogiri
 
 describe OpenMensa::ParserUpdater do
-  let(:parser) { FactoryBot.create :parser, index_url: "http://example.com/index.json" }
+  let(:parser) { create :parser, index_url: "http://example.com/index.json" }
   let(:updater) { described_class.new(parser) }
 
   def stub_data(body)
@@ -265,7 +265,7 @@ describe OpenMensa::ParserUpdater do
 
     it "updates source urls" do
       stub_json test: "http://example.com/test/meta.xml"
-      source = FactoryBot.create :source, parser: parser,
+      source = create :source, parser: parser,
                                           name: "test",
                                           meta_url: "http://example.com/test.xml"
 
@@ -282,7 +282,7 @@ describe OpenMensa::ParserUpdater do
 
     it "adds source urls if not existing" do
       stub_json test: "http://example.com/test/meta.xml"
-      source = FactoryBot.create :source, parser: parser,
+      source = create :source, parser: parser,
                                           name: "test",
                                           meta_url: nil
 
@@ -299,7 +299,7 @@ describe OpenMensa::ParserUpdater do
 
     it "adds source urls if not existing" do
       stub_json({})
-      source = FactoryBot.create :source, parser: parser,
+      source = create :source, parser: parser,
                                           name: "test",
                                           meta_url: "http://example.org/test/test2.xml"
 
@@ -317,8 +317,8 @@ describe OpenMensa::ParserUpdater do
 
     it "reactives a archived source" do
       stub_json test: "http://example.org/test/test2.xml"
-      canteen = FactoryBot.create :canteen, state: "archived"
-      source = FactoryBot.create :source, parser: parser,
+      canteen = create :canteen, state: "archived"
+      source = create :source, parser: parser,
                                           canteen: canteen,
                                           name: "test",
                                           meta_url: "http://example.org/test/test2.xml"

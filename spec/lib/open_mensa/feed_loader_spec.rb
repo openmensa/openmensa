@@ -4,7 +4,7 @@ require "spec_helper"
 require_dependency "message"
 
 describe OpenMensa::FeedLoader do
-  let(:feed) { FactoryBot.create :feed, url: "http://example.com/canteen_feed.xml" }
+  let(:feed) { create :feed, url: "http://example.com/canteen_feed.xml" }
   let(:loader) { described_class.new(feed, :url) }
 
   before do
