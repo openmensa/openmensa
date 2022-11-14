@@ -3,7 +3,7 @@ version: "2.4"
 
 services:
   postgres:
-    image: postgres:14.5-alpine
+    image: postgres:14.6-alpine
     restart: always
     environment:
       POSTGRES_USER: openmensa
