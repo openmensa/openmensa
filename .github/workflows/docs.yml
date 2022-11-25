@@ -3,24 +3,40 @@ name: docs
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - docs
-      - mkdocs.yml
-      - Pipfile
-      - Pipfile.lock
+  workflow_dispatch:
 
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
       - run: python -m pip install --upgrade pipenv wheel
       - run: pipenv install --system --deploy
-      - run: pipenv run mkdocs gh-deploy --force
+      - run: pipenv run mkdocs build
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: site
+
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Only deploy from main branch
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/deploy-pages@v1
+        id: deployment
