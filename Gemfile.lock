@@ -249,7 +249,7 @@ GEM
       rack-link_headers (>= 2.2)
     parallel (1.22.1)
     parse-cron (0.1.4)
-    parser (3.1.2.1)
+    parser (3.1.3.0)
       ast (~> 2.4.1)
     pg (1.4.5)
     pry (0.14.1)
@@ -268,7 +268,7 @@ GEM
       rack (>= 2.0.0)
     rack-link_headers (2.3.0)
       rack
-    rack-protection (3.0.3)
+    rack-protection (3.0.4)
       rack
     rack-test (2.0.2)
       rack (>= 1.3)
@@ -502,4 +502,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   2.3.15
+   2.3.26
