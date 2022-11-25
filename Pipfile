@@ -6,7 +6,7 @@ name = "pypi"
 [dev-packages]
 
 [packages]
-mkdocs-material = "~=8.3.9"
+mkdocs-material = "~=8.5.10"
 mkdocs-git-revision-date-plugin = "~=0.3.2"
 mdx-truly-sane-lists = "~=1.2"
 mkdocs-awesome-pages-plugin = "~=2.8.0"
