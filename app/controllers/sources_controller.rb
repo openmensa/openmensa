@@ -12,6 +12,7 @@ class SourcesController < WebController
   def edit
     @new_feed = @source.feeds.new
   end
+
   def create
     @source = Source.new(source_params)
     @canteen = Canteen.new(source_canteen_params)
@@ -26,7 +27,6 @@ class SourcesController < WebController
   rescue ActiveRecord::RecordInvalid
     render :new
   end
-
 
   def update
     flash[:notice] = if @source.update source_params

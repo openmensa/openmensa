@@ -8,9 +8,11 @@ class ParsersController < WebController
   def show
     @sources = @parser.sources.includes(:feeds)
   end
+
   def new; end
 
   def edit; end
+
   def create
     if @parser.update parser_params
       flash[:notice] = t "message.parser_created"
@@ -19,8 +21,6 @@ class ParsersController < WebController
       render action: :new
     end
   end
-
-
 
   def update
     if @parser.update parser_params

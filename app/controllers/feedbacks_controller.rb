@@ -8,6 +8,7 @@ class FeedbacksController < WebController
     authorize! :edit, @canteen
     @feedbacks = @canteen.feedbacks
   end
+
   def new; end
 
   def create
@@ -19,7 +20,6 @@ class FeedbacksController < WebController
       render action: :new
     end
   end
-
 
   private
 

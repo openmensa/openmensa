@@ -17,6 +17,7 @@ class CanteensController < WebController
 
     @meals = @canteen.meals.for @date
   end
+
   def edit; end
 
   def update
@@ -27,7 +28,6 @@ class CanteensController < WebController
       render action: :edit
     end
   end
-
 
   private
 

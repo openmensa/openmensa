@@ -6,6 +6,7 @@ class FavoritesController < WebController
   def index
     @favorites = @user.favorites.order("priority").includes(:canteen)
   end
+
   def create
     max_priority = current_user
       .favorites
@@ -33,5 +34,4 @@ class FavoritesController < WebController
     end
     redirect_to canteen_path(params[:canteen_id])
   end
-
 end

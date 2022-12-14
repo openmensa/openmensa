@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateGoodJobProcesses < ActiveRecord::Migration[7.0]
   def change
     reversible do |dir|

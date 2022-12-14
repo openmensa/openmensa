@@ -9,6 +9,7 @@ class DataProposalsController < WebController
     authorize! :edit, @canteen
     @data_proposals = @canteen.data_proposals.order(created_at: :desc)
   end
+
   def new; end
 
   def create
@@ -19,7 +20,6 @@ class DataProposalsController < WebController
       render action: :new
     end
   end
-
 
   private
 
