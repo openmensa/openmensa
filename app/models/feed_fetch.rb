@@ -10,8 +10,8 @@ class FeedFetch < ApplicationRecord
   REASONS = %w[schedule retry manual].freeze
 
   validates :executed_at, :reason, presence: true
-  validates :state, inclusion: {in: STATES, message: "%{value} is not a valid feed state"}
-  validates :reason, inclusion: {in: REASONS, message: "%{value} is not a valid feed state"}
+  validates :state, inclusion: {in: STATES, message: "%<value>s is not a valid feed state"}
+  validates :reason, inclusion: {in: REASONS, message: "%<value>s is not a valid feed state"}
 
   def init_counters
     self.added_meals = 0

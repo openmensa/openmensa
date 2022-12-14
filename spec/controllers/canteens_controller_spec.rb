@@ -22,7 +22,7 @@ describe CanteensController do
     it "fetches meals for given date parameter" do
       get :show, params: {id: canteen.id, date: 1.day.from_now}
 
-      expect(assigns(:date)).to eq (1.day.from_now).to_date
+      expect(assigns(:date)).to eq 1.day.from_now.to_date
       expect(assigns(:meals)).to eq canteen.meals.for(1.day.from_now)
     end
 

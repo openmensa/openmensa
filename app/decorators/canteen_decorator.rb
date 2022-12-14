@@ -18,7 +18,7 @@ class CanteenDecorator < Draper::Decorator
         address: model.address,
         meals: model.meals.where(
           "date < ? AND date >= ?",
-          (2.days.from_now).to_date,
+          2.days.from_now.to_date,
           Time.zone.now.to_date
         ).decorate
       }

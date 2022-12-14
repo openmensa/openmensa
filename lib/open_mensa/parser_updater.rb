@@ -106,13 +106,13 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
     end
     return if url.nil?
 
-    if source.meta_url != url
-      FeedUrlUpdatedInfo.create! messageable: source,
-        old_url: source.meta_url,
-        new_url: url
-      source.update_attribute :meta_url, url
-      @sources_updated += 1
-    end
+    return unless source.meta_url != url
+
+    FeedUrlUpdatedInfo.create! messageable: source,
+      old_url: source.meta_url,
+      new_url: url
+    source.update_attribute :meta_url, url
+    @sources_updated += 1
   end
 
   def new_source(name, url)

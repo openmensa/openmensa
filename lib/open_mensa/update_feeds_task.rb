@@ -70,11 +70,11 @@ class OpenMensa::UpdateFeedsTask
     # update current retry
     feed.current_retry_will_change! # fix ActiveRecords array handling
     feed.current_retry[1] -= 1
-    if feed.current_retry[1] <= 0
-      feed.current_retry.shift # current interval
-      feed.current_retry.shift # current limit
-      feed.current_retry = nil if feed.current_retry.empty?
-    end
+    return unless feed.current_retry[1] <= 0
+
+    feed.current_retry.shift # current interval
+    feed.current_retry.shift # current limit
+    feed.current_retry = nil if feed.current_retry.empty?
   end
 
   def process_schedule(feed, state)

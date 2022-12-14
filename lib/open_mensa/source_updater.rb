@@ -147,14 +147,14 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     canteen = @source.canteen
 
     extract_metadata(canteen, canteen_node)
-    unless canteen.changed.empty?
-      @changed = true
-      new_data = {user: source.parser.user}
-      new_data = canteen.changes.each_with_object(new_data) do |(attr, (_old, new)), memo|
-        memo[attr] = new
-      end
-      canteen.data_proposals.find_or_create_by! new_data
+    return if canteen.changed.empty?
+
+    @changed = true
+    new_data = {user: source.parser.user}
+    new_data = canteen.changes.each_with_object(new_data) do |(attr, (_old, new)), memo|
+      memo[attr] = new
     end
+    canteen.data_proposals.find_or_create_by! new_data
   end
 
   def create_feed(node)
@@ -168,11 +168,11 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   def update_feed(feed, node)
     feed.assign_attributes feed_data node
-    unless (feed.changed - %w[created_at updated_at]).empty?
-      feed.save!
-      feed_changed!(feed, feed, :updated)
-      @feeds_updated += 1
-    end
+    return if (feed.changed - %w[created_at updated_at]).empty?
+
+    feed.save!
+    feed_changed!(feed, feed, :updated)
+    @feeds_updated += 1
   end
 
   def delete_feed(feed)

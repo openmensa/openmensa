@@ -82,10 +82,10 @@ module ApplicationHelper
 
   def canteen_state_icon(fetch_state)
     {
-      out_of_order: :'icon-ban-circle',
-      no_fetch_ever: :'icon-balt',
-      fetch_up_to_date: :'icon-ok',
-      fetch_needed: :'icon-warning-sign'
+      out_of_order: :"icon-ban-circle",
+      no_fetch_ever: :"icon-balt",
+      fetch_up_to_date: :"icon-ok",
+      fetch_needed: :"icon-warning-sign"
     }[fetch_state]
   end
 end

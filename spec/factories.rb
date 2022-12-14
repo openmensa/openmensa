@@ -102,7 +102,7 @@ FactoryBot.define do
   factory :meal do
     sequence(:category) {|n| "Meal ##{n}" }
     name                { "The name of #{category}." }
-    sequence(:price_student) {|n| 0.51 + n * 0.2 }
+    sequence(:price_student) {|n| 0.51 + (n * 0.2) }
 
     association :day
 
@@ -124,7 +124,7 @@ FactoryBot.define do
   end
 
   factory :feedValidationError do
-    sequence(:version)  {|n| n % 2 + 1 }
+    sequence(:version)  {|n| (n % 2) + 1 }
     sequence(:kind)     {|n| %i[invalid_xml unknown_version][n % 2] }
     message             { "#{version} no message" }
   end

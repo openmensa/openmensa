@@ -13,7 +13,7 @@ class AddCronKeyCronAtIndexToGoodJobs < ActiveRecord::Migration[7.0]
     end
 
     add_index :good_jobs,
-      [:cron_key, :cron_at],
+      %i[cron_key cron_at],
       algorithm: :concurrently,
       name: :index_good_jobs_on_cron_key_and_cron_at,
       unique: true

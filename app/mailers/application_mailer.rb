@@ -7,9 +7,9 @@ class ApplicationMailer < ActionMailer::Base
     # https://www.arp242.net/autoreply.html
 
     # RFC 3834
-    headers['Auto-Submitted'] = 'auto-generated'
+    headers["Auto-Submitted"] = "auto-generated"
 
     # Microsoft
-    headers['X-Auto-Response-Suppress'] = 'All'
+    headers["X-Auto-Response-Suppress"] = "All"
   end
 end

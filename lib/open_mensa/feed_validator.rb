@@ -113,11 +113,9 @@ module OpenMensa
       if @required_main_version && version && version.to_i != @required_main_version
         raise InvalidFeedVersionError.new("Document version #{version} does not match #{@required_main_version}")
       end
-      if schema_file(version).nil?
-        raise InvalidFeedVersionError.new("Cannot detect schema version.")
-      else
-        @version = version
-      end
+      raise InvalidFeedVersionError.new("Cannot detect schema version.") if schema_file(version).nil?
+
+      @version = version
     end
 
     def load_schema(version)
