@@ -67,9 +67,9 @@ describe Meal do
       meal.notes << note = create(:note)
       oldname = note.name
       expect(meal.notes.size).to eq 1
-      meal.notes = [oldname + "2"]
+      meal.notes = ["#{oldname}2"]
       expect(meal.notes.size).to eq 1
-      expect(meal.notes.first.name).to eq(oldname + "2")
+      expect(meal.notes.first.name).to eq("#{oldname}2")
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.dirname(__FILE__) + "/../spec_helper"
+require "#{File.dirname(__FILE__)}/../spec_helper"
 require_dependency "message"
 
 describe "Developers" do
@@ -144,7 +144,7 @@ describe "Developers" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          within(:xpath, '//section[header="Feed ' + feed.name + '"]') do
+          within(:xpath, "//section[header=\"Feed #{feed.name}\"]") do
             fill_in "Name", with: "Replacefeed"
             fill_in "Wiederholungsinterval(e)", with: ""
             click_on "Speichern"
@@ -158,7 +158,7 @@ describe "Developers" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          within(:xpath, '//section[header="Feed ' + feed.name + '"]') do
+          within(:xpath, "//section[header=\"Feed #{feed.name}\"]") do
             click_on "Löschen"
           end
 
@@ -238,7 +238,7 @@ describe "Developers" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          expect(page).not_to have_xpath('//section[header="Feed ' + feed.name + '"]')
+          expect(page).not_to have_xpath("//section[header=\"Feed #{feed.name}\"]")
           expect(page).not_to have_xpath('//section[header="Neuer Feed"]')
           expect(page).not_to have_link("Feed anlegen")
         end

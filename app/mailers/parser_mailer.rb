@@ -41,7 +41,7 @@ class ParserMailer < ApplicationMailer
   end
 
   def calculate_mail_subject
-    msg = [messages_msg, feedback_msg, data_proposal_msg, feed_msg].reject(&:nil?).join(" & ")
+    msg = [messages_msg, feedback_msg, data_proposal_msg, feed_msg].compact.join(" & ")
     t "subject", name: @parser.name, msg: msg
   end
 
@@ -195,7 +195,7 @@ class ParserMailer < ApplicationMailer
     end
 
     def notable?
-      (@histogram["failed"] + @histogram["broken"] + @histogram["invalid"]) > 0
+      (@histogram["failed"] + @histogram["broken"] + @histogram["invalid"]).positive?
     end
 
     def regular?

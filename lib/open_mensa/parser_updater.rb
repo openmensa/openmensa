@@ -90,9 +90,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   private
 
   def source_mapping
-    @parser.sources.index_by do |source|
-      source.name
-    end
+    @parser.sources.index_by(&:name)
   end
 
   def update_source(source, url)

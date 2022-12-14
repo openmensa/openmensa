@@ -202,7 +202,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       canteen.update state: "active"
     else
       fetch.state = "unchanged"
-      canteen.update state: "active" if @unchanged_meals > 0
+      canteen.update state: "active" if @unchanged_meals.positive?
     end
     fetch.save!
     true
