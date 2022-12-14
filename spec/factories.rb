@@ -88,7 +88,7 @@ FactoryBot.define do
   end
 
   factory :yesterday, parent: :day do
-    date { Time.zone.now - 1.day }
+    date { 1.day.ago }
   end
 
   factory :today, parent: :day do
@@ -96,7 +96,7 @@ FactoryBot.define do
   end
 
   factory :tomorrow, parent: :day do
-    date { Time.zone.now + 1.day }
+    date { 1.day.from_now }
   end
 
   factory :meal do

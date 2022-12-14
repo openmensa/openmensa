@@ -35,7 +35,7 @@ class FeedsController < WebController
   def fetch
     if current_user.cannot?(:manage, @feed) && \
        @feed.fetches.where.not(state: "fetching").maximum(:executed_at) && \
-       @feed.fetches.where.not(state: "fetching").maximum(:executed_at) > Time.zone.now - 15.minutes
+       @feed.fetches.where.not(state: "fetching").maximum(:executed_at) > 15.minutes.ago
       return error_too_many_requests
     end
 

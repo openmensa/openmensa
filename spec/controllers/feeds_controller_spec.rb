@@ -128,7 +128,7 @@ describe FeedsController, type: :controller do
 
     it "only allows one fetch per 15 minute" do
       expect(updater).not_to receive(:update)
-      create :feed_fetch, feed: feed, state: "failed", executed_at: Time.zone.now - 14.minutes
+      create :feed_fetch, feed: feed, state: "failed", executed_at: 14.minutes.ago
       get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 429
     end

@@ -4,6 +4,10 @@ class FeedbacksController < WebController
   before_action :load_resource
   before_action :new_resource, except: :index
 
+  def index
+    authorize! :edit, @canteen
+    @feedbacks = @canteen.feedbacks
+  end
   def new; end
 
   def create
@@ -16,10 +20,6 @@ class FeedbacksController < WebController
     end
   end
 
-  def index
-    authorize! :edit, @canteen
-    @feedbacks = @canteen.feedbacks
-  end
 
   private
 

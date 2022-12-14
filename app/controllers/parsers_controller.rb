@@ -5,8 +5,12 @@ class ParsersController < WebController
   before_action :load_resource, only: %i[show edit update sync]
   load_and_authorize_resource
 
+  def show
+    @sources = @parser.sources.includes(:feeds)
+  end
   def new; end
 
+  def edit; end
   def create
     if @parser.update parser_params
       flash[:notice] = t "message.parser_created"
@@ -16,11 +20,7 @@ class ParsersController < WebController
     end
   end
 
-  def show
-    @sources = @parser.sources.includes(:feeds)
-  end
 
-  def edit; end
 
   def update
     if @parser.update parser_params

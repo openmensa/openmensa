@@ -5,6 +5,10 @@ class DataProposalsController < WebController
   before_action :new_resource, only: %i[new create]
   load_and_authorize_resource
 
+  def index
+    authorize! :edit, @canteen
+    @data_proposals = @canteen.data_proposals.order(created_at: :desc)
+  end
   def new; end
 
   def create
@@ -16,10 +20,6 @@ class DataProposalsController < WebController
     end
   end
 
-  def index
-    authorize! :edit, @canteen
-    @data_proposals = @canteen.data_proposals.order(created_at: :desc)
-  end
 
   private
 

@@ -8,6 +8,15 @@ class CanteensController < WebController
     @canteens = @user.canteens.order(:name)
   end
 
+  def show
+    @date = if params[:date]
+              Date.parse params[:date].to_s
+            else
+              Time.zone.now.to_date
+            end
+
+    @meals = @canteen.meals.for @date
+  end
   def edit; end
 
   def update
@@ -19,15 +28,6 @@ class CanteensController < WebController
     end
   end
 
-  def show
-    @date = if params[:date]
-              Date.parse params[:date].to_s
-            else
-              Time.zone.now.to_date
-            end
-
-    @meals = @canteen.meals.for @date
-  end
 
   private
 

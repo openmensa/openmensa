@@ -257,13 +257,13 @@ describe OpenMensa::Updater do
         allow(updater).to receive(:data).and_return mock_content("feed_v2.xml")
         updater.parse!
 
-        canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
+        canteen.update_attribute :last_fetched_at, 1.day.ago
         updated_at = canteen.updated_at
 
         updater.update_canteen updater.document.root.child.next
 
         expect(canteen.days.size).to eq(4)
-        expect(canteen.last_fetched_at).to be > Time.zone.now - 1.minute
+        expect(canteen.last_fetched_at).to be > 1.minute.ago
         expect(canteen.updated_at).to eq(updated_at)
       end
 
@@ -502,7 +502,7 @@ describe OpenMensa::Updater do
         meal3 = create :meal, day: day2
         meal4 = create :meal, day: today
 
-        canteen.update_attribute :last_fetched_at, Time.zone.now - 1.day
+        canteen.update_attribute :last_fetched_at, 1.day.ago
         expect(canteen.days.size).to eq(3)
         expect(canteen.meals.size).to eq(4)
 
@@ -512,7 +512,7 @@ describe OpenMensa::Updater do
 
         expect(canteen.days.size).to eq(5)
         expect(canteen.meals.size).to eq(10)
-        expect(canteen.last_fetched_at).to be > Time.zone.now - 1.minute
+        expect(canteen.last_fetched_at).to be > 1.minute.ago
         expect(canteen.updated_at).to eq(updated_at)
       end
 
@@ -528,7 +528,7 @@ describe OpenMensa::Updater do
         last_fetched_at = canteen.last_fetched_at
         updated_at = canteen.updated_at
 
-        Timecop.freeze Time.zone.now + 1.hour
+        Timecop.freeze 1.hour.from_now
 
         updater.update_canteen updater.document.root.child.next
 

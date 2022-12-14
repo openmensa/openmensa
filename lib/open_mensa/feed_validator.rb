@@ -126,8 +126,8 @@ module OpenMensa
 
     def schema_file(version)
       case version.to_i
-        when 1 then ::Rails.root.join("public", "open-mensa-v1.xsd").to_s
-        when 2 then ::Rails.root.join("public", "open-mensa-v2.xsd").to_s
+        when 1 then ::Rails.public_path.join("open-mensa-v1.xsd").to_s
+        when 2 then ::Rails.public_path.join("open-mensa-v2.xsd").to_s
       end
     end
   end

@@ -9,6 +9,9 @@ class SourcesController < WebController
     @canteen = Canteen.new
   end
 
+  def edit
+    @new_feed = @source.feeds.new
+  end
   def create
     @source = Source.new(source_params)
     @canteen = Canteen.new(source_canteen_params)
@@ -24,9 +27,6 @@ class SourcesController < WebController
     render :new
   end
 
-  def edit
-    @new_feed = @source.feeds.new
-  end
 
   def update
     flash[:notice] = if @source.update source_params

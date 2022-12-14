@@ -121,7 +121,7 @@ describe Api::V2::MealsController, type: :controller do
         expect(response.status).to eq(200)
         json.each do |day|
           dayModel = Day.find_by date: day["date"], canteen: canteen
-          expect(day["meals"].map {|m| m["id"] }).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
+          expect(day["meals"].pluck("id")).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
         end
       end
     end

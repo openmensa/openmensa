@@ -4,9 +4,9 @@ class MessageDecorator < Draper::Decorator
   def icon_class
     return "" if model.nil?
 
-    if model.created_at < Time.zone.now - 7.days
+    if model.created_at < 7.days.ago
       "icon-ok"
-    elsif model.created_at < Time.zone.now - 2.days
+    elsif model.created_at < 2.days.ago
       "icon-warning-sign"
     else
       "icon-bolt"

@@ -103,14 +103,14 @@ describe "canteens/show", type: :view do
   end
 
   it "prints up-to-date on canteens fetched in the last 24 hour" do
-    canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hours
+    canteen.update_attribute :last_fetched_at, 4.hours.ago
     render
 
     expect(rendered).to include("Daten aktuell")
   end
 
   it "prints a warning on canteens fetched earlier then 24 hour ago" do
-    canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hours
+    canteen.update_attribute :last_fetched_at, 25.hours.ago
     render
     expect(rendered).to include("Aktualisierung notwendig")
   end

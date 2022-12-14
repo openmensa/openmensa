@@ -22,7 +22,7 @@ describe Canteen, type: :model do
 
     context "when updated in the last 24 hours" do
       before do
-        canteen.update_attribute :last_fetched_at, Time.zone.now - 4.hours
+        canteen.update_attribute :last_fetched_at, 4.hours.ago
       end
 
       it { is_expected.to eq :fetch_up_to_date }
@@ -30,7 +30,7 @@ describe Canteen, type: :model do
 
     context "when updated earlier than 24 hours ago" do
       before do
-        canteen.update_attribute :last_fetched_at, Time.zone.now - 25.hours
+        canteen.update_attribute :last_fetched_at, 25.hours.ago
       end
 
       it { is_expected.to eq :fetch_needed }

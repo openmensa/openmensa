@@ -5,7 +5,6 @@ class User < ApplicationRecord
 
   has_many :identities
   has_many :messages, through: :canteens
-  has_many :canteens
   has_many :favorites
   has_many :parsers
   has_many :feedbacks
