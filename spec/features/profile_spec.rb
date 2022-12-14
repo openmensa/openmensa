@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Profile page", type: :feature do
+describe "Profile page" do
   let(:user) { create(:user) }
 
   before do

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Identity, type: :model do
+describe Identity do
   subject { @identity = create(:identity) }
 
   describe "attributes" do

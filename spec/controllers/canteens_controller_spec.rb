@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe CanteensController, type: :controller do
+describe CanteensController do
   describe "#show" do
     let(:canteen) { create(:canteen, :with_meals) }
 
@@ -50,7 +50,7 @@ describe CanteensController, type: :controller do
       canteen.reload
       expect(canteen.name).not_to eq "NewName"
 
-      expect(response.status).to eq 401
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

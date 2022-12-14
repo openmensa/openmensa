@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Inform", type: :feature do
+describe "Inform" do
   context "as a interessed user" do
     it "I want to contact" do
       visit root_path

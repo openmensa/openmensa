@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe FeedsController, type: :controller do
+describe FeedsController do
   describe "#fetch" do
     let(:canteen) { create(:canteen, :with_meals) }
     let(:parser) { create(:parser, user: owner) }
@@ -21,7 +21,7 @@ describe FeedsController, type: :controller do
       expect(updater).to receive(:update).and_return true
       get :fetch, format: :json, params: {id: feed.id}
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
     end
 
     context "should return update information" do
@@ -53,7 +53,7 @@ describe FeedsController, type: :controller do
         set_current_user owner
         get :fetch, format: :json, params: {id: feed.id}
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         expect(response.media_type).to eq "application/json"
 
         expect(json).to eq successfull_json
@@ -64,7 +64,7 @@ describe FeedsController, type: :controller do
       it "and not render them for normal user" do
         get :fetch, format: :json, params: {id: feed.id}
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         expect(response.media_type).to eq "application/json"
 
         expect(json).to eq successfull_json
@@ -103,7 +103,7 @@ describe FeedsController, type: :controller do
         set_current_user owner
         get :fetch, format: :json, params: {id: feed.id}
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         expect(response.media_type).to eq "application/json"
 
         expect(json).to eq json_error
@@ -117,7 +117,7 @@ describe FeedsController, type: :controller do
       it "and not render them for normal users" do
         get :fetch, format: :json, params: {id: feed.id}
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         expect(response.media_type).to eq "application/json"
 
         expect(json).to eq json_error
@@ -130,7 +130,7 @@ describe FeedsController, type: :controller do
       expect(updater).not_to receive(:update)
       create(:feed_fetch, feed: feed, state: "failed", executed_at: 14.minutes.ago)
       get :fetch, format: :json, params: {id: feed.id}
-      expect(response.status).to eq 429
+      expect(response).to have_http_status :too_many_requests
     end
 
     it "updates from canteen owner every time" do
@@ -138,7 +138,7 @@ describe FeedsController, type: :controller do
       expect(updater).to receive(:update).and_return true
       create(:feed_fetch, feed: feed, state: "failed", executed_at: Time.zone.now)
       get :fetch, format: :json, params: {id: feed.id}
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
     end
   end
 end

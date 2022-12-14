@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "API routing within", type: :routing do
+describe "API routing within" do
   context "/api/v2" do
     let(:base) { "/api/v2" }
 

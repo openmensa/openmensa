@@ -3,7 +3,7 @@
 require_relative "../../spec_helper"
 require_dependency "message"
 
-describe "common/_canteen_actions.html.slim", type: :view do
+describe "common/_canteen_actions.html.slim" do
   subject(:rendered) do
     allow(controller).to receive(:current_user).and_return(owner)
     render partial: "canteen_actions", locals: {canteen: canteen}

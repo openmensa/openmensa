@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Api::V2::MealsController, type: :controller do
+describe Api::V2::MealsController do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -17,7 +17,7 @@ describe Api::V2::MealsController, type: :controller do
       get :index, format: :json,
         params: {canteen_id: canteen.id, day_id: day.to_param}
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json).to be_an(Array)
       expect(json.size).to eq(3)
@@ -27,7 +27,7 @@ describe Api::V2::MealsController, type: :controller do
       get :index, format: :json,
         params: {canteen_id: canteen.id, day_id: day.to_param}
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json[0]).to eq({
         id: day.meals.first.id,
@@ -48,7 +48,7 @@ describe Api::V2::MealsController, type: :controller do
         get :index, format: :json,
           params: {canteen_id: canteen.id, day_id: day.to_param}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
 
         expect(json.map {|m| m["id"].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
       end
@@ -63,7 +63,7 @@ describe Api::V2::MealsController, type: :controller do
         get :index, format: :json,
           params: {canteen_id: canteen.id, day_id: day.to_param}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
 
         expect(json[0]["notes"].sort).to match(meal.notes.map(&:name))
       end
@@ -87,7 +87,7 @@ describe Api::V2::MealsController, type: :controller do
 
     it "answers with 7 days from now and their meals" do
       get :canteen_meals, format: :json, params: {canteen_id: canteen.id}
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
       expect(json.size).to eq(7)
       expect(json[0]["date"]).to eq(Date.today.iso8601)
       expect(json[1]["date"]).to eq((Date.today + 1.day).iso8601)
@@ -99,7 +99,7 @@ describe Api::V2::MealsController, type: :controller do
         get :canteen_meals, format: :json,
           params: {canteen_id: canteen.id, start: (Date.today + 1.day).iso8601}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(7)
         expect(json[0]["date"]).to eq((Date.today + 1.day).iso8601)
       end
@@ -108,7 +108,7 @@ describe Api::V2::MealsController, type: :controller do
         get :canteen_meals, format: :json,
           params: {canteen_id: canteen.id, start: (Date.today + 5.days).iso8601}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(5)
         expect(json[0]["date"]).to eq((Date.today + 5.days).iso8601)
         expect(json[4]["date"]).to eq((Date.today + 9.days).iso8601)
@@ -118,7 +118,7 @@ describe Api::V2::MealsController, type: :controller do
         get :canteen_meals, format: :json,
           params: {canteen_id: canteen.id, start: (Date.today + 2.days).iso8601}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         json.each do |day|
           dayModel = Day.find_by date: day["date"], canteen: canteen
           expect(day["meals"].pluck("id")).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))

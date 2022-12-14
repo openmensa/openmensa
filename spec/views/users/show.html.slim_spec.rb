@@ -2,7 +2,7 @@
 
 require_relative "../../spec_helper"
 
-describe "users/show", type: :view do
+describe "users/show" do
   let(:user) { create(:user) }
 
   before do

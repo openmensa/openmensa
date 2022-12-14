@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe CanteenActivationController, type: :controller do
+describe CanteenActivationController do
   describe "#create" do
     subject { response }
 

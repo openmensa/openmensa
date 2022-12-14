@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe UpdateParsersJob, type: :job do
+RSpec.describe UpdateParsersJob do
   it "invokes OpenMensa::UpdateParsersTask#do" do
     expect_any_instance_of(OpenMensa::UpdateParsersTask).to receive(:do)
     UpdateParsersJob.new.perform

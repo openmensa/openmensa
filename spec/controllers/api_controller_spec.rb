@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe ApiController, type: :controller do
+describe ApiController do
   controller(described_class) do
     def index
       render json: []
@@ -34,7 +34,7 @@ describe ApiController, type: :controller do
     context "on unsupported format" do
       it "responds with http not acceptable" do
         get :index, format: "bson"
-        expect(response.status).to eq 406
+        expect(response).to have_http_status :not_acceptable
       end
     end
   end

@@ -3,7 +3,7 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 require_dependency "message"
 
-describe "Developers", type: :feature do
+describe "Developers" do
   let(:user) { create(:user) }
   let(:developer) { create(:developer) }
   let(:parser) { create(:parser, user_id: developer.id) }

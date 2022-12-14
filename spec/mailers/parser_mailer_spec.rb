@@ -3,7 +3,7 @@
 require "spec_helper"
 require "message"
 
-describe ParserMailer, type: :mailer do
+describe ParserMailer do
   describe "daily_report" do
     before do
       allow_any_instance_of(ActionMailer::Base::NullMail).to receive(:null_mail?).and_return(true)

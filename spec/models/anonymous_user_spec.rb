@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe AnonymousUser, type: :model do
+describe AnonymousUser do
   subject(:user) { User.anonymous }
 
   it { is_expected.not_to be_admin }

@@ -3,7 +3,7 @@
 require_relative "../../spec_helper"
 require_dependency "message"
 
-describe "feeds/fetch", type: :view do
+describe "feeds/fetch" do
   let(:owner) { create(:user) }
   let(:other) { create(:user) }
   let(:parser) { create(:parser, user: owner) }

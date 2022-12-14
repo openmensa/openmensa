@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe User, type: :model do
+describe User do
   subject(:user) { create(:user) }
 
   it { is_expected.to accept_values_for(:login, "first.last", "abc", "heinz_klein") }

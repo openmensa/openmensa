@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Meal, type: :model do
+describe Meal do
   let(:meal) { create(:meal) }
 
   it { is_expected.not_to accept_values_for(:name, "", nil) }

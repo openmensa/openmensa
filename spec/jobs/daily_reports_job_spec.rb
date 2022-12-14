@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe DailyReportsJob, type: :job do
+RSpec.describe DailyReportsJob do
   it "invokes OpenMensa::DailyReportTask#do" do
     expect_any_instance_of(OpenMensa::DailyReportTask).to receive(:do)
     DailyReportsJob.new.perform

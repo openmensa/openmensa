@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Authentication", type: :feature do
+describe "Authentication" do
   describe "Login" do
     it "logins using Twitter" do
       visit root_path

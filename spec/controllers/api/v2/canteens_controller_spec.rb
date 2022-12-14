@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Api::V2::CanteensController, type: :controller do
+describe Api::V2::CanteensController do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -12,7 +12,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     it "answers with a list" do
       get :index, format: :json
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json).to be_an(Array)
       expect(json.size).to eq(1)
@@ -20,7 +20,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     it "answers with a list of canteen nodes" do
       get :index, format: :json
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json[0]).to eq({
         id: canteen.id,
@@ -39,7 +39,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       it "answers with null coordinates" do
         get :index, format: :json
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
 
         expect(json[0]).to eq({
           id: canteen.id,
@@ -56,7 +56,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       it "answers with null coordinates" do
         get :index, format: :json
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
 
         expect(json[0]).to eq({
           id: canteen.id,
@@ -73,7 +73,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       it "answers with null coordinates" do
         get :index, format: :json
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
 
         expect(json[0]).to eq({
           id: canteen.id,
@@ -90,7 +90,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       get :index, format: :json, params: {limit: 5}
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
       expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?limit=5&page=1>; rel="first"')
       expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?limit=5&page=2>; rel="next"')
       expect(response.headers["Link"].to_s).to include('<http://test.host/api/v2/canteens?limit=5&page=3>; rel="last"')
@@ -127,7 +127,7 @@ describe Api::V2::CanteensController, type: :controller do
 
         get :index, format: :json, params: {limit: 2}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(2)
       end
 
@@ -138,7 +138,7 @@ describe Api::V2::CanteensController, type: :controller do
 
         get :index, format: :json, params: {limit: 3000}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(1500)
       end
     end
@@ -151,7 +151,7 @@ describe Api::V2::CanteensController, type: :controller do
 
         get :index, format: :json
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(500)
       end
 
@@ -161,7 +161,7 @@ describe Api::V2::CanteensController, type: :controller do
 
         get :index, format: :json, params: {per_page: 2}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(2)
       end
 
@@ -172,7 +172,7 @@ describe Api::V2::CanteensController, type: :controller do
 
         get :index, format: :json, params: {per_page: 3000}
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(json.size).to eq(1500)
       end
     end
@@ -295,7 +295,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     it "answers with canteen" do
       get :show, format: :json, params: {id: canteen.id}
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json).to eq({
         id: canteen.id,

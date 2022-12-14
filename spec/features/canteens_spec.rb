@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Canteen", type: :feature do
+describe "Canteen" do
   let(:canteen)  { create(:canteen) }
   let(:canteens) { [canteen] + (0..25).map { create(:canteen) } }
 

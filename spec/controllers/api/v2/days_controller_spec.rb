@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Api::V2::DaysController, type: :controller do
+describe Api::V2::DaysController do
   render_views
 
   let(:json) { JSON.parse response.body }
@@ -15,7 +15,7 @@ describe Api::V2::DaysController, type: :controller do
 
     it "answers with a list" do
       get :index, format: :json, params: {canteen_id: canteen.id}
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json).to be_an(Array)
       expect(json.size).to eq(1)
@@ -23,7 +23,7 @@ describe Api::V2::DaysController, type: :controller do
 
     it "answers with a list of day nodes" do
       get :index, format: :json, params: {canteen_id: canteen.id}
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json[0]).to eq({
         date: day.date.iso8601,
@@ -65,7 +65,7 @@ describe Api::V2::DaysController, type: :controller do
       get :show, format: :json,
         params: {canteen_id: canteen.id, id: day.to_param}
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
 
       expect(json).to eq({
         date: day.date.iso8601,

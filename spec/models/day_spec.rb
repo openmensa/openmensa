@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Day, type: :model do
+describe Day do
   let(:day) { create(:day) }
 
   it { is_expected.not_to accept_values_for(:date, nil, "") }
