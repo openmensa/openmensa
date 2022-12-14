@@ -18,7 +18,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
     options = {version: nil, today: false}.update options
     @feed = feed
     @fetch = FeedFetch.create! feed: feed, executed_at: Time.zone.now,
-                               reason: reason, state: "fetching"
+      reason: reason, state: "fetching"
     @version = options[:version]
     reset_stats
   end

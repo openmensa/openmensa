@@ -55,14 +55,14 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "uses first retry interval on error" do
         feed = new_feed schedule: "0 8-9 * * *", retry: [10],
-                        next_fetch_at: _8am, current_retry: [10]
+          next_fetch_at: _8am, current_retry: [10]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
       end
 
       it "decrements retry count on error" do
         feed = new_feed schedule: "0 8-9 * * *", retry: [10, 2],
-                        next_fetch_at: _8am, current_retry: [10, 2]
+          next_fetch_at: _8am, current_retry: [10, 2]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
           .to([10, 1])
@@ -70,7 +70,7 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "shoulds remove zero retry counts" do
         feed = new_feed schedule: "0 8-9 * * *", retry: [10, 1, 15],
-                        next_fetch_at: _8am, current_retry: [10, 1, 15]
+          next_fetch_at: _8am, current_retry: [10, 1, 15]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
           .to([15])
@@ -78,7 +78,7 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "shoulds remove zero retry counts" do
         feed = new_feed schedule: "0 8-9 * * *", retry: [10, 1, 15],
-                        next_fetch_at: _8am, current_retry: [10, 1, 15]
+          next_fetch_at: _8am, current_retry: [10, 1, 15]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
           .to([15]).and change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
@@ -86,7 +86,7 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "shoulds clear current_retry on last retry" do
         feed = new_feed schedule: "0 8-9 * * *", retry: [10, 1],
-                        next_fetch_at: _8am, current_retry: [10, 1]
+          next_fetch_at: _8am, current_retry: [10, 1]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
           .to(nil).and change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
@@ -94,7 +94,7 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "shoulds clear current_retry on last retry" do
         feed = new_feed schedule: "0 8-9 * * *", retry: [10, 1],
-                        next_fetch_at: _8am, current_retry: [10, 1]
+          next_fetch_at: _8am, current_retry: [10, 1]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
           .to(nil).and change { feed.reload.next_fetch_at }.to(10.minutes.from_now)
@@ -102,7 +102,7 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "uses normal cron time if retry would be later" do
         feed = new_feed schedule: "*/5 8-9 * * *", retry: [360, 1],
-                        next_fetch_at: _8am, current_retry: [360, 1]
+          next_fetch_at: _8am, current_retry: [360, 1]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "schedule").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.next_fetch_at }.to(_835)
         expect(feed.current_retry).to eq feed.retry
@@ -110,7 +110,7 @@ describe OpenMensa::UpdateFeedsTask do
 
       it "uses normal cron time if retry would be later" do
         feed = new_feed schedule: "*/5 8-9 * * *", retry: [120, 3],
-                        next_fetch_at: _834, current_retry: [120, 1]
+          next_fetch_at: _834, current_retry: [120, 1]
         expect(OpenMensa::Updater).to receive(:new).with(feed, "retry").and_return(failing_updater)
         expect { task.do }.to change { feed.reload.current_retry } \
           .to([120, 3]).and change { feed.reload.next_fetch_at }.to(_835)

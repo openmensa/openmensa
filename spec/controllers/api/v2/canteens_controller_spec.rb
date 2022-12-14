@@ -185,7 +185,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       it "finds canteens within distance around a point" do
         get :index, format: :json,
-                    params: {near: {lat: 0.0, lng: 0.15, dist: 100}}
+          params: {near: {lat: 0.0, lng: 0.15, dist: 100}}
 
         expect(json).to have(3).items
       end
@@ -208,7 +208,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       it "returns canteens with given ids" do
         get :index, format: :json,
-                    params: {ids: [canteen.id, second_canteen.id].join(",")}
+          params: {ids: [canteen.id, second_canteen.id].join(",")}
 
         expect(json).to have(2).items
         expect(json[0]["id"]).to eq(canteen.id)

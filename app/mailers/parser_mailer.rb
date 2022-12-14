@@ -94,7 +94,7 @@ class ParserMailer < ApplicationMailer
     return nil if @data_proposals.empty?
 
     t "new_data_proposals", count: @data_proposals.map(&:proposal_count).inject(&:+),
-                            sources: @data_proposals.map(&:name).join(", ")
+      sources: @data_proposals.map(&:name).join(", ")
   end
 
   def reason_feed_msg_subject!
@@ -108,14 +108,14 @@ class ParserMailer < ApplicationMailer
     elsif @notable_feeds.size == 1
       @count = 1
       @subject = t "feed_subjects.one_feed", name: @notable_feeds.first.name,
-                                             source: @notable_feeds.first.source_name
+        source: @notable_feeds.first.source_name
     elsif @notable_feeds.map(&:name).uniq.size == 1
       @count = 100
       @subject = if @regulars.empty?
                    t "feed_subjects.all_feeds_with_name", name: @notable_feeds.first.name
                  else
                    t "feed_subjects.all_feeds_with_name_for", name: @notable_feeds.first.name,
-                                                              sources: @fetch_errors.map(&:name).join(", ")
+                     sources: @fetch_errors.map(&:name).join(", ")
                  end
     else
       @count = 100

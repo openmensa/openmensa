@@ -8,9 +8,9 @@ describe OpenMensa::DailyReportTask do
   let(:parsers) { create_list :parser, 3 }
   let(:message) do
     ActionMailer::Base.mail to: "test@example.org",
-                            from: "info@openmensa.org",
-                            subject: "test",
-                            body: "test content"
+      from: "info@openmensa.org",
+      subject: "test",
+      body: "test content"
   end
   let(:null_message) { ActionMailer::Base::NullMail.new }
 

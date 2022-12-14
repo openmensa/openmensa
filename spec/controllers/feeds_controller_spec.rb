@@ -76,8 +76,8 @@ describe FeedsController, type: :controller do
     context "should return occured errors" do
       let(:feed_fetch_error) do
         FeedFetchError.create(messageable: updater.fetch,
-                              message: "Could not fetch",
-                              code: 404)
+          message: "Could not fetch",
+          code: 404)
       end
       let(:json_error) do
         {

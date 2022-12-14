@@ -12,17 +12,17 @@ describe Meal, type: :model do
   describe "#prices" do
     it "only contains set values" do
       meal.update(price_student: 1.7,
-                  price_employee: nil,
-                  price_other: 2.7,
-                  price_pupil: nil)
+        price_employee: nil,
+        price_other: 2.7,
+        price_pupil: nil)
       expect(meal.prices).to eq student: 1.7, other: 2.7
     end
 
     it "can contain all values" do
       meal.update(price_student: 1.7,
-                  price_employee: 3.37,
-                  price_other: 2.7,
-                  price_pupil: 1.89)
+        price_employee: 3.37,
+        price_other: 2.7,
+        price_pupil: 1.89)
       expect(meal.prices).to eq student: 1.7, other: 2.7, employee: 3.37, pupil: 1.89
     end
   end
@@ -35,9 +35,9 @@ describe Meal, type: :model do
 
     it "updates given roles" do
       meal.update(price_student: 1.7,
-                  price_employee: nil,
-                  price_other: 2.7,
-                  price_pupil: nil)
+        price_employee: nil,
+        price_other: 2.7,
+        price_pupil: nil)
       meal.prices = {employee: 1.89, other: nil}
       expect(meal.price_student).to eq 1.7
       expect(meal.price_employee).to eq 1.89

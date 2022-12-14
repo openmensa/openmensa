@@ -183,7 +183,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   def feed_changed!(messageable, feed, kind)
     @errors << messageable.messages.create!(type: "FeedChanged",
-                                            kind: kind,
-                                            name: feed.name)
+      kind: kind,
+      name: feed.name)
   end
 end

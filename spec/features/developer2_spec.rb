@@ -230,7 +230,7 @@ describe "Developers", type: :feature do
       context "with a existing source with meta url" do
         let!(:source) do
           create :source, parser: parser,
-                                     meta_url: "http://example.org/test/meta.xml"
+            meta_url: "http://example.org/test/meta.xml"
         end
         let!(:feed) { create :feed, source: source, name: "oldfeed" }
 

@@ -63,7 +63,7 @@ describe Api::V2::DaysController, type: :controller do
 
     it "answers with day" do
       get :show, format: :json,
-                 params: {canteen_id: canteen.id, id: day.to_param}
+        params: {canteen_id: canteen.id, id: day.to_param}
 
       expect(response.status).to eq(200)
 

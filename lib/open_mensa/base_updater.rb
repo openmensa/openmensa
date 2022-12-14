@@ -36,15 +36,15 @@ class OpenMensa::BaseUpdater
 
   def create_validation_error!(kind, message = nil)
     @errors << FeedValidationError.create!(messageable: messageable,
-                                           version: version,
-                                           message: message,
-                                           kind: kind)
+      version: version,
+      message: message,
+      kind: kind)
   end
 
   def create_fetch_error!(message, code = nil)
     @errors << FeedFetchError.create(messageable: messageable,
-                                     message: message,
-                                     code: code)
+      message: message,
+      code: code)
   end
 
   def extract_canteen_node

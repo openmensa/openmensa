@@ -15,7 +15,7 @@ describe Api::V2::MealsController, type: :controller do
 
     it "answers with a list" do
       get :index, format: :json,
-                  params: {canteen_id: canteen.id, day_id: day.to_param}
+        params: {canteen_id: canteen.id, day_id: day.to_param}
 
       expect(response.status).to eq(200)
 
@@ -25,7 +25,7 @@ describe Api::V2::MealsController, type: :controller do
 
     it "answers with a list of meal nodes" do
       get :index, format: :json,
-                  params: {canteen_id: canteen.id, day_id: day.to_param}
+        params: {canteen_id: canteen.id, day_id: day.to_param}
 
       expect(response.status).to eq(200)
 
@@ -46,7 +46,7 @@ describe Api::V2::MealsController, type: :controller do
     context "with unordered list of meals" do
       it "returns list ordered" do
         get :index, format: :json,
-                    params: {canteen_id: canteen.id, day_id: day.to_param}
+          params: {canteen_id: canteen.id, day_id: day.to_param}
 
         expect(response.status).to eq(200)
 
@@ -61,7 +61,7 @@ describe Api::V2::MealsController, type: :controller do
 
       it "includes notes" do
         get :index, format: :json,
-                    params: {canteen_id: canteen.id, day_id: day.to_param}
+          params: {canteen_id: canteen.id, day_id: day.to_param}
 
         expect(response.status).to eq(200)
 
@@ -97,7 +97,7 @@ describe Api::V2::MealsController, type: :controller do
     context "&start" do
       it "answers with up to 7 days from given date and their meals" do
         get :canteen_meals, format: :json,
-                            params: {canteen_id: canteen.id, start: (Date.today + 1.day).iso8601}
+          params: {canteen_id: canteen.id, start: (Date.today + 1.day).iso8601}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(7)
@@ -106,7 +106,7 @@ describe Api::V2::MealsController, type: :controller do
 
       it "answers with up to 7 days from given date and their meals (2)" do
         get :canteen_meals, format: :json,
-                            params: {canteen_id: canteen.id, start: (Date.today + 5.days).iso8601}
+          params: {canteen_id: canteen.id, start: (Date.today + 5.days).iso8601}
 
         expect(response.status).to eq(200)
         expect(json.size).to eq(5)
@@ -116,7 +116,7 @@ describe Api::V2::MealsController, type: :controller do
 
       it "answers with a ordered list of meals" do
         get :canteen_meals, format: :json,
-                            params: {canteen_id: canteen.id, start: (Date.today + 2.days).iso8601}
+          params: {canteen_id: canteen.id, start: (Date.today + 2.days).iso8601}
 
         expect(response.status).to eq(200)
         json.each do |day|
