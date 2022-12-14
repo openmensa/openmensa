@@ -45,7 +45,7 @@ jobs:
           COVERAGE_FILE_NAME: coverage-2.xml
       - uses: codecov/codecov-action@v3
         with:
-          directory: ./coverage
+          files: ./coverage/coverage-1.xml,./coverage/coverage-2.xml
 
   rubocop:
     runs-on: ubuntu-20.04
