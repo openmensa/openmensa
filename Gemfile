@@ -85,6 +85,6 @@ group :test do
   gem "timecop"
   gem "webmock"
 
-  gem "codecov", require: false
   gem "simplecov", require: false
+  gem "simplecov-cobertura", require: false
 end

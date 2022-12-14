@@ -2,13 +2,19 @@
 
 require "rubygems"
 require "simplecov"
-SimpleCov.start "rails" do
-  add_filter "spec"
-end
+require "simplecov-cobertura"
 
-if ENV["CI"]
-  require "codecov"
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+COVERAGE_FILE_NAME = ENV.fetch("COVERAGE_FILE_NAME",
+  SimpleCov::Formatter::CoberturaFormatter::RESULT_FILE_NAME)
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::CoberturaFormatter.new(result_file_name: COVERAGE_FILE_NAME)
+]
+
+SimpleCov.start "rails" do
+  enable_coverage :branch
+  add_filter "spec"
 end
 
 ENV["RAILS_ENV"] ||= "test"
