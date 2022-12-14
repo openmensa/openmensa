@@ -39,13 +39,11 @@ jobs:
           sudo bash -c "echo 127.0.1.2 openmensa.org >> /etc/hosts"
       - run: bundle exec rspec spec --color --tag ~type:feature --format doc
         env:
-          COVERAGE_FILE_NAME: coverage-1.xml
+          COVERAGE_NAME: rspec:unit
       - run: bundle exec rspec spec --color --tag type:feature --format doc
         env:
-          COVERAGE_FILE_NAME: coverage-2.xml
+          COVERAGE_NAME: rspec:feature
       - uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/coverage-1.xml,./coverage/coverage-2.xml
 
   rubocop:
     runs-on: ubuntu-20.04

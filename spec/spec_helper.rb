@@ -4,13 +4,14 @@ require "rubygems"
 require "simplecov"
 require "simplecov-cobertura"
 
-COVERAGE_FILE_NAME = ENV.fetch("COVERAGE_FILE_NAME",
-  SimpleCov::Formatter::CoberturaFormatter::RESULT_FILE_NAME)
-
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::CoberturaFormatter.new(result_file_name: COVERAGE_FILE_NAME)
+  SimpleCov::Formatter::CoberturaFormatter
 ]
+
+if (name = ENV.fetch("COVERAGE_NAME", nil))
+  SimpleCov.command_name name
+end
 
 SimpleCov.start "rails" do
   enable_coverage :branch
