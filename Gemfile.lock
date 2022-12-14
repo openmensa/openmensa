@@ -349,7 +349,7 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
-    rubocop (1.39.0)
+    rubocop (1.40.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -487,7 +487,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails (= 6.0.1)
-  rubocop (~> 1.39.0)
+  rubocop (~> 1.40.0)
   rubocop-performance (~> 1.10)
   rubocop-rails (~> 2.9)
   rubocop-rspec (~> 2.2)
