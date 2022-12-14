@@ -3,8 +3,8 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 
 describe "Canteen", type: :feature do
-  let(:canteen)  { create :canteen }
-  let(:canteens) { [canteen] + (0..25).map { create :canteen } }
+  let(:canteen)  { create(:canteen) }
+  let(:canteens) { [canteen] + (0..25).map { create(:canteen) } }
 
   describe "index map" do
     before { canteens }
@@ -32,9 +32,9 @@ describe "Canteen", type: :feature do
     end
 
     context "parser info" do
-      let(:owner) { create :developer }
-      let(:parser) { create :parser, user: owner }
-      let!(:source) { create :source, parser: parser, canteen: canteen }
+      let(:owner) { create(:developer) }
+      let(:parser) { create(:parser, user: owner) }
+      let!(:source) { create(:source, parser: parser, canteen: canteen) }
 
       it "pers default not contain any parser info" do
         visit canteen_path(canteen)

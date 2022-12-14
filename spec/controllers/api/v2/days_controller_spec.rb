@@ -8,7 +8,7 @@ describe Api::V2::DaysController, type: :controller do
   let(:json) { JSON.parse response.body }
 
   describe "GET index" do
-    let(:day) { create :day }
+    let(:day) { create(:day) }
     let(:canteen) { day.canteen }
 
     before { day }
@@ -32,16 +32,16 @@ describe Api::V2::DaysController, type: :controller do
     end
 
     context "&start" do
-      let(:today) { create :today, closed: true }
+      let(:today) { create(:today, closed: true) }
       let(:canteen) { today.canteen }
-      let(:tomorrow) { create :tomorrow, canteen: canteen }
-      let(:yesterday) { create :yesterday, canteen: canteen }
+      let(:tomorrow) { create(:tomorrow, canteen: canteen) }
+      let(:yesterday) { create(:yesterday, canteen: canteen) }
 
       before do
         today && tomorrow && yesterday
-        create :day, canteen: canteen, date: yesterday.date - 1
-        create :day, canteen: canteen, date: yesterday.date - 2
-        create :day, canteen: canteen, date: tomorrow.date + 1
+        create(:day, canteen: canteen, date: yesterday.date - 1)
+        create(:day, canteen: canteen, date: yesterday.date - 2)
+        create(:day, canteen: canteen, date: tomorrow.date + 1)
       end
 
       it "defaults to today if not given" do
@@ -56,7 +56,7 @@ describe Api::V2::DaysController, type: :controller do
   end
 
   describe "GET show" do
-    let(:day) { create :day }
+    let(:day) { create(:day) }
     let(:canteen) { day.canteen }
 
     before { canteen }

@@ -8,7 +8,7 @@ describe Api::V2::CanteensController, type: :controller do
   let(:json) { JSON.parse response.body }
 
   describe "GET index" do
-    let!(:canteen) { create :canteen, latitude: 0.0, longitude: 0.0 }
+    let!(:canteen) { create(:canteen, latitude: 0.0, longitude: 0.0) }
 
     it "answers with a list" do
       get :index, format: :json
@@ -35,7 +35,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context "with null latitude" do
-      let(:canteen) { create :canteen, latitude: nil, longitude: 0.0 }
+      let(:canteen) { create(:canteen, latitude: nil, longitude: 0.0) }
 
       it "answers with null coordinates" do
         get :index, format: :json
@@ -52,7 +52,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context "with null longitude" do
-      let(:canteen) { create :canteen, latitude: 0.0, longitude: nil }
+      let(:canteen) { create(:canteen, latitude: 0.0, longitude: nil) }
 
       it "answers with null coordinates" do
         get :index, format: :json
@@ -69,7 +69,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context "with both null coordinates" do
-      let(:canteen) { create :canteen, latitude: nil, longitude: nil }
+      let(:canteen) { create(:canteen, latitude: nil, longitude: nil) }
 
       it "answers with null coordinates" do
         get :index, format: :json
@@ -86,7 +86,7 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     it "adds link headers" do
-      create_list :canteen, 10
+      create_list(:canteen, 10)
 
       get :index, format: :json, params: {limit: 5}
 
@@ -100,7 +100,7 @@ describe Api::V2::CanteensController, type: :controller do
       subject { json }
 
       before do
-        create :canteen, state: "new"
+        create(:canteen, state: "new")
         get :index, format: :json
       end
 
@@ -112,7 +112,7 @@ describe Api::V2::CanteensController, type: :controller do
       subject { json }
 
       before do
-        create :canteen, state: "archived"
+        create(:canteen, state: "archived")
         get :index, format: :json
       end
 
@@ -122,7 +122,7 @@ describe Api::V2::CanteensController, type: :controller do
 
     context "&limit" do
       it "limits list to given limit parameter" do
-        create_list :canteen, 2
+        create_list(:canteen, 2)
         expect(Canteen.count).to be > 2
 
         get :index, format: :json, params: {limit: 2}
@@ -133,7 +133,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       xit "limits list to 1500 if given limit parameter exceed 1500" do
         # TODO: Some other test need instead of creating 1500+ canteens
-        create_list :canteen, 1500
+        create_list(:canteen, 1500)
         expect(Canteen.count).to be > 1500
 
         get :index, format: :json, params: {limit: 3000}
@@ -146,7 +146,7 @@ describe Api::V2::CanteensController, type: :controller do
     context "&per_page" do
       xit "limits list to 500 canteens by default" do
         # TODO: Some other test need instead of creating 500+ canteens
-        create_list :canteen, 500
+        create_list(:canteen, 500)
         expect(Canteen.count).to be > 500
 
         get :index, format: :json
@@ -156,7 +156,7 @@ describe Api::V2::CanteensController, type: :controller do
       end
 
       it "limits list to given limit parameter" do
-        create_list :canteen, 5
+        create_list(:canteen, 5)
         expect(Canteen.count).to be > 5
 
         get :index, format: :json, params: {per_page: 2}
@@ -167,7 +167,7 @@ describe Api::V2::CanteensController, type: :controller do
 
       xit "limits list to 1500 if given limit parameter exceed 1500" do
         # TODO: Some other test need instead of creating 1500+ canteens
-        create_list :canteen, 1500
+        create_list(:canteen, 1500)
         expect(Canteen.count).to be > 1500
 
         get :index, format: :json, params: {per_page: 3000}
@@ -179,8 +179,8 @@ describe Api::V2::CanteensController, type: :controller do
 
     context "&near" do
       before do
-        create :canteen, latitude: 0.0, longitude: 0.1
-        create :canteen, latitude: 0.0, longitude: 0.2
+        create(:canteen, latitude: 0.0, longitude: 0.1)
+        create(:canteen, latitude: 0.0, longitude: 0.2)
       end
 
       it "finds canteens within distance around a point" do
@@ -198,12 +198,12 @@ describe Api::V2::CanteensController, type: :controller do
     end
 
     context "&ids" do
-      let(:second_canteen) { create :canteen }
+      let(:second_canteen) { create(:canteen) }
 
       before do
-        create :canteen
+        create(:canteen)
         second_canteen
-        create :canteen
+        create(:canteen)
       end
 
       it "returns canteens with given ids" do
@@ -218,19 +218,19 @@ describe Api::V2::CanteensController, type: :controller do
 
     context "&near[place]" do
       let(:griebnitzsee) do
-        create :canteen,
+        create(:canteen,
           name: "Mensa Griebnitzsee",
           address: "August-Bebel-Str. 89, 14482 Potsdam",
           latitude: 52.3935353446923,
-          longitude: 13.1278145313263
+          longitude: 13.1278145313263)
       end
 
       let(:palais) do
-        create :canteen,
+        create(:canteen,
           name: "Mensa Am Neuen Palais",
           address: "Am Neuen Palais 10, Haus 12, 14469 Potsdam",
           latitude: 52.399,
-          longitude: 13.01494
+          longitude: 13.01494)
       end
 
       before do
@@ -251,19 +251,19 @@ describe Api::V2::CanteensController, type: :controller do
 
     context "&hasCoordinates" do
       let(:griebnitzsee) do
-        create :canteen,
+        create(:canteen,
           name: "Mensa Griebnitzsee",
           address: "August-Bebel-Str. 89, 14482 Potsdam",
           latitude: 52.3935353446923,
-          longitude: 13.1278145313263
+          longitude: 13.1278145313263)
       end
 
       let(:unknown) do
-        create :canteen,
+        create(:canteen,
           name: "Mensa Am Neuen Palais",
           address: "Am Neuen Palais 10, Haus 12, 14469 Potsdam",
           latitude: nil,
-          longitude: nil
+          longitude: nil)
       end
 
       before do
@@ -289,7 +289,7 @@ describe Api::V2::CanteensController, type: :controller do
   end
 
   describe "GET show" do
-    let!(:canteen) { create :canteen }
+    let!(:canteen) { create(:canteen) }
 
     before { get :show, format: :json, params: {id: canteen.id} }
 
@@ -312,7 +312,7 @@ describe Api::V2::CanteensController, type: :controller do
     context "with a new canteen" do
       subject { json }
 
-      let(:canteen) { create :canteen, state: "new" }
+      let(:canteen) { create(:canteen, state: "new") }
 
       context "response" do
         subject { response }
@@ -330,7 +330,7 @@ describe Api::V2::CanteensController, type: :controller do
     context "with an archived canteens" do
       subject { json }
 
-      let(:canteen) { create :canteen, state: "archived" }
+      let(:canteen) { create(:canteen, state: "archived") }
 
       context "response" do
         subject { response }
@@ -348,8 +348,8 @@ describe Api::V2::CanteensController, type: :controller do
     context "with a replaced canteen" do
       subject { json }
 
-      let(:replacement) { create :canteen, state: "active" }
-      let(:canteen) { create :canteen, state: "archived", replaced_by: replacement }
+      let(:replacement) { create(:canteen, state: "active") }
+      let(:canteen) { create(:canteen, state: "archived", replaced_by: replacement) }
 
       context "response" do
         subject { response }

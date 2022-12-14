@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Meal, type: :model do
-  let(:meal) { create :meal }
+  let(:meal) { create(:meal) }
 
   it { is_expected.not_to accept_values_for(:name, "", nil) }
   it { is_expected.not_to accept_values_for(:category, "", nil) }

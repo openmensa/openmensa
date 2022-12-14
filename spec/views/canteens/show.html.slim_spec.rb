@@ -3,7 +3,7 @@
 require_relative "../../spec_helper"
 
 describe "canteens/show", type: :view do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:canteen) { create(:canteen) }
 
   before do
@@ -37,7 +37,7 @@ describe "canteens/show", type: :view do
   end
 
   context "on closed day" do
-    let(:day) { create :day, :closed }
+    let(:day) { create(:day, :closed) }
     let(:canteen) { day.canteen }
 
     it "shows a closed notice" do

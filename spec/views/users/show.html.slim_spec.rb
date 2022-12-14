@@ -3,7 +3,7 @@
 require_relative "../../spec_helper"
 
 describe "users/show", type: :view do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
 
   before do
     allow(controller).to receive(:current_user) { User.new }

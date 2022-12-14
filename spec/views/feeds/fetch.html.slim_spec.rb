@@ -4,12 +4,12 @@ require_relative "../../spec_helper"
 require_dependency "message"
 
 describe "feeds/fetch", type: :view do
-  let(:owner) { create :user }
-  let(:other) { create :user }
-  let(:parser) { create :parser, user: owner }
-  let!(:source) { create :source, parser: parser, canteen: canteen }
-  let(:canteen) { create :canteen }
-  let(:feed) { create :feed, source: source }
+  let(:owner) { create(:user) }
+  let(:other) { create(:user) }
+  let(:parser) { create(:parser, user: owner) }
+  let!(:source) { create(:source, parser: parser, canteen: canteen) }
+  let(:canteen) { create(:canteen) }
+  let(:feed) { create(:feed, source: source) }
   let(:success_result) do
     {
       "status" => "ok",

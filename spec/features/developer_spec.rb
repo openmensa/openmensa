@@ -4,12 +4,12 @@ require File.dirname(__FILE__) + "/../spec_helper"
 require_dependency "message"
 
 describe "Developers", type: :feature do
-  let(:user) { create :user }
-  let(:developer) { create :developer }
-  let(:parser) { create :parser, user: developer }
-  let!(:source) { create :source, parser: parser, canteen: canteen }
-  let(:feed) { create :feed, source: source, name: "debug" }
-  let(:canteen) { create :canteen }
+  let(:user) { create(:user) }
+  let(:developer) { create(:developer) }
+  let(:parser) { create(:parser, user: developer) }
+  let!(:source) { create(:source, parser: parser, canteen: canteen) }
+  let(:feed) { create(:feed, source: source, name: "debug") }
+  let(:canteen) { create(:canteen) }
 
   context "as user" do
     before do
@@ -115,8 +115,8 @@ describe "Developers", type: :feature do
       end
 
       context "with previous fetches and errors" do
-        let!(:fetch) { create :feed_fetch, feed: feed, state: "broken" }
-        let!(:error) { create :feedValidationError, messageable: fetch }
+        let!(:fetch) { create(:feed_fetch, feed: feed, state: "broken") }
+        let!(:error) { create(:feedValidationError, messageable: fetch) }
 
         it "is able to view fetch messages / errors" do
           click_on "Feed debug-Mitteilungen"
@@ -127,7 +127,7 @@ describe "Developers", type: :feature do
       end
 
       context "with deactivated canteen" do
-        let(:canteen) { create :canteen, state: "archived" }
+        let(:canteen) { create(:canteen, state: "archived") }
 
         it "allows to enable the canteen" do
           click_on "Mensa in Betrieb nehmen"

@@ -4,7 +4,7 @@ require "spec_helper"
 include Nokogiri
 
 describe OpenMensa::ParserUpdater do
-  let(:parser) { create :parser, index_url: "http://example.com/index.json" }
+  let(:parser) { create(:parser, index_url: "http://example.com/index.json") }
   let(:updater) { described_class.new(parser) }
 
   def stub_data(body)
@@ -265,9 +265,9 @@ describe OpenMensa::ParserUpdater do
 
     it "updates source urls" do
       stub_json test: "http://example.com/test/meta.xml"
-      source = create :source, parser: parser,
+      source = create(:source, parser: parser,
         name: "test",
-        meta_url: "http://example.com/test.xml"
+        meta_url: "http://example.com/test.xml")
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 0, created: 0, updated: 1, archived: 0
@@ -282,9 +282,9 @@ describe OpenMensa::ParserUpdater do
 
     it "adds source urls if not existing" do
       stub_json test: "http://example.com/test/meta.xml"
-      source = create :source, parser: parser,
+      source = create(:source, parser: parser,
         name: "test",
-        meta_url: nil
+        meta_url: nil)
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 0, created: 0, updated: 1, archived: 0
@@ -299,9 +299,9 @@ describe OpenMensa::ParserUpdater do
 
     it "adds source urls if not existing" do
       stub_json({})
-      source = create :source, parser: parser,
+      source = create(:source, parser: parser,
         name: "test",
-        meta_url: "http://example.org/test/test2.xml"
+        meta_url: "http://example.org/test/test2.xml")
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 0, created: 0, updated: 0, archived: 1
@@ -317,11 +317,11 @@ describe OpenMensa::ParserUpdater do
 
     it "reactives a archived source" do
       stub_json test: "http://example.org/test/test2.xml"
-      canteen = create :canteen, state: "archived"
-      source = create :source, parser: parser,
+      canteen = create(:canteen, state: "archived")
+      source = create(:source, parser: parser,
         canteen: canteen,
         name: "test",
-        meta_url: "http://example.org/test/test2.xml"
+        meta_url: "http://example.org/test/test2.xml")
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0

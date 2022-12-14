@@ -10,10 +10,10 @@ describe ParserMailer, type: :mailer do
       allow_any_instance_of(Mail::Message).to receive(:null_mail?).and_return(false)
     end
 
-    let(:user) { create :developer }
-    let(:parser) { create :parser, user: user }
+    let(:user) { create(:developer) }
+    let(:parser) { create(:parser, user: user) }
     let(:data_since) { 7.days.ago }
-    let(:canteens) { create_list :canteen, 3 }
+    let(:canteens) { create_list(:canteen, 3) }
 
     let(:messages) do
       [
@@ -25,7 +25,7 @@ describe ParserMailer, type: :mailer do
     end
     let(:mail) { described_class.daily_report(parser, data_since) }
 
-    let(:parser_message) { create :feedUrlUpdatedInfo, messageable: parser }
+    let(:parser_message) { create(:feedUrlUpdatedInfo, messageable: parser) }
 
     context "without any source" do
       it "does not send a mail" do
@@ -45,7 +45,7 @@ describe ParserMailer, type: :mailer do
       end
 
       context "with old messages" do
-        let(:parser_message) { create :feedUrlUpdatedInfo, messageable: parser, created_at: data_since - 1.day }
+        let(:parser_message) { create(:feedUrlUpdatedInfo, messageable: parser, created_at: data_since - 1.day) }
 
         it "does not sent a mail for old messages" do
           expect(mail).to be_null_mail
@@ -54,8 +54,8 @@ describe ParserMailer, type: :mailer do
     end
 
     context "with source" do
-      let!(:source) { create :source, parser: parser }
-      let(:source_message) { create :feedUrlUpdatedInfo, messageable: source }
+      let!(:source) { create(:source, parser: parser) }
+      let(:source_message) { create(:feedUrlUpdatedInfo, messageable: source) }
 
       context "but no feeds" do
         it "does not send a mail" do
@@ -86,10 +86,10 @@ describe ParserMailer, type: :mailer do
       end
 
       context "with one feed" do
-        let!(:feed) { create :feed, source: source }
+        let!(:feed) { create(:feed, source: source) }
 
         context "with new feedbacks" do
-          let!(:feedback) { create :feedback, canteen: feed.canteen }
+          let!(:feedback) { create(:feedback, canteen: feed.canteen) }
 
           it "informs about the new feedback" do
             expect(mail).not_to be_null_mail
@@ -100,7 +100,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with feedback before data since" do
-            let(:feedback) { create :feedback, canteen: feed.canteen, created_at: data_since - 1.day }
+            let(:feedback) { create(:feedback, canteen: feed.canteen, created_at: data_since - 1.day) }
 
             it "does not send a mail" do
               expect(mail).to be_null_mail
@@ -108,7 +108,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with multiple feedbacks" do
-            let!(:feedback2) { create :feedback, canteen: feed.canteen }
+            let!(:feedback2) { create(:feedback, canteen: feed.canteen) }
 
             it "informs about the new feedback" do
               expect(mail).not_to be_null_mail
@@ -122,7 +122,7 @@ describe ParserMailer, type: :mailer do
         end
 
         context "with new data proposals" do
-          let!(:data_proposal) { create :data_proposal, canteen: feed.canteen }
+          let!(:data_proposal) { create(:data_proposal, canteen: feed.canteen) }
 
           it "informs about the new propsoal" do
             expect(mail).not_to be_null_mail
@@ -134,7 +134,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with feedback before data since" do
-            let(:data_proposal) { create :data_proposal, canteen: feed.canteen, created_at: data_since - 1.day }
+            let(:data_proposal) { create(:data_proposal, canteen: feed.canteen, created_at: data_since - 1.day) }
 
             it "does not send a mail" do
               expect(mail).to be_null_mail
@@ -142,7 +142,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with multiple feedbacks" do
-            let!(:data_proposal2) { create :data_proposal, canteen: feed.canteen }
+            let!(:data_proposal2) { create(:data_proposal, canteen: feed.canteen) }
 
             it "informs about the new feedback" do
               expect(mail).not_to be_null_mail
@@ -163,7 +163,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with feed message" do
-            let!(:feed_message) { create :feedUrlUpdatedInfo, messageable: feed }
+            let!(:feed_message) { create(:feedUrlUpdatedInfo, messageable: feed) }
 
             it "sends a mail" do
               expect(mail).not_to be_null_mail
@@ -187,8 +187,8 @@ describe ParserMailer, type: :mailer do
           end
 
           it "with fetches before data_since should not send a mail" do
-            fetch = create :feed_fetch, state: "failed", feed: feed, executed_at: data_since - 1.day
-            message = create :feedInvalidUrlError, messageable: fetch
+            fetch = create(:feed_fetch, state: "failed", feed: feed, executed_at: data_since - 1.day)
+            message = create(:feedInvalidUrlError, messageable: fetch)
             expect(mail).to be_null_mail
           end
 
@@ -196,8 +196,8 @@ describe ParserMailer, type: :mailer do
             let(:data_since) { nil }
 
             it "sends a mail" do
-              fetch = create :feed_fetch, state: "failed", feed: feed, executed_at: 9.days.ago
-              message = create :feedInvalidUrlError, messageable: fetch
+              fetch = create(:feed_fetch, state: "failed", feed: feed, executed_at: 9.days.ago)
+              message = create(:feedInvalidUrlError, messageable: fetch)
               expect(mail).not_to be_null_mail
             end
           end
@@ -206,7 +206,7 @@ describe ParserMailer, type: :mailer do
         context "with working fetches" do
           %w[changed unchanged empty].each do |state|
             it "does not send a mail on #{state} fetches" do
-              create :feed_fetch, state: state, feed: feed
+              create(:feed_fetch, state: state, feed: feed)
               expect(mail).to be_null_mail
             end
           end
@@ -214,8 +214,8 @@ describe ParserMailer, type: :mailer do
 
         context "with one feed error" do
           it "sends a mail on failed fetches" do
-            fetch = create :feed_fetch, state: "failed", feed: feed
-            message = create :feedInvalidUrlError, messageable: fetch
+            fetch = create(:feed_fetch, state: "failed", feed: feed)
+            message = create(:feedInvalidUrlError, messageable: fetch)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
@@ -224,8 +224,8 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on broken fetches" do
-            fetch = create :feed_fetch, state: "broken", feed: feed
-            message = create :feedFetchError, messageable: fetch
+            fetch = create(:feed_fetch, state: "broken", feed: feed)
+            message = create(:feedFetchError, messageable: fetch)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
@@ -235,8 +235,8 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on invalid fetches" do
-            fetch = create :feed_fetch, state: "invalid", feed: feed
-            message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
+            fetch = create(:feed_fetch, state: "invalid", feed: feed)
+            message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds sind invalid"
@@ -248,9 +248,9 @@ describe ParserMailer, type: :mailer do
 
         context "with multiple but same feed errors" do
           it "sends a mail on failed fetches" do
-            fetch = create :feed_fetch, state: "failed", feed: feed
-            message = create :feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago
-            message2 = create :feedInvalidUrlError, messageable: fetch, created_at: 1.day.ago
+            fetch = create(:feed_fetch, state: "failed", feed: feed)
+            message = create(:feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago)
+            message2 = create(:feedInvalidUrlError, messageable: fetch, created_at: 1.day.ago)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
@@ -262,9 +262,9 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on broken fetches" do
-            fetch = create :feed_fetch, state: "broken", feed: feed
-            message = create :feedFetchError, messageable: fetch, created_at: 2.days.ago
-            message2 = create :feedFetchError, messageable: fetch, code: message.code
+            fetch = create(:feed_fetch, state: "broken", feed: feed)
+            message = create(:feedFetchError, messageable: fetch, created_at: 2.days.ago)
+            message2 = create(:feedFetchError, messageable: fetch, code: message.code)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl"
@@ -277,9 +277,9 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on invalid fetches" do
-            fetch = create :feed_fetch, state: "invalid", feed: feed
-            message = create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 2.days.ago
-            message2 = create :feedValidationError, messageable: fetch, kind: :invalid_xml, version: message.version
+            fetch = create(:feed_fetch, state: "invalid", feed: feed)
+            message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 2.days.ago)
+            message2 = create(:feedValidationError, messageable: fetch, kind: :invalid_xml, version: message.version)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds sind invalid"
@@ -294,10 +294,10 @@ describe ParserMailer, type: :mailer do
 
         context "with multiple and different feed errors" do
           it "sends a mail on failed fetches" do
-            fetch = create :feed_fetch, state: "failed", feed: feed
-            message = create :feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago
-            fetch2 = create :feed_fetch, state: "invalid", feed: feed
-            message2 = create :feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 1.day.ago
+            fetch = create(:feed_fetch, state: "failed", feed: feed)
+            message = create(:feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago)
+            fetch2 = create(:feed_fetch, state: "invalid", feed: feed)
+            message2 = create(:feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 1.day.ago)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds schlagen fehl oder sind invalid"
@@ -312,17 +312,17 @@ describe ParserMailer, type: :mailer do
       end
 
       context "with multiple feeds" do
-        let!(:feed) { create :feed, source: source }
-        let!(:feed2) { create :feed, source: source }
+        let!(:feed) { create(:feed, source: source) }
+        let!(:feed2) { create(:feed, source: source) }
 
         context "with failed and one working feed" do
           before do
-            create :feed_fetch, state: "changed", feed: feed2
+            create(:feed_fetch, state: "changed", feed: feed2)
           end
 
           it "sends a mail on failed fetches" do
-            fetch = create :feed_fetch, state: "failed", feed: feed
-            message = create :feedInvalidUrlError, messageable: fetch
+            fetch = create(:feed_fetch, state: "failed", feed: feed)
+            message = create(:feedInvalidUrlError, messageable: fetch)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} schlägt fehl"
@@ -333,8 +333,8 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on broken fetches" do
-            fetch = create :feed_fetch, state: "broken", feed: feed
-            message = create :feedFetchError, messageable: fetch
+            fetch = create(:feed_fetch, state: "broken", feed: feed)
+            message = create(:feedFetchError, messageable: fetch)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} schlägt fehl"
@@ -346,8 +346,8 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on invalid fetches" do
-            fetch = create :feed_fetch, state: "invalid", feed: feed
-            message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
+            fetch = create(:feed_fetch, state: "invalid", feed: feed)
+            message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: #{feed.name}-Feed von #{source.name} ist invalid"
@@ -361,15 +361,15 @@ describe ParserMailer, type: :mailer do
       end
 
       context "with multiple feeds over different sources" do
-        let!(:source2) { create :source, parser: parser }
-        let!(:feed1_1) { create :feed, source: source }
-        let!(:feed1_2) { create :feed, source: source }
-        let!(:feed2_1) { create :feed, source: source2 }
-        let!(:feed2_2) { create :feed, source: source2 }
+        let!(:source2) { create(:source, parser: parser) }
+        let!(:feed1_1) { create(:feed, source: source) }
+        let!(:feed1_2) { create(:feed, source: source) }
+        let!(:feed2_1) { create(:feed, source: source2) }
+        let!(:feed2_2) { create(:feed, source: source2) }
 
         context "with new feedbacks" do
-          let!(:feedback) { create :feedback, canteen: source.canteen }
-          let!(:feedback2) { create :feedback, canteen: source2.canteen }
+          let!(:feedback) { create(:feedback, canteen: source.canteen) }
+          let!(:feedback2) { create(:feedback, canteen: source2.canteen) }
 
           it "informs about the new feedback" do
             expect(mail).not_to be_null_mail
@@ -381,7 +381,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with feedback before data since" do
-            let(:feedback) { create :feedback, canteen: source.canteen, created_at: data_since - 1.day }
+            let(:feedback) { create(:feedback, canteen: source.canteen, created_at: data_since - 1.day) }
 
             it "does not include this feedback" do
               expect(mail).not_to be_null_mail
@@ -394,8 +394,8 @@ describe ParserMailer, type: :mailer do
         end
 
         context "with new data propsoals" do
-          let!(:data_proposal) { create :data_proposal, canteen: source.canteen }
-          let!(:data_proposal2) { create :data_proposal, canteen: source2.canteen }
+          let!(:data_proposal) { create(:data_proposal, canteen: source.canteen) }
+          let!(:data_proposal2) { create(:data_proposal, canteen: source2.canteen) }
 
           it "informs about the new data proposals" do
             expect(mail).not_to be_null_mail
@@ -407,7 +407,7 @@ describe ParserMailer, type: :mailer do
           end
 
           context "with data proposal before data since" do
-            let(:data_proposal) { create :data_proposal, canteen: source.canteen, created_at: data_since - 1.day }
+            let(:data_proposal) { create(:data_proposal, canteen: source.canteen, created_at: data_since - 1.day) }
 
             it "does not include this data proposal" do
               expect(mail).not_to be_null_mail
@@ -421,19 +421,19 @@ describe ParserMailer, type: :mailer do
 
         context "with failed and one working feed per source" do
           before do
-            create :feed_fetch, state: "changed", feed: feed1_2
-            create :feed_fetch, state: "changed", feed: feed2_2
+            create(:feed_fetch, state: "changed", feed: feed1_2)
+            create(:feed_fetch, state: "changed", feed: feed2_2)
           end
 
           context "with different names" do
-            let(:feed2_1) { create :feed, source: source2, name: feed1_1.name }
-            let(:feed2_2) { create :feed, source: source2, name: feed1_2.name }
+            let(:feed2_1) { create(:feed, source: source2, name: feed1_1.name) }
+            let(:feed2_2) { create(:feed, source: source2, name: feed1_2.name) }
 
             it "sends a mail on failed fetches" do
-              fetch = create :feed_fetch, state: "failed", feed: feed1_1
-              message = create :feedInvalidUrlError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "failed", feed: feed2_1
-              message2 = create :feedInvalidUrlError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "failed", feed: feed1_1)
+              message = create(:feedInvalidUrlError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "failed", feed: feed2_1)
+              message2 = create(:feedInvalidUrlError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds schlagen fehl"
@@ -448,10 +448,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on broken fetches" do
-              fetch = create :feed_fetch, state: "broken", feed: feed1_1
-              message = create :feedFetchError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "broken", feed: feed2_1
-              message2 = create :feedFetchError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "broken", feed: feed1_1)
+              message = create(:feedFetchError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "broken", feed: feed2_1)
+              message2 = create(:feedFetchError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds schlagen fehl"
@@ -468,10 +468,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on invalid fetches" do
-              fetch = create :feed_fetch, state: "invalid", feed: feed1_1
-              message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
-              fetch2 = create :feed_fetch, state: "invalid", feed: feed2_1
-              message2 = create :feedValidationError, messageable: fetch2, kind: :invalid_xml
+              fetch = create(:feed_fetch, state: "invalid", feed: feed1_1)
+              message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
+              fetch2 = create(:feed_fetch, state: "invalid", feed: feed2_1)
+              message2 = create(:feedValidationError, messageable: fetch2, kind: :invalid_xml)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds sind invalid"
@@ -490,10 +490,10 @@ describe ParserMailer, type: :mailer do
 
           context "with same names" do
             it "sends a mail on failed fetches" do
-              fetch = create :feed_fetch, state: "failed", feed: feed1_1
-              message = create :feedInvalidUrlError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "failed", feed: feed2_1
-              message2 = create :feedInvalidUrlError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "failed", feed: feed1_1)
+              message = create(:feedInvalidUrlError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "failed", feed: feed2_1)
+              message2 = create(:feedInvalidUrlError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds schlagen fehl"
@@ -508,10 +508,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on broken fetches" do
-              fetch = create :feed_fetch, state: "broken", feed: feed1_1
-              message = create :feedFetchError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "broken", feed: feed2_1
-              message2 = create :feedFetchError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "broken", feed: feed1_1)
+              message = create(:feedFetchError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "broken", feed: feed2_1)
+              message2 = create(:feedFetchError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds schlagen fehl"
@@ -528,10 +528,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on invalid fetches" do
-              fetch = create :feed_fetch, state: "invalid", feed: feed1_1
-              message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
-              fetch2 = create :feed_fetch, state: "invalid", feed: feed2_1
-              message2 = create :feedValidationError, messageable: fetch2, kind: :invalid_xml
+              fetch = create(:feed_fetch, state: "invalid", feed: feed1_1)
+              message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
+              fetch2 = create(:feed_fetch, state: "invalid", feed: feed2_1)
+              message2 = create(:feedValidationError, messageable: fetch2, kind: :invalid_xml)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds sind invalid"
@@ -551,15 +551,15 @@ describe ParserMailer, type: :mailer do
 
         context "with failing source and one working source" do
           before do
-            create :feed_fetch, state: "changed", feed: feed1_1
-            create :feed_fetch, state: "changed", feed: feed1_2
+            create(:feed_fetch, state: "changed", feed: feed1_1)
+            create(:feed_fetch, state: "changed", feed: feed1_2)
           end
 
           it "sends a mail on failed fetches" do
-            fetch = create :feed_fetch, state: "failed", feed: feed2_1
-            message = create :feedInvalidUrlError, messageable: fetch
-            fetch2 = create :feed_fetch, state: "failed", feed: feed2_2
-            message2 = create :feedInvalidUrlError, messageable: fetch2
+            fetch = create(:feed_fetch, state: "failed", feed: feed2_1)
+            message = create(:feedInvalidUrlError, messageable: fetch)
+            fetch2 = create(:feed_fetch, state: "failed", feed: feed2_2)
+            message2 = create(:feedInvalidUrlError, messageable: fetch2)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds von #{source2.name} schlagen fehl"
@@ -574,10 +574,10 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on broken fetches" do
-            fetch = create :feed_fetch, state: "broken", feed: feed2_1
-            message = create :feedFetchError, messageable: fetch
-            fetch2 = create :feed_fetch, state: "broken", feed: feed2_2
-            message2 = create :feedFetchError, messageable: fetch2
+            fetch = create(:feed_fetch, state: "broken", feed: feed2_1)
+            message = create(:feedFetchError, messageable: fetch)
+            fetch2 = create(:feed_fetch, state: "broken", feed: feed2_2)
+            message2 = create(:feedFetchError, messageable: fetch2)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds von #{source2.name} schlagen fehl"
@@ -594,10 +594,10 @@ describe ParserMailer, type: :mailer do
           end
 
           it "sends a mail on invalid fetches" do
-            fetch = create :feed_fetch, state: "invalid", feed: feed2_1
-            message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
-            fetch2 = create :feed_fetch, state: "invalid", feed: feed2_2
-            message2 = create :feedValidationError, messageable: fetch2, kind: :invalid_xml
+            fetch = create(:feed_fetch, state: "invalid", feed: feed2_1)
+            message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
+            fetch2 = create(:feed_fetch, state: "invalid", feed: feed2_2)
+            message2 = create(:feedValidationError, messageable: fetch2, kind: :invalid_xml)
 
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle Feeds von #{source2.name} sind invalid"
@@ -615,26 +615,26 @@ describe ParserMailer, type: :mailer do
         end
 
         context "with working source and one failing and one working feed per other source" do
-          let!(:source3) { create :source, parser: parser }
-          let!(:feed3_1) { create :feed, source: source3 }
-          let!(:feed3_2) { create :feed, source: source3 }
+          let!(:source3) { create(:source, parser: parser) }
+          let!(:feed3_1) { create(:feed, source: source3) }
+          let!(:feed3_2) { create(:feed, source: source3) }
 
           before do
-            create :feed_fetch, state: "changed", feed: feed1_2
-            create :feed_fetch, state: "changed", feed: feed2_2
-            create :feed_fetch, state: "changed", feed: feed3_1
-            create :feed_fetch, state: "changed", feed: feed3_2
+            create(:feed_fetch, state: "changed", feed: feed1_2)
+            create(:feed_fetch, state: "changed", feed: feed2_2)
+            create(:feed_fetch, state: "changed", feed: feed3_1)
+            create(:feed_fetch, state: "changed", feed: feed3_2)
           end
 
           context "with same names" do
-            let(:feed2_1) { create :feed, source: source2, name: feed1_1.name }
-            let(:feed2_2) { create :feed, source: source2, name: feed1_2.name }
+            let(:feed2_1) { create(:feed, source: source2, name: feed1_1.name) }
+            let(:feed2_2) { create(:feed, source: source2, name: feed1_2.name) }
 
             it "sends a mail on failed fetches" do
-              fetch = create :feed_fetch, state: "failed", feed: feed1_1
-              message = create :feedInvalidUrlError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "failed", feed: feed2_1
-              message2 = create :feedInvalidUrlError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "failed", feed: feed1_1)
+              message = create(:feedInvalidUrlError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "failed", feed: feed2_1)
+              message2 = create(:feedInvalidUrlError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds von #{source.name}, #{source2.name} schlagen fehl"
@@ -649,10 +649,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on broken fetches" do
-              fetch = create :feed_fetch, state: "broken", feed: feed1_1
-              message = create :feedFetchError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "broken", feed: feed2_1
-              message2 = create :feedFetchError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "broken", feed: feed1_1)
+              message = create(:feedFetchError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "broken", feed: feed2_1)
+              message2 = create(:feedFetchError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds von #{source.name}, #{source2.name} schlagen fehl"
@@ -669,10 +669,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on invalid fetches" do
-              fetch = create :feed_fetch, state: "invalid", feed: feed1_1
-              message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
-              fetch2 = create :feed_fetch, state: "invalid", feed: feed2_1
-              message2 = create :feedValidationError, messageable: fetch2, kind: :invalid_xml
+              fetch = create(:feed_fetch, state: "invalid", feed: feed1_1)
+              message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
+              fetch2 = create(:feed_fetch, state: "invalid", feed: feed2_1)
+              message2 = create(:feedValidationError, messageable: fetch2, kind: :invalid_xml)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Alle #{feed1_1.name}-Feeds von #{source.name}, #{source2.name} sind invalid"
@@ -691,10 +691,10 @@ describe ParserMailer, type: :mailer do
 
           context "with different names" do
             it "sends a mail on failed fetches" do
-              fetch = create :feed_fetch, state: "failed", feed: feed1_1
-              message = create :feedInvalidUrlError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "failed", feed: feed2_1
-              message2 = create :feedInvalidUrlError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "failed", feed: feed1_1)
+              message = create(:feedInvalidUrlError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "failed", feed: feed2_1)
+              message2 = create(:feedInvalidUrlError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds von #{source.name}, #{source2.name} schlagen fehl"
@@ -709,10 +709,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on broken fetches" do
-              fetch = create :feed_fetch, state: "broken", feed: feed1_1
-              message = create :feedFetchError, messageable: fetch
-              fetch2 = create :feed_fetch, state: "broken", feed: feed2_1
-              message2 = create :feedFetchError, messageable: fetch2
+              fetch = create(:feed_fetch, state: "broken", feed: feed1_1)
+              message = create(:feedFetchError, messageable: fetch)
+              fetch2 = create(:feed_fetch, state: "broken", feed: feed2_1)
+              message2 = create(:feedFetchError, messageable: fetch2)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds von #{source.name}, #{source2.name} schlagen fehl"
@@ -729,10 +729,10 @@ describe ParserMailer, type: :mailer do
             end
 
             it "sends a mail on invalid fetches" do
-              fetch = create :feed_fetch, state: "invalid", feed: feed1_1
-              message = create :feedValidationError, messageable: fetch, kind: :invalid_xml
-              fetch2 = create :feed_fetch, state: "invalid", feed: feed2_1
-              message2 = create :feedValidationError, messageable: fetch2, kind: :invalid_xml
+              fetch = create(:feed_fetch, state: "invalid", feed: feed1_1)
+              message = create(:feedValidationError, messageable: fetch, kind: :invalid_xml)
+              fetch2 = create(:feed_fetch, state: "invalid", feed: feed2_1)
+              message2 = create(:feedValidationError, messageable: fetch2, kind: :invalid_xml)
 
               expect(mail.to).to eq [user.notify_email]
               expect(mail.subject).to eq "OpenMensa - #{parser.name}: Feeds von #{source.name}, #{source2.name} sind invalid"

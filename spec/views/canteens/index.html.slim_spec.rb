@@ -3,7 +3,7 @@
 require_relative "../../spec_helper"
 
 describe "canteens/index", type: :view do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:canteens) do
     [
       create(:canteen),

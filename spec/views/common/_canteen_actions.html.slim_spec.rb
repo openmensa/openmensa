@@ -9,10 +9,10 @@ describe "common/_canteen_actions.html.slim", type: :view do
     render partial: "canteen_actions", locals: {canteen: canteen}
   end
 
-  let(:owner) { create :developer }
-  let(:parser) { create :parser, user: owner }
-  let!(:source) { create :source, parser: parser, canteen: canteen }
-  let(:canteen) { create :canteen }
+  let(:owner) { create(:developer) }
+  let(:parser) { create(:parser, user: owner) }
+  let!(:source) { create(:source, parser: parser, canteen: canteen) }
+  let(:canteen) { create(:canteen) }
 
   it "contains a link to edit the canteen" do
     expect(rendered).to include("Mensa bearbeiten")
@@ -35,8 +35,8 @@ describe "common/_canteen_actions.html.slim", type: :view do
   end
 
   context "with feed for canteen" do
-    let(:source) { create :source, canteen: canteen, parser: parser }
-    let!(:feed) { create :feed, name: "debug", source: source }
+    let(:source) { create(:source, canteen: canteen, parser: parser) }
+    let!(:feed) { create(:feed, name: "debug", source: source) }
 
     it "contains a link to fetch the feed manual" do
       expect(rendered).to include("Feed debug abrufen")

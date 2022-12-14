@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe User, type: :model do
-  subject(:user) { create :user }
+  subject(:user) { create(:user) }
 
   it { is_expected.to accept_values_for(:login, "first.last", "abc", "heinz_klein") }
   it { is_expected.not_to accept_values_for(:login, "", nil) }
@@ -18,7 +18,7 @@ describe User, type: :model do
   it { expect(user.time_zone).to eq "Berlin" }
 
   it "setting a email should not get the user a developer" do
-    user = create :user
+    user = create(:user)
 
     user.email = "bob@example.org"
     expect(user).to be_valid
@@ -28,7 +28,7 @@ describe User, type: :model do
   end
 
   it "requires an public name for a info url" do
-    user = create :user
+    user = create(:user)
 
     user.info_url = "bob@example.org"
     expect(user).not_to be_valid
@@ -119,8 +119,8 @@ describe User, type: :model do
     context "User" do
       subject { user }
 
-      let(:user) { create :user }
-      let(:user2) { create :user }
+      let(:user) { create(:user) }
+      let(:user2) { create(:user) }
 
       it { is_expected.not_to be_able_to(:index, described_class, "Users") }
       it { is_expected.not_to be_able_to(:new, described_class, "a User") }
@@ -140,9 +140,9 @@ describe User, type: :model do
     context "Administrator" do
       subject { admin }
 
-      let(:admin) { create :admin }
-      let(:admin2) { create :admin }
-      let(:user) { create :user }
+      let(:admin) { create(:admin) }
+      let(:admin2) { create(:admin) }
+      let(:user) { create(:user) }
 
       it { is_expected.to be_able_to(:create, described_class, "Users") }
       it { is_expected.to be_able_to(:index, described_class, "Users") }

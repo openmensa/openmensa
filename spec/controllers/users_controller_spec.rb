@@ -3,7 +3,7 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 
 describe UsersController, type: :controller do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
 
   describe "#show" do
     before { user }

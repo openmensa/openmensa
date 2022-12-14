@@ -4,11 +4,11 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 describe FeedsController, type: :controller do
   describe "#fetch" do
-    let(:canteen) { create :canteen, :with_meals }
-    let(:parser) { create :parser, user: owner }
-    let(:source) { create :source, canteen: canteen, parser: parser }
-    let(:feed) { create :feed, source: source }
-    let(:owner) { create :developer }
+    let(:canteen) { create(:canteen, :with_meals) }
+    let(:parser) { create(:parser, user: owner) }
+    let(:source) { create(:source, canteen: canteen, parser: parser) }
+    let(:feed) { create(:feed, source: source) }
+    let(:owner) { create(:developer) }
     let(:updater) { OpenMensa::Updater.new(feed, "manual") }
     let(:json) { JSON.parse response.body }
 
@@ -128,7 +128,7 @@ describe FeedsController, type: :controller do
 
     it "only allows one fetch per 15 minute" do
       expect(updater).not_to receive(:update)
-      create :feed_fetch, feed: feed, state: "failed", executed_at: 14.minutes.ago
+      create(:feed_fetch, feed: feed, state: "failed", executed_at: 14.minutes.ago)
       get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 429
     end
@@ -136,7 +136,7 @@ describe FeedsController, type: :controller do
     it "updates from canteen owner every time" do
       set_current_user owner
       expect(updater).to receive(:update).and_return true
-      create :feed_fetch, feed: feed, state: "failed", executed_at: Time.zone.now
+      create(:feed_fetch, feed: feed, state: "failed", executed_at: Time.zone.now)
       get :fetch, format: :json, params: {id: feed.id}
       expect(response.status).to eq 200
     end
