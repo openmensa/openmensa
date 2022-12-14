@@ -13,13 +13,13 @@ describe AnonymousUser, type: :model do
     expect(AnonymousUser.new(login: "anonymous")).to be_invalid
   end
 
-  context "#destroy" do
+  describe "#destroy" do
     it "is indestructable" do
       expect(user.destroy).to be false
     end
   end
 
-  context "#destroy!" do
+  describe "#destroy!" do
     it "is indestructable" do
       expect { user.destroy! }.to raise_error(ActiveRecord::RecordNotDestroyed)
     end

@@ -71,7 +71,7 @@ describe OpenMensa::ParserUpdater do
       expect(updater.fetch!).to be_falsey
       m = parser.messages.first
       expect(m).to be_an_instance_of(FeedFetchError)
-      expect(m.code).to eq(nil)
+      expect(m.code).to be_nil
       expect(updater.errors).to eq([m])
     end
 
@@ -82,7 +82,7 @@ describe OpenMensa::ParserUpdater do
       expect(updater.fetch!).to be_falsey
       m = parser.messages.first
       expect(m).to be_an_instance_of(FeedFetchError)
-      expect(m.code).to eq(nil)
+      expect(m.code).to be_nil
       expect(updater.errors).to eq([m])
     end
   end
@@ -132,7 +132,7 @@ describe OpenMensa::ParserUpdater do
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
         expect(message.kind).to eq(:invalid_json)
-        expect(message.version).to eq(nil)
+        expect(message.version).to be_nil
         expect(message.message).to eq("JSON must contain an object with name, url pairs")
         expect(updater.errors).to eq([message])
       end
@@ -147,7 +147,7 @@ describe OpenMensa::ParserUpdater do
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
         expect(message.kind).to eq(:invalid_json)
-        expect(message.version).to eq(nil)
+        expect(message.version).to be_nil
         expect(message.message).to eq("URL must be a string or null")
         expect(updater.errors).to eq([message])
       end
@@ -162,7 +162,7 @@ describe OpenMensa::ParserUpdater do
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
         expect(message.kind).to eq(:invalid_json)
-        expect(message.version).to eq(nil)
+        expect(message.version).to be_nil
         expect(message.message).to eq("URL must be a string or null")
         expect(updater.errors).to eq([message])
       end

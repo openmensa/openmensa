@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + "/../spec_helper"
 
-describe "Favorites: ", type: :feature do
+describe "Favorites:", type: :feature do
   context "User" do
     let(:user) { create :user }
     let(:canteen) { create :canteen }

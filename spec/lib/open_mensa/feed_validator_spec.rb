@@ -64,11 +64,11 @@ describe OpenMensa::FeedValidator do
     end
 
     it "returns false on invalid XML" do
-      expect(described_class.new(invalid_xml).validate).to eq(false)
+      expect(described_class.new(invalid_xml).validate).to be(false)
     end
 
     it "returns false on non OpenMensa XML" do
-      expect(described_class.new(non_om_xml).validate).to eq(false)
+      expect(described_class.new(non_om_xml).validate).to be(false)
     end
   end
 

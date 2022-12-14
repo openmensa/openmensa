@@ -13,7 +13,7 @@ describe OpenMensa::FeedParser do
     end
 
     it "returns false on non valid XML data" do
-      expect(described_class.new(invalid_data).parse).to eq(false)
+      expect(described_class.new(invalid_data).parse).to be(false)
     end
   end
 

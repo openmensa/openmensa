@@ -80,7 +80,7 @@ describe OpenMensa::Updater do
       expect(updater.fetch!).to be_falsey
       m = updater.fetch.messages.first
       expect(m).to be_an_instance_of(FeedFetchError)
-      expect(m.code).to eq(nil)
+      expect(m.code).to be_nil
       expect(updater.errors).to eq([m])
       expect(updater.fetch.state).to eq "failed"
     end
@@ -90,7 +90,7 @@ describe OpenMensa::Updater do
       expect(updater.fetch!).to be_falsey
       m = updater.fetch.messages.first
       expect(m).to be_an_instance_of(FeedFetchError)
-      expect(m.code).to eq(nil)
+      expect(m.code).to be_nil
       expect(updater.errors).to eq([m])
       expect(updater.fetch.state).to eq "failed"
     end
@@ -104,7 +104,7 @@ describe OpenMensa::Updater do
       updater.fetch.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
         expect(message.kind).to eq(:no_xml)
-        expect(message.version).to eq(nil)
+        expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
       expect(updater.fetch.state).to eq "invalid"
@@ -132,7 +132,7 @@ describe OpenMensa::Updater do
       updater.fetch.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
         expect(message.kind).to eq(:unknown_version)
-        expect(message.version).to eq(nil)
+        expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
       expect(updater.fetch.state).to eq "invalid"

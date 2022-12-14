@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Reporters: ", type: :feature do
+describe "Reporters:", type: :feature do
   let!(:canteen) { create :canteen }
   let(:parser) { create :parser }
   let(:source) { create :source, parser: parser, canteen: canteen }
