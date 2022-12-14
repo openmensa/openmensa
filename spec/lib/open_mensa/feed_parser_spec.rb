@@ -9,22 +9,22 @@ describe OpenMensa::FeedParser do
 
   describe "#parse" do
     it "returns XML document on valid XML data" do
-      expect(described_class.new(valid_data).parse).to be_a(Nokogiri::XML::Document)
+      expect(OpenMensa::FeedParser.new(valid_data).parse).to be_a(Nokogiri::XML::Document)
     end
 
     it "returns false on non valid XML data" do
-      expect(described_class.new(invalid_data).parse).to be(false)
+      expect(OpenMensa::FeedParser.new(invalid_data).parse).to be(false)
     end
   end
 
   describe "#parse!" do
     it "returns XML document on valid XML data" do
-      expect(described_class.new(valid_data).parse!).to be_a(Nokogiri::XML::Document)
+      expect(OpenMensa::FeedParser.new(valid_data).parse!).to be_a(Nokogiri::XML::Document)
     end
 
     it "raises an error on non valid XML data" do
       expect do
-        described_class.new(invalid_data).parse!
+        OpenMensa::FeedParser.new(invalid_data).parse!
       end.to raise_error(::OpenMensa::FeedParser::ParserError)
     end
   end

@@ -5,7 +5,7 @@ require_dependency "message"
 
 describe OpenMensa::FeedLoader do
   let(:feed) { create(:feed, url: "http://example.com/canteen_feed.xml") }
-  let(:loader) { described_class.new(feed, :url) }
+  let(:loader) { OpenMensa::FeedLoader.new(feed, :url) }
 
   before do
     stub_request(:any, "example.com/canteen_feed.xml")

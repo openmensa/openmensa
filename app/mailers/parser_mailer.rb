@@ -87,13 +87,13 @@ class ParserMailer < ApplicationMailer
   def feedback_msg
     return nil if @feedbacks.empty?
 
-    t "new_feedbacks", count: @feedbacks.map(&:feedback_count).inject(&:+), sources: @feedbacks.map(&:name).join(", ")
+    t "new_feedbacks", count: @feedbacks.sum(&:feedback_count), sources: @feedbacks.map(&:name).join(", ")
   end
 
   def data_proposal_msg
     return nil if @data_proposals.empty?
 
-    t "new_data_proposals", count: @data_proposals.map(&:proposal_count).inject(&:+),
+    t "new_data_proposals", count: @data_proposals.sum(&:proposal_count),
       sources: @data_proposals.map(&:name).join(", ")
   end
 

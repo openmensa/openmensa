@@ -4,7 +4,7 @@ require "spec_helper"
 require_dependency "message"
 
 describe OpenMensa::DailyReportTask do
-  let(:task) { described_class.new }
+  let(:task) { OpenMensa::DailyReportTask.new }
   let(:parsers) { create_list(:parser, 3) }
   let(:message) do
     ActionMailer::Base.mail to: "test@example.org",

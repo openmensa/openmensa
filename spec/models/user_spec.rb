@@ -70,13 +70,13 @@ describe User do
     describe "#anonymous" do
       subject { anon }
 
-      let(:anon) { described_class.anonymous }
+      let(:anon) { User.anonymous }
 
       before { anon }
 
       it("is an AnonymousUser") { is_expected.to be_an AnonymousUser }
       it("has reserved anonymous login") { expect(anon.login).to eq "anonymous" }
-      it("alwayses return same instance") { is_expected.to eq described_class.anonymous }
+      it("alwayses return same instance") { is_expected.to eq User.anonymous }
       it { is_expected.not_to be_logged }
       it { is_expected.not_to be_admin }
       it { is_expected.to be_internal }
@@ -86,34 +86,34 @@ describe User do
   describe "@scopes" do
     describe "#all" do
       it "does not contain AnonymousUser" do
-        described_class.anonymous # enforce that AnonymousUser and
+        User.anonymous # enforce that AnonymousUser and
         create(:user)
 
-        expect(described_class.all).not_to be_empty
-        expect(described_class.all.select {|u| u.login == "anonymous" || u.login == "system" }).to be_empty
+        expect(User.all).not_to be_empty
+        expect(User.all.select {|u| u.login == "anonymous" || u.login == "system" }).to be_empty
       end
     end
   end
 
   context "@authorization" do
     context "Anonymous" do
-      subject { described_class.anonymous }
+      subject { User.anonymous }
 
       let(:user) { create(:user) }
 
-      it { is_expected.not_to be_able_to(:index, described_class, "Users") }
-      it { is_expected.not_to be_able_to(:new, described_class, "a User") }
-      it { is_expected.not_to be_able_to(:create, described_class, "a User") }
+      it { is_expected.not_to be_able_to(:index, User, "Users") }
+      it { is_expected.not_to be_able_to(:new, User, "a User") }
+      it { is_expected.not_to be_able_to(:create, User, "a User") }
       it { is_expected.not_to be_able_to(:show, user, "a User") }
       it { is_expected.not_to be_able_to(:edit, user, "a User") }
       it { is_expected.not_to be_able_to(:update, user, "a User") }
       it { is_expected.not_to be_able_to(:delete, user, "a User") }
       it { is_expected.not_to be_able_to(:destroy, user, "a User") }
-      it { is_expected.not_to be_able_to(:show, described_class.anonymous, "himself") }
-      it { is_expected.not_to be_able_to(:edit, described_class.anonymous, "himself") }
-      it { is_expected.not_to be_able_to(:update, described_class.anonymous, "himself") }
-      it { is_expected.not_to be_able_to(:delete, described_class.anonymous, "himself") }
-      it { is_expected.not_to be_able_to(:destroy, described_class.anonymous, "himself") }
+      it { is_expected.not_to be_able_to(:show, User.anonymous, "himself") }
+      it { is_expected.not_to be_able_to(:edit, User.anonymous, "himself") }
+      it { is_expected.not_to be_able_to(:update, User.anonymous, "himself") }
+      it { is_expected.not_to be_able_to(:delete, User.anonymous, "himself") }
+      it { is_expected.not_to be_able_to(:destroy, User.anonymous, "himself") }
     end
 
     context "User" do
@@ -122,9 +122,9 @@ describe User do
       let(:user) { create(:user) }
       let(:user2) { create(:user) }
 
-      it { is_expected.not_to be_able_to(:index, described_class, "Users") }
-      it { is_expected.not_to be_able_to(:new, described_class, "a User") }
-      it { is_expected.not_to be_able_to(:create, described_class, "a User") }
+      it { is_expected.not_to be_able_to(:index, User, "Users") }
+      it { is_expected.not_to be_able_to(:new, User, "a User") }
+      it { is_expected.not_to be_able_to(:create, User, "a User") }
       it { is_expected.not_to be_able_to(:show, user2, "a User") }
       it { is_expected.not_to be_able_to(:edit, user2, "a User") }
       it { is_expected.not_to be_able_to(:update, user2, "a User") }
@@ -144,8 +144,8 @@ describe User do
       let(:admin2) { create(:admin) }
       let(:user) { create(:user) }
 
-      it { is_expected.to be_able_to(:create, described_class, "Users") }
-      it { is_expected.to be_able_to(:index, described_class, "Users") }
+      it { is_expected.to be_able_to(:create, User, "Users") }
+      it { is_expected.to be_able_to(:index, User, "Users") }
       it { is_expected.to be_able_to(:update, user, "a User") }
       it { is_expected.to be_able_to(:show, user, "a User") }
       it { is_expected.to be_able_to(:destroy, user, "a User") }

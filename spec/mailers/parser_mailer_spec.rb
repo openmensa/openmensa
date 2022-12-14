@@ -23,7 +23,7 @@ describe ParserMailer do
         create(:feedUrlUpdatedInfo, canteen: canteens[1])
       ]
     end
-    let(:mail) { described_class.daily_report(parser, data_since) }
+    let(:mail) { ParserMailer.daily_report(parser, data_since) }
 
     let(:parser_message) { create(:feedUrlUpdatedInfo, messageable: parser) }
 

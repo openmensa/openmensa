@@ -6,7 +6,7 @@ include Nokogiri
 describe OpenMensa::Updater do
   let(:feed) { create(:feed) }
   let(:canteen) { feed.source.canteen }
-  let(:updater) { described_class.new(feed, "manual", version: 2.1) }
+  let(:updater) { OpenMensa::Updater.new(feed, "manual", version: 2.1) }
   let(:today) { create(:today, canteen: canteen) }
   let(:document) { XML::Document.new }
   let(:root_element) do
@@ -600,7 +600,7 @@ describe OpenMensa::Updater do
         stub_request(:any, "example.org/compact.xml")
           .to_return(body: mock_file("feed2_compact.xml"), status: 200)
         # first
-        first_updater = described_class.new(feed, "manual", version: 2)
+        first_updater = OpenMensa::Updater.new(feed, "manual", version: 2)
         expect(first_updater.update).to be_truthy
         # second
         expect(updater.update).to be_truthy
@@ -673,7 +673,7 @@ describe OpenMensa::Updater do
         stub_request(:any, "example.com/feed_v2.xml")
           .to_return(body: mock_file("feed_v2.xml"), status: 200)
         # first
-        first_updater = described_class.new(feed, "manual", version: 2)
+        first_updater = OpenMensa::Updater.new(feed, "manual", version: 2)
         expect(first_updater.update).to be_truthy
         expect(canteen.reload.state).to eq "active"
         canteen.update state: "new"
@@ -687,7 +687,7 @@ describe OpenMensa::Updater do
         stub_request(:any, "example.com/feed_v2.xml")
           .to_return(body: mock_file("feed_v2_past_closed.xml"), status: 200)
         # first
-        first_updater = described_class.new(feed, "manual", version: 2)
+        first_updater = OpenMensa::Updater.new(feed, "manual", version: 2)
         expect(first_updater.update).to be_truthy
         expect(canteen.reload.state).to eq "active"
         Timecop.freeze DateTime.new(2012, 5, 31, 8, 5, 3) # after all the meals in feed; only closed days follow

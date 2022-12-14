@@ -42,6 +42,9 @@ RSpec:
 RSpec/ContextWording:
   Enabled: false
 
+RSpec/DescribedClass:
+  EnforcedStyle: explicit
+
 RSpec/ExampleLength:
   Enabled: false
 
@@ -65,7 +68,7 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6
 
 
 

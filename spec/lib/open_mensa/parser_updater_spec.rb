@@ -5,7 +5,7 @@ include Nokogiri
 
 describe OpenMensa::ParserUpdater do
   let(:parser) { create(:parser, index_url: "http://example.com/index.json") }
-  let(:updater) { described_class.new(parser) }
+  let(:updater) { OpenMensa::ParserUpdater.new(parser) }
 
   def stub_data(body)
     stub_request(:any, parser.index_url)

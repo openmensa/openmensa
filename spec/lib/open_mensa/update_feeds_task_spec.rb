@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe OpenMensa::UpdateFeedsTask do
-  let(:task) { described_class.new }
+  let(:task) { OpenMensa::UpdateFeedsTask.new }
   let(:_9am) { Time.zone.local 2015, 4, 20, 9, 0, 0 }
   let(:_8am) { Time.zone.local 2015, 4, 20, 8, 0, 0 }
   let(:next_8am) { Time.zone.local 2015, 4, 21, 8, 0, 0 }

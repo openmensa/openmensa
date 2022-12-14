@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe OpenMensa::UpdateSourcesTask do
-  let(:task) { described_class.new }
+  let(:task) { OpenMensa::UpdateSourcesTask.new }
   let(:sources) { create_list(:source, 3, meta_url: "http://example.com/meta.xml") }
   let(:updater) { double("SourceUpdater", sync: true) }
 
