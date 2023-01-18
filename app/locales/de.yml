@@ -104,9 +104,9 @@ de:
     name: Name
     email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
     notify_email: "E-Mail für Fehlerberichte und ähnliches <small>(nicht öffentlich, Standardmäßig wird die normale E-Mail genommen)</small>"
-    public_email: "Öffentliche E-Mail <small>(optinal, wird neben den Mensen angezeigt)</small>"
-    public_name: 'Öffentlicher Name <small>(optinal, für Mensa-Seite)</small>'
-    info_url: 'Website <small>(optinal, für Mensa-Seite)</small>'
+    public_email: "Öffentliche E-Mail <small>(optional, wird neben den Mensen angezeigt)</small>"
+    public_name: 'Öffentlicher Name <small>(optional, für Mensa-Seite)</small>'
+    info_url: 'Website <small>(optional, für Mensa-Seite)</small>'
 
   canteen:
     resource: Mensa
