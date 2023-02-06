@@ -17,7 +17,7 @@ gem "good_job", "~> 3.0"
 gem "nokogiri"
 gem "oj"
 gem "pg", "~> 1.2"
-gem "slim", "~> 4.1"
+gem "slim", "~> 5.0"
 
 gem "cancancan", "~> 3.2"
 gem "omniauth", "~> 2.0"
