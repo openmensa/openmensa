@@ -2,7 +2,7 @@
   .span8
     section
       header
-        h2= t :correct_canteen_data
+        h2 = t :correct_canteen_data
       .content
         p
           ' Im folgenden kannst du für die Metainformationen
@@ -33,7 +33,7 @@
                 label.icon-comment-alt
                   = t :canteen, :map_marker
                 = t :notice, :map_marker
-          div.map#map data-sync="true" data-lat='#data_proposal_latitude' data-lng='#data_proposal_longitude' data-map="interactive"
+          .map#map data-sync="true" data-lat="#data_proposal_latitude" data-lng="#data_proposal_longitude" data-map="interactive"
           p
             = form.label :phone, t(:canteen, :phone)
             = form.text_field :phone, placeholder: @canteen.phone
@@ -43,8 +43,8 @@
           p
             = submit_tag t(:data_proposal, :create_button)
 
-  - unless @user.nil?
-    = render partial: 'users/nav'
+  - if @user.present?
+    = render partial: "users/nav"
   - else
     .span4
-      = render partial: 'static/sidebar'
+      = render partial: "static/sidebar"

@@ -1,21 +1,20 @@
-
 .row
   .span8
     section
-      = render partial: 'canteen_header', locals: { user: current_user, canteen: @canteen }
+      = render partial: "canteen_header", locals: {user: current_user, canteen: @canteen}
       #remote-canteens-show
         = render partial: "show_section"
 
   aside.span4
-    = render partial: 'common/favorites', locals: { user: current_user }
+    = render partial: "common/favorites", locals: {user: current_user}
     - if current_user.can? :manage, @canteen
-      = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
+      = render partial: "common/canteen_actions", locals: {canteen: @canteen}
     section
       header
-        h2=t :canteen, :address
+        h2 = t :canteen, :address
       = map @canteen
       .content
-        address= @canteen.address
+        address = @canteen.address
         - if @canteen.phone.present?
           p.icon-phone#phone
             =@canteen.phone
@@ -26,6 +25,6 @@
           = link_to t(:canteen, :correct_data), new_canteen_data_proposal_path(@canteen), class: "btn btn-primary"
     - @canteen.sources.map(&:parser).each do |parser|
       - if parser.info_box?
-        = render 'parser_info', parser: parser
-    = render partial: 'feedback', locals: { canteen: @canteen }
-    = render partial: 'canteen_status', locals: { canteen: @canteen }
+        = render "parser_info", parser: parser
+    = render partial: "feedback", locals: {canteen: @canteen}
+    = render partial: "canteen_status", locals: {canteen: @canteen}

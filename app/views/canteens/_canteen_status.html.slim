@@ -1,11 +1,11 @@
 section.status
   header: h3
     i class=canteen_state_icon(canteen.fetch_state)
-    =t :canteen, canteen.fetch_state
+    = t :canteen, canteen.fetch_state
   .content
-    p=t "canteen.#{canteen.fetch_state}_message"
+    p = t "canteen.#{canteen.fetch_state}_message"
     - unless canteen.fetch_state == :no_fetch_ever_message
       p
-        =t :canteen, :last_update_at
+        = t :canteen, :last_update_at
         br
         = timeago_tag canteen.last_fetched_at

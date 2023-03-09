@@ -1,11 +1,10 @@
-
 .row
   .span8
     section
-      = render partial: 'canteens/canteen_header', locals: { user: current_user, canteen: @source.canteen }
+      = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @source.canteen}
 
       .content
-        h2=t :source, :messages
+        h2 = t :source, :messages
         table
           - @source.messages.each do |message|
             tr
@@ -15,7 +14,7 @@
                 = message.to_html
 
   aside.span4
-    = render partial: 'common/favorites', locals: { user: current_user }
+    = render partial: "common/favorites", locals: {user: current_user}
     - if current_user.can? :manage, @source.canteen
-      = render partial: 'common/canteen_actions', locals: { canteen: @source.canteen }
-    = render partial: 'canteens/canteen_status', locals: { canteen: @source.canteen }
+      = render partial: "common/canteen_actions", locals: {canteen: @source.canteen}
+    = render partial: "canteens/canteen_status", locals: {canteen: @source.canteen}

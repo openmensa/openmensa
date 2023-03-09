@@ -1,25 +1,25 @@
 - if day.nil?
   li
-    h3= t(:no_meals_title)
-    p= t(:no_meals_message)
+    h3 = t(:no_meals_title)
+    p = t(:no_meals_message)
 - elsif day.closed?
   li
-    h3= t(:closed_day_title)
-    p= t(:closed_day_message)
+    h3 = t(:closed_day_title)
+    p = t(:closed_day_message)
 - else
   - day.meals.includes(:notes).order(:pos).group_by(&:category).each do |category, meals|
     li
-      h3= category
+      h3 = category
       ul
-        - meals.each_with_index do |meal, index|
+        - meals.each do |meal|
           li
-            p= meal.name
+            p = meal.name
             ul.prices
-              - meal.prices.each do |role,price|
+              - meal.prices.each do |role, price|
                 li title=t(:"price_roles.#{role}")
-                  span=t "price_roles.#{role}"
-                  = number_to_currency(price, uni: '€')
-            - if meal.notes.size > 0
+                  span = t "price_roles.#{role}"
+                  = number_to_currency(price, uni: "€")
+            - if meal.notes.any?
               ul.notes
                 - meal.notes.each do |note|
-                  li= note.name
+                  li = note.name

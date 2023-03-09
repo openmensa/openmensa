@@ -1,5 +1,5 @@
 section
-  = image_tag image_path('whatisopenmensa-contribute.png')
+  = image_tag image_path("whatisopenmensa-contribute.png")
 
 .row
   .span8
@@ -18,7 +18,7 @@ section
         p
           ' Ermögliche es OpenMensa, die Daten von noch mehr Kantinen anbieten zu können.
           ' Schreibe dazu einen Parser, damit OpenMensa die Daten abfragen kann.
-          = link_to 'https://doc.openmensa.org/parsers/' do
+          = link_to "https://doc.openmensa.org/parsers/" do
             ' Unsere Developer-Seite liefert alle notwendigen Informationen,
             ' um einen eigenen Parser zu schreiben.
         p
@@ -44,16 +44,16 @@ section
         p
           ' Dir fehlt eine App für deinen Desktop oder dein Betriebssystem?
           ' Nutze unsere
-          = link_to 'API', 'https://doc.openmensa.org/api/v2/'
+          = link_to "API", "https://doc.openmensa.org/api/v2/"
           ', um deine individuelle App zu schreiben.
         p
           ' Du nutzt schon eine existiere App? Hilf mit diese zu verbessern:
         ul
           li
-            = link_to 'https://github.com/domoritz/open-mensa-android/' do
+            = link_to "https://github.com/domoritz/open-mensa-android/" do
               ' OpenMensa Android App
           li
-            = link_to 'https://cooperrs.de/openmensa.html' do
+            = link_to "https://cooperrs.de/openmensa.html" do
               ' OpenMensa iOS App
         .clearfix
 
@@ -62,12 +62,12 @@ section
         h1 Die Plattform selbst
       .content
         p
-          = image_tag image_path('rails.png'), class: 'illustrate'
+          = image_tag image_path("rails.png"), class: "illustrate"
           ' OpenMensa ist eine in
-          = link_to 'https://rubyonrails.org/' do
+          = link_to "https://rubyonrails.org/" do
             ' RubyOnRails
           ' geschriebene Webanwendung. Der Quelltext des Projekts liegt auf
-          = link_to 'https://github.com/openmensa/openmensa' do
+          = link_to "https://github.com/openmensa/openmensa" do
             ' GitHub.
           ' Wir freuen uns über jeden, der mithilft OpenMensa weiterzuentwickeln.
         p
@@ -76,4 +76,4 @@ section
         .clearfix
 
   .span4
-    = render 'sidebar'
+    = render "sidebar"

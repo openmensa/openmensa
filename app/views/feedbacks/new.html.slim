@@ -2,7 +2,7 @@
   .span8
     section
       header
-        h2= t :canteen_feedback, :give_feedback
+        h2 = t :canteen_feedback, :give_feedback
       .content
         p
           ' Um welches Anliegen geht es? Möchtest du einen Fehler melden,
@@ -21,8 +21,8 @@
           p
             = submit_tag t(:canteen_feedback, :create_button)
 
-  - unless @user.nil?
-    = render partial: 'users/nav'
+  - if @user.present?
+    = render partial: "users/nav"
   - else
     .span4
-      = render partial: 'static/sidebar'
+      = render partial: "static/sidebar"

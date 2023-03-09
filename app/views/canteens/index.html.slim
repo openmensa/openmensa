@@ -11,13 +11,12 @@
             - @canteens.each do |c|
               tr
                 td: i class=canteen_state_icon(c.fetch_state)
-                td=c.name
-                td=c.address
+                td = c.name
+                td = c.address
                 td.actions
                   = link_to edit_canteen_path(c), title: t(:edit_canteen) do
                     i.icon-pencil
         - else
-          p.add_notice= t :notice, :no_canteens
+          p.add_notice = t :notice, :no_canteens
 
-
-  = render partial: 'users/nav'
+  = render partial: "users/nav"

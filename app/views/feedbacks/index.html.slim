@@ -1,19 +1,18 @@
-
 .row
   .span8
     section
-      = render partial: 'canteens/canteen_header', locals: { user: current_user, canteen: @canteen }
+      = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @canteen}
 
       .content
-        h2=t :canteen, :feedbacks
+        h2 = t :canteen, :feedbacks
         - @feedbacks.each do |feedback|
-          h3=l feedback.created_at, format: :short
-          p=feedback.message
-        - if @feedbacks.size == 0
-          p=t :feedbacks, :no_feedback
+          h3 = l feedback.created_at, format: :short
+          p = feedback.message
+        - if @feedbacks.empty?
+          p = t :feedbacks, :no_feedback
 
   aside.span4
-    = render partial: 'common/favorites', locals: { user: current_user }
+    = render partial: "common/favorites", locals: {user: current_user}
     - if current_user.can? :manage, @canteen
-      = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
-    = render partial: 'canteens/canteen_status', locals: { canteen: @canteen }
+      = render partial: "common/canteen_actions", locals: {canteen: @canteen}
+    = render partial: "canteens/canteen_status", locals: {canteen: @canteen}

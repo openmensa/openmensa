@@ -3,15 +3,15 @@
     = form_for [@source.parser, @source] do |form|
       section
         header
-          h2= t :new_source
+          h2 = t :new_source
         .content
-          = render partial: 'form', object: form
+          = render partial: "form", object: form
       section
         header
           h2 = t :canteen_details
         .content
           = fields_for(:canteen, @canteen) do |f|
-            = render partial: 'canteens/form', object: f
+            = render partial: "canteens/form", object: f
           p
             = submit_tag t(:add)
-  = render partial: 'users/nav'
+  = render partial: "users/nav"

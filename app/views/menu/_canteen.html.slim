@@ -3,13 +3,13 @@ section
     header.page-header
       h2.centered = canteen.name
     ul.meals
-      = render partial: "canteens/day", locals: { day: canteen.days.find_by_date(@date) }
+      = render partial: "canteens/day", locals: {day: canteen.days.find_by(date: @date)}
     .content
       p.action
         i class=canteen_state_icon(canteen.fetch_state)
         =t :canteen, canteen.fetch_state
-        '
-        = '(' + t(:canteen, :last_update_at)
+        ' (
+        = t(:canteen, :last_update_at)
         '
         = timeago_tag canteen.last_fetched_at
         ' )

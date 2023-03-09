@@ -1,11 +1,11 @@
 doctype 5
 html
   head
-    title= title
+    title = title
     = csp_meta_tag
     = csrf_meta_tags
-    = javascript_include_tag 'application', async: true, crossorigin: 'anonymous'
-    = stylesheet_link_tag 'application', crossorigin: 'anonymous', media: 'screen, projection'
+    = javascript_include_tag "application", async: true, crossorigin: "anonymous"
+    = stylesheet_link_tag "application", crossorigin: "anonymous", media: "screen, projection"
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
@@ -30,29 +30,29 @@ html
   body class=body_classes
     section#content
       header#header
-        h1= link_to 'OpenMensa', root_path
+        h1 = link_to "OpenMensa", root_path
         ul.actions
           - if current_user.logged?
-            li= link_to logout_path, title: t(:logout) do
+            li = link_to logout_path, title: t(:logout) do
               i.icon-signout
               = t :logout
-            li= link_to user_path(current_user.id), title: t(:my_profile), class: :account do
+            li = link_to user_path(current_user.id), title: t(:my_profile), class: :account do
               = avatar
           - else
-            li= link_to login_path, title: t(:login) do
+            li = link_to login_path, title: t(:login) do
               i.icon-signin
               = t :login
-      = render partial: 'common/flash', object: flash
+      = render partial: "common/flash", object: flash
       = yield
       footer#footer
         ul
           li
             | © 2012-
-            = Time.now.year
+            = Time.zone.now.year
             |  OpenMensa
-          li= link_to 'Kontakt', contact_path
-          li= link_to 'Developer', 'https://docs.openmensa.org/'
-          li= link_to 'Über OpenMensa', about_path
-          li= link_to 'Hilf mit', support_path
+          li = link_to "Kontakt", contact_path
+          li = link_to "Developer", "https://docs.openmensa.org/"
+          li = link_to "Über OpenMensa", about_path
+          li = link_to "Hilf mit", support_path
           - if REVISION
-            li.revision=REVISION[0..8]
+            li.revision = REVISION[0..8]

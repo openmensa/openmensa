@@ -2,7 +2,7 @@
   .span8
     section
       header
-        h2= t :my_profile
+        h2 = t :my_profile
       .content
         = render partial: "common/flash", object: flash[:user]
         = form_for @user do |f|
@@ -14,7 +14,7 @@
             = f.text_field :email
           - if @user.developer?
             fieldset
-              legend= t :profile, :developer_settings
+              legend = t :profile, :developer_settings
               p
                 = f.label :notify_email, t(:profile, :notify_email)
                 = f.text_field :notify_email, placeholder: @user.email
@@ -31,11 +31,11 @@
             input.btn-primary type="submit" value=t(:save)
         - unless @user.developer?
           p
-            = link_to user_developer_path(@user), class: "btn btn-primary", title: 'Mehr zu Entwickler-Funktionen' do
-              = 'Mehr zu Entwickler-Funktionen'
+            = link_to user_developer_path(@user), class: "btn btn-primary", title: "Mehr zu Entwickler-Funktionen" do
+              = "Mehr zu Entwickler-Funktionen"
             '
-            = link_to user_developer_path(@user), class: "btn btn-primary", title: 'Aktiviere Entwickler-Funktionen' do
-              = 'Aktiviere Entwickler-Funktionen'
+            = link_to user_developer_path(@user), class: "btn btn-primary", title: "Aktiviere Entwickler-Funktionen" do
+              = "Aktiviere Entwickler-Funktionen"
 
     section
       header
@@ -43,13 +43,12 @@
           = t(:my_identities)
           ul.actions
             - if @user.identities.count < Identity.providers.count
-              li= link_to '', new_user_identity_path(@user), title: t(:add_identity), class: 'icon-plus-sign'
-      div.content.identities
+              li = link_to "", new_user_identity_path(@user), title: t(:add_identity), class: "icon-plus-sign"
+      .content.identities
         - @user.identities.each do |identity|
-          = render partial: 'identity', object: identity
+          = render partial: "identity", object: identity
         - if @user.identities.count == 1
-          div.identity.add_notice
+          .identity.add_notice
             = t :notice, :only_one_identity
 
-
-  = render partial: 'nav'
+  = render partial: "nav"

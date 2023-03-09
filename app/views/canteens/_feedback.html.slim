@@ -1,6 +1,6 @@
 section
   header
-    h2=t :canteen, :give_feedback
+    h2 = t :canteen, :give_feedback
   .content
     p
       ' Die Essensinformationen enthalten einen Fehler
@@ -8,4 +8,4 @@ section
       ' Autor danken oder hast ein anderen Anliegen?
       ' Berichte es dem Autor!
     p.action
-      = link_to 'Rückmeldung geben', new_canteen_feedback_path(canteen), class: "btn btn-primary"
+      = link_to "Rückmeldung geben", new_canteen_feedback_path(canteen), class: "btn btn-primary"

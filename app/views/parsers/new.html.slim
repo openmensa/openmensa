@@ -2,7 +2,7 @@
   .span8
     section
       header
-        h2= t :create_parser
+        h2 = t :create_parser
       .content
         p
           ' Wir freuen uns über deine Unterstüztung zu OpenMensa.
@@ -18,7 +18,7 @@
           ' . Ansonsten wird es schwierig die hier
           ' verwendeten Konzepten direkt zu verstehen.
         = form_for @parser do |form|
-          = render partial: 'form', object: form
+          = render partial: "form", object: form
           p
             = submit_tag t(:save)
-  = render partial: 'users/nav'
+  = render partial: "users/nav"

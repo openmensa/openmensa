@@ -1,10 +1,10 @@
 - content_for :navigation do
-  = render partial: 'static/sidebar'
+  = render partial: "static/sidebar"
 .row
   .span8
     section
       header
-        h2= t :become_developer
+        h2 = t :become_developer
       .content
         h3
           ' Was bringt es Entwickler zu sein?
@@ -22,7 +22,10 @@
         h3
           ' Werde Entwickler!
         = render partial: "common/flash", object: flash[:user]
-        - unless @user.developer?
+        - if @user.developer?
+          p
+            ' Schon alles geschehen!
+        - else
           = form_for @user, url: user_developer_path do |f|
             p
               = f.label :notify_email, t(:profile, :notify_email), required: true
@@ -38,8 +41,5 @@
               = f.text_field :info_url
             p
               input.btn-primary type="submit" value="Werde Entwickler"
-        - else
-          p
-            ' Schon alles geschehen!
 
-  = render partial: 'users/nav'
+  = render partial: "users/nav"

@@ -1,69 +1,68 @@
-
 .row
   .span8
     section
-      = render partial: 'canteens/canteen_header', locals: { user: current_user, canteen: @canteen }
+      = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @canteen}
 
       .content
-        h2=t :canteen, :data_proposals
+        h2 = t :canteen, :data_proposals
         - @data_proposals.each do |proposal|
-          h3=l proposal.created_at, format: :short
+          h3 = l proposal.created_at, format: :short
           table
             - if proposal.name.present?
               tr
                 td rowspan=2 = t(:canteen, :name)
-                td= t(:data_proposals, :old)
+                td = t(:data_proposals, :old)
                 td
                   = @canteen.name
               tr
-                td= t(:data_proposals, :new)
+                td = t(:data_proposals, :new)
                 td
                   = proposal.name
             - if proposal.city.present?
               tr
                 td rowspan=2 = t(:canteen, :city)
-                td= t(:data_proposals, :old)
+                td = t(:data_proposals, :old)
                 td
                   = @canteen.city
               tr
-                td= t(:data_proposals, :new)
+                td = t(:data_proposals, :new)
                 td
                   = proposal.city
             - if proposal.address.present?
               tr
                 td rowspan=2 = t(:canteen, :address)
-                td= t(:data_proposals, :old)
+                td = t(:data_proposals, :old)
                 td
                   = @canteen.address
               tr
-                td= t(:data_proposals, :new)
+                td = t(:data_proposals, :new)
                 td
                   = proposal.address
             - if proposal.phone.present?
               tr
                 td rowspan=2 = t(:canteen, :phone)
-                td= t(:data_proposals, :old)
+                td = t(:data_proposals, :old)
                 td
                   = @canteen.phone
               tr
-                td= t(:data_proposals, :new)
+                td = t(:data_proposals, :new)
                 td
                   = proposal.phone
             - if proposal.email.present?
               tr
                 td rowspan=2 = t(:canteen, :email)
-                td= t(:data_proposals, :old)
+                td = t(:data_proposals, :old)
                 td
                   = @canteen.email
               tr
-                td= t(:data_proposals, :new)
+                td = t(:data_proposals, :new)
                 td
                   = proposal.email
         - if @data_proposals.empty?
-          p=t :data_proposals, :no_data_proposals
+          p = t :data_proposals, :no_data_proposals
 
   aside.span4
-    = render partial: 'common/favorites', locals: { user: current_user }
+    = render partial: "common/favorites", locals: {user: current_user}
     - if current_user.can? :manage, @canteen
-      = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
-    = render partial: 'canteens/canteen_status', locals: { canteen: @canteen }
+      = render partial: "common/canteen_actions", locals: {canteen: @canteen}
+    = render partial: "canteens/canteen_status", locals: {canteen: @canteen}

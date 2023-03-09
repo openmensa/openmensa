@@ -1,12 +1,12 @@
 .row
   .span8
     section
-      header: h2 = t('favorites.my_favorites')
+      header: h2 = t("favorites.my_favorites")
       - if @favorites.empty?
         .content
-          p=t('favorites.howto_add')
+          p = t("favorites.howto_add")
       - else
         ul.favs
           - @favorites.each do |f|
-            li= link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
-  = render partial: 'users/nav'
+            li = link_to f.canteen.name, [f.canteen], class: "icon-star"
+  = render partial: "users/nav"

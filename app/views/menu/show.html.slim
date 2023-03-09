@@ -1,4 +1,4 @@
-- if @canteens.size > 0
+- if @canteens.any?
   section
     #remote-canteens-show
       header.page-header
@@ -15,12 +15,12 @@
     .span6
       - pos = 0
       - while pos < @canteens.size
-          = render partial: "canteen", locals: { canteen: @canteens[pos] }
+          = render partial: "canteen", locals: {canteen: @canteens[pos]}
           - pos += 2
     .span6
       - pos = 1
       - while pos < @canteens.size
-          = render partial: "canteen", locals: { canteen: @canteens[pos] }
+          = render partial: "canteen", locals: {canteen: @canteens[pos]}
           - pos += 2
 - else
   = render partial: "static/map"

@@ -1,17 +1,16 @@
-
 .row
   .span8
     section
       header
-        h2=t :parser, :sync
+        h2 = t :parser, :sync
       .content
           p
             = t :parser, :synced
             ul
-              li=t :parser, :sources_added, count: @synchroniser.sources_added
-              li=t :parser, :sources_created, count: @synchroniser.sources_created
-              li=t :parser, :sources_updated, count: @synchroniser.sources_updated
-              li=t :parser, :sources_deleted, count: @synchroniser.sources_deleted
+              li = t :parser, :sources_added, count: @synchroniser.sources_added
+              li = t :parser, :sources_created, count: @synchroniser.sources_created
+              li = t :parser, :sources_updated, count: @synchroniser.sources_updated
+              li = t :parser, :sources_deleted, count: @synchroniser.sources_deleted
 
   aside.span4
-    = render partial: 'users/nav'
+    = render partial: "users/nav"

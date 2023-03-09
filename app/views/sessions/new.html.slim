@@ -1,10 +1,9 @@
-
 .row.singelton
   .span6.offset3
     .section
       section
         header
-          h2=t :login_with
+          h2 = t :login_with
         .content
           .ident-buttons
             - Rails.configuration.omniauth_services.each do |id|
@@ -12,4 +11,3 @@
                 button type="submit" class="btn btn-login btn-social btn-#{id}" title=t(:service, id)
                   i.icon-large class="icon-#{id}"
                   = t(:service, id)
-

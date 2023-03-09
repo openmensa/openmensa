@@ -1,16 +1,16 @@
-section.favorites class="#{user.favorites.empty? ? "empty" : ""}"
+section.favorites class = "#{user.favorites.empty? ? "empty" : ""}"
   header
     h2
-      = t('favorites.my_favorites')
+      = t("favorites.my_favorites")
       ul.actions
         li
           = link_to menu_path, title: t(:menu, :open) do
             i.icon-food
   - if user.favorites.empty?
     .content
-      p=t('favorites.howto_add')
-      p=t('favorites.use_menu')
+      p = t("favorites.howto_add")
+      p = t("favorites.use_menu")
   - else
     ul.favs
       - user.favorites.each do |f|
-        li = link_to f.canteen.name, [ f.canteen ], class: 'icon-star'
+        li = link_to f.canteen.name, [f.canteen], class: "icon-star"

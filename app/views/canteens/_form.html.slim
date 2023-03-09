@@ -2,8 +2,8 @@ p
   = form.label :name, t(:canteen, :name)
   = form.text_field :name, placeholder: t(:placeholder, :canteen, :name)
 p
-  = form.label :city, t('canteen.city')
-  = form.text_field :city, data: { autocomplete: Canteen.all.reorder(:city).pluck(:city).reject(&:nil?).uniq }
+  = form.label :city, t("canteen.city")
+  = form.text_field :city, data: {autocomplete: Canteen.all.reorder(:city).pluck(:city).compact.uniq}
 p
   = form.label :address, t(:canteen, :address)
   = form.text_field :address, placeholder: t(:placeholder, :canteen, :address)

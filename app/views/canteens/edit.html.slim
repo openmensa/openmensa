@@ -2,10 +2,10 @@
   .span8
     section
       header
-        h2= t :edit_canteen
+        h2 = t :edit_canteen
       .content
         = form_for @canteen do |form|
-          = render partial: 'form', object: form
+          = render partial: "form", object: form
           .row
             .span6
               p
@@ -17,10 +17,10 @@
                 label.icon-comment-alt
                   = t :canteen, :map_marker
                 = t :notice, :map_marker
-          div.map#map data-sync="true" data-lat='#canteen_latitude' data-lng='#canteen_longitude' data-map="interactive"
+          .map#map data-sync="true" data-lat="#canteen_latitude" data-lng="#canteen_longitude" data-map="interactive"
           p
             = submit_tag t(:save)
 
   - content_for :navigation do
-    = render partial: 'common/canteen_actions', locals: { canteen: @canteen }
-  = render partial: 'users/nav'
+    = render partial: "common/canteen_actions", locals: {canteen: @canteen}
+  = render partial: "users/nav"

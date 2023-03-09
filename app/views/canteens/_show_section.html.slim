@@ -1,4 +1,3 @@
-
 header.page-header
   = link_to canteen_path(@canteen, date: (@date - 1.day)), class: :prev do
     span
@@ -10,10 +9,10 @@ header.page-header
     - else
       = l @date.to_date, format: :with_weekday
 ul.meals
-  = render partial: "day", locals: { day: @canteen.days.find_by_date(@date) }
+  = render partial: "day", locals: {day: @canteen.days.find_by(date: @date)}
 
-- if @date == Time.zone.now.to_date and @canteen.days.find_by_date(@date + 1.day).try(:meals).try(:any?)
+- if @date == Time.zone.now.to_date && @canteen.days.find_by(date: @date + 1.day).try(:meals).try(:any?)
   header.page-header
-    h3.centered= l (@date + 1.day).to_date, format: :with_weekday
+    h3.centered = l (@date + 1.day).to_date, format: :with_weekday
   ul.meals
-    = render partial: "day", locals: { day: @canteen.days.find_by_date(@date + 1.day) }
+    = render partial: "day", locals: {day: @canteen.days.find_by(date: @date + 1.day)}

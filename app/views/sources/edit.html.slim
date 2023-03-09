@@ -2,39 +2,38 @@
   .span8
     section
       header
-        h2= t :edit_source
+        h2 = t :edit_source
       .content
         = form_for @source do |form|
-          = render partial: 'form', object: form
+          = render partial: "form", object: form
           p
             = form.label :parser_id, t(:source, :parser)
-            = form.select :parser_id, @user.parsers.map { |p| [ p.name, p.id] }
+            = form.select(:parser_id, @user.parsers.map {|p| [p.name, p.id] })
           p
             = submit_tag t(:save)
           - if @source.meta_url.present?
-            = link_to sync_source_path(@source), class: "btn btn-primary", title: 'Synchronisiere Feeds', method: :post do
-              = 'Synchronisiere Feeds mittels Meta-URL'
-    - unless @source.meta_url.present?
+            = link_to sync_source_path(@source), class: "btn btn-primary", title: "Synchronisiere Feeds", method: :post do
+              = "Synchronisiere Feeds mittels Meta-URL"
+    - if @source.meta_url.blank?
       section
         header
-          h2= t :new_feed
+          h2 = t :new_feed
         .content
           = form_for [@source, @new_feed] do |form|
-            = render partial: 'feeds/form', object: form
+            = render partial: "feeds/form", object: form
             p
               = submit_tag t(:create_feed)
-      - @source.feeds.reject { |f| f.new_record? }.each do |feed|
+      - @source.feeds.reject(&:new_record?).each do |feed|
         section
           header
-            h2= t :edit_feed, name: feed.name
+            h2 = t :edit_feed, name: feed.name
           .content
             = form_for feed do |form|
-              = render partial: 'feeds/form', object: form
+              = render partial: "feeds/form", object: form
               p
                 = submit_tag t(:save)
               p
-                = link_to feed_path(feed), class: "btn btn-danger", title: 'Löschen', method: :delete do
-                  = 'Löschen'
+                = link_to feed_path(feed), class: "btn btn-danger", title: "Löschen", method: :delete do
+                  = "Löschen"
 
-
-  = render partial: 'users/nav'
+  = render partial: "users/nav"

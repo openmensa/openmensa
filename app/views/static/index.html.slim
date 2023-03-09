@@ -1,5 +1,4 @@
-
-= render partial: 'map'
+= render partial: "map"
 
 .row
   .span8
@@ -8,27 +7,27 @@
         h1 OpenMensa - Die offene Mensa-Datenbank.
       .content
         = link_to about_path do
-          = image_tag image_path('whatisopenmensa-compact.png'), id: 'compact', class: 'illustrate'
+          = image_tag image_path("whatisopenmensa-compact.png"), id: "compact", class: "illustrate"
         p
           ' OpenMensa ist die kostenfreie Datenbank für Mensen und Cafeterien in Deutschland.
           ' Wir stellen eine zentrale Austauschplattform zwischen Essensanbietern und Nutzern
           ' bzw. deren Apps dar.
           ' Hier findest du die Speisepläne zahlreicher Mensen und Cafés in Deutschland:
         p.action
-          = link_to about_path, class: "btn btn-action", title: 'Erfahre mehr über OpenMensa' do
+          = link_to about_path, class: "btn btn-action", title: "Erfahre mehr über OpenMensa" do
             ' Erfahre mehr über OpenMensa
         p
           ' OpenMensa ist ein offenes, von der Community entwickeltes Projekt.
           ' Interessierte entwickeln Parser, um die Daten direkt von den Internetseiten oder Portalen der Studentenwerke oder Cafeterien abzurufen, oder entwickeln mobile Apps, um diese Daten auf dem Smartphone einfach verfügbar zu machen. Aber auch die OpenMensa selbst ist
-          = link_to 'offen', 'https://github.com/openmensa/openmensa'
+          = link_to "offen", "https://github.com/openmensa/openmensa"
           '  und kann von jedem mit weiterentwickelt werden:
         p.action
-          = link_to contribute_path, class: "btn btn-action", title: 'Arbeite mit an OpenMensa' do
+          = link_to contribute_path, class: "btn btn-action", title: "Arbeite mit an OpenMensa" do
             ' Arbeite mit an OpenMensa
         p
           ' So oder so, OpenMensa lebt von den Menschen. Jeder ist willkommen und kann nach seinen Fähigkeiten dabei helfen, OpenMensa zu verbessern:
         p.action
-          = link_to support_path, class: "btn btn-action", title: 'Hilf mit bei OpenMensa' do
+          = link_to support_path, class: "btn btn-action", title: "Hilf mit bei OpenMensa" do
             ' Hilf mit bei OpenMensa
 
   .span4
@@ -36,13 +35,13 @@
       header
         h2 OpenMensa App
       .android.available
-        = link_to 'https://play.google.com/store/apps/details?id=de.uni_potsdam.hpi.openmensa' do
+        = link_to "https://play.google.com/store/apps/details?id=de.uni_potsdam.hpi.openmensa" do
           span
             ' OpenMensa
           | für Android
           = image_tag "qr-android.png", class: :qr
       .ubuntu.available
-        = link_to 'https://open-store.io/app/openmensa.neothethird' do
+        = link_to "https://open-store.io/app/openmensa.neothethird" do
           span
             ' OpenMensa
           | für Ubuntu Touch
