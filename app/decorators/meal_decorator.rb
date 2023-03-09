@@ -4,6 +4,12 @@ class MealDecorator < Draper::Decorator
   include ApiResponder::Formattable
   decorates :meal
 
+  class << self
+    def decorate_collection(scope, *args, **kwargs)
+      super(scope.includes(:notes), *args, **kwargs)
+    end
+  end
+
   def notes
     model.notes.map(&:name)
   end
