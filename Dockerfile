@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.4
 
-FROM docker.io/ruby:3.2.1-slim-bullseye AS build
+FROM docker.io/ruby:3.2.2-slim-bullseye AS build
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
