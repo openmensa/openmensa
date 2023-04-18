@@ -22,11 +22,11 @@ class FeedChanged < Message
   end
 
   def to_html
-    I18n.t("messages.html.feed_updated.#{kind}", data)
+    I18n.t("messages.html.feed_updated.#{kind}", **data)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.feed_updated.#{kind}", data)
+    I18n.t("messages.text_mail.feed_updated.#{kind}", **data)
   end
 
   def to_json(*_args)
