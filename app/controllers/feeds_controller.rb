@@ -52,7 +52,7 @@ class FeedsController < WebController
   end
 
   def messages
-    @fetches = @feed.fetches.order(executed_at: :desc)
+    @fetches = @feed.fetches.order(executed_at: :desc).limit(50)
   end
 
   private

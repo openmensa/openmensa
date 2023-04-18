@@ -5,7 +5,7 @@ class Meal < ApplicationRecord
   has_one :canteen, through: :day
   has_and_belongs_to_many :notes, autosave: true
 
-  validates :name, :category, :day_id, presence: true
+  validates :name, :category, presence: true
 
   scope :for, ->(date) { where("days.date" => date.to_date) }
 
