@@ -27,7 +27,7 @@
           - reason_map = {"manual" => "icon-user", "schedule" => "icon-calendar", "retry" => "icon-retweet"}
           - @fetches.each do |fetch|
             tr
-              td rowspan=fetch.messages.size + 1
+              td rowspan=(fetch.messages.size + 1)
                 i class=(reason_map[fetch.reason]) title=t(:feed_fetch, :reasons, fetch.reason)
               td
                 = l fetch.executed_at, format: :short
