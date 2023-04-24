@@ -7,7 +7,7 @@ describe Meal do
 
   it { is_expected.not_to accept_values_for(:name, "", nil) }
   it { is_expected.not_to accept_values_for(:category, "", nil) }
-  it { is_expected.not_to accept_values_for(:day_id, "", nil) }
+  it { is_expected.not_to accept_values_for(:day, nil) }
 
   describe "#prices" do
     it "only contains set values" do
