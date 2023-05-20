@@ -25,13 +25,13 @@
         color: white;
         padding: 0 7px;
         border-radius: 20px;
-        transition: all .3s ease-in-out;
+        transition: all 0.3s ease-in-out;
 
         &:hover {
           color: #000;
           text-decoration: none;
           background-color: #ffffff;
-          transition: all .3s ease-in-out;
+          transition: all 0.3s ease-in-out;
         }
       }
     }
@@ -58,18 +58,21 @@
   }
 }
 
-.canteens_controller, .menu_controller {
+.canteens_controller,
+.menu_controller {
   .page-header {
     @extend %clearfix;
 
     @include media(handheld) {
       h2 {
         margin-top: 7px;
-        font-size: 18px; font-size: 1.8rem;
+        font-size: 18px;
+        font-size: 1.8rem;
       }
     }
 
-    a.next, a.prev {
+    a.next,
+    a.prev {
       display: block;
       margin: 3px 0 0;
       padding: 10px;
@@ -149,7 +152,8 @@
           margin: 5px 0 5px;
         }
       }
-      > p, > ul > li {
+      > p,
+      > ul > li {
         margin: 9px 0;
         padding: 0 0 0 160px;
 
@@ -168,11 +172,16 @@
           border-bottom: 1px dotted #eee;
           padding-right: 10px;
 
-          &:last-child { border: none; }
+          &:last-child {
+            border: none;
+          }
 
-          p { margin-bottom: 2px; }
+          p {
+            margin-bottom: 2px;
+          }
 
-          ul.notes, ul.prices {
+          ul.notes,
+          ul.prices {
             margin: 0;
             list-style: none;
             position: relative;
@@ -181,7 +190,7 @@
             @extend %hover-transition;
 
             color: #ccc;
-            font-size: .85em;
+            font-size: 0.85em;
           }
 
           ul.notes {
@@ -189,8 +198,10 @@
 
             li {
               float: left;
-              margin: 0 .5em 0 0;
-              &:before { content: '~'; }
+              margin: 0 0.5em 0 0;
+              &:before {
+                content: "~";
+              }
             }
           }
 
@@ -204,7 +215,7 @@
               margin: 0 0 0 5px;
               width: 55px;
 
-              opacity: 0.0;
+              opacity: 0;
               visibility: hidden;
               @extend %hover-transition;
 
@@ -212,29 +223,50 @@
                 @extend %hover-transition;
                 color: #aaa;
                 bottom: 0;
-                opacity: 0.0;
+                opacity: 0;
                 position: absolute;
                 visibility: hidden;
               }
 
               &:last-child {
-                opacity: 1.0;
+                opacity: 1;
                 visibility: visible;
               }
             }
           }
 
-          &:hover, &.active {
-            ul { color: #666; @extend %hover-transition; }
-            ul.prices li, ul.prices span { visibility: visible; opacity: 1.0; @extend %hover-transition; }
+          &:hover,
+          &.active {
+            ul {
+              color: #666;
+              @extend %hover-transition;
+            }
+            ul.prices li,
+            ul.prices span {
+              visibility: visible;
+              opacity: 1;
+              @extend %hover-transition;
+            }
           }
 
           @include media(mobile) {
             padding-bottom: 4px;
 
-            ul.notes, ul.prices { margin: 1px 0 0 0; color: #aaa; padding-bottom: 0; }
-            ul.prices li { width: auto; margin-left: 1em; visibility: visible; opacity: 1.0; }
-            ul.prices li span { display: none; }
+            ul.notes,
+            ul.prices {
+              margin: 1px 0 0 0;
+              color: #aaa;
+              padding-bottom: 0;
+            }
+            ul.prices li {
+              width: auto;
+              margin-left: 1em;
+              visibility: visible;
+              opacity: 1;
+            }
+            ul.prices li span {
+              display: none;
+            }
           }
         }
       }

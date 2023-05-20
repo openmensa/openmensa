@@ -20,7 +20,11 @@ body {
   line-height: 1.35;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   color: $header-color;
   font-family: $header-font;
   font-size: 24px;
@@ -28,42 +32,102 @@ h1, h2, h3, h4, h5 {
   font-weight: normal;
   @include p;
 
-  & > [class^="icon-"], & > [class*=" icon-"] {
-    margin-right: .45em;
+  & > [class^="icon-"],
+  & > [class*=" icon-"] {
+    margin-right: 0.45em;
   }
 }
-h2 { font-size: 21px; font-size: 2.1rem; }
-h3 { font-size: 16px; font-size: 1.6rem; }
-h4 { font-size: 13px; font-size: 1.3rem; font-weight: bold; }
-h5 { font-size: 13px; font-size: 1.3rem; }
-
-@include media(mobile) {
-  h1 { font-size: 17px; font-size: 1.7rem; }
-  h2 { font-size: 14px; font-size: 1.4rem; }
-  h3 { font-size: 14px; font-size: 1.4rem; }
-  h4 { font-size: 13px; font-size: 1.3rem; }
-  h5 { font-size: 13px; font-size: 1.3rem; }
+h2 {
+  font-size: 21px;
+  font-size: 2.1rem;
+}
+h3 {
+  font-size: 16px;
+  font-size: 1.6rem;
+}
+h4 {
+  font-size: 13px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+h5 {
+  font-size: 13px;
+  font-size: 1.3rem;
 }
 
-small { font-size: .7em; font-family: sans-serif; font-weight: normal; }
-b, strong { font-weight: bold; }
-i, em { font-style: italic; }
-p, .p { @include p; line-height: 1.5em; }
+@include media(mobile) {
+  h1 {
+    font-size: 17px;
+    font-size: 1.7rem;
+  }
+  h2 {
+    font-size: 14px;
+    font-size: 1.4rem;
+  }
+  h3 {
+    font-size: 14px;
+    font-size: 1.4rem;
+  }
+  h4 {
+    font-size: 13px;
+    font-size: 1.3rem;
+  }
+  h5 {
+    font-size: 13px;
+    font-size: 1.3rem;
+  }
+}
 
-ul, ol { @extend p;
-  padding-left: 2.5em; }
-ul { list-style: circle; }
-ol { list-style: decimal; }
-hr { border: none; border-top: 1px solid $frame-color; }
-code, pre { font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
+small {
+  font-size: 0.7em;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+b,
+strong {
+  font-weight: bold;
+}
+i,
+em {
+  font-style: italic;
+}
+p,
+.p {
+  @include p;
+  line-height: 1.5em;
+}
+
+ul,
+ol {
+  @extend p;
+  padding-left: 2.5em;
+}
+ul {
+  list-style: circle;
+}
+ol {
+  list-style: decimal;
+}
+hr {
+  border: none;
+  border-top: 1px solid $frame-color;
+}
+code,
+pre {
+  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+}
 code {
   border-radius: 2px;
   background-color: #f4f4f4;
   border: 1px solid $frame-color;
   padding: 0 2px;
 }
-pre { @extend p;
-  code { display: block; padding: 2px; }
+pre {
+  @extend p;
+  code {
+    display: block;
+    padding: 2px;
+  }
 }
 address {
   @extend p;
@@ -74,7 +138,8 @@ a {
   text-decoration: none;
   @extend %transition;
 
-  &:hover, &.hover {
+  &:hover,
+  &.hover {
     @if lightness($link-color) < 40% {
       color: lighten($link-color, 15%);
     } @else {
@@ -86,4 +151,6 @@ a {
   }
 }
 
-.centered { text-align: center; }
+.centered {
+  text-align: center;
+}

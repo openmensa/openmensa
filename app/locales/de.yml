@@ -20,14 +20,14 @@ de:
   deactivate_canteen: Mensa außer Betrieb nehmen
   activate_canteen: Mensa in Betrieb nehmen
   my_messages: Statusmitteilungen
-  edit_named_source: 'Editiere %{name} (Quelle)'
-  edit_named_canteen: 'Editiere %{name} (Mensa)'
-  open_named_canteen: 'Öffne %{name}'
-  edit_source: 'Editiere Quelle'
+  edit_named_source: "Editiere %{name} (Quelle)"
+  edit_named_canteen: "Editiere %{name} (Mensa)"
+  open_named_canteen: "Öffne %{name}"
+  edit_source: "Editiere Quelle"
   new_feed: Neuer Feed
   create_feed: Feed anlegen
-  edit_feed: 'Feed %{name}'
-  add_source: 'Neue Quelle/Mensa hinzufügen'
+  edit_feed: "Feed %{name}"
+  add_source: "Neue Quelle/Mensa hinzufügen"
   new_source: Neue Quelle hinzufügen
   canteen_details: Angaben zur Mensa
   correct_canteen_data: Mensadaten korrigieren
@@ -81,13 +81,13 @@ de:
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
     canteen_saved: "Mensa gespeichert."
-    parser_created: 'Der Parser wurde erfolgreich angelegt.'
-    parser_saved: 'Der Parser wurde erfolgreich aktualisiert.'
+    parser_created: "Der Parser wurde erfolgreich angelegt."
+    parser_saved: "Der Parser wurde erfolgreich aktualisiert."
     source_saved: Die Quelle wurde erfolgeich aktualisiert.
     feed_created: Der neuer Feed wurde erfolgreich angelegt.
     feed_updated: Der Feed wurde erfolgreich aktualisiert.
     feed_deleted: Der Feed wurde erfolgreich geschlöscht.
-    source_created: 'Quelle wurde erfolgeich hinzufgefügt.'
+    source_created: "Quelle wurde erfolgeich hinzufgefügt."
     feedback_sumitted: Deine Feedback wurde erfolgreich weitergeleitet.
     feedback_failed: Deine Fehlerbeschreibung konnte nicht gespeichert werden.
     data_proposal_created: Dein Korrekturhinweis wurde an den Mensaverantwortlichen weitergeleitet.
@@ -95,18 +95,18 @@ de:
       mail_sent: "Eine Bestätigungsmail wurde an %{mail} gesendet. Bitte öffene den darin enthaltenen Link, um die E-Mail-Adresse zu bestätigen."
       mail_failed_to_send: "Leider konnte die Bestätigungsmail nicht gesendet werden. Versuche es später nochmal bzw. wende dich an das OpenMensa-Team!"
       got_developer: "Die Entwickler-Funktionen wurden nun erfolgeich aktiviert!"
-      could_not_activate_link: 'Leider konnte die E-Mail nicht bestätigt werden.'
-      invalid_message: 'Der Aktivierungslink ist ungültig!'
+      could_not_activate_link: "Leider konnte die E-Mail nicht bestätigt werden."
+      invalid_message: "Der Aktivierungslink ist ungültig!"
       already_developer: Du bist schon Entwickler und kannst du alle Funktionen nutzen.
 
   profile:
-    developer_settings: 'Entwickler-Einstellungen'
+    developer_settings: "Entwickler-Einstellungen"
     name: Name
     email: "E-Mail <small>(nicht öffentlich, wird für Gravatar verwendet)</small>"
     notify_email: "E-Mail für Fehlerberichte und ähnliches <small>(nicht öffentlich, Standardmäßig wird die normale E-Mail genommen)</small>"
     public_email: "Öffentliche E-Mail <small>(optional, wird neben den Mensen angezeigt)</small>"
-    public_name: 'Öffentlicher Name <small>(optional, für Mensa-Seite)</small>'
-    info_url: 'Website <small>(optional, für Mensa-Seite)</small>'
+    public_name: "Öffentlicher Name <small>(optional, für Mensa-Seite)</small>"
+    info_url: "Website <small>(optional, für Mensa-Seite)</small>"
 
   canteen:
     resource: Mensa
@@ -121,22 +121,22 @@ de:
     longitude: Longitude
     latitude_and_longitude: "Latitude & Longitude"
     map_marker: "Marker verschieben"
-    last_update_at: 'Letzter Abruf:'
+    last_update_at: "Letzter Abruf:"
     fetch_up_to_date: Daten aktuell
     fetch_up_to_date_message: Die Essensdaten wurden erst vor kurzem aktualisiert.
     fetch_needed: Aktualisierung notwendig
     fetch_needed_message: Die gezeigten Essensinformationen sind veraltet. Aktuelle Anpassungen des Speiseplanes werden nicht gezeigt.
-    no_fetch_ever: 'Noch keine Daten'
-    no_fetch_ever_message: 'Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald.'
-    out_of_order: 'Mensa ist außer Betrieb.'
-    out_of_order_message: 'Der Betrieb dieser Mensa ist (aktuell) eingestellt. Es werden keine Speisepläne mehr abgefragt.'
+    no_fetch_ever: "Noch keine Daten"
+    no_fetch_ever_message: "Für diese Mensa konnte noch keine Daten abgerufen werden. Wahrscheinlich ist die Mensa gerade erst neu eingetragen und die Essen folgen bald."
+    out_of_order: "Mensa ist außer Betrieb."
+    out_of_order_message: "Der Betrieb dieser Mensa ist (aktuell) eingestellt. Es werden keine Speisepläne mehr abgefragt."
     feed_updated: Der Mensa-Feed wurde erfolgreich aktualisiert!
     feed_update_error: Der Mensa-Feed konnte nicht abgerufen werden!
-    added_days: '%{count} Tage hinzugefügt.'
-    updated_days: '%{count} Tage aktualisiert.'
-    added_meals: '%{count} Essen hinzugefügt.'
-    updated_meals: '%{count} Essen aktualisiert.'
-    removed_meals: '%{count} Essen gelöscht.'
+    added_days: "%{count} Tage hinzugefügt."
+    updated_days: "%{count} Tage aktualisiert."
+    added_meals: "%{count} Essen hinzugefügt."
+    updated_meals: "%{count} Essen aktualisiert."
+    removed_meals: "%{count} Essen gelöscht."
     actions: Mensa verwalten
     activation:
       successful_activated: "Die Mensa ist nun im Betrieb!"
@@ -161,26 +161,26 @@ de:
 
   canteen_feedback:
     message: Kurzbeschreibung
-    create_button: 'Rückmeldung absenden'
-    give_feedback: 'Melde Fehler im Mensaspeisemenü oder gib Feedback'
+    create_button: "Rückmeldung absenden"
+    give_feedback: "Melde Fehler im Mensaspeisemenü oder gib Feedback"
 
   data_proposal:
     create_button: Korrekturvorschlag senden
 
   parser:
-    title: 'Parser %{name}'
+    title: "Parser %{name}"
     name: Name
-    info_url: 'Info-URL <small>(Für Mensa-Seite)</small>'
-    index_url: 'Index-URL <small>(Auflistung der aktuellen Mensa-Liste dieses Parsers)</small>'
-    sync: 'Parser - Index-Liste synchronisieren'
-    synced: 'Die Liste der vom Parser bereitgestellten Quellen/Mensen wurde synchronisiert.'
-    sources_added: '%{count} Quellen neu.'
-    sources_created: '%{count} Quellen angelegt.'
-    sources_updated: '%{count} Quellen aktualisiert.'
-    sources_deleted: '%{count} Quellen archiviert.'
-    open_info_url: 'Besuche die Parser-Seite'
-    maintainer_wanted: 'Unterstützer für Parser erwünscht'
-    maintainer_is_wanted: 'Unterstützer für den Parser ist erwünscht'
+    info_url: "Info-URL <small>(Für Mensa-Seite)</small>"
+    index_url: "Index-URL <small>(Auflistung der aktuellen Mensa-Liste dieses Parsers)</small>"
+    sync: "Parser - Index-Liste synchronisieren"
+    synced: "Die Liste der vom Parser bereitgestellten Quellen/Mensen wurde synchronisiert."
+    sources_added: "%{count} Quellen neu."
+    sources_created: "%{count} Quellen angelegt."
+    sources_updated: "%{count} Quellen aktualisiert."
+    sources_deleted: "%{count} Quellen archiviert."
+    open_info_url: "Besuche die Parser-Seite"
+    maintainer_wanted: "Unterstützer für Parser erwünscht"
+    maintainer_is_wanted: "Unterstützer für den Parser ist erwünscht"
 
   source:
     resource: Quelle
@@ -190,11 +190,11 @@ de:
     no_meta_url: keine
     sync: Synchronisiere Feeds
     synced: Die Feeds wurden erfolgreich aktualisiert.
-    feeds_added: '%{count} Feeds hinzugefügt.'
-    feeds_updated: '%{count} Feeds aktualisiert.'
-    feeds_deleted: '%{count} Feeds gelöscht.'
-    create_canteen: 'Neue Mensa anlegen'
-    open_messages: 'Mitteilungen für %{name}'
+    feeds_added: "%{count} Feeds hinzugefügt."
+    feeds_updated: "%{count} Feeds aktualisiert."
+    feeds_deleted: "%{count} Feeds gelöscht."
+    create_canteen: "Neue Mensa anlegen"
+    open_messages: "Mitteilungen für %{name}"
     messages: Mitteilungen
 
   feedbacks:
@@ -204,8 +204,8 @@ de:
   data_proposals:
     no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mensa vor!
     open: "Öffne Änderungsvorschläge für %{name}"
-    old: 'Alt:'
-    new: 'Neu:'
+    old: "Alt:"
+    new: "Neu:"
 
   feed:
     name: Name
@@ -248,10 +248,10 @@ de:
       retry: Wiederholung nach Fehler
 
   canteen_actions:
-    open_messages: 'Feed %{name}-Mitteilungen'
-    fetch_feed: 'Feed %{name} abrufen'
-    open_meals: 'Mensa-Seite'
-    open_feed: 'Feed %{name} öffnen'
+    open_messages: "Feed %{name}-Mitteilungen"
+    fetch_feed: "Feed %{name} abrufen"
+    open_meals: "Mensa-Seite"
+    open_feed: "Feed %{name} öffnen"
     open_parser: Parser öffnen
     feedbacks: Nutzerrückmeldungen
     data_proposals: Änderungsvorschläge
@@ -262,7 +262,7 @@ de:
 
   date:
     formats:
-      with_weekday: '%A, %d. %B %Y'
+      with_weekday: "%A, %d. %B %Y"
 
   errors:
     not_found:
@@ -278,7 +278,7 @@ de:
       name: Mensa Greuther Fürth
       address: Straße + Hausnummer, Postleitzahl + Stadt, Germany
       email: test@example.org
-      phone: '(0331) 4040 389/390'
+      phone: "(0331) 4040 389/390"
 
   messages:
     html:
@@ -331,17 +331,17 @@ de:
     use_menu: "Anschließend siehst du auf der Menü-Seite eine Essensübersicht für alle deine Favoriten!"
 
   sources_status:
-    source: 'Quelle'
-    canteen: 'Mensa'
-    city: 'Stadt'
-    feed_count: '#Feeds'
+    source: "Quelle"
+    canteen: "Mensa"
+    city: "Stadt"
+    feed_count: "#Feeds"
     feedbacks: Feedbacks
     data_proposals: Änderungsvorschläge
     actions: Aktionen
 
   feeds_status:
     states: Abrufstatie
-    source: 'Quelle'
+    source: "Quelle"
     feed: Feed
     time_span: Zeitrahmen
     total: "Insgesamt:"
@@ -355,61 +355,61 @@ de:
 
   mailer:
     daily_report:
-      subject: 'OpenMensa - %{name}: %{msg}'
+      subject: "OpenMensa - %{name}: %{msg}"
       feed_singleton_msgs:
         past:
           failed:
-            one: '%{subject} ist fehlgeschlagen'
-            other: '%{subject} sind fehlgeschlagen'
+            one: "%{subject} ist fehlgeschlagen"
+            other: "%{subject} sind fehlgeschlagen"
           broken:
-            one: '%{subject} ist fehlgeschlagen'
-            other: '%{subject} sind fehlgeschlagen'
+            one: "%{subject} ist fehlgeschlagen"
+            other: "%{subject} sind fehlgeschlagen"
           invalid:
-            one: '%{subject} war invalid'
-            other: '%{subject} waren invalid'
-          broken_failed: '%{subject} sind fehlgeschlagen'
-          broken_invalid: '%{subject} sind fehlgeschlagen'
-          failed_invalid: '%{subject} sind fehlgeschlagen oder invalid'
-          broken_failed_invalid: '%{subject} sind fehlgeschlagen'
+            one: "%{subject} war invalid"
+            other: "%{subject} waren invalid"
+          broken_failed: "%{subject} sind fehlgeschlagen"
+          broken_invalid: "%{subject} sind fehlgeschlagen"
+          failed_invalid: "%{subject} sind fehlgeschlagen oder invalid"
+          broken_failed_invalid: "%{subject} sind fehlgeschlagen"
         presence:
           failed:
-            one: '%{subject} schlägt fehl'
-            other: '%{subject} schlagen fehl'
+            one: "%{subject} schlägt fehl"
+            other: "%{subject} schlagen fehl"
           broken:
-            one: '%{subject} schlägt fehl'
-            other: '%{subject} schlagen fehl'
+            one: "%{subject} schlägt fehl"
+            other: "%{subject} schlagen fehl"
           invalid:
-            one: '%{subject} ist invalid'
-            other: '%{subject} sind invalid'
+            one: "%{subject} ist invalid"
+            other: "%{subject} sind invalid"
           broken_failed:
-            one: '%{subject} schlägt fehl'
-            other: '%{subject} schlagen fehl'
+            one: "%{subject} schlägt fehl"
+            other: "%{subject} schlagen fehl"
           broken_invalid:
-            one: '%{subject} schlägt fehl'
-            other: '%{subject} schlagen fehl'
+            one: "%{subject} schlägt fehl"
+            other: "%{subject} schlagen fehl"
           failed_invalid:
-            one: '%{subject} schlägt fehl oder ist invalid'
-            other: '%{subject} schlagen fehl oder sind invalid'
+            one: "%{subject} schlägt fehl oder ist invalid"
+            other: "%{subject} schlagen fehl oder sind invalid"
           broken_failed_invalid:
-            one: '%{subject} schlägt fehl'
-            other: '%{subject} schlagen fehl'
+            one: "%{subject} schlägt fehl"
+            other: "%{subject} schlagen fehl"
       feed_subjects:
-        one_feed: '%{name}-Feed von %{source}'
+        one_feed: "%{name}-Feed von %{source}"
         all_feeds: Alle Feeds
-        all_feeds_for: 'Alle Feeds von %{sources}'
-        all_feeds_with_name: 'Alle %{name}-Feeds'
-        all_feeds_with_name_for: 'Alle %{name}-Feeds von %{sources}'
-        some_feeds: 'Feeds'
-        some_feeds_for: 'Feeds von %{sources}'
+        all_feeds_for: "Alle Feeds von %{sources}"
+        all_feeds_with_name: "Alle %{name}-Feeds"
+        all_feeds_with_name_for: "Alle %{name}-Feeds von %{sources}"
+        some_feeds: "Feeds"
+        some_feeds_for: "Feeds von %{sources}"
       new_feedbacks:
-        one: 'Neue Rückmeldung für %{sources}'
-        other: 'Neue Rückmeldungen für %{sources}'
+        one: "Neue Rückmeldung für %{sources}"
+        other: "Neue Rückmeldungen für %{sources}"
       new_data_proposals:
-        one: 'Neuer Änderungsvorschlag für %{sources}'
-        other: 'Neue Änderungsvorschläge für %{sources}'
-      parser_subject: 'dem Parser selbst'
-      source_subject: '%{name}'
-      feed_subject: '%{source}:%{feed}'
-      messages_subject: 'Unregelmäßigkeiten mit %{subjects}'
+        one: "Neuer Änderungsvorschlag für %{sources}"
+        other: "Neue Änderungsvorschläge für %{sources}"
+      parser_subject: "dem Parser selbst"
+      source_subject: "%{name}"
+      feed_subject: "%{source}:%{feed}"
+      messages_subject: "Unregelmäßigkeiten mit %{subjects}"
     verify_email:
-      subject: 'OpenMensa: Bestätige deine Entwickler-Mail-Adresse'
+      subject: "OpenMensa: Bestätige deine Entwickler-Mail-Adresse"

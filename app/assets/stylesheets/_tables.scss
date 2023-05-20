@@ -10,7 +10,9 @@ table {
 
       @extend %transition;
     }
-    &:first-child td { border: none; }
+    &:first-child td {
+      border: none;
+    }
 
     td.actions {
       text-align: right;

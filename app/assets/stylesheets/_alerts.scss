@@ -4,16 +4,15 @@
 $alert: #333 !default;
 $alert-bg: lighten(#ccc, 19%) !default;
 $alert-border: darken(#ccc, 10%) !default;
-$alert-error: #B94A48 !default;
-$alert-error-bg: #F2DEDE !default;
+$alert-error: #b94a48 !default;
+$alert-error-bg: #f2dede !default;
 $alert-error-border: darken($alert-error-bg, 20%) !default;
-$alert-warning: #C09853 !default;
-$alert-warning-bg: #FCF8E3 !default;
+$alert-warning: #c09853 !default;
+$alert-warning-bg: #fcf8e3 !default;
 $alert-warning-border: darken($alert-warning-bg, 30%) !default;
 $alert-notice: darken(#468847, 15%) !default;
-$alert-notice-bg: #DFF0D8 !default;
+$alert-notice-bg: #dff0d8 !default;
 $alert-notice-border: darken($alert-notice-bg, 30%) !default;
-
 
 @mixin alert($color, $bg, $border) {
   color: $color;
@@ -27,11 +26,15 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   margin: 14px 0 0;
 
-  > :first-child { margin-top: 0; }
-  > :last-child  { margin-bottom: 0; }
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
 
   > a.close {
-    content: '×';
+    content: "×";
     float: right;
     position: absolute;
     top: 0;
@@ -56,10 +59,15 @@ $alert-notice-border: darken($alert-notice-bg, 30%) !default;
 }
 
 .alert {
-  @include alert($alert, $alert-bg, $alert-border); }
+  @include alert($alert, $alert-bg, $alert-border);
+}
 .alert-error {
-  @include alert($alert-error, $alert-error-bg, $alert-error-border); }
-.alert-notice, .alert-success {
-  @include alert($alert-notice, $alert-notice-bg, $alert-notice-border); }
+  @include alert($alert-error, $alert-error-bg, $alert-error-border);
+}
+.alert-notice,
+.alert-success {
+  @include alert($alert-notice, $alert-notice-bg, $alert-notice-border);
+}
 .alert-warning {
-  @include alert($alert-warning, $alert-warning-bg, $alert-warning-border); }
+  @include alert($alert-warning, $alert-warning-bg, $alert-warning-border);
+}

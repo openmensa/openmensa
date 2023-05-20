@@ -10,7 +10,7 @@ Pipfile.lock
 
 # Ignore local build artifacts
 /coverage
-/public
+/public/assets
 /site
 
 # prettier doesn't support all extensions from mkdocs and pymdown and

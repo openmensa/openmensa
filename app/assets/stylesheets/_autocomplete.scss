@@ -14,7 +14,8 @@
       background-color: #eee;
     }
 
-    &.autocomplete-selected, &:hover {
+    &.autocomplete-selected,
+    &:hover {
       background-color: #fffec5;
       cursor: pointer;
     }

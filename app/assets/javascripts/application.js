@@ -12,8 +12,7 @@
 jQuery.timeago.settings.lang = "de";
 jQuery.timeago.settings.allowFuture = true;
 
-
-jQuery(function() {
+jQuery(function () {
   let tileLayer = L.tileLayer("https://openmensa.org/tiles/{z}/{x}/{y}.png", {
     attribution:
       'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -112,4 +111,3 @@ jQuery(function() {
     });
   });
 });
-

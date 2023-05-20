@@ -5,13 +5,12 @@ require:
 
 AllCops:
   Exclude:
-    - 'bin/**'
-    - 'db/schema.rb'
-    - 'vendor/**/*'
+    - "bin/**"
+    - "db/schema.rb"
+    - "vendor/**/*"
   TargetRubyVersion: 3.0
   TargetRailsVersion: 7.0
   NewCops: enable
-
 
 # -----------------------------------------------------------------------------
 #                                   RAILS
@@ -28,16 +27,14 @@ Rails/SkipsModelValidations:
     - db/migrate/**/*
     - spec/**/*_spec.rb
 
-
-
 # -----------------------------------------------------------------------------
 #                                   RSPEC
 
 RSpec:
   Include:
-    - 'spec/**/*_spec.rb'
-    - 'spec/spec_helper.rb'
-    - 'spec/rails_helper.rb'
+    - "spec/**/*_spec.rb"
+    - "spec/spec_helper.rb"
+    - "spec/rails_helper.rb"
 
 RSpec/ContextWording:
   Enabled: false
@@ -53,7 +50,7 @@ RSpec/ExpectInHook:
 
 RSpec/FilePath:
   Exclude:
-    - 'spec/client/**/*_spec.rb'
+    - "spec/client/**/*_spec.rb"
 
 RSpec/MessageSpies:
   Enabled: false
@@ -69,8 +66,6 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/NestedGroups:
   Max: 6
-
-
 
 # -----------------------------------------------------------------------------
 #                                   Layout
@@ -99,9 +94,9 @@ Layout/FirstHashElementIndentation:
 
 Layout/LineLength:
   Exclude:
-    - 'db/**/*'
-    - 'spec/**/*'
-    - 'config/**/*'
+    - "db/**/*"
+    - "spec/**/*"
+    - "config/**/*"
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -117,8 +112,6 @@ Layout/SpaceInsideBlockBraces:
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
-
-
 # -----------------------------------------------------------------------------
 #                                    Lint
 
@@ -128,9 +121,7 @@ Layout/SpaceInsideHashLiteralBraces:
 #
 Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'spec/**/*_spec.rb'
-
-
+    - "spec/**/*_spec.rb"
 
 # -----------------------------------------------------------------------------
 #                                   Metrics
@@ -140,10 +131,10 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Exclude:
-    - 'db/**/*'
-    - 'spec/**/*'
-    - 'config/**/*'
-    - '**/*.rake'
+    - "db/**/*"
+    - "spec/**/*"
+    - "config/**/*"
+    - "**/*.rake"
 
 Metrics/ClassLength:
   Max: 200
@@ -154,9 +145,7 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 25
   Exclude:
-    - 'db/**/*'
-
-
+    - "db/**/*"
 
 # -----------------------------------------------------------------------------
 #                                   Style
@@ -191,21 +180,21 @@ Style/RaiseArgs:
 #
 Style/RescueModifier:
   Exclude:
-    - 'spec/**/*_spec.rb'
+    - "spec/**/*_spec.rb"
 
 #
 # Quick single line rescues in specs
 #
 Style/RescueStandardError:
   Exclude:
-    - 'spec/**/*_spec.rb'
+    - "spec/**/*_spec.rb"
 
 #
 # Often used pattern in chaining subjects in specs
 #
 Style/Semicolon:
   Exclude:
-    - 'spec/**/*_spec.rb'
+    - "spec/**/*_spec.rb"
 
 Style/SignalException:
   EnforcedStyle: only_raise

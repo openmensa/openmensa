@@ -1,7 +1,6 @@
 @import "variables";
 
 form {
-
   fieldset {
     margin: 1.4em 0 0 0;
     border: none;
@@ -11,7 +10,9 @@ form {
       padding: 0 5px;
       margin: 0 0 0 -5px;
 
-      + p { margin-top: 0; }
+      + p {
+        margin-top: 0;
+      }
     }
   }
 
@@ -23,8 +24,9 @@ form {
       display: block;
       font-weight: bold;
 
-      &[class^="icon-"]:before, &[class*=" icon-"]:before {
-        margin-right: .4em;
+      &[class^="icon-"]:before,
+      &[class*=" icon-"]:before {
+        margin-right: 0.4em;
       }
     }
 
@@ -41,7 +43,8 @@ form {
       box-shadow: 0 0 3px rgba(#000, 0.2);
       @extend %transition;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         outline: none;
         border-color: #aaa;
         box-shadow: 0 0 3px rgba(#000, 0.4);
@@ -53,7 +56,8 @@ form {
         @extend %transition;
       }
 
-      &[readonly], &:disabled {
+      &[readonly],
+      &:disabled {
         box-shadow: none;
         border-color: #ccc;
         background-color: #fafafa;
@@ -63,7 +67,7 @@ form {
 
     input[type="checkbox"] {
       vertical-align: bottom;
-      margin: 0 .2em .1em 0;
+      margin: 0 0.2em 0.1em 0;
       float: left;
 
       + label {
@@ -76,7 +80,8 @@ form {
       input[type="text"] {
         box-shadow: 0 0 3px rgba(red, 0.4);
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           box-shadow: 0 0 3px rgba(red, 0.6);
         }
       }
@@ -85,11 +90,11 @@ form {
         color: red;
         display: block;
         font-style: italic;
-        font-size: .85em;
+        font-size: 0.85em;
         margin: 0 0 0 10px;
 
         &:before {
-          content: '* ';
+          content: "* ";
         }
       }
     }

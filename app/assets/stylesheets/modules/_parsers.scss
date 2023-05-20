@@ -4,8 +4,10 @@
   padding: 0px 7px;
 }
 
-.parsers_controller, .feeds_controller {
-  th.number, td.number {
+.parsers_controller,
+.feeds_controller {
+  th.number,
+  td.number {
     text-align: center;
   }
 }

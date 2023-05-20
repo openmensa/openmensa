@@ -5,7 +5,9 @@
   border-radius: 2px;
 }
 
-.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
   background-color: #4598d0;
   background-color: rgba(#4598d0, 0.9);
   background-image: linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
@@ -29,11 +31,12 @@
 }
 
 #index_map {
-
-  .favorites, .getstarted {
+  .favorites,
+  .getstarted {
     background-image: image-url("hbg.png");
 
-    .content, ul {
+    .content,
+    ul {
       background: #fff;
       border-bottom: 1px solid $frame-color;
     }
@@ -49,11 +52,12 @@
       margin: 0;
       width: 100%;
       font-size: 2em;
-      box-shadow: 0 2px 5px rgba(0,0,0,.05) inset;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) inset;
       @extend %transition;
 
-      &:hover, &:focus {
-        box-shadow: 0 2px 5px rgba(0,0,0,.2) inset;
+      &:hover,
+      &:focus {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
         @extend %transition;
       }
     }
@@ -73,7 +77,10 @@
       width: 100%;
       border-bottom: none;
 
-      &.empty { display: none; visibility: hidden; }
+      &.empty {
+        display: none;
+        visibility: hidden;
+      }
     }
   }
 
@@ -83,4 +90,3 @@
     }
   }
 }
-

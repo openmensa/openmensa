@@ -3,7 +3,7 @@
 @import "variables";
 
 $btn: #aaa !default;
-$btn-primary: #3079ED !default;
+$btn-primary: #3079ed !default;
 $btn-success: #238625 !default;
 
 @mixin btn($base-color, $text: false) {
@@ -32,10 +32,10 @@ $btn-success: #238625 !default;
   }
 
   @if $grayscale == true {
-    $border:        grayscale($border);
-    $inset-shadow:  grayscale($inset-shadow);
+    $border: grayscale($border);
+    $inset-shadow: grayscale($inset-shadow);
     $stop-gradient: grayscale($stop-gradient);
-    $text-shadow:   grayscale($text-shadow);
+    $text-shadow: grayscale($text-shadow);
   }
 
   color: $text;
@@ -47,12 +47,24 @@ $btn-success: #238625 !default;
   background-image: linear-gradient($base-color, $stop-gradient);
 
   &:hover {
-    $base-color-hover: adjust-color($base-color, $saturation: -4%, $lightness: -5%);
-    $inset-shadow-hover: adjust-color($base-color, $saturation: -7%, $lightness: 5%);
-    $stop-gradient-hover: adjust-color($base-color, $saturation: 8%, $lightness: -14%);
+    $base-color-hover: adjust-color(
+      $base-color,
+      $saturation: -4%,
+      $lightness: -5%
+    );
+    $inset-shadow-hover: adjust-color(
+      $base-color,
+      $saturation: -7%,
+      $lightness: 5%
+    );
+    $stop-gradient-hover: adjust-color(
+      $base-color,
+      $saturation: 8%,
+      $lightness: -14%
+    );
 
     @if $grayscale == true {
-      $inset-shadow-hover:  grayscale($inset-shadow-hover);
+      $inset-shadow-hover: grayscale($inset-shadow-hover);
       $stop-gradient-hover: grayscale($stop-gradient-hover);
     }
 
@@ -71,8 +83,16 @@ $btn-success: #238625 !default;
   }
 
   &:active {
-    $border-active: adjust-color($base-color, $saturation: 9%, $lightness: -14%);
-    $inset-shadow-active: adjust-color($base-color, $saturation: 7%, $lightness: -17%);
+    $border-active: adjust-color(
+      $base-color,
+      $saturation: 9%,
+      $lightness: -14%
+    );
+    $inset-shadow-active: adjust-color(
+      $base-color,
+      $saturation: 7%,
+      $lightness: -17%
+    );
 
     @if $grayscale == true {
       $border-active: grayscale($border-active);
@@ -80,11 +100,16 @@ $btn-success: #238625 !default;
     }
 
     border: 1px solid $border-active;
-    box-shadow: inset 0 0 8px 4px $inset-shadow-active, inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee;
+    box-shadow: inset 0 0 8px 4px $inset-shadow-active,
+      inset 0 0 8px 4px $inset-shadow-active, 0 1px 1px 0 #eee;
   }
 
-  &:disabled, &.btn-disabled {
-    &, &:hover, &:active, &:focus {
+  &:disabled,
+  &.btn-disabled {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
       cursor: default;
       color: #bbb;
       border-color: #ccc;
@@ -95,7 +120,6 @@ $btn-success: #238625 !default;
     }
   }
 }
-
 
 .btn {
   @include btn($btn, #fff);
@@ -113,7 +137,8 @@ $btn-success: #238625 !default;
   // -webkit-user-select: text;
   -webkit-background-clip: padding-box;
 
-  &[class^="icon-"]::before, &[class*=" icon-"]::before {
+  &[class^="icon-"]::before,
+  &[class*=" icon-"]::before {
     padding-right: 6px;
   }
 
@@ -142,22 +167,35 @@ $btn-success: #238625 !default;
     padding: 9px 15px 7px;
   }
 
-  &:focus, &.focus {
+  &:focus,
+  &.focus {
     outline: none;
   }
 
-  &.btn-twitter { @include btn(#46c0fb); }
-  &.btn-facebook { @include btn(#4863ae); }
-  &.btn-github { @include btn(#fbfbfb, #333); }
-  &.btn-google_oauth2 { @include btn(#dd4b39); }
-  &.btn-login { margin: 2px 4px; }
+  &.btn-twitter {
+    @include btn(#46c0fb);
+  }
+  &.btn-facebook {
+    @include btn(#4863ae);
+  }
+  &.btn-github {
+    @include btn(#fbfbfb, #333);
+  }
+  &.btn-google_oauth2 {
+    @include btn(#dd4b39);
+  }
+  &.btn-login {
+    margin: 2px 4px;
+  }
 
-  &.btn-action { @include btn(#238625); }
+  &.btn-action {
+    @include btn(#238625);
+  }
 }
 
 .ident-buttons {
   max-width: 16em;
-  margin: .5em auto;
+  margin: 0.5em auto;
 
   .btn-login {
     display: block;
@@ -175,23 +213,32 @@ $btn-success: #238625 !default;
     display: block;
     float: left;
 
-    &:hover, &:active, &.active, &.current, &:focus, &.focus  {
+    &:hover,
+    &:active,
+    &.active,
+    &.current,
+    &:focus,
+    &.focus {
       border-right-width: 1px;
-      + a { border-left-width: 0; }
+      + a {
+        border-left-width: 0;
+      }
     }
 
     &:first-child {
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
     }
-    &:last-child  {
+    &:last-child {
       border-top-right-radius: 2px;
       border-bottom-right-radius: 2px;
       border-right-width: 1px;
     }
   }
 
-  &.btn-small a { @extend .btn-small; }
+  &.btn-small a {
+    @extend .btn-small;
+  }
 }
 
 .btn-primary {
@@ -206,5 +253,5 @@ $btn-success: #238625 !default;
 
 .btn-danger {
   @extend .btn;
-  @include btn(#EA1414, #fff);
+  @include btn(#ea1414, #fff);
 }

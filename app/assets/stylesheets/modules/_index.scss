@@ -12,7 +12,9 @@
     padding: 20px 0 18px 55px;
     background: transparent none no-repeat 12px 12px;
 
-    span { font-weight: bold; }
+    span {
+      font-weight: bold;
+    }
   }
 
   .qr {
@@ -25,7 +27,7 @@
     width: 0;
     height: 0;
 
-    opacity: 0.0;
+    opacity: 0;
     background-color: #fff;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -42,12 +44,12 @@
 
     .qr {
       display: block;
-      opacity: 1.0;
+      opacity: 1;
       width: 201px;
       height: 202px;
       left: -202px;
 
-      transition: opacity .2s ease-in-out;
+      transition: opacity 0.2s ease-in-out;
     }
   }
 }
@@ -55,25 +57,34 @@
 .android {
   @extend .appbox;
   // background: #CBE86E;
-  a { background-image: image-url("android-icon.png"); }
+  a {
+    background-image: image-url("android-icon.png");
+  }
 }
 
 .ios {
   @extend .appbox;
-  a { background-image: image-url("ios.png"); }
+  a {
+    background-image: image-url("ios.png");
+  }
 }
 
 .wphone {
   @extend .appbox;
-  a { background-image: image-url("winphone.png"); }
+  a {
+    background-image: image-url("winphone.png");
+  }
 }
 
 .ubuntu {
   @extend .appbox;
-  a { background-image: image-url("ubuntu.png"); }
+  a {
+    background-image: image-url("ubuntu.png");
+  }
 }
 
-.favs, .parsers {
+.favs,
+.parsers {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -88,12 +99,12 @@
     border-top: 1px solid #ddd;
 
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
-    transition: background-color .2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 
     &:hover {
       text-decoration: none;
       background-color: #efefef;
-      transition: background-color .2s ease-in-out;
+      transition: background-color 0.2s ease-in-out;
     }
 
     &:before {
