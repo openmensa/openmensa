@@ -4,8 +4,8 @@ class Feed < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :source
-  has_many :fetches, class_name: "FeedFetch"
-  has_many :messages, as: :messageable
+  has_many :fetches, class_name: "FeedFetch", dependent: :destroy
+  has_many :messages, as: :messageable, dependent: :destroy
 
   scope :fetch_needed, lambda {
     where("next_fetch_at < ?", Time.zone.now).order(:next_fetch_at)

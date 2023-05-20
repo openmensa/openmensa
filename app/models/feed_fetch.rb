@@ -4,7 +4,7 @@ class FeedFetch < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :feed
-  has_many :messages, as: :messageable
+  has_many :messages, as: :messageable, dependent: :destroy
 
   STATES = %w[fetching failed broken invalid empty unchanged changed].freeze
   REASONS = %w[schedule retry manual].freeze

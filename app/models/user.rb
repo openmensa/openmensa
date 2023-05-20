@@ -3,12 +3,12 @@
 class User < ApplicationRecord
   include Gravtastic
 
-  has_many :identities
+  has_many :identities, dependent: :destroy
   has_many :messages, through: :canteens
-  has_many :favorites
-  has_many :parsers
-  has_many :feedbacks
-  has_many :data_proposals
+  has_many :favorites, dependent: :destroy
+  has_many :parsers, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+  has_many :data_proposals, dependent: :destroy
   has_many :canteens, through: :parsers
 
   validates :login, presence: true, uniqueness: true, exclusion: %w[anonymous system]

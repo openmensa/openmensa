@@ -9,8 +9,8 @@ class FeedChanged < Message
     data[:kind]
   end
 
-  def kind=(m)
-    data[:kind] = m
+  def kind=(value)
+    data[:kind] = value
   end
 
   def name

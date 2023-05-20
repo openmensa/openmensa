@@ -9,24 +9,24 @@ class FeedValidationError < Message
     data[:version]
   end
 
-  def version=(v)
-    data[:version] = v
+  def version=(value)
+    data[:version] = value
   end
 
   def kind
     data[:kind]
   end
 
-  def kind=(m)
-    data[:kind] = m
+  def kind=(value)
+    data[:kind] = value
   end
 
   def message
     data[:message]
   end
 
-  def message=(m)
-    data[:message] = m
+  def message=(value)
+    data[:message] = value
   end
 
   def to_html

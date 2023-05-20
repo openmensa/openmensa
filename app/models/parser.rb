@@ -4,9 +4,9 @@ class Parser < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :user
-  has_many :sources
+  has_many :sources, dependent: :destroy
   has_many :canteens, through: :sources
-  has_many :messages, as: :messageable
+  has_many :messages, as: :messageable, dependent: :destroy
 
   validates :name, presence: true, uniqueness: {scope: :user_id}
 

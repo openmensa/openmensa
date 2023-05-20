@@ -5,16 +5,16 @@ class FeedFetchError < Message
     data[:code]
   end
 
-  def code=(c)
-    data[:code] = c
+  def code=(value)
+    data[:code] = value
   end
 
   def message
     data[:message]
   end
 
-  def message=(m)
-    data[:message] = m
+  def message=(value)
+    data[:message] = value
   end
 
   def to_json(*_args)
