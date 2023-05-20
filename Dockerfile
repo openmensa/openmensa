@@ -34,7 +34,7 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:3.0.4-slim-bullseye
+FROM docker.io/ruby:3.2.2-slim-bullseye
 
 ENV RAILS_ENV=production
 
