@@ -4,36 +4,35 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-# Ignore bundler config
-/.bundle
-
-# Ignore sensitive config files
+# Sensitive application files
 /config/env.yml
-
-# Ignore the default SQLite database.
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
+/coverage
 /log/*.log
 /tmp
-/coverage
 
 # Ignore local development files
-.rvmrc
 .rspec
-Gemfile.local
-Guardfile.local
-
-/.idea
-*.iml
 .ruby-gemset
-public/assets
+.rvmrc
+.pdm.toml
+*.iml
+/.bundle
+/.idea
+/Gemfile.local
+/Guardfile.local
 
-# Ignore python things when building docs
+# Ignore dependency and output folders
 __pycache__/
 __pypackages__/
-.pdm.toml
-site/
+/.husky
+/.yarn
+/node_modules
+/public/assets
+/site
+/vendor/bundle
 
-# Ignore docker volume
+# Ignore local docker volume mount
 /volume

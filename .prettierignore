@@ -1,0 +1,22 @@
+# Ignore auto-generated and bundled files, as well as modules.
+/.idea
+/.pnp.*
+/.vscode
+/.yarn
+/node_modules
+/vendor
+package-lock.json
+Pipfile.lock
+
+# Ignore local build artifacts
+/coverage
+/public
+/site
+
+# prettier doesn't support all extensions from mkdocs and pymdown and
+# will break some required formatting in markdown files. Therefore,
+# disable them.
+*.md
+
+# Ignore mock files
+/spec/mocks/nominatim.json
