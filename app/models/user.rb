@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   gravtastic secure: true, default: :mm, filetype: :gif, size: 100
 
+  before_destroy :check_destructible!
+
   def admin?
     admin
   end
@@ -37,10 +39,8 @@ class User < ApplicationRecord
     !admin?
   end
 
-  def destroy
-    return false unless destructible?
-
-    super
+  def check_destructible!
+    raise ActiveRecord::RecordNotDestroyed unless destructible?
   end
 
   def gravatars?
