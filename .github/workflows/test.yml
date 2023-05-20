@@ -56,6 +56,18 @@ jobs:
           bundler-cache: true
       - run: bundle exec rubocop --color --parallel --fail-level E
 
+  prettier:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: yarn
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn run lint:fmt
+
   docker:
     needs: rspec
     if: always()
