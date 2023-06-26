@@ -340,7 +340,7 @@ GEM
     rspec-mocks (3.12.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-rails (6.0.2)
+    rspec-rails (6.0.3)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
@@ -489,7 +489,7 @@ DEPENDENCIES
   responders
   rspec-collection_matchers
   rspec-its
-  rspec-rails (= 6.0.2)
+  rspec-rails (= 6.0.3)
   rubocop (~> 1.50.0)
   rubocop-performance (~> 1.10)
   rubocop-rails (~> 2.9)
