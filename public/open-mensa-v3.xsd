@@ -168,7 +168,7 @@
       </xs:element>
       <xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
         <xs:annotation>
-          <xs:documentation>This field contains a price in euro for a given role (because different prices may apply different groups of people). There mustn't be two price elements with the same role for a meal!</xs:documentation>
+          <xs:documentation>This field contains a price for a given role (because different prices may apply different groups of people) and in a given currency. There mustn't be two price elements with the same role and currency for a meal!</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -192,6 +192,14 @@
               <xs:enumeration value="employee"></xs:enumeration>
               <xs:enumeration value="other"></xs:enumeration>
             </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="currency" use="required">
+          <xs:annotation>
+            <xs:documentation>A price's currency contains the ISO 4217 currency code that the price value is denoted in.</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string"></xs:restriction>
           </xs:simpleType>
         </xs:attribute>
       </xs:extension>
