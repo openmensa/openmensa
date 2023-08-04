@@ -142,29 +142,46 @@
     </xs:attribute>
   </xs:complexType>
 
+  <xs:simpleType name="string250ValueType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"></xs:minLength>
+      <xs:maxLength value="250"></xs:maxLength>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="mealType">
     <xs:sequence>
-      <xs:element name="name">
+      <xs:element name="name" maxOccurs="unbounded" minOccurs="1">
         <xs:annotation>
           <xs:documentation>The name of the meal, e.g. "Rinderhacksteak mit Kartoffeln". Shouldn't be more than a couple of words or a sentence in maximum. Additional text may go into several notes.</xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:minLength value="1"></xs:minLength>
-            <xs:maxLength value="250"></xs:maxLength>
-          </xs:restriction>
-        </xs:simpleType>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="string250ValueType">
+              <xs:attribute name="lang" use="required">
+                <xs:annotation>
+                  <xs:documentation>A meal name's language contains the IETF BCP 47 language tag for the language that the meal name is denoted in.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
       </xs:element>
       <xs:element name="note" maxOccurs="unbounded" minOccurs="0">
         <xs:annotation>
           <xs:documentation>A note often resembles a properties of the associated meal like the ingredients used or some important annotations.</xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:minLength value="1"></xs:minLength>
-            <xs:maxLength value="250"></xs:maxLength>
-          </xs:restriction>
-        </xs:simpleType>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="string250ValueType">
+              <xs:attribute name="lang" use="required">
+                <xs:annotation>
+                  <xs:documentation>A meal note's language contains the IETF BCP 47 language tag for the language that the meal note is denoted in.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
       </xs:element>
       <xs:element name="price" maxOccurs="unbounded" minOccurs="0" type="priceType">
         <xs:annotation>
