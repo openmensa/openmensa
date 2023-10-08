@@ -109,7 +109,7 @@ RSpec.configure do |config|
   Capybara.register_driver(:cuprite) do |app|
     Capybara::Cuprite::Driver.new(
       app,
-      headless: headless,
+      headless:,
       inspector: true,
       process_timeout: 120,
       timeout: 120,

@@ -48,8 +48,8 @@ describe "canteens/show" do
   end
 
   context "with a meal" do
-    let(:day) { create(:today, canteen: canteen) }
-    let(:meal) { create(:meal, day: day) }
+    let(:day) { create(:today, canteen:) }
+    let(:meal) { create(:meal, day:) }
 
     before do
       meal
@@ -86,7 +86,7 @@ describe "canteens/show" do
   end
 
   context "with meals" do
-    let(:day) { create(:today, :with_unordered_meals, canteen: canteen) }
+    let(:day) { create(:today, :with_unordered_meals, canteen:) }
 
     before { day }
 

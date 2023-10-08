@@ -63,12 +63,12 @@ class User < ApplicationRecord
     @ability ||= Ability.new(self)
   end
 
-  def can?(*attr)
-    ability.can?(*attr)
+  def can?(*)
+    ability.can?(*)
   end
 
-  def cannot?(*attr)
-    ability.cannot?(*attr)
+  def cannot?(*)
+    ability.cannot?(*)
   end
 
   def has_favorite?(canteen)
@@ -83,7 +83,7 @@ class User < ApplicationRecord
         login: (info["login"] || identity.uid),
         email: info["email"]
       ).tap do |user|
-        identity.update! user: user
+        identity.update! user:
       end
     end
 

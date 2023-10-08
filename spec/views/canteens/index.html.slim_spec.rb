@@ -5,10 +5,7 @@ require_relative "../../spec_helper"
 describe "canteens/index" do
   let(:user) { create(:user) }
   let(:canteens) do
-    [
-      create(:canteen),
-      create(:canteen)
-    ]
+    create_list(:canteen, 2)
   end
 
   before do

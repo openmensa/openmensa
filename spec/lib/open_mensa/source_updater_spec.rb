@@ -5,12 +5,12 @@ include Nokogiri
 
 describe OpenMensa::SourceUpdater do
   let(:parser) { create(:parser) }
-  let(:source) { create(:source, parser: parser, meta_url: "http://example.com/meta.xml") }
+  let(:source) { create(:source, parser:, meta_url: "http://example.com/meta.xml") }
   let(:updater) { OpenMensa::SourceUpdater.new(source) }
 
   def stub_data(body)
     stub_request(:any, source.meta_url)
-      .to_return(body: body, status: 200)
+      .to_return(body:, status: 200)
   end
 
   describe "#fetch" do

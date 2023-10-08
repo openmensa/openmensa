@@ -108,8 +108,8 @@ describe "Developers" do
       end
 
       context "with a existing source without meta url" do
-        let!(:source) { create(:source, parser: parser, canteen: canteen) }
-        let!(:feed) { create(:feed, source: source) }
+        let!(:source) { create(:source, parser:, canteen:) }
+        let!(:feed) { create(:feed, source:) }
 
         it "is able to edit the source" do
           click_on parser.name
@@ -177,7 +177,7 @@ describe "Developers" do
         end
 
         context "with previous created feedback" do
-          let!(:feedback) { create(:feedback, canteen: canteen) }
+          let!(:feedback) { create(:feedback, canteen:) }
 
           it "is able to see the feedbacks message" do
             click_on parser.name
@@ -196,7 +196,7 @@ describe "Developers" do
         end
 
         context "with previous created data proposals" do
-          let!(:data_proposal) { create(:data_proposal, canteen: canteen) }
+          let!(:data_proposal) { create(:data_proposal, canteen:) }
 
           it "is able to see the data_proposal" do
             click_on parser.name
@@ -229,10 +229,10 @@ describe "Developers" do
 
       context "with a existing source with meta url" do
         let!(:source) do
-          create(:source, parser: parser,
+          create(:source, parser:,
             meta_url: "http://example.org/test/meta.xml")
         end
-        let!(:feed) { create(:feed, source: source, name: "oldfeed") }
+        let!(:feed) { create(:feed, source:, name: "oldfeed") }
 
         it "is not able to edit feeds" do
           click_on parser.name

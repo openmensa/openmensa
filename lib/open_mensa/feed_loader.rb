@@ -86,7 +86,7 @@ module OpenMensa
 
     def update_url(new_url)
       Rails.logger.warn "Update URL of #{resource} to '#{new_url}'."
-      FeedUrlUpdatedInfo.create messageable: resource, old_url: url, new_url: new_url
+      FeedUrlUpdatedInfo.create(messageable: resource, old_url: url, new_url:)
 
       resource.update! url_field => new_url
     end

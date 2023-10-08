@@ -17,8 +17,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   def initialize(feed, reason, options = {})
     options = {version: nil, today: false}.update options
     @feed = feed
-    @fetch = FeedFetch.create! feed: feed, executed_at: Time.zone.now,
-      reason: reason, state: "fetching"
+    @fetch = FeedFetch.create! feed:, executed_at: Time.zone.now,
+      reason:, state: "fetching"
     @version = options[:version]
     reset_stats
   end
@@ -83,9 +83,9 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   # 4. process data
   def add_meal(day, category, meal, pos = nil)
     day.meals.create(
-      category: category,
+      category:,
       name: meal.children.find {|node| node.name == "name" }.content,
-      pos: pos,
+      pos:,
       prices: meal.children.each_with_object({}) do |node, prices|
         prices[node["role"]] = node.content if node.name == "price" && version.to_i == 2
       end,
@@ -106,7 +106,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
       meal.pos = pos
       meal.save
     elsif pos != meal.pos
-      meal.update pos: pos
+      meal.update(pos:)
       @unchanged_meals += 1
     else
       @unchanged_meals += 1
@@ -178,7 +178,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   end
 
   def update_canteen(canteen_data)
-    days = canteen.days.index_by {|v| v.date.to_s; }
+    days = canteen.days.index_by {|v| v.date.to_s }
     day_updated = nil
     canteen_data.element_children.each do |day|
       next if day.name != "day"

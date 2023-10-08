@@ -115,7 +115,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
               name = c.url[(c.url.rindex("/") + 1)..400]
               name = Regexp.last_match(1) if name =~ /^([^.]+)\.[^.]+$/
               s = Source.create! parser: p,
-                name: name,
+                name:,
                 canteen: c
               feed = Feed.create! name: "full",
                 source: s,

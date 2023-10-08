@@ -10,7 +10,7 @@ describe AnonymousUser do
   it { is_expected.to be_internal }
 
   it "must be unique" do
-    expect(AnonymousUser.new(login: "anonymous")).to be_invalid
+    expect(AnonymousUser.new(login: "anonymous")).not_to be_valid
   end
 
   describe "#destroy" do

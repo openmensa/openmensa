@@ -7,7 +7,7 @@ FactoryBot.define do
     developer { false }
 
     after(:create) do |user|
-      FactoryBot.create(:identity, user: user)
+      FactoryBot.create(:identity, user:)
     end
   end
 
@@ -45,18 +45,18 @@ FactoryBot.define do
     trait :with_meals do
       state { "empty" }
       after(:create) do |canteen|
-        FactoryBot.create(:yesterday, :with_meals, canteen: canteen)
-        FactoryBot.create(:today, :with_meals, canteen: canteen)
-        FactoryBot.create(:tomorrow, :with_meals, canteen: canteen)
+        FactoryBot.create(:yesterday, :with_meals, canteen:)
+        FactoryBot.create(:today, :with_meals, canteen:)
+        FactoryBot.create(:tomorrow, :with_meals, canteen:)
       end
     end
 
     trait :with_unordered_meals do
       state { "empty" }
       after(:create) do |canteen|
-        FactoryBot.create(:yesterday, :with_unordered_meals, canteen: canteen)
-        FactoryBot.create(:today, :with_unordered_meals, canteen: canteen)
-        FactoryBot.create(:tomorrow, :with_unordered_meals, canteen: canteen)
+        FactoryBot.create(:yesterday, :with_unordered_meals, canteen:)
+        FactoryBot.create(:today, :with_unordered_meals, canteen:)
+        FactoryBot.create(:tomorrow, :with_unordered_meals, canteen:)
       end
     end
   end
@@ -72,17 +72,17 @@ FactoryBot.define do
 
     trait :with_meals do
       after(:create) do |day|
-        FactoryBot.create(:meal, day: day)
-        FactoryBot.create(:meal, day: day)
-        FactoryBot.create(:meal, day: day)
+        FactoryBot.create(:meal, day:)
+        FactoryBot.create(:meal, day:)
+        FactoryBot.create(:meal, day:)
       end
     end
 
     trait :with_unordered_meals do
       after(:create) do |day|
-        FactoryBot.create(:meal, day: day, pos: 2)
-        FactoryBot.create(:meal, day: day, pos: 1)
-        FactoryBot.create(:meal, day: day, pos: 3)
+        FactoryBot.create(:meal, day:, pos: 2)
+        FactoryBot.create(:meal, day:, pos: 1)
+        FactoryBot.create(:meal, day:, pos: 3)
       end
     end
   end

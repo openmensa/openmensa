@@ -50,7 +50,7 @@ describe Api::V2::MealsController do
 
         expect(response).to have_http_status(:ok)
 
-        expect(json.map {|m| m["id"].to_i }).to eq(Meal.where(day: day).order(:pos).pluck(:id))
+        expect(json.map {|m| m["id"].to_i }).to eq(Meal.where(day:).order(:pos).pluck(:id))
       end
     end
 
@@ -120,7 +120,7 @@ describe Api::V2::MealsController do
 
         expect(response).to have_http_status(:ok)
         json.each do |day|
-          dayModel = Day.find_by date: day["date"], canteen: canteen
+          dayModel = Day.find_by(date: day["date"], canteen:)
           expect(day["meals"].pluck("id")).to eq(Meal.where(day: dayModel).order(:pos).pluck(:id))
         end
       end

@@ -47,7 +47,7 @@ class FeedsController < WebController
     @result.update updater.stats(false) if current_user.can? :manage, @feed
     respond_to do |format|
       format.html
-      format.json { render json: json }
+      format.json { render json: }
     end
   end
 

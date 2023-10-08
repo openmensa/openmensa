@@ -7,8 +7,8 @@ describe "Favorites:" do
     let(:user) { create(:user) }
     let(:canteen) { create(:canteen) }
     let(:canteen2) { create(:canteen) }
-    let(:favorite) { create(:favorite, canteen: canteen, user: user) }
-    let(:favorite2) { create(:favorite, canteen: canteen2, user: user) }
+    let(:favorite) { create(:favorite, canteen:, user:) }
+    let(:favorite2) { create(:favorite, canteen: canteen2, user:) }
 
     before do
       login_as user

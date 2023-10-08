@@ -34,14 +34,14 @@ describe Api::V2::DaysController do
     context "&start" do
       let(:today) { create(:today, closed: true) }
       let(:canteen) { today.canteen }
-      let(:tomorrow) { create(:tomorrow, canteen: canteen) }
-      let(:yesterday) { create(:yesterday, canteen: canteen) }
+      let(:tomorrow) { create(:tomorrow, canteen:) }
+      let(:yesterday) { create(:yesterday, canteen:) }
 
       before do
         today && tomorrow && yesterday
-        create(:day, canteen: canteen, date: yesterday.date - 1)
-        create(:day, canteen: canteen, date: yesterday.date - 2)
-        create(:day, canteen: canteen, date: tomorrow.date + 1)
+        create(:day, canteen:, date: yesterday.date - 1)
+        create(:day, canteen:, date: yesterday.date - 2)
+        create(:day, canteen:, date: tomorrow.date + 1)
       end
 
       it "defaults to today if not given" do

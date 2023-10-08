@@ -73,7 +73,7 @@ class WebController < ApplicationController
     @message = error[:message]
 
     if (params[:format] || "html") == "html"
-      render template: file, layout: layout, status: error[:status]
+      render template: file, layout:, status: error[:status]
     else
       super
     end

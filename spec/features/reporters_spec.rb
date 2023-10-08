@@ -5,7 +5,7 @@ require "spec_helper"
 describe "Reporters:" do
   let!(:canteen) { create(:canteen) }
   let(:parser) { create(:parser) }
-  let(:source) { create(:source, parser: parser, canteen: canteen) }
+  let(:source) { create(:source, parser:, canteen:) }
 
   it "is able to report an issues for a canteen" do
     expect(Feedback.count).to eq 0

@@ -31,7 +31,7 @@ class CanteenDecorator < Draper::Decorator
       name: model.name,
       city: model.city,
       address: model.address,
-      coordinates: coordinates
+      coordinates:
     }
   end
 end

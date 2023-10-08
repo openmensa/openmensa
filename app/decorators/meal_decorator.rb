@@ -39,8 +39,8 @@ class MealDecorator < Draper::Decorator
       id: model.id,
       name: model.name,
       category: model.category,
-      prices: prices,
-      notes: notes
+      prices:,
+      notes:
     }
   end
 end

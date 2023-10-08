@@ -9,7 +9,7 @@ describe OpenMensa::ParserUpdater do
 
   def stub_data(body)
     stub_request(:any, parser.index_url)
-      .to_return(body: body, status: 200)
+      .to_return(body:, status: 200)
   end
 
   def stub_json(json)
@@ -265,7 +265,7 @@ describe OpenMensa::ParserUpdater do
 
     it "updates source urls" do
       stub_json test: "http://example.com/test/meta.xml"
-      source = create(:source, parser: parser,
+      source = create(:source, parser:,
         name: "test",
         meta_url: "http://example.com/test.xml")
 
@@ -282,7 +282,7 @@ describe OpenMensa::ParserUpdater do
 
     it "adds source urls if not existing" do
       stub_json test: "http://example.com/test/meta.xml"
-      source = create(:source, parser: parser,
+      source = create(:source, parser:,
         name: "test",
         meta_url: nil)
 
@@ -299,7 +299,7 @@ describe OpenMensa::ParserUpdater do
 
     it "adds source urls if not existing" do
       stub_json({})
-      source = create(:source, parser: parser,
+      source = create(:source, parser:,
         name: "test",
         meta_url: "http://example.org/test/test2.xml")
 
@@ -318,8 +318,8 @@ describe OpenMensa::ParserUpdater do
     it "reactives a archived source" do
       stub_json test: "http://example.org/test/test2.xml"
       canteen = create(:canteen, state: "archived")
-      source = create(:source, parser: parser,
-        canteen: canteen,
+      source = create(:source, parser:,
+        canteen:,
         name: "test",
         meta_url: "http://example.org/test/test2.xml")
 

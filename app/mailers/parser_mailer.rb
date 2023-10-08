@@ -42,7 +42,7 @@ class ParserMailer < ApplicationMailer
 
   def calculate_mail_subject
     msg = [messages_msg, feedback_msg, data_proposal_msg, feed_msg].compact.join(" & ")
-    t "subject", name: @parser.name, msg: msg
+    t "subject", name: @parser.name, msg:
   end
 
   def t(name, *args, **kwargs)

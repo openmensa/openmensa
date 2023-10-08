@@ -5,7 +5,7 @@ class SourcesController < WebController
   load_and_authorize_resource
 
   def new
-    @source = Source.new(parser: parser)
+    @source = Source.new(parser:)
     @canteen = Canteen.new
   end
 
@@ -19,7 +19,7 @@ class SourcesController < WebController
 
     ActiveRecord::Base.transaction do
       @canteen.save!
-      @source.update!(parser: parser, canteen: @canteen)
+      @source.update!(parser:, canteen: @canteen)
 
       flash[:notice] = t "message.source_created"
       redirect_to parser_path(@source.parser)

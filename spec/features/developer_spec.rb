@@ -7,8 +7,8 @@ describe "Developers" do
   let(:user) { create(:user) }
   let(:developer) { create(:developer) }
   let(:parser) { create(:parser, user: developer) }
-  let!(:source) { create(:source, parser: parser, canteen: canteen) }
-  let(:feed) { create(:feed, source: source, name: "debug") }
+  let!(:source) { create(:source, parser:, canteen:) }
+  let(:feed) { create(:feed, source:, name: "debug") }
   let(:canteen) { create(:canteen) }
 
   context "as user" do
@@ -115,7 +115,7 @@ describe "Developers" do
       end
 
       context "with previous fetches and errors" do
-        let!(:fetch) { create(:feed_fetch, feed: feed, state: "broken") }
+        let!(:fetch) { create(:feed_fetch, feed:, state: "broken") }
         let!(:error) { create(:feedValidationError, messageable: fetch) }
 
         it "is able to view fetch messages / errors" do

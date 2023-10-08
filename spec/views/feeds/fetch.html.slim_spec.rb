@@ -7,9 +7,9 @@ describe "feeds/fetch" do
   let(:owner) { create(:user) }
   let(:other) { create(:user) }
   let(:parser) { create(:parser, user: owner) }
-  let!(:source) { create(:source, parser: parser, canteen: canteen) }
+  let!(:source) { create(:source, parser:, canteen:) }
   let(:canteen) { create(:canteen) }
-  let(:feed) { create(:feed, source: source) }
+  let(:feed) { create(:feed, source:) }
   let(:success_result) do
     {
       "status" => "ok",

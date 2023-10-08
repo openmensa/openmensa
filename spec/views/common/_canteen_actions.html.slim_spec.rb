@@ -6,12 +6,12 @@ require_dependency "message"
 describe "common/_canteen_actions.html.slim" do
   subject(:rendered) do
     allow(controller).to receive(:current_user).and_return(owner)
-    render partial: "canteen_actions", locals: {canteen: canteen}
+    render partial: "canteen_actions", locals: {canteen:}
   end
 
   let(:owner) { create(:developer) }
   let(:parser) { create(:parser, user: owner) }
-  let!(:source) { create(:source, parser: parser, canteen: canteen) }
+  let!(:source) { create(:source, parser:, canteen:) }
   let(:canteen) { create(:canteen) }
 
   it "contains a link to edit the canteen" do
@@ -35,8 +35,8 @@ describe "common/_canteen_actions.html.slim" do
   end
 
   context "with feed for canteen" do
-    let(:source) { create(:source, canteen: canteen, parser: parser) }
-    let!(:feed) { create(:feed, name: "debug", source: source) }
+    let(:source) { create(:source, canteen:, parser:) }
+    let!(:feed) { create(:feed, name: "debug", source:) }
 
     it "contains a link to fetch the feed manual" do
       expect(rendered).to include("Feed debug abrufen")

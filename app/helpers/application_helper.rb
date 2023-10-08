@@ -10,9 +10,7 @@ module ApplicationHelper
     # Locale strings might include HTML tags on all keys. Variables are escaped
     # by Rails anyway.
     #
-    # rubocop:disable Rails/OutputSafety
     I18n.t(id, **options.merge(raise: true, default: nil)).html_safe
-    # rubocop:enable Rails/OutputSafety
   rescue StandardError
     Rails.logger.warn $ERROR_INFO
     options[:default].to_s

@@ -3,7 +3,6 @@
 class DevelopersController < WebController
   skip_authorization_check only: %i[activate]
 
-  # rubocop:disable Rails/OutputSafety
   def show
     authorize! :edit, @user
     return unless @user.developer?

@@ -7,7 +7,7 @@ describe OpenMensa::Updater do
   let(:feed) { create(:feed) }
   let(:canteen) { feed.source.canteen }
   let(:updater) { OpenMensa::Updater.new(feed, "manual", version: 2.1) }
-  let(:today) { create(:today, canteen: canteen) }
+  let(:today) { create(:today, canteen:) }
   let(:document) { XML::Document.new }
   let(:root_element) do
     n = XML::Node.new("openmensa", document)
@@ -464,7 +464,7 @@ describe OpenMensa::Updater do
         expect(today.meals.reload.size).to eq(1)
         expect(today.meals.first).to eq(meal2)
 
-        expect(ids.map {|id| Meal.find_by id: id }).to match_array([meal2, nil])
+        expect(ids.map {|id| Meal.find_by id: }).to contain_exactly(meal2, nil)
 
         expect(updater.fetch.removed_meals).to eq(1)
         expect(updater).to be_changed
@@ -495,9 +495,9 @@ describe OpenMensa::Updater do
         allow(updater).to receive(:data).and_return mock_content("feed_v2.xml")
         updater.parse!
 
-        day1 = create(:day, date: Date.new(2012, 0o5, 22), canteen: canteen)
+        day1 = create(:day, date: Date.new(2012, 0o5, 22), canteen:)
         meal1 = create(:meal, day: day1, name: "Tagessuppe")
-        day2 = create(:day, date: Date.new(2012, 0o5, 29), canteen: canteen)
+        day2 = create(:day, date: Date.new(2012, 0o5, 29), canteen:)
         meal2 = create(:meal, day: day2)
         meal3 = create(:meal, day: day2)
         meal4 = create(:meal, day: today)
@@ -537,7 +537,7 @@ describe OpenMensa::Updater do
       end
 
       it "does not update days in the past" do
-        d = create(:day, date: (Date.today - 2.days), canteen: canteen)
+        d = create(:day, date: (Date.today - 2.days), canteen:)
         # build xml data
         root_element << day = xml_node("day")
         day["date"] = d.date.to_s
@@ -554,7 +554,7 @@ describe OpenMensa::Updater do
       end
 
       it "updates today" do
-        d = create(:day, date: Date.today, canteen: canteen)
+        d = create(:day, date: Date.today, canteen:)
         # build xml data
         root_element << day = xml_node("day")
         day["date"] = d.date.to_s

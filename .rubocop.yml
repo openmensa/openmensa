@@ -8,8 +8,8 @@ AllCops:
     - "bin/**"
     - "db/schema.rb"
     - "vendor/**/*"
-  TargetRubyVersion: 3.0
-  TargetRailsVersion: 7.0
+  TargetRubyVersion: 3.2
+  TargetRailsVersion: 7.1
   NewCops: enable
 
 # -----------------------------------------------------------------------------

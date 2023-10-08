@@ -9,7 +9,7 @@ describe "Canteen" do
   describe "index map" do
     before { canteens }
 
-    it "have markers with links to all canteens", js: true do
+    it "have markers with links to all canteens", :js do
       skip "TODO"
     end
   end
@@ -34,7 +34,7 @@ describe "Canteen" do
     context "parser info" do
       let(:owner) { create(:developer) }
       let(:parser) { create(:parser, user: owner) }
-      let!(:source) { create(:source, parser: parser, canteen: canteen) }
+      let!(:source) { create(:source, parser:, canteen:) }
 
       it "pers default not contain any parser info" do
         visit canteen_path(canteen)
@@ -50,7 +50,7 @@ describe "Canteen" do
 
       it "contains a user info page if wanted" do
         info_url = "https://github.com/hansotto"
-        owner.update public_name: "Hans Otto", info_url: info_url
+        owner.update(public_name: "Hans Otto", info_url:)
         visit canteen_path(canteen)
 
         expect(page).to have_link_to(info_url)
@@ -58,7 +58,7 @@ describe "Canteen" do
 
       it "contains the user public email if wanted" do
         public_email = "test@example.com"
-        owner.update public_email: public_email
+        owner.update(public_email:)
         visit canteen_path(canteen)
 
         expect(page).to have_content(public_email)
@@ -67,7 +67,7 @@ describe "Canteen" do
 
       it "contains link to parser page if provided" do
         info_url = "https://github.com/hansotto/om-parser"
-        parser.update info_url: info_url
+        parser.update(info_url:)
         visit canteen_path(canteen)
 
         expect(page).to have_link_to(info_url)
