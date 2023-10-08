@@ -4,13 +4,12 @@ source "https://rubygems.org"
 
 ruby "~> 3.2.0"
 
-gem "rails", "~> 7.0.0"
+gem "rails", "~> 7.1.0"
 gem "rails-i18n", "~> 7.0"
 gem "sprockets", "~> 4.0"
 gem "sprockets-rails", "~> 3.4"
 
 gem "puma", "~> 6.0"
-gem "sd_notify", "~> 0.1.1"
 
 gem "bcrypt"
 gem "good_job", "~> 3.0"
@@ -78,7 +77,6 @@ group :development, :test do
 end
 
 group :test do
-  gem "accept_values_for", ">= 0.7.4"
   gem "capybara", "~> 3.35"
   gem "capybara-email", "~> 3.0"
   gem "cuprite", "~> 0.13"

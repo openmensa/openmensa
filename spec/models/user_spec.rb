@@ -5,12 +5,70 @@ require "spec_helper"
 describe User do
   subject(:user) { create(:user) }
 
-  it { is_expected.to accept_values_for(:login, "first.last", "abc", "heinz_klein") }
-  it { is_expected.not_to accept_values_for(:login, "", nil) }
-  it { is_expected.to accept_values_for(:email, nil, "", "abc@example.org", "admin@altimos.de") }
-  it { is_expected.not_to accept_values_for(:email, "abc", "@domain", "user@", "root@local") }
-  it { is_expected.to accept_values_for(:name, "John Smith", "Yung Heng", "K. Müller") }
-  it { is_expected.not_to accept_values_for(:name, nil, "") }
+  describe "#login" do
+    it "is not valid without a login" do
+      user = build(:user, login: nil)
+      expect(user).not_to be_valid
+    end
+
+    it "is not valid with an empty login" do
+      user = build(:user, login: "")
+      expect(user).not_to be_valid
+    end
+
+    it "accepts valid login names" do
+      ["first.last", "abc", "heinz_klein"].each do |valid|
+        user = build(:user, login: valid)
+        expect(user).to be_valid
+      end
+    end
+
+    it "canno be a reserved name" do
+      %w[anonymous system].each do |reserved|
+        user = build(:user, login: reserved)
+        expect(user).not_to be_valid
+      end
+    end
+  end
+
+  describe "#email" do
+    it "can be nil" do
+      user = build(:user, email: nil)
+      expect(user).to be_valid
+    end
+
+    it "can be empty" do
+      user = build(:user, email: "")
+      expect(user).to be_valid
+    end
+
+    it "accepts valid email addresses" do
+      ["abc@example.org", "admin@altimos.de"].each do |valid|
+        user = build(:user, email: valid)
+        expect(user).to be_valid
+      end
+    end
+  end
+
+  describe "#name" do
+    it "is not valid without a name" do
+      user = build(:user, name: nil)
+      expect(user).not_to be_valid
+    end
+
+    it "is not valid with an empty name" do
+      user = build(:user, name: "")
+      expect(user).not_to be_valid
+    end
+
+    it "accepts valid name strings" do
+      ["John Smith", "Yung Heng", "K. Müller"].each do |valid|
+        user = build(:user, name: valid)
+        expect(user).to be_valid
+      end
+    end
+  end
+
   it { is_expected.to be_logged }
   it { is_expected.not_to be_admin }
   it { is_expected.not_to be_internal }
@@ -39,9 +97,6 @@ describe User do
     expect(user).to be_valid
     user.save
   end
-
-  # reserved logins
-  it { is_expected.not_to accept_values_for(:login, "anonymous", "system") }
 
   it "has a unique login" do
     another_user = build(:user, login: user.login)

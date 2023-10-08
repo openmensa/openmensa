@@ -5,9 +5,36 @@ require "spec_helper"
 describe Meal do
   let(:meal) { create(:meal) }
 
-  it { is_expected.not_to accept_values_for(:name, "", nil) }
-  it { is_expected.not_to accept_values_for(:category, "", nil) }
-  it { is_expected.not_to accept_values_for(:day, nil) }
+  describe "#name" do
+    it "is not valid without a name" do
+      meal = build(:meal, name: nil)
+      expect(meal).not_to be_valid
+    end
+
+    it "is not valid with an empty name" do
+      meal = build(:meal, name: "")
+      expect(meal).not_to be_valid
+    end
+  end
+
+  describe "#category" do
+    it "is not valid without a category" do
+      meal = build(:meal, category: nil)
+      expect(meal).not_to be_valid
+    end
+
+    it "is not valid with an empty category" do
+      meal = build(:meal, category: "")
+      expect(meal).not_to be_valid
+    end
+  end
+
+  describe "#day" do
+    it "is not valid without a day" do
+      meal = build(:meal, day: nil)
+      expect(meal).not_to be_valid
+    end
+  end
 
   describe "#prices" do
     it "only contains set values" do
