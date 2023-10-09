@@ -3,7 +3,7 @@
 class Message < ApplicationRecord
   belongs_to :messageable, polymorphic: true
 
-  serialize :data, Hash
+  serialize :data, type: Hash, coder: YAML
 
   validates :priority, inclusion: {
     in: %w[error warning info debug],
