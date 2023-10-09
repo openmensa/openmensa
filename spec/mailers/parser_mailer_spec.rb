@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "message"
 
 describe ParserMailer do
   describe "daily_report" do

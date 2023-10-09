@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FeedsController < WebController
-  before_action :new_resource, only: %i[new create]
+  before_action :new_resource, only: %i[create]
   before_action :load_resource, only: %i[update destroy fetch messages]
   load_and_authorize_resource
 

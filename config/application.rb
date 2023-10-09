@@ -29,13 +29,15 @@ module Openmensa
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
-    # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths << Rails.root.join("lib")
-    config.eager_load_paths << Rails.root.join("lib")
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -48,8 +50,12 @@ module Openmensa
     # Loaded OmniAuth services will be stored here
     config.omniauth_services = []
 
-    # Configure parameter filtering for logging
-    config.filter_parameters += %i[password passw secret token _key crypt salt certificate otp ssn]
+    # Configure parameters to be partially matched (e.g. passw matches
+    # password) and filtered from the log file. Use this to limit
+    # dissemination of sensitive information. See the
+    # ActiveSupport::ParameterFilter documentation for supported
+    # notations and behaviors.
+    config.filter_parameters += %i[passw secret token _key crypt salt certificate otp ssn]
 
     # Session store
     config.session_store :cookie_store, key: "_openmensa_session", secure: Rails.env.production?
