@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+
 include Nokogiri
 
 describe OpenMensa::SourceUpdater do
@@ -91,7 +92,7 @@ describe OpenMensa::SourceUpdater do
 
       source.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:no_xml)
+        expect(message.kind).to eq("no_xml")
         expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
@@ -108,7 +109,7 @@ describe OpenMensa::SourceUpdater do
       expect(source.messages.size).to eq 1
       source.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:unknown_version)
+        expect(message.kind).to eq("unknown_version")
         expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
@@ -139,7 +140,7 @@ describe OpenMensa::SourceUpdater do
       expect(source.messages.size).to eq 1
       source.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:unknown_version)
+        expect(message.kind).to eq("unknown_version")
         expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
@@ -154,7 +155,7 @@ describe OpenMensa::SourceUpdater do
       expect(source.messages.size).to eq 1
       source.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:unknown_version)
+        expect(message.kind).to eq("unknown_version")
         expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
@@ -217,7 +218,7 @@ describe OpenMensa::SourceUpdater do
 
       updater.errors.first.tap do |message|
         expect(message).to be_a(FeedChanged)
-        expect(message.kind).to eq(:created)
+        expect(message.kind).to eq("created")
         expect(message.name).to eq "today"
         expect(message.messageable).to be_a(Feed)
       end
@@ -248,7 +249,7 @@ describe OpenMensa::SourceUpdater do
 
       updater.errors.first.tap do |message|
         expect(message).to be_a(FeedChanged)
-        expect(message.kind).to eq(:updated)
+        expect(message.kind).to eq("updated")
         expect(message.name).to eq "today"
         expect(message.messageable).to eq source.feeds[0]
       end
@@ -271,7 +272,7 @@ describe OpenMensa::SourceUpdater do
 
       updater.errors.first.tap do |message|
         expect(message).to be_a(FeedChanged)
-        expect(message.kind).to eq(:deleted)
+        expect(message.kind).to eq("deleted")
         expect(message.name).to eq "full"
         expect(message.messageable).to eq source
       end

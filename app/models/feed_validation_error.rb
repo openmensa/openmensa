@@ -6,35 +6,35 @@ class FeedValidationError < Message
   }
 
   def version
-    data[:version]
+    payload[:version]
   end
 
   def version=(value)
-    data[:version] = value
+    payload[:version] = value
   end
 
   def kind
-    data[:kind]
+    payload[:kind]
   end
 
   def kind=(value)
-    data[:kind] = value
+    payload[:kind] = value
   end
 
   def message
-    data[:message]
+    payload[:message]
   end
 
   def message=(value)
-    data[:message] = value
+    payload[:message] = value
   end
 
   def to_html
-    I18n.t("messages.html.feed_validation_error.#{kind}", **data)
+    I18n.t("messages.html.feed_validation_error.#{kind}", **payload)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.feed_validation_error.#{kind}", **data)
+    I18n.t("messages.text_mail.feed_validation_error.#{kind}", **payload)
   end
 
   def to_json(*_args)

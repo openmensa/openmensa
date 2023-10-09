@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_27_061228) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_09_162309) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -175,11 +175,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_061228) do
     t.integer "canteen_id"
     t.string "type", null: false
     t.string "priority", null: false
-    t.text "data"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "messageable_type"
     t.integer "messageable_id"
+    t.string "data"
+    t.jsonb "payload", default: {}, null: false
     t.index ["canteen_id"], name: "index_messages_on_canteen_id"
     t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable_type_and_messageable_id"
     t.index ["type"], name: "index_messages_on_type"

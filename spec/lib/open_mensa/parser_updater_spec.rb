@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+
 include Nokogiri
 
 describe OpenMensa::ParserUpdater do
@@ -116,7 +117,7 @@ describe OpenMensa::ParserUpdater do
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:no_json)
+        expect(message.kind).to eq("no_json")
         expect(updater.errors).to eq([message])
       end
     end
@@ -131,7 +132,7 @@ describe OpenMensa::ParserUpdater do
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:invalid_json)
+        expect(message.kind).to eq("invalid_json")
         expect(message.version).to be_nil
         expect(message.message).to eq("JSON must contain an object with name, url pairs")
         expect(updater.errors).to eq([message])
@@ -146,7 +147,7 @@ describe OpenMensa::ParserUpdater do
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:invalid_json)
+        expect(message.kind).to eq("invalid_json")
         expect(message.version).to be_nil
         expect(message.message).to eq("URL must be a string or null")
         expect(updater.errors).to eq([message])
@@ -161,7 +162,7 @@ describe OpenMensa::ParserUpdater do
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:invalid_json)
+        expect(message.kind).to eq("invalid_json")
         expect(message.version).to be_nil
         expect(message.message).to eq("URL must be a string or null")
         expect(updater.errors).to eq([message])
@@ -182,7 +183,7 @@ describe OpenMensa::ParserUpdater do
 
         parser.messages.first.tap do |message|
           expect(message).to be_a(SourceListChanged)
-          expect(message.kind).to eq(:new_source)
+          expect(message.kind).to eq("new_source")
           expect(message.name).to eq "test"
           expect(message.url).to eq "http://example.org/test.xml"
         end
@@ -198,7 +199,7 @@ describe OpenMensa::ParserUpdater do
 
         parser.messages.first.tap do |message|
           expect(message).to be_a(SourceListChanged)
-          expect(message.kind).to eq(:new_source)
+          expect(message.kind).to eq("new_source")
           expect(message.name).to eq "test"
           expect(message.url).to eq "http://example.org/test.xml"
         end
@@ -243,7 +244,7 @@ describe OpenMensa::ParserUpdater do
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)
-        expect(message.kind).to eq(:new_source)
+        expect(message.kind).to eq("new_source")
         expect(message.name).to eq "test"
         expect(message.url).to eq "http://example.org/test.xml"
       end
@@ -257,7 +258,7 @@ describe OpenMensa::ParserUpdater do
 
       parser.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)
-        expect(message.kind).to eq(:new_source)
+        expect(message.kind).to eq("new_source")
         expect(message.name).to eq "test"
         expect(message.url).to be_nil
       end
@@ -309,7 +310,7 @@ describe OpenMensa::ParserUpdater do
 
       source.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)
-        expect(message.kind).to eq(:source_archived)
+        expect(message.kind).to eq("source_archived")
         expect(message.name).to eq "test"
         expect(message.url).to be_nil
       end
@@ -329,7 +330,7 @@ describe OpenMensa::ParserUpdater do
 
       source.messages.first.tap do |message|
         expect(message).to be_a(SourceListChanged)
-        expect(message.kind).to eq(:source_reactivated)
+        expect(message.kind).to eq("source_reactivated")
         expect(message.name).to eq "test"
         expect(message.url).to eq "http://example.org/test/test2.xml"
       end

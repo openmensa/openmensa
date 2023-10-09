@@ -207,12 +207,13 @@ class ParserMailer < ApplicationMailer
     end
 
     def seen_states
-      @histogram.select {|k, _v| %w[invalid failed broken].include? k }.keys
+      keys = %w[invalid failed broken]
+      @histogram.select {|k, _v| keys.include? k }.keys
     end
 
     def messages
       messages = @fetches.map(&:messages).flatten
-      messages.sort_by(&:created_at).group_by {|m| [m.type, m.data] }.each do |_, msgs|
+      messages.sort_by(&:created_at).group_by {|m| [m.type, m.payload] }.each do |_, msgs|
         yield [msgs.first, msgs.size, msgs.first.created_at, msgs.last.created_at]
       end
     end

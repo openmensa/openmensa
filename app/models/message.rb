@@ -3,7 +3,7 @@
 class Message < ApplicationRecord
   belongs_to :messageable, polymorphic: true
 
-  serialize :data, type: Hash, coder: YAML
+  serialize :payload, coder: SymbolizedHash
 
   validates :priority, inclusion: {
     in: %w[error warning info debug],
@@ -29,11 +29,11 @@ class Message < ApplicationRecord
   end
 
   def to_html
-    I18n.t("messages.html.#{self.class.name.underscore}", **data)
+    I18n.t("messages.html.#{self.class.name.underscore}", **payload)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.#{self.class.name.underscore}", **data)
+    I18n.t("messages.text_mail.#{self.class.name.underscore}", **payload)
   end
 
   def to_json(*_args)
@@ -45,7 +45,6 @@ class Message < ApplicationRecord
   protected
 
   def set_default_values
-    self.data ||= {}
     self.priority ||= default_priority
   end
 

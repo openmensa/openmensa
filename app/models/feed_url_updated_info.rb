@@ -6,18 +6,18 @@ class FeedUrlUpdatedInfo < Message
   end
 
   def old_url
-    data[:old_url]
+    payload[:old_url]
   end
 
   def old_url=(url)
-    data[:old_url] = url
+    payload[:old_url] = url
   end
 
   def new_url
-    data[:new_url]
+    payload[:new_url]
   end
 
   def new_url=(url)
-    data[:new_url] = url
+    payload[:new_url] = url
   end
 end

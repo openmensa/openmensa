@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+
 include Nokogiri
 
 describe OpenMensa::Updater do
@@ -103,7 +104,7 @@ describe OpenMensa::Updater do
 
       updater.fetch.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:no_xml)
+        expect(message.kind).to eq("no_xml")
         expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end
@@ -117,7 +118,7 @@ describe OpenMensa::Updater do
 
       updater.fetch.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:invalid_xml)
+        expect(message.kind).to eq("invalid_xml")
         expect(message.version).to eq("1.0")
         expect(updater.errors).to eq([message])
       end
@@ -131,7 +132,7 @@ describe OpenMensa::Updater do
 
       updater.fetch.messages.first.tap do |message|
         expect(message).to be_a(FeedValidationError)
-        expect(message.kind).to eq(:unknown_version)
+        expect(message.kind).to eq("unknown_version")
         expect(message.version).to be_nil
         expect(updater.errors).to eq([message])
       end

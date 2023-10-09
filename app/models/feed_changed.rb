@@ -6,27 +6,27 @@ class FeedChanged < Message
   }
 
   def kind
-    data[:kind]
+    payload[:kind]
   end
 
   def kind=(value)
-    data[:kind] = value
+    payload[:kind] = value
   end
 
   def name
-    data[:name]
+    payload[:name]
   end
 
   def name=(name)
-    data[:name] = name
+    payload[:name] = name
   end
 
   def to_html
-    I18n.t("messages.html.feed_updated.#{kind}", **data)
+    I18n.t("messages.html.feed_updated.#{kind}", **payload)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.feed_updated.#{kind}", **data)
+    I18n.t("messages.text_mail.feed_updated.#{kind}", **payload)
   end
 
   def to_json(*_args)

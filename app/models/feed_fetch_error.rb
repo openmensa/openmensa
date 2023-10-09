@@ -2,19 +2,19 @@
 
 class FeedFetchError < Message
   def code
-    data[:code]
+    payload[:code]
   end
 
   def code=(value)
-    data[:code] = value
+    payload[:code] = value
   end
 
   def message
-    data[:message]
+    payload[:message]
   end
 
   def message=(value)
-    data[:message] = value
+    payload[:message] = value
   end
 
   def to_json(*_args)
