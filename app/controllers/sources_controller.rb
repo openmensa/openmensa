@@ -2,11 +2,12 @@
 
 class SourcesController < WebController
   before_action :load_resource, only: %i[update edit sync]
-  load_and_authorize_resource
+  load_and_authorize_resource :parser
+  load_and_authorize_resource :source, through: :parser
 
   def new
-    @source = Source.new(parser:)
     @canteen = Canteen.new
+    @source.canteen = @canteen
   end
 
   def edit
@@ -14,18 +15,11 @@ class SourcesController < WebController
   end
 
   def create
-    @source = Source.new(source_params)
-    @canteen = Canteen.new(source_canteen_params)
-
-    ActiveRecord::Base.transaction do
-      @canteen.save!
-      @source.update!(parser:, canteen: @canteen)
-
-      flash[:notice] = t "message.source_created"
-      redirect_to parser_path(@source.parser)
+    if params.dig(:source, :canteen_id).present?
+      create_with_existing_canteen
+    else
+      create_with_new_canteen
     end
-  rescue ActiveRecord::RecordInvalid
-    render :new
   end
 
   def update
@@ -45,19 +39,53 @@ class SourcesController < WebController
 
   private
 
-  def parser
-    @parser ||= Parser.find(params.require(:parser_id))
+  def create_with_existing_canteen
+    @source.validate
+
+    canteen = Canteen.orphaned.find_by(id: params.dig(:source, :canteen_id))
+    unless canteen
+      @source.errors.add :canteen, :invalid
+      render :new
+      return
+    end
+
+    ActiveRecord::Base.transaction do
+      @source.update!(canteen_id: canteen.id)
+
+      flash[:notice] = t "message.source_created"
+      redirect_to parser_path(@source.parser)
+    end
+  rescue ActiveRecord::RecordInvalid
+    render :new
+  end
+
+  def create_with_new_canteen
+    @canteen = Canteen.new(canteen_params)
+    @source.canteen = @canteen
+
+    ActiveRecord::Base.transaction do
+      @canteen.validate
+      @source.validate
+
+      @canteen.save!
+      @source.save!
+
+      flash[:notice] = t "message.source_created"
+      redirect_to parser_path(@source.parser)
+    end
+  rescue ActiveRecord::RecordInvalid
+    render :new
   end
 
   def load_resource
-    @source = Source.find params[:id]
+    @source = Source.find(params[:id])
   end
 
   def source_params
-    params.require(:source).permit(:name, :meta_url, :parser_id)
+    params.require(:source).permit(:name, :meta_url, :parser_id, :canteen_id)
   end
 
-  def source_canteen_params
+  def canteen_params
     params.require(:canteen).permit(:address, :name, :latitude, :longitude, :city, :phone, :email)
   end
 end

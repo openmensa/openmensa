@@ -3,7 +3,7 @@
 require "open-uri"
 require_dependency "message"
 
-class OpenMensa::Updater < OpenMensa::BaseUpdater
+class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/ClassLength
   include Nokogiri
   attr_reader :feed, :fetch
 
@@ -15,6 +15,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater
   }.freeze
 
   def initialize(feed, reason, options = {})
+    super
+
     options = {version: nil, today: false}.update options
     @feed = feed
     @fetch = FeedFetch.create! feed:, executed_at: Time.zone.now,

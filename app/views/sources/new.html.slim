@@ -1,17 +1,29 @@
 .row
   .span8
-    = form_for [@source.parser, @source] do |form|
+    = simple_form_for @source, url: parser_sources_path(@parser, @source) do |form|
       section
         header
           h2 = t :new_source
         .content
-          = render partial: "form", object: form
+          = form.input :name
+          = form.input :meta_url
       section
         header
           h2 = t :canteen_details
         .content
-          = fields_for(:canteen, @canteen) do |f|
-            = render partial: "canteens/form", object: f
+          fieldset
+            legend = t :new_source_new_canteen
+            = simple_fields_for(:canteen, @canteen) do |f|
+              = f.input :name
+              = f.input :city
+              = f.input :address
+              = f.input :phone
+              = f.input :email
+              / = render partial: "canteens/form", object: f
+          - if Canteen.orphaned.any?
+            fieldset
+              legend = t :new_source_existing_canteen
+              = form.association :canteen, collection: Canteen.orphaned, label_method: :to_label, include_blank: "---"
           p
             = submit_tag t(:add)
   = render partial: "users/nav"

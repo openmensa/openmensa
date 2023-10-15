@@ -7,7 +7,7 @@ ruby "~> 3.2.0"
 gem "rails", "~> 7.1.0"
 gem "rails-i18n", "~> 7.0"
 gem "sprockets", "~> 4.0"
-gem "sprockets-rails", "~> 3.4"
+gem "sprockets-rails", "~> 3.4", require: "sprockets/railtie"
 
 gem "puma", "~> 6.0"
 
@@ -33,6 +33,7 @@ gem "geocoder", "~> 1.6"
 gem "gravtastic"
 gem "leaflet-rails", "~> 1.7"
 gem "rails-timeago"
+gem "simple_form"
 
 gem "api-responder"
 gem "decorate-responder", "~> 2.1"

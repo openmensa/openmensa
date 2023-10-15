@@ -29,6 +29,8 @@ de:
   edit_feed: "Feed %{name}"
   add_source: "Neue Quelle/Mensa hinzufügen"
   new_source: Neue Quelle hinzufügen
+  new_source_new_canteen: Neue Mensa
+  new_source_existing_canteen: Bestehende Mensa auswählen
   canteen_details: Angaben zur Mensa
   correct_canteen_data: Mensadaten korrigieren
 
@@ -413,3 +415,17 @@ de:
       messages_subject: "Unregelmäßigkeiten mit %{subjects}"
     verify_email:
       subject: "OpenMensa: Bestätige deine Entwickler-Mail-Adresse"
+
+  simple_form:
+    "yes": 'Ja'
+    "no": 'Nein'
+    required:
+      text: 'Notwendigs Feld'
+      mark: '*'
+    placeholders:
+      canteen:
+        url: https://mydomain.de/mensa-greuther-fuerth.xml
+        name: Mensa Greuther Fürth
+        address: Straße + Hausnummer, Postleitzahl + Stadt, Germany
+        email: test@example.org
+        phone: "+49 331 4040 389/390"

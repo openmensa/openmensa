@@ -12,6 +12,7 @@ class Canteen < ApplicationRecord
   belongs_to :replaced_by, class_name: "Canteen", foreign_key: :replaced_by, optional: true
 
   scope :active, -> { where(state: %w[active empty]) }
+  scope :orphaned, -> { includes(:sources).where(state: %w[new active], sources: {id: nil}) }
 
   validates :city, :name, presence: true
 
@@ -45,5 +46,16 @@ class Canteen < ApplicationRecord
 
   def replaced?
     !self[:replaced_by].nil?
+  end
+
+  def to_label
+    status = nil
+    if state == "new"
+      status = "[new]"
+    elsif state == "active" && sources.empty?
+      status = "[orphaned]"
+    end
+
+    "(#{id}) #{name} #{status}"
   end
 end
