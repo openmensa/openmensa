@@ -15,7 +15,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
   }.freeze
 
   def initialize(feed, reason, options = {})
-    super
+    super()
 
     options = {version: nil, today: false}.update options
     @feed = feed
