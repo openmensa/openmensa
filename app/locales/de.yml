@@ -263,7 +263,7 @@ de:
       profile_name: ProfileName
     submit:
       source:
-        create: Speichern
+        create: Hinzufügen
 
   date:
     formats:

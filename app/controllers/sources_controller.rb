@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class SourcesController < WebController
-  before_action :load_resource, only: %i[update edit sync]
   load_and_authorize_resource :parser
-  load_and_authorize_resource :source, through: :parser
+  load_and_authorize_resource :source, through: :parser, shallow: true
 
   def new
     @canteen = Canteen.new
@@ -75,10 +74,6 @@ class SourcesController < WebController
     end
   rescue ActiveRecord::RecordInvalid
     render :new
-  end
-
-  def load_resource
-    @source = Source.find(params[:id])
   end
 
   def source_params
