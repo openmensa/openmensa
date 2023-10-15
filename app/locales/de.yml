@@ -417,11 +417,11 @@ de:
       subject: "OpenMensa: Bestätige deine Entwickler-Mail-Adresse"
 
   simple_form:
-    "yes": 'Ja'
-    "no": 'Nein'
+    "yes": "Ja"
+    "no": "Nein"
     required:
-      text: 'Notwendigs Feld'
-      mark: '*'
+      text: "Notwendigs Feld"
+      mark: "*"
     placeholders:
       canteen:
         url: https://mydomain.de/mensa-greuther-fuerth.xml
