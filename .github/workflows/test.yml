@@ -38,10 +38,10 @@ jobs:
         run: |
           bundle exec rake db:create:all db:setup
           sudo bash -c "echo 127.0.1.2 openmensa.org >> /etc/hosts"
-      - run: bundle exec rspec spec --color --tag ~type:feature --format doc
+      - run: bundle exec rspec --tty --color --format doc --tag ~type:feature ./spec
         env:
           COVERAGE_NAME: rspec:unit
-      - run: bundle exec rspec spec --color --tag type:feature --format doc
+      - run: bundle exec rspec --tty --color --format doc --tag type:feature ./spec
         env:
           COVERAGE_NAME: rspec:feature
       - uses: codecov/codecov-action@v3
