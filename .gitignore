@@ -10,7 +10,7 @@
 
 # Ignore all logfiles and tempfiles.
 /coverage
-/log/*.log
+/log/*.log*
 /tmp
 
 # Ignore local development files
