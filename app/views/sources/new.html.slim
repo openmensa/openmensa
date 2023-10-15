@@ -25,5 +25,5 @@
               legend = t :new_source_existing_canteen
               = form.association :canteen, collection: Canteen.orphaned.order(:id), label_method: :to_label, include_blank: "---"
           p
-            = submit_tag t(:add)
+            = form.button :submit, class: "btn-primary"
   = render partial: "users/nav"

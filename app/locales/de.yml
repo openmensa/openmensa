@@ -261,6 +261,9 @@ de:
   helpers:
     label:
       profile_name: ProfileName
+    submit:
+      source:
+        create: Speichern
 
   date:
     formats:
@@ -422,6 +425,19 @@ de:
     required:
       text: "Notwendigs Feld"
       mark: "*"
+    labels:
+      canteen:
+        address: Adresse
+        city: Stadt / Region
+        email: E-Mail
+        latitude: Latitude
+        longitude: Longitude
+        name: Name
+        phone: Telefonnummer
+      source:
+        meta_url: Meta-URL
+        name: Name
+        canteen: Mensa
     placeholders:
       canteen:
         url: https://mydomain.de/mensa-greuther-fuerth.xml
