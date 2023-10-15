@@ -17,7 +17,7 @@ describe "Developers" do
     end
 
     context "without existing parser" do
-      let(:parser) {}
+      let(:parser) { nil }
 
       it "is able to add a new parser" do
         click_on "Neuen Parser anlegen"

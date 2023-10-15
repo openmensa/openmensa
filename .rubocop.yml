@@ -201,3 +201,9 @@ Style/SignalException:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+# -----------------------------------------------------------------------------
+#                                 Capybara
+
+Capybara/ClickLinkOrButtonStyle:
+  EnforcedStyle: link_or_button
