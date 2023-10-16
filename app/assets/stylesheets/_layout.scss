@@ -41,18 +41,13 @@ header ul.actions {
 
   li {
     float: left;
-
-    [class^="icon-"]:before,
-    [class*=" icon-"]:before {
-      width: auto;
-      padding: 0 0.2em;
-    }
   }
 
   a {
     display: block;
     position: relative;
     padding: 0;
+    margin-left: 0.4em;
 
     color: #bbb;
     font-size: 1.3em;

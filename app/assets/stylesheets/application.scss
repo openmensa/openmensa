@@ -1,11 +1,11 @@
 // Main stylesheet file for default desktop (screen) devices.
 //
-//= require font-awesome
 //= require leaflet
 //= require leaflet.markercluster
 //= require leaflet.control.locate
 //= require_self
 
+$fa-font-path: "assets";
 @import "font-awesome";
 @import "bourbon";
 
@@ -26,12 +26,6 @@
 
 .hide {
   display: none;
-}
-.icon-google_oauth2 {
-  @extend .icon-google-plus;
-}
-.icon-google_oauth2-sign {
-  @extend .icon-google-plus-sign;
 }
 
 @import "modules/canteens";

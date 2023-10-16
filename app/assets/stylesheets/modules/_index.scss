@@ -107,8 +107,8 @@
       transition: background-color 0.2s ease-in-out;
     }
 
-    &:before {
-      margin-right: 9px;
+    & > .icon:first-child {
+      margin-inline-end: 0.6em;
     }
   }
 }

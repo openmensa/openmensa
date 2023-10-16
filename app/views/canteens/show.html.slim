@@ -16,15 +16,17 @@
       .content
         address = @canteen.address
         - if @canteen.phone.present?
-          p.icon-phone#phone
-            =@canteen.phone
+          p#phone
+            i.fa-fw.fa-solid.fa-phone
+            = @canteen.phone
         - if @canteen.email.present?
-          p.icon-envelope#email
-            =link_to @canteen.email, "mailto:#{@canteen.email}"
+          p#email
+            i.fa-fw.fa-regular.fa-envelope
+            = link_to @canteen.email, "mailto:#{@canteen.email}"
         p.action
           = link_to t(:canteen, :correct_data), new_canteen_data_proposal_path(@canteen), class: "btn btn-primary"
     - @canteen.sources.map(&:parser).each do |parser|
       - if parser.info_box?
-        = render "parser_info", parser: parser
+        = render "parser_info", parser:
     = render partial: "feedback", locals: {canteen: @canteen}
     = render partial: "canteen_status", locals: {canteen: @canteen}

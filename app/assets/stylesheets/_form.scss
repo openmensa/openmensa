@@ -29,8 +29,7 @@ form {
       display: block;
       font-weight: bold;
 
-      &[class^="icon-"]:before,
-      &[class*=" icon-"]:before {
+      & > .icon {
         margin-right: 0.4em;
       }
     }

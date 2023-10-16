@@ -36,25 +36,22 @@
             th = t(:sources_status, :city)
             th = t(:sources_status, :feed_count)
             th.number
-              i.icon-envelope title=t(:sources_status, :messages)
+              i.fa-fw.fa-regular.fa-envelope title=t(:sources_status, :messages)
             th.number
-              i.icon-comments title=t(:sources_status, :feedbacks)
+              i.fa-fw.fa-regular.fa-comments title=t(:sources_status, :feedbacks)
             th.number
-              i.icon-exchange title=t(:sources_status, :data_proposals)
+              i.fa-fw.fa-solid.fa-right-left title=t(:sources_status, :data_proposals)
           - @sources.each do |s|
             tr
               td
-                =s.name
-                '
                 = link_to edit_source_path(s), title: t(:edit_named_source, name: s.name) do
-                  i.icon-edit
-              td
-                = s.canteen.name
+                  = s.name
               td
                 = link_to edit_canteen_path(s.canteen), title: t(:edit_named_canteen, name: s.canteen.name) do
-                  i.icon-edit
+                  = s.canteen.name
+              td
                 = link_to canteen_path(s.canteen), title: t(:open_named_canteen, name: s.canteen.name) do
-                  i.icon-coffee
+                  i.icon.fa-fw.fa-solid.fa-arrow-up-right-from-square
               td = s.canteen.city
               td.number = s.feeds.count
               td.number = link_to s.messages.count, source_messages_path(s), title: t(:source, :open_messages, name: s.name)
@@ -72,15 +69,15 @@
           th colspan=5 = t(:feeds_status, :states)
         tr
           th.number
-            i.icon-refresh title=t(:feed_fetch, :states, :changed)
+            i.fa-fw.fa-solid.fa-refresh title=t(:feed_fetch, :states, :changed)
           th.number
-            i.icon-copy title=t(:feed_fetch, :states, :unchanged)
+            i.fa-fw.fa-regular.fa-copy title=t(:feed_fetch, :states, :unchanged)
           th.number
-            i.icon-circle-blank title=t(:feed_fetch, :states, :empty)
+            i.fa-fw.fa-regular.fa-circle title=t(:feed_fetch, :states, :empty)
           th.number
-            i.icon-warning-sign title=t(:feed_fetch, :states, :failed)
+            i.fa-fw.fa-solid.fa-triangle-exclamation title=t(:feed_fetch, :states, :failed)
           th.number
-            i.icon-bolt title=t(:feed_fetch, :states, :broken)
+            i.fa-fw.fa-solid.fa-bolt title=t(:feed_fetch, :states, :broken)
         - @sources.each do |s|
           - s.feeds.each_with_index do |f, i|
             - f.feed_timespans.each do |span, fetches|

@@ -14,7 +14,8 @@
                 = form.text_field :longitude, readonly: true
             .span6
               p
-                label.icon-comment-alt
+                label
+                  i.icon.fa-regular.fa-comment
                   = t :canteen, :map_marker
                 = t :notice, :map_marker
           .map#map data-sync="true" data-lat="#canteen_latitude" data-lng="#canteen_longitude" data-map="interactive"

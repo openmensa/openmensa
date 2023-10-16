@@ -15,20 +15,20 @@
             th colspan="3" = t :feed_fetch, :meals
           tr
             th.number
-              i.icon-plus
+              i.icon.fa-fw.fa-solid.fa-plus
             th.number
-              i.icon-refresh
+              i.icon.fa-fw.fa-solid.fa-refresh
             th.number
-              i.icon-plus
+              i.icon.fa-fw.fa-solid.fa-plus
             th.number
-              i.icon-refresh
+              i.icon.fa-fw.fa-solid.fa-refresh
             th.number
-              i.icon-minus
-          - reason_map = {"manual" => "icon-user", "schedule" => "icon-calendar", "retry" => "icon-retweet"}
+              i.icon.fa-fw.fa-solid.fa-minus
+          - reason_map = {"manual" => "fa-solid fa-user", "schedule" => "fa-regular fa-calendar-days", "retry" => "fa-solid fa-retweet"}
           - @fetches.each do |fetch|
             tr
               td rowspan=(fetch.messages.size + 1)
-                i class=(reason_map[fetch.reason]) title=t(:feed_fetch, :reasons, fetch.reason)
+                i.icon class=reason_map.fetch(fetch.reason) title=t(:feed_fetch, :reasons, fetch.reason)
               td
                 = l fetch.executed_at, format: :short
               td = t :feed_fetch, :states, fetch.state

@@ -1,6 +1,6 @@
 section.status
   header: h3
-    i class=canteen_state_icon(canteen.fetch_state)
+    i.icon class=canteen_state_icon(canteen.fetch_state)
     = t :canteen, canteen.fetch_state
   .content
     p = t "canteen.#{canteen.fetch_state}_message"

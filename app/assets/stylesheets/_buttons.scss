@@ -137,8 +137,8 @@ $btn-success: #238625 !default;
   // -webkit-user-select: text;
   -webkit-background-clip: padding-box;
 
-  &[class^="icon-"]::before,
-  &[class*=" icon-"]::before {
+  &[class^="fa-"]::before,
+  &[class*=" fa-"]::before {
     padding-right: 6px;
   }
 

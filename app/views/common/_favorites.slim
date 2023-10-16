@@ -5,7 +5,7 @@ section.favorites class = "#{user.favorites.empty? ? "empty" : ""}"
       ul.actions
         li
           = link_to menu_path, title: t(:menu, :open) do
-            i.icon-food
+            i.icon.fa-solid.fa-utensils
   - if user.favorites.empty?
     .content
       p = t("favorites.howto_add")
@@ -13,4 +13,6 @@ section.favorites class = "#{user.favorites.empty? ? "empty" : ""}"
   - else
     ul.favs
       - user.favorites.each do |f|
-        li = link_to f.canteen.name, [f.canteen], class: "icon-star"
+        li = link_to [f.canteen] do
+          i.icon.fa-fw.fa-solid.fa-star
+          = f.canteen.name

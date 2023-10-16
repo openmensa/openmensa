@@ -8,5 +8,7 @@
       - else
         ul.favs
           - @favorites.each do |f|
-            li = link_to f.canteen.name, [f.canteen], class: "icon-star"
+            li = link_to f.canteen do
+              i.icon.fa-fw.fa-solid.fa-star
+              = f.canteen.name
   = render partial: "users/nav"

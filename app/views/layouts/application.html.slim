@@ -34,13 +34,13 @@ html
         ul.actions
           - if current_user.logged?
             li = link_to logout_path, title: t(:logout) do
-              i.icon-signout
+              i.fa-solid.fa-right-from-bracket
               = t :logout
             li = link_to user_path(current_user.id), title: t(:my_profile), class: :account do
               = avatar
           - else
             li = link_to login_path, title: t(:login) do
-              i.icon-signin
+              i.fa-solid.fa-right-to-bracket
               = t :login
       = render partial: "common/flash", object: flash
       = yield

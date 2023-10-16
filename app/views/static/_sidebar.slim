@@ -2,16 +2,19 @@ section
   header
     h2 Kommentare?
   .content
-    p = raw "Du hast Kritik oder Anregungen für uns? Dann schreib uns einfach ein Nachricht an #{link_to 'info@openmensa.org', 'mailto:info@openmensa.org'}."
+    p
+      ' Du hast Kritik oder Anregungen für uns? Dann schreib uns einfach ein Nachricht an
+      = link_to "info@openmensa.org", "mailto:info@openmensa.org"
+      | .
 section
   header
     h2 Verfolge OpenMensa
   .content
     p
       ' Beobachte, wie sich OpenMensa entwickelt und folge
-      a href="https://twitter.com/openmensa" class="icon-twitter" @openmensa
+      a href="https://twitter.com/openmensa" @openmensa
       '  auf Twitter.
     p
       ' Dich interessiert, was hinter den Kulissen passiert? Was aktuelle Probleme oder zukünftige Pläne sind? Dann schau in unserem
-      a href="https://blog.altimos.de/category/openmensa" class="icon-rss"  Blog
+      a href="https://blog.altimos.de/category/openmensa" Blog
       '  vorbei.
