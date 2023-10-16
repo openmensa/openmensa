@@ -4,9 +4,9 @@
 //= require rails-timeago
 //= require locales/jquery.timeago.de.js
 //= require leaflet
-//= require leaflet.markercluster
 //= require leaflet.control.locate
 //= require leaflet.hash
+//= require leaflet.markercluster
 //= require jquery.autocomplete
 
 jQuery.timeago.settings.lang = "de";
@@ -26,7 +26,7 @@ jQuery(function () {
 
     let cluster = new L.MarkerClusterGroup({
       showCoverageOnHover: false,
-      maxClusterRadius: 40,
+      maxClusterRadius: 45,
     });
 
     const markers = $(this).data("markers");

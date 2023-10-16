@@ -1,27 +1,47 @@
 @import "responsive";
 @import "variables";
 
-.leaflet-popup-content-wrapper {
-  border-radius: 2px;
-}
+.leaflet-container {
+  .leaflet-control a:hover {
+    text-decoration: none;
+  }
 
-.marker-cluster-small,
-.marker-cluster-medium,
-.marker-cluster-large {
-  background-color: #4598d0;
-  background-color: rgba(#4598d0, 0.9);
-  background-image: linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
-  border: 1px solid #597393;
-  border: 1px solid rgba(#597393, 0.9);
-  text-align: center;
+  .leaflet-popup-content-wrapper {
+    border-radius: 2px;
+    font-size: 1rem;
+  }
 
-  div {
-    margin: 5px;
-    font-weight: bold;
-    background-color: #fff;
+  .marker-cluster {
+    background-clip: padding-box;
+    border-radius: 50%;
 
-    width: 28px;
-    height: 28px;
+    background-color: #4598d0;
+    background-color: rgba(#4598d0, 0.9);
+    background-image: linear-gradient(rgba(#4598d0, 0.9), rgba(#1374cf, 0.9));
+    border: 1px solid #597393;
+    border: 1px solid rgba(#597393, 0.9);
+
+    div {
+      width: 28px;
+      height: 28px;
+      margin: 5px;
+
+      border-radius: 50%;
+
+      text-align: center;
+      vertical-align: middle;
+
+      font-weight: bold;
+      background-color: #fff;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > span {
+        font-size: 1.2rem;
+      }
+    }
   }
 }
 
