@@ -15,7 +15,7 @@ class AddNotesToMeal < ActiveRecord::Migration[4.2]
 
     say_with_time "extracting notes from description field" do
       count = 0
-      Meal.all.each do |meal|
+      Meal.find_each do |meal|
         meal.notes = (meal.description || "").split('\n').map do |text|
           Note.find_or_create_by_name name: text
         end

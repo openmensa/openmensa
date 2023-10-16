@@ -288,7 +288,7 @@ describe OpenMensa::Updater do
       it "adds information about today" do
         # build xml data
         root_element << day = xml_node("day")
-        day["date"] = Date.today.to_s
+        day["date"] = Time.zone.today.to_s
         day << xml_node("closed")
 
         # starting check
@@ -311,7 +311,7 @@ describe OpenMensa::Updater do
         root_element << day = xml_node("day")
         day["date"] = today.date.to_s
         day << xml_node("closed")
-        meal = create(:meal, day: today)
+        create(:meal, day: today)
 
         # starting check
         expect(today.meals.size).to eq(1)
@@ -446,7 +446,7 @@ describe OpenMensa::Updater do
 
       it "drops disappeared meals" do
         # close our test day
-        meal1 = create(:meal, day: today)
+        create(:meal, day: today)
         meal2 = create(:meal, day: today)
 
         # build xml data
@@ -497,11 +497,11 @@ describe OpenMensa::Updater do
         updater.parse!
 
         day1 = create(:day, date: Date.new(2012, 0o5, 22), canteen:)
-        meal1 = create(:meal, day: day1, name: "Tagessuppe")
+        create(:meal, day: day1, name: "Tagessuppe")
         day2 = create(:day, date: Date.new(2012, 0o5, 29), canteen:)
-        meal2 = create(:meal, day: day2)
-        meal3 = create(:meal, day: day2)
-        meal4 = create(:meal, day: today)
+        create(:meal, day: day2)
+        create(:meal, day: day2)
+        create(:meal, day: today)
 
         canteen.update_attribute :last_fetched_at, 1.day.ago
         expect(canteen.days.size).to eq(3)
@@ -538,7 +538,7 @@ describe OpenMensa::Updater do
       end
 
       it "does not update days in the past" do
-        d = create(:day, date: (Date.today - 2.days), canteen:)
+        d = create(:day, date: (Time.zone.today - 2.days), canteen:)
         # build xml data
         root_element << day = xml_node("day")
         day["date"] = d.date.to_s
@@ -555,7 +555,7 @@ describe OpenMensa::Updater do
       end
 
       it "updates today" do
-        d = create(:day, date: Date.today, canteen:)
+        d = create(:day, date: Time.zone.today, canteen:)
         # build xml data
         root_element << day = xml_node("day")
         day["date"] = d.date.to_s

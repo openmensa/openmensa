@@ -73,14 +73,14 @@ describe Api::V2::MealsController do
   describe "GET canteen_meals" do
     let(:canteen) do
       c = create(:canteen, :with_meals)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 2.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 3.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 4.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 5.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 6.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 7.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 8.days)
-      c.days << create(:day, :with_unordered_meals, canteen: c, date: Date.today + 9.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 2.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 3.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 4.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 5.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 6.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 7.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 8.days)
+      c.days << create(:day, :with_unordered_meals, canteen: c, date: Time.zone.today + 9.days)
       c.save!
       c
     end
@@ -89,34 +89,34 @@ describe Api::V2::MealsController do
       get :canteen_meals, format: :json, params: {canteen_id: canteen.id}
       expect(response).to have_http_status(:ok)
       expect(json.size).to eq(7)
-      expect(json[0]["date"]).to eq(Date.today.iso8601)
-      expect(json[1]["date"]).to eq((Date.today + 1.day).iso8601)
-      expect(json[6]["date"]).to eq((Date.today + 6.days).iso8601)
+      expect(json[0]["date"]).to eq(Time.zone.today.iso8601)
+      expect(json[1]["date"]).to eq((Time.zone.today + 1.day).iso8601)
+      expect(json[6]["date"]).to eq((Time.zone.today + 6.days).iso8601)
     end
 
     context "&start" do
       it "answers with up to 7 days from given date and their meals" do
         get :canteen_meals, format: :json,
-          params: {canteen_id: canteen.id, start: (Date.today + 1.day).iso8601}
+          params: {canteen_id: canteen.id, start: (Time.zone.today + 1.day).iso8601}
 
         expect(response).to have_http_status(:ok)
         expect(json.size).to eq(7)
-        expect(json[0]["date"]).to eq((Date.today + 1.day).iso8601)
+        expect(json[0]["date"]).to eq((Time.zone.today + 1.day).iso8601)
       end
 
       it "answers with up to 7 days from given date and their meals (2)" do
         get :canteen_meals, format: :json,
-          params: {canteen_id: canteen.id, start: (Date.today + 5.days).iso8601}
+          params: {canteen_id: canteen.id, start: (Time.zone.today + 5.days).iso8601}
 
         expect(response).to have_http_status(:ok)
         expect(json.size).to eq(5)
-        expect(json[0]["date"]).to eq((Date.today + 5.days).iso8601)
-        expect(json[4]["date"]).to eq((Date.today + 9.days).iso8601)
+        expect(json[0]["date"]).to eq((Time.zone.today + 5.days).iso8601)
+        expect(json[4]["date"]).to eq((Time.zone.today + 9.days).iso8601)
       end
 
       it "answers with a ordered list of meals" do
         get :canteen_meals, format: :json,
-          params: {canteen_id: canteen.id, start: (Date.today + 2.days).iso8601}
+          params: {canteen_id: canteen.id, start: (Time.zone.today + 2.days).iso8601}
 
         expect(response).to have_http_status(:ok)
         json.each do |day|

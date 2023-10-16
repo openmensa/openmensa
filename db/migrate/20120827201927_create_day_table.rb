@@ -21,7 +21,7 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
       Day.reset_column_information
       Meal.reset_column_information
       count = 0
-      Meal.all.each do |m|
+      Meal.find_each do |m|
         canteen = Canteen.find_by id: m.canteen_id
         # way is this needed:
         unless canteen
@@ -54,7 +54,7 @@ class CreateDayTable < ActiveRecord::Migration[4.2]
     # 2. migrate data
     say_with_time "updating meals" do
       Meal.reset_column_information
-      Meal.all.each do |m|
+      Meal.find_each do |m|
         day = Day.find_by(id: m.day_id)
         # way is this needed:
         unless day

@@ -45,7 +45,7 @@ module OpenMensa
     #
     def parse
       parse!
-    rescue ParserError => e
+    rescue ParserError
       false
     end
   end

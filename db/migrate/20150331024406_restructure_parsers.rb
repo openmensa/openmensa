@@ -107,7 +107,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
         say_with_time "migration data" do
           Canteen.transaction do
             Canteen.reset_column_information
-            Canteen.all.each do |c|
+            Canteen.find_each do |c|
               next if c.url.blank?
 
               parser_name = c.url[0..c.url.rindex("/") - 1]
@@ -154,7 +154,7 @@ class RestructureParsers < ActiveRecord::Migration[4.2]
           end
           Canteen.reset_column_information
           Canteen.transaction do
-            Canteen.all.each do |c|
+            Canteen.find_each do |c|
               s = c.sources.first
               next if s.nil?
 

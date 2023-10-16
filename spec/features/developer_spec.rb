@@ -61,9 +61,6 @@ describe "Developers" do
     it "is able to edit own canteens" do
       click_on parser.name
       click_on "Editiere #{canteen.name}"
-
-      new_url = "http://example.org/canteens.xml"
-      new_url_2 = "http://example.org/canteens-today.xml"
       new_name = "Test-Mensa"
       new_address = "Essensweg 34, 12345 Hunger, Deutschland"
       new_city = "Halle"

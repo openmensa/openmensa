@@ -3,7 +3,7 @@
 class OpenMensa::DailyReportTask
   def do
     Rails.logger.info "[#{Time.zone.now}] Sending daily reports to users ..."
-    Parser.all.each do |parser|
+    Parser.find_each do |parser|
       unless ParserMailer.daily_report(parser, parser.last_report_at).deliver_now.nil?
         parser.update last_report_at: Time.zone.now
       end

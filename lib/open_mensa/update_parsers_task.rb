@@ -4,7 +4,7 @@ class OpenMensa::UpdateParsersTask
   def do
     Rails.logger.info "[#{Time.zone.now}] Fetch parser index data..."
 
-    Parser.all.pluck(:id).each do |parser_id|
+    Parser.pluck(:id).each do |parser_id|
       parser = Parser.find parser_id
       next if parser.index_url.blank?
 

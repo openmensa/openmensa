@@ -6,7 +6,7 @@ class AddCityToCanteen < ActiveRecord::Migration[4.2]
 
     say_with_time "Updating cities..." do
       rgx = /\d{5}\s+(?<city>\w+)/
-      Canteen.where(city: nil).each do |canteen|
+      Canteen.where(city: nil).find_each do |canteen|
         if (result = rgx.match(canteen.address))
           canteen.update city: result[:city]
         end

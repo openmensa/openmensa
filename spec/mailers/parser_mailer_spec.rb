@@ -187,7 +187,7 @@ describe ParserMailer do
 
           it "with fetches before data_since should not send a mail" do
             fetch = create(:feed_fetch, state: "failed", feed:, executed_at: data_since - 1.day)
-            message = create(:feedInvalidUrlError, messageable: fetch)
+            create(:feedInvalidUrlError, messageable: fetch)
             expect(mail).to be_null_mail
           end
 
@@ -196,7 +196,7 @@ describe ParserMailer do
 
             it "sends a mail" do
               fetch = create(:feed_fetch, state: "failed", feed:, executed_at: 9.days.ago)
-              message = create(:feedInvalidUrlError, messageable: fetch)
+              create(:feedInvalidUrlError, messageable: fetch)
               expect(mail).not_to be_null_mail
             end
           end
@@ -295,7 +295,7 @@ describe ParserMailer do
           it "sends a mail on failed fetches" do
             fetch = create(:feed_fetch, state: "failed", feed:)
             message = create(:feedInvalidUrlError, messageable: fetch, created_at: 2.days.ago)
-            fetch2 = create(:feed_fetch, state: "invalid", feed:)
+            create(:feed_fetch, state: "invalid", feed:)
             message2 = create(:feedValidationError, messageable: fetch, kind: :invalid_xml, created_at: 1.day.ago)
 
             expect(mail.to).to eq [user.notify_email]

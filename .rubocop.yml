@@ -1,4 +1,6 @@
 require:
+  - rubocop-capybara
+  - rubocop-factory_bot
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
@@ -26,6 +28,15 @@ Rails/SkipsModelValidations:
   Exclude:
     - db/migrate/**/*
     - spec/**/*_spec.rb
+
+# `JSON.parse(responsy.body)` has a much different meaning to
+# `response.parsed_body`: Content must be JSON, while `#parsed_body`
+# might parse different formats, yet it does not support JSON-like
+# formats e.g. `application/vnd+json`. All together, the cop is quite
+# useless.
+#
+Rails/ResponseParsedBody:
+  Enabled: False
 
 # -----------------------------------------------------------------------------
 #                                   RSPEC

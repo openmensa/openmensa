@@ -15,7 +15,7 @@ describe CanteensController do
     it "canteens meals for today" do
       get :show, params: {id: canteen.id}
 
-      expect(assigns(:date)).to eq Date.today
+      expect(assigns(:date)).to eq Time.zone.today
       expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now)
     end
 
@@ -34,7 +34,7 @@ describe CanteensController do
 
         expect(assigns(:canteen)).to eq canteen
 
-        expect(assigns(:date)).to eq Date.today
+        expect(assigns(:date)).to eq Time.zone.today
         expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now)
       end
     end

@@ -19,7 +19,7 @@ class OpenMensa::UpdateFeedsTask
       .where.not(next_fetch_at: nil)
       .update_all(next_fetch_at: nil) # rubocop:disable Rails/SkipsModelValidations
 
-    Feed.active.where(next_fetch_at: nil).each do |feed|
+    Feed.active.where(next_fetch_at: nil).find_each do |feed|
       feed.next_fetch_at = process_schedule(feed, :last)
       feed.save!
       changes += 1
