@@ -39,7 +39,7 @@ jQuery(function () {
         marker = L.marker([m.lat, m.lng], { title: m.title });
         if (m.url != null) {
           marker.bindPopup(
-            `<a class=\"popup-link\" href=\"${m.url}\">${m.title}</a><br />`
+            `<a class=\"popup-link\" href=\"${m.url}\">${m.title}</a><br />`,
           );
         }
 
