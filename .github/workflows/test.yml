@@ -59,13 +59,15 @@ jobs:
 
   prettier:
     runs-on: ubuntu-22.04
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: yarn
+        env:
+          # Workaround for https://github.com/actions/setup-node/issues/899
+          SKIP_YARN_COREPACK_CHECK: true
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn run lint:fmt
