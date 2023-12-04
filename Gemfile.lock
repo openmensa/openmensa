@@ -150,7 +150,7 @@ GEM
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
     ffi (1.16.3)
-    font-awesome-sass (6.4.2)
+    font-awesome-sass (6.5.1)
       sassc (~> 2.0)
     fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
@@ -494,7 +494,7 @@ DEPENDENCIES
   decorate-responder (~> 2.1)
   draper (~> 4.0)
   factory_bot_rails (~> 6.1)
-  font-awesome-sass (~> 6.4.2)
+  font-awesome-sass (~> 6.5.0)
   geocoder (~> 1.6)
   good_job (~> 3.0)
   gravtastic

@@ -49,7 +49,7 @@ gem "sentry-ruby"
 group :assets do
   gem "autoprefixer-rails", "~> 10.2"
   gem "bourbon", "~> 7.0"
-  gem "font-awesome-sass", "~> 6.4.2"
+  gem "font-awesome-sass", "~> 6.5.0"
   gem "jquery-rails"
   gem "mini_racer", "~> 0.8.0"
   gem "sassc-embedded"
