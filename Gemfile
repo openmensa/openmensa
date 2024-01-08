@@ -9,7 +9,7 @@ gem "rails-i18n", "~> 7.0"
 gem "sprockets", "~> 4.0"
 gem "sprockets-rails", "~> 3.4", require: "sprockets/railtie"
 
-gem "puma", "~> 6.0"
+gem "puma", "~> 6.4"
 
 gem "bcrypt"
 gem "good_job", "~> 3.0"
