@@ -114,7 +114,7 @@ RSpec.configure do |config|
       process_timeout: 120,
       timeout: 120,
       window_size: [1280, 800],
-      url_whitelist: ["http://127.0.0.1"]
+      url_whitelist: %r{^https?://(127.0.0.1|localhost)}
     )
   end
 
