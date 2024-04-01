@@ -51,7 +51,7 @@ group :assets do
   gem "bourbon", "~> 7.0"
   gem "font-awesome-sass", "~> 6.5.0"
   gem "jquery-rails"
-  gem "mini_racer", "~> 0.8.0"
+  gem "mini_racer", "~> 0.9.0"
   gem "sassc-embedded"
   gem "terser", "~> 1.1"
 end

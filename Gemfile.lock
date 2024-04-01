@@ -189,8 +189,8 @@ GEM
     leaflet-rails (1.9.4)
       actionpack (>= 4.2.0)
       railties (>= 4.2.0)
-    libv8-node (18.16.0.0)
-    libv8-node (18.16.0.0-x86_64-linux)
+    libv8-node (18.19.0.0)
+    libv8-node (18.19.0.0-x86_64-linux)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -207,8 +207,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    mini_racer (0.8.0)
-      libv8-node (~> 18.16.0.0)
+    mini_racer (0.9.0)
+      libv8-node (~> 18.19.0.0)
     minitest (5.22.3)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
@@ -503,7 +503,7 @@ DEPENDENCIES
   jquery-rails
   leaflet-rails (~> 1.7)
   listen
-  mini_racer (~> 0.8.0)
+  mini_racer (~> 0.9.0)
   nokogiri
   oj
   omniauth (~> 2.0)
