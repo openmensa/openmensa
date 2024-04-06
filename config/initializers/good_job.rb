@@ -7,7 +7,6 @@ Rails.application.configure do
   config.good_job.retry_on_unhandled_error = false
   config.good_job.on_thread_error = ->(err) { Raven.capture_exception(err) }
 
-  config.good_job.execution_mode = :async
   config.good_job.max_threads = 5
   config.good_job.shutdown_timeout = 25 # seconds
 
