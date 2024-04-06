@@ -5,12 +5,6 @@ development: &dev
   twitter:
     key: m1PplbhUQdVfB1zfkY3kZg
     secret: ysozRyiD6bKjy8GBmMjPqVjyyVG5unX5rVEqE4YxtBU
-  facebook:
-    key: 125394024272497
-    secret: 44f16f3762328df5cc42c1854226036b
-  google_oauth2:
-    key: 1077144505741-918mbo03g7sdqkes2dn65fcrhb672rfe.apps.googleusercontent.com
-    secret: FjS15-RTEs-dz2Cf8iXZDYSs
 
 test: &test
   github:
