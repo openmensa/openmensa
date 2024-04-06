@@ -9,7 +9,7 @@
     "prettier": "^3.0.0"
   },
   "engines": {
-    "node": "^18.0.0",
+    "node": "^20.0.0",
     "yarn": "3.6.4"
   },
   "lint-staged": {
