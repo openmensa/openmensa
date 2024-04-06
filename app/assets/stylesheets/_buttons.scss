@@ -183,8 +183,11 @@ $btn-success: #238625 !default;
   &.btn-github {
     @include btn(#fbfbfb, #333);
   }
-  &.btn-google_oauth2 {
+  &.btn-google {
     @include btn(#dd4b39);
+  }
+  &.btn-microsoft {
+    @include btn(#ffffff, #222);
   }
   &.btn-login {
     margin: 2px 4px;

@@ -38,12 +38,14 @@ de:
     twitter: Twitter
     github: GitHub
     facebook: Facebook
-    google_oauth2: Google
+    google: Google
+    microsoft: Microsoft
   destroy_identity:
     twitter: Twitter Identität entfernen
     github: GitHub Identität entfernen
     facebook: Facebook Identität entfernen
-    google_oauth2: Google Identität entfernen
+    google: Google Identität entfernen
+    microsoft: Microsoft Identität entfernen
 
   today: Heute
   no_meals_title: Kein Angebot
@@ -66,20 +68,23 @@ de:
     login_failed: "Sorry, irgendwas ist schiefgegangen."
     login_successful: "Willkommen zurück."
     identity_taken:
-      github: "Deine GitHub Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
-      twitter: "Deine Twitter Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
-      facebook: "Deine Facebook Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
-      google_oauth2: "Deine Google Identität wurde schon veknüpft. Hast du vielleicht schon einen anderen Account?"
+      github: "Deine GitHub Identität wurde schon verknüpft. Hast du vielleicht schon einen anderen Account?"
+      twitter: "Deine Twitter Identität wurde schon verknüpft. Hast du vielleicht schon einen anderen Account?"
+      facebook: "Deine Facebook Identität wurde schon verknüpft. Hast du vielleicht schon einen anderen Account?"
+      google: "Deine Google Identität wurde schon verknüpft. Hast du vielleicht schon einen anderen Account?"
+      microsoft: "Deine Microsoft Identität wurde schon verknüpft. Hast du vielleicht schon einen anderen Account?"
     identity_added:
       github: "GitHub Identität hinzugefügt."
       twitter: "Twitter Identität hinzugefügt."
       facebook: "Facebook Identität hinzugefügt."
-      google_oauth2: "Google Identität hinzugefügt."
+      google: "Google Identität hinzugefügt."
+      micrsoft: "Microsoft Identität hinzugefügt."
     identity_removed:
       github: "GitHub Identität entfernt."
       twitter: "Twitter Identität entfernt."
       facebook: "Facebook Identität entfernt."
-      google_oauth2: "Google Identität entfernt."
+      google: "Google Identität entfernt."
+      micrsoft: "Microsoft Identität entfernt."
     profile_saved: "Profil gespeichert."
     canteen_added: Die Mensa wurde erfolgreich hinzugefügt.
     canteen_saved: "Mensa gespeichert."

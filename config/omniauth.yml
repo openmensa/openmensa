@@ -5,6 +5,9 @@ development: &dev
   twitter:
     key: m1PplbhUQdVfB1zfkY3kZg
     secret: ysozRyiD6bKjy8GBmMjPqVjyyVG5unX5rVEqE4YxtBU
+  microsoft:
+    key: c5af31dc-b0e5-4c4f-9ce8-4e5e037b0f3a
+    secret: x5P8Q~0Jy5AbMYGODpOnFfoSi7-3YZ9Xfa549adW
 
 test: &test
   github:
