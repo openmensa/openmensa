@@ -7,6 +7,6 @@ class ApplicationJob < ActiveJob::Base
   # Most jobs are safe to ignore if the underlying records are no longer available
   discard_on ActiveJob::DeserializationError
 
-  # See https://github.com/bensheldon/good_job#activejob-concurrency
+  # See https://github.com/bensheldon/good_job/blob/main/README.md#concurrency-controls
   include GoodJob::ActiveJobExtensions::Concurrency
 end
