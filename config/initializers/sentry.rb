@@ -5,7 +5,7 @@ SENTRY_DSN = ENV.fetch("SENTRY_DSN", Rails.application.secrets.sentry_dsn)
 if SENTRY_DSN.present?
   Sentry.init do |config|
     config.dsn = SENTRY_DSN
-    config.breadcrumbs_logger = %i[active_support_logger http_logger]
+    config.breadcrumbs_logger = %i[monotonic_active_support_logger http_logger]
 
     # Do not send full list of gems with each event
     config.send_modules = false
