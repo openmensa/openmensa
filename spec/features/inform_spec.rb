@@ -56,11 +56,5 @@ describe "Inform" do
       expect(page).to have_content "Finde Mitstreiter"
       expect(page).to have_link_to "mailto:info@openmensa.org"
     end
-
-    it "I want to follow openmensa's development" do
-      visit root_path
-
-      expect(page).to have_link_to "https://twitter.com/openmensa"
-    end
   end
 end
