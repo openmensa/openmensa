@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.7
 
 FROM docker.io/ruby:3.3.0-slim-bullseye AS build
 
