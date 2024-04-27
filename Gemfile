@@ -46,6 +46,7 @@ gem "will_paginate"
 
 gem "sentry-rails"
 gem "sentry-ruby"
+gem "stackprof"
 gem "telegraf"
 
 group :assets do
