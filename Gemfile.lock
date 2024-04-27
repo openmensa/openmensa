@@ -464,6 +464,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     stringio (3.1.0)
+    telegraf (3.0.0)
     temple (0.10.3)
     terser (1.2.2)
       execjs (>= 0.3.0, < 3)
@@ -556,6 +557,7 @@ DEPENDENCIES
   spring-commands-rspec
   sprockets (~> 4.0)
   sprockets-rails (~> 3.4)
+  telegraf
   terser (~> 1.1)
   timecop
   webmock
