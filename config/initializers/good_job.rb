@@ -3,6 +3,10 @@
 Rails.application.configure do
   config.active_job.queue_adapter = :good_job
 
+  # Run background jobs external by default to not block development
+  # with potential huge update jobs
+  config.good_job.execution_mode = :external
+
   config.good_job.preserve_job_records = true
   config.good_job.retry_on_unhandled_error = false
   config.good_job.on_thread_error = ->(err) { Raven.capture_exception(err) }

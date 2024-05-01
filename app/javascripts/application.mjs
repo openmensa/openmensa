@@ -9,22 +9,42 @@
 //= require leaflet.markercluster
 //= require jquery.autocomplete
 
-jQuery.timeago.settings.lang = "de";
-jQuery.timeago.settings.allowFuture = true;
+import $ from "jquery";
 
-jQuery(function () {
-  let tileLayer = L.tileLayer("https://openmensa.org/tiles/{z}/{x}/{y}.png", {
+import L from "leaflet";
+import "leaflet-hash";
+import "leaflet.locatecontrol";
+import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
+import "leaflet.markercluster";
+import "leaflet/dist/leaflet.css";
+
+import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+import iconUrl from "leaflet/dist/images/marker-icon.png";
+import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+
+// jQuery.timeago.settings.lang = "de";
+// jQuery.timeago.settings.allowFuture = true;
+
+Object.assign(L.Icon.Default.prototype.options, {
+  iconUrl: iconUrl,
+  iconRetinaUrl: iconRetinaUrl,
+  shadowUrl: shadowUrl,
+  shadowRetineUrl: shadowUrl,
+});
+
+$(() => {
+  const tileLayer = L.tileLayer("https://openmensa.org/tiles/{z}/{x}/{y}.png", {
     attribution:
       'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     maxZoom: 18,
   });
 
   $('[data-map="map"').each(function () {
-    let map = L.map(this, { maxZoom: 18 });
+    const map = L.map(this, { maxZoom: 18 });
     L.control.locate().addTo(map);
     map.addLayer(tileLayer);
 
-    let cluster = new L.MarkerClusterGroup({
+    const cluster = new L.MarkerClusterGroup({
       showCoverageOnHover: false,
       maxClusterRadius: 45,
     });
@@ -32,11 +52,16 @@ jQuery(function () {
     const markers = $(this).data("markers");
     if (Array.isArray(markers)) {
       for (const m of markers) {
-        if (m.lat == null || m.lng == null || isNaN(m.lat) || isNaN(m.lng)) {
+        if (
+          m.lat == null ||
+          m.lng == null ||
+          Number.isNaN(m.lat) ||
+          Number.isNaN(m.lng)
+        ) {
           continue;
         }
 
-        marker = L.marker([m.lat, m.lng], { title: m.title });
+        const marker = L.marker([m.lat, m.lng], { title: m.title });
         if (m.url != null) {
           marker.bindPopup(
             `<a class=\"popup-link\" href=\"${m.url}\">${m.title}</a><br />`,
@@ -59,48 +84,45 @@ jQuery(function () {
 
     if ($(this).data("hash")) {
       return new L.Hash(map);
-    } else {
-      return map;
     }
+    return map;
   });
 
   $('[data-map="interactive"]').each(function () {
-    var lat, lng, map, marker;
-    map = L.map(this, {
+    const map = L.map(this, {
       scrollWheelZoom: true,
     });
     map.addLayer(tileLayer);
-    lat = $($(this).data("lat"));
-    lng = $($(this).data("lng"));
-    marker = L.marker([lat.attr("value") || 0, lng.attr("value") || 0], {
+
+    const lat = $($(this).data("lat"));
+    const lng = $($(this).data("lng"));
+    const marker = L.marker([lat.attr("value") || 0, lng.attr("value") || 0], {
       draggable: true,
     });
-    marker.on("drag dragend", function (marker) {
+
+    marker.on("drag dragend", (marker) => {
       lat.attr("value", marker.target.getLatLng().lat);
       lng.attr("value", marker.target.getLatLng().lng);
     });
+
     map.addLayer(marker);
     map.setView([lat.attr("value"), lng.attr("value")], 17);
   });
 
   $(".alert a[data-dismiss]").each(function () {
     const el = $(this);
-    el.on("click", function () {
-      return el.parent().fadeOut();
-    });
+    el.on("click", () => el.parent().fadeOut());
   });
 
   $(".alert a[data-auto-dismiss]").each(function () {
     const el = $(this);
-    let timeout = parseInt(el.data("auto-dismiss"), 10);
+    let timeout = Number.parseInt(el.data("auto-dismiss"), 10);
 
-    if (!(timeout != null && !isNaN(timeout))) {
+    if (!(timeout != null && !Number.isNaN(timeout))) {
       timeout = 4000;
     }
 
-    setTimeout(function () {
-      return el.parent().fadeOut();
-    }, timeout);
+    setTimeout(() => el.parent().fadeOut(), timeout);
   });
 
   $("[data-autocomplete]").each(function () {

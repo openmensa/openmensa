@@ -6,8 +6,10 @@ ruby "~> 3.3.0"
 
 gem "rails", "~> 7.1.0"
 gem "rails-i18n", "~> 7.0"
-gem "sprockets", "~> 4.0"
-gem "sprockets-rails", "~> 3.4", require: "sprockets/railtie"
+
+gem "jsbundling-rails"
+gem "propshaft"
+gem "rails-assets-manifest"
 
 gem "puma", "~> 6.0"
 
@@ -32,7 +34,6 @@ gem "rack-cors", require: "rack/cors"
 
 gem "geocoder", "~> 1.6"
 gem "gravtastic"
-gem "leaflet-rails", "~> 1.7"
 gem "rails-timeago"
 gem "simple_form"
 
@@ -48,16 +49,6 @@ gem "sentry-rails"
 gem "sentry-ruby"
 gem "stackprof"
 gem "telegraf"
-
-group :assets do
-  gem "autoprefixer-rails", "~> 10.2"
-  gem "bourbon", "~> 7.0"
-  gem "font-awesome-sass", "~> 6.5.0"
-  gem "jquery-rails"
-  gem "mini_racer", "~> 0.9.0"
-  gem "sassc-embedded"
-  gem "terser", "~> 1.1"
-end
 
 group :development do
   gem "brakeman"

@@ -1,0 +1,38 @@
+// Main stylesheet file for default desktop (screen) devices.
+//
+//= require leaflet
+//= require leaflet.control.locate
+//= require leaflet.markercluster
+//= require_self
+
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
+@import "~bourbon";
+
+* {
+  box-sizing: border-box;
+}
+
+@import "./typography";
+@import "./layout";
+@import "./grid";
+@import "./alerts";
+@import "./buttons";
+@import "./form";
+@import "./tables";
+@import "./autocomplete";
+
+@import "./map";
+
+.hide {
+  display: none;
+}
+
+@import "./modules/canteens";
+@import "./modules/index";
+@import "./modules/users";
+@import "./modules/parsers";
