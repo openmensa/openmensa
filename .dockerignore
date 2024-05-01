@@ -7,9 +7,14 @@
 !public/
 public/assets/
 !vendor/
+
+!.yarnrc.yml
 !config.ru
+!entrypoint.sh
 !Gemfile
 !Gemfile.lock
 !LICENSE*
+!package.json
 !Rakefile
-!entrypoint.sh
+!rspack.config.mjs
+!yarn.lock

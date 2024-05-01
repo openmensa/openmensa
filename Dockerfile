@@ -1,9 +1,33 @@
 # syntax = docker/dockerfile:1.7
 
+FROM docker.io/node:22-slim AS assets
+
+ENV NODE_ENV=production
+ENV YARN_CACHE_FOLDER=/cache/yarn
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN mkdir --parents /opt/openmensa
+WORKDIR /opt/openmensa
+
+COPY .yarnrc.yml package.json yarn.lock rspack.config.mjs app/javascripts /opt/openmensa/
+RUN --mount=type=cache,target=/cache/yarn <<EOF
+  corepack enable
+  yarn install --immutable
+EOF
+
+COPY rspack.config.mjs /opt/openmensa/
+COPY app/javascripts/ /opt/openmensa/app/javascripts/
+RUN <<EOF
+  yarn build --mode production
+EOF
+
+
 FROM docker.io/ruby:3.3.1-slim-bullseye AS build
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
+ENV SKIP_JS_BUILD=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -40,6 +64,7 @@ ENV RAILS_ENV=production
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+COPY --from=assets /opt/openmensa /opt/openmensa
 COPY --from=build /opt/openmensa /opt/openmensa
 WORKDIR /opt/openmensa
 
