@@ -2124,6 +2124,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jquery.autocomplete@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "jquery.autocomplete@npm:1.2.0"
+  checksum: 6f527fdb5b97c6e873d18b0e181e588b8c6571378bd4e475c241b4a44e7617f913d2beb63103e7ea3bf10a655211e509bdf99003da107b33347b5e3f43aac7e6
+  languageName: node
+  linkType: hard
+
 "jquery@npm:^3.7.1":
   version: 3.7.1
   resolution: "jquery@npm:3.7.1"
@@ -3058,6 +3065,7 @@ __metadata:
     bourbon: ^7.3.0
     husky: ^8.0.3
     jquery: ^3.7.1
+    jquery.autocomplete: ^1.2.0
     leaflet: ^1.9.4
     leaflet-hash: ^0.2.1
     leaflet.locatecontrol: ^0.81.0

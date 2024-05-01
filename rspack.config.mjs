@@ -1,3 +1,4 @@
+import { rspack } from "@rspack/core";
 import * as path from "node:path";
 import { RspackManifestPlugin } from "rspack-manifest-plugin";
 
@@ -12,7 +13,7 @@ export default {
     path: path.resolve("public/assets/packed"),
     publicPath: "/assets/packed/",
     filename: "[name].[contenthash].js",
-    assetModuleFilename: "[name]-[contenthash][ext]",
+    assetModuleFilename: "static/[name].[contenthash][ext]",
     clean: true,
   },
   module: {
@@ -29,6 +30,11 @@ export default {
     ],
   },
   plugins: [
+    // Inject jQuery into jquery.autocomplete (and application.mjs)
+    new rspack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+    }),
     // A manifest is required for the Rails application to generate
     // correct <script> and <link> tags.
     new RspackManifestPlugin({

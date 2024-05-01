@@ -1,23 +1,30 @@
-.autocomplete-suggestions {
-  background-color: white;
-  border: 1px solid #777;
-  border-radius: 1px;
-  margin-top: -2px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 200px;
+// jquery.autocomplete
 
-  > div {
-    padding: 1px 2px;
+.autocomplete-w1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 6px 0 0 6px;
+}
 
-    &:nth-child(2n) {
-      background-color: #eee;
-    }
-
-    &.autocomplete-selected,
-    &:hover {
-      background-color: #fffec5;
-      cursor: pointer;
-    }
-  }
+.autocomplete {
+  border: 1px solid #999;
+  background: #fff;
+  cursor: default;
+  text-align: left;
+  max-height: 350px;
+  overflow: auto;
+  margin: -6px 6px 6px -6px;
+}
+.autocomplete .selected {
+  background: #f0f0f0;
+}
+.autocomplete div {
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.autocomplete strong {
+  font-weight: normal;
+  color: #3399ff;
 }

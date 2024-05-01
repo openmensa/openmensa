@@ -1,18 +1,9 @@
 //
-//= require jquery
-//= require jquery_ujs
-//= require rails-timeago
-//= require locales/jquery.timeago.de.js
-//= require leaflet
-//= require leaflet.control.locate
-//= require leaflet.hash
-//= require leaflet.markercluster
-//= require jquery.autocomplete
 
 import Rails from "@rails/ujs";
-Rails.start()
+Rails.start();
 
-import $ from "jquery";
+import "jquery.autocomplete";
 
 import L from "leaflet";
 import "leaflet-hash";
