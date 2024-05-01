@@ -1,5 +1,5 @@
-@import "responsive";
-@import "extends";
+@import "../responsive";
+@import "../extends";
 
 #content {
   #feedback_message {
@@ -9,7 +9,7 @@
   #canteen-header {
     padding: 95px 0 35px;
     background-color: #fff;
-    background-image: image-url("canteen.jpg");
+    background-image: url("images/canteen.jpg");
     background-repeat: no-repeat;
     background-position: 50% 50%;
 

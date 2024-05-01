@@ -1,4 +1,4 @@
-@import "variables";
+@import "../variables";
 
 .appbox {
   position: relative;
@@ -58,28 +58,28 @@
   @extend .appbox;
   // background: #CBE86E;
   a {
-    background-image: image-url("android-icon.png");
+    background-image: url("images/android-icon.png");
   }
 }
 
 .ios {
   @extend .appbox;
   a {
-    background-image: image-url("ios.png");
+    background-image: url("images/ios.png");
   }
 }
 
 .wphone {
   @extend .appbox;
   a {
-    background-image: image-url("winphone.png");
+    background-image: url("images/winphone.png");
   }
 }
 
 .ubuntu {
   @extend .appbox;
   a {
-    background-image: image-url("ubuntu.png");
+    background-image: url("images/ubuntu.png");
   }
 }
 

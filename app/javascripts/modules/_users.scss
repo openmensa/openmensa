@@ -1,5 +1,5 @@
-@import "responsive";
-@import "extends";
+@import "../responsive";
+@import "../extends";
 
 .users_controller {
   .identities {
@@ -32,7 +32,7 @@
       color: #444;
       float: left;
       font-size: 45px;
-      margin-top: 6px;
+      margin-top: 13px;
     }
 
     span.provider {

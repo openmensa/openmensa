@@ -14,9 +14,13 @@ services:
 
   openmensa:
     image: ghcr.io/openmensa/openmensa:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     environment:
       DATABASE_URL: postgresql://openmensa:openmensa@postgres/openmensa
+      FORCE_SSL: "no"
     volumes:
       - www:/mnt/www
     depends_on:

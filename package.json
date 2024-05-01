@@ -3,13 +3,30 @@
   "browserslist": [
     "defaults"
   ],
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@rails/ujs": "^7.1.3-2",
+    "bourbon": "^7.3.0",
+    "jquery": "^3.7.1",
+    "jquery.autocomplete": "^1.2.0",
+    "leaflet": "^1.9.4",
+    "leaflet-hash": "^0.2.1",
+    "leaflet.locatecontrol": "^0.81.0",
+    "leaflet.markercluster": "^1.5.3"
+  },
   "devDependencies": {
+    "@rsbuild/core": "^0.6.8",
+    "@rspack/cli": "^0.6.3",
+    "@rspack/core": "^0.6.3",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "rspack-manifest-plugin": "^5.0.0",
+    "sass-embedded": "^1.76.0",
+    "sass-loader": "^14.2.1"
   },
   "engines": {
-    "node": "^20.0.0",
+    "node": ">= 20",
     "yarn": "3.8.1"
   },
   "lint-staged": {
@@ -20,6 +37,8 @@
   "scripts": {
     "fmt": "prettier --write --ignore-unknown .",
     "lint:fmt": "prettier --check --ignore-unknown .",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "dev": "NODE_ENV=development rspack serve",
+    "build": "NODE_ENV=production rspack build"
   }
 }

@@ -21,8 +21,7 @@ require "good_job/engine"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 #
-# Assets should be precompiled for production (so we don't need the gems loaded then)
-Bundler.require(*Rails.groups(assets: %w[development test]))
+Bundler.require(*Rails.groups)
 
 module Openmensa
   class Application < Rails::Application
@@ -62,18 +61,9 @@ module Openmensa
     config.action_dispatch.cookies_serializer = :hybrid
     config.action_dispatch.cookies_same_site_protection = :lax
 
-    # Version of your assets, change this if you want to expire all your assets.
-    config.assets.version = "1.0"
-
-    # Add additional assets to the asset load path.
-    # Rails.application.config.assets.paths << Emoji.images_path
-    # Add Yarn node_modules folder to the asset load path.
-    config.assets.paths << Rails.root.join("node_modules")
-
-    # Precompile additional assets.
-    # application.js, application.css, and all non-JS/CSS in the app/assets
-    # folder are already added.
-    # config.assets.precompile += %w( admin.js admin.css )
+    # Assets
+    config.assets_manifest.path = Rails.public_path.join("assets/packed/.manifest.json")
+    config.assets_manifest.passthrough = true
 
     # Mailer settings
     config.action_mailer.delivery_method = :sendmail
