@@ -4,15 +4,6 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-# Sensitive application files
-/config/env.yml
-/db/*.sqlite3
-
-# Ignore all logfiles and tempfiles.
-/coverage
-/log/*.log*
-/tmp
-
 # Ignore local development files
 .rspec
 .ruby-gemset
@@ -24,11 +15,37 @@
 /Gemfile.local
 /Guardfile.local
 
+# Ignore all environment files (except templates)
+/.env*
+!/.env*.erb
+
+# Ignore master key for decrypting credentials
+/config/master.key
+
+# Ignore pidfiles, but keep the directory
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases)
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
 # Ignore dependency and output folders
 __pycache__/
 __pypackages__/
 /.husky
 /.yarn
+/coverage
 /node_modules
 /public/assets
 /site
