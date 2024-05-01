@@ -9,6 +9,9 @@
 //= require leaflet.markercluster
 //= require jquery.autocomplete
 
+import Rails from "@rails/ujs";
+Rails.start()
+
 import $ from "jquery";
 
 import L from "leaflet";
