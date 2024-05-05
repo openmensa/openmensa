@@ -16,6 +16,11 @@ class CanteensController < WebController
             end
 
     @meals = @canteen.meals.for @date
+    @title = @canteen.name
+
+    response.link canteen_url(@canteen), rel: :canonical
+    response.link canteen_url(@canteen, date: (@date + 1.day)), rel: :next
+    response.link canteen_url(@canteen, date: (@date - 1.day)), rel: :prev
   end
 
   def edit; end

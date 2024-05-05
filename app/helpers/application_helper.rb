@@ -42,7 +42,7 @@ module ApplicationHelper
   # These instance variables are intended here.
   # rubocop:disable Rails/HelperInstanceVariable
   def title
-    "#{@title} - #{OpenMensa::TITLE}" unless @title
+    return "#{@title} - #{OpenMensa::TITLE}" if @title
     OpenMensa::TITLE
   end
 
@@ -85,5 +85,13 @@ module ApplicationHelper
       fetch_up_to_date: :"fa-solid fa-check",
       fetch_needed: :"fa-solid fa-triangle-exclamation"
     }[fetch_state]
+  end
+
+  def render_head_response_links
+    capture do
+      response.links.each do |link|
+        concat content_tag(:link, nil, href: link[:url], **link[:params])
+      end
+    end
   end
 end
