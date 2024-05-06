@@ -127,29 +127,29 @@ __metadata:
   linkType: hard
 
 "@rsbuild/core@npm:^0.6.8":
-  version: 0.6.8
-  resolution: "@rsbuild/core@npm:0.6.8"
+  version: 0.6.9
+  resolution: "@rsbuild/core@npm:0.6.9"
   dependencies:
-    "@rsbuild/shared": 0.6.8
+    "@rsbuild/shared": 0.6.9
     "@rspack/core": 0.6.3
     "@swc/helpers": 0.5.3
     core-js: ~3.36.0
-    html-webpack-plugin: "npm:html-rspack-plugin@5.7.0"
+    html-webpack-plugin: "npm:html-rspack-plugin@5.7.2"
     postcss: ^8.4.38
   bin:
     rsbuild: bin/rsbuild.js
-  checksum: 4c4d883d1c4d2761e9de0ba18be82043e677c5f1eaaf910abc0716c51849b90b93157420f8a7f82ffd24c2554d9dcd484d0ac5e81a1231a53a2a51b74c5814cb
+  checksum: 481d083760dcc979ac51cc38d02578c965d1ed081611a772339fabcd185851bfea0b16a6cc63aaf07743a7b47e09b9382ae8b0da3bfec1f8321a291acb182362
   languageName: node
   linkType: hard
 
-"@rsbuild/shared@npm:0.6.8":
-  version: 0.6.8
-  resolution: "@rsbuild/shared@npm:0.6.8"
+"@rsbuild/shared@npm:0.6.9":
+  version: 0.6.9
+  resolution: "@rsbuild/shared@npm:0.6.9"
   dependencies:
     "@rspack/core": 0.6.3
     caniuse-lite: ^1.0.30001612
     postcss: ^8.4.38
-  checksum: dab9261583e3f7add8832bed17c1f62179087dd6a689d40048ccb720b0317e6467dce91876bc04f96a695e56ae4af6b5b07da7b430b183b88db6d1d39293c019
+  checksum: 10a6ab1bab43a86c3f24ce5b0d563f3a377426fa446ba8c1367a9c0a7b06fbec753cc8aea08a7a62747ea230c918660edb9b7417ab5c5934d0884743c74e1127
   languageName: node
   linkType: hard
 
@@ -1756,15 +1756,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:html-rspack-plugin@5.7.0":
-  version: 5.7.0
-  resolution: "html-rspack-plugin@npm:5.7.0"
+"html-webpack-plugin@npm:html-rspack-plugin@5.7.2":
+  version: 5.7.2
+  resolution: "html-rspack-plugin@npm:5.7.2"
   peerDependencies:
     "@rspack/core": 0.x || 1.x
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
-  checksum: 0e397d2a7856741f45e6bdc93d294f44444a7e97410642a4dd17ce62909a74c1ffa2186537d1eaadc713ef0457f712196144a598dba747ef8ae045099c895e8f
+  checksum: 4b014f4d4ec1b0b04f093718456e2fddb3d9936d84f299fd7d532c3cf3007a5c764399fab58e4deefd7fe16b3823107acf4679b8954232d597db7767d83e8e99
   languageName: node
   linkType: hard
 
