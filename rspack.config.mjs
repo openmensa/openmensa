@@ -2,6 +2,7 @@ import zopfli from "@gfx/zopfli";
 import { rspack } from "@rspack/core";
 import CompressionPlugin from "compression-webpack-plugin";
 import * as path from "node:path";
+import zlib from "node:zlib";
 import { RspackManifestPlugin } from "rspack-manifest-plugin";
 
 export default async (env, argv) => {
@@ -68,6 +69,20 @@ export default async (env, argv) => {
         },
         algorithm(input, compressionOptions, callback) {
           return zopfli.gzip(input, compressionOptions, callback);
+        },
+        threshold: 10240,
+        minRatio: 0.8,
+      }),
+    );
+    config.plugins.push(
+      new CompressionPlugin({
+        filename: "[path][base].br",
+        algorithm: "brotliCompress",
+        test: /\.(js|css|html|svg)$/,
+        compressionOptions: {
+          params: {
+            [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+          },
         },
         threshold: 10240,
         minRatio: 0.8,
