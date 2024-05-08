@@ -25,26 +25,58 @@ Bundler.require(*Rails.groups)
 
 module Openmensa
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
+    # Initialize configuration defaults for originally generated Rails
+    # version.
     config.load_defaults 7.1
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # Please, add to the `ignore` list any other `lib` subdirectories
+    # that do not contain `.rb` files, or that should not be reloaded or
+    # eager loaded. Common ones are `templates`, `generators`, or
+    # `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
-    # Configuration for the application, engines, and railties goes here.
+    # Configuration for the application, engines, and railties goes
+    # here.
     #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
+    # These settings can be overridden in specific environments using
+    # the files in config/environments, which are processed later.
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+    # Set Time.zone default to the specified zone and make Active Record
+    # auto-convert to this zone. Run "rake -D time" for a list of tasks
+    # for finding time zone names. Default is UTC.
     config.time_zone = "Berlin"
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    # The default locale is :en and all translations from
+    # config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join("app/locales/**/*.{rb,yml}").to_s]
     config.i18n.default_locale = :de
+
+    # Run background jobs with good_job unless overridden in an
+    # environment.
+    config.active_job.queue_adapter = :good_job
+
+    config.good_job.on_thread_error = ->(err) { Sentry.capture_exception(err) }
+    config.good_job.shutdown_timeout = 90 # seconds
+
+    config.good_job.enable_cron = true
+    config.good_job.cron = {
+      update_feeds: {
+        cron: "*/5 * * * *",
+        class: "UpdateFeedsJob"
+      },
+      update_parsers: {
+        cron: "0 1 * * *",
+        class: "UpdateParsersJob"
+      },
+      update_sources: {
+        cron: "0 4 * * *",
+        class: "UpdateSourcesJob"
+      },
+      dails_reports: {
+        cron: "0 9 * * *",
+        class: "DailyReportsJob"
+      }
+    }
 
     # Loaded OmniAuth services will be stored here
     config.omniauth_services = []

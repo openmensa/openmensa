@@ -35,6 +35,12 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Run background jobs only in external process even in development
+  # mode because we have some very long cron jobs that can block the
+  # server for hours.
+  config.good_job.execution_mode = :external
+  config.good_job.shutdown_timeout = 10 # seconds
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
