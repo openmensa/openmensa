@@ -43,6 +43,7 @@ module ApplicationHelper
   # rubocop:disable Rails/HelperInstanceVariable
   def title
     return "#{@title} - #{OpenMensa::TITLE}" if @title
+
     OpenMensa::TITLE
   end
 
@@ -69,9 +70,9 @@ module ApplicationHelper
     tag.div(
       nil,
       class: "map",
-      id: (options[:id] || "map"),
+      id: options[:id] || "map",
       data: {
-        map: (options[:id] || "map"),
+        map: options[:id] || "map",
         markers: markers.to_json,
         hash: options[:hash]
       }

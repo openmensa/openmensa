@@ -9,8 +9,9 @@ AllCops:
   Exclude:
     - "bin/**"
     - "db/schema.rb"
+    - "node_modules/**/*"
     - "vendor/**/*"
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.3
   TargetRailsVersion: 7.1
   NewCops: enable
 

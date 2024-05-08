@@ -106,13 +106,13 @@ describe "Favorites:" do
     it "has not favorite link on canteen page" do
       visit canteen_path(canteen)
 
-      expect(page).not_to have_link "Als Favorit markieren"
+      expect(page).to have_no_link "Als Favorit markieren"
     end
 
     it "has a start page without favorite menu" do
       visit root_path
 
-      expect(page).not_to have_content("Meine Favoriten")
+      expect(page).to have_no_content("Meine Favoriten")
     end
   end
 end

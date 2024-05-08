@@ -21,7 +21,7 @@ module OpenMensa
       def initialize(msg, cause = nil)
         @cause = cause
         msg += " Caused by #{cause.class.name}: #{cause.message}" if @cause
-        super msg
+        super(msg)
       end
     end
 

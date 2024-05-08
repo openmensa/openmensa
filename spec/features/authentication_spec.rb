@@ -30,7 +30,7 @@ describe "Authentication" do
       visit root_path
       click_on "Abmelden"
 
-      expect(page).not_to have_content "Abmelden"
+      expect(page).to have_no_content "Abmelden"
     end
   end
 end

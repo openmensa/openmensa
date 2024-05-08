@@ -42,7 +42,7 @@ class Api::BaseController < ApiController
   end
 
   def self.decorator_class
-    @decorator_class ||= \
+    @decorator_class ||=
       ActiveSupport::Inflector.constantize("#{resource_name}Decorator")
   end
 

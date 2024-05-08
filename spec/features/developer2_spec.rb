@@ -55,7 +55,7 @@ describe "Developers" do
           .to_return(body: mock_file("metafeed.xml"), status: 200)
 
         click_on parser.name
-        expect(page).not_to have_link("Aktualisiere Quellen mittels Index-URL")
+        expect(page).to have_no_link("Aktualisiere Quellen mittels Index-URL")
 
         click_on "Ändere die Parser-Einstellungen"
         fill_in "Index-URL", with: index_url
@@ -163,7 +163,7 @@ describe "Developers" do
           end
 
           expect(page).to have_content "Der Feed wurde erfolgreich geschlöscht."
-          expect(page).not_to have_content feed.name
+          expect(page).to have_no_content feed.name
         end
 
         context "without feedbacks" do
@@ -238,9 +238,9 @@ describe "Developers" do
           click_on parser.name
           click_on "Editiere #{source.name}"
 
-          expect(page).not_to have_xpath("//section[header=\"Feed #{feed.name}\"]")
-          expect(page).not_to have_xpath('//section[header="Neuer Feed"]')
-          expect(page).not_to have_link("Feed anlegen")
+          expect(page).to have_no_xpath("//section[header=\"Feed #{feed.name}\"]")
+          expect(page).to have_no_xpath('//section[header="Neuer Feed"]')
+          expect(page).to have_no_link("Feed anlegen")
         end
 
         it "is able to let feeds sync via meta url" do

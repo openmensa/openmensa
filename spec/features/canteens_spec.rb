@@ -38,7 +38,7 @@ describe "Canteen" do
 
       it "pers default not contain any parser info" do
         visit canteen_path(canteen)
-        expect(page).not_to have_content("Über Parser")
+        expect(page).to have_no_content("Über Parser")
       end
 
       it "contains user name if wanted" do

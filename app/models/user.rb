@@ -79,8 +79,8 @@ class User < ApplicationRecord
     def create_omniauth(info, identity)
       info ||= {}
       create(
-        name: (info["name"] || identity.uid),
-        login: (info["login"] || identity.uid),
+        name: info["name"] || identity.uid,
+        login: info["login"] || identity.uid,
         email: info["email"]
       ).tap do |user|
         identity.update! user:

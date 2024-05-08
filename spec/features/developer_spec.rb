@@ -18,7 +18,7 @@ describe "Developers" do
     end
 
     it "I want to inform me about developer features" do
-      expect(page).not_to have_content("Entwickler-Einstellungen")
+      expect(page).to have_no_content("Entwickler-Einstellungen")
       click_on "Mehr zu Entwickler-Funktionen"
       expect(page).to have_content("Was bringt es Entwickler zu sein?")
       expect(page).to have_content("Was muss ich tun?")
@@ -108,7 +108,7 @@ describe "Developers" do
 
         expect(page).to have_content "Die Mensa ist nun außer Betrieb!"
         expect(page).to have_content canteen.name
-        expect(page).not_to have_link "Mensa außer Betrieb nehmen"
+        expect(page).to have_no_link "Mensa außer Betrieb nehmen"
       end
 
       context "with previous fetches and errors" do
@@ -131,7 +131,7 @@ describe "Developers" do
 
           expect(page).to have_content "Die Mensa ist nun im Betrieb!"
           expect(page).to have_content canteen.name
-          expect(page).not_to have_link "Mensa in Betrieb nehmen"
+          expect(page).to have_no_link "Mensa in Betrieb nehmen"
         end
       end
     end
