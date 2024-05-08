@@ -15,9 +15,4 @@ namespace :openmensa do
   task update_parsers: :environment do
     OpenMensa::UpdateParsersTask.new.do
   end
-
-  desc "Send parser reports to developer"
-  task daily_reports: :environment do
-    OpenMensa::DailyReportTask.new.do
-  end
 end

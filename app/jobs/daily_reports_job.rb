@@ -3,12 +3,9 @@
 class DailyReportsJob < ApplicationJob
   queue_as :default
 
-  good_job_control_concurrency_with(
-    total_limit: 1,
-    key: "DailyReportsJob"
-  )
-
   def perform
-    OpenMensa::DailyReportTask.new.do
+    Parser.find_each do |parser|
+      DailyReportJob.perform_later(parser_id: parser.id)
+    end
   end
 end
