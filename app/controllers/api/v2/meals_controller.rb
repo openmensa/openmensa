@@ -6,13 +6,18 @@ class Api::V2::MealsController < Api::BaseController
   def default_scope(scope)
     @canteen = Canteen.find params[:canteen_id]
     @day = @canteen.days.find_by! date: params[:day_id]
-    scope.where(day_id: @day.id).order :pos
+
+    scope
+      .where(day_id: @day.id)
+      .order(:pos)
+      .strict_loading
+      .includes(:notes)
   end
 
   def canteen_meals
     @canteen = Canteen.find params[:canteen_id]
 
-    @days = @canteen.days.includes(meals: :notes)
+    @days = @canteen.days.strict_loading.includes(meals: :notes)
     begin
       date = Date.strptime(params[:start] || "", "%Y-%m-%d")
       @days = @days
