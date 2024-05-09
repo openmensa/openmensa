@@ -180,11 +180,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
   end
 
   def update_canteen(canteen_data)
-    days = canteen.days
-      .strict_loading
-      .includes(meals: :notes)
-      .index_by {|v| v.date.to_s }
-
+    days = canteen.days.index_by {|v| v.date.to_s }
     day_updated = nil
     canteen_data.element_children.each do |day|
       next if day.name != "day"
