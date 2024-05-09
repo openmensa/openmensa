@@ -5,6 +5,12 @@ class ParserMailer < ApplicationMailer
     @parser = parser
     @user = parser.user
     @data_since = data_since
+
+    # Do not include any data from more than 7 days ago, no matter how
+    # long the mailer didn't run. Otherwise it can result in too much
+    # data to be loaded if it didn't run in a long time.
+    @data_since = 14.days.ago if @data_since.nil? || @data_since < 14.days.ago
+
     reason_mail_content!
     return nil unless mail_sending_needed?
 
