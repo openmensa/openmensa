@@ -136,35 +136,46 @@ __metadata:
   linkType: hard
 
 "@rsbuild/core@npm:^0.6.8":
-  version: 0.6.9
-  resolution: "@rsbuild/core@npm:0.6.9"
+  version: 0.6.14
+  resolution: "@rsbuild/core@npm:0.6.14"
   dependencies:
-    "@rsbuild/shared": 0.6.9
-    "@rspack/core": 0.6.3
+    "@rsbuild/shared": 0.6.14
+    "@rspack/core": 0.6.5
     "@swc/helpers": 0.5.3
     core-js: ~3.36.0
     html-webpack-plugin: "npm:html-rspack-plugin@5.7.2"
     postcss: ^8.4.38
   bin:
     rsbuild: bin/rsbuild.js
-  checksum: 481d083760dcc979ac51cc38d02578c965d1ed081611a772339fabcd185851bfea0b16a6cc63aaf07743a7b47e09b9382ae8b0da3bfec1f8321a291acb182362
+  checksum: d3c5402cccfdf680a850f83b46b6b99ace7743df0410853568a3070ae983b25568914bb08ffc1966080ba4e86cb319a25231eef4d48fef012b6ce412f5d808ab
   languageName: node
   linkType: hard
 
-"@rsbuild/shared@npm:0.6.9":
-  version: 0.6.9
-  resolution: "@rsbuild/shared@npm:0.6.9"
+"@rsbuild/shared@npm:0.6.14":
+  version: 0.6.14
+  resolution: "@rsbuild/shared@npm:0.6.14"
   dependencies:
-    "@rspack/core": 0.6.3
-    caniuse-lite: ^1.0.30001612
+    "@rspack/core": 0.6.5
+    caniuse-lite: ^1.0.30001616
+    fsevents: ~2.3.3
     postcss: ^8.4.38
-  checksum: 10a6ab1bab43a86c3f24ce5b0d563f3a377426fa446ba8c1367a9c0a7b06fbec753cc8aea08a7a62747ea230c918660edb9b7417ab5c5934d0884743c74e1127
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  checksum: 9c4ffd53fa35706d7057469a6718396075c7fa3f4e9193fbd9416010726c7b08d85774723186cac978bc9699dff952ea9aca698dabee6ec0fffd4abd4cdd214a
   languageName: node
   linkType: hard
 
 "@rspack/binding-darwin-arm64@npm:0.6.3":
   version: 0.6.3
   resolution: "@rspack/binding-darwin-arm64@npm:0.6.3"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rspack/binding-darwin-arm64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-darwin-arm64@npm:0.6.5"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
@@ -176,9 +187,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rspack/binding-darwin-x64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-darwin-x64@npm:0.6.5"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@rspack/binding-linux-arm64-gnu@npm:0.6.3":
   version: 0.6.3
   resolution: "@rspack/binding-linux-arm64-gnu@npm:0.6.3"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@rspack/binding-linux-arm64-gnu@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-linux-arm64-gnu@npm:0.6.5"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
@@ -190,9 +215,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rspack/binding-linux-arm64-musl@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-linux-arm64-musl@npm:0.6.5"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@rspack/binding-linux-x64-gnu@npm:0.6.3":
   version: 0.6.3
   resolution: "@rspack/binding-linux-x64-gnu@npm:0.6.3"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@rspack/binding-linux-x64-gnu@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-linux-x64-gnu@npm:0.6.5"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -204,9 +243,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rspack/binding-linux-x64-musl@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-linux-x64-musl@npm:0.6.5"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@rspack/binding-win32-arm64-msvc@npm:0.6.3":
   version: 0.6.3
   resolution: "@rspack/binding-win32-arm64-msvc@npm:0.6.3"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rspack/binding-win32-arm64-msvc@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-win32-arm64-msvc@npm:0.6.5"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
@@ -218,9 +271,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rspack/binding-win32-ia32-msvc@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-win32-ia32-msvc@npm:0.6.5"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
 "@rspack/binding-win32-x64-msvc@npm:0.6.3":
   version: 0.6.3
   resolution: "@rspack/binding-win32-x64-msvc@npm:0.6.3"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rspack/binding-win32-x64-msvc@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding-win32-x64-msvc@npm:0.6.5"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -261,6 +328,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rspack/binding@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/binding@npm:0.6.5"
+  dependencies:
+    "@rspack/binding-darwin-arm64": 0.6.5
+    "@rspack/binding-darwin-x64": 0.6.5
+    "@rspack/binding-linux-arm64-gnu": 0.6.5
+    "@rspack/binding-linux-arm64-musl": 0.6.5
+    "@rspack/binding-linux-x64-gnu": 0.6.5
+    "@rspack/binding-linux-x64-musl": 0.6.5
+    "@rspack/binding-win32-arm64-msvc": 0.6.5
+    "@rspack/binding-win32-ia32-msvc": 0.6.5
+    "@rspack/binding-win32-x64-msvc": 0.6.5
+  dependenciesMeta:
+    "@rspack/binding-darwin-arm64":
+      optional: true
+    "@rspack/binding-darwin-x64":
+      optional: true
+    "@rspack/binding-linux-arm64-gnu":
+      optional: true
+    "@rspack/binding-linux-arm64-musl":
+      optional: true
+    "@rspack/binding-linux-x64-gnu":
+      optional: true
+    "@rspack/binding-linux-x64-musl":
+      optional: true
+    "@rspack/binding-win32-arm64-msvc":
+      optional: true
+    "@rspack/binding-win32-ia32-msvc":
+      optional: true
+    "@rspack/binding-win32-x64-msvc":
+      optional: true
+  checksum: 2cf096d4af16227d147e995695d3d8bdea75e96203e2136c9d314e2d3f1853abaa2b71ed18eec14c122d92b024d6109f0f51821f2a013a35aa2653b8b73debe1
+  languageName: node
+  linkType: hard
+
 "@rspack/cli@npm:^0.6.3":
   version: 0.6.3
   resolution: "@rspack/cli@npm:0.6.3"
@@ -282,7 +385,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/core@npm:0.6.3, @rspack/core@npm:^0.6.3":
+"@rspack/core@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/core@npm:0.6.5"
+  dependencies:
+    "@module-federation/runtime-tools": 0.1.6
+    "@rspack/binding": 0.6.5
+    caniuse-lite: ^1.0.30001616
+    enhanced-resolve: 5.12.0
+    tapable: 2.2.1
+    webpack-sources: 3.2.3
+  peerDependencies:
+    "@swc/helpers": ">=0.5.1"
+  peerDependenciesMeta:
+    "@swc/helpers":
+      optional: true
+  checksum: fa3c3b0c7d8096d4eedb5e7c13bcae61e9c1b81345cb92d66becb4e314a164d42050e62ac6f69ebe5e1065cab78d0185d587582e9995aa9c295d1b5996b50f57
+  languageName: node
+  linkType: hard
+
+"@rspack/core@npm:^0.6.3":
   version: 0.6.3
   resolution: "@rspack/core@npm:0.6.3"
   dependencies:
@@ -849,10 +971,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001587, caniuse-lite@npm:^1.0.30001612":
+"caniuse-lite@npm:^1.0.30001587":
   version: 1.0.30001614
   resolution: "caniuse-lite@npm:1.0.30001614"
   checksum: 1b695625f9a1b08584c3c229d4b8deaebb89e7901a2a2ffe599a6250c0a79fc61afc49c374c32a76dbf593a5dedac3229bb0140bbacd438276211bdd1d7c4958
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001616":
+  version: 1.0.30001617
+  resolution: "caniuse-lite@npm:1.0.30001617"
+  checksum: a03bfd6ed474d14378f1b93bf90e9b0031e56a813cf42b364e5a86881ecdcdfdd58bf94c56febb0e4128c5ab57cc0a760ab7f3ef7ce0c1ead1af78a8e806375e
   languageName: node
   linkType: hard
 
@@ -1575,7 +1704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:~2.3.2":
+"fsevents@npm:~2.3.2, fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
@@ -1585,7 +1714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.3#~builtin<compat/fsevents>":
   version: 2.3.3
   resolution: "fsevents@patch:fsevents@npm%3A2.3.3#~builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
