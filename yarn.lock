@@ -166,24 +166,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/binding-darwin-arm64@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-darwin-arm64@npm:0.6.3"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rspack/binding-darwin-arm64@npm:0.6.5":
   version: 0.6.5
   resolution: "@rspack/binding-darwin-arm64@npm:0.6.5"
   conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rspack/binding-darwin-x64@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-darwin-x64@npm:0.6.3"
-  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -194,24 +180,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/binding-linux-arm64-gnu@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-linux-arm64-gnu@npm:0.6.3"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rspack/binding-linux-arm64-gnu@npm:0.6.5":
   version: 0.6.5
   resolution: "@rspack/binding-linux-arm64-gnu@npm:0.6.5"
   conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rspack/binding-linux-arm64-musl@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-linux-arm64-musl@npm:0.6.3"
-  conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -222,24 +194,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/binding-linux-x64-gnu@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-linux-x64-gnu@npm:0.6.3"
-  conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rspack/binding-linux-x64-gnu@npm:0.6.5":
   version: 0.6.5
   resolution: "@rspack/binding-linux-x64-gnu@npm:0.6.5"
   conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rspack/binding-linux-x64-musl@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-linux-x64-musl@npm:0.6.3"
-  conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -250,24 +208,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/binding-win32-arm64-msvc@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-win32-arm64-msvc@npm:0.6.3"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rspack/binding-win32-arm64-msvc@npm:0.6.5":
   version: 0.6.5
   resolution: "@rspack/binding-win32-arm64-msvc@npm:0.6.5"
   conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rspack/binding-win32-ia32-msvc@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-win32-ia32-msvc@npm:0.6.3"
-  conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
@@ -278,53 +222,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/binding-win32-x64-msvc@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding-win32-x64-msvc@npm:0.6.3"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@rspack/binding-win32-x64-msvc@npm:0.6.5":
   version: 0.6.5
   resolution: "@rspack/binding-win32-x64-msvc@npm:0.6.5"
   conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@rspack/binding@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/binding@npm:0.6.3"
-  dependencies:
-    "@rspack/binding-darwin-arm64": 0.6.3
-    "@rspack/binding-darwin-x64": 0.6.3
-    "@rspack/binding-linux-arm64-gnu": 0.6.3
-    "@rspack/binding-linux-arm64-musl": 0.6.3
-    "@rspack/binding-linux-x64-gnu": 0.6.3
-    "@rspack/binding-linux-x64-musl": 0.6.3
-    "@rspack/binding-win32-arm64-msvc": 0.6.3
-    "@rspack/binding-win32-ia32-msvc": 0.6.3
-    "@rspack/binding-win32-x64-msvc": 0.6.3
-  dependenciesMeta:
-    "@rspack/binding-darwin-arm64":
-      optional: true
-    "@rspack/binding-darwin-x64":
-      optional: true
-    "@rspack/binding-linux-arm64-gnu":
-      optional: true
-    "@rspack/binding-linux-arm64-musl":
-      optional: true
-    "@rspack/binding-linux-x64-gnu":
-      optional: true
-    "@rspack/binding-linux-x64-musl":
-      optional: true
-    "@rspack/binding-win32-arm64-msvc":
-      optional: true
-    "@rspack/binding-win32-ia32-msvc":
-      optional: true
-    "@rspack/binding-win32-x64-msvc":
-      optional: true
-  checksum: e20776f17d8d9e776b94a54eeb34b67b81d84b399c503846adca3932fbdc7b1ec2fbc74e5e15ec1e11ae1d5872928237d513f5ad787ba738b1a199b0b4750dd2
   languageName: node
   linkType: hard
 
@@ -385,7 +286,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/core@npm:0.6.5":
+"@rspack/core@npm:0.6.5, @rspack/core@npm:^0.6.3":
   version: 0.6.5
   resolution: "@rspack/core@npm:0.6.5"
   dependencies:
@@ -401,32 +302,6 @@ __metadata:
     "@swc/helpers":
       optional: true
   checksum: fa3c3b0c7d8096d4eedb5e7c13bcae61e9c1b81345cb92d66becb4e314a164d42050e62ac6f69ebe5e1065cab78d0185d587582e9995aa9c295d1b5996b50f57
-  languageName: node
-  linkType: hard
-
-"@rspack/core@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/core@npm:0.6.3"
-  dependencies:
-    "@module-federation/runtime-tools": 0.1.6
-    "@rspack/binding": 0.6.3
-    browserslist: ^4.21.3
-    enhanced-resolve: 5.12.0
-    events: ^3.3.0
-    graceful-fs: 4.2.10
-    json-parse-even-better-errors: ^3.0.0
-    neo-async: 2.6.2
-    tapable: 2.2.1
-    watchpack: ^2.4.0
-    webpack-sources: 3.2.3
-    zod: ^3.21.4
-    zod-validation-error: 1.3.1
-  peerDependencies:
-    "@swc/helpers": ">=0.5.1"
-  peerDependenciesMeta:
-    "@swc/helpers":
-      optional: true
-  checksum: 152f046d88eaf08006a8c02134617a737890b499c10fa1054ac7c87702480e32d7eb1c0a3bd652fd40daf36a96e5586d91922231bf3371e7cd09efdcf1a7d798
   languageName: node
   linkType: hard
 
@@ -883,20 +758,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.21.3":
-  version: 4.23.0
-  resolution: "browserslist@npm:4.23.0"
-  dependencies:
-    caniuse-lite: ^1.0.30001587
-    electron-to-chromium: ^1.4.668
-    node-releases: ^2.0.14
-    update-browserslist-db: ^1.0.13
-  bin:
-    browserslist: cli.js
-  checksum: 436f49e796782ca751ebab7edc010cfc9c29f68536f387666cd70ea22f7105563f04dd62c6ff89cb24cc3254d17cba385f979eeeb3484d43e012412ff7e75def
-  languageName: node
-  linkType: hard
-
 "buffer-builder@npm:^0.2.0":
   version: 0.2.0
   resolution: "buffer-builder@npm:0.2.0"
@@ -948,13 +809,6 @@ __metadata:
     get-intrinsic: ^1.2.4
     set-function-length: ^1.2.1
   checksum: 295c0c62b90dd6522e6db3b0ab1ce26bdf9e7404215bda13cfee25b626b5ff1a7761324d58d38b1ef1607fc65aca2d06e44d2e18d0dfc6c14b465b00d8660029
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001587":
-  version: 1.0.30001614
-  resolution: "caniuse-lite@npm:1.0.30001614"
-  checksum: 1b695625f9a1b08584c3c229d4b8deaebb89e7901a2a2ffe599a6250c0a79fc61afc49c374c32a76dbf593a5dedac3229bb0140bbacd438276211bdd1d7c4958
   languageName: node
   linkType: hard
 
@@ -1319,13 +1173,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.4.668":
-  version: 1.4.752
-  resolution: "electron-to-chromium@npm:1.4.752"
-  checksum: ddce4f2161abbaf86b48cd65bd8e3d0efc8b62ca392b77381308495e2b5d13f79ed9a51621bbc80b90557f613342956e3dfe8f09ffd2d4c41902a1369c82342c
-  languageName: node
-  linkType: hard
-
 "emoji-regex@npm:^10.3.0":
   version: 10.3.0
   resolution: "emoji-regex@npm:10.3.0"
@@ -1435,13 +1282,6 @@ __metadata:
   version: 5.0.1
   resolution: "eventemitter3@npm:5.0.1"
   checksum: 543d6c858ab699303c3c32e0f0f47fc64d360bf73c3daf0ac0b5079710e340d6fe9f15487f94e66c629f5f82cd1a8678d692f3dbb6f6fcd1190e1b97fcad36f8
-  languageName: node
-  linkType: hard
-
-"events@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "events@npm:3.3.0"
-  checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
 
@@ -1714,13 +1554,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob-to-regexp@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "glob-to-regexp@npm:0.4.1"
-  checksum: e795f4e8f06d2a15e86f76e4d92751cf8bbfcf0157cea5c2f0f35678a8195a750b34096b1256e436f0cebc1883b5ff0888c47348443e69546a5a87f9e1eb1167
-  languageName: node
-  linkType: hard
-
 "glob@npm:^10.2.2, glob@npm:^10.3.10":
   version: 10.3.12
   resolution: "glob@npm:10.3.12"
@@ -1759,14 +1592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:4.2.10":
-  version: 4.2.10
-  resolution: "graceful-fs@npm:4.2.10"
-  checksum: 3f109d70ae123951905d85032ebeae3c2a5a7a997430df00ea30df0e3a6c60cf6689b109654d6fdacd28810a053348c4d14642da1d075049e6be1ba5216218da
-  languageName: node
-  linkType: hard
-
-"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6":
+"graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6":
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
   checksum: ac85f94da92d8eb6b7f5a8b20ce65e43d66761c55ce85ac96df6865308390da45a8d3f0296dd3a663de65d30ba497bd46c696cc1e248c72b13d6d567138a4fc7
@@ -2236,13 +2062,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-parse-even-better-errors@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "json-parse-even-better-errors@npm:3.0.1"
-  checksum: bf74fa3f715e56699ccd68b80a7d20908de432a3fae2d5aa2ed530a148e9d9ccdf8e6983b93d9966a553aa70dcf003ce3a7ffec2c0ce74d2a6173e3691a426f0
-  languageName: node
-  linkType: hard
-
 "json-schema-traverse@npm:^1.0.0":
   version: 1.0.0
   resolution: "json-schema-traverse@npm:1.0.0"
@@ -2647,7 +2466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neo-async@npm:2.6.2, neo-async@npm:^2.6.2":
+"neo-async@npm:^2.6.2":
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: deac9f8d00eda7b2e5cd1b2549e26e10a0faa70adaa6fdadca701cc55f49ee9018e427f424bac0c790b7c7e2d3068db97f3093f1093975f2acb8f8818b936ed9
@@ -2678,13 +2497,6 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 72e2ab4b23fc32007a763da94018f58069fc0694bf36115d49a2b195c8831e12cf5dd1e7a3718fa85c06969aedf8fc126722d3b672ec1cb27e06ed33caee3c60
-  languageName: node
-  linkType: hard
-
-"node-releases@npm:^2.0.14":
-  version: 2.0.14
-  resolution: "node-releases@npm:2.0.14"
-  checksum: 59443a2f77acac854c42d321bf1b43dea0aef55cd544c6a686e9816a697300458d4e82239e2d794ea05f7bbbc8a94500332e2d3ac3f11f52e4b16cbe638b3c41
   languageName: node
   linkType: hard
 
@@ -3995,20 +3807,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"update-browserslist-db@npm:^1.0.13":
-  version: 1.0.13
-  resolution: "update-browserslist-db@npm:1.0.13"
-  dependencies:
-    escalade: ^3.1.1
-    picocolors: ^1.0.0
-  peerDependencies:
-    browserslist: ">= 4.21.0"
-  bin:
-    update-browserslist-db: cli.js
-  checksum: 1e47d80182ab6e4ad35396ad8b61008ae2a1330221175d0abd37689658bdb61af9b705bfc41057fd16682474d79944fb2d86767c5ed5ae34b6276b9bed353322
-  languageName: node
-  linkType: hard
-
 "uri-js@npm:^4.4.1":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
@@ -4052,16 +3850,6 @@ __metadata:
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b
-  languageName: node
-  linkType: hard
-
-"watchpack@npm:^2.4.0":
-  version: 2.4.1
-  resolution: "watchpack@npm:2.4.1"
-  dependencies:
-    glob-to-regexp: ^0.4.1
-    graceful-fs: ^4.1.2
-  checksum: 5b0179348655dcdf19cac7cb4ff923fdc024d630650c0bf6bec8899cf47c60e19d4f810a88dba692ed0e7f684cf0fcffea86efdbf6c35d81f031e328043b7fab
   languageName: node
   linkType: hard
 
@@ -4355,21 +4143,5 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
-  languageName: node
-  linkType: hard
-
-"zod-validation-error@npm:1.3.1":
-  version: 1.3.1
-  resolution: "zod-validation-error@npm:1.3.1"
-  peerDependencies:
-    zod: ^3.18.0
-  checksum: f27484377be368e41f29b122df6d4b9276e03774e1ceb26c8b77dd3dff0a216221ae8fd63643f75742236a4df80b27fc43b4c8efae80ae8c8fe38c4d12bbd104
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.21.4":
-  version: 3.23.5
-  resolution: "zod@npm:3.23.5"
-  checksum: 4b83c93c4d43640b31eb4289efedb23f303a272c39f8b492ee4b2fec1a1da0de078db3786a2e6cc08d6803f03e842af2ae16b430c7f2e0fea3eba16b72a9db36
   languageName: node
   linkType: hard
