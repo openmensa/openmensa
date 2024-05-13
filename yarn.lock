@@ -262,11 +262,11 @@ __metadata:
   linkType: hard
 
 "@rspack/cli@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/cli@npm:0.6.3"
+  version: 0.6.5
+  resolution: "@rspack/cli@npm:0.6.5"
   dependencies:
     "@discoveryjs/json-ext": ^0.5.7
-    "@rspack/dev-server": 0.6.3
+    "@rspack/dev-server": 0.6.5
     colorette: 2.0.19
     exit-hook: ^3.2.0
     interpret: ^3.1.1
@@ -278,7 +278,7 @@ __metadata:
     "@rspack/core": ">=0.4.0"
   bin:
     rspack: bin/rspack
-  checksum: 4e1697e6f53eff60fd244928ee3b02aaa87a856cdd4803e66f4ce0d682fa33d50f5e72f62ff926934531bd6674bd84ca84d3a5f89683907b252fac9a67cf6c13
+  checksum: 6d587306c61261b1a28c6c34d570d7642b1e3d7864d44068f7942c82ffeb849d4958da0f2b247d66f63fe8bb9fb8e115845fe925bbc6f73f141ba9fad4f2c2d7
   languageName: node
   linkType: hard
 
@@ -308,21 +308,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/dev-server@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@rspack/dev-server@npm:0.6.3"
+"@rspack/dev-server@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@rspack/dev-server@npm:0.6.5"
   dependencies:
     chokidar: 3.5.3
     connect-history-api-fallback: 2.0.0
-    express: 4.18.1
+    express: 4.19.2
     http-proxy-middleware: 2.0.6
     mime-types: 2.1.35
-    webpack-dev-middleware: 6.0.2
+    webpack-dev-middleware: 6.1.2
     webpack-dev-server: 4.13.1
     ws: 8.8.1
   peerDependencies:
     "@rspack/core": "*"
-  checksum: 59a47232d9503e1b979b2991bb45a30e378479efc26ef9ec855f6a7ae354e466667b6b3a6a0bd41cbc0bd2bb22f0ce7da2c11220123e3d60bd57e282dc1e8357
+  checksum: 3925f151d74ace257fac141267315cca56464fac9ff14edb063fee4ec70766a98bc5a9d47a44480d9e7b5e1141cbafb8c126953a40a69b9cf0ee50d46432d666
   languageName: node
   linkType: hard
 
@@ -696,26 +696,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.20.0":
-  version: 1.20.0
-  resolution: "body-parser@npm:1.20.0"
-  dependencies:
-    bytes: 3.1.2
-    content-type: ~1.0.4
-    debug: 2.6.9
-    depd: 2.0.0
-    destroy: 1.2.0
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    on-finished: 2.4.1
-    qs: 6.10.3
-    raw-body: 2.5.1
-    type-is: ~1.6.18
-    unpipe: 1.0.0
-  checksum: 12fffdeac82fe20dddcab7074215d5156e7d02a69ae90cbe9fee1ca3efa2f28ef52097cbea76685ee0a1509c71d85abd0056a08e612c09077cad6277a644cf88
-  languageName: node
-  linkType: hard
-
 "body-parser@npm:1.20.2":
   version: 1.20.2
   resolution: "body-parser@npm:1.20.2"
@@ -1072,13 +1052,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.5.0":
-  version: 0.5.0
-  resolution: "cookie@npm:0.5.0"
-  checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
-  languageName: node
-  linkType: hard
-
 "cookie@npm:0.6.0":
   version: 0.6.0
   resolution: "cookie@npm:0.6.0"
@@ -1391,46 +1364,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:4.18.1":
-  version: 4.18.1
-  resolution: "express@npm:4.18.1"
-  dependencies:
-    accepts: ~1.3.8
-    array-flatten: 1.1.1
-    body-parser: 1.20.0
-    content-disposition: 0.5.4
-    content-type: ~1.0.4
-    cookie: 0.5.0
-    cookie-signature: 1.0.6
-    debug: 2.6.9
-    depd: 2.0.0
-    encodeurl: ~1.0.2
-    escape-html: ~1.0.3
-    etag: ~1.8.1
-    finalhandler: 1.2.0
-    fresh: 0.5.2
-    http-errors: 2.0.0
-    merge-descriptors: 1.0.1
-    methods: ~1.1.2
-    on-finished: 2.4.1
-    parseurl: ~1.3.3
-    path-to-regexp: 0.1.7
-    proxy-addr: ~2.0.7
-    qs: 6.10.3
-    range-parser: ~1.2.1
-    safe-buffer: 5.2.1
-    send: 0.18.0
-    serve-static: 1.15.0
-    setprototypeof: 1.2.0
-    statuses: 2.0.1
-    type-is: ~1.6.18
-    utils-merge: 1.0.1
-    vary: ~1.1.2
-  checksum: c3d44c92e48226ef32ec978becfedb0ecf0ca21316bfd33674b3c5d20459840584f2325726a4f17f33d9c99f769636f728982d1c5433a5b6fe6eb95b8cf0c854
-  languageName: node
-  linkType: hard
-
-"express@npm:^4.17.3":
+"express@npm:4.19.2, express@npm:^4.17.3":
   version: 4.19.2
   resolution: "express@npm:4.19.2"
   dependencies:
@@ -2900,15 +2834,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.10.3":
-  version: 6.10.3
-  resolution: "qs@npm:6.10.3"
-  dependencies:
-    side-channel: ^1.0.4
-  checksum: 0fac5e6c7191d0295a96d0e83c851aeb015df7e990e4d3b093897d3ac6c94e555dbd0a599739c84d7fa46d7fee282d94ba76943983935cf33bba6769539b8019
-  languageName: node
-  linkType: hard
-
 "qs@npm:6.11.0":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
@@ -2931,18 +2856,6 @@ __metadata:
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
   checksum: 0a268d4fea508661cf5743dfe3d5f47ce214fd6b7dec1de0da4d669dd4ef3d2144468ebe4179049eff253d9d27e719c88dae55be64f954e80135a0cada804ec9
-  languageName: node
-  linkType: hard
-
-"raw-body@npm:2.5.1":
-  version: 2.5.1
-  resolution: "raw-body@npm:2.5.1"
-  dependencies:
-    bytes: 3.1.2
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    unpipe: 1.0.0
-  checksum: 5362adff1575d691bb3f75998803a0ffed8c64eabeaa06e54b4ada25a0cd1b2ae7f4f5ec46565d1bec337e08b5ac90c76eaa0758de6f72a633f025d754dec29e
   languageName: node
   linkType: hard
 
@@ -4051,9 +3964,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:6.0.2":
-  version: 6.0.2
-  resolution: "webpack-dev-middleware@npm:6.0.2"
+"webpack-dev-middleware@npm:6.1.2":
+  version: 6.1.2
+  resolution: "webpack-dev-middleware@npm:6.1.2"
   dependencies:
     colorette: ^2.0.10
     memfs: ^3.4.12
@@ -4065,7 +3978,7 @@ __metadata:
   peerDependenciesMeta:
     webpack:
       optional: true
-  checksum: a2f65ffdec8120ae2a2def17f0f2941e65b26ee2922708aaec47ada4e262ad99f4e644136d0463fa9bbc32c4168425a1f55d928b7f3e0a2a3905c579358141b8
+  checksum: 6e962341db5b3ac8526cd678fc6b128adcb92c288aab767948ab7d01591d7837d2d97cf9329d307831b1d51c831fcea4d8f2eb514efe8c8654ae2a4ae9d9f1fb
   languageName: node
   linkType: hard
 
