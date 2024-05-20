@@ -136,10 +136,10 @@ __metadata:
   linkType: hard
 
 "@rsbuild/core@npm:^0.6.8":
-  version: 0.6.14
-  resolution: "@rsbuild/core@npm:0.6.14"
+  version: 0.6.15
+  resolution: "@rsbuild/core@npm:0.6.15"
   dependencies:
-    "@rsbuild/shared": 0.6.14
+    "@rsbuild/shared": 0.6.15
     "@rspack/core": 0.6.5
     "@swc/helpers": 0.5.3
     core-js: ~3.36.0
@@ -147,22 +147,22 @@ __metadata:
     postcss: ^8.4.38
   bin:
     rsbuild: bin/rsbuild.js
-  checksum: d3c5402cccfdf680a850f83b46b6b99ace7743df0410853568a3070ae983b25568914bb08ffc1966080ba4e86cb319a25231eef4d48fef012b6ce412f5d808ab
+  checksum: 11ff5c2263c062a399738f2372d65486dd70dacd8cf7d623c207f71812a697645577997ba2a8509c84351b5572bd7d40e4b58477785c7424ba90aec7d2ca9815
   languageName: node
   linkType: hard
 
-"@rsbuild/shared@npm:0.6.14":
-  version: 0.6.14
-  resolution: "@rsbuild/shared@npm:0.6.14"
+"@rsbuild/shared@npm:0.6.15":
+  version: 0.6.15
+  resolution: "@rsbuild/shared@npm:0.6.15"
   dependencies:
     "@rspack/core": 0.6.5
-    caniuse-lite: ^1.0.30001616
+    caniuse-lite: ^1.0.30001617
     fsevents: ~2.3.3
     postcss: ^8.4.38
   dependenciesMeta:
     fsevents:
       optional: true
-  checksum: 9c4ffd53fa35706d7057469a6718396075c7fa3f4e9193fbd9416010726c7b08d85774723186cac978bc9699dff952ea9aca698dabee6ec0fffd4abd4cdd214a
+  checksum: 90313439e56fb5804240ea2c5e774d6cf81ae8943ea554567a25e3c1f3565fde838fccc0cb20eb4735fe284c0cd852aac46f1cca5ba09b198314ee40963164b9
   languageName: node
   linkType: hard
 
@@ -816,6 +816,13 @@ __metadata:
   version: 1.0.30001617
   resolution: "caniuse-lite@npm:1.0.30001617"
   checksum: a03bfd6ed474d14378f1b93bf90e9b0031e56a813cf42b364e5a86881ecdcdfdd58bf94c56febb0e4128c5ab57cc0a760ab7f3ef7ce0c1ead1af78a8e806375e
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001617":
+  version: 1.0.30001620
+  resolution: "caniuse-lite@npm:1.0.30001620"
+  checksum: 1831e519c29ce6971bc50d56bab196a307fcb4181e7deaa80df314b035b87b3912b8626b4e87adc301d0bfe6a90b99814101b1cb28114b96e720f996f19bdc0d
   languageName: node
   linkType: hard
 
