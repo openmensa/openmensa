@@ -2112,9 +2112,9 @@ __metadata:
   linkType: hard
 
 "leaflet.locatecontrol@npm:^0.81.0":
-  version: 0.81.0
-  resolution: "leaflet.locatecontrol@npm:0.81.0"
-  checksum: 8f7edfea48300ced31c4214d1095c7ee8c9d42c60fde20150613382649e657e304ecb8b240e2c2929045a20027649a274545ecc681e75e7f58fa4c1979177997
+  version: 0.81.1
+  resolution: "leaflet.locatecontrol@npm:0.81.1"
+  checksum: c873f04d508ea8e8f12785e49af4151f17ed29ac7591ae531c06a759bf59847da41a1aa94f10748a72178a3fdc810ac8f4c3991b590126bf9262d5190fce0781
   languageName: node
   linkType: hard
 
