@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@gfx/zopfli": "^1.0.15",
-    "@rsbuild/core": "^0.6.8",
+    "@rsbuild/core": "^0.7.0",
     "@rspack/cli": "^0.6.3",
     "@rspack/core": "^0.6.3",
     "compression-webpack-plugin": "^11.1.0",
