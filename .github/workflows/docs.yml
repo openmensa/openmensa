@@ -18,7 +18,7 @@ jobs:
       - run: python -m pip install --upgrade pipenv wheel
       - run: pipenv install --system --deploy
       - run: pipenv run mkdocs build
-      - uses: actions/upload-pages-artifact@v2
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
