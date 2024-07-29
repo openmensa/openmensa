@@ -14,7 +14,7 @@ gem "rails-assets-manifest"
 gem "puma", "~> 6.0"
 
 gem "bcrypt"
-gem "good_job", "~> 3.0"
+gem "good_job", "~> 4.0"
 gem "nokogiri"
 gem "oj"
 gem "pg", "~> 1.2"
