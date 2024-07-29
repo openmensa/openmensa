@@ -56,6 +56,7 @@ group :development do
   gem "listen"
   gem "spring"
   gem "spring-commands-rspec"
+  gem "squasher"
 
   gem "rubocop", "~> 1.65.0", require: false
   gem "rubocop-capybara", "~> 2.21.0", require: false
