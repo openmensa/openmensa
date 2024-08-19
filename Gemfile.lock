@@ -227,8 +227,9 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    oj (3.16.4)
+    oj (3.16.5)
       bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -256,6 +257,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    ostruct (0.6.0)
     paginate-responder (2.1.0)
       rack-link_headers (>= 2.2)
     parallel (1.25.1)
