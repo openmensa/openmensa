@@ -262,7 +262,7 @@ GEM
       rack-link_headers (>= 2.2)
     parallel (1.25.1)
     parse-cron (0.1.4)
-    parser (3.3.4.0)
+    parser (3.3.4.2)
       ast (~> 2.4.1)
       racc
     pg (1.5.7)
@@ -380,7 +380,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.65.0)
+    rubocop (1.65.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
