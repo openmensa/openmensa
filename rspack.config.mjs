@@ -25,6 +25,9 @@ export default async (env, argv) => {
       assetModuleFilename: "static/[name].[contenthash][ext]",
       clean: true,
     },
+    experiments: {
+      css: true,
+    },
     module: {
       rules: [
         {
