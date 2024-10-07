@@ -8,7 +8,6 @@
 .rspec
 .ruby-gemset
 .rvmrc
-.pdm.toml
 *.iml
 /.bundle
 /.idea
@@ -47,6 +46,7 @@
 __pycache__/
 __pypackages__/
 /.husky
+/.venv
 /.yarn
 /coverage
 /node_modules
