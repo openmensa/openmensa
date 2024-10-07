@@ -25,9 +25,17 @@ Bundler.require(*Rails.groups)
 
 module Openmensa
   class Application < Rails::Application
+    # Manually assign the Rails secret key base from ENV or the
+    # rubyconfig framework instead of Rails credentials. We do not use
+    # encrypted credentials because this is an open-source application
+    # and anyone needs their own credentials. Proper deployments are a
+    # pain too, since they do ship the configuration, not the
+    # application source.
+    config.secret_key_base = ENV['SECRET_KEY_BASE'] || Settings.secret_key_base
+
     # Initialize configuration defaults for originally generated Rails
     # version.
-    config.load_defaults 7.1
+    config.load_defaults 7.2
 
     # Please, add to the `ignore` list any other `lib` subdirectories
     # that do not contain `.rb` files, or that should not be reloaded or
@@ -89,9 +97,9 @@ module Openmensa
     config.filter_parameters += %i[passw secret token _key crypt salt certificate otp ssn]
 
     # Session store
-    config.session_store :cookie_store, key: "_openmensa_session", secure: Rails.env.production?
-    config.action_dispatch.cookies_serializer = :hybrid
-    config.action_dispatch.cookies_same_site_protection = :lax
+    config.session_store :cookie_store, key: "_session", secure: Rails.env.production?
+    config.action_dispatch.cookies_serializer = :json
+    config.action_dispatch.cookies_same_site_protection = :strict
 
     # Assets
     config.assets_manifest.path = Rails.public_path.join("assets/packed/.manifest.json")

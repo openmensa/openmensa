@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-SENTRY_DSN = ENV.fetch("SENTRY_DSN", Rails.application.secrets.sentry_dsn)
+SENTRY_DSN = ENV.fetch("SENTRY_DSN", Settings.sentry&.dsn)
 
 if SENTRY_DSN.present?
   Sentry.init do |config|

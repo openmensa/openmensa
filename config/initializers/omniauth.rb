@@ -3,27 +3,25 @@
 # fix strange port numbers due to proxy
 OmniAuth.config.full_host = "https://openmensa.org" if Rails.env.production?
 
-OMNI_FILE = Rails.application.secrets.omni_file || Rails.root.join("config/omniauth.yml")
-OMNI_CONFIG = YAML.safe_load_file(OMNI_FILE, aliases: true)[Rails.env]
-
 Rails.configuration.omniauth_services = []
 
-if OMNI_CONFIG
+omniauth = Rails.application.config_for(:omniauth)
+if omniauth
   Rails.application.config.middleware.use OmniAuth::Builder do
-    OMNI_CONFIG.each_pair do |key, config|
+    omniauth.each_pair do |key, config|
       case key
-        when "github"
-          provider :github, config.fetch("key"), config.fetch("secret"), skip_info: true
-        when "twitter"
-          provider :twitter, config.fetch("key"), config.fetch("secret")
-        when "facebook"
-          provider :facebook, config.fetch("key"), config.fetch("secret")
-        when "microsoft"
-          provider :microsoft, config.fetch("key"), config.fetch("secret")
-        when "google"
-          provider :google_oauth2, config.fetch("key"), config.fetch("secret"), name: "google"
+        when :github
+          provider :github, config.fetch(:key), config.fetch(:secret), skip_info: true
+        when :twitter
+          provider :twitter, config.fetch(:key), config.fetch(:secret)
+        when :facebook
+          provider :facebook, config.fetch(:key), config.fetch(:secret)
+        when :microsoft
+          provider :microsoft, config.fetch(:key), config.fetch(:secret)
+        when :google
+          provider :google_oauth2, config.fetch(:key), config.fetch(:secret), name: "google"
         else
-          warn "Unknown omniauth strategy: #{key}"
+          warn "Unknown omniauth strategy: #{key.inspect}"
           next
       end
 

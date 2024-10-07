@@ -82,7 +82,7 @@ RUN <<EOF
   mkdir --parents /etc/openmensa /var/log/openmensa /mnt/www
   ln --symbolic /tmp /opt/openmensa/tmp
   ln --symbolic /var/log/openmensa /opt/openmensa/log
-  ln --symbolic /opt/openmensa/config/{database.yml,omniauth.yml,secrets.yml} /etc/openmensa
+  ln --symbolic /opt/openmensa/config/{database.yml,omniauth.yml,settings.yml} /etc/openmensa
   useradd --create-home --home-dir /var/lib/openmensa --shell /bin/bash openmensa
   chown openmensa:openmensa /var/log/openmensa /mnt/www
 EOF

@@ -12,6 +12,9 @@
 *.iml
 /.bundle
 /.idea
+/config/environments/*.local.yml
+/config/settings.local.yml
+/config/settings/*.local.yml
 /Gemfile.local
 /Guardfile.local
 
