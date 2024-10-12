@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InitSchema < ActiveRecord::Migration[7.1]
+class InitSchema < ActiveRecord::Migration[7.1] # rubocop:disable Metrics/ClassLength
   def up
     # These are extensions that must be enabled in order to support this database
     enable_extension "pgcrypto"
@@ -18,7 +18,7 @@ class InitSchema < ActiveRecord::Migration[7.1]
       t.string "state", default: "new", null: false
       t.string "phone"
       t.string "email"
-      t.boolean "availibility", default: true
+      t.boolean "availibility", default: true # rubocop:disable Rails/ThreeStateBooleanColumn
       t.string "openingTimes", array: true
       t.integer "replaced_by"
     end
@@ -43,7 +43,7 @@ class InitSchema < ActiveRecord::Migration[7.1]
     create_table "days", id: :serial do |t|
       t.integer "canteen_id", null: false
       t.date "date", null: false
-      t.boolean "closed", default: false
+      t.boolean "closed", default: false # rubocop:disable Rails/ThreeStateBooleanColumn
       t.datetime "created_at", precision: nil
       t.datetime "updated_at", precision: nil
       t.index ["canteen_id"], name: "index_days_on_canteen_id"

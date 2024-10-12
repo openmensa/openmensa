@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_07_29_095159) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_12_194513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_29_095159) do
     t.string "state", default: "new", null: false
     t.string "phone"
     t.string "email"
-    t.boolean "availibility", default: true
+    t.boolean "availibility", default: true, null: false
     t.string "openingTimes", array: true
     t.integer "replaced_by"
   end
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_29_095159) do
   create_table "days", id: :serial, force: :cascade do |t|
     t.integer "canteen_id", null: false
     t.date "date", null: false
-    t.boolean "closed", default: false
+    t.boolean "closed", default: false, null: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["canteen_id"], name: "index_days_on_canteen_id"
@@ -282,8 +282,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_29_095159) do
     t.string "time_zone"
     t.string "language", limit: 2
     t.string "login"
-    t.boolean "admin"
-    t.boolean "developer", default: false
+    t.boolean "admin", null: false
+    t.boolean "developer", default: false, null: false
     t.datetime "last_report_at", precision: nil
     t.string "public_email"
     t.string "public_name"
