@@ -9,7 +9,7 @@ class Api::V2::DaysController < Api::BaseController
     rescue ArgumentError
       value = Time.zone.today
     end
-    scope.where("days.date >= ?", value)
+    scope.where(days: {date: value..})
   end
 
   def default_scope(scope)

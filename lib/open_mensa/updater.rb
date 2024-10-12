@@ -26,7 +26,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
   end
 
   def reset_stats
-    super()
+    super
     @unchanged_meals = 0
   end
 
@@ -182,7 +182,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
   def update_canteen(canteen_data)
     days = canteen.days
       .strict_loading
-      .where("date >= ?", Time.zone.today)
+      .where(date: Time.zone.today..)
       .includes(meals: :notes)
       .index_by {|v| v.date.to_s }
 

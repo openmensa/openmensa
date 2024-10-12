@@ -93,9 +93,8 @@ describe "canteens/show" do
     it "renders an ordered list of meals" do
       render
 
-      meal_positions = []
-      day.meals.order(:pos).each do |meal|
-        meal_positions << rendered.index(meal.name)
+      meal_positions = day.meals.order(:pos).map do |meal|
+        rendered.index(meal.name)
       end
 
       expect(meal_positions).to eq(meal_positions.sort)

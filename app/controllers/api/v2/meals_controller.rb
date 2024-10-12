@@ -21,12 +21,12 @@ class Api::V2::MealsController < Api::BaseController
     begin
       date = Date.strptime(params[:start] || "", "%Y-%m-%d")
       @days = @days
-        .where("days.date >= ?", date)
-        .where("days.date < ?", date + 7.days)
+        .where(days: {date: date..})
+        .where(days: {date: ...(date + 7.days)})
     rescue ArgumentError
       @days = @days
-        .where("days.date >= ?", Time.zone.today)
-        .where("days.date < ?", Time.zone.today + 7.days)
+        .where(days: {date: Time.zone.today..})
+        .where(days: {date: ...(Time.zone.today + 7.days)})
     end
 
     respond_with DayDecorator.decorate_collection(@days), include: [:meals]

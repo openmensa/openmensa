@@ -116,6 +116,7 @@ FactoryBot.define do
   end
 
   factory :feedInvalidUrlError do
+    # no attributes to set
   end
 
   factory :feedFetchError do

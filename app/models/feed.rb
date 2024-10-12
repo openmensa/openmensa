@@ -8,7 +8,7 @@ class Feed < ApplicationRecord
   has_many :messages, as: :messageable, dependent: :destroy
 
   scope :fetch_needed, lambda {
-    where("next_fetch_at < ?", Time.zone.now).order(:next_fetch_at)
+    where(next_fetch_at: ...Time.zone.now).order(:next_fetch_at)
   }
 
   scope :archived, lambda {

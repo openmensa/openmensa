@@ -131,9 +131,9 @@ describe Api::V2::CanteensController do
         expect(json.size).to eq(2)
       end
 
-      xit "limits list to 1500 if given limit parameter exceed 1500" do
-        # TODO: Some other test need instead of creating 1500+ canteens
-        create_list(:canteen, 1500)
+      it "limits list to 1500 if given limit parameter exceed 1500" do
+        skip "TODO: Some other test need instead of creating 1500+ canteens"
+        create_list(:canteen, 1500) # rubocop:disable FactoryBot/ExcessiveCreateList
         expect(Canteen.count).to be > 1500
 
         get :index, format: :json, params: {limit: 3000}
@@ -144,9 +144,9 @@ describe Api::V2::CanteensController do
     end
 
     context "&per_page" do
-      xit "limits list to 500 canteens by default" do
-        # TODO: Some other test need instead of creating 500+ canteens
-        create_list(:canteen, 500)
+      it "limits list to 500 canteens by default" do
+        skip "TODO: Some other test need instead of creating 500+ canteens"
+        create_list(:canteen, 500) # rubocop:disable FactoryBot/ExcessiveCreateList
         expect(Canteen.count).to be > 500
 
         get :index, format: :json
@@ -165,9 +165,9 @@ describe Api::V2::CanteensController do
         expect(json.size).to eq(2)
       end
 
-      xit "limits list to 1500 if given limit parameter exceed 1500" do
-        # TODO: Some other test need instead of creating 1500+ canteens
-        create_list(:canteen, 1500)
+      it "limits list to 1500 if given limit parameter exceed 1500" do
+        skip "TODO: Some other test need instead of creating 1500+ canteens"
+        create_list(:canteen, 1500) # rubocop:disable FactoryBot/ExcessiveCreateList
         expect(Canteen.count).to be > 1500
 
         get :index, format: :json, params: {per_page: 3000}

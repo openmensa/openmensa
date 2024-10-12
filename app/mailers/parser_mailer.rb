@@ -51,8 +51,8 @@ class ParserMailer < ApplicationMailer
     t "subject", name: @parser.name, msg:
   end
 
-  def t(name, *args, **kwargs)
-    super("mailer.daily_report.#{name}", *args, **kwargs)
+  def t(name, *, **)
+    super("mailer.daily_report.#{name}", *, **)
   end
 
   def messages_msg

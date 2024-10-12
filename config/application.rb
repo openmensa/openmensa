@@ -31,7 +31,7 @@ module Openmensa
     # and anyone needs their own credentials. Proper deployments are a
     # pain too, since they do ship the configuration, not the
     # application source.
-    config.secret_key_base = ENV['SECRET_KEY_BASE'] || Settings.secret_key_base
+    config.secret_key_base = ENV["SECRET_KEY_BASE"] || Settings.secret_key_base
 
     # Initialize configuration defaults for originally generated Rails
     # version.

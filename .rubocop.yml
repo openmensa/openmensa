@@ -12,7 +12,7 @@ AllCops:
     - "node_modules/**/*"
     - "vendor/**/*"
   TargetRubyVersion: 3.3
-  TargetRailsVersion: 7.1
+  TargetRailsVersion: 7.2
   NewCops: enable
 
 # -----------------------------------------------------------------------------
@@ -78,6 +78,11 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/NestedGroups:
   Max: 6
+
+# Factory Bot
+
+FactoryBot/AssociationStyle:
+  Enabled: false
 
 # -----------------------------------------------------------------------------
 #                                   Layout
