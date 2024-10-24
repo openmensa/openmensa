@@ -25,7 +25,7 @@ if omniauth
           next
       end
 
-      Rails.configuration.omniauth_services << key if config.fetch("show", true)
+      Rails.configuration.omniauth_services << key if config.fetch(:show, true)
     end
   end
 end
