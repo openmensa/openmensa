@@ -17,9 +17,9 @@ if omniauth
         when :facebook
           provider :facebook, config.fetch(:key), config.fetch(:secret)
         when :microsoft
-          provider :microsoft, config.fetch(:key), config.fetch(:secret)
+          provider :microsoft, config.fetch(:key), config.fetch(:secret), prompt: :select_account
         when :google
-          provider :google_oauth2, config.fetch(:key), config.fetch(:secret), name: "google"
+          provider :google_oauth2, config.fetch(:key), config.fetch(:secret), name: "google", prompt: :select_account
         else
           warn "Unknown omniauth strategy: #{key.inspect}"
           next

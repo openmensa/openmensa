@@ -16,7 +16,7 @@ module OmniAuth
         token_url: "/common/oauth2/v2.0/token"
 
       option :pcke, true
-      option :authorize_options, [:scope]
+      option :authorize_options, %i[scope prompt]
 
       uid { raw_info["oid"] }
 
