@@ -35,7 +35,7 @@ module Openmensa
 
     # Initialize configuration defaults for originally generated Rails
     # version.
-    config.load_defaults 7.1
+    config.load_defaults 7.2
 
     # Please, add to the `ignore` list any other `lib` subdirectories
     # that do not contain `.rb` files, or that should not be reloaded or
@@ -97,7 +97,7 @@ module Openmensa
     config.filter_parameters += %i[passw secret token _key crypt salt certificate otp ssn]
 
     # Session store
-    config.session_store :cookie_store, key: "_session", secure: Rails.env.production?
+    config.session_store :cookie_store, key: "_session", secure: Rails.env.production?, same_site: :lax
     config.action_dispatch.cookies_serializer = :json
     config.action_dispatch.cookies_same_site_protection = :strict
 
