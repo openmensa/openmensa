@@ -8,6 +8,9 @@ development: &dev
   microsoft:
     key: c5af31dc-b0e5-4c4f-9ce8-4e5e037b0f3a
     secret: x5P8Q~0Jy5AbMYGODpOnFfoSi7-3YZ9Xfa549adW
+  google:
+    key: 1064748912654-u71fk5top63586ole64l7a3ftta9n182.apps.googleusercontent.com
+    secret: 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
 
 test: &test
   github:
