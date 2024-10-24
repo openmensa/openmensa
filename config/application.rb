@@ -97,9 +97,11 @@ module Openmensa
     config.filter_parameters += %i[passw secret token _key crypt salt certificate otp ssn]
 
     # Session store
-    config.session_store :cookie_store, key: "_session", secure: Rails.env.production?, same_site: :lax
+    config.session_store :cookie_store, key: "_session", secure: Rails.env.production?
     config.action_dispatch.cookies_serializer = :json
-    config.action_dispatch.cookies_same_site_protection = :strict
+    config.action_dispatch.cookies_same_site_protection = lambda do |request|
+      request.path.starts_with?("/auth/") ? :lax : :strict
+    end
 
     # Assets
     config.assets_manifest.path = Rails.public_path.join("assets/packed/.manifest.json")
