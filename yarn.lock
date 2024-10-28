@@ -267,8 +267,8 @@ __metadata:
   linkType: hard
 
 "@rspack/cli@npm:^1.0.0":
-  version: 1.0.13
-  resolution: "@rspack/cli@npm:1.0.13"
+  version: 1.0.14
+  resolution: "@rspack/cli@npm:1.0.14"
   dependencies:
     "@discoveryjs/json-ext": "npm:^0.5.7"
     "@rspack/dev-server": "npm:1.0.5"
@@ -283,7 +283,7 @@ __metadata:
     "@rspack/core": ^1.0.0-alpha || ^1.x
   bin:
     rspack: bin/rspack
-  checksum: 10c0/70ef7b40d980918159ccee0015f2ebdd53472629acdcf84655bbff50da859b2a35e2825b9e1ba6fc85616a0099ab759d400bb2632997b4987024b897c2ce737e
+  checksum: 10c0/9a2431f291721023c0f744dce55b664f15b5a3df26021a2faa1662c5f173f33e2a9f10b2aa0277dec8ab20955624066701a066a4761135d96174134aceea38c2
   languageName: node
   linkType: hard
 
