@@ -6,8 +6,8 @@ ruby "~> 3.3.0"
 
 gem "config", "~> 5.5"
 gem "dry-validation", "~> 1.10"
-gem "rails", "~> 7.2.0"
-gem "rails-i18n", "~> 7.0"
+gem "rails", "~> 8.0.0"
+gem "rails-i18n", "~> 8.0"
 
 gem "jsbundling-rails"
 gem "propshaft"

@@ -20,7 +20,7 @@ chdir APP_ROOT do
   system("bundle check") || system!("bundle install")
 
   # Install JavaScript dependencies if using Yarn
-  system!('corepack yarn install')
+  system!("corepack yarn install")
 
   puts "\n== Updating database =="
   system! "bin/rails db:migrate"

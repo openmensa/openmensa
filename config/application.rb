@@ -20,11 +20,16 @@ require "good_job/engine"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-#
 Bundler.require(*Rails.groups)
 
 module Openmensa
   class Application < Rails::Application
+    # Configuration for the application, engines, and railties goes
+    # here.
+    #
+    # These settings can be overridden in specific environments using
+    # the files in config/environments, which are processed later.
+
     # Manually assign the Rails secret key base from ENV or the
     # rubyconfig framework instead of Rails credentials. We do not use
     # encrypted credentials because this is an open-source application
@@ -35,19 +40,13 @@ module Openmensa
 
     # Initialize configuration defaults for originally generated Rails
     # version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     # Please, add to the `ignore` list any other `lib` subdirectories
     # that do not contain `.rb` files, or that should not be reloaded or
     # eager loaded. Common ones are `templates`, `generators`, or
     # `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
-
-    # Configuration for the application, engines, and railties goes
-    # here.
-    #
-    # These settings can be overridden in specific environments using
-    # the files in config/environments, which are processed later.
 
     # Set Time.zone default to the specified zone and make Active Record
     # auto-convert to this zone. Run "rake -D time" for a list of tasks
@@ -94,7 +93,9 @@ module Openmensa
     # dissemination of sensitive information. See the
     # ActiveSupport::ParameterFilter documentation for supported
     # notations and behaviors.
-    config.filter_parameters += %i[passw secret token _key crypt salt certificate otp ssn]
+    config.filter_parameters += %i[
+      passw email secret token _key crypt salt certificate otp ssn cvv cvc
+    ]
 
     # Session store
     config.session_store :cookie_store, key: "_session", secure: Rails.env.production?
