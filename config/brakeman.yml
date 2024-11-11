@@ -1,0 +1,4 @@
+---
+:ensure_latest: true
+:skip_files:
+- "/node_modules/"
