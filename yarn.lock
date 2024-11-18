@@ -323,17 +323,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rspack/lite-tapable@npm:1.0.1":
+"@rspack/lite-tapable@npm:1.0.1, @rspack/lite-tapable@npm:^1.0.1":
   version: 1.0.1
   resolution: "@rspack/lite-tapable@npm:1.0.1"
   checksum: 10c0/90bb1bc414dc51ea2d0933e09f78d25584f3f50a85f4cb8228930bd29e5931bf55eff4f348a06c51dd3149fc73b8ae3920bf0ae5ae8a0c9fe1d9b404e6ecf5b7
-  languageName: node
-  linkType: hard
-
-"@rspack/lite-tapable@npm:^1.0.0-beta.0":
-  version: 1.0.0
-  resolution: "@rspack/lite-tapable@npm:1.0.0"
-  checksum: 10c0/b8c6f965e2842ac141805d5490c453d138bde267710309967d1f2178f5687cf988b88174756a9e520f63c3c0cbac6db4ba5265e2c832d816982f41594dd6e86c
   languageName: node
   linkType: hard
 
@@ -3013,16 +3006,16 @@ __metadata:
   linkType: soft
 
 "rspack-manifest-plugin@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "rspack-manifest-plugin@npm:5.0.1"
+  version: 5.0.2
+  resolution: "rspack-manifest-plugin@npm:5.0.2"
   dependencies:
-    "@rspack/lite-tapable": "npm:^1.0.0-beta.0"
+    "@rspack/lite-tapable": "npm:^1.0.1"
   peerDependencies:
     "@rspack/core": 0.x || 1.x
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
-  checksum: 10c0/c8d27038aeb291d0af2d9e69c7750c4675d14e06cb58530c4441bea1b2b34c4e319d8b9dd00a3832da12727f09f95ac7eb849c231e6da20bb53389f0b9d05877
+  checksum: 10c0/1e5777c38983f8ff9f3ad2205accb5f378023e07bb5619c4a79946ef5319aa668a6f397a729f1384454e7f16afab74f71df4afb71bb22d1228419eb4f903d747
   languageName: node
   linkType: hard
 
