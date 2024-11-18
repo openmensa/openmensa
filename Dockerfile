@@ -23,7 +23,7 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:3.3.5-slim-bullseye AS build
+FROM docker.io/ruby:3.3.6-slim-bullseye AS build
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
@@ -58,7 +58,7 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:3.3.5-slim-bullseye
+FROM docker.io/ruby:3.3.6-slim-bullseye
 
 ENV RAILS_ENV=production
 
