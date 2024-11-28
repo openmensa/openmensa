@@ -28,6 +28,9 @@ jobs:
       DATABASE_URL: postgresql://postgres:secret@localhost:5432/openmensa
 
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -65,6 +68,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
@@ -74,6 +80,9 @@ jobs:
   prettier:
     runs-on: ubuntu-22.04
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -96,6 +105,9 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
 
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
       - uses: actions/checkout@v4
 
       # https://github.com/marketplace/actions/build-and-push-docker-images
@@ -134,6 +146,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
       - uses: actions/checkout@v4
       - name: Check workflow files
         run: |
