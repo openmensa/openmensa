@@ -187,7 +187,7 @@ GEM
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
-    geocoder (1.8.3)
+    geocoder (1.8.4)
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
     globalid (1.2.1)
