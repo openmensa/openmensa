@@ -64,6 +64,10 @@ Config.setup do |config|
   config.schema do
     required(:secret_key_base).filled
 
+    optional(:appsignal).maybe(:hash) do
+      optional(:push_api_key).maybe(:str?)
+    end
+
     optional(:sentry).maybe(:hash) do
       optional(:dsn).maybe(:str?)
     end

@@ -47,6 +47,7 @@ gem "paginate-responder", "~> 2.0"
 gem "responders"
 gem "will_paginate"
 
+gem "appsignal"
 gem "sentry-rails"
 gem "sentry-ruby"
 gem "stackprof"
