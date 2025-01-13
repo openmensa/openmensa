@@ -9,5 +9,8 @@ Appsignal.configure do |config|
   config.name = "OpenMensa"
   config.push_api_key = push_api_key
 
-  config.filter_parameters = Rails.application.config.filter_parameters.map(&:to_s)
+  revision_file = Rails.root.join("REVISION")
+  if revision_file.exist?
+    config.revision = revision_file.read.strip[0..7]
+  end
 end
