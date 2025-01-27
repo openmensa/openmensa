@@ -483,7 +483,7 @@ GEM
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     squasher (0.8.0)
-    stackprof (0.2.26)
+    stackprof (0.2.27)
     stringio (3.1.2)
     telegraf (3.0.0)
     temple (0.10.3)
