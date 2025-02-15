@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   rspec:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     services:
       postgres:
@@ -68,7 +68,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rubocop:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: step-security/harden-runner@cb605e52c26070c328afc4562f0b4ada7618a84e # v2.10.4
@@ -81,7 +81,7 @@ jobs:
       - run: bundle exec rubocop --color --parallel --fail-level E
 
   prettier:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: step-security/harden-runner@cb605e52c26070c328afc4562f0b4ada7618a84e # v2.10.4
         with:
@@ -101,7 +101,7 @@ jobs:
     needs: rspec
     if: always()
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     env:
       REGISTRY: ghcr.io
@@ -146,7 +146,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   actionlint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: step-security/harden-runner@cb605e52c26070c328afc4562f0b4ada7618a84e # v2.10.4
