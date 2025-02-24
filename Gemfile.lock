@@ -80,7 +80,7 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     api-responder (1.0.1)
       activesupport
-    appsignal (4.4.0)
+    appsignal (4.5.0)
       logger
       rack
     ast (2.4.2)
