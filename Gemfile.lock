@@ -80,9 +80,9 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     api-responder (1.0.1)
       activesupport
-    appsignal (4.5.2)
+    appsignal (4.5.3)
       logger
-      rack
+      rack (>= 2.0.0)
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -330,7 +330,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.10)
+    rack (3.1.11)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-link_headers (2.4.1)
