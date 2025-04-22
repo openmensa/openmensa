@@ -1,6 +1,7 @@
 # Ignore auto-generated and bundled files, as well as modules.
 /.idea
 /.pnp.*
+/.venv
 /.vscode
 /.yarn
 /node_modules
