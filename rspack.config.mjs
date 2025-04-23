@@ -36,7 +36,12 @@ export default async (env, argv) => {
         },
         {
           test: /\.(sass|scss)$/,
-          use: ["sass-loader"],
+          use: [
+            {
+              loader: "sass-loader",
+              options: { api: "modern-compiler" },
+            },
+          ],
           type: "css/auto",
         },
       ],
