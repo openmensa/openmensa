@@ -8,14 +8,16 @@
 
 :root > * {
   /* native system font stack */
-  --md-text-font: system-ui, ui-sans-serif, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Noto Sans", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell",
+  --md-text-font:
+    system-ui, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Noto Sans", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell",
     "Helvetica Neue", Arial, sans-serif, "Blobmoji", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
 
-  --md-code-font: ui-monospace, "SFMono-Regular", "Menlo", "Monaco",
-    "Noto Mono", "Consolas", "Liberation Mono", "Courier New", monospace,
-    "Blobmoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --md-code-font:
+    ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Noto Mono", "Consolas",
+    "Liberation Mono", "Courier New", monospace, "Blobmoji",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 /* ensure tables are 100% */
