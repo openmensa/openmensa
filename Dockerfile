@@ -39,7 +39,8 @@ RUN <<EOF
   apt-get --yes --quiet update
   apt-get --yes --quiet install \
     build-essential \
-    libpq-dev
+    libpq-dev \
+    libyaml-dev
 EOF
 
 COPY Gemfile Gemfile.lock /opt/openmensa/
