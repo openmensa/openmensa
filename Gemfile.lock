@@ -431,7 +431,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.2)
-    rubocop (1.76.2)
+    rubocop (1.77.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -575,7 +575,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails (= 6.1.5)
-  rubocop (~> 1.76.0)
+  rubocop (~> 1.77.0)
   rubocop-capybara (~> 2.22.0)
   rubocop-factory_bot (~> 2.26.0)
   rubocop-performance (~> 1.23.0)
