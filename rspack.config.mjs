@@ -60,11 +60,7 @@ export default async (env, argv) => {
       }),
     ],
     devServer: {
-      proxy: {
-        "/": {
-          target: "http://localhost:3000",
-        },
-      },
+      proxy: [{ context: ["/"], target: "http://localhost:3000" }],
     },
   };
 
