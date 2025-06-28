@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+rvm $(cat .ruby-version) do yarn exec lint-staged

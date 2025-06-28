@@ -45,7 +45,6 @@
 # Ignore dependency and output folders
 __pycache__/
 __pypackages__/
-/.husky
 /.venv
 /.yarn
 /coverage
