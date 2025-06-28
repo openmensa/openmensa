@@ -1,10 +1,18 @@
-@use "../functions";
 @use "../responsive";
 
 .users_controller {
   .identities {
-    @extend %clearfix;
-    padding: 3px 3px 4px !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-around;
+    gap: 10px 5px;
+
+    padding: 10px 6px !important;
+
+    @include responsive.media(mobile) {
+      flex-direction: column;
+    }
 
     p {
       clear: both;
@@ -13,10 +21,9 @@
   }
 
   .identity {
-    float: left;
-    width: 48%;
+    width: 49%;
+
     height: 74px;
-    margin: 6px;
     padding: 0 14px;
     overflow: hidden;
     background-color: #fff;
@@ -25,7 +32,7 @@
     box-shadow: 0 1px 3px rgba(#000, 0.1);
 
     @include responsive.media(mobile) {
-      width: 98%;
+      width: 100%;
     }
 
     i {

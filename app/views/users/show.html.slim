@@ -41,10 +41,10 @@
       header
         h2
           = t(:my_identities)
-          ul.actions
-            - if @user.identities.count < Identity.providers.count
-              li = link_to new_user_identity_path(@user), title: t(:add_identity) do
-                i.icon.fa-solid.fa-circle-plus
+        ul.actions
+          - if @user.identities.count < Identity.providers.count
+            li = link_to new_user_identity_path(@user), title: t(:add_identity) do
+              i.icon.fa-solid.fa-circle-plus
       .content.identities
         - @user.identities.each do |identity|
           = render partial: "identity", object: identity

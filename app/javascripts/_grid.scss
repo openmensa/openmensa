@@ -1,113 +1,41 @@
 @use "sass:math";
 
 @use "responsive";
-@use "functions";
 @use "variables";
 
 $grid-count: 12 !default;
 $grid-gutter: 1.5% !default;
 
-@mixin grid-span($i: 1, $count: 12, $margin: 1.5%) {
-  width: math.div(100%, $count) * $i - $margin + (math.div($margin, $count) * $i);
-}
-
-@mixin grid-offset($i: 1, $count: 12, $margin: 1.5%) {
-  padding-left: math.div(100%, $count) * $i + (math.div($margin, $count) * $i);
-}
-
 .row {
-  @extend %clearfix;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 
-  display: block;
+  gap: 1.5%;
+
   width: 100%;
   padding: 0;
 
   @for $i from 1 through $grid-count {
     > .span#{$i} {
-      @include grid-span($i, $grid-count, $grid-gutter);
-    }
-    > .offset#{$i} {
-      @include grid-offset($i, $grid-count, $grid-gutter);
-    }
-  }
+      width: math.div(100%, 12) * $i;
 
-  > [class*="span"],
-  > [class*="offset"] {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    margin-left: $grid-gutter;
-    float: left;
-
-    &:last-child {
-      float: right;
+      @include responsive.media(handheld) {
+        width: 100%;
+      }
     }
-    &:first-child {
-      margin-left: 0;
-      float: left;
+    > .offset#{i} {
+      padding-left: math.div(100%, 12) * $i;
     }
   }
 
   &.reversed {
-    > [class*="span"],
-    > [class*="offset"] {
-      float: right;
-
-      &:last-child {
-        margin-left: 0;
-        float: left;
-      }
-      &:first-child {
-        margin-left: $grid-gutter;
-        float: right;
-      }
-    }
+    flex-direction: row-reverse;
   }
 
   &:not(.tablet) {
     @include responsive.media(handheld) {
-      > [class*="span"],
-      > [class*="offset"] {
-        float: none;
-        width: 100%;
-        padding: 0;
-        margin-left: 0;
-      }
-    }
-  }
-}
-
-.trow {
-  display: table;
-  width: 100%;
-  @for $i from 1 through $grid-count {
-    > .span#{$i} {
-      @include grid-span($i, $grid-count, 0);
-    }
-    > .offset#{$i} {
-      @include grid-offset($i, $grid-count, 0);
-    }
-  }
-
-  > [class*="span"],
-  > [class*="offset"] {
-    display: table-cell;
-    vertical-align: top;
-    float: none;
-    margin-left: 0;
-    border-left: 1px solid variables.$frame-color;
-
-    &:first-child {
-      border-left-width: 0;
-    }
-  }
-
-  @include responsive.media(mobile) {
-    > [class*="span"],
-    > [class*="offset"] {
       display: block;
-      width: auto;
-      border-left-width: 0;
     }
   }
 }

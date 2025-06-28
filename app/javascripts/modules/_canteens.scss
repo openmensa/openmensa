@@ -1,4 +1,3 @@
-@use "../functions";
 @use "../responsive";
 @use "../variables";
 
@@ -15,14 +14,20 @@
     background-position: 50% 50%;
 
     h1 {
+      display: flex;
+      width: 100%;
+
       color: #fff;
       margin: 0;
       padding: 15px 25px;
       text-shadow: none;
       background-color: rgba(0, 0, 0, 0.8);
 
+      > span {
+        flex-grow: 1;
+      }
+
       .fav {
-        float: right;
         color: white;
         padding: 0 7px;
         border-radius: 20px;
@@ -62,8 +67,6 @@
 .canteens_controller,
 .menu_controller {
   .page-header {
-    @extend %clearfix;
-
     @include responsive.media(handheld) {
       h2 {
         margin-top: 7px;
@@ -118,14 +121,11 @@
 
   ul.meals {
     margin: 0;
-    padding: 0;
-    // padding: 0 0 5px;
+    padding: 1px 0;
     list-style: none;
 
     > li {
       border-top: 1px solid #e5e5e5;
-      // padding: 4px 15px;
-      @extend %clearfix;
 
       @include responsive.media(mobile) {
         padding: 1px 7px;
@@ -168,7 +168,6 @@
         padding: 0;
 
         > li {
-          @extend %clearfix;
           border-bottom: 1px dotted #eee;
           padding-right: 10px;
 

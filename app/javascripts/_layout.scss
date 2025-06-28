@@ -1,5 +1,4 @@
 @use "responsive";
-@use "functions";
 
 body {
   margin: 0;
@@ -15,10 +14,6 @@ footer {
   display: block;
 }
 
-.fwrapper {
-  @extend %clearfix;
-}
-
 .cwrapper {
   margin: 0 auto;
   max-width: 960px;
@@ -29,50 +24,47 @@ footer {
   }
 }
 
-.clearfix {
-  @extend %clearfix;
-}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 
-header ul.actions {
-  list-style: none;
-  float: right;
-  margin: -2px 0 0 0;
-  padding: 0.1em 0 0;
+  > ul.actions {
+    display: flex;
 
-  li {
-    float: left;
-  }
+    list-style: none;
+    margin: -2px 0 0 0;
+    padding: 0.1em 0 0;
 
-  a {
-    display: block;
-    position: relative;
-    padding: 0;
-    margin-left: 0.4em;
+    a {
+      display: block;
+      position: relative;
+      padding: 0;
+      margin-left: 0.4em;
 
-    color: #bbb;
-    font-size: 1.3em;
-    line-height: 1em;
-    text-align: center;
-    text-shadow: none;
+      color: #bbb;
+      font-size: 1.3em;
+      line-height: 1em;
+      text-align: center;
+      text-shadow: none;
 
-    transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
 
-    &:hover {
-      color: #333;
-      text-decoration: none;
-    }
+      &:hover {
+        color: #333;
+        text-decoration: none;
+      }
 
-    span.avatar {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
+      span.avatar {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+      }
     }
   }
 }
 
 header#header {
-  @extend .fwrapper;
-
   padding: 10px 0;
   background-image: url("images/hbg.png");
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -154,7 +146,7 @@ header#header {
 
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
       }
 
       img,
@@ -195,7 +187,6 @@ header#header {
 }
 
 #content {
-  @extend .fwrapper;
   @extend .cwrapper;
 
   margin-bottom: 25px;
@@ -221,7 +212,6 @@ header#header {
     }
 
     header {
-      @extend %clearfix;
       padding: 4px 15px 3px 15px;
 
       border-top: 1px solid #ddd;
@@ -245,12 +235,7 @@ header#header {
 
       ul.actions {
         list-style: none;
-        float: right;
         margin: -2px 0 0 0;
-
-        li {
-          float: left;
-        }
 
         a {
           &:hover {

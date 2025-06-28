@@ -32,16 +32,16 @@ section
     header
       h3
         = t :feed, :title, name: feed.name
-        ul.actions
-          li = link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed, name: feed.name) do
-            i.icon.fa-fw.fa-solid.fa-refresh
-          li = link_to feed_messages_path(feed), title: t(:canteen_actions, :open_messages, name: feed.name) do
-            i.icon.fa-fw.fa-regular.fa-envelope
-          li = link_to feed.url, title: t(:canteen_actions, :open_feed, name: feed.name) do
-            i.icon.fa-fw.fa-solid.fa-code
-          - if feed.source_url.present?
-            li = link_to feed.source_url, title: t(:canteen_actions, :open_source, name: feed.name) do
-              i.icon.fa-fw.fa-solid.fa-arrow-up-right-from-square
+      ul.actions
+        li = link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed, name: feed.name) do
+          i.icon.fa-fw.fa-solid.fa-refresh
+        li = link_to feed_messages_path(feed), title: t(:canteen_actions, :open_messages, name: feed.name) do
+          i.icon.fa-fw.fa-regular.fa-envelope
+        li = link_to feed.url, title: t(:canteen_actions, :open_feed, name: feed.name) do
+          i.icon.fa-fw.fa-solid.fa-code
+        - if feed.source_url.present?
+          li = link_to feed.source_url, title: t(:canteen_actions, :open_source, name: feed.name) do
+            i.icon.fa-fw.fa-solid.fa-arrow-up-right-from-square
     .content
       - feed.fetches.group("state").maximum(:executed_at).each do |state, date|
         p

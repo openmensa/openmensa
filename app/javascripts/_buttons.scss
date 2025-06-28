@@ -1,7 +1,6 @@
 @use "sass:color";
 
 @use "responsive";
-@use "functions";
 @use "variables";
 
 $btn: #aaa !default;
@@ -22,14 +21,14 @@ $btn-success: #238625 !default;
   $text-shadow: color.adjust($base-color, $saturation: 15%, $lightness: -18%);
 
   @if $text == false {
-    @if color.channel($base-color, 'lightness', $space: hsl) > 70% {
+    @if color.channel($base-color, "lightness", $space: hsl) > 70% {
       $text: hsl(0, 0%, 20%);
     } @else {
       $text: hsl(0, 0%, 100%);
     }
   }
 
-  @if color.channel($text, 'lightness', $space: hsl) < 70% {
+  @if color.channel($text, "lightness", $space: hsl) < 70% {
     $text-shadow: color.adjust($base-color, $saturation: 10%, $lightness: 4%);
   }
 
@@ -79,7 +78,7 @@ $btn-success: #238625 !default;
 
   &:focus {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-    @if color.channel($text, 'lightness', $space: hsl) < 70% {
+    @if color.channel($text, "lightness", $space: hsl) < 70% {
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset;
     }
   }
