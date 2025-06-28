@@ -7,7 +7,7 @@ import "jquery.autocomplete";
 
 import L from "leaflet";
 import "leaflet-hash";
-import "leaflet.locatecontrol";
+import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "leaflet.markercluster";
 import "leaflet/dist/leaflet.css";
@@ -35,7 +35,7 @@ $(() => {
 
   $('[data-map="map"').each(function () {
     const map = L.map(this, { maxZoom: 18 });
-    L.control.locate().addTo(map);
+    new LocateControl().addTo(map);
     map.addLayer(tileLayer);
 
     const cluster = new L.MarkerClusterGroup({
