@@ -24,7 +24,7 @@
     "prettier": "^3.0.0",
     "rspack-manifest-plugin": "^5.0.0",
     "sass-embedded": "^1.76.0",
-    "sass-loader": "^14.2.1"
+    "sass-loader": "^16.0.0"
   },
   "engines": {
     "node": ">= 20",
