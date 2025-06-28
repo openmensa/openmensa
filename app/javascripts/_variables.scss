@@ -1,17 +1,19 @@
 @use "sass:color";
-@use "~bourbon/core/bourbon";
 
 // Typography
 $text-size: 62.5%;
 $text-color: #333;
-$text-font: bourbon.$font-stack-system;
+$text-font:
+  system-ui, "Noto Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  "Liberation Sans", sans-serif, Blobmoji, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 $header-color: $text-color;
-$header-font: 'Droid Sans', $text-font;
+$header-font: "Droid Sans", $text-font;
 $header-bg-color: #f1f1f1;
 
 $frame-color: #ccc;
-$link-color: #2941B4;
+$link-color: #2941b4;
 
 // Responsive
 $responsive-mobile-width: 480px;
@@ -24,10 +26,22 @@ $alert-bg: color.adjust(#ccc, $lightness: 19%, $space: hsl) !default;
 $alert-border: color.adjust(#ccc, $lightness: -10%, $space: hsl) !default;
 $alert-error: #b94a48 !default;
 $alert-error-bg: #f2dede !default;
-$alert-error-border: color.adjust($alert-error-bg, $lightness: -20%, $space: hsl) !default;
+$alert-error-border: color.adjust(
+  $alert-error-bg,
+  $lightness: -20%,
+  $space: hsl
+) !default;
 $alert-warning: #c09853 !default;
 $alert-warning-bg: #fcf8e3 !default;
-$alert-warning-border: color.adjust($alert-warning-bg, $lightness: -30%, $space: hsl) !default;
+$alert-warning-border: color.adjust(
+  $alert-warning-bg,
+  $lightness: -30%,
+  $space: hsl
+) !default;
 $alert-notice: color.adjust(#468847, $lightness: -15%, $space: hsl) !default;
 $alert-notice-bg: #dff0d8 !default;
-$alert-notice-border: color.adjust($alert-notice-bg, $lightness: -30%, $space: hsl) !default;
+$alert-notice-border: color.adjust(
+  $alert-notice-bg,
+  $lightness: -30%,
+  $space: hsl
+) !default;
