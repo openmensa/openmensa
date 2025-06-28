@@ -38,7 +38,7 @@
   "scripts": {
     "fmt": "prettier --write --ignore-unknown .",
     "lint:fmt": "prettier --check --ignore-unknown .",
-    "postinstall": "husky install",
+    "postinstall": "husky",
     "dev": "NODE_ENV=development rspack serve",
     "build": "NODE_ENV=production rspack build"
   }
