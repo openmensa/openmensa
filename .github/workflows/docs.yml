@@ -8,10 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+
     steps:
       - uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            files.pythonhosted.org:443
+            github.com:443
+            objects.githubusercontent.com:443
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -30,7 +39,6 @@ jobs:
 
     permissions:
       pages: write
-      id-token: write
 
     environment:
       name: github-pages
@@ -44,7 +52,9 @@ jobs:
       - name: Harden Runner
         uses: step-security/harden-runner@v2
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
 
       - uses: actions/deploy-pages@v4
         id: deployment
