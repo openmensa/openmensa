@@ -48,15 +48,31 @@
 }
 
 .alert {
-  @include alert(variables.$alert, variables.$alert-bg, variables.$alert-border);
+  @include alert(
+    variables.$alert,
+    variables.$alert-bg,
+    variables.$alert-border
+  );
 }
 .alert-error {
-  @include alert(variables.$alert-error, variables.$alert-error-bg, variables.$alert-error-border);
+  @include alert(
+    variables.$alert-error,
+    variables.$alert-error-bg,
+    variables.$alert-error-border
+  );
 }
 .alert-notice,
 .alert-success {
-  @include alert(variables.$alert-notice, variables.$alert-notice-bg, variables.$alert-notice-border);
+  @include alert(
+    variables.$alert-notice,
+    variables.$alert-notice-bg,
+    variables.$alert-notice-border
+  );
 }
 .alert-warning {
-  @include alert(variables.$alert-warning, variables.$alert-warning-bg, variables.$alert-warning-border);
+  @include alert(
+    variables.$alert-warning,
+    variables.$alert-warning-bg,
+    variables.$alert-warning-border
+  );
 }
