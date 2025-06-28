@@ -269,16 +269,16 @@ wheels = [
 
 [[package]]
 name = "mkdocs-awesome-pages-plugin"
-version = "2.9.3"
+version = "2.10.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mkdocs" },
     { name = "natsort" },
     { name = "wcmatch" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/76/d2/7a298e373e09ece04d208581c86fd28c283d706e435884600d2b08de74bf/mkdocs_awesome_pages_plugin-2.9.3.tar.gz", hash = "sha256:bdf6369871f41bb17f09c3cfb573367732dfcceb5673d7a2c5c76ac2567b242f", size = 16039, upload-time = "2024-07-25T21:10:19.66Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/92/e8/6ae9c18d8174a5d74ce4ade7a7f4c350955063968bc41ff1e5833cff4a2b/mkdocs_awesome_pages_plugin-2.10.1.tar.gz", hash = "sha256:cda2cb88c937ada81a4785225f20ef77ce532762f4500120b67a1433c1cdbb2f", size = 16303, upload-time = "2024-12-22T21:13:49.19Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/97/f0/1434593be83f8c9b3c5cdfa3db2b3b4b8af3eab164a787ad81b5736abcf0/mkdocs_awesome_pages_plugin-2.9.3-py3-none-any.whl", hash = "sha256:1ba433d4e7edaf8661b15b93267f78f78e2e06ca590fc0e651ea36b191d64ae4", size = 14880, upload-time = "2024-07-25T21:10:18.174Z" },
+    { url = "https://files.pythonhosted.org/packages/73/61/19fc1e9c579dbfd4e8a402748f1d63cab7aabe8f8d91eb0235e45b32d040/mkdocs_awesome_pages_plugin-2.10.1-py3-none-any.whl", hash = "sha256:c6939dbea37383fc3cf8c0a4e892144ec3d2f8a585e16fdc966b34e7c97042a7", size = 15118, upload-time = "2024-12-22T21:13:46.945Z" },
 ]
 
 [[package]]
@@ -362,7 +362,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "mdx-truly-sane-lists", specifier = "~=1.2" },
-    { name = "mkdocs-awesome-pages-plugin", specifier = "~=2.9.0" },
+    { name = "mkdocs-awesome-pages-plugin", specifier = "~=2.10.1" },
     { name = "mkdocs-git-revision-date-plugin", specifier = "~=0.3.2" },
     { name = "mkdocs-material", specifier = "~=9.6.14" },
 ]
