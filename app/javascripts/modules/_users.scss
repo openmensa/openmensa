@@ -1,5 +1,5 @@
-@import "../responsive";
-@import "../extends";
+@use "../functions";
+@use "../responsive";
 
 .users_controller {
   .identities {
@@ -24,7 +24,7 @@
     border: 1px solid #ddd;
     box-shadow: 0 1px 3px rgba(#000, 0.1);
 
-    @include media(mobile) {
+    @include responsive.media(mobile) {
       width: 98%;
     }
 

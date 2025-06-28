@@ -1,5 +1,7 @@
+@use "variables";
+
 table {
-  @extend p;
+  @extend p !optional;
   width: 100%;
   border-collapse: collapse;
 
@@ -8,7 +10,7 @@ table {
       border-top: 1px solid #eee;
       padding: 2px 4px;
 
-      @extend %transition;
+      // @extend %transition;
     }
     &:first-child td {
       border: none;
@@ -29,13 +31,13 @@ table {
           font-size: 20px;
         }
 
-        @extend %transition;
+        // @extend %transition;
 
         &:hover {
           text-decoration: none;
           color: #333 !important;
 
-          @extend %transition;
+          // @extend %transition;
         }
       }
     }
@@ -46,7 +48,7 @@ table {
 
         &.actions a {
           color: #aaa;
-          @extend %transition;
+          // @extend %transition;
         }
       }
     }

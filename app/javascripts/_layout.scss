@@ -1,5 +1,5 @@
-@import "responsive";
-@import "extends";
+@use "responsive";
+@use "functions";
 
 body {
   margin: 0;
@@ -24,7 +24,7 @@ footer {
   max-width: 960px;
   padding: 0 15px;
 
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     padding: 0 11px;
   }
 }
@@ -55,14 +55,11 @@ header ul.actions {
     text-align: center;
     text-shadow: none;
 
-    @extend %transition;
-    // @include transition(color .3s ease-in-out .2s);
+    transition: all 0.2s ease-in-out;
 
     &:hover {
       color: #333;
       text-decoration: none;
-      @extend %transition;
-      // @include transition(color .1s ease-in-out);
     }
 
     span.avatar {
@@ -80,7 +77,7 @@ header#header {
   background-image: url("images/hbg.png");
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     padding: 0;
   }
 
@@ -94,7 +91,7 @@ header#header {
     margin: 0;
     min-height: 50px;
 
-    @include media(mobile) {
+    @include responsive.media(mobile) {
       font-size: 150%;
       padding: 10px 0 10px 60px;
       background: transparent url("images/logo3.png") no-repeat -10px 50%;
@@ -122,7 +119,7 @@ header#header {
       margin-left: 40px;
       z-index: 2000;
 
-      @include media(mobile) {
+      @include responsive.media(mobile) {
         top: -40px;
         right: -20px;
       }
@@ -130,7 +127,6 @@ header#header {
   }
 
   .actions {
-    //margin-top: 6px;
     margin-right: 10px;
 
     a {
@@ -142,7 +138,6 @@ header#header {
     i {
       padding: 0.1em 0;
       font-size: 3.5rem;
-      vertical-align: middle;
       display: block;
     }
 
@@ -158,8 +153,8 @@ header#header {
         background-position: 50% 50%;
 
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-        @extend %transition;
-        // @include transition(all .3s ease-in-out .2s);
+
+        transition: all .2s ease-in-out;
       }
 
       img,
@@ -173,12 +168,12 @@ header#header {
 
       &:hover span {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-        @extend %transition;
+        // @extend %transition;
         // @include transition(all .2s ease-in-out);
       }
     }
 
-    @include media(mobile) {
+    @include responsive.media(mobile) {
       margin-top: 6px;
 
       i {
@@ -209,7 +204,7 @@ header#header {
     margin: 40px 0;
   }
 
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     margin-bottom: 2px;
     .singelton {
       margin: 0;
@@ -221,7 +216,7 @@ header#header {
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
-    @include media(handheld) {
+    @include responsive.media(handheld) {
       margin: 4px 0 0 0;
     }
 
@@ -229,14 +224,13 @@ header#header {
       @extend %clearfix;
       padding: 4px 15px 3px 15px;
 
-      @include media(mobile) {
-        padding: 2px 6px 2px 6px;
-      }
-
       border-top: 1px solid #ddd;
       text-shadow: 0 1px 1px #aaa;
       background-image: url("images/hbg.png");
-      // @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.05) inset);
+
+      @include responsive.media(mobile) {
+        padding: 2px 6px 2px 6px;
+      }
 
       ~ .content {
         border-top: 1px solid #ddd;
@@ -264,7 +258,7 @@ header#header {
           }
         }
 
-        @include media(mobile) {
+        @include responsive.media(mobile) {
           padding: 0;
         }
       }
@@ -280,7 +274,7 @@ header#header {
         margin-top: 16px;
       }
 
-      @include media(mobile) {
+      @include responsive.media(mobile) {
         padding: 2px 6px 2px 6px;
 
         h2,
@@ -327,13 +321,11 @@ header#header {
           padding: 12px 15px 10px 35px;
           color: #333;
           font-weight: bold;
-          @extend %transition;
-          // @include transition(background-color .2s ease-in-out);
+
+          transition: all 0.2s ease-in-out;
 
           &:hover {
             background-color: #efefef;
-            @extend %transition;
-            // @include transition(background-color .2s ease-in-out);
           }
         }
       }

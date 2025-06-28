@@ -1,16 +1,18 @@
-@import "responsive";
-@import "extends";
-@import "variables";
+@use "sass:math";
+
+@use "responsive";
+@use "functions";
+@use "variables";
 
 $grid-count: 12 !default;
 $grid-gutter: 1.5% !default;
 
 @mixin grid-span($i: 1, $count: 12, $margin: 1.5%) {
-  width: (100% / $count) * $i - $margin + ($margin/$count * $i);
+  width: math.div(100%, $count) * $i - $margin + (math.div($margin, $count) * $i);
 }
 
 @mixin grid-offset($i: 1, $count: 12, $margin: 1.5%) {
-  padding-left: (100% / $count) * $i + ($margin/$count * $i);
+  padding-left: math.div(100%, $count) * $i + (math.div($margin, $count) * $i);
 }
 
 .row {
@@ -63,7 +65,7 @@ $grid-gutter: 1.5% !default;
   }
 
   &:not(.tablet) {
-    @include media(handheld) {
+    @include responsive.media(handheld) {
       > [class*="span"],
       > [class*="offset"] {
         float: none;
@@ -93,14 +95,14 @@ $grid-gutter: 1.5% !default;
     vertical-align: top;
     float: none;
     margin-left: 0;
-    border-left: 1px solid $frame-color;
+    border-left: 1px solid variables.$frame-color;
 
     &:first-child {
       border-left-width: 0;
     }
   }
 
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     > [class*="span"],
     > [class*="offset"] {
       display: block;

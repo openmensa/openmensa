@@ -1,5 +1,5 @@
-@import "responsive";
-@import "variables";
+@use "responsive";
+@use "variables";
 
 .leaflet-container {
   .leaflet-control a:hover {
@@ -62,12 +62,12 @@
       width: 100%;
       font-size: 2em;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) inset;
-      @extend %transition;
+      // @extend %transition;
 
       &:hover,
       &:focus {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
-        @extend %transition;
+        // @extend %transition;
       }
     }
 
@@ -77,7 +77,7 @@
     }
   }
 
-  @include media(handheld) {
+  @include responsive.media(handheld) {
     .map {
       height: 350px;
     }
@@ -93,7 +93,7 @@
     }
   }
 
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     .map {
       height: 250px;
     }

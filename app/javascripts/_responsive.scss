@@ -1,33 +1,33 @@
-@import "variables";
+@use "variables";
 
 @mixin media($media) {
   @if $media == "mobile" {
-    @media only screen and (max-width: $responsive-mobile-width) {
+    @media only screen and (max-width: variables.$responsive-mobile-width) {
       @content;
     }
   }
   @if $media == "tablet" {
-    @media only screen and (min-width: $responsive-mobile-width + 1) and (max-width: $responsive-tablet-width) {
+    @media only screen and (min-width: variables.$responsive-mobile-width + 1) and (max-width: variables.$responsive-tablet-width) {
       @content;
     }
   }
   @if $media == "handheld" {
-    @media only screen and (max-width: $responsive-tablet-width) {
+    @media only screen and (max-width: variables.$responsive-tablet-width) {
       @content;
     }
   }
   @if $media == "wide" {
-    @media only screen and (min-width: $responsive-default-width + 1) {
+    @media only screen and (min-width: variables.$responsive-default-width + 1) {
       @content;
     }
   }
   @if $media == "default" {
-    @media only screen and (min-width: $responsive-tablet-width + 1) and (max-width: $responsive-default-width) {
+    @media only screen and (min-width: variables.$responsive-tablet-width + 1) and (max-width: variables.$responsive-default-width) {
       @content;
     }
   }
   @if $media == "display" {
-    @media only screen and (min-width: $responsive-tablet-width + 1) {
+    @media only screen and (min-width: variables.$responsive-tablet-width + 1) {
       @content;
     }
   }

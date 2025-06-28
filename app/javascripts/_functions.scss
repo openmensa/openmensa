@@ -1,13 +1,11 @@
+@use "variables";
+
 @mixin clearfix {
   &:after {
     content: "";
     display: table;
     clear: both;
   }
-}
-
-%hover-transition {
-  @extend %transition;
 }
 
 %clearfix {

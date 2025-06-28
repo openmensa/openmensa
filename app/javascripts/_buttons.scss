@@ -1,6 +1,8 @@
-@import "responsive";
-@import "extends";
-@import "variables";
+@use "sass:color";
+
+@use "responsive";
+@use "functions";
+@use "variables";
 
 $btn: #aaa !default;
 $btn-primary: #3079ed !default;
@@ -10,32 +12,32 @@ $btn-success: #238625 !default;
   // @include button($color);
 
   $grayscale: false;
-  @if $base-color == grayscale($base-color) {
+  @if $base-color == color.grayscale($base-color) {
     $grayscale: true;
   }
 
-  $border: adjust-color($base-color, $saturation: 9%, $lightness: -14%);
-  $inset-shadow: adjust-color($base-color, $saturation: -8%, $lightness: 15%);
-  $stop-gradient: adjust-color($base-color, $saturation: 9%, $lightness: -11%);
-  $text-shadow: adjust-color($base-color, $saturation: 15%, $lightness: -18%);
+  $border: color.adjust($base-color, $saturation: 9%, $lightness: -14%);
+  $inset-shadow: color.adjust($base-color, $saturation: -8%, $lightness: 15%);
+  $stop-gradient: color.adjust($base-color, $saturation: 9%, $lightness: -11%);
+  $text-shadow: color.adjust($base-color, $saturation: 15%, $lightness: -18%);
 
   @if $text == false {
-    @if lightness($base-color) > 70% {
-      $text: hsl(0, 0, 20%);
+    @if color.channel($base-color, 'lightness', $space: hsl) > 70% {
+      $text: hsl(0, 0%, 20%);
     } @else {
-      $text: hsl(0, 0, 100%);
+      $text: hsl(0, 0%, 100%);
     }
   }
 
-  @if lightness($text) < 70% {
-    $text-shadow: adjust-color($base-color, $saturation: 10%, $lightness: 4%);
+  @if color.channel($text, 'lightness', $space: hsl) < 70% {
+    $text-shadow: color.adjust($base-color, $saturation: 10%, $lightness: 4%);
   }
 
   @if $grayscale == true {
-    $border: grayscale($border);
-    $inset-shadow: grayscale($inset-shadow);
-    $stop-gradient: grayscale($stop-gradient);
-    $text-shadow: grayscale($text-shadow);
+    $border: color.grayscale($border);
+    $inset-shadow: color.grayscale($inset-shadow);
+    $stop-gradient: color.grayscale($stop-gradient);
+    $text-shadow: color.grayscale($text-shadow);
   }
 
   color: $text;
@@ -47,25 +49,25 @@ $btn-success: #238625 !default;
   background-image: linear-gradient($base-color, $stop-gradient);
 
   &:hover {
-    $base-color-hover: adjust-color(
+    $base-color-hover: color.adjust(
       $base-color,
       $saturation: -4%,
       $lightness: -5%
     );
-    $inset-shadow-hover: adjust-color(
+    $inset-shadow-hover: color.adjust(
       $base-color,
       $saturation: -7%,
       $lightness: 5%
     );
-    $stop-gradient-hover: adjust-color(
+    $stop-gradient-hover: color.adjust(
       $base-color,
       $saturation: 8%,
       $lightness: -14%
     );
 
     @if $grayscale == true {
-      $inset-shadow-hover: grayscale($inset-shadow-hover);
-      $stop-gradient-hover: grayscale($stop-gradient-hover);
+      $inset-shadow-hover: color.grayscale($inset-shadow-hover);
+      $stop-gradient-hover: color.grayscale($stop-gradient-hover);
     }
 
     color: $text;
@@ -77,26 +79,26 @@ $btn-success: #238625 !default;
 
   &:focus {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-    @if lightness($text) < 70% {
+    @if color.channel($text, 'lightness', $space: hsl) < 70% {
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset;
     }
   }
 
   &:active {
-    $border-active: adjust-color(
+    $border-active: color.adjust(
       $base-color,
       $saturation: 9%,
       $lightness: -14%
     );
-    $inset-shadow-active: adjust-color(
+    $inset-shadow-active: color.adjust(
       $base-color,
       $saturation: 7%,
       $lightness: -17%
     );
 
     @if $grayscale == true {
-      $border-active: grayscale($border-active);
-      $inset-shadow-active: grayscale($inset-shadow-active);
+      $border-active: color.grayscale($border-active);
+      $inset-shadow-active: color.grayscale($inset-shadow-active);
     }
 
     border: 1px solid $border-active;
@@ -132,12 +134,8 @@ $btn-success: #238625 !default;
   display: inline-block;
   text-decoration: none;
 
-  // font: -webkit-small-control;
-  -webkit-appearance: none;
-  // -webkit-box-align: center;
-  // -webkit-rtl-ordering: logical;
-  // -webkit-user-select: text;
-  -webkit-background-clip: padding-box;
+  appearance: none;
+  background-clip: padding-box;
 
   &[class^="fa-"]::before,
   &[class*=" fa-"]::before {
@@ -165,7 +163,7 @@ $btn-success: #238625 !default;
     vertical-align: baseline;
   }
 
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     padding: 9px 15px 7px;
   }
 

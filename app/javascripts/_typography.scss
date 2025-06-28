@@ -1,22 +1,25 @@
-@import "responsive";
-@import "variables";
+@use "sass:color";
+
+@use "functions";
+@use "responsive";
+@use "variables";
 
 @mixin p {
   margin: 8px 0;
-  @include media(mobile) {
+  @include responsive.media(mobile) {
     margin: 3px 0;
   }
 }
 
 html {
   font-size: 10px;
-  font-size: $text-size;
+  font-size: variables.$text-size;
 }
 body {
-  color: $text-color;
+  color: variables.$text-color;
   font-size: 13px;
   font-size: 1.3rem;
-  font-family: $text-font;
+  font-family: variables.$text-font;
   line-height: 1.35;
 }
 
@@ -25,8 +28,8 @@ h2,
 h3,
 h4,
 h5 {
-  color: $header-color;
-  font-family: $header-font;
+  color: variables.$header-color;
+  font-family: variables.$header-font;
   font-size: 24px;
   font-size: 2.4rem;
   font-weight: normal;
@@ -54,7 +57,7 @@ h5 {
   font-size: 1.3rem;
 }
 
-@include media(mobile) {
+@include responsive.media(mobile) {
   h1 {
     font-size: 17px;
     font-size: 1.7rem;
@@ -92,7 +95,6 @@ em {
 }
 p,
 .p {
-  @include p;
   line-height: 1.5em;
 }
 
@@ -109,7 +111,7 @@ ol {
 }
 hr {
   border: none;
-  border-top: 1px solid $frame-color;
+  border-top: 1px solid variables.$frame-color;
 }
 code,
 pre {
@@ -118,7 +120,7 @@ pre {
 code {
   border-radius: 2px;
   background-color: #f4f4f4;
-  border: 1px solid $frame-color;
+  border: 1px solid variables.$frame-color;
   padding: 0 2px;
 }
 pre {
@@ -133,20 +135,20 @@ address {
 }
 
 a {
-  color: $link-color;
+  color: variables.$link-color;
   text-decoration: none;
-  @extend %transition;
+
+  transition: color 0.2s ease-in-out;
 
   &:hover,
   &.hover {
-    @if lightness($link-color) < 40% {
-      color: lighten($link-color, 15%);
+    @if color.channel(variables.$link-color, "lightness", $space: hsl) < 40% {
+      color: color.adjust(variables.$link-color, $lightness: 15%, $space: hsl);
     } @else {
-      color: darken($link-color, 15%);
+      color: color.adjust(variables.$link-color, $lightness: -15%, $space: hsl);
     }
     text-decoration: underline;
     cursor: pointer;
-    @extend %transition;
   }
 }
 

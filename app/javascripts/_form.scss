@@ -1,10 +1,11 @@
-@import "variables";
+@use "functions";
+@use "variables";
 
 form {
   fieldset {
     margin: 1.4em 0 0 0;
     border: none;
-    border-top: 1px solid $frame-color;
+    border-top: 1px solid variables.$frame-color;
 
     > legend {
       padding: 0 5px;
@@ -46,19 +47,18 @@ form {
       background-color: #fff;
 
       box-shadow: 0 0 3px rgba(#000, 0.2);
-      @extend %transition;
+
+      transition: 0.2s ease-in-out;
 
       &:hover,
       &:focus {
         outline: none;
         border-color: #aaa;
         box-shadow: 0 0 3px rgba(#000, 0.4);
-        @extend %transition;
       }
 
       &:focus {
         border-color: #777;
-        @extend %transition;
       }
 
       &[readonly],
@@ -66,7 +66,6 @@ form {
         box-shadow: none;
         border-color: #ccc;
         background-color: #fafafa;
-        @extend %transition;
       }
     }
 

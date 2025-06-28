@@ -1,5 +1,6 @@
-@import "../responsive";
-@import "../extends";
+@use "../functions";
+@use "../responsive";
+@use "../variables";
 
 #content {
   #feedback_message {
@@ -36,12 +37,12 @@
       }
     }
 
-    @include media(tablet) {
+    @include responsive.media(tablet) {
       padding: 0;
       background-image: none;
     }
 
-    @include media(mobile) {
+    @include responsive.media(mobile) {
       padding: 0;
       background-image: none;
 
@@ -53,7 +54,7 @@
     }
 
     span.outoforder {
-      color: $alert-error;
+      color: variables.$alert-error;
     }
   }
 }
@@ -63,7 +64,7 @@
   .page-header {
     @extend %clearfix;
 
-    @include media(handheld) {
+    @include responsive.media(handheld) {
       h2 {
         margin-top: 7px;
         font-size: 18px;
@@ -77,7 +78,7 @@
       margin: 3px 0 0;
       padding: 10px;
 
-      @include media(handheld) {
+      @include responsive.media(handheld) {
         margin: 0;
       }
 
@@ -86,7 +87,8 @@
         height: 14px;
         display: block;
         transform: rotate(-45deg);
-        @extend %hover-transition;
+
+        transition: 0.2s ease-in-out;
       }
 
       &.next {
@@ -110,7 +112,6 @@
       &:hover span {
         border-color: #333;
         background-color: rgba(0, 0, 0, 0.05);
-        @extend %hover-transition;
       }
     }
   }
@@ -126,7 +127,7 @@
       // padding: 4px 15px;
       @extend %clearfix;
 
-      @include media(mobile) {
+      @include responsive.media(mobile) {
         padding: 1px 7px;
       }
 
@@ -134,7 +135,6 @@
         padding-top: 5px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
       }
-      // &:last-child > div { padding-bottom: 8px; }
 
       > h3 {
         float: left;
@@ -145,7 +145,7 @@
         text-align: right;
         margin: 9px 0;
 
-        @include media(mobile) {
+        @include responsive.media(mobile) {
           float: none;
           width: 100%;
           text-align: left;
@@ -157,7 +157,7 @@
         margin: 9px 0;
         padding: 0 0 0 160px;
 
-        @include media(mobile) {
+        @include responsive.media(mobile) {
           margin: 5px 0;
           padding: 0;
         }
@@ -187,10 +187,11 @@
             position: relative;
             display: table-cell;
             padding: 0 0 12px 0;
-            @extend %hover-transition;
 
             color: #ccc;
             font-size: 0.85em;
+
+            transition: 0.2s ease-in-out;
           }
 
           ul.notes {
@@ -217,15 +218,17 @@
 
               opacity: 0;
               visibility: hidden;
-              @extend %hover-transition;
+
+              transition: 0.2s ease-in-out;
 
               span {
-                @extend %hover-transition;
                 color: #aaa;
                 bottom: 0;
                 opacity: 0;
                 position: absolute;
                 visibility: hidden;
+
+                transition: 0.2s ease-in-out;
               }
 
               &:last-child {
@@ -239,17 +242,15 @@
           &.active {
             ul {
               color: #666;
-              @extend %hover-transition;
             }
             ul.prices li,
             ul.prices span {
               visibility: visible;
               opacity: 1;
-              @extend %hover-transition;
             }
           }
 
-          @include media(mobile) {
+          @include responsive.media(mobile) {
             padding-bottom: 4px;
 
             ul.notes,

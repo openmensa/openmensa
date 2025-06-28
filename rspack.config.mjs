@@ -39,7 +39,10 @@ export default async (env, argv) => {
           use: [
             {
               loader: "sass-loader",
-              options: { api: "modern-compiler" },
+              options: {
+                api: "modern-compiler",
+                sassOptions: { quietDeps: true },
+              },
             },
           ],
           type: "css/auto",

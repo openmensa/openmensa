@@ -5,34 +5,30 @@
 //= require leaflet.markercluster
 //= require_self
 
-$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/brands";
+@use "fontawesome";
 
-@import "~bourbon";
+@use "~bourbon/core/bourbon";
 
-* {
-  box-sizing: border-box;
-}
+@use "typography";
+@use "layout";
+@use "grid";
+@use "alerts";
+@use "buttons";
+@use "form";
+@use "tables";
+@use "autocomplete";
 
-@import "./typography";
-@import "./layout";
-@import "./grid";
-@import "./alerts";
-@import "./buttons";
-@import "./form";
-@import "./tables";
-@import "./autocomplete";
+@use "map";
 
-@import "./map";
+@use "modules/canteens";
+@use "modules/index";
+@use "modules/users";
+@use "modules/parsers";
 
 .hide {
   display: none;
 }
 
-@import "./modules/canteens";
-@import "./modules/index";
-@import "./modules/users";
-@import "./modules/parsers";
+* {
+  box-sizing: border-box;
+}
