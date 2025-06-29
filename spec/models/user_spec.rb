@@ -145,7 +145,9 @@ describe User do
         create(:user)
 
         expect(User.all).not_to be_empty
-        expect(User.all.select {|u| u.login == "anonymous" || u.login == "system" }).to be_empty
+
+        system_users = %w[anonymous system]
+        expect(User.all.select {|u| system_users.include?(u.login) }).to be_empty
       end
     end
   end

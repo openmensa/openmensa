@@ -44,9 +44,7 @@ describe "Profile page" do
       click_on "GitHub"
       # Ensure we're back on the profile page
       expect(page).to have_content "Meine Identitäten"
-    end.to change {
-      Identity.all.count
-    }.by(1)
+    end.to change(Identity, :count).by(1)
 
     expect(Identity.last.provider).to eq("github")
 
@@ -65,9 +63,7 @@ describe "Profile page" do
       click_on "Twitter Identität entfernen"
       # Ensure we're back on the profile page
       expect(page).to have_content "Meine Identitäten"
-    end.to change {
-      Identity.all.count
-    }.from(2).to(1)
+    end.to change(Identity, :count).from(2).to(1)
 
     expect(Identity.first.provider).to eq("github")
 

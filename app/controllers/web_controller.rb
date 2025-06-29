@@ -31,24 +31,13 @@ class WebController < ApplicationController
   # **** accessors & helpers ****
 
   def current_user=(user)
-    session[:user_id] = user ? user.id : nil
+    session[:user_id] = user&.id
     super
   end
 
   def flash_for(node, flashs = {})
     flash[node] ||= {}
     flash[node].merge! flashs
-  end
-
-  # **** authentication ****
-
-  def require_authentication!
-    if current_user.logged?
-      true
-    else
-      error_access_denied
-      false
-    end
   end
 
   # **** error handling and rendering ****

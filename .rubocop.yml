@@ -168,9 +168,12 @@ Metrics/CyclomaticComplexity:
   Enabled: false
 
 Metrics/MethodLength:
-  Max: 25
+  Max: 30
   Exclude:
     - "db/**/*"
+
+Metrics/PerceivedComplexity:
+  Max: 15
 
 # -----------------------------------------------------------------------------
 #                                   Style

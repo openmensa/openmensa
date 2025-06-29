@@ -214,7 +214,7 @@ class ParserMailer < ApplicationMailer
 
     def seen_states
       keys = %w[invalid failed broken]
-      @histogram.select {|k, _v| keys.include? k }.keys
+      @histogram.slice(*keys).keys
     end
 
     def messages
