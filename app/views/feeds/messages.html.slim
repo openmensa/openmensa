@@ -30,8 +30,8 @@
               td rowspan=(fetch.messages.size + 1)
                 i.icon class=reason_map.fetch(fetch.reason) title=t(:feed_fetch, :reasons, fetch.reason)
               td
-                = l fetch.executed_at, format: :short
-              td = t :feed_fetch, :states, fetch.state
+                = l(fetch.executed_at, format: :compact)
+              td = t(:feed_fetch, :states, fetch.state)
               td.number = fetch.added_days
               td.number = fetch.updated_days
               td.number = fetch.added_meals
