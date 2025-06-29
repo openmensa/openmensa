@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "#{File.dirname(__FILE__)}/../spec_helper"
-require_dependency "message"
+require "spec_helper"
 
 describe "Developers" do
   let(:user) { create(:user) }

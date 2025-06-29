@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require "spec_helper"
 
 describe "Authentication" do
   describe "Login" do

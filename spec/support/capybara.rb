@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 headless = ENV["CI"] || %w[0 false off].exclude?(ENV.fetch("HEADLESS", "on").downcase)
-warn "INFO: Running feature specs in headless browser." if headless
+warn "INFO: Running system specs in headless browser." if headless
 
 Capybara.default_driver = :custom_cuprite
 

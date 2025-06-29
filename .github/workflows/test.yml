@@ -56,12 +56,12 @@ jobs:
 
       - run: bundle exec rake assets:precompile
 
-      - run: bundle exec rspec --tty --color --format doc --tag ~type:feature ./spec
+      - run: bundle exec rspec --tty --color --format doc --tag ~type:system ./spec
         env:
           COVERAGE_NAME: rspec:unit
-      - run: bundle exec rspec --tty --color --format doc --tag type:feature ./spec
+      - run: bundle exec rspec --tty --color --format doc --tag type:system ./spec
         env:
-          COVERAGE_NAME: rspec:feature
+          COVERAGE_NAME: rspec:system
       - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true

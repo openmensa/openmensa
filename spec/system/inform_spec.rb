@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require "spec_helper"
 
 describe "Inform" do
   context "as a interessed user" do
