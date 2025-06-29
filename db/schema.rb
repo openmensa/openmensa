@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_081208) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_29_103050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -291,6 +291,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_081208) do
     t.string "public_name"
     t.string "notify_email"
     t.string "info_url"
+    t.index ["login"], name: "index_users_on_login", unique: true
   end
 
   add_foreign_key "canteens", "canteens", column: "replaced_by"
