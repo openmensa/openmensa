@@ -71,6 +71,11 @@
     justify-content: space-between;
     align-items: center;
 
+    > h2,
+    > h3 {
+      flex-grow: 1;
+    }
+
     h2 {
       @include responsive.media(handheld) {
         font-size: 18px;
