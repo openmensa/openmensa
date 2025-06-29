@@ -5,12 +5,16 @@ table {
   width: 100%;
   border-collapse: collapse;
 
+  &.messages {
+    td {
+      vertical-align: baseline;
+    }
+  }
+
   tr {
     td {
       border-top: 1px solid #eee;
       padding: 2px 4px;
-
-      // @extend %transition;
     }
     &:first-child td {
       border: none;

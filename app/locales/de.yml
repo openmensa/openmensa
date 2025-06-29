@@ -273,6 +273,10 @@ de:
     formats:
       with_weekday: "%A, %d. %B %Y"
 
+  time:
+    formats:
+      compact: "%d.%m.%Y %H:%M"
+
   errors:
     not_found:
       title: Ham wa net.

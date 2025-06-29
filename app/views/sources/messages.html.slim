@@ -5,11 +5,11 @@
 
       .content
         h2 = t :source, :messages
-        table
-          - @source.messages.each do |message|
+        table.messages
+          - @source.messages.order(created_at: :desc).each do |message|
             tr
-              td
-                = l message.created_at, format: :short
+              td.nowrap
+                = l(message.created_at, format: :compact)
               td
                 = message.to_html
 
