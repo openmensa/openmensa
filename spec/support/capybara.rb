@@ -13,7 +13,7 @@ Capybara.register_driver(:custom_cuprite) do |app|
     process_timeout: 120,
     timeout: 120,
     window_size: [1280, 800],
-    url_whitelist: %r{^https?://(127.0.0.1|localhost)}
+    url_whitelist: %r{^https?://(127.0.0.1|localhost)},
   )
 end
 

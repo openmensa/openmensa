@@ -5,7 +5,7 @@ class UpdateFeedsJob < ApplicationJob
 
   good_job_control_concurrency_with(
     total_limit: 1,
-    key: "UpdateFeedsJob"
+    key: "UpdateFeedsJob",
   )
 
   def perform

@@ -95,7 +95,7 @@ describe OpenMensa::ParserUpdater do
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to eq(
         "test" => "http://example.org/test.xml",
-        "test2" => nil
+        "test2" => nil,
       )
     end
 
@@ -105,7 +105,7 @@ describe OpenMensa::ParserUpdater do
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to eq(
         "test" => "http://example.org/test.xml",
-        "test2" => nil
+        "test2" => nil,
       )
     end
 
@@ -268,7 +268,7 @@ describe OpenMensa::ParserUpdater do
       stub_json test: "http://example.com/test/meta.xml"
       source = create(:source, parser:,
         name: "test",
-        meta_url: "http://example.com/test.xml")
+        meta_url: "http://example.com/test.xml",)
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 0, created: 0, updated: 1, archived: 0
@@ -285,7 +285,7 @@ describe OpenMensa::ParserUpdater do
       stub_json test: "http://example.com/test/meta.xml"
       source = create(:source, parser:,
         name: "test",
-        meta_url: nil)
+        meta_url: nil,)
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 0, created: 0, updated: 1, archived: 0
@@ -302,7 +302,7 @@ describe OpenMensa::ParserUpdater do
       stub_json({})
       source = create(:source, parser:,
         name: "test",
-        meta_url: "http://example.org/test/test2.xml")
+        meta_url: "http://example.org/test/test2.xml",)
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 0, created: 0, updated: 0, archived: 1
@@ -322,7 +322,7 @@ describe OpenMensa::ParserUpdater do
       source = create(:source, parser:,
         canteen:,
         name: "test",
-        meta_url: "http://example.org/test/test2.xml")
+        meta_url: "http://example.org/test/test2.xml",)
 
       expect(updater.sync).to be_truthy
       expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0

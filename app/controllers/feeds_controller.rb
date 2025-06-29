@@ -40,11 +40,10 @@ class FeedsController < WebController
     end
 
     updater = OpenMensa::Updater.new(@feed, "manual")
-    @result = {
-      "status" => updater.update ? "ok" : "error"
-    }
+    @result = {"status" => updater.update ? "ok" : "error"}
     json = @result.dup.update updater.stats
     @result.update updater.stats(false) if current_user.can? :manage, @feed
+
     respond_to do |format|
       format.html
       format.json { render json: }

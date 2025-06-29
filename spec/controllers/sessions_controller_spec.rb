@@ -14,9 +14,9 @@ describe SessionsController do
         "uid" => "123456",
         "credentials" => {
           "token" => "123456",
-          "secret" => "geheim"
+          "secret" => "geheim",
         },
-        "info" => nil
+        "info" => nil,
       }
 
       expect do

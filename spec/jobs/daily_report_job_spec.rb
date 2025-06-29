@@ -8,7 +8,7 @@ describe DailyReportJob do
     ActionMailer::Base.mail(
       to: "test@example.org",
       from: "info@openmensa.org",
-      body: "test content"
+      body: "test content",
     )
   end
   let(:null_message) { ActionMailer::Base::NullMail.new }

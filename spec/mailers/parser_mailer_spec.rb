@@ -19,7 +19,7 @@ describe ParserMailer do
         create(:feedInvalidUrlError, canteen: canteens[0]),
         create(:feedFetchError, canteen: canteens[0]),
         create(:feedValidationError, canteen: canteens[0], kind: :invalid_xml),
-        create(:feedUrlUpdatedInfo, canteen: canteens[1])
+        create(:feedUrlUpdatedInfo, canteen: canteens[1]),
       ]
     end
     let(:mail) { ParserMailer.daily_report(parser, data_since) }

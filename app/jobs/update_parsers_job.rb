@@ -5,7 +5,7 @@ class UpdateParsersJob < ApplicationJob
 
   good_job_control_concurrency_with(
     total_limit: 1,
-    key: "UpdateParsersJob"
+    key: "UpdateParsersJob",
   )
 
   def perform

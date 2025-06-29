@@ -11,7 +11,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
     student: nil,
     employee: nil,
     pupil: nil,
-    other: nil
+    other: nil,
   }.freeze
 
   def initialize(feed, reason, options = {})
@@ -19,8 +19,12 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
 
     options = {version: nil, today: false}.update options
     @feed = feed
-    @fetch = FeedFetch.create! feed:, executed_at: Time.zone.now,
-      reason:, state: "fetching"
+    @fetch = FeedFetch.create!(
+      feed:,
+      reason:,
+      state: "fetching",
+      executed_at: Time.zone.now,
+    )
     @version = options[:version]
     reset_stats
   end
@@ -91,7 +95,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
       prices: meal.children.each_with_object({}) do |node, prices|
         prices[node["role"]] = node.content if node.name == "price" && version.to_i == 2
       end,
-      notes: meal.children.select {|n| n.name == "note" }.map(&:content)
+      notes: meal.children.select {|n| n.name == "note" }.map(&:content),
     )
     fetch.added_meals += 1
     @changed = true
@@ -230,17 +234,17 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
       {
         "days" => {
           "added" => fetch.added_days,
-          "updated" => fetch.updated_days
+          "updated" => fetch.updated_days,
         },
         "meals" => {
           "added" => fetch.added_meals,
           "updated" => fetch.updated_meals,
-          "removed" => fetch.removed_meals
-        }
+          "removed" => fetch.removed_meals,
+        },
       }
     else
       {
-        "errors" => json ? errors.map(&:to_json) : errors
+        "errors" => json ? errors.map(&:to_json) : errors,
       }
     end
   end

@@ -37,9 +37,9 @@ describe Api::V2::MealsController do
           students: day.meals.first.price_student.try(:to_f),
           employees: day.meals.first.price_employee.try(:to_f),
           pupils: day.meals.first.price_pupil.try(:to_f),
-          others: day.meals.first.price_other.try(:to_f)
+          others: day.meals.first.price_other.try(:to_f),
         },
-        notes: []
+        notes: [],
       }.as_json)
     end
 

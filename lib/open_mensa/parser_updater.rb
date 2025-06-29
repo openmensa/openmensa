@@ -83,7 +83,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
       new: @sources_added,
       created: @sources_created,
       updated: @sources_updated,
-      archived: @sources_deleted
+      archived: @sources_deleted,
     }
   end
 
@@ -98,7 +98,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
       SourceListChanged.create!(messageable: source,
         kind: :source_reactivated,
         name: source.name,
-        url:)
+        url:,)
       source.canteen.update! state: "new"
       @sources_added += 1
     end
@@ -116,7 +116,7 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   def new_source(name, url)
     SourceListChanged.create!(messageable: @parser,
       kind: :new_source,
-      name:, url:)
+      name:, url:,)
     unless url.nil?
       source = Source.new parser: @parser, name:, meta_url: url
       if OpenMensa::SourceCreator.new(source).sync

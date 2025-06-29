@@ -2,7 +2,7 @@
 
 class FeedValidationError < Message
   validates :kind, inclusion: {
-    in: %i[no_xml no_json unknown_version invalid_xml invalid_json]
+    in: %i[no_xml no_json unknown_version invalid_xml invalid_json],
   }
 
   def version
@@ -42,7 +42,7 @@ class FeedValidationError < Message
       "type" => self.class.name.underscore,
       "kind" => kind,
       "version" => version,
-      "message" => message
+      "message" => message,
     }
   end
 end

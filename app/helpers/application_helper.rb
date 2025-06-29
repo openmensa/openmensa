@@ -23,7 +23,7 @@ module ApplicationHelper
     if user
       tag.span(
         class: "avatar",
-        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ""
+        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : "",
       ) do
         image_tag user.gravatar_url(options).to_s,
           alt: user.name,
@@ -33,7 +33,7 @@ module ApplicationHelper
     else
       tag.span(
         class: "avatar",
-        style: "width: #{options[:size]}px; height: #{options[:size]}px;"
+        style: "width: #{options[:size]}px; height: #{options[:size]}px;",
       ) do
         ""
       end
@@ -52,7 +52,7 @@ module ApplicationHelper
     [
       "#{controller.controller_name}_controller",
       "#{params[:action] || 'unknown'}_action",
-      @layout
+      @layout,
     ].join(" ").strip
   end
   # rubocop:enable Rails/HelperInstanceVariable
@@ -64,7 +64,7 @@ module ApplicationHelper
         lat: canteen.latitude,
         lng: canteen.longitude,
         title: canteen.name,
-        url: canteen_path(canteen)
+        url: canteen_path(canteen),
       }
     end
 
@@ -75,8 +75,8 @@ module ApplicationHelper
       data: {
         map: options[:id] || "map",
         markers: markers.to_json,
-        hash: options[:hash]
-      }
+        hash: options[:hash],
+      },
     )
   end
 
@@ -85,7 +85,7 @@ module ApplicationHelper
       out_of_order: :"fa-solid fa-ban",
       no_fetch_ever: :"fa-solid fa-bolt",
       fetch_up_to_date: :"fa-solid fa-check",
-      fetch_needed: :"fa-solid fa-triangle-exclamation"
+      fetch_needed: :"fa-solid fa-triangle-exclamation",
     }[fetch_state]
   end
 

@@ -10,7 +10,7 @@ describe "API routing within" do
       expect(get: "#{base}/canteens").to route_to(
         controller: "api/v2/canteens",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -19,7 +19,7 @@ describe "API routing within" do
         controller: "api/v2/canteens",
         action: "show",
         format: "json",
-        id: "1"
+        id: "1",
       )
     end
 
@@ -28,7 +28,7 @@ describe "API routing within" do
         controller: "api/v2/days",
         action: "index",
         format: "json",
-        canteen_id: "1"
+        canteen_id: "1",
       )
     end
 
@@ -38,7 +38,7 @@ describe "API routing within" do
         action: "show",
         format: "json",
         canteen_id: "1",
-        id: "2012-10-14"
+        id: "2012-10-14",
       )
     end
 
@@ -48,7 +48,7 @@ describe "API routing within" do
         action: "index",
         format: "json",
         canteen_id: "1",
-        day_id: "2012-10-14"
+        day_id: "2012-10-14",
       )
     end
 
@@ -59,7 +59,7 @@ describe "API routing within" do
         format: "json",
         canteen_id: "1",
         day_id: "2012-10-14",
-        id: "1"
+        id: "1",
       )
     end
   end

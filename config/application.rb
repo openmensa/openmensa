@@ -69,20 +69,20 @@ module Openmensa
     config.good_job.cron = {
       update_feeds: {
         cron: "*/5 * * * *",
-        class: "UpdateFeedsJob"
+        class: "UpdateFeedsJob",
       },
       update_parsers: {
         cron: "0 1 * * *",
-        class: "UpdateParsersJob"
+        class: "UpdateParsersJob",
       },
       update_sources: {
         cron: "0 4 * * *",
-        class: "UpdateSourcesJob"
+        class: "UpdateSourcesJob",
       },
       dails_reports: {
         cron: "0 9 * * *",
-        class: "DailyReportsJob"
-      }
+        class: "DailyReportsJob",
+      },
     }
 
     # Loaded OmniAuth services will be stored here

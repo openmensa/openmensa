@@ -90,7 +90,7 @@ class User < ApplicationRecord
       create(
         name: info["name"] || identity.uid,
         login: info["login"] || identity.uid,
-        email: info["email"]
+        email: info["email"],
       ).tap do |user|
         identity.update! user:
       end

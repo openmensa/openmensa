@@ -23,7 +23,7 @@ class UsersController < WebController
       :name,
       :notify_email,
       :public_email,
-      :public_name
+      :public_name,
     )
   end
 end

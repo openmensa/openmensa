@@ -15,13 +15,13 @@ describe "feeds/fetch" do
       "status" => "ok",
       "days" => {
         "added" => 101,
-        "updated" => 102
+        "updated" => 102,
       },
       "meals" => {
         "added" => 201,
         "updated" => 202,
-        "removed" => 203
-      }
+        "removed" => 203,
+      },
     }
   end
   let(:error_result) do
@@ -31,9 +31,9 @@ describe "feeds/fetch" do
         FeedFetchError.create(
           messageable: feed,
           message: "Could not fetch",
-          code: 404
-        )
-      ]
+          code: 404,
+        ),
+      ],
     }
   end
 

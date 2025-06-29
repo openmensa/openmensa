@@ -16,7 +16,7 @@ class Parser < ApplicationRecord
       info_url.present?,
       user.public_email.present?,
       user.public_name.present?,
-      user.info_url.present?
+      user.info_url.present?,
     ].any?
   end
 end

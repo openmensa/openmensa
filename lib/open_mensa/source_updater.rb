@@ -4,6 +4,8 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   attr_reader :source, :feeds_added, :feeds_updated, :feeds_deleted
 
   def initialize(source)
+    super()
+
     @source = source
     reset_stats
   end
@@ -68,7 +70,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
       new_metadata: changed?,
       created: @feeds_added,
       updated: @feeds_updated,
-      deleted: @feeds_deleted
+      deleted: @feeds_deleted,
     }
   end
 
@@ -93,7 +95,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
             element["hour"],
             element["dayOfMonth"] || "*",
             element["month"] || "*",
-            element["dayOfWeek"] || "*"
+            element["dayOfWeek"] || "*",
           ].join(" ")
       end
     end
@@ -136,7 +138,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
         when "location"
           canteen.latitude = node["latitude"].to_f
           canteen.longitude = node["longitude"].to_f
-        when "availability"
+        when "availability" # TODO
       end
     end
   end
@@ -182,6 +184,6 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   def feed_changed!(messageable, feed, kind)
     @errors << messageable.messages.create!(type: "FeedChanged",
       kind:,
-      name: feed.name)
+      name: feed.name,)
   end
 end

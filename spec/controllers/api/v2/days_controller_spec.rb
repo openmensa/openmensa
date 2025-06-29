@@ -27,7 +27,7 @@ describe Api::V2::DaysController do
 
       expect(json[0]).to eq({
         date: day.date.iso8601,
-        closed: day.closed
+        closed: day.closed,
       }.as_json)
     end
 
@@ -69,7 +69,7 @@ describe Api::V2::DaysController do
 
       expect(json).to eq({
         date: day.date.iso8601,
-        closed: day.closed
+        closed: day.closed,
       }.as_json)
     end
   end

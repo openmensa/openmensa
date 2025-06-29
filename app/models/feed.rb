@@ -29,7 +29,7 @@ class Feed < ApplicationRecord
     {
       lastday: fetches.where("executed_at > ?", 1.day.ago),
       lastweek: fetches.where("executed_at > ?", 1.week.ago),
-      total: fetches
+      total: fetches,
     }
   end
 end

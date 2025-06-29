@@ -21,7 +21,7 @@ class ApplicationRecord < ActiveRecord::Base
         "actions.models.#{name.underscore}.#{action}",
         **options,
         default:,
-        model: model_name.human(**options)
+        model: model_name.human(**options),
       )
     end
   end

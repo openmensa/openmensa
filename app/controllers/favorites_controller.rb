@@ -15,7 +15,7 @@ class FavoritesController < WebController
 
     if current_user.favorites.create(
       canteen_id: params[:canteen_id],
-      priority: max_priority
+      priority: max_priority,
     )
       flash[:notice] = t("favorites.added")
     else

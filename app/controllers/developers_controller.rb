@@ -22,13 +22,15 @@ class DevelopersController < WebController
 
     url = activate_url encrypt_and_sign(@user.notify_email)
     if VerifyMailer.verify_email(@user, url).deliver_now
-      message = t("message.activate.mail_sent",
-        mail: @user.notify_email).html_safe
-      flash_for :user, notice: message
+      flash_for :user, notice: t(
+        "message.activate.mail_sent",
+        mail: @user.notify_email,
+      ).html_safe
     else
-      message = t("message.activate.mail_failed_to_send",
-        mail: @user.notify_email).html_safe
-      flash_for :user, error: message
+      flash_for :user, error: t(
+        "message.activate.mail_failed_to_send",
+        mail: @user.notify_email,
+      ).html_safe
     end
 
     redirect_to @user
@@ -53,8 +55,12 @@ class DevelopersController < WebController
   private
 
   def user_params
-    params.require(:user).permit(:public_name, :info_url,
-      :notify_email, :public_email)
+    params.require(:user).permit(
+      :info_url,
+      :notify_email,
+      :public_email,
+      :public_name,
+    )
   end
 
   def encrypt_and_sign(text)

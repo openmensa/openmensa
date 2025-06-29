@@ -30,13 +30,13 @@ describe FeedsController do
           "status" => "ok",
           "days" => {
             "added" => 1,
-            "updated" => 0
+            "updated" => 0,
           },
           "meals" => {
             "added" => 3,
             "updated" => 4,
-            "removed" => 5
-          }
+            "removed" => 5,
+          },
         }
       end
 
@@ -77,7 +77,7 @@ describe FeedsController do
       let(:feed_fetch_error) do
         FeedFetchError.create(messageable: updater.fetch,
           message: "Could not fetch",
-          code: 404)
+          code: 404,)
       end
       let(:json_error) do
         {
@@ -86,9 +86,9 @@ describe FeedsController do
             {
               "type" => "feed_fetch_error",
               "message" => "Could not fetch",
-              "code" => 404
-            }
-          ]
+              "code" => 404,
+            },
+          ],
         }
       end
 
@@ -110,7 +110,7 @@ describe FeedsController do
 
         expect(assigns(:result)).to eq({
           "status" => "error",
-          "errors" => [feed_fetch_error]
+          "errors" => [feed_fetch_error],
         })
       end
 

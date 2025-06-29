@@ -21,7 +21,7 @@ class ApiController < ApplicationController
       response.content_type = {
         json: "application/json",
         xml: "application/xml",
-        msgpack: "application/x-msgpack"
+        msgpack: "application/x-msgpack",
       }[params[:format].to_sym]
     else
       render_error status: :not_acceptable, message: "Unsupported format."

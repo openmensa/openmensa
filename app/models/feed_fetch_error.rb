@@ -21,7 +21,7 @@ class FeedFetchError < Message
     {
       "type" => self.class.name.underscore,
       "code" => code,
-      "message" => message
+      "message" => message,
     }
   end
 end

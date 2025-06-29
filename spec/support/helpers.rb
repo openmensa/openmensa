@@ -32,8 +32,8 @@ def login(identity)
     uid: identity.uid,
     credentials: {
       token: identity.token,
-      secret: identity.secret
-    }
+      secret: identity.secret,
+    },
   )
 
   visit logout_path

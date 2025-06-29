@@ -6,7 +6,7 @@ require "simplecov-cobertura"
 
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::CoberturaFormatter
+  SimpleCov::Formatter::CoberturaFormatter,
 ]
 
 if (name = ENV.fetch("COVERAGE_NAME", nil))

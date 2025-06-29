@@ -2,7 +2,7 @@
 
 class FeedChanged < Message
   validates :kind, inclusion: {
-    in: %i[created updated deleted]
+    in: %i[created updated deleted],
   }
 
   def kind
@@ -33,7 +33,7 @@ class FeedChanged < Message
     {
       "type" => self.class.name.underscore,
       "kind" => kind,
-      "name" => name
+      "name" => name,
     }
   end
 end

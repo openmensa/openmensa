@@ -46,8 +46,8 @@ describe "Developers" do
         stub_request(:any, index_url)
           .to_return(body: JSON.generate(
             "left" => "http://example.org/left/meta.xml",
-            "right" => "http://example.org/right/meta.xml"
-          ), status: 200)
+            "right" => "http://example.org/right/meta.xml",
+          ), status: 200,)
         stub_request(:any, "http://example.org/left/meta.xml")
           .to_return(status: 404)
         stub_request(:any, "http://example.org/right/meta.xml")
@@ -229,7 +229,7 @@ describe "Developers" do
       context "with a existing source with meta url" do
         let!(:source) do
           create(:source, parser:,
-            meta_url: "http://example.org/test/meta.xml")
+            meta_url: "http://example.org/test/meta.xml",)
         end
         let!(:feed) { create(:feed, source:, name: "oldfeed") }
 

@@ -17,7 +17,7 @@ class Api::V2::CanteensController < Api::BaseController
         place,
         value[2] ? value[2].to_f : 10,
         units: :km,
-        order_by_without_select: :distance
+        order_by_without_select: :distance,
       )
     else
       scope

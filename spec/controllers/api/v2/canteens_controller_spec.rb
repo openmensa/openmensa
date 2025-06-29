@@ -29,8 +29,8 @@ describe Api::V2::CanteensController do
         address: canteen.address,
         coordinates: [
           canteen.latitude,
-          canteen.longitude
-        ]
+          canteen.longitude,
+        ],
       }.as_json)
     end
 
@@ -46,7 +46,7 @@ describe Api::V2::CanteensController do
           name: canteen.name,
           city: canteen.city,
           address: canteen.address,
-          coordinates: nil
+          coordinates: nil,
         }.as_json)
       end
     end
@@ -63,7 +63,7 @@ describe Api::V2::CanteensController do
           name: canteen.name,
           city: canteen.city,
           address: canteen.address,
-          coordinates: nil
+          coordinates: nil,
         }.as_json)
       end
     end
@@ -80,7 +80,7 @@ describe Api::V2::CanteensController do
           name: canteen.name,
           city: canteen.city,
           address: canteen.address,
-          coordinates: nil
+          coordinates: nil,
         }.as_json)
       end
     end
@@ -222,7 +222,7 @@ describe Api::V2::CanteensController do
           name: "Mensa Griebnitzsee",
           address: "August-Bebel-Str. 89, 14482 Potsdam",
           latitude: 52.3935353446923,
-          longitude: 13.1278145313263)
+          longitude: 13.1278145313263,)
       end
 
       let(:palais) do
@@ -230,7 +230,7 @@ describe Api::V2::CanteensController do
           name: "Mensa Am Neuen Palais",
           address: "Am Neuen Palais 10, Haus 12, 14469 Potsdam",
           latitude: 52.399,
-          longitude: 13.01494)
+          longitude: 13.01494,)
       end
 
       before do
@@ -255,7 +255,7 @@ describe Api::V2::CanteensController do
           name: "Mensa Griebnitzsee",
           address: "August-Bebel-Str. 89, 14482 Potsdam",
           latitude: 52.3935353446923,
-          longitude: 13.1278145313263)
+          longitude: 13.1278145313263,)
       end
 
       let(:unknown) do
@@ -263,7 +263,7 @@ describe Api::V2::CanteensController do
           name: "Mensa Am Neuen Palais",
           address: "Am Neuen Palais 10, Haus 12, 14469 Potsdam",
           latitude: nil,
-          longitude: nil)
+          longitude: nil,)
       end
 
       before do
@@ -304,8 +304,8 @@ describe Api::V2::CanteensController do
         address: canteen.address,
         coordinates: [
           canteen.latitude,
-          canteen.longitude
-        ]
+          canteen.longitude,
+        ],
       }.as_json)
     end
 

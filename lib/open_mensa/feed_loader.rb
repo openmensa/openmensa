@@ -58,7 +58,7 @@ module OpenMensa
         {
           follow: true,
           update: true,
-          depth: 2
+          depth: 2,
         }
       end
     end

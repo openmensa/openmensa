@@ -7,7 +7,7 @@ class Message < ApplicationRecord
 
   validates :priority, inclusion: {
     in: %w[error warning info debug],
-    message: I18n.t(:no_valid_priority)
+    message: I18n.t(:no_valid_priority),
   }
 
   after_initialize :set_default_values
@@ -38,7 +38,7 @@ class Message < ApplicationRecord
 
   def to_json(*_args)
     {
-      "type" => self.class.name.underscore
+      "type" => self.class.name.underscore,
     }
   end
 

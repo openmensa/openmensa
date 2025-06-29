@@ -5,7 +5,7 @@ class DailyReportJob < ApplicationJob
 
   good_job_control_concurrency_with(
     total_limit: 1,
-    key: -> { "daily-report-#{arguments.last[:parser_id]}" }
+    key: -> { "daily-report-#{arguments.last[:parser_id]}" },
   )
 
   def perform(parser_id:)

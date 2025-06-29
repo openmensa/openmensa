@@ -360,6 +360,6 @@ SimpleForm.setup do |config|
     radio_buttons: :vertical_collection,
     range: :vertical_range,
     time: :vertical_multi_select,
-    select: :vertical_select
+    select: :vertical_select,
   }
 end

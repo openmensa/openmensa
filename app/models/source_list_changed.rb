@@ -2,7 +2,7 @@
 
 class SourceListChanged < Message
   validates :kind, inclusion: {
-    in: %i[new_source source_archived source_reactivated]
+    in: %i[new_source source_archived source_reactivated],
   }
 
   def kind
@@ -42,7 +42,7 @@ class SourceListChanged < Message
       "type" => self.class.name.underscore,
       "kind" => kind,
       "name" => name,
-      "url" => url
+      "url" => url,
     }
   end
 end
