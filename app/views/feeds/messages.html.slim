@@ -32,11 +32,11 @@
               span: i.icon class=reason_map.fetch(fetch.reason) title=t(:feed_fetch, :reasons, fetch.reason)
             td: span = l(fetch.executed_at, format: :compact)
             td: span = t(:feed_fetch, :states, fetch.state)
-            td.number: span = fetch.added_days > 0 ? fetch.added_days : "-"
-            td.number: span = fetch.updated_days > 0 ? fetch.updated_days : "-"
-            td.number: span = fetch.added_meals > 0 ? fetch.added_meals : "-"
-            td.number: span = fetch.updated_meals > 0 ? fetch.updated_meals : "-"
-            td.number: span = fetch.removed_meals > 0 ? fetch.removed_meals : "-"
+            td.number: span = fetch.added_days.to_i > 0 ? fetch.added_days : "-"
+            td.number: span = fetch.updated_days.to_i > 0 ? fetch.updated_days : "-"
+            td.number: span = fetch.added_meals.to_i > 0 ? fetch.added_meals : "-"
+            td.number: span = fetch.updated_meals.to_i > 0 ? fetch.updated_meals : "-"
+            td.number: span = fetch.removed_meals.to_i > 0 ? fetch.removed_meals : "-"
           - fetch.messages.each do |message|
             tr
               td colspan=7
