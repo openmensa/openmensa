@@ -25,7 +25,7 @@ describe "Developers" do
         expect(page).to have_link_to "https://doc.openmensa.org/feed/v2/"
 
         fill_in "Name", with: "Magdeburg"
-        click_on "Speichern"
+        click_on "Parser erstellen"
 
         expect(page).to have_content "Der Parser wurde erfolgreich angelegt."
       end
@@ -34,10 +34,10 @@ describe "Developers" do
     context "with existing parser" do
       it "is able to edit a new parser" do
         click_on parser.name
-        click_on "Ändere die Parser-Einstellungen"
+        click_on "Parser bearbeiten"
 
         fill_in "Name", with: "Magdeburg"
-        click_on "Speichern"
+        click_on "Parser aktualisieren"
 
         expect(page).to have_content "Der Parser wurde erfolgreich aktualisiert."
       end
@@ -57,9 +57,9 @@ describe "Developers" do
         click_on parser.name
         expect(page).to have_no_link("Aktualisiere Quellen mittels Index-URL")
 
-        click_on "Ändere die Parser-Einstellungen"
+        click_on "Parser bearbeiten"
         fill_in "Index-URL", with: index_url
-        click_on "Speichern"
+        click_on "Parser aktualisieren"
 
         click_on "Aktualisiere Quellen mittels Index-URL"
 
@@ -181,7 +181,7 @@ describe "Developers" do
 
           it "is able to see the feedbacks message" do
             click_on parser.name
-            click_on "Öffne Feedback für #{canteen.name}"
+            click_on "Nutzerrückmeldungen für #{canteen.name} anzeigen"
 
             expect(page).to have_content(feedback.message)
           end
@@ -200,7 +200,7 @@ describe "Developers" do
 
           it "is able to see the data_proposal" do
             click_on parser.name
-            click_on "Öffne Änderungsvorschläge für #{canteen.name}"
+            click_on "Änderungsvorschläge für #{canteen.name} anzeigen"
 
             expect(page).to have_content(data_proposal.city)
           end
@@ -220,7 +220,7 @@ describe "Developers" do
           it "is able to view fetch messages / errors" do
             click_on parser.name
 
-            click_on "Mitteilungen für #{source.name}"
+            click_on "Mitteilungen für #{source.name} anzeigen"
 
             expect(page).to have_content(error.to_html)
           end

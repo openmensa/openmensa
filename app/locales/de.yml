@@ -399,7 +399,7 @@ de:
         name: Name
         phone: Telefonnummer
       parser:
-        name: Bezeichnung
+        name: Name
         info_url: Info-URL
         index_url: Index-URL
         maintainer_wanted: "Unterstützung für Parser erwünscht"
