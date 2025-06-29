@@ -1,54 +1,49 @@
 section
   header
-    h2 = t :canteen, :actions
+    h3 = t('.headline')
+
   ul.favs
     li = link_to canteen_path(canteen) do
       i.icon.fa-fw.fa-solid.fa-mug-saucer
-      = t(:canteen_actions, :open_meals)
+      = Canteen.human_action(:show)
     li = link_to edit_canteen_path(canteen) do
       i.icon.fa-fw.fa-solid.fa-pen-to-square
-      = t(:edit_canteen)
+      = Canteen.human_action(:edit)
     - if canteen.archived?
         li = link_to canteen_active_path(canteen), method: :post do
           i.icon.fa-fw.fa-solid.fa-play
-          = t(:activate_canteen)
+          = Canteen.human_action(:activate)
     - else
         li = link_to canteen_active_path(canteen), method: :delete do
           i.icon.fa-fw.fa-solid.fa-stop
-          = t(:deactivate_canteen)
+          = Canteen.human_action(:deactivate)
     li = link_to canteen_feedbacks_path(canteen) do
       i.icon.fa-fw.fa-regular.fa-envelope
-      = t(:canteen_actions, :feedbacks)
+      = Feedback.human_action(:index)
     li = link_to canteen_data_proposals_path(canteen) do
       i.icon.fa-fw.fa-solid.fa-right-left
-      = t(:canteen_actions, :data_proposals)
-    - canteen.parsers.select {|parser| can? :edit, parser }.each do |parser|
+      = DataProposal.human_action(:index)
+    - canteen.parsers.select {|parser| can?(:edit, parser) }.each do |parser|
       li = link_to parser_path(parser) do
         i.icon.fa-fw.fa-solid.fa-gear
-        = t(:canteen_actions, :open_parser, name: parser.name)
+        = Parser.human_action(:show)
 
-- canteen.feeds.select {|feed| can? :edit, feed }.each do |feed|
+- canteen.feeds.select {|feed| can?(:edit, feed) }.each do |feed|
   section
     header
       h3
-        = t :feed, :title, name: feed.name
+        = t(:feed, :title, name: feed.name)
       ul.actions
-        li = link_to feed_fetch_path(feed), title: t(:canteen_actions, :fetch_feed, name: feed.name) do
+        li = link_to feed_fetch_path(feed), title: t('.actions.feed.fetch', name: feed.name) do
           i.icon.fa-fw.fa-solid.fa-refresh
-        li = link_to feed_messages_path(feed), title: t(:canteen_actions, :open_messages, name: feed.name) do
+        li = link_to feed_messages_path(feed), title: t('.actions.feed.messages', name: feed.name) do
           i.icon.fa-fw.fa-regular.fa-envelope
-        li = link_to feed.url, title: t(:canteen_actions, :open_feed, name: feed.name) do
+        li = link_to feed.url, title: t('.actions.feed.open.url', name: feed.name) do
           i.icon.fa-fw.fa-solid.fa-code
         - if feed.source_url.present?
-          li = link_to feed.source_url, title: t(:canteen_actions, :open_source, name: feed.name) do
+          li = link_to feed.source_url, title: t('.actions.feed.open.source', name: feed.name) do
             i.icon.fa-fw.fa-solid.fa-arrow-up-right-from-square
     .content
       - feed.fetches.group("state").maximum(:executed_at).each do |state, date|
-        p
-          = t :feed, :"last_#{state}_at"
-          ' :
-          = timeago_tag date.localtime
-      p
-        = t :feed, :next_fetch_at
-        ' :
-        = timeago_tag feed.next_fetch_at, title: proc {|time, options| t(:feed, :next_fetch, time: I18n.l(time, format: options[:format]), schedule: feed.schedule) }
+        p = t(".status.last_#{state}_at", time: timeago_tag(date.localtime))
+      p = t(".status.next_fetch_at", time: timeago_tag(feed.next_fetch_at, title: proc {|time, options| t('.status.next_fetch_title', time: I18n.l(time, format: options[:format]), schedule: feed.schedule) }))

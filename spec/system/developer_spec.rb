@@ -96,7 +96,7 @@ describe "Developers" do
         allow(OpenMensa::Updater).to receive(:new).with(feed, "manual").and_return(updater)
         allow(updater).to receive(:update).and_return(true)
 
-        click_on "Feed debug abrufen"
+        click_on 'Feed "debug" abrufen'
 
         expect(page).to have_content "Der Mensa-Feed wurde erfolgreich aktualisiert!"
         expect(page).to have_content canteen.name
@@ -115,7 +115,7 @@ describe "Developers" do
         let!(:error) { create(:feedValidationError, messageable: fetch) }
 
         it "is able to view fetch messages / errors" do
-          click_on "Feed debug-Mitteilungen"
+          click_on 'Protokoll für Feed "debug" anzeigen'
 
           expect(page).to have_content("permanenter Fehler")
           expect(page).to have_content(error.to_html)

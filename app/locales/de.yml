@@ -140,7 +140,6 @@ de:
     added_meals: "%{count} Essen hinzugefügt."
     updated_meals: "%{count} Essen aktualisiert."
     removed_meals: "%{count} Essen gelöscht."
-    actions: Mensa verwalten
     activation:
       successful_activated: "Die Mensa ist nun im Betrieb!"
       errored_activated: "Die Mensa konnte nicht aktiviert werden!"
@@ -260,7 +259,6 @@ de:
     url: URL
     source_url: Quelle
     schedule: Abrufplan
-    next_fetch: "%{time} (Plan: %{schedule})"
     retry: Wiederholungsinterval(e)
     no_retry: nie
     no_source_url: Keine Quelle verfügbar
@@ -298,14 +296,26 @@ de:
       schedule: Durch Feed-Schedule ausgelöst
       retry: Wiederholung nach Fehler
 
-  canteen_actions:
-    open_messages: "Feed %{name}-Mitteilungen"
-    fetch_feed: "Feed %{name} abrufen"
-    open_meals: "Mensa-Seite"
-    open_feed: "Feed %{name} öffnen"
-    open_parser: Parser öffnen
-    feedbacks: Nutzerrückmeldungen
-    data_proposals: Änderungsvorschläge
+  common:
+    canteen_actions:
+      headline: Mensa verwalten
+      actions:
+        feed:
+          fetch: Feed "%{name}" abrufen
+          messages: Protokoll für Feed "%{name}" anzeigen
+          open:
+            url: Feed-URL öffnen
+            source: Feed-Quelle öffnen
+      status:
+        last_broken_at: "Letzter permanenter Fehler: %{time}"
+        last_changed_at: "Letzte Veränderung: %{time}"
+        last_empty_at: "Letzter leerer Abruf: %{time}"
+        last_failed_at: "Letzter temporärer Fehler: %{time}"
+        last_fetched_at: "Letzter Abruf: %{time}"
+        last_invalid_at: "Letztes mal invalide Daten: %{time}"
+        last_unchanged_at: "Letzter Abruf: %{time}"
+        next_fetch_at: "Nächster Abruf: %{time}"
+        next_fetch_title: "%{time} (Plan: %{schedule})"
 
   helpers:
     label:
@@ -388,7 +398,33 @@ de:
     howto_add: "Um eine Mensa als Favorit zu speichern, markiere sie auf der Mensa-Seite mit einem Stern."
     use_menu: "Anschließend siehst du auf der Menü-Seite eine Essensübersicht für alle deine Favoriten!"
 
+  actions:
+    models:
+      canteen:
+        activate: Mensa in Betrieb nehmen
+        deactivate: Mensa außer Betrieb nehmen
+    defaults:
+      index: "%{model} anzeigen"
+      show: "%{model} anzeigen"
+      edit: "%{model} bearbeiten"
+
   activerecord:
+    models:
+      canteen:
+        one: Mensa
+        other: Mensen
+      data_proposal:
+        one: Änderungsvorschlag
+        other: Änderungsvorschläge
+      feedback:
+        one: Nutzerrückmeldung
+        other: Nutzerrückmeldungen
+      parser:
+        one: Parser
+        other: Parsers
+      feed_fetch:
+        one: Feed-Abruf
+        other: Feed-Abrufe
     attributes:
       canteen:
         address: Adresse
