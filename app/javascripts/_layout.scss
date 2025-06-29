@@ -27,7 +27,7 @@ footer {
 header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 
   > ul.actions {
     display: flex;
@@ -212,7 +212,7 @@ header#header {
     }
 
     header {
-      padding: 4px 15px 3px 15px;
+      padding: 1px 15px 1px 15px;
 
       border-top: 1px solid #ddd;
       text-shadow: 0 1px 1px #aaa;
@@ -250,7 +250,7 @@ header#header {
     }
 
     .content {
-      padding: 1px 15px 2px 15px;
+      padding: 1px 15px;
 
       h2,
       h3,
@@ -270,9 +270,6 @@ header#header {
           font-weight: bold;
         }
       }
-
-      // > p:first-child { margin-top: 0; }
-      // > p:last-child { margin-bottom: 0; }
 
       .add_notice {
         margin: 0 3px;
@@ -318,12 +315,6 @@ header#header {
 
     .map {
       border-top: 1px solid #ccc;
-    }
-  }
-
-  aside {
-    section .content {
-      padding: 0px 5px 1px;
     }
   }
 }

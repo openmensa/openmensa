@@ -11,10 +11,10 @@
       = render partial: "common/canteen_actions", locals: {canteen: @canteen}
     section
       header
-        h2 = t :canteen, :address
+        h3 = t :canteen, :address
       = map @canteen
       .content
-        address = @canteen.address
+        p = @canteen.address
         - if @canteen.phone.present?
           p#phone
             i.fa-fw.fa-solid.fa-phone
