@@ -312,6 +312,7 @@ de:
         last_empty_at: "Letzter leerer Abruf: %{time}"
         last_failed_at: "Letzter temporärer Fehler: %{time}"
         last_fetched_at: "Letzter Abruf: %{time}"
+        last_fetching_at: "Laufender Abruf: %{time}"
         last_invalid_at: "Letztes mal invalide Daten: %{time}"
         last_unchanged_at: "Letzter Abruf: %{time}"
         next_fetch_at: "Nächster Abruf: %{time}"
