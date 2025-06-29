@@ -36,6 +36,10 @@ class SourcesController < WebController
     @synchroniser.sync
   end
 
+  def messages
+    @messages = @source.messages.order(created_at: :desc)
+  end
+
   private
 
   def create_with_existing_canteen

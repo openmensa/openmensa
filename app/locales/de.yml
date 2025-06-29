@@ -11,7 +11,6 @@ de:
   my_identities: Meine Identitäten
   add_identity: Identität hinzufügen
   developer: Entwickler
-  parsers: Parser
   create_parser: Neuen Parser anlegen
   edit_parser: Parser editieren
   my_canteens: Meine Mensen
@@ -20,9 +19,6 @@ de:
   deactivate_canteen: Mensa außer Betrieb nehmen
   activate_canteen: Mensa in Betrieb nehmen
   my_messages: Statusmitteilungen
-  edit_named_source: "Editiere %{name} (Quelle)"
-  edit_named_canteen: "Editiere %{name} (Mensa)"
-  open_named_canteen: "Öffne %{name}"
   edit_source: "Editiere Quelle"
   new_feed: Neuer Feed
   create_feed: Feed anlegen
@@ -170,6 +166,10 @@ de:
     create_button: "Rückmeldung absenden"
     give_feedback: "Melde Fehler im Mensaspeisemenü oder gib Feedback"
 
+  users:
+    nav:
+      parsers: Parser
+
   data_proposal:
     create_button: Korrekturvorschlag senden
 
@@ -185,8 +185,46 @@ de:
     sources_updated: "%{count} Quellen aktualisiert."
     sources_deleted: "%{count} Quellen archiviert."
     open_info_url: "Besuche die Parser-Seite"
-    maintainer_wanted: "Unterstützer für Parser erwünscht"
-    maintainer_is_wanted: "Unterstützer für den Parser ist erwünscht"
+
+  parsers:
+    show:
+      parser:
+        actions:
+          edit: Parser bearbeiten
+        headline: "Parser: %{name}"
+        maintainer_is_wanted: "Unterstützung ist erwünscht"
+      sources:
+        headline: Quellenstatus
+        canteen: Mensa
+        city: Stadt
+        data_proposals: Änderungsvorschläge
+        feeds: "#Feeds"
+        feedbacks: Nutzerrückmeldungen
+        messages: Nachrichten
+        source: Quelle
+        actions:
+          source:
+            edit: "Editiere %{name} (Quelle)"
+            messages:
+              open: "Mitteilungen für %{name} anzeigen"
+          canteen:
+            edit: "Editiere %{name} (Mensa)"
+            open: "Öffne %{name}"
+          feedbacks:
+            open: "Nutzerrückmeldungen für %{name} anzeigen"
+          data_proposals:
+            open: "Änderungsvorschläge für %{name} anzeigen"
+      feeds:
+        headline: Feedstatus
+        status:
+          states: Abrufstatie
+          source: "Quelle"
+          feed: Feed
+          time_span: Zeitrahmen
+          total: "Insgesamt:"
+          percentage: "%{value}%"
+          lastday: "Letzte 24h:"
+          lastweek: "Letzte Woche:"
 
   source:
     resource: Quelle
@@ -200,16 +238,19 @@ de:
     feeds_updated: "%{count} Feeds aktualisiert."
     feeds_deleted: "%{count} Feeds gelöscht."
     create_canteen: "Neue Mensa anlegen"
-    open_messages: "Mitteilungen für %{name}"
     messages: Mitteilungen
+
+  sources:
+    messages:
+      messages:
+        headline: Nachrichten
+        empty: Keine Nachrichten verfügbar
 
   feedbacks:
     no_feedback: Aktuell liegen keine Nutzerrückmeldungen für diese Mensa vor!
-    open: "Öffne Feedback für %{name}"
 
   data_proposals:
     no_data_proposals: Aktuell liegen keine Änderungsvorschläge für diese Mensa vor!
-    open: "Öffne Änderungsvorschläge für %{name}"
     old: "Alt:"
     new: "Neu:"
 
@@ -347,28 +388,25 @@ de:
     howto_add: "Um eine Mensa als Favorit zu speichern, markiere sie auf der Mensa-Seite mit einem Stern."
     use_menu: "Anschließend siehst du auf der Menü-Seite eine Essensübersicht für alle deine Favoriten!"
 
-  sources_status:
-    source: "Quelle"
-    canteen: "Mensa"
-    city: "Stadt"
-    feed_count: "#Feeds"
-    feedbacks: Feedbacks
-    data_proposals: Änderungsvorschläge
-    actions: Aktionen
-
-  feeds_status:
-    states: Abrufstatie
-    source: "Quelle"
-    feed: Feed
-    time_span: Zeitrahmen
-    total: "Insgesamt:"
-    percentage: "%{value}%"
-    lastday: "Letzte 24h:"
-    lastweek: "Letzte Woche:"
-
-  headlines:
-    sources_status: Quellenstatus
-    feeds_status: Feedstatus
+  activerecord:
+    attributes:
+      canteen:
+        address: Adresse
+        city: Stadt / Region
+        email: E-Mail
+        latitude: Latitude
+        longitude: Longitude
+        name: Name
+        phone: Telefonnummer
+      parser:
+        name: Bezeichnung
+        info_url: Info-URL
+        index_url: Index-URL
+        maintainer_wanted: "Unterstützung für Parser erwünscht"
+      source:
+        canteen: Mensa
+        meta_url: Meta-URL
+        name: Name
 
   mailer:
     daily_report:
@@ -437,23 +475,6 @@ de:
     required:
       text: "Notwendigs Feld"
       mark: "*"
-    labels:
-      canteen:
-        address: Adresse
-        city: Stadt / Region
-        email: E-Mail
-        latitude: Latitude
-        longitude: Longitude
-        name: Name
-        phone: Telefonnummer
-      source:
-        meta_url: Meta-URL
-        name: Name
-        canteen: Mensa
-      parser:
-        name: Name
-        info_url: Info-URL
-        index_url: Index-URL
     hints:
       parser:
         info_url: Wird auf der Mensa-Seite öffentlich angezeigt

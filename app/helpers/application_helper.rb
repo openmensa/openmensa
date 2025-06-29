@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def t(*attrs, **)
+  def translate(*attrs, **)
+    key = attrs.join(".")
+
     # Locale strings might include HTML tags on all keys. Variables are escaped
     # by Rails anyway.
     #
-    super(attrs.join("."), **).html_safe # rubocop:disable Rails/OutputSafety
+    super(key, **, raise: true).html_safe # rubocop:disable Rails/OutputSafety
+  rescue I18n::MissingTranslationData => e
+    raise e if Rails.application.config.i18n.raise_on_missing_translations
+
+    Rails.logger.warn(e.to_s)
+    Sentry.capture_exception(e)
+
+    "[[#{e.message}]]"
   end
+  alias t translate
 
   def avatar(user = nil, **options)
     user ||= current_user

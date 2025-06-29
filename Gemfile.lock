@@ -88,6 +88,7 @@ GEM
     bcrypt (3.1.20)
     benchmark (0.4.1)
     bigdecimal (3.2.2)
+    bindex (0.8.1)
     brakeman (7.0.2)
       racc
     builder (3.3.0)
@@ -517,6 +518,11 @@ GEM
     uri (1.0.3)
     useragent (0.16.11)
     version_gem (1.1.4)
+    web-console (4.2.1)
+      actionview (>= 6.0.0)
+      activemodel (>= 6.0.0)
+      bindex (>= 0.4.0)
+      railties (>= 6.0.0)
     webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -599,6 +605,7 @@ DEPENDENCIES
   stackprof
   telegraf
   timecop
+  web-console
   webmock
   will_paginate
 

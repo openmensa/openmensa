@@ -3,15 +3,18 @@
     section
       = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @source.canteen}
 
+      header
+        h2
+          = t('.messages.headline')
       .content
-        h2 = t :source, :messages
-        table.messages
-          - @source.messages.order(created_at: :desc).each do |message|
-            tr
-              td.nowrap
-                = l(message.created_at, format: :compact)
-              td
-                = message.to_html
+        - if @messages.any?
+          table.messages
+            - @messages.each do |message|
+              tr
+                td.nowrap = l(message.created_at, format: :compact)
+                td = message.to_html
+        - else
+          p = t('.messages.empty')
 
   aside.span4
     = render partial: "common/favorites", locals: {user: current_user}

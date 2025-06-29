@@ -68,6 +68,8 @@ group :development do
   gem "rubocop-rails", "~> 2.32.0", require: false
   gem "rubocop-rspec", "~> 3.6.0", require: false
   gem "rubocop-rspec_rails", "~> 2.31.0", require: false
+
+  gem "web-console"
 end
 
 group :development, :test do
