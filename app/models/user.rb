@@ -75,6 +75,14 @@ class User < ApplicationRecord
     favorites.where(canteen_id: canteen).any?
   end
 
+  def denotify!
+    self.email = "#{id}@example.org" if email.present?
+    self.public_email = "#{id}@example.org" if public_email.present?
+    self.notify_email = "#{id}@example.org" if notify_email.present?
+    save!
+    reload
+  end
+
   class << self
     def create_omniauth(info, identity)
       info ||= {}
