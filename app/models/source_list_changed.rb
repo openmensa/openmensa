@@ -30,11 +30,11 @@ class SourceListChanged < Message
   end
 
   def to_html
-    I18n.t("messages.html.source_list_changed.#{kind}", payload)
+    I18n.t("messages.html.source_list_changed.#{kind}", **payload)
   end
 
   def to_text_mail
-    I18n.t("messages.text_mail.source_list_changed.#{kind}", payload)
+    I18n.t("messages.text_mail.source_list_changed.#{kind}", **payload)
   end
 
   def to_json(*_args)
