@@ -119,48 +119,49 @@
     }
   }
 
-  ul.meals {
+  ul.categories {
     margin: 0;
     padding: 1px 0;
     list-style: none;
 
     > li {
+      display: flex;
+      align-items: baseline;
+      gap: 1em;
+
       border-top: 1px solid #e5e5e5;
 
       @include responsive.media(mobile) {
-        padding: 1px 7px;
+        display: block;
+        padding: 0 0.6em;
       }
 
       &:first-child {
-        padding-top: 5px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05) inset;
       }
 
       > h3 {
-        float: left;
         width: 140px;
+        flex-shrink: 0;
+
         font-size: 13px;
         font-size: 1.3rem;
         font-weight: bold;
         text-align: right;
-        margin: 9px 0;
+
+        margin: 0.5em 0;
+        padding: 0;
 
         @include responsive.media(mobile) {
-          float: none;
           width: 100%;
           text-align: left;
-          margin: 5px 0 5px;
         }
       }
+
       > p,
       > ul > li {
-        margin: 9px 0;
-        padding: 0 0 0 160px;
-
-        @include responsive.media(mobile) {
-          margin: 5px 0;
-          padding: 0;
-        }
+        margin: 1em 0;
+        padding: 0;
       }
 
       > ul {
@@ -168,106 +169,82 @@
         padding: 0;
 
         > li {
-          border-bottom: 1px dotted #eee;
           padding-right: 10px;
+        }
+      }
+    }
+  }
 
-          &:last-child {
-            border: none;
-          }
+  ul.meals {
+    width: 100%;
 
-          p {
-            margin-bottom: 2px;
-          }
+    list-style: none;
+    padding: 0;
 
-          ul.notes,
-          ul.prices {
-            margin: 0;
-            list-style: none;
-            position: relative;
-            display: table-cell;
-            padding: 0 0 12px 0;
+    > li {
+      padding-right: 10px;
 
-            color: #ccc;
-            font-size: 0.85em;
+      &:last-child {
+        border: none;
+      }
 
-            transition: 0.2s ease-in-out;
-          }
+      > p {
+        margin: 0.5em 0;
+      }
 
-          ul.notes {
-            margin: 0;
+      .info {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5em;
 
-            li {
-              float: left;
-              margin: 0 0.5em 0 0;
-              &:before {
-                content: "~";
-              }
+        color: #888;
+        font-size: 0.85em;
+
+        transition: color 0.2s ease-in-out;
+
+        @include responsive.media(mobile) {
+          flex-direction: column;
+        }
+
+        > ul {
+          list-style: none;
+
+          margin: 0;
+          padding: 0;
+        }
+
+        > ul.notes {
+          > li {
+            display: inline-block;
+            margin: 0 0.5em 0 0;
+
+            &:before {
+              content: "~";
             }
           }
+        }
 
-          ul.prices {
-            float: right;
-            margin: 0 0 0 15px;
-            overflow: hidden;
+        > ul.prices {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          gap: 2em;
 
-            li {
-              float: left;
-              margin: 0 0 0 5px;
-              width: 55px;
+          > li {
+            display: flex;
+            flex-direction: column;
 
-              opacity: 0;
-              visibility: hidden;
-
-              transition: 0.2s ease-in-out;
-
-              span {
-                color: #aaa;
-                bottom: 0;
-                opacity: 0;
-                position: absolute;
-                visibility: hidden;
-
-                transition: 0.2s ease-in-out;
-              }
-
-              &:last-child {
-                opacity: 1;
-                visibility: visible;
-              }
+            > span {
+              display: block;
+              text-align: right;
             }
           }
+        }
+      }
 
-          &:hover,
-          &.active {
-            ul {
-              color: #666;
-            }
-            ul.prices li,
-            ul.prices span {
-              visibility: visible;
-              opacity: 1;
-            }
-          }
-
-          @include responsive.media(mobile) {
-            padding-bottom: 4px;
-
-            ul.notes,
-            ul.prices {
-              margin: 1px 0 0 0;
-              color: #aaa;
-              padding-bottom: 0;
-            }
-            ul.prices li {
-              width: auto;
-              margin-left: 1em;
-              visibility: visible;
-              opacity: 1;
-            }
-            ul.prices li span {
-              display: none;
-            }
-          }
+      &:hover {
+        .info {
+          color: #222;
         }
       }
     }

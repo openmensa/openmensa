@@ -8,11 +8,9 @@ header.page-header
       = l @date.to_date, format: :with_weekday
   = link_to canteen_path(@canteen, date: (@date + 1.day)), class: :next do
     span
-ul.meals
-  = render partial: "day", locals: {day: @canteen.days.find_by(date: @date)}
+= render partial: "day", locals: {day: @canteen.days.find_by(date: @date)}
 
 - if @date == Time.zone.now.to_date && @canteen.days.find_by(date: @date + 1.day).try(:meals).try(:any?)
   header.page-header
     h3.centered = l (@date + 1.day).to_date, format: :with_weekday
-  ul.meals
-    = render partial: "day", locals: {day: @canteen.days.find_by(date: @date + 1.day)}
+  = render partial: "day", locals: {day: @canteen.days.find_by(date: @date + 1.day)}
