@@ -7,7 +7,7 @@ header#canteen-header
     ul.actions
       - unless user.internal?
         li
-          - if user.has_favorite? canteen
+          - if user.favorite?(canteen)
             = link_to [canteen, :favorite], title: t("favorites.delete_as_favorite"), method: :delete, class: :fav do
               i.fa-solid.fa-star
           - else

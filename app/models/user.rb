@@ -71,7 +71,7 @@ class User < ApplicationRecord
     ability.cannot?(*)
   end
 
-  def has_favorite?(canteen)
+  def favorite?(canteen)
     favorites.where(canteen_id: canteen).any?
   end
 
