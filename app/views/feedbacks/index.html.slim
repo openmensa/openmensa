@@ -6,7 +6,7 @@
       .content
         h2 = t :canteen, :feedbacks
         - @feedbacks.each do |feedback|
-          h3 = l feedback.created_at, format: :short
+          h3 = l(feedback.created_at, format: :compact)
           p = feedback.message
         - if @feedbacks.empty?
           p = t :feedbacks, :no_feedback

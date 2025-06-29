@@ -6,7 +6,8 @@ class FeedbacksController < WebController
 
   def index
     authorize! :edit, @canteen
-    @feedbacks = @canteen.feedbacks
+
+    @feedbacks = @canteen.feedbacks.order(created_at: :desc)
   end
 
   def new; end
