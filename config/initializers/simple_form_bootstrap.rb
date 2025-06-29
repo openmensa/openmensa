@@ -13,7 +13,7 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Default class for buttons
-  config.button_class = "btn"
+  config.button_class = "btn btn-primary"
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = "form-check-label"
@@ -46,7 +46,7 @@ SimpleForm.setup do |config|
   # vertical forms
   #
   # vertical default_wrapper
-  config.wrappers :vertical_form, class: "mb-3" do |b|
+  config.wrappers :vertical_form, class: "form-group mb-3" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -61,7 +61,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical input for boolean
-  config.wrappers :vertical_boolean, tag: "fieldset", class: "mb-3" do |b|
+  config.wrappers :vertical_boolean, class: "form-group mb-3" do |b|
     b.use :html5
     b.optional :readonly
     b.wrapper :form_check_wrapper, class: "form-check" do |bb|
@@ -73,7 +73,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical input for radio buttons and check boxes
-  config.wrappers :vertical_collection, item_wrapper_class: "form-check", item_label_class: "form-check-label", tag: "fieldset", class: "mb-3 form-group" do |b|
+  config.wrappers :vertical_collection, item_wrapper_class: "form-check", item_label_class: "form-check-label", tag: "fieldset", class: "form-group mb-3" do |b|
     b.use :html5
     b.optional :readonly
     b.wrapper :legend_tag, tag: "legend", class: "col-form-label pt-0" do |ba|
@@ -110,7 +110,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical select input
-  config.wrappers :vertical_select, class: "mb-3" do |b|
+  config.wrappers :vertical_select, class: "form-group mb-3" do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "form-label"
@@ -120,7 +120,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical multi select
-  config.wrappers :vertical_multi_select, class: "mb-3" do |b|
+  config.wrappers :vertical_multi_select, class: "form-group mb-3" do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "form-label"
@@ -132,7 +132,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical range input
-  config.wrappers :vertical_range, class: "mb-3" do |b|
+  config.wrappers :vertical_range, class: "form-group mb-3" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :readonly

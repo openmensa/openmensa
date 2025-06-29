@@ -197,12 +197,16 @@ header#header {
 
   @include responsive.media(mobile) {
     margin-bottom: 2px;
+
     .singelton {
       margin: 0;
     }
   }
 
   section {
+    display: flex;
+    flex-direction: column;
+
     margin: 14px 0 0 0;
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);

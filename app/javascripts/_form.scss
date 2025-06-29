@@ -1,6 +1,9 @@
 @use "variables";
+@use "typography";
 
 form {
+  margin: 1em 0;
+
   fieldset {
     margin: 2em 0 1em 0;
     padding: 0 1em;
@@ -14,13 +17,9 @@ form {
     }
   }
 
-  .mb-3 {
-    margin: 8px 0;
-  }
-
   p,
-  .mb-3 {
-    position: relative;
+  .form-group {
+    margin: 1em 0;
     padding: 0;
 
     label {
@@ -66,17 +65,6 @@ form {
       }
     }
 
-    input[type="checkbox"] {
-      vertical-align: bottom;
-      margin: 0 0.2em 0.1em 0;
-      float: left;
-
-      + label {
-        // display: inline-block;
-        margin-left: 20px;
-      }
-    }
-
     .error {
       input[type="text"] {
         box-shadow: 0 0 3px rgba(red, 0.4);
@@ -114,6 +102,34 @@ form {
 
     input[type="submit"] {
       margin: 4px 0 4px 2px;
+    }
+
+    .form-text {
+      font-size: 0.85em;
+      color: #555;
+
+      margin: 0 0.2em;
+    }
+
+    .form-check {
+      display: block;
+      min-height: 1.5rem;
+      padding-left: 1.5em;
+      margin-bottom: 0.125rem;
+
+      .form-text {
+        margin: 0;
+      }
+
+      .form-check-input {
+        float: left;
+        margin-left: -1.5em;
+
+        width: 1em;
+        height: 1em;
+        margin-top: 0.15em;
+        vertical-align: top;
+      }
     }
   }
 }

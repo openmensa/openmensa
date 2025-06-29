@@ -5,6 +5,7 @@
 
 @mixin p {
   margin: 8px 0;
+
   @include responsive.media(mobile) {
     margin: 3px 0;
   }
@@ -14,6 +15,7 @@ html {
   font-size: 10px;
   font-size: variables.$text-size;
 }
+
 body {
   color: variables.$text-color;
   font-size: 13px;
@@ -42,6 +44,7 @@ h5 {
     color: variables.$header-color;
   }
 }
+
 h2 {
   font-size: 21px;
   font-size: 2.1rem;
@@ -51,6 +54,7 @@ h2 {
     font-size: 2.1rem;
   }
 }
+
 h3 {
   font-size: 16px;
   font-size: 1.6rem;
@@ -60,11 +64,13 @@ h3 {
     font-size: 1.6rem;
   }
 }
+
 h4 {
   font-size: 13px;
   font-size: 1.3rem;
   font-weight: bold;
 }
+
 h5 {
   font-size: 13px;
   font-size: 1.3rem;
@@ -75,18 +81,22 @@ h5 {
     font-size: 17px;
     font-size: 1.7rem;
   }
+
   h2 {
     font-size: 14px;
     font-size: 1.4rem;
   }
+
   h3 {
     font-size: 14px;
     font-size: 1.4rem;
   }
+
   h4 {
     font-size: 13px;
     font-size: 1.3rem;
   }
+
   h5 {
     font-size: 13px;
     font-size: 1.3rem;
@@ -98,14 +108,17 @@ small {
   font-family: sans-serif;
   font-weight: normal;
 }
+
 b,
 strong {
   font-weight: bold;
 }
+
 i,
 em {
   font-style: italic;
 }
+
 p,
 .p {
   line-height: 1.5em;
@@ -115,34 +128,64 @@ ul,
 ol {
   @extend p;
   padding-left: 2.5em;
+
+  &.inline {
+    list-style: none;
+    padding: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+
+    li {
+      display: inline-block;
+    }
+  }
 }
+
 ul {
   list-style: circle;
 }
+
 ol {
   list-style: decimal;
 }
+
+dl {
+  @extend p;
+
+  dd {
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+}
+
 hr {
   border: none;
   border-top: 1px solid variables.$frame-color;
 }
+
 code,
 pre {
   font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
 }
+
 code {
   border-radius: 2px;
   background-color: #f4f4f4;
   border: 1px solid variables.$frame-color;
   padding: 0 2px;
 }
+
 pre {
   @extend p;
+
   code {
     display: block;
     padding: 2px;
   }
 }
+
 address {
   @extend p;
 }

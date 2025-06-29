@@ -3,12 +3,16 @@
     section
       = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @canteen}
 
-      .content
+      header.page-header
         h2 = t :canteen, :feedbacks
-        - @feedbacks.each do |feedback|
-          h3 = l(feedback.created_at, format: :compact)
-          p = feedback.message
-        - if @feedbacks.empty?
+      - if @feedbacks.any?
+        ul.content
+          - @feedbacks.each do |feedback|
+            li
+              h3 = l(feedback.created_at, format: :compact)
+              p = feedback.message
+      - if @feedbacks.empty?
+        .content
           p = t :feedbacks, :no_feedback
 
   aside.span4

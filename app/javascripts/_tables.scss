@@ -11,11 +11,35 @@ table {
     }
   }
 
+  &.content {
+    padding-bottom: 1em;
+    margin: 0 0 1em 0;
+
+    th.first,
+    td.first {
+      padding-left: 15px;
+    }
+
+    th.last,
+    td.last {
+      padding-right: 15px;
+    }
+  }
+
   tr {
+    th {
+      padding: 0.2em;
+    }
+
     td {
       border-top: 1px solid #eee;
-      padding: 2px 4px;
+
+      > * {
+        display: block;
+        padding: 0.2em;
+      }
     }
+
     &:first-child td {
       border: none;
     }

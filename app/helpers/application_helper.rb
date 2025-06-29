@@ -1,24 +1,15 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def t(*attrs)
-    options = attrs.extract_options!
-    id      = attrs.join "."
-
-    options[:default] ||= "[[#{id}]]"
-
+  def t(*attrs, **)
     # Locale strings might include HTML tags on all keys. Variables are escaped
     # by Rails anyway.
     #
-    I18n.t(id, **options, raise: true, default: nil).html_safe
-  rescue StandardError
-    Rails.logger.warn $ERROR_INFO
-    options[:default].to_s
+    super(attrs.join("."), **).html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def avatar(*attrs)
-    options = attrs.extract_options!
-    user    = attrs.first || current_user
+  def avatar(user = nil, **options)
+    user ||= current_user
     if user
       tag.span(
         class: "avatar",

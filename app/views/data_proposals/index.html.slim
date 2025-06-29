@@ -3,62 +3,67 @@
     section
       = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @canteen}
 
-      .content
+      header.page-header
         h2 = t :canteen, :data_proposals
-        - @data_proposals.each do |proposal|
-          h3 = l proposal.created_at, format: :short
-          table
-            - if proposal.name.present?
-              tr
-                td rowspan=2 = t(:canteen, :name)
-                td = t(:data_proposals, :old)
-                td
-                  = @canteen.name
-              tr
-                td = t(:data_proposals, :new)
-                td
-                  = proposal.name
-            - if proposal.city.present?
-              tr
-                td rowspan=2 = t(:canteen, :city)
-                td = t(:data_proposals, :old)
-                td
-                  = @canteen.city
-              tr
-                td = t(:data_proposals, :new)
-                td
-                  = proposal.city
-            - if proposal.address.present?
-              tr
-                td rowspan=2 = t(:canteen, :address)
-                td = t(:data_proposals, :old)
-                td
-                  = @canteen.address
-              tr
-                td = t(:data_proposals, :new)
-                td
-                  = proposal.address
-            - if proposal.phone.present?
-              tr
-                td rowspan=2 = t(:canteen, :phone)
-                td = t(:data_proposals, :old)
-                td
-                  = @canteen.phone
-              tr
-                td = t(:data_proposals, :new)
-                td
-                  = proposal.phone
-            - if proposal.email.present?
-              tr
-                td rowspan=2 = t(:canteen, :email)
-                td = t(:data_proposals, :old)
-                td
-                  = @canteen.email
-              tr
-                td = t(:data_proposals, :new)
-                td
-                  = proposal.email
-        - if @data_proposals.empty?
+
+      - if @data_proposals.any?
+        ul.content
+          - @data_proposals.each do |proposal|
+            li
+              h3 = l(proposal.created_at, format: :compact)
+              table
+                - if proposal.name.present?
+                  tr
+                    td rowspan=2 = t(:canteen, :name)
+                    td = t(:data_proposals, :old)
+                    td
+                      = @canteen.name
+                  tr
+                    td = t(:data_proposals, :new)
+                    td
+                      = proposal.name
+                - if proposal.city.present?
+                  tr
+                    td rowspan=2 = t(:canteen, :city)
+                    td = t(:data_proposals, :old)
+                    td
+                      = @canteen.city
+                  tr
+                    td = t(:data_proposals, :new)
+                    td
+                      = proposal.city
+                - if proposal.address.present?
+                  tr
+                    td rowspan=2 = t(:canteen, :address)
+                    td = t(:data_proposals, :old)
+                    td
+                      = @canteen.address
+                  tr
+                    td = t(:data_proposals, :new)
+                    td
+                      = proposal.address
+                - if proposal.phone.present?
+                  tr
+                    td rowspan=2 = t(:canteen, :phone)
+                    td = t(:data_proposals, :old)
+                    td
+                      = @canteen.phone
+                  tr
+                    td = t(:data_proposals, :new)
+                    td
+                      = proposal.phone
+                - if proposal.email.present?
+                  tr
+                    td rowspan=2 = t(:canteen, :email)
+                    td = t(:data_proposals, :old)
+                    td
+                      = @canteen.email
+                  tr
+                    td = t(:data_proposals, :new)
+                    td
+                      = proposal.email
+      - else
+        .content
           p = t :data_proposals, :no_data_proposals
 
   aside.span4

@@ -3,44 +3,44 @@
     section
       = render partial: "canteens/canteen_header", locals: {user: current_user, canteen: @feed.canteen}
 
-      .content
-        table
+      header
+        h2 = t(:'.headline', feed: @feed.name)
+      table.content
+        tr
+          th.first rowspan="2" colspan="2"
+            = t(:feed_fetch, :reason)
+            '  /
+            = t(:feed_fetch, :executed_at)
+          th rowspan="2" = t(:feed_fetch, :state)
+          th colspan="2" = t(:feed_fetch, :days)
+          th.last colspan="3" = t(:feed_fetch, :meals)
+        tr
+          th.number
+            i.icon.fa-fw.fa-solid.fa-plus
+          th.number
+            i.icon.fa-fw.fa-solid.fa-refresh
+          th.number
+            i.icon.fa-fw.fa-solid.fa-plus
+          th.number
+            i.icon.fa-fw.fa-solid.fa-refresh
+          th.number.last
+            i.icon.fa-fw.fa-solid.fa-minus
+        - reason_map = {"manual" => "fa-solid fa-user", "schedule" => "fa-regular fa-calendar-days", "retry" => "fa-solid fa-retweet"}
+        - @fetches.each do |fetch|
           tr
-            th rowspan="2" colspan="2"
-              = t :feed_fetch, :reason
-              '  /
-              = t :feed_fetch, :executed_at
-            th rowspan="2" = t :feed_fetch, :state
-            th colspan="2" = t :feed_fetch, :days
-            th colspan="3" = t :feed_fetch, :meals
-          tr
-            th.number
-              i.icon.fa-fw.fa-solid.fa-plus
-            th.number
-              i.icon.fa-fw.fa-solid.fa-refresh
-            th.number
-              i.icon.fa-fw.fa-solid.fa-plus
-            th.number
-              i.icon.fa-fw.fa-solid.fa-refresh
-            th.number
-              i.icon.fa-fw.fa-solid.fa-minus
-          - reason_map = {"manual" => "fa-solid fa-user", "schedule" => "fa-regular fa-calendar-days", "retry" => "fa-solid fa-retweet"}
-          - @fetches.each do |fetch|
+            td.first rowspan=(fetch.messages.size + 1)
+              span: i.icon class=reason_map.fetch(fetch.reason) title=t(:feed_fetch, :reasons, fetch.reason)
+            td: span = l(fetch.executed_at, format: :compact)
+            td: span = t(:feed_fetch, :states, fetch.state)
+            td.number: span = fetch.added_days > 0 ? fetch.added_days : "-"
+            td.number: span = fetch.updated_days > 0 ? fetch.updated_days : "-"
+            td.number: span = fetch.added_meals > 0 ? fetch.added_meals : "-"
+            td.number: span = fetch.updated_meals > 0 ? fetch.updated_meals : "-"
+            td.number: span = fetch.removed_meals > 0 ? fetch.removed_meals : "-"
+          - fetch.messages.each do |message|
             tr
-              td rowspan=(fetch.messages.size + 1)
-                i.icon class=reason_map.fetch(fetch.reason) title=t(:feed_fetch, :reasons, fetch.reason)
-              td
-                = l(fetch.executed_at, format: :compact)
-              td = t(:feed_fetch, :states, fetch.state)
-              td.number = fetch.added_days
-              td.number = fetch.updated_days
-              td.number = fetch.added_meals
-              td.number = fetch.updated_meals
-              td.number = fetch.removed_meals
-            - fetch.messages.each do |message|
-              tr
-                td colspan=7
-                  = message.to_html
+              td colspan=7
+                = message.to_html
 
   aside.span4
     = render partial: "common/favorites", locals: {user: current_user}

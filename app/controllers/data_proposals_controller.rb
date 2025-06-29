@@ -7,6 +7,7 @@ class DataProposalsController < WebController
 
   def index
     authorize! :edit, @canteen
+
     @data_proposals = @canteen.data_proposals.order(created_at: :desc)
   end
 

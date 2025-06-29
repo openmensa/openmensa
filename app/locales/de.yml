@@ -176,8 +176,8 @@ de:
   parser:
     title: "Parser %{name}"
     name: Name
-    info_url: "Info-URL <small>(Für Mensa-Seite)</small>"
-    index_url: "Index-URL <small>(Auflistung der aktuellen Mensa-Liste dieses Parsers)</small>"
+    info_url: Info-URL
+    index_url: Index-URL
     sync: "Parser - Index-Liste synchronisieren"
     synced: "Die Liste der vom Parser bereitgestellten Quellen/Mensen wurde synchronisiert."
     sources_added: "%{count} Quellen neu."
@@ -232,6 +232,10 @@ de:
     last_failed_at: Letzter temporärer Fehler
     last_empty_at: Letzter leerer Abruf
     next_fetch_at: Nächster Abruf
+
+  feeds:
+    messages:
+      headline: 'Protokoll für Feed "%{feed}"'
 
   feed_fetch:
     state: Ergebnis
@@ -446,6 +450,15 @@ de:
         meta_url: Meta-URL
         name: Name
         canteen: Mensa
+      parser:
+        name: Name
+        info_url: Info-URL
+        index_url: Index-URL
+    hints:
+      parser:
+        info_url: Wird auf der Mensa-Seite öffentlich angezeigt
+        index_url: Ermöglicht den automatischer Import mehrerer Mensen
+        maintainer_wanted: Zeigt einen Hinweis zur Unterstützung auf der Mensa-Seite an
     placeholders:
       canteen:
         url: https://mydomain.de/mensa-greuther-fuerth.xml
