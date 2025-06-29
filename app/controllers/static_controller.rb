@@ -5,7 +5,7 @@ class StaticController < WebController
   respond_to :html
 
   def index
-    return unless request.referer.blank? && @user && @user.logged?
+    return unless request.referer.blank? && @user&.logged?
 
     case @user.favorites.count
       when 1

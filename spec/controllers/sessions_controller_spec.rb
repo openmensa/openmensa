@@ -21,7 +21,7 @@ describe SessionsController do
 
       expect do
         get :create, params: {provider: "test"}
-      end.to change { User.all.count }.from(0).to(1)
+      end.to change(User, :count).from(0).to(1)
 
       expect(response).to redirect_to(root_path)
     end

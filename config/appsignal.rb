@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # AppSignal Ruby gem configuration
 #
 # Visit our documentation for a list of all available configuration
@@ -10,7 +12,5 @@ Appsignal.configure do |config|
   config.push_api_key = push_api_key
 
   revision_file = Rails.root.join("REVISION")
-  if revision_file.exist?
-    config.revision = revision_file.read.strip[0..7]
-  end
+  config.revision = revision_file.read.strip[0..7] if revision_file.exist?
 end

@@ -1,9 +1,10 @@
-require:
+plugins:
   - rubocop-capybara
   - rubocop-factory_bot
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   Exclude:
@@ -60,9 +61,8 @@ RSpec/ExampleLength:
 RSpec/ExpectInHook:
   Enabled: false
 
-RSpec/FilePath:
-  Exclude:
-    - "spec/client/**/*_spec.rb"
+RSpec/IndexedLet:
+  Enabled: false
 
 RSpec/MessageSpies:
   Enabled: false
@@ -83,6 +83,14 @@ RSpec/NestedGroups:
 
 FactoryBot/AssociationStyle:
   Enabled: false
+
+# Capybara
+
+Capybara:
+  Enabled: true
+
+Capybara/ClickLinkOrButtonStyle:
+  EnforcedStyle: link_or_button
 
 # -----------------------------------------------------------------------------
 #                                   Layout
@@ -160,9 +168,12 @@ Metrics/CyclomaticComplexity:
   Enabled: false
 
 Metrics/MethodLength:
-  Max: 25
+  Max: 30
   Exclude:
     - "db/**/*"
+
+Metrics/PerceivedComplexity:
+  Max: 15
 
 # -----------------------------------------------------------------------------
 #                                   Style
@@ -218,9 +229,3 @@ Style/SignalException:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
-
-# -----------------------------------------------------------------------------
-#                                 Capybara
-
-Capybara/ClickLinkOrButtonStyle:
-  EnforcedStyle: link_or_button
