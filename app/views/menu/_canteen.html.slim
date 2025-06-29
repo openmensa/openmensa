@@ -11,7 +11,8 @@ section
     .content
       p.action
         i.icon class=canteen_state_icon(canteen.fetch_state)
-        =t :canteen, canteen.fetch_state
+        '
+        = t :canteen, canteen.fetch_state
         |  (
         = t(:canteen, :last_update_at)
         '

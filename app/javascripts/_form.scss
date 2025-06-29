@@ -2,17 +2,15 @@
 
 form {
   fieldset {
-    margin: 1.4em 0 0 0;
+    margin: 2em 0 1em 0;
+    padding: 0 1em;
+
     border: none;
     border-top: 1px solid variables.$frame-color;
 
     > legend {
       padding: 0 5px;
       margin: 0 0 0 -5px;
-
-      + p {
-        margin-top: 0;
-      }
     }
   }
 
