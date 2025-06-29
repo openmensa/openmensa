@@ -34,10 +34,14 @@ describe "Canteen" do
     context "parser info" do
       let(:owner) { create(:developer) }
       let(:parser) { create(:parser, user: owner) }
-      let!(:source) { create(:source, parser:, canteen:) }
+
+      before do
+        create(:source, parser:, canteen:)
+      end
 
       it "pers default not contain any parser info" do
         visit canteen_path(canteen)
+        expect(page).to have_content canteen.name
         expect(page).to have_no_content("Über Parser")
       end
 

@@ -94,8 +94,8 @@ describe "Developers" do
       end
 
       it "allows to fetch the canteen feed again" do
-        expect(OpenMensa::Updater).to receive(:new).with(feed, "manual").and_return updater
-        expect(updater).to receive(:update).and_return true
+        allow(OpenMensa::Updater).to receive(:new).with(feed, "manual").and_return(updater)
+        allow(updater).to receive(:update).and_return(true)
 
         click_on "Feed debug abrufen"
 

@@ -101,22 +101,5 @@ RSpec.configure do |config|
   OmniAuth.config.add_mock(:twitter, uid: "12345", nickname: "zapnap")
   OmniAuth.config.add_mock(:github, uid: "98765", nickname: "zapnap")
 
-  headless = ENV["CI"] || %w[0 false off].exclude?(ENV.fetch("HEADLESS", "on").downcase)
-  warn "INFO: Running feature specs in headless browser." if headless
-
-  Capybara.default_driver = :cuprite
-
-  Capybara.register_driver(:cuprite) do |app|
-    Capybara::Cuprite::Driver.new(
-      app,
-      headless:,
-      inspector: true,
-      process_timeout: 120,
-      timeout: 120,
-      window_size: [1280, 800],
-      url_whitelist: %r{^https?://(127.0.0.1|localhost)}
-    )
-  end
-
   WebMock.disable_net_connect!(allow_localhost: true)
 end
