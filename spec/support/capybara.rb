@@ -3,9 +3,9 @@
 headless = ENV["CI"] || %w[0 false off].exclude?(ENV.fetch("HEADLESS", "on").downcase)
 warn "INFO: Running feature specs in headless browser." if headless
 
-Capybara.default_driver = :cuprite
+Capybara.default_driver = :custom_cuprite
 
-Capybara.register_driver(:cuprite) do |app|
+Capybara.register_driver(:custom_cuprite) do |app|
   Capybara::Cuprite::Driver.new(
     app,
     headless:,
@@ -19,6 +19,6 @@ end
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
-    driven_by(:cuprite)
+    driven_by(:custom_cuprite)
   end
 end
