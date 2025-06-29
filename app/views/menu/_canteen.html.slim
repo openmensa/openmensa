@@ -1,22 +1,20 @@
 section
   #remote-canteens-show
     header.page-header
-      h2.centered = canteen.name
-    ul.meals
-      = render partial: "canteens/day", locals: {day: canteen.days.find_by(date: @date)}
+      h2
+        - if @date.to_date == Time.zone.now.to_date
+          = link_to canteen.name, canteen_path(canteen), title: t(:canteen, :more_with_name, name: canteen.name)
+        - else
+          = link_to canteen.name, canteen_path(canteen, date: @date), title: t(:canteen, :more_with_name, name: canteen.name)
+
+    = render partial: "canteens/day", locals: {day: canteen.days.find_by(date: @date)}
     .content
       p.action
-        i class=canteen_state_icon(canteen.fetch_state)
+        i.icon class=canteen_state_icon(canteen.fetch_state)
         =t :canteen, canteen.fetch_state
-        ' (
+        |  (
         = t(:canteen, :last_update_at)
         '
         = timeago_tag canteen.last_fetched_at
         ' )
         br
-        - if @date.to_date == Time.zone.now.to_date
-          = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen), title: t(:canteen, :more_with_name, name: canteen.name), class: "btn btn-secondary"
-        - else
-          = link_to t(:canteen, :more, name: canteen.name), canteen_path(canteen, date: @date), title: t(:canteen, :more_with_name, name: canteen.name), class: "btn btn-secondary"
-        br
-        = t :menu, :more_actions

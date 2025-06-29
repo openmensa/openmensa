@@ -31,13 +31,9 @@ table {
           font-size: 20px;
         }
 
-        // @extend %transition;
-
         &:hover {
           text-decoration: none;
           color: #333 !important;
-
-          // @extend %transition;
         }
       }
     }
@@ -48,7 +44,6 @@ table {
 
         &.actions a {
           color: #aaa;
-          // @extend %transition;
         }
       }
     }

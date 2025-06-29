@@ -1,13 +1,13 @@
 header.page-header
-  = link_to canteen_path(@canteen, date: (@date - 1.day)), class: :prev do
-    span
   h2
     - if @date.to_date == Time.zone.now.to_date
       = t :today
     - else
       = l @date.to_date, format: :with_weekday
+  = link_to canteen_path(@canteen, date: (@date - 1.day)), class: :prev do
+    span.sr-only Previous day
   = link_to canteen_path(@canteen, date: (@date + 1.day)), class: :next do
-    span
+    span.sr-only Next day
 = render partial: "day", locals: {day: @canteen.days.find_by(date: @date)}
 
 - if @date == Time.zone.now.to_date && @canteen.days.find_by(date: @date + 1.day).try(:meals).try(:any?)

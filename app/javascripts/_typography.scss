@@ -37,6 +37,10 @@ h5 {
   & > .icon {
     margin-right: 0.45em;
   }
+
+  & a {
+    color: variables.$header-color;
+  }
 }
 h2 {
   font-size: 21px;
@@ -163,4 +167,8 @@ a {
 
 .centered {
   text-align: center;
+}
+
+.icon {
+  margin: 0 0.5em;
 }

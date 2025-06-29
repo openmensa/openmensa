@@ -67,9 +67,12 @@
 .canteens_controller,
 .menu_controller {
   .page-header {
-    @include responsive.media(handheld) {
-      h2 {
-        margin-top: 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      @include responsive.media(handheld) {
         font-size: 18px;
         font-size: 1.8rem;
       }
@@ -78,14 +81,16 @@
     a.next,
     a.prev {
       display: block;
-      margin: 3px 0 0;
+      margin: 0;
       padding: 10px;
 
       @include responsive.media(handheld) {
         margin: 0;
       }
 
-      span {
+      &::before {
+        content: "";
+
         width: 14px;
         height: 14px;
         display: block;
@@ -95,24 +100,26 @@
       }
 
       &.next {
-        float: right;
+        order: 2;
 
-        span {
+        &::before {
+          float: right;
           border-bottom: 3px solid #ccc;
           border-right: 3px solid #ccc;
         }
       }
 
       &.prev {
-        float: left;
+        order: -1;
 
-        span {
+        &::before {
+          float: left;
           border-top: 3px solid #ccc;
           border-left: 3px solid #ccc;
         }
       }
 
-      &:hover span {
+      &:hover::before {
         border-color: #333;
         background-color: rgba(0, 0, 0, 0.05);
       }
@@ -151,6 +158,7 @@
 
         margin: 0.5em 0;
         padding: 0;
+        padding-left: 10px;
 
         @include responsive.media(mobile) {
           width: 100%;

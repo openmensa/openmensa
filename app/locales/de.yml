@@ -161,7 +161,6 @@ de:
     more_with_name: "Mehr zu %{name}"
 
   menu:
-    more_actions: "Auch für Fehlerberichte, Korrekturvorschläge ..."
     open: Menü-Übersicht über alle Favoriten
     add_more: Füge mehr Mensen hinzu
     add_more_canteens: "Hier werden alle Mensen angezeigt, die du als Favorit gespeichert hast. Um eine fehlende Mensa hinzufügen, rufe deren Mensaseite auf und markiere sie dort als Favorit."
