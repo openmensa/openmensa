@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "English"
 class User < ApplicationRecord
   include Gravtastic
 
@@ -96,19 +97,16 @@ class User < ApplicationRecord
     end
 
     def anonymous
-      anonymous = AnonymousUser.unscoped.find_by(login: "anonymous")
-      return anonymous if anonymous
+      retried ||= false
 
-      ::ActiveRecord::Base.transaction do
-        # Acquire table lock to ensure they cannot be two anonymous created concurrently
-        ::ActiveRecord::Base.connection.execute("LOCK users IN EXCLUSIVE MODE;")
-
-        # Look for anonymous user again as it could have been created concurrently
-        # between the check above and getting the table lock
-        record = AnonymousUser.unscoped.find_or_initialize_by(login: "anonymous")
-        record.save! validate: false if record.new_record?
-        record
+      AnonymousUser.unscoped.find_or_initialize_by(login: "anonymous").tap do |record|
+        record.save!(validate: false) if record.new_record?
       end
+    rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
+      raise $ERROR_INFO if retried
+
+      retried = true
+      retry
     end
   end
 end

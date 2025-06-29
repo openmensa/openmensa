@@ -19,20 +19,20 @@ describe "Favorites:" do
 
       click_on "Als Favorit markieren"
 
-      expect(user).to have_favorite(canteen)
+      expect(user.favorite?(canteen)).to be true
       expect(page).to have_link "Favorit entfernen"
     end
 
     it "can delete a favorite" do
       favorite
 
-      expect(user).to have_favorite(canteen)
+      expect(user.favorite?(canteen)).to be true
 
       visit canteen_path(canteen)
 
       click_on "Favorit entfernen"
 
-      expect(user).not_to have_favorite(canteen)
+      expect(user.favorite?(canteen)).to be false
       expect(page).to have_link "Als Favorit markieren"
     end
 
@@ -106,12 +106,14 @@ describe "Favorites:" do
     it "has not favorite link on canteen page" do
       visit canteen_path(canteen)
 
+      expect(page).to have_content canteen.name
       expect(page).to have_no_link "Als Favorit markieren"
     end
 
     it "has a start page without favorite menu" do
       visit root_path
 
+      expect(page).to have_content "OpenMensa"
       expect(page).to have_no_content("Meine Favoriten")
     end
   end
