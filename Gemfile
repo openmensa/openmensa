@@ -56,6 +56,7 @@ gem "telegraf"
 group :development do
   gem "brakeman"
 
+  gem "letter_opener"
   gem "listen"
   gem "spring"
   gem "spring-commands-rspec"
