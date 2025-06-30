@@ -1,4 +1,6 @@
-= form.input :name
-= form.input :info_url
-= form.input :index_url
-= form.input :maintainer_wanted
+= simple_form_for(@parser) do |form|
+  = form.input :name
+  = form.input :info_url
+  = form.input :index_url
+  = form.input :maintainer_wanted
+  = form.button(:submit)

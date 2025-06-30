@@ -17,7 +17,5 @@
           a href="https://doc.openmensa.org/feed/v2/" Feed V2
           ' . Ansonsten wird es schwierig die hier
           ' verwendeten Konzepten direkt zu verstehen.
-        = simple_form_for(@parser) do |form|
-          = render(partial: "form", object: form)
-          = form.button :submit
+        = render partial: "form"
   = render partial: "users/nav"

@@ -4,7 +4,5 @@
       header
         h2 = t :edit_parser
       .content
-        = simple_form_for(@parser) do |form|
-          = render(partial: "form", object: form)
-          = form.button(:submit)
+        = render partial: "form"
   = render partial: "users/nav"
