@@ -4,7 +4,7 @@ class WebController < ApplicationController
   protect_from_forgery
   check_authorization
 
-  before_action :setup_user
+  before_action :find_current_user
 
   unless Rails.env.development?
     rescue_from ::CanCan::AccessDenied,         with: :error_access_denied
@@ -13,19 +13,13 @@ class WebController < ApplicationController
 
   # **** setup ****
 
-  def setup_user
-    user = User.find_by id: session[:user_id]
+  def find_current_user
+    user = User.find_by(id: session[:user_id])
     return unless user&.logged?
 
     self.current_user = user
     Time.zone         = current_user.time_zone
     I18n.locale       = current_user.language
-
-    @user = if params[:user_id]
-              User.find params[:user_id]
-            else
-              current_user
-            end
   end
 
   # **** accessors & helpers ****

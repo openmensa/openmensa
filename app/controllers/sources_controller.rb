@@ -22,7 +22,7 @@ class SourcesController < WebController
   end
 
   def update
-    flash[:notice] = if @source.update source_params
+    flash[:notice] = if @source.update(source_params)
                        t "message.source_saved"
                      else
                        t "message.source_invalid"
@@ -47,8 +47,8 @@ class SourcesController < WebController
 
     canteen = Canteen.orphaned.find_by(id: params.dig(:source, :canteen_id))
     unless canteen
-      @source.errors.add :canteen, :invalid
-      render :new
+      @source.errors.add(:canteen, :invalid)
+      render :new, status: :unprocessable_content
       return
     end
 
@@ -59,7 +59,7 @@ class SourcesController < WebController
       redirect_to parser_path(@source.parser)
     end
   rescue ActiveRecord::RecordInvalid
-    render :new
+    render :new, status: :unprocessable_content
   end
 
   def create_with_new_canteen
@@ -77,7 +77,7 @@ class SourcesController < WebController
       redirect_to parser_path(@source.parser)
     end
   rescue ActiveRecord::RecordInvalid
-    render :new
+    render :new, status: :unprocessable_content
   end
 
   def source_params

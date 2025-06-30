@@ -6,11 +6,11 @@ class UsersController < WebController
   def show; end
 
   def update
-    if @user.update user_params
+    if @user.update(user_params)
       flash_for :user, notice: t("message.profile_saved")
       redirect_to @user
     else
-      render action: :show
+      render :show, status: :unprocessable_content
     end
   end
 

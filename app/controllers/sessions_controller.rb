@@ -14,9 +14,9 @@ class SessionsController < WebController
 
     identity = Identity.from_omniauth(request.env["omniauth.auth"])
     if current_user.logged?
-      create_identity! identity
+      create_identity!(identity)
     else
-      create_session! identity
+      create_session!(identity)
     end
   end
 

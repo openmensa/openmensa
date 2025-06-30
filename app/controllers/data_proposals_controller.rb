@@ -14,7 +14,7 @@ class DataProposalsController < WebController
   def new; end
 
   def create
-    if @data_proposal.update data_proposal_params
+    if @data_proposal.update(data_proposal_params)
       flash[:notice] = t "message.data_proposal_created"
       redirect_to canteen_path(@data_proposal.canteen)
     else
@@ -25,15 +25,7 @@ class DataProposalsController < WebController
   private
 
   def new_resource
-    @data_proposal = user.data_proposals.new canteen: @canteen
-  end
-
-  def user
-    if @user.nil? || @user.internal?
-      User.anonymous
-    else
-      @user
-    end
+    @data_proposal = current_user.data_proposals.new(canteen: @canteen)
   end
 
   def load_resource

@@ -5,11 +5,11 @@ class StaticController < WebController
   respond_to :html
 
   def index
-    return unless request.referer.blank? && @user&.logged?
+    return unless request.referer.blank? && current_user.logged?
 
-    case @user.favorites.count
+    case current_user.favorites.count
       when 1
-        redirect_to canteen_path(@user.favorites.first.canteen)
+        redirect_to canteen_path(current_user.favorites.first.canteen)
       when (2..Float::INFINITY)
         redirect_to menu_path
     end

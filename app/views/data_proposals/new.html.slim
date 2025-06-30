@@ -44,7 +44,7 @@
           p
             = submit_tag t(:data_proposal, :create_button)
 
-  - if @user.present?
+  - if current_user.present?
     = render partial: "users/nav"
   - else
     .span4

@@ -4,8 +4,8 @@ class DevelopersController < WebController
   skip_authorization_check only: %i[activate]
 
   def show
-    authorize! :edit, @user
-    return unless @user.developer?
+    authorize! :edit, user
+    return unless user.developer?
 
     flash_for :user,
       notice: t("message.activate.already_developer").html_safe
@@ -13,27 +13,27 @@ class DevelopersController < WebController
   # rubocop:enable all
 
   def update
-    authorize! :edit, @user
+    authorize! :edit, user
 
-    unless @user.update(user_params)
+    unless user.update(user_params)
       render action: :show
       return
     end
 
-    url = activate_url encrypt_and_sign(@user.notify_email)
-    if VerifyMailer.verify_email(@user, url).deliver_now
+    url = activate_url encrypt_and_sign(user.notify_email)
+    if VerifyMailer.verify_email(user, url).deliver_now
       flash_for :user, notice: t(
         "message.activate.mail_sent",
-        mail: @user.notify_email,
+        mail: user.notify_email,
       ).html_safe
     else
       flash_for :user, error: t(
         "message.activate.mail_failed_to_send",
-        mail: @user.notify_email,
+        mail: user.notify_email,
       ).html_safe
     end
 
-    redirect_to @user
+    redirect_to user
   end
 
   def activate
@@ -53,6 +53,10 @@ class DevelopersController < WebController
   end
 
   private
+
+  def user
+    @user ||= User.find(params[:user_id])
+  end
 
   def user_params
     params.require(:user).permit(

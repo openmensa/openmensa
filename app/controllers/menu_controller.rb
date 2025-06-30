@@ -15,6 +15,6 @@ class MenuController < WebController
               Time.zone.now.to_date
             end
 
-    @canteens = @user.favorites.includes(:canteen).map(&:canteen)
+    @canteens = current_user.favorites.includes(:canteen).map(&:canteen)
   end
 end
