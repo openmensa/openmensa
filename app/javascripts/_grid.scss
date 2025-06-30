@@ -24,8 +24,9 @@ $grid-gutter: 1.5% !default;
         width: 100%;
       }
     }
-    > .offset#{i} {
-      padding-left: math.div(100%, 12) * $i;
+
+    > .offset#{$i} {
+      margin-left: math.div(100%, 12) * $i;
     }
   }
 
