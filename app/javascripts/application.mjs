@@ -16,9 +16,6 @@ import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
-// jQuery.timeago.settings.lang = "de";
-// jQuery.timeago.settings.allowFuture = true;
-
 Object.assign(L.Icon.Default.prototype.options, {
   iconUrl: iconUrl,
   iconRetinaUrl: iconRetinaUrl,
@@ -26,15 +23,31 @@ Object.assign(L.Icon.Default.prototype.options, {
   shadowRetineUrl: shadowUrl,
 });
 
-$(() => {
+function toJSON(value) {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return null;
+  }
+}
+
+function ready(fn) {
+  if (document.readyState !== "loading") {
+    fn();
+  } else {
+    document.addEventListener("DOMContentLoaded", fn);
+  }
+}
+
+ready(() => {
   const tileLayer = L.tileLayer("https://openmensa.org/tiles/{z}/{x}/{y}.png", {
     attribution:
       'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     maxZoom: 18,
   });
 
-  $('[data-map="map"').each(function () {
-    const map = L.map(this, { maxZoom: 18 });
+  document.querySelectorAll('[data-map="map"]').forEach((element) => {
+    const map = L.map(element, { maxZoom: 18 });
     new LocateControl().addTo(map);
     map.addLayer(tileLayer);
 
@@ -43,7 +56,7 @@ $(() => {
       maxClusterRadius: 45,
     });
 
-    const markers = $(this).data("markers");
+    const markers = toJSON(element.dataset.markers);
     if (Array.isArray(markers)) {
       for (const m of markers) {
         if (
@@ -76,20 +89,18 @@ $(() => {
       map.setZoom(16);
     }
 
-    if ($(this).data("hash")) {
+    if (toJSON(element.dataset.hash)) {
       return new L.Hash(map);
     }
     return map;
   });
 
-  $('[data-map="interactive"]').each(function () {
-    const map = L.map(this, {
-      scrollWheelZoom: true,
-    });
+  document.querySelectorAll('[data-map="interactive"]').forEach((element) => {
+    const map = L.map(element, { scrollWheelZoom: true });
     map.addLayer(tileLayer);
 
-    const lat = $($(this).data("lat"));
-    const lng = $($(this).data("lng"));
+    const lat = $(element.dataset.lat);
+    const lng = $(element.dataset.lng);
     const marker = L.marker([lat.attr("value") || 0, lng.attr("value") || 0], {
       draggable: true,
     });
@@ -102,22 +113,35 @@ $(() => {
     map.addLayer(marker);
     map.setView([lat.attr("value"), lng.attr("value")], 17);
   });
+});
 
-  $(".alert a[data-dismiss]").each(function () {
-    const el = $(this);
-    el.on("click", () => el.parent().fadeOut());
+function fadeOut(el) {
+  el.style.opacity = 1;
+  el.style.transition = "opacity 1s";
+  el.style.opacity = 0;
+
+  setTimeout(() => el.remove(), 1000);
+}
+
+ready(() => {
+  document.querySelectorAll(".alert a[data-dismiss]").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      fadeOut(element);
+    });
   });
 
-  $(".alert a[data-auto-dismiss]").each(function () {
-    const el = $(this);
-    let timeout = Number.parseInt(el.data("auto-dismiss"), 10);
+  document
+    .querySelectorAll(".alert a[data-auto-dismiss]")
+    .forEach((element) => {
+      let timeout = Number.parseInt(element.dataset.dismiss, 10);
 
-    if (!(timeout != null && !Number.isNaN(timeout))) {
-      timeout = 4000;
-    }
+      if (!(timeout != null && !Number.isNaN(timeout))) {
+        timeout = 4000;
+      }
 
-    setTimeout(() => el.parent().fadeOut(), timeout);
-  });
+      setTimeout(() => fadeOut(element), timeout);
+    });
 
   $("[data-autocomplete]").each(function () {
     const el = $(this);
