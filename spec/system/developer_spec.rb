@@ -26,7 +26,7 @@ describe "Developers" do
     it "I want to become a developer" do
       click_on "Aktiviere Entwickler-Funktionen"
 
-      fill_in "E-Mail für Fehlerberichte und ähnliches",
+      fill_in "E-Mail für Fehlerberichte",
         with: "test@example.org"
 
       click_on "Werde Entwickler"
@@ -148,7 +148,7 @@ describe "Developers" do
         expect(developer.public_email).to be_nil
         expect(developer.info_url).to be_nil
 
-        fill_in "Website", with: "http://example.org"
+        fill_in "Webseite", with: "http://example.org"
         fill_in "Öffentlicher Name", with: "Hans Otto"
         fill_in "Öffentliche E-Mail", with: "openmensa@example.org"
         click_on "Speichern"

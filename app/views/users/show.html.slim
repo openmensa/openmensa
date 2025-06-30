@@ -5,30 +5,17 @@
         h2 = t :my_profile
       .content
         = render partial: "common/flash", object: flash[:user]
-        = form_for @user do |f|
-          p
-            = f.label :name, t(:profile, :name)
-            = f.text_field :name
-          p
-            = f.label :email, t(:profile, :email)
-            = f.text_field :email
+        = simple_form_for(@user) do |f|
+          = f.input :name
+          = f.input :email
           - if @user.developer?
             fieldset
-              legend = t :profile, :developer_settings
-              p
-                = f.label :notify_email, t(:profile, :notify_email)
-                = f.text_field :notify_email, placeholder: @user.email
-              p
-                = f.label :public_name, t(:profile, :public_name)
-                = f.text_field :public_name
-              p
-                = f.label :public_email, t(:profile, :public_email)
-                = f.text_field :public_email
-              p
-                = f.label :info_url, t(:profile, :info_url)
-                = f.text_field :info_url
-          p
-            input.btn-primary type="submit" value=t(:save)
+              legend = t(:profile, :developer_settings)
+              = f.input :notify_email, placeholder: @user.email
+              = f.input :public_name
+              = f.input :public_email
+              = f.input :info_url
+          = f.button :submit
         - unless @user.developer?
           p
             = link_to user_developer_path(@user), class: "btn btn-primary", title: "Mehr zu Entwickler-Funktionen" do

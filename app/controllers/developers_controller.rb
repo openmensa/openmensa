@@ -4,33 +4,29 @@ class DevelopersController < WebController
   skip_authorization_check only: %i[activate]
 
   def show
-    authorize! :edit, user
-    return unless user.developer?
-
-    flash_for :user,
-      notice: t("message.activate.already_developer").html_safe
+    authorize!(:edit, user)
   end
   # rubocop:enable all
 
   def update
-    authorize! :edit, user
+    authorize!(:edit, user)
 
-    unless user.update(user_params)
-      render action: :show
-      return
+    user.transaction do
+      # Validate as if the user were a developer but reset afterward.
+      unless user.update(**user_params, developer: true)
+        user.developer = false
+        render action: :show, status: :unprocessable_content
+        return
+      end
+
+      user.update!(developer: false)
     end
 
-    url = activate_url encrypt_and_sign(user.notify_email)
+    url = activate_url(encrypt_and_sign(user.notify_email))
     if VerifyMailer.verify_email(user, url).deliver_now
-      flash_for :user, notice: t(
-        "message.activate.mail_sent",
-        mail: user.notify_email,
-      ).html_safe
+      flash_for :user, notice: t("message.activate.mail_sent", mail: user.notify_email)
     else
-      flash_for :user, error: t(
-        "message.activate.mail_failed_to_send",
-        mail: user.notify_email,
-      ).html_safe
+      flash_for :user, error: t("message.activate.mail_failed_to_send", mail: user.notify_email)
     end
 
     redirect_to user
@@ -38,12 +34,15 @@ class DevelopersController < WebController
 
   def activate
     redirect_to root_url
+
     user = User.find_by(notify_email: decrypt_and_verify(params[:token]))
-    unless user
+
+    if user.blank?
       flash[:error] = t("message.activate.unknown_token")
       return
     end
-    if user.update developer: true
+
+    if user.update(developer: true)
       flash[:notice] = t("message.activate.got_developer")
     else
       flash[:error] = t("message.activate.could_not_activate_link")

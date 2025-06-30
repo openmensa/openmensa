@@ -1,4 +1,4 @@
-= simple_form_for @user, method: :put, url: register_path do |f|
+= simple_form_for(@user, method: :put, url: register_path) do |f|
   = render partial: "common/errors", locals: {model: @user}
   .row
     .span6
