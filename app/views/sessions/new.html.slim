@@ -7,6 +7,6 @@
         .content
           .ident-buttons
             - Rails.configuration.omniauth_services.each do |id|
-              = form_tag auth_path(id) do
+              = form_tag(auth_path(id), data: { turbo: false }) do
                 button type="submit" class="btn btn-login btn-social btn-#{id}" title=t(:service, id)
                   = t(:service, id)

@@ -28,14 +28,14 @@ Rails.application.routes.draw do
     resources :messages, path: "m", only: [:index]
   end
 
-  resources :users, path: "u" do
-    resources :favorites, path: "favs", only: [:index]
-    resources :identities, path: "ids", only: %i[new create destroy]
+  resources :users do
+    resources :favorites, only: [:index]
+    resources :identities, only: %i[new create destroy]
     resource :developer
   end
   get "activate/:token", to: "developers#activate", as: :activate
 
-  resources :favorites, path: "favs", only: [:index]
+  resources :favorites, only: [:index]
   resources :sources, only: %i[update edit] do
     resources :feeds, only: [:create]
   end

@@ -21,25 +21,19 @@
           ' Zusätzlich kannst du weitere Informationen angeben, die bei von dir bereitgestellten Mensen angezeigt werden; beispielsweise, um es anderen Interessierten zu ermöglichen dir bei der Entwickler des Parsers zu helfen.
         h3
           ' Werde Entwickler!
+
         = render partial: "common/flash", object: flash[:user]
+
         - if @user.developer?
           p
-            ' Schon alles geschehen!
+            .alert.alert-success
+              = t("message.activate.already_developer")
         - else
-          = form_for @user, url: user_developer_path do |f|
-            p
-              = f.label :notify_email, t(:profile, :notify_email), required: true
-              = f.text_field :notify_email, placeholder: @user.email, required: true
-            p
-              = f.label :public_name, t(:profile, :public_name)
-              = f.text_field :public_name
-            p
-              = f.label :public_email, t(:profile, :public_email)
-              = f.text_field :public_email
-            p
-              = f.label :info_url, t(:profile, :info_url)
-              = f.text_field :info_url
-            p
-              input.btn-primary type="submit" value="Werde Entwickler"
+          = simple_form_for(@user, url: user_developer_path(@user)) do |f|
+            = f.input :notify_email, required: true
+            = f.input :public_name
+            = f.input :public_email
+            = f.input :info_url
+            = f.button :submit, value: "Werde Entwickler"
 
   = render partial: "users/nav"

@@ -324,6 +324,8 @@ de:
     submit:
       source:
         create: Hinzufügen
+      user:
+        update: Speichern
 
   date:
     formats:
@@ -426,6 +428,9 @@ de:
       feed_fetch:
         one: Feed-Abruf
         other: Feed-Abrufe
+      user:
+        one: Benutzer
+        other: Benutzer
     attributes:
       canteen:
         address: Adresse
@@ -444,6 +449,14 @@ de:
         canteen: Mensa
         meta_url: Meta-URL
         name: Name
+      user:
+        name: Name
+        login: Login-ID
+        email: E-Mail
+        notify_email: E-Mail für Fehlerberichte
+        public_name: Öffentlicher Name
+        public_email: Öffentliche E-Mail
+        info_url: Webseite
 
   mailer:
     daily_report:
@@ -510,13 +523,19 @@ de:
     "yes": "Ja"
     "no": "Nein"
     required:
-      text: "Notwendigs Feld"
+      text: "Notwendiges Feld"
       mark: "*"
     hints:
       parser:
         info_url: Wird auf der Mensa-Seite öffentlich angezeigt
         index_url: Ermöglicht den automatischer Import mehrerer Mensen
         maintainer_wanted: Zeigt einen Hinweis zur Unterstützung auf der Mensa-Seite an
+      user:
+        email: "Nicht öffentlich."
+        notify_email: "Nicht öffentlich. Für Benachrichtigungen bei z.B. Fehlern deiner Parser."
+        public_name: Optional. Wird in den Parser-Informationen zur Mensa angezeigt.
+        public_email: Optional. Wird in den Parser-Informationen zur Mensa angezeigt.
+        info_url: Optional. Wird in den Parser-Informationen zur Mensa angezeigt.
     placeholders:
       canteen:
         url: https://mydomain.de/mensa-greuther-fuerth.xml
