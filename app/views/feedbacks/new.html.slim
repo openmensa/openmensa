@@ -21,7 +21,7 @@
           p
             = submit_tag t(:canteen_feedback, :create_button)
 
-  - if @user.present?
+  - if current_user.present?
     = render partial: "users/nav"
   - else
     .span4

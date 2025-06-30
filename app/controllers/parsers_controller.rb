@@ -23,12 +23,11 @@ class ParsersController < WebController
   end
 
   def update
-    if @parser.update parser_params
+    if @parser.update(parser_params)
       flash[:notice] = t "message.parser_saved"
-      redirect_to parser_path @parser
+      redirect_to parser_path(@parser)
     else
-      show
-      render action: :show
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -44,7 +43,7 @@ class ParsersController < WebController
   end
 
   def new_resource
-    @parser = @user.parsers.new
+    @parser = current_user.parsers.new
   end
 
   def parser_params

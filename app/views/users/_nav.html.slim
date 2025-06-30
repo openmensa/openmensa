@@ -3,18 +3,18 @@
     header
       h2 = t :settings
     ul.content.nav
-      li = link_to t(:my_profile), user_path(@user)
-      li = link_to t("favorites.my_favorites"), user_favorites_path(@user)
+      li = link_to t(:my_profile), user_path(current_user)
+      li = link_to t("favorites.my_favorites"), user_favorites_path(current_user)
   - if can?(:create, Parser)
     section
       header
         h2 = t('.parsers')
       ul.content.nav.parsers
-        - @user.parsers.order(:name).each do |p|
+        - current_user.parsers.order(:name).each do |p|
           li = link_to parser_path(p) do
             i.icon.fa-fw.fa-solid.fa-pen-to-square
             = p.name
-        li = link_to new_parser_path(@user) do
+        li = link_to new_parser_path(current_user) do
           i.icon.fa-fw.fa-solid.fa-plus
           = t(:create_parser)
   = yield :navigation

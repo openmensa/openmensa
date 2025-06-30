@@ -25,15 +25,7 @@ class FeedbacksController < WebController
   private
 
   def new_resource
-    @feedback = user.feedbacks.new canteen: @canteen
-  end
-
-  def user
-    if @user.nil? || @user.internal?
-      User.anonymous
-    else
-      @user
-    end
+    @feedback = current_user.feedbacks.new canteen: @canteen
   end
 
   def load_resource
