@@ -23,7 +23,6 @@ export default async (env, argv) => {
       publicPath: "/assets/packed/",
       filename: "[name].[contenthash].js",
       assetModuleFilename: "static/[name].[contenthash][ext]",
-      clean: true,
     },
     experiments: {
       css: true,
