@@ -22,6 +22,9 @@ require "good_job/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Send metrics to default: udp://localhost:8094
+require "telegraf/rails"
+
 module Openmensa
   class Application < Rails::Application
     # Configuration for the application, engines, and railties goes
