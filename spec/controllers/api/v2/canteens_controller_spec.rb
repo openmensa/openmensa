@@ -5,7 +5,7 @@ require "spec_helper"
 describe Api::V2::CanteensController do
   render_views
 
-  let(:json) { JSON.parse response.body }
+  let(:json) { JSON.parse(response.body) }
 
   describe "GET index" do
     let!(:canteen) { create(:canteen, latitude: 0.0, longitude: 0.0) }
@@ -284,6 +284,14 @@ describe Api::V2::CanteensController do
 
         expect(json).to have(1).item
         expect(json[0]["name"]).to eq(unknown.name)
+      end
+    end
+
+    context "invalid page smaller than one" do
+      it "responds with a Bad Request error" do
+        get :index, format: :json, params: {page: "0"}
+
+        expect(response).to have_http_status :bad_request
       end
     end
   end
