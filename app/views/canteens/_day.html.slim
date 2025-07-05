@@ -24,5 +24,5 @@ ul.categories
                   ul.prices
                     - meal.prices.each do |role, price|
                       li title=t(:"price_roles.#{role}")
-                        span = t "price_roles.#{role}"
-                        span = number_to_currency(price, uni: "€")
+                        span = t("price_roles.#{role}")
+                        span.nowrap = number_to_currency(price, uni: "€")
