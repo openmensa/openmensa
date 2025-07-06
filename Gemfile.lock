@@ -312,8 +312,9 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     ostruct (0.6.1)
-    paginate-responder (2.1.0)
+    paginate-responder (2.2.0)
       rack-link_headers (>= 2.2)
+      responders
     parallel (1.27.0)
     parse-cron (0.1.4)
     parser (3.3.8.0)
