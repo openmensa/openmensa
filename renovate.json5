@@ -4,7 +4,6 @@
     "config:recommended",
     ":dependencyDashboard",
     ":label(dependencies)",
-    "schedule:weekly",
     ":maintainLockFilesWeekly",
   ],
 
