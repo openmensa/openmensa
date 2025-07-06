@@ -1,0 +1,13 @@
+---
+name: maintenance-cache-clear
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+jobs:
+  cache-clear:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: easimon/wipe-cache@v2
