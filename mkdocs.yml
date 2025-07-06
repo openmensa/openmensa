@@ -8,21 +8,27 @@ theme:
   name: material
   font: false
   icon:
-    logo: material/library
+    logo: material/silverware-fork-knife
     repo: fontawesome/brands/github
   palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: white
+      primary: blue
+      accent: blue
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
+      primary: indigio
+      accent: blue
       toggle:
         icon: material/brightness-4
-        name: Switch to light mode
+        name: Switch to system preference
   features:
     - content.code.annotate
     - content.tabs.link
