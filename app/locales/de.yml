@@ -220,10 +220,10 @@ de:
           source: "Quelle"
           feed: Feed
           time_span: Zeitrahmen
-          total: "Insgesamt:"
           percentage: "%{value}%"
           lastday: "Letzte 24h:"
           lastweek: "Letzte Woche:"
+          lastyear: "Letztes Jahr:"
 
   source:
     resource: Quelle

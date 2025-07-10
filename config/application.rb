@@ -86,6 +86,10 @@ module Openmensa
         cron: "0 9 * * *",
         class: "DailyReportsJob",
       },
+      daily_cleanup_feed_fetches: {
+        cron: "30 3 * * *",
+        class: "CleanupFeedFetchesJob",
+      },
     }
 
     # Loaded OmniAuth services will be stored here
