@@ -6,7 +6,7 @@ class ParsersController < WebController
   load_and_authorize_resource
 
   def show
-    @sources = @parser.sources.includes(:feeds)
+    @sources = @parser.sources.strict_loading.includes(:canteen, :feeds)
   end
 
   def new; end
