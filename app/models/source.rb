@@ -5,7 +5,7 @@ class Source < ApplicationRecord
 
   belongs_to :canteen
   belongs_to :parser
-  has_many :feeds, -> { order(:priority) }, dependent: :destroy
+  has_many :feeds, -> { order(:priority) }, inverse_of: :source, dependent: :destroy
   has_many :messages, as: :messageable, dependent: :destroy
 
   validates :name, presence: true
