@@ -27,8 +27,8 @@ class ParserMailer < ApplicationMailer
     @data_proposals = []
     @parser_messages = @parser.messages.where("created_at > ?", @data_since).to_a
     @sources = []
-    @parser.sources.each do |source|
-      part = SourceMailerPart.new source, @data_since
+    @parser.sources.strict_loading.includes(:canteen, :feeds).find_each do |source|
+      part = SourceMailerPart.new(source, @data_since)
       @sources << part
       @feedbacks << part if part.new_feedback?
       @data_proposals << part if part.new_proposal?
