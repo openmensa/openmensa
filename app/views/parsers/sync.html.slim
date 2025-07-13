@@ -4,13 +4,15 @@
       header
         h2 = t :parser, :sync
       .content
-          p
-            = t :parser, :synced
-            ul
-              li = t :parser, :sources_added, count: @synchroniser.sources_added
-              li = t :parser, :sources_created, count: @synchroniser.sources_created
-              li = t :parser, :sources_updated, count: @synchroniser.sources_updated
-              li = t :parser, :sources_deleted, count: @synchroniser.sources_deleted
+        p
+          = t :parser, :synced
+          ul
+            li = t :parser, :sources_added, count: @synchroniser.sources_added
+            li = t :parser, :sources_created, count: @synchroniser.sources_created
+            li = t :parser, :sources_updated, count: @synchroniser.sources_updated
+            li = t :parser, :sources_deleted, count: @synchroniser.sources_deleted
+        p.btn-group
+          = link_to(t(".back"), parser_path(@parser), class: "btn btn-primary")
 
   aside.span4
     = render partial: "users/nav"

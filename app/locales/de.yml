@@ -201,6 +201,21 @@ de:
         feedbacks: Nutzerrückmeldungen
         messages: Nachrichten
         source: Quelle
+      feeds:
+        headline: Feedstatus
+        status:
+          states: Abrufstatie
+          source: "Quelle"
+          feed: Feed
+          time_span: Zeitrahmen
+          percentage: "%{value}%"
+          lastday: "Letzte 24h:"
+          lastweek: "Letzte Woche:"
+          lastyear: "Letztes Jahr:"
+    sync:
+      back: Zurück zum Parser
+    row:
+      sources:
         actions:
           source:
             edit: "Editiere %{name} (Quelle)"
@@ -213,17 +228,6 @@ de:
             open: "Nutzerrückmeldungen für %{name} anzeigen"
           data_proposals:
             open: "Änderungsvorschläge für %{name} anzeigen"
-      feeds:
-        headline: Feedstatus
-        status:
-          states: Abrufstatie
-          source: "Quelle"
-          feed: Feed
-          time_span: Zeitrahmen
-          percentage: "%{value}%"
-          lastday: "Letzte 24h:"
-          lastweek: "Letzte Woche:"
-          lastyear: "Letztes Jahr:"
 
   source:
     resource: Quelle
@@ -431,6 +435,9 @@ de:
       user:
         one: Benutzer
         other: Benutzer
+      source:
+        one: Quelle
+        other: Quellen
     attributes:
       canteen:
         address: Adresse

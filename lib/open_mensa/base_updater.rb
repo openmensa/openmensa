@@ -23,11 +23,11 @@ class OpenMensa::BaseUpdater
     end
     version
   rescue OpenMensa::FeedValidator::InvalidFeedVersionError
-    create_validation_error! :unknown_version
+    create_validation_error!(:unknown_version)
     false
   rescue OpenMensa::FeedValidator::FeedValidationError => e
     e.errors.take(2).each do |error|
-      create_validation_error! :invalid_xml, error.message
+      create_validation_error!(:invalid_xml, error.message)
     end
     false
   end
@@ -35,16 +35,20 @@ class OpenMensa::BaseUpdater
   private
 
   def create_validation_error!(kind, message = nil)
-    @errors << FeedValidationError.create!(messageable:,
+    @errors << FeedValidationError.create!(
+      messageable:,
       version:,
       message:,
-      kind:,)
+      kind:,
+    )
   end
 
   def create_fetch_error!(message, code = nil)
-    @errors << FeedFetchError.create(messageable:,
+    @errors << FeedFetchError.create(
+      messageable:,
       message:,
-      code:,)
+      code:,
+    )
   end
 
   def extract_canteen_node

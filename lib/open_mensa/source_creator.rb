@@ -5,15 +5,15 @@ class OpenMensa::SourceCreator < OpenMensa::SourceUpdater
 
   # 4. all together
   def sync
-    return false unless fetch! && parse! && validate!
+    return unless fetch! && parse! && validate!
 
-    canteen = create_canteen extract_canteen_node
-    return false if canteen.nil? || !canteen.valid?
+    canteen = create_canteen(extract_canteen_node)
+    return if canteen.nil? || !canteen.valid?
 
     source.canteen = canteen
     source.save
 
-    create_feeds extract_canteen_node
+    create_feeds(extract_canteen_node)
 
     true
   end
@@ -24,9 +24,8 @@ class OpenMensa::SourceCreator < OpenMensa::SourceUpdater
     canteen.element_children.select do |node|
       next unless node.name == "feed"
 
-      create_feed node
+      create_feed(node)
     end
-    true
   end
 
   def create_canteen(canteen_node)

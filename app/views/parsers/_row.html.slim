@@ -1,0 +1,20 @@
+tr
+  td.first
+    = link_to edit_source_path(source), title: t('.sources.actions.source.edit', name: source.name) do
+      = source.name
+  - if source.canteen.present?
+    td = link_to edit_canteen_path(source.canteen), title: t('.sources.actions.canteen.edit', name: source.canteen.name) do
+          = source.canteen.name
+    td = link_to canteen_path(source.canteen), title: t('.sources.actions.canteen.open', name: source.canteen.name) do
+          i.icon.fa-fw.fa-solid.fa-arrow-up-right-from-square
+    td = source.canteen.city
+  - else
+    td colspan="3"
+  td.number = source.feeds.count
+  td.number = link_to source.messages.count, source_messages_path(source), title: t('.sources.actions.source.messages.open', name: source.name)
+
+  - if source.canteen.present?
+    td.number = link_to source.canteen.feedbacks.count, canteen_feedbacks_path(source.canteen), title: t('.sources.actions.feedbacks.open', name: source.canteen.name)
+    td.number.last = link_to source.canteen.data_proposals.count, canteen_data_proposals_path(source.canteen), title: t('.sources.actions.data_proposals.open', name: source.canteen.name)
+  - else
+    td.last colspan="2"
