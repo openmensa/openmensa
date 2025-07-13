@@ -201,18 +201,6 @@ de:
         feedbacks: Nutzerrückmeldungen
         messages: Nachrichten
         source: Quelle
-        actions:
-          source:
-            edit: "Editiere %{name} (Quelle)"
-            messages:
-              open: "Mitteilungen für %{name} anzeigen"
-          canteen:
-            edit: "Editiere %{name} (Mensa)"
-            open: "Öffne %{name}"
-          feedbacks:
-            open: "Nutzerrückmeldungen für %{name} anzeigen"
-          data_proposals:
-            open: "Änderungsvorschläge für %{name} anzeigen"
       feeds:
         headline: Feedstatus
         status:
@@ -226,6 +214,20 @@ de:
           lastyear: "Letztes Jahr:"
     sync:
       back: Zurück zum Parser
+    row:
+      sources:
+        actions:
+          source:
+            edit: "Editiere %{name} (Quelle)"
+            messages:
+              open: "Mitteilungen für %{name} anzeigen"
+          canteen:
+            edit: "Editiere %{name} (Mensa)"
+            open: "Öffne %{name}"
+          feedbacks:
+            open: "Nutzerrückmeldungen für %{name} anzeigen"
+          data_proposals:
+            open: "Änderungsvorschläge für %{name} anzeigen"
 
   source:
     resource: Quelle
@@ -433,6 +435,9 @@ de:
       user:
         one: Benutzer
         other: Benutzer
+      source:
+        one: Quelle
+        other: Quellen
     attributes:
       canteen:
         address: Adresse

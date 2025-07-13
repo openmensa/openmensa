@@ -101,14 +101,17 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   end
 
   def update_source(source, url)
-    if source.canteen.state == "archived"
-      SourceListChanged.create!(messageable: source,
+    if source.canteen.present? && source.canteen.state == "archived"
+      SourceListChanged.create!(
+        messageable: source,
         kind: :source_reactivated,
         name: source.name,
-        url:,)
-      source.canteen.update! state: "new"
+        url:,
+      )
+      source.canteen.update!(state: "new")
       @sources_added += 1
     end
+
     return if url.nil?
 
     return unless source.meta_url != url
@@ -132,7 +135,8 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
     )
 
     unless url.nil?
-      source = Source.new parser: @parser, name:, meta_url: url
+      source = Source.create!(parser: @parser, name:, meta_url: url)
+
       if OpenMensa::SourceCreator.new(source).sync
         @sources_created += 1
         @sources_added -= 1
@@ -143,6 +147,12 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   end
 
   def archive_source(source)
+    if source.canteen.blank?
+      source.destroy!
+      @sources_deleted += 1
+      return
+    end
+
     return if source.canteen.state == "archived"
 
     SourceListChanged.create!(

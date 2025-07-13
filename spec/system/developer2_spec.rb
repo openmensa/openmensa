@@ -116,7 +116,7 @@ describe "Developers" do
 
           within(:xpath, '//section[header="Editiere Quelle"]') do
             fill_in "Name", with: "Testname"
-            click_on "Speichern"
+            click_on "Quelle aktualisieren"
           end
 
           expect(page).to have_content "Testname"
@@ -133,7 +133,7 @@ describe "Developers" do
             fill_in "Wiederholungsinterval(e)", with: "10 3"
           end
 
-          click_on "Feed anlegen"
+          click_on "Feed erstellen"
 
           expect(page).to have_content "Der neuer Feed wurde erfolgreich angelegt."
           expect(page).to have_content "Feed Full"
@@ -146,7 +146,7 @@ describe "Developers" do
           within(:xpath, "//section[header=\"Feed #{feed.name}\"]") do
             fill_in "Name", with: "Replacefeed"
             fill_in "Wiederholungsinterval(e)", with: ""
-            click_on "Speichern"
+            click_on "Feed aktualisieren"
           end
 
           expect(page).to have_content "Der Feed wurde erfolgreich aktualisiert."

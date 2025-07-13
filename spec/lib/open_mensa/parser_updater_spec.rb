@@ -159,37 +159,84 @@ describe OpenMensa::ParserUpdater do
   end
 
   describe "#sync" do
-    context "create message for new source, but no source/canteen" do
-      it "if meta data cannot be fetched" do
-        stub_json test: "http://example.org/test.xml"
-        stub_request(:any, "http://example.org/test.xml")
-          .to_return(status: 500)
+    context "with new source" do
+      before do
+        stub_json(test: "http://example.org/test.xml")
+      end
 
-        expect(updater.sync).to be_truthy
-        expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
-        expect(Canteen.count).to eq 0
+      context "with failing meta feed URL" do
+        before do
+          stub_request(:any, "http://example.org/test.xml")
+            .to_return(status: 500)
+        end
 
-        parser.messages.first.tap do |message|
-          expect(message).to be_a(SourceListChanged)
-          expect(message.kind).to eq("new_source")
-          expect(message.name).to eq "test"
-          expect(message.url).to eq "http://example.org/test.xml"
+        it "creates a source but no canteen" do
+          expect(updater.sync).to be_truthy
+          expect(updater.stats).to eq(new: 1, created: 0, updated: 0, archived: 0)
+          expect(Canteen.count).to eq(0)
+
+          Source.last.tap do |source|
+            expect(source.canteen).to be_nil
+            expect(source.name).to eq "test"
+            expect(source.meta_url).to eq "http://example.org/test.xml"
+          end
+
+          parser.messages.first.tap do |message|
+            expect(message).to be_a(SourceListChanged)
+            expect(message.kind).to eq("new_source")
+            expect(message.name).to eq "test"
+            expect(message.url).to eq "http://example.org/test.xml"
+          end
         end
       end
 
-      it "if meta data cannot be fetched" do
-        stub_json test: "http://example.org/test.xml"
-        stub_request(:any, "http://example.org/test.xml")
-          .to_return(body: mock_file("not_complete_metadata.xml"), status: 200)
+      context "with incomplete metadata" do
+        before do
+          stub_request(:any, "http://example.org/test.xml")
+            .to_return(body: mock_file("not_complete_metadata.xml"), status: 200)
+        end
 
-        expect { updater.sync }.not_to change(Canteen, :count).from 0
-        expect(updater.stats).to eq new: 1, created: 0, updated: 0, archived: 0
+        it "creates a source but no canteen" do
+          expect(updater.sync).to be_truthy
+          expect(updater.stats).to eq(new: 1, created: 0, updated: 0, archived: 0)
+          expect(Canteen.count).to eq(0)
 
-        parser.messages.first.tap do |message|
-          expect(message).to be_a(SourceListChanged)
-          expect(message.kind).to eq("new_source")
-          expect(message.name).to eq "test"
-          expect(message.url).to eq "http://example.org/test.xml"
+          Source.last.tap do |source|
+            expect(source.canteen).to be_nil
+            expect(source.name).to eq "test"
+            expect(source.meta_url).to eq "http://example.org/test.xml"
+          end
+
+          parser.messages.first.tap do |message|
+            expect(message).to be_a(SourceListChanged)
+            expect(message.kind).to eq("new_source")
+            expect(message.name).to eq "test"
+            expect(message.url).to eq "http://example.org/test.xml"
+          end
+        end
+      end
+    end
+
+    context "with existing source record" do
+      let!(:source) { create(:source, name: "test", parser:, canteen: nil, meta_url: "http://example.org/test.xml") }
+
+      before do
+        stub_json(test: "http://example.org/test.xml")
+      end
+
+      context "but failing meta feed URL" do
+        before do
+          stub_request(:any, "http://example.org/test.xml")
+            .to_return(status: 500)
+        end
+
+        it "does not create a message" do
+          expect(updater.sync).to be_truthy
+          expect(updater.stats).to eq(new: 0, created: 0, updated: 0, archived: 0)
+          expect(Message.count).to eq(0)
+          expect(Canteen.count).to eq(0)
+          expect(Source.count).to eq(1)
+          expect(source.reload.canteen).to be_nil
         end
       end
     end

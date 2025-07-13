@@ -47,22 +47,10 @@
             i.fa-fw.fa-regular.fa-comments title=t('.sources.feedbacks')
           th.number.last
             i.fa-fw.fa-solid.fa-right-left title=t('.sources.data_proposals')
-        - @sources.each do |s|
-          tr
-            td.first
-              = link_to edit_source_path(s), title: t('.sources.actions.source.edit', name: s.name) do
-                = s.name
-            td
-              = link_to edit_canteen_path(s.canteen), title: t('.sources.actions.canteen.edit', name: s.canteen.name) do
-                = s.canteen.name
-            td
-              = link_to canteen_path(s.canteen), title: t('.sources.actions.canteen.open', name: s.canteen.name) do
-                i.icon.fa-fw.fa-solid.fa-arrow-up-right-from-square
-            td = s.canteen.city
-            td.number = s.feeds.count
-            td.number = link_to s.messages.count, source_messages_path(s), title: t('.sources.actions.source.messages.open', name: s.name)
-            td.number = link_to s.canteen.feedbacks.count, canteen_feedbacks_path(s.canteen), title: t('.sources.actions.feedbacks.open', name: s.canteen.name)
-            td.number.last = link_to s.canteen.data_proposals.count, canteen_data_proposals_path(s.canteen), title: t('.sources.actions.data_proposals.open', name: s.canteen.name)
+        - @sources.where(canteen: nil).each do |source|
+          = render(partial: 'row', locals: { source: })
+        - @sources.where.not(canteen: nil).each do |source|
+          = render(partial: 'row', locals: { source: })
 
     section
       header
@@ -84,7 +72,7 @@
             i.fa-fw.fa-solid.fa-triangle-exclamation title=t(:feed_fetch, :states, :failed)
           th.number.last
             i.fa-fw.fa-solid.fa-bolt title=t(:feed_fetch, :states, :broken)
-        - @sources.each do |s|
+        - @sources.where.not(canteen: nil).each do |s|
           - s.feeds.each_with_index do |f, i|
             - f.feed_timespans.each do |span, fetches|
               tr
