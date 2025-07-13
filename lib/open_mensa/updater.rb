@@ -4,7 +4,6 @@ require "open-uri"
 require_dependency "message"
 
 class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/ClassLength
-  include Nokogiri
   attr_reader :feed, :fetch
 
   DEFAULT_PRICES = {
@@ -49,10 +48,10 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
           @errors << FeedInvalidUrlError.create(messageable: feed)
           fetch.state = "broken"
         when OpenURI::HTTPError
-          create_fetch_error! err.message, err.message.to_i
+          create_fetch_error!(err.message, err.message.to_i)
           fetch.state = "failed"
         else
-          create_fetch_error! err.message
+          create_fetch_error!(err.message)
           fetch.state = "failed"
       end
     end
@@ -66,7 +65,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
     @document = OpenMensa::FeedParser.new(data).parse!
   rescue OpenMensa::FeedParser::ParserError => e
     e.errors.take(2).each do |error|
-      create_validation_error! :no_xml, error.message
+      create_validation_error!(:no_xml, error.message)
     end
     fetch.state = "invalid"
     fetch.save!
@@ -150,10 +149,10 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
       @changed = !day.closed?
       fetch.updated_days += 1 unless day.closed?
       day.meals.destroy_all
-      day.update_attribute :closed, true
+      day.update!(closed: true)
     else
       if day.closed?
-        day.update_attribute :closed, false
+        day.update!(closed: false)
         fetch.updated_days += 1
         @changed = true
       end
@@ -205,7 +204,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
         day_updated = true
       end
     end
-    canteen.update_column :last_fetched_at, Time.zone.now if day_updated
+    canteen.update_column(:last_fetched_at, Time.zone.now) if day_updated # rubocop:disable Rails/SkipsModelValidations
     if !day_updated
       fetch.state = "empty"
     elsif changed?
@@ -229,7 +228,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
     update_canteen extract_canteen_node
   end
 
-  def stats(json = true)
+  def stats(json: true)
     if errors.empty?
       {
         "days" => {

@@ -2,16 +2,14 @@
 
 require "spec_helper"
 
-include Nokogiri
-
 describe OpenMensa::Updater do
   let(:feed) { create(:feed) }
   let(:canteen) { feed.source.canteen }
   let(:updater) { OpenMensa::Updater.new(feed, "manual", version: 2.1) }
   let(:today) { create(:today, canteen:) }
-  let(:document) { XML::Document.new }
+  let(:document) { Nokogiri::XML::Document.new }
   let(:root_element) do
-    n = XML::Node.new("openmensa", document)
+    n = Nokogiri::XML::Node.new("openmensa", document)
     document.root = n
     n
   end

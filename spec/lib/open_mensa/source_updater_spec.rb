@@ -2,8 +2,6 @@
 
 require "spec_helper"
 
-include Nokogiri
-
 describe OpenMensa::SourceUpdater do
   let(:parser) { create(:parser) }
   let(:source) { create(:source, parser:, meta_url: "http://example.com/meta.xml") }
