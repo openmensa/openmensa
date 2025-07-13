@@ -4,6 +4,8 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
   attr_reader :parser, :sources_added, :sources_created, :sources_updated, :sources_deleted
 
   def initialize(parser)
+    super()
+
     @parser = parser
     reset_stats
   end
@@ -29,52 +31,57 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
           Rails.logger.warn "Invalid Index-URI (#{parser.index_url}) for #{parser.name}"
           @errors << FeedInvalidUrlError.create(messageable: parser)
         when OpenURI::HTTPError
-          create_fetch_error! err.message, err.message.to_i
+          create_fetch_error!(err.message, err.message.to_i)
         else
-          create_fetch_error! err.message
+          create_fetch_error!(err.message)
       end
     end
+
     false
   end
 
   def parse!
-    @document = JSON.parse data.read
+    @document = JSON.parse(data.read)
   rescue JSON::JSONError => e
-    create_validation_error! :no_json, e.message
+    create_validation_error!(:no_json, e.message)
     false
   end
 
   def validate!
-    unless @document.respond_to? :each_pair
-      create_validation_error! :invalid_json, "JSON must contain an object with name, url pairs"
-      return false
+    unless @document.respond_to?(:each_pair)
+      create_validation_error!(:invalid_json, "JSON must contain an object with name, url pairs")
+      return
     end
+
     @document.each_pair do |_name, url|
       next if url.nil?
       next if url.is_a?(String) && url.present?
 
-      create_validation_error! :invalid_json, "URL must be a string or null"
+      create_validation_error!(:invalid_json, "URL must be a string or null")
       return false
     end
+
     true
   end
 
   def sync
-    return false unless fetch! && parse! && validate!
+    return unless fetch! && parse! && validate!
 
     sources = source_mapping
 
     document.each_pair do |name, url|
-      if sources.key? name
-        update_source sources.fetch(name), url
-        sources.delete name
+      if sources.key?(name)
+        update_source(sources.fetch(name), url)
+        sources.delete(name)
       else
-        new_source name, url
+        new_source(name, url)
       end
     end
-    sources.each_pair do |_name, source|
-      archive_source source
+
+    sources.each_pair do |_, source|
+      archive_source(source)
     end
+
     true
   end
 
@@ -106,17 +113,24 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
 
     return unless source.meta_url != url
 
-    FeedUrlUpdatedInfo.create! messageable: source,
+    FeedUrlUpdatedInfo.create!(
+      messageable: source,
       old_url: source.meta_url,
-      new_url: url
-    source.update_attribute :meta_url, url
+      new_url: url,
+    )
+
+    source.update!(meta_url: url)
     @sources_updated += 1
   end
 
   def new_source(name, url)
-    SourceListChanged.create!(messageable: @parser,
+    SourceListChanged.create!(
+      messageable: @parser,
       kind: :new_source,
-      name:, url:,)
+      name:,
+      url:,
+    )
+
     unless url.nil?
       source = Source.new parser: @parser, name:, meta_url: url
       if OpenMensa::SourceCreator.new(source).sync
@@ -124,15 +138,19 @@ class OpenMensa::ParserUpdater < OpenMensa::BaseUpdater
         @sources_added -= 1
       end
     end
+
     @sources_added += 1
   end
 
   def archive_source(source)
     return if source.canteen.state == "archived"
 
-    SourceListChanged.create! messageable: source,
+    SourceListChanged.create!(
+      messageable: source,
       kind: :source_archived,
-      name: source.name
+      name: source.name,
+    )
+
     source.canteen.update! state: "archived"
     @sources_deleted += 1
   end

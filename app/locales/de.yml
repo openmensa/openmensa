@@ -224,6 +224,8 @@ de:
           lastday: "Letzte 24h:"
           lastweek: "Letzte Woche:"
           lastyear: "Letztes Jahr:"
+    sync:
+      back: Zurück zum Parser
 
   source:
     resource: Quelle

@@ -31,9 +31,9 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
           Rails.logger.warn "Invalid Meta-URI (#{source.meta_url}) for #{source.name})"
           @errors << FeedInvalidUrlError.create(messageable: source)
         when OpenURI::HTTPError
-          create_fetch_error! err.message, err.message.to_i
+          create_fetch_error!(err.message, err.message.to_i)
         else
-          create_fetch_error! err.message
+          create_fetch_error!(err.message)
       end
     end
     false
@@ -44,7 +44,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
     @document = OpenMensa::FeedParser.new(data).parse!
   rescue OpenMensa::FeedParser::ParserError => e
     e.errors.take(2).each do |error|
-      create_validation_error! :no_xml, error.message
+      create_validation_error!(:no_xml, error.message)
     end
     false
   end
@@ -57,10 +57,10 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   # 4. all together
   def sync
-    return false unless fetch! && parse! && validate!
+    return unless fetch! && parse! && validate!
 
-    update_feeds extract_canteen_node
-    update_metadata extract_canteen_node
+    update_feeds(extract_canteen_node)
+    update_metadata(extract_canteen_node)
 
     true
   end
@@ -109,17 +109,17 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
       next unless node.name == "feed"
 
       name = node["name"]
-      if feeds.key? name
-        update_feed feeds.fetch(name), node
-        feeds.delete name
+      if feeds.key?(name)
+        update_feed(feeds.fetch(name), node)
+        feeds.delete(name)
       else
-        create_feed node
+        create_feed(node)
       end
     end
+
     feeds.each do |_name, feed|
-      delete_feed feed
+      delete_feed(feed)
     end
-    true
   end
 
   def extract_metadata(canteen, canteen_node)
@@ -182,8 +182,10 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
   end
 
   def feed_changed!(messageable, feed, kind)
-    @errors << messageable.messages.create!(type: "FeedChanged",
+    @errors << messageable.messages.create!(
+      type: "FeedChanged",
+      name: feed.name,
       kind:,
-      name: feed.name,)
+    )
   end
 end

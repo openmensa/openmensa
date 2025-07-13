@@ -2,8 +2,6 @@
 
 require "spec_helper"
 
-include Nokogiri
-
 describe OpenMensa::ParserUpdater do
   let(:parser) { create(:parser, index_url: "http://example.com/index.json") }
   let(:updater) { OpenMensa::ParserUpdater.new(parser) }
@@ -19,20 +17,20 @@ describe OpenMensa::ParserUpdater do
   end
 
   describe "#fetch" do
-    it "skips invalid urls" do
-      parser.update_attribute :index_url, ":///:asdf"
+    it "skips invalid URLs" do
+      parser.update_attribute(:index_url, ":///:asdf")
       expect(updater.fetch!).to be_falsey
       m = parser.messages.first
       expect(m).to be_an_instance_of(FeedInvalidUrlError)
       expect(updater.errors).to eq([m])
     end
 
-    it "receives feed data via http" do
+    it "receives feed data via HTTP" do
       stub_data "{}"
       expect(updater.fetch!.read).to eq("{}")
     end
 
-    it "updates index url on 301 responses" do
+    it "updates index UR on 301 responses" do
       stub_request(:any, "example.com/301.json")
         .to_return(status: 301, headers: {location: "http://example.com/index.json"})
       stub_data "{}"
@@ -45,7 +43,7 @@ describe OpenMensa::ParserUpdater do
       expect(m.new_url).to eq("http://example.com/index.json")
     end
 
-    it "does not update index url on 302 responses" do
+    it "does not update index URL on 302 responses" do
       stub_request(:any, "example.com/302.json")
         .to_return(status: 302, headers: {location: "http://example.com/index.json"})
       stub_data "{}"
@@ -54,7 +52,7 @@ describe OpenMensa::ParserUpdater do
       expect(parser.reload.index_url).to eq("http://example.com/302.json")
     end
 
-    it "handles http errors correctly" do
+    it "handles HTTP errors correctly" do
       stub_request(:any, "example.com/500.json")
         .to_return(status: 500)
       parser.update_attribute :index_url, "http://example.com/500.json"
@@ -89,7 +87,7 @@ describe OpenMensa::ParserUpdater do
   end
 
   describe "#parse" do
-    it "parses valid json" do
+    it "parses valid JSON" do
       stub_data('{"test": "http://example.org/test.xml",
                   "test2": null}')
       expect(updater.fetch!).to be_truthy
@@ -99,17 +97,7 @@ describe OpenMensa::ParserUpdater do
       )
     end
 
-    it "parses valid json" do
-      stub_data('{"test": "http://example.org/test.xml",
-                  "test2": null}')
-      expect(updater.fetch!).to be_truthy
-      expect(updater.parse!).to eq(
-        "test" => "http://example.org/test.xml",
-        "test2" => nil,
-      )
-    end
-
-    it "fails on invalid json" do
+    it "fails on invalid JSON" do
       stub_data('{"test": "http://example.org/test.xml",
                   "test2": nil}{')
       expect(updater.fetch!).to be_truthy
@@ -139,7 +127,7 @@ describe OpenMensa::ParserUpdater do
       end
     end
 
-    it "valid but expected json (invalid value for name)" do
+    it "valid but expected JSON (invalid value for name)" do
       stub_data('{"test": 4}')
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to be_truthy
@@ -154,7 +142,7 @@ describe OpenMensa::ParserUpdater do
       end
     end
 
-    it "valid but expected json (invalid value for name 2)" do
+    it "valid but expected JSON (invalid value for name 2)" do
       stub_data('{"test": {"test": "http://test.xml"}}')
       expect(updater.fetch!).to be_truthy
       expect(updater.parse!).to be_truthy
@@ -250,7 +238,7 @@ describe OpenMensa::ParserUpdater do
       end
     end
 
-    it "create message for new source without url" do
+    it "create message for new source without URL" do
       stub_json test: nil
 
       expect(updater.sync).to be_truthy
@@ -264,7 +252,7 @@ describe OpenMensa::ParserUpdater do
       end
     end
 
-    it "updates source urls" do
+    it "updates source URLs" do
       stub_json test: "http://example.com/test/meta.xml"
       source = create(:source, parser:,
         name: "test",
@@ -281,7 +269,7 @@ describe OpenMensa::ParserUpdater do
       end
     end
 
-    it "adds source urls if not existing" do
+    it "adds source URLs if not existing" do
       stub_json test: "http://example.com/test/meta.xml"
       source = create(:source, parser:,
         name: "test",
@@ -298,7 +286,7 @@ describe OpenMensa::ParserUpdater do
       end
     end
 
-    it "adds source urls if not existing" do
+    it "adds source URLs if not existing" do
       stub_json({})
       source = create(:source, parser:,
         name: "test",
