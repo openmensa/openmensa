@@ -62,6 +62,38 @@ describe ParserMailer do
         end
       end
 
+      context "that has no canteen" do
+        let(:source) { create(:source, parser:, canteen: nil) }
+
+        it "does not send a mail" do
+          expect(mail).to be_null_mail
+        end
+
+        context "with source message" do
+          before { source_message }
+
+          it "sends a mail" do
+            expect(mail).not_to be_null_mail
+
+            pp mail.body
+
+            expect(mail.to).to eq [user.notify_email]
+            expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit #{source.name}"
+            expect(mail.body).to include source_message.to_text_mail
+          end
+
+          it "has a combined subject with parser messages" do
+            parser_message
+            expect(mail).not_to be_null_mail
+
+            expect(mail.to).to eq [user.notify_email]
+            expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit dem Parser selbst, #{source.name}"
+            expect(mail.body).to include parser_message.to_text_mail
+            expect(mail.body).to include source_message.to_text_mail
+          end
+        end
+      end
+
       context "with source message" do
         before { source_message }
 
