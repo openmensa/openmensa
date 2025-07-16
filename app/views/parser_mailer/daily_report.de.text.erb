@@ -8,7 +8,11 @@ Mehr Information finden Sie unter:
 <% end %>
 <% @notables.each do |source| %>
 
-<%=source.canteen.name %> (<%= source.name %>)
+<% if source.canteen.present? %>
+<%= source.canteen.name %> (<%= source.name %>)
+<% else %>
+<%= source.name %>
+<% end %>
 ===================
 <% source.messages.each do |message| %>
 

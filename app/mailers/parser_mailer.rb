@@ -144,8 +144,8 @@ class ParserMailer < ApplicationMailer
         FeedMailerPart.new feed, data_since
       end
       @messages = source.messages.where("created_at > ?", data_since).to_a
-      @feedbacks = source.canteen.feedbacks.where("created_at > ?", data_since).to_a
-      @data_proposals = source.canteen.data_proposals.where("created_at > ?", data_since).to_a
+      @feedbacks = source.canteen&.feedbacks&.where("created_at > ?", data_since).to_a
+      @data_proposals = source.canteen&.data_proposals&.where("created_at > ?", data_since).to_a
     end
 
     def notable?
