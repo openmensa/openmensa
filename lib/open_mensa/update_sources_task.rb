@@ -10,7 +10,10 @@ class OpenMensa::UpdateSourcesTask
       next if source.canteen.archived?
 
       OpenMensa::SourceUpdater.new(source).sync
-
+    rescue StandardError => e
+      Sentry.capture_exception(e)
+      Rails.logger.error(e)
+    ensure
       GC.start
     end
   end
