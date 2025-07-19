@@ -11,8 +11,7 @@ module ApplicationHelper
   rescue I18n::MissingTranslationData => e
     raise e if Rails.application.config.i18n.raise_on_missing_translations
 
-    Rails.logger.warn(e.to_s)
-    Sentry.capture_exception(e)
+    Rails.error.report(e)
 
     "[[#{e.message}]]"
   end

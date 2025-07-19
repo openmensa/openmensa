@@ -65,7 +65,7 @@ module Openmensa
     # environment.
     config.active_job.queue_adapter = :good_job
 
-    config.good_job.on_thread_error = ->(err) { Sentry.capture_exception(err) }
+    config.good_job.on_thread_error = ->(err) { Rails.error.report(err) }
     config.good_job.shutdown_timeout = 90 # seconds
 
     config.good_job.enable_cron = true
