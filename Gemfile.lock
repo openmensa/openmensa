@@ -180,7 +180,7 @@ GEM
     factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faraday (2.13.2)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -318,7 +318,7 @@ GEM
       responders
     parallel (1.27.0)
     parse-cron (0.1.4)
-    parser (3.3.8.0)
+    parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
     pg (1.6.0-x86_64-linux)
@@ -515,7 +515,7 @@ GEM
     stringio (3.1.7)
     telegraf (3.3.0)
       bigdecimal
-    temple (0.10.3)
+    temple (0.10.4)
     thor (1.4.0)
     tilt (2.6.1)
     timecop (0.9.10)
