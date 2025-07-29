@@ -123,7 +123,7 @@ module Openmensa
     # columns
     config.active_record.yaml_column_permitted_classes = [Symbol]
 
-    config.middleware.use Rack::Cors do
+    config.middleware.insert_before(0, Rack::Cors) do
       allow do
         origins "*"
         resource "/api/*", headers: :any, expose: %w[Link X-OM-Api-Version X-Total-Pages], methods: :get, credentials: false
