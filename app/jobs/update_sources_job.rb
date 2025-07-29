@@ -5,10 +5,12 @@ class UpdateSourcesJob < ApplicationJob
 
   good_job_control_concurrency_with(
     total_limit: 1,
-    key: "UpdateSourcesJob",
+    key: name,
   )
 
   def perform
-    OpenMensa::UpdateSourcesTask.new.do
+    Source.find_each do |source|
+      UpdateSourceJob.perform_later(source)
+    end
   end
 end
