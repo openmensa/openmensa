@@ -75,8 +75,6 @@ describe ParserMailer do
           it "sends a mail" do
             expect(mail).not_to be_null_mail
 
-            pp mail.body
-
             expect(mail.to).to eq [user.notify_email]
             expect(mail.subject).to eq "OpenMensa - #{parser.name}: Unregelmäßigkeiten mit #{source.name}"
             expect(mail.body).to include source_message.to_text_mail
