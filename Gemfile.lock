@@ -472,7 +472,7 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.44.0, < 2.0)
-    rubocop-rspec (3.6.0)
+    rubocop-rspec (3.7.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
     rubocop-rspec_rails (2.31.0)
@@ -601,7 +601,7 @@ DEPENDENCIES
   rubocop-factory_bot (~> 2.27.0)
   rubocop-performance (~> 1.25.0)
   rubocop-rails (~> 2.33.0)
-  rubocop-rspec (~> 3.6.0)
+  rubocop-rspec (~> 3.7.0)
   rubocop-rspec_rails (~> 2.31.0)
   sentry-rails
   sentry-ruby
