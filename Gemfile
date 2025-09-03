@@ -13,7 +13,7 @@ gem "jsbundling-rails"
 gem "propshaft"
 gem "rails-assets-manifest"
 
-gem "puma", "~> 6.4"
+gem "puma", "~> 7.0"
 
 gem "bcrypt"
 gem "good_job", "~> 4.0"
