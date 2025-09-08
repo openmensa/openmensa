@@ -10,7 +10,7 @@
     "jquery.autocomplete": "^1.2.0",
     "leaflet": "^1.9.4",
     "leaflet-hash": "^0.2.1",
-    "leaflet.locatecontrol": "^0.84.0",
+    "leaflet.locatecontrol": "^0.85.0",
     "leaflet.markercluster": "^1.5.3"
   },
   "devDependencies": {
