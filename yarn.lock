@@ -2992,8 +2992,8 @@ __metadata:
   linkType: soft
 
 "rspack-manifest-plugin@npm:^5.0.0":
-  version: 5.0.3
-  resolution: "rspack-manifest-plugin@npm:5.0.3"
+  version: 5.1.0
+  resolution: "rspack-manifest-plugin@npm:5.1.0"
   dependencies:
     "@rspack/lite-tapable": "npm:^1.0.1"
   peerDependencies:
@@ -3001,7 +3001,7 @@ __metadata:
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
-  checksum: 10c0/03d85e164b7e8ef51ed1b10ef34ba71de73d2c9ac54bb1c600dc775cfa6ceb115d12bbf9c6aeae6d3e8510b3b968f7827d4ff19cb79c07d7d334439e946b1947
+  checksum: 10c0/b5d28d6791568f423fcef812a63e67ae590e1fe4a1a35faed45a3e784cc54c7bad8e2f5b95ebfbc5754a242ff0624ffca875b512f2a1e90457a3482c70659b46
   languageName: node
   linkType: hard
 
