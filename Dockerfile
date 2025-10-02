@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.18
+# syntax = docker/dockerfile:1.19
 
 FROM docker.io/node:22-slim AS assets
 
