@@ -209,9 +209,9 @@ GEM
       railties (>= 6.1.0)
       thor (>= 1.0.0)
     gravtastic (3.2.6)
-    has_scope (0.8.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
+    has_scope (0.9.0)
+      actionpack (>= 7.0)
+      activesupport (>= 7.0)
     hashdiff (1.2.1)
     hashie (5.0.0)
     i18n (1.14.7)
@@ -569,7 +569,7 @@ DEPENDENCIES
   geocoder (~> 1.6)
   good_job (~> 4.0)
   gravtastic
-  has_scope (~> 0.8.0)
+  has_scope (~> 0.9.0)
   jsbundling-rails
   letter_opener
   listen
