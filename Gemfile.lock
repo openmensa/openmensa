@@ -171,7 +171,7 @@ GEM
       dry-initializer (~> 3.2)
       dry-schema (~> 1.14)
       zeitwerk (~> 2.6)
-    erb (5.0.3)
+    erb (5.1.1)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
@@ -223,7 +223,7 @@ GEM
       reline (>= 0.4.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.15.0)
+    json (2.15.1)
     jwt (3.1.2)
       base64
     language_server-protocol (3.17.0.5)
@@ -255,7 +255,7 @@ GEM
       bigdecimal (~> 3.1)
     net-http (0.6.0)
       uri
-    net-imap (0.5.11)
+    net-imap (0.5.12)
       date
       net-protocol
     net-pop (0.1.2)
@@ -326,7 +326,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.5.1)
+    prism (1.5.2)
     propshaft (1.3.1)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -351,7 +351,7 @@ GEM
       rack (>= 3.0.14)
     rack-link_headers (2.4.1)
       rack
-    rack-protection (4.1.1)
+    rack-protection (4.2.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
