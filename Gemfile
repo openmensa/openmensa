@@ -6,7 +6,7 @@ ruby "~> 3.4.0"
 
 gem "config", "~> 5.5"
 gem "dry-validation", "~> 1.10"
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.0"
 gem "rails-i18n", "~> 8.0"
 
 gem "jsbundling-rails"
