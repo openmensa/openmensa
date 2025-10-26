@@ -135,6 +135,7 @@ class ParserMailer < ApplicationMailer
 
   class SourceMailerPart
     extend Forwardable
+
     def_delegators :@source, :name, :canteen
     attr_reader :feeds, :feedbacks, :data_proposals, :messages
 
@@ -179,6 +180,7 @@ class ParserMailer < ApplicationMailer
 
   class FeedMailerPart
     extend Forwardable
+
     def_delegators :@feed, :name, :url
     attr_reader :feed_messages
 

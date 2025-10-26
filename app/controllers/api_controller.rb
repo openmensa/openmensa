@@ -29,7 +29,7 @@ class ApiController < ApplicationController
     end
   end
 
-  def set_api_version(version)
+  def api_version=(version)
     custom_headers api_version: version
   end
 
@@ -48,7 +48,7 @@ class ApiController < ApplicationController
   def custom_headers(options)
     options ||= {}
     options.each do |key, value|
-      key = key.to_s.camelize.gsub(/[^A-z]+/, "").gsub(/([A-Z])/, '-\1')
+      key = key.to_s.camelize.gsub(/[^A-Za-z]+/, "").gsub(/([A-Z])/, '-\1')
       response.headers["X-OM#{key}"] = value.to_s
     end
   end
@@ -59,7 +59,7 @@ class ApiController < ApplicationController
     @api_version = value
 
     before_action do
-      set_api_version value
+      self.api_version = value
     end
   end
 end

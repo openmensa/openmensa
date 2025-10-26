@@ -2,6 +2,7 @@
 
 class CanteenDecorator < Draper::Decorator
   include ApiResponder::Formattable
+
   decorates :canteen
 
   def coordinates

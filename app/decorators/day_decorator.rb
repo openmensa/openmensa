@@ -2,6 +2,7 @@
 
 class DayDecorator < Draper::Decorator
   include ApiResponder::Formattable
+
   decorates :day
 
   def as_api_v2(options)

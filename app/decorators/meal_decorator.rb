@@ -2,6 +2,7 @@
 
 class MealDecorator < Draper::Decorator
   include ApiResponder::Formattable
+
   decorates :meal
 
   def notes

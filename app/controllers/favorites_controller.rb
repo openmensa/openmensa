@@ -4,12 +4,12 @@ class FavoritesController < WebController
   load_and_authorize_resource :user
 
   def index
-    @favorites = user.favorites.order("priority").includes(:canteen)
+    @favorites = user.favorites.order(:priority).includes(:canteen)
   end
 
   def create
     max_priority = user.favorites
-      .order("priority ASC")
+      .order(:priority)
       .first.try(:priority) || 0
 
     if user.favorites.create(
