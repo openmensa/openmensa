@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.19
 
-FROM docker.io/node:22-slim AS assets
+FROM docker.io/node:24-slim AS assets
 
 ENV NODE_ENV=production
 ENV YARN_CACHE_FOLDER=/cache/yarn
