@@ -322,7 +322,7 @@ GEM
       responders
     parallel (1.27.0)
     parse-cron (0.1.4)
-    parser (3.3.9.0)
+    parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
     pg (1.6.2-x86_64-linux)
@@ -448,7 +448,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.6)
-    rubocop (1.81.6)
+    rubocop (1.81.7)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
