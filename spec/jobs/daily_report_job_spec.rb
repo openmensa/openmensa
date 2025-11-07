@@ -4,12 +4,8 @@ require "spec_helper"
 
 describe DailyReportJob do
   let(:parser) { create(:parser) }
-  let(:message) do
-    ActionMailer::Base.mail(
-      to: "test@example.org",
-      from: "info@openmensa.org",
-      body: "test content",
-    )
+  let(:delivery) do
+    instance_double(ActionMailer::MessageDelivery, deliver_now: true)
   end
   let(:null_message) { ActionMailer::Base::NullMail.new }
 
@@ -17,7 +13,7 @@ describe DailyReportJob do
 
   describe "#perform" do
     it "issues daily_report for parser" do
-      expect(ParserMailer).to receive(:daily_report)
+      allow(ParserMailer).to receive(:daily_report)
         .with(parser, nil)
         .and_return(null_message)
 
@@ -27,9 +23,9 @@ describe DailyReportJob do
     end
 
     it "sets last_report_at for generated mails" do
-      expect(ParserMailer).to receive(:daily_report)
+      allow(ParserMailer).to receive(:daily_report)
         .with(parser, nil)
-        .and_return(message)
+        .and_return(delivery)
 
       DailyReportJob.perform_now(parser_id: parser.id)
 
@@ -40,9 +36,9 @@ describe DailyReportJob do
       parser.update(last_report_at: 1.day.ago)
       parser.reload # reload to get actual stored millisecond precision from database
 
-      expect(ParserMailer).to receive(:daily_report)
+      allow(ParserMailer).to receive(:daily_report)
         .with(parser, parser.last_report_at)
-        .and_return(message)
+        .and_return(delivery)
 
       DailyReportJob.perform_now(parser_id: parser.id)
 
