@@ -482,7 +482,7 @@ GEM
     rubocop-rspec (3.8.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.81)
-    rubocop-rspec_rails (2.31.0)
+    rubocop-rspec_rails (2.32.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
       rubocop-rspec (~> 3.5)
@@ -610,7 +610,7 @@ DEPENDENCIES
   rubocop-performance (~> 1.26.0)
   rubocop-rails (~> 2.33.0)
   rubocop-rspec (~> 3.8.0)
-  rubocop-rspec_rails (~> 2.31.0)
+  rubocop-rspec_rails (~> 2.32.0)
   sentry-rails
   sentry-ruby
   simple_form
