@@ -130,7 +130,7 @@ GEM
     deep_merge (1.2.2)
     diff-lcs (1.6.2)
     docile (1.4.1)
-    draper (4.0.5)
+    draper (4.0.6)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
       activemodel-serializers-xml (>= 1.0)
