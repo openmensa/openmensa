@@ -17,8 +17,17 @@ if SENTRY_DSN.present?
 
     filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
     config.before_send = lambda do |event, _hint|
-      # use Rails' parameter filter to sanitize the event
-      filter.filter(event.to_hash)
+      # Sanitize extra data
+      event.extra = filter.filter(event.extra) if event.extra
+
+      # Sanitize user data
+      event.user = filter.filter(event.user) if event.user
+
+      # Sanitize context data (if present)
+      event.contexts = filter.filter(event.contexts) if event.contexts
+
+      # Return the sanitized event object
+      event
     end
   end
 end
