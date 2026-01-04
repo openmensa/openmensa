@@ -19,6 +19,12 @@ describe CanteensController do
       expect(assigns(:meals)).to eq canteen.meals.for(Time.zone.now)
     end
 
+    it "with invalid date" do
+      get :show, params: {id: canteen.id, date: "A16"}
+
+      expect(response).to have_http_status :not_found
+    end
+
     it "fetches meals for given date parameter" do
       get :show, params: {id: canteen.id, date: 1.day.from_now}
 
