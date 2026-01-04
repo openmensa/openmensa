@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "~> 3.4.0"
+ruby "~> 4.0.0"
 
 gem "config", "~> 5.5"
 gem "dry-validation", "~> 1.10"
@@ -74,8 +74,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "pry"
-  gem "pry-byebug"
   gem "rspec-collection_matchers"
   gem "rspec-its"
   gem "rspec-rails", "8.0.2"
