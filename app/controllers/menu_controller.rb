@@ -9,11 +9,11 @@ class MenuController < WebController
       return
     end
 
-    @date = if params[:date]
-              Date.parse params[:date].to_s
-            else
-              Time.zone.now.to_date
-            end
+    begin
+      @date = Day.parse(params[:date].presence || Time.zone.now.to_date)
+    rescue Date::Error
+      return error_not_found
+    end
 
     @canteens = current_user.favorites.includes(:canteen).map(&:canteen)
   end
