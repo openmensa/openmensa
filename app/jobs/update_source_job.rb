@@ -12,7 +12,7 @@ class UpdateSourceJob < ApplicationJob
 
   def perform(source)
     return if source.meta_url.blank?
-    return if source.canteen.archived?
+    return if source.canteen&.archived?
 
     OpenMensa::SourceUpdater.new(source).sync
   end
