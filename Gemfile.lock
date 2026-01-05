@@ -488,7 +488,7 @@ GEM
     sentry-ruby (6.2.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    simple_form (5.4.0)
+    simple_form (5.4.1)
       actionpack (>= 7.0)
       activemodel (>= 7.0)
     simplecov (0.22.0)
