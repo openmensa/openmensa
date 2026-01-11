@@ -2087,10 +2087,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.locatecontrol@npm:^0.85.0":
-  version: 0.85.1
-  resolution: "leaflet.locatecontrol@npm:0.85.1"
-  checksum: 10c0/0adb30fb86fb5c6bd5dbd70241916ab8438d9b6a7286b64fcb42f991d293280b2ad9cf9a3be86c607674b1217e2734f542182c94bf6bcd31e2b4f6f8a5024364
+"leaflet.locatecontrol@npm:^0.86.0":
+  version: 0.86.0
+  resolution: "leaflet.locatecontrol@npm:0.86.0"
+  checksum: 10c0/4e1fabeaf3ffd656c4d2e17a0e1de9dcc2bc97d3bbae4d512ee565317374dc34fe942b9755ceadc0038f0a8f1a1f052007893c11b83db8b529262f2680aa6fe8
   languageName: node
   linkType: hard
 
@@ -2808,7 +2808,7 @@ __metadata:
     jquery.autocomplete: "npm:^1.2.0"
     leaflet: "npm:^1.9.4"
     leaflet-hash: "npm:^0.2.1"
-    leaflet.locatecontrol: "npm:^0.85.0"
+    leaflet.locatecontrol: "npm:^0.86.0"
     leaflet.markercluster: "npm:^1.5.3"
     lint-staged: "npm:^16.0.0"
     prettier: "npm:^3.0.0"
