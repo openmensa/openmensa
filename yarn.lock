@@ -2817,16 +2817,16 @@ __metadata:
   linkType: soft
 
 "rspack-manifest-plugin@npm:^5.0.0":
-  version: 5.2.0
-  resolution: "rspack-manifest-plugin@npm:5.2.0"
+  version: 5.2.1
+  resolution: "rspack-manifest-plugin@npm:5.2.1"
   dependencies:
     "@rspack/lite-tapable": "npm:^1.0.1"
   peerDependencies:
-    "@rspack/core": 0.x || 1.x
+    "@rspack/core": ^1.0.0 || ^2.0.0-0
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
-  checksum: 10c0/1ce76593a0eed163f1d7c7b202d35e3143e8d2a71689c368b899f2081b15c2613d6d96dc98a19c613c9023472a60e3365b3d1e6b2be83a12583bd8e57ade66ef
+  checksum: 10c0/74a7882a7f23bb3c0123b32076657d8a0ba1fcc83fb83f7f73b5ae0b924ccaffdb32ab1b97684520b959e23a9ae7c4add4e1cd420a3572434ab2bd7940fde997
   languageName: node
   linkType: hard
 
