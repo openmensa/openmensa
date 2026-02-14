@@ -512,7 +512,7 @@ GEM
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     squasher (0.8.0)
-    stackprof (0.2.27)
+    stackprof (0.2.28)
     stringio (3.2.0)
     telegraf (3.3.0)
       bigdecimal
