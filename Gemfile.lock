@@ -324,7 +324,7 @@ GEM
       responders
     parallel (1.27.0)
     parse-cron (0.1.4)
-    parser (3.3.10.1)
+    parser (3.3.10.2)
       ast (~> 2.4.1)
       racc
     pg (1.6.3-x86_64-linux)
@@ -548,7 +548,7 @@ GEM
     will_paginate (4.0.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.4)
+    zeitwerk (2.7.5)
 
 PLATFORMS
   x86_64-linux
