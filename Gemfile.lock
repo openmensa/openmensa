@@ -79,7 +79,7 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.8)
+    addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     api-responder (1.0.1)
       activesupport
@@ -438,7 +438,7 @@ GEM
     rspec-its (2.0.0)
       rspec-core (>= 3.13.0)
       rspec-expectations (>= 3.13.0)
-    rspec-mocks (3.13.7)
+    rspec-mocks (3.13.8)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-rails (8.0.3)
