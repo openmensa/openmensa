@@ -139,7 +139,7 @@ jobs:
             # before has been successful (e.g. rspec)
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' && needs.rspec.result == 'success' }}
 
-      - uses: docker/build-push-action@v6
+      - uses: docker/build-push-action@v7
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
