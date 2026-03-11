@@ -1,5 +1,4 @@
 import zopfli from "@gfx/zopfli";
-import { rspack } from "@rspack/core";
 import CompressionPlugin from "compression-webpack-plugin";
 import * as path from "node:path";
 import zlib from "node:zlib";
@@ -49,11 +48,6 @@ export default async (env, argv) => {
       ],
     },
     plugins: [
-      // Inject jQuery into jquery.autocomplete (and application.mjs)
-      new rspack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-      }),
       // A manifest is required for the Rails application to generate
       // correct <script> and <link> tags.
       new RspackManifestPlugin({
