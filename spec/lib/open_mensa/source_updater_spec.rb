@@ -275,5 +275,15 @@ describe OpenMensa::SourceUpdater do
         expect(message.messageable).to eq source
       end
     end
+
+    context "without canteen" do
+      let(:source) { create(:source, parser:, canteen: nil, meta_url: "http://example.com/meta.xml") }
+
+      it "does not raise an error" do
+        stub_data mock_content("single_feed.xml")
+
+        expect(updater.sync).to be_truthy
+      end
+    end
   end
 end
