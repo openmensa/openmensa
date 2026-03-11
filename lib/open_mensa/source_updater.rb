@@ -145,6 +145,7 @@ class OpenMensa::SourceUpdater < OpenMensa::BaseUpdater
 
   def update_metadata(canteen_node)
     canteen = @source.canteen
+    return if canteen.blank?
 
     extract_metadata(canteen, canteen_node)
     return if canteen.changed.empty?
