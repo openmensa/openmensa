@@ -14,6 +14,7 @@ gem "propshaft"
 gem "rails-assets-manifest"
 
 gem "puma", "~> 7.0"
+gem "thruster"
 
 gem "bcrypt"
 gem "good_job", "~> 4.0"

@@ -94,5 +94,5 @@ EXPOSE 3000
 
 VOLUME /mnt/www
 
-ENTRYPOINT [ "/opt/openmensa/entrypoint.sh" ]
+ENTRYPOINT [ "/opt/openmensa/bin/entrypoint" ]
 CMD [ "server" ]

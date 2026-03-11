@@ -526,6 +526,7 @@ GEM
       bigdecimal
     temple (0.10.4)
     thor (1.5.0)
+    thruster (0.1.19-x86_64-linux)
     tilt (2.7.0)
     timecop (0.9.10)
     timeout (0.6.0)
@@ -622,6 +623,7 @@ DEPENDENCIES
   squasher
   stackprof
   telegraf
+  thruster
   timecop
   web-console
   webmock

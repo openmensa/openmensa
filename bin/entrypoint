@@ -8,14 +8,11 @@ case "$1" in
 sh | bash)
   set -- "$@"
   ;;
+
+
 server)
   # Remove 'server' from argument list
   shift
-
-  # Copy assets into mounted volume as they need to be served by the nginx
-  # container or from the host nginx.
-  echo "[INFO] Copy assets to volume..."
-  (set -x; cp -ar /opt/openmensa/public/. /mnt/www)
 
   # Create database and run all migrations. If no changes are needed,
   # nothing will happen.
@@ -23,7 +20,7 @@ server)
   (set -x; bundle exec rake db:create db:migrate)
 
   echo "[INFO] Start server..."
-  set -- bundle exec rails server "$@"
+  set -- /app/bin/thrust puma --config config/puma.rb "$@"
   ;;
 esac
 
