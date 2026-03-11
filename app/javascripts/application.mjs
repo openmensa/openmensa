@@ -3,8 +3,6 @@
 import Rails from "@rails/ujs";
 Rails.start();
 
-import "jquery.autocomplete";
-
 import L from "leaflet";
 import "leaflet-hash";
 import { LocateControl } from "leaflet.locatecontrol";
@@ -142,12 +140,4 @@ ready(() => {
 
       setTimeout(() => fadeOut(element), timeout);
     });
-
-  $("[data-autocomplete]").each(function () {
-    const el = $(this);
-    el.autocomplete({
-      lookup: el.data("autocomplete"),
-      maxHeight: 150,
-    });
-  });
 });

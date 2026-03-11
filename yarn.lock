@@ -2198,20 +2198,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery.autocomplete@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "jquery.autocomplete@npm:1.2.0"
-  checksum: 10c0/50b4ebd06ed2e42150bc07d9ca8b712718fa2736c1b01bf0b654b90665c6bdcde73886e8c9c21bac9b334d3c87183ccfe95d04d44e821a9560fd476b91712741
-  languageName: node
-  linkType: hard
-
-"jquery@npm:^3.7.1":
-  version: 3.7.1
-  resolution: "jquery@npm:3.7.1"
-  checksum: 10c0/808cfbfb758438560224bf26e17fcd5afc7419170230c810dd11f5c1792e2263e2970cca8d659eb84fcd9acc301edb6d310096e450277d54be4f57071b0c82d9
-  languageName: node
-  linkType: hard
-
 "json-schema-traverse@npm:^1.0.0":
   version: 1.0.0
   resolution: "json-schema-traverse@npm:1.0.0"
@@ -2922,8 +2908,6 @@ __metadata:
     "@rspack/core": "npm:^1.0.0"
     compression-webpack-plugin: "npm:^12.0.0"
     husky: "npm:^9.0.0"
-    jquery: "npm:^3.7.1"
-    jquery.autocomplete: "npm:^1.2.0"
     leaflet: "npm:^1.9.4"
     leaflet-hash: "npm:^0.2.1"
     leaflet.locatecontrol: "npm:^0.89.0"

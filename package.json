@@ -6,8 +6,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@rails/ujs": "^7.1.3-2",
-    "jquery": "^3.7.1",
-    "jquery.autocomplete": "^1.2.0",
     "leaflet": "^1.9.4",
     "leaflet-hash": "^0.2.1",
     "leaflet.locatecontrol": "^0.89.0",
