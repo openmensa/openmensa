@@ -56,16 +56,21 @@ jobs:
 
       - run: bundle exec rake assets:precompile
 
-      - run: bundle exec rspec --tty --color --format doc --tag ~type:system ./spec
+      - run: bundle exec rspec --tty --color --format doc --format RspecJunitFormatter --out tmp/unit/junit.xml --tag ~type:system ./spec
         env:
           COVERAGE_NAME: rspec:unit
-      - run: bundle exec rspec --tty --color --format doc --tag type:system ./spec
+      - run: bundle exec rspec --tty --color --format doc --format RspecJunitFormatter --out tmp/system/junit.xml --tag type:system ./spec
         env:
           COVERAGE_NAME: rspec:system
       - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: codecov/codecov-action@v5
+        if: ${{ !cancelled() }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          report_type: test_results
 
   rubocop:
     runs-on: ubuntu-24.04

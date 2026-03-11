@@ -90,4 +90,6 @@ group :test do
 
   gem "simplecov", require: false
   gem "simplecov-cobertura", require: false
+
+  gem "rspec_junit_formatter", require: false
 end
