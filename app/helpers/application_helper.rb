@@ -22,17 +22,17 @@ module ApplicationHelper
     if user
       tag.span(
         class: "avatar",
-        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : "",
+        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : nil,
       ) do
         image_tag user.gravatar_url(options).to_s,
           alt: user.name,
           class: "avatar",
-          style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : ""
+          style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : nil
       end
     else
       tag.span(
         class: "avatar",
-        style: "width: #{options[:size]}px; height: #{options[:size]}px;",
+        style: options[:size] ? "width: #{options[:size]}px; height: #{options[:size]}px;" : nil,
       ) do
         ""
       end
