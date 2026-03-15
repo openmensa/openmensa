@@ -5,6 +5,10 @@ on:
 jobs:
   ghcr-cleanup-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+
     steps:
       - name: Delete image
         uses: dataaxiom/ghcr-cleanup-action@v1

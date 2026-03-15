@@ -17,3 +17,12 @@ jobs:
 
     steps:
       - uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          exclude-tags: main,latest
+          older-than: 180 days
+          delete-tags: "*"
+
+      - uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          delete-untagged: True
+          delete-orphaned-images: True
