@@ -9,8 +9,7 @@ gem "dry-validation", "~> 1.10"
 gem "rails", "~> 8.1.0"
 gem "rails-i18n", "~> 8.0"
 
-# gem "jsbundling-rails"
-# gem "propshaft"
+gem "propshaft"
 
 gem "puma", "~> 7.0"
 
