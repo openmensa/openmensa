@@ -91,7 +91,7 @@ EOF
 
 USER openmensa
 
-EXPOSE 3000
+EXPOSE 80
 
 VOLUME /mnt/www
 
