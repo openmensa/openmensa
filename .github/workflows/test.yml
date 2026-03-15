@@ -12,6 +12,9 @@ jobs:
   rspec:
     runs-on: ubuntu-24.04
 
+    permissions:
+      id-token: write
+
     services:
       postgres:
         image: postgres:18-alpine
@@ -64,12 +67,12 @@ jobs:
           COVERAGE_NAME: rspec:system
       - uses: codecov/codecov-action@v5
         with:
+          use_oidc: true
           fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
       - uses: codecov/codecov-action@v5
         if: ${{ !cancelled() }}
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
           report_type: test_results
 
   rubocop:
