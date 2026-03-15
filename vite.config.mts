@@ -1,12 +1,15 @@
 import { defineConfig } from "vite";
+import FullReload from "vite-plugin-full-reload";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
-import Rails from "vite-plugin-rails";
+import SRI from "vite-plugin-manifest-sri";
+import Ruby from "vite-plugin-ruby";
 
 export default defineConfig({
   plugins: [
-    Rails({
-      envVars: { RAILS_ENV: "development" },
-    }),
+    //
+    Ruby(),
+    FullReload(["app/**/*"]),
     ViteImageOptimizer(),
+    SRI(),
   ],
 });
