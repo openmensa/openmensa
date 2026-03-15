@@ -7,6 +7,9 @@ if SENTRY_DSN.present?
     config.dsn = SENTRY_DSN
     config.breadcrumbs_logger = %i[monotonic_active_support_logger http_logger]
 
+    config.enable_logs = true
+    config.enabled_patches = [:logger]
+
     # Do not send full list of gems with each event
     config.send_modules = false
 
@@ -17,16 +20,9 @@ if SENTRY_DSN.present?
 
     filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
     config.before_send = lambda do |event, _hint|
-      # Sanitize extra data
       event.extra = filter.filter(event.extra) if event.extra
-
-      # Sanitize user data
       event.user = filter.filter(event.user) if event.user
-
-      # Sanitize context data (if present)
       event.contexts = filter.filter(event.contexts) if event.contexts
-
-      # Return the sanitized event object
       event
     end
   end
