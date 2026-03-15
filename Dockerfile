@@ -10,14 +10,15 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN mkdir --parents /opt/openmensa
 WORKDIR /opt/openmensa
 
-COPY .yarnrc.yml package.json yarn.lock rspack.config.mjs app/javascripts /opt/openmensa/
+COPY .yarnrc.yml package.json yarn.lock /opt/openmensa/
 RUN --mount=type=cache,target=/cache/yarn <<EOF
   corepack enable
   yarn install --immutable
 EOF
 
-COPY rspack.config.mjs /opt/openmensa/
-COPY app/javascripts/ /opt/openmensa/app/javascripts/
+COPY vite.config.mts /opt/openmensa/
+COPY config/vite.json /opt/openmensa/config/
+COPY app/frontend/ /opt/openmensa/app/frontend/
 RUN <<EOF
   yarn build --mode production
 EOF
@@ -94,5 +95,5 @@ EXPOSE 3000
 
 VOLUME /mnt/www
 
-ENTRYPOINT [ "/opt/openmensa/entrypoint.sh" ]
+ENTRYPOINT [ "/opt/openmensa/bin/entrypoint" ]
 CMD [ "server" ]

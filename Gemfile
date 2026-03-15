@@ -12,6 +12,7 @@ gem "rails-i18n", "~> 8.0"
 gem "propshaft"
 
 gem "puma", "~> 7.0"
+gem "thruster", "~> 0.1.19"
 
 gem "bcrypt"
 gem "good_job", "~> 4.0"

@@ -10,11 +10,10 @@ public/assets/
 
 !.yarnrc.yml
 !config.ru
-!entrypoint.sh
 !Gemfile
 !Gemfile.lock
 !LICENSE*
 !package.json
 !Rakefile
-!rspack.config.mjs
+!vite.config.mts
 !yarn.lock

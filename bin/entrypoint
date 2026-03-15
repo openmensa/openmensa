@@ -8,6 +8,7 @@ case "$1" in
 sh | bash)
   set -- "$@"
   ;;
+
 server)
   # Remove 'server' from argument list
   shift
@@ -23,7 +24,7 @@ server)
   (set -x; bundle exec rake db:create db:migrate)
 
   echo "[INFO] Start server..."
-  set -- bundle exec rails server "$@"
+  set -- bundle exec thrust puma "$@"
   ;;
 esac
 

@@ -1,9 +1,7 @@
 ---
-version: "2.4"
-
 services:
   postgres:
-    image: postgres:18-alpine
+    image: postgres:18
     restart: always
     environment:
       POSTGRES_USER: openmensa
@@ -21,21 +19,10 @@ services:
     environment:
       DATABASE_URL: postgresql://openmensa:openmensa@postgres/openmensa
       FORCE_SSL: "no"
-    volumes:
-      - www:/mnt/www
+    ports:
+      - 8080:80
     depends_on:
       - postgres
-
-  nginx:
-    image: nginx:1.29-alpine
-    restart: always
-    volumes:
-      - www:/mnt/www:ro
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - "3000:8080"
-    depends_on:
-      - openmensa
 
 volumes:
   postgres:
