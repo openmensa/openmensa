@@ -633,6 +633,7 @@ DEPENDENCIES
   telegraf
   timecop
   vite_rails
+  vite_ruby (~> 3.9.3)
   web-console
   webmock
   will_paginate
