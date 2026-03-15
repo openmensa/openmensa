@@ -78,7 +78,7 @@ ready(() => {
 
       const bounds = cluster.getBounds();
       if (bounds.isValid()) {
-        map.fitBounds();
+        map.fitBounds(bounds);
       } else {
         map.setView([52.39392162228438, 13.132932186126707], 18);
       }
