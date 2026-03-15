@@ -2,7 +2,7 @@ name: maintenance-registry
 
 on:
   schedule:
-    - cron: "48 6 * * *"
+    - cron: "44 4 * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,11 +12,8 @@ jobs:
     permissions:
       packages: write
 
+    concurrency:
+      group: ghcr-cleanup-image
+
     steps:
-      - name: Delete obsolete tags and images
-        uses: jenskeiner/ghcr-container-repository-cleanup-action@v1
-        with:
-          exclude-tags: '^(?:main|latest|\d+(?:\.\d+){0,2}|pr-\d+)$'
-          keep-n-tagged: 1
-          keep-n-untagged: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: dataaxiom/ghcr-cleanup-action@v1
