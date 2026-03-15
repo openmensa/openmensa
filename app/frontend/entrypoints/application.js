@@ -76,7 +76,12 @@ ready(() => {
         cluster.addLayer(marker);
       }
 
-      map.fitBounds(cluster.getBounds());
+      const bounds = cluster.getBounds();
+      if (bounds.isValid()) {
+        map.fitBounds();
+      } else {
+        map.setView([52.39392162228438, 13.132932186126707], 18);
+      }
     } else {
       map.setView([52.39392162228438, 13.132932186126707], 18);
     }
