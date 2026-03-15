@@ -58,28 +58,28 @@
   @extend .appbox;
   // background: #CBE86E;
   a {
-    background-image: url("images/android-icon.png");
+    background-image: url("@/images/android-icon.png");
   }
 }
 
 .ios {
   @extend .appbox;
   a {
-    background-image: url("images/ios.png");
+    background-image: url("@/images/ios.png");
   }
 }
 
 .wphone {
   @extend .appbox;
   a {
-    background-image: url("images/winphone.png");
+    background-image: url("@/images/winphone.png");
   }
 }
 
 .ubuntu {
   @extend .appbox;
   a {
-    background-image: url("images/ubuntu.png");
+    background-image: url("@/images/ubuntu.png");
   }
 }
 

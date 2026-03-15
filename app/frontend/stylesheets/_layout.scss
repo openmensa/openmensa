@@ -5,7 +5,7 @@ body {
   padding: 0;
 
   background-color: #ededed;
-  background-image: url("images/fbg.png");
+  background-image: url("@/images/fbg.png");
 }
 
 header,
@@ -66,7 +66,7 @@ header {
 
 header#header {
   padding: 10px 0;
-  background-image: url("images/hbg.png");
+  background-image: url("@/images/hbg.png");
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
   @include responsive.media(mobile) {
@@ -74,7 +74,7 @@ header#header {
   }
 
   h1 {
-    background: transparent url("images/logo3.png") no-repeat 0 50%;
+    background: transparent url("@/images/logo3.png") no-repeat 0 50%;
     text-shadow: 0 1px 1px #aaa;
 
     font-size: 230%;
@@ -86,7 +86,7 @@ header#header {
     @include responsive.media(mobile) {
       font-size: 150%;
       padding: 10px 0 10px 60px;
-      background: transparent url("images/logo3.png") no-repeat -10px 50%;
+      background: transparent url("@/images/logo3.png") no-repeat -10px 50%;
     }
 
     @media only screen and (max-width: 340px) {
@@ -140,7 +140,7 @@ header#header {
 
       span {
         background-color: #f9f9f9;
-        background-image: url("images/avatar.gif");
+        background-image: url("@/images/avatar.gif");
         background-repeat: no-repeat;
         background-position: 50% 50%;
 
@@ -220,7 +220,7 @@ header#header {
 
       border-top: 1px solid #ddd;
       text-shadow: 0 1px 1px #aaa;
-      background-image: url("images/hbg.png");
+      background-image: url("@/images/hbg.png");
 
       @include responsive.media(mobile) {
         padding: 2px 6px 2px 6px;
@@ -274,7 +274,8 @@ header#header {
         padding: 16px 10px;
         text-align: center;
 
-        background: transparent url("images/add_notice.png") no-repeat top right;
+        background: transparent url("@/images/add_notice.png") no-repeat top
+          right;
       }
     }
 

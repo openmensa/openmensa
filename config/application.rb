@@ -111,10 +111,6 @@ module Openmensa
       request.path.starts_with?("/auth/") ? :lax : :strict
     end
 
-    # Assets
-    config.assets_manifest.path = Rails.public_path.join("assets/packed/.manifest.json")
-    config.assets_manifest.passthrough = true
-
     # Mailer settings
     config.action_mailer.delivery_method = :sendmail
     config.action_mailer.default_url_options = {host: "openmensa.org", protocol: "https"}
@@ -128,24 +124,6 @@ module Openmensa
         origins "*"
         resource "/api/*", headers: :any, expose: %w[Link X-OM-Api-Version X-Total-Pages], methods: :get, credentials: false
       end
-    end
-
-    config.content_security_policy do |policy|
-      policy.default_src :self
-      policy.font_src    :self, :https, :data
-      policy.img_src     :self, :https, :data, "https://openmensa.org"
-      policy.object_src  :none
-      policy.script_src  :self
-      policy.style_src   :self
-    end
-
-    config.permissions_policy do |f|
-      f.camera      :none
-      f.gyroscope   :none
-      f.microphone  :none
-      f.usb         :none
-      f.fullscreen  :self
-      f.payment     :none
     end
   end
 end

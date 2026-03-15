@@ -12,16 +12,15 @@
     "leaflet.markercluster": "^1.5.3"
   },
   "devDependencies": {
-    "@gfx/zopfli": "^1.0.15",
-    "@rspack/cli": "^1.0.0",
-    "@rspack/core": "^1.0.0",
-    "compression-webpack-plugin": "^12.0.0",
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
     "prettier": "^3.0.0",
-    "rspack-manifest-plugin": "^5.0.0",
-    "sass-embedded": "^1.76.0",
-    "sass-loader": "^16.0.0"
+    "sass-embedded": "^1.98.0",
+    "sharp": "^0.34.5",
+    "svgo": "^4.0.1",
+    "vite": "^6.2.6",
+    "vite-plugin-image-optimizer": "^2.0.3",
+    "vite-plugin-rails": "^0.5.0"
   },
   "engines": {
     "node": ">= 20",
@@ -36,7 +35,7 @@
     "fmt": "prettier --write --ignore-unknown .",
     "lint:fmt": "prettier --check --ignore-unknown .",
     "postinstall": "husky",
-    "dev": "NODE_ENV=development rspack serve",
-    "build": "NODE_ENV=production rspack build"
+    "dev": "vite dev",
+    "build": "vite build"
   }
 }

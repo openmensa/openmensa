@@ -9,9 +9,8 @@ gem "dry-validation", "~> 1.10"
 gem "rails", "~> 8.1.0"
 gem "rails-i18n", "~> 8.0"
 
-gem "jsbundling-rails"
-gem "propshaft"
-gem "rails-assets-manifest"
+# gem "jsbundling-rails"
+# gem "propshaft"
 
 gem "puma", "~> 7.0"
 
@@ -38,6 +37,7 @@ gem "geocoder", "~> 1.6"
 gem "gravtastic"
 gem "rails-timeago"
 gem "simple_form"
+gem "vite_rails"
 
 gem "api-responder"
 gem "decorate-responder", "~> 2.1"
