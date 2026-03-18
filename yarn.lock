@@ -2231,7 +2231,7 @@ __metadata:
     vite-plugin-full-reload: "npm:^1.2.0"
     vite-plugin-image-optimizer: "npm:^2.0.3"
     vite-plugin-manifest-sri: "npm:^0.2.0"
-    vite-plugin-ruby: "npm:^5.1.1"
+    vite-plugin-ruby: "npm:^5.2.0"
   languageName: unknown
   linkType: soft
 
@@ -2867,7 +2867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-ruby@npm:^5.1.1":
+"vite-plugin-ruby@npm:^5.2.0":
   version: 5.2.0
   resolution: "vite-plugin-ruby@npm:5.2.0"
   dependencies:
