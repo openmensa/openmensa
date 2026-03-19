@@ -88,7 +88,7 @@ GEM
       rack (>= 2.0.0)
     ast (2.4.3)
     base64 (0.3.0)
-    bcrypt (3.1.21)
+    bcrypt (3.1.22)
     bigdecimal (4.0.1)
     bindex (0.8.1)
     brakeman (8.0.4)
