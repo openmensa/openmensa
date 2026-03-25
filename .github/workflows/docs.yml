@@ -63,5 +63,5 @@ jobs:
           allowed-endpoints: >
             api.github.com:443
 
-      - uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v5
         id: deployment
