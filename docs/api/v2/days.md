@@ -9,7 +9,7 @@ GET /api/v2/canteens/{canteen_id}/days HTTP/2.0
 ### Parameters {: #list-params }
 
 `start` _YYYY-MM-DD_
-:   Optional start date for listing available days. Defaults to current day if no nothing is specified.
+:   (_Optional_) Start date for listing available days. Defaults to current day if no nothing is specified.
 
 !!! warning
 

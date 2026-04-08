@@ -1,3 +1,7 @@
+---
+slug: tutorial
+---
+
 # Creating a parser
 
 This document describes briefly the important steps for creating a new OpenMensa parser and adding the represented new canteen with its menu to OpenMensa.

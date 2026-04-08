@@ -1,4 +1,4 @@
-# Canteens API
+# Canteens
 
 The Canteens API allows to query for all canteens or a geographical filtered subset. Canteens are supposed to not change very often and should be cached locally.
 
@@ -7,13 +7,13 @@ The Canteens API allows to query for all canteens or a geographical filtered sub
 List all canteens:
 
 ```http
-GET /api/v2/canteens
+GET /api/v2/canteens HTTP/2.0
 ```
 
 ### Parameters {: #list-params }
 
 `near[lat]`, `near[lng]`
-:   _Optional_ set of coordinates to search for canteens near the given location. Both coordinates must be specified and be valid floating point numbers.
+:   (_Optional_) Set of coordinates to search for canteens near the given location. Both coordinates must be specified and be valid floating point numbers.
 
     Example:
 
@@ -22,18 +22,18 @@ GET /api/v2/canteens
     ```
 
 `near[dist]`
-:   _Optional_ distance in kilometers to search near given coordinates. Requires coordinates to be specified too. Defaults to 10 kilometers.
+:   (_Optional_) Distance in kilometers to search near given coordinates. Requires latitude and longitude to be specified too. Defaults to 10 kilometers.
     Example:
 
-    ```http
+    ```json
     GET /api/v2/canteens?near[lat]=52.393535&near[lng]=13.127814&near[dist]=5
     ```
 
 `ids`
-:   _Optional_ list of comma-separated canteen IDs that should be returned.
+:   (_Optional_) List of comma-separated canteen IDs that should be returned.
 
 `hasCoordinates`
-:   _Optional_ restriction to only returned canteens with (`true`) or without (`false`) coordinates.
+:   (_Optional_) Restrict returned canteens to ones with coordinated specified (`true`) or not (`false`).
 
 ### Response {: #list-response }
 
@@ -64,7 +64,7 @@ Content-Type: application/json; charset=utf-8
 ]
 ```
 
-## Get a canteen {: #get }
+## Get a single canteen {: #get }
 
 ```http
 GET /api/v2/canteens/{id} HTTP/2.0
@@ -97,5 +97,5 @@ Content-Type: application/json; charset=utf-8
 `address`
 :   Human readable real-world locator (vulgo _street address_)
 
-`coordinates`
-:   Optional list of latitude and longitude in north-eastern direction. Negative values imply southern or western hemisphere. Can be `null` if no coordinates were given or they are unknown.
+`coordinates` _[int, int]_
+:   (_Optional_) List of latitude and longitude in north-eastern direction. Negative values imply southern or western hemisphere. Can be `null` if no coordinates were given, or they are unknown.
