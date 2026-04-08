@@ -24,6 +24,7 @@ jobs:
             pypi.org:443
             raw.githubusercontent.com:443
             release-assets.githubusercontent.com:443
+            releases.astral.sh:443
 
       - uses: actions/checkout@v6
         with:
@@ -35,7 +36,7 @@ jobs:
         with:
           python-version-file: .python-version
       - run: uv sync --all-extras --dev
-      - run: uv run mkdocs build
+      - run: uv run zensical build --clean
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site

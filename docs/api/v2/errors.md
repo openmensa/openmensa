@@ -1,4 +1,4 @@
-# Client Errors
+# Errors
 
 ## 400 Bad Request
 

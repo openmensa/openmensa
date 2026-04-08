@@ -4,11 +4,10 @@ This describes the resources that make up the first public OpenMensa API v2.
 
 ## Schema
 
-All API access happens over HTTPS.
+Primary API Endpoint
+:   `https://openmensa.org/api/v2`
 
-Endpoint: `https://openmensa.org/api/v2`
-
-All paths referenced throughout this document are meant to be relative to the API endpoint above.
+All API access has to happen over HTTPS. All paths in this documentation are meant to be relative to this API endpoint.
 
 ## Formats
 
@@ -20,7 +19,7 @@ Encoding for all requests and responses should be UTF-8.
 
 ### Date and Time
 
-All timestamps are returned in ISO 8601 format (UTC).
+All timestamps are formatted as ISO 8601 format and in UTC.
 
 ```text
 YYYY-MM-DDTHH:MM:SSZ
@@ -53,7 +52,7 @@ Geographic coordinates are returned as an array of latitude and longitude.
 
 ## Examples
 
-All examples are given in JSON notion (request as well as response bodies), for general rules how the XML will look see [here](/api/v2/xml/).
+All examples are given in JSON notion (request and responses).
 
 Unless otherwise stated a response will contain all shown fields.
 
@@ -61,10 +60,4 @@ Unless otherwise stated a response will contain all shown fields.
 
 Requests returning multiple items will be paginated to **10** items by default. You can specify the number of items per page using the `limit` parameter. Allowed values are between 1 and 100. The upper limit may be different for specific resources.
 
-Further pages can be requested by specifying the `page` parameter. First page
-(the one you usually retrieve without explicitly specifying the page number)
-is page number **1**.
-
-## Client Errors
-
-See [here](errors.md).
+Following pages can be requested by specifying the `page` parameter. The first page has the number **1**, and is returned by default if no query parameter is specified.
