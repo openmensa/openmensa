@@ -34,7 +34,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:secret@localhost:5432/openmensa
 
     steps:
-      - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+      - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
       - uses: actions/checkout@v6
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+      - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
       - uses: actions/checkout@v6
@@ -91,7 +91,7 @@ jobs:
   prettier:
     runs-on: ubuntu-24.04
     steps:
-      - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+      - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
       - uses: actions/checkout@v6
@@ -109,7 +109,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+      - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
       - uses: actions/checkout@v6
@@ -133,7 +133,7 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
 
     steps:
-      - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+      - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
       - uses: actions/checkout@v6
