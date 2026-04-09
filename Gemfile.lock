@@ -341,7 +341,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.0)
+    puma (8.0.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -597,7 +597,7 @@ DEPENDENCIES
   parse-cron
   pg (~> 1.2)
   propshaft
-  puma (~> 7.0)
+  puma (~> 8.0)
   rack-cors
   rails (~> 8.1.0)
   rails-controller-testing
