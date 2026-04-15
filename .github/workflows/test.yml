@@ -17,7 +17,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:18-alpine
+        image: postgres:18-alpine@sha256:4da1a4828be12604092fa55311276f08f9224a74a62dcb4708bd7439e2a03911
         env:
           POSTGRES_DB: openmensa
           POSTGRES_PASSWORD: secret
@@ -37,8 +37,8 @@ jobs:
       - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
           node-version: "24"
           cache: yarn
@@ -65,11 +65,11 @@ jobs:
       - run: bundle exec rspec --tty --color --format doc --format RspecJunitFormatter --out tmp/system/junit.xml --tag type:system ./spec
         env:
           COVERAGE_NAME: rspec:system
-      - uses: codecov/codecov-action@v6
+      - uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6
         with:
           use_oidc: true
           fail_ci_if_error: true
-      - uses: codecov/codecov-action@v6
+      - uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6
         if: ${{ !cancelled() }}
         with:
           use_oidc: true
@@ -82,7 +82,7 @@ jobs:
       - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -94,8 +94,8 @@ jobs:
       - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
           cache: yarn
         env:
@@ -112,7 +112,7 @@ jobs:
       - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Check workflow files
         run: |
           echo "::add-matcher::.github/actionlint-matcher.json"
@@ -136,14 +136,14 @@ jobs:
       - uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with:
           egress-policy: audit
-      - uses: actions/checkout@v6
-      - uses: docker/setup-buildx-action@v4
-      - uses: docker/login-action@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
+      - uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/metadata-action@v6
+      - uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6
         id: meta
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
@@ -155,7 +155,7 @@ jobs:
             # set latest tag for default branch only if everything
             # before has been successful (e.g. rspec)
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' && needs.rspec.result == 'success' }}
-      - uses: docker/build-push-action@v7
+      - uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}

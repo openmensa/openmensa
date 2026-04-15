@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:1.23
+# syntax = docker/dockerfile:1.23@sha256:2780b5c3bab67f1f76c781860de469442999ed1a0d7992a5efdf2cffc0e3d769
 
-FROM docker.io/node:24-slim AS assets
+FROM docker.io/node:24-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c AS assets
 
 ENV NODE_ENV=production
 ENV YARN_CACHE_FOLDER=/cache/yarn
