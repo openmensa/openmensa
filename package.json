@@ -29,13 +29,13 @@
   },
   "engines": {
     "node": ">= 20",
-    "yarn": "4.14.0"
+    "yarn": "4.14.1"
   },
   "lint-staged": {
     "*": "yarn run prettier --ignore-unknown --write",
     "*.rb": "bundle exec rubocop --force-exclusion --auto-correct"
   },
-  "packageManager": "yarn@4.14.0",
+  "packageManager": "yarn@4.14.1",
   "scripts": {
     "fmt": "prettier --write --ignore-unknown .",
     "lint:fmt": "prettier --check --ignore-unknown .",
