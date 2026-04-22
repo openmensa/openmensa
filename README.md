@@ -38,4 +38,4 @@ We are currently focused on Germany but are interested to open to other countrie
 
 AGPLv3 License
 
-Copyright, 2014-2023 OpenMensa
+Copyright, 2014-2026 OpenMensa
