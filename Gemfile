@@ -71,6 +71,10 @@ group :development do
   gem "rubocop-rspec", "~> 3.9.0", require: false
   gem "rubocop-rspec_rails", "~> 2.32.0", require: false
 
+  gem "ruby-lsp", require: false
+  gem "ruby-lsp-rails", require: false
+  gem "ruby-lsp-rspec", require: false
+
   gem "web-console"
 end
 
