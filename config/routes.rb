@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :feedbacks, only: %i[new create index]
     resources :messages, path: "m", only: [:index]
   end
+  get "/ical/:id/:slug.ics" => "ical#show", as: :ical, constraints: {slug: /[a-z0-9-]+/}
 
   resources :users do
     resources :favorites, only: [:index]

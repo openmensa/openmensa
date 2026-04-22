@@ -218,6 +218,12 @@ GEM
       logger
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
+    icalendar (2.12.2)
+      base64
+      ice_cube (~> 0.16)
+      logger
+      ostruct
+    ice_cube (0.17.0)
     io-console (0.8.2)
     irb (1.17.0)
       pp (>= 0.6.0)
@@ -594,6 +600,7 @@ DEPENDENCIES
   good_job (~> 4.0)
   gravtastic
   has_scope (~> 0.9.0)
+  icalendar (~> 2.12)
   letter_opener
   listen
   nokogiri
