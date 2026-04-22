@@ -24,7 +24,7 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:4.0.3-slim-trixie@sha256:9d12b5546d08833e85f3f9fb7a32f24f1893331a4ccd391bc814aa97deb4a952 AS build
+FROM docker.io/ruby:4.0.3-slim-trixie@sha256:0b3d0a3854498216a3c30586a2da996734b18112f2a024c9939651d02cad1745 AS build
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
@@ -60,7 +60,7 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:4.0.3-slim-trixie@sha256:9d12b5546d08833e85f3f9fb7a32f24f1893331a4ccd391bc814aa97deb4a952
+FROM docker.io/ruby:4.0.3-slim-trixie@sha256:0b3d0a3854498216a3c30586a2da996734b18112f2a024c9939651d02cad1745
 
 ENV RAILS_ENV=production
 
