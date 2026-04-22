@@ -50,14 +50,85 @@ Geographic coordinates are returned as an array of latitude and longitude.
 ]
 ```
 
+## Pagination
+
+Listing resources usually returns multiple items, grouped in pages. Accessing an endpoint without parameters returns the first page.
+
+Related pages, for example, the next or previous page is specified in the `Link` header, as the `next` or `prev` relation, if there is such a page. Additionally, the `first` or `last` page _can_ be linked too.
+
+!!! example
+
+    Requesting the first page of `/api/v2/canteens`:
+
+    ```http
+    HTTP/2.0 200 Ok
+    Link: <https://openmensa.org/api/v2/canteens?page=2>; rel="next",
+          <https://openmensa.org/api/v2/canteens?page=3>; rel="last"
+    X-Total-Pages: 3
+    X-Total-Count: 1297
+    X-Per-Page: 500
+    X-Current-Page: 1
+    Content-Type: application/json; charset=utf-8
+
+    { ... }
+    ```
+
+To iterate over all pages, fetch the first page and follow the `next` relation until there is none. This is the safest way, because even changes the pagination won't break the client code.
+
+!!! example
+
+    ```ruby
+    url = "https://openmensa.org/api/v2/canteens"
+
+    loop do
+      response = get(url)
+
+      # Do something with the response data
+
+      # Stop if there is no `next` relation in the Link header;
+      # all pages have been fetched
+      break unless response.rel?("next")
+
+      # Use the URL from `next` link to get the next page
+      url = response.rel("next")
+    end
+    ```
+
+Not all resources might have a numeric page. Therefore, manually requesting pages by setting `?page=` is not recommended.
+
+### Per-Page Item Count
+
+A lower or higher per-page item count can be requested, by setting the `?per_page=` query parameter.
+
+Each resource has an upper cap for the per-page item count. If the given limit is larger, the count will be capped.
+
+### Informative Headers
+
+Response can include some informative headers, but not all resources might provide all:
+
+`X-Total-Count`
+:   Total number of resources.
+
+`X-Total-Pages`
+:   Total number of pages.
+
+`X-Per-Page`
+:   Number of items per page.
+
+`X-Current-Page`
+:   The current page number.
+
+### Non-numerical Pagination
+
+Some resources might not have a numerical page, but a different
+identifier for the next page. In this case, the `next` relation in the
+`Link` header will include the URL for the next page, but there won't be
+all informative headers.
+
+That is because numerical pagination requires chunking all items into pages, which can be expensive for some resources. These might instead use a cursor, to fetch the items for the next page, which is more efficient.
+
 ## Examples
 
 All examples are given in JSON notion (request and responses).
 
 Unless otherwise stated a response will contain all shown fields.
-
-## Pagination
-
-Requests returning multiple items will be paginated to **10** items by default. You can specify the number of items per page using the `limit` parameter. Allowed values are between 1 and 100. The upper limit may be different for specific resources.
-
-Following pages can be requested by specifying the `page` parameter. The first page has the number **1**, and is returned by default if no query parameter is specified.
