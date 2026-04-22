@@ -33,20 +33,18 @@
   .span4
     section
       header
-        h2 OpenMensa App
-      .android.available
-        = link_to "https://play.google.com/store/apps/details?id=de.uni_potsdam.hpi.openmensa" do
-          span
-            ' OpenMensa
-          | für Android
-          = vite_image_tag "images/qr-android.png", class: :qr
-      .ubuntu.available
-        = link_to "https://open-store.io/app/openmensa.neothethird" do
-          span
-            ' OpenMensa
-          | für Ubuntu Touch
-          = vite_image_tag "images/qr-ubutouch.png", class: :qr
+        h2 Mobile Apps
       .content
+        p
+          ' OpenMensa bietet eine freie Schnittstelle, um die Daten der Speisepläne zu nutzen.
+          ' Es gibt bereits einige Apps von freundlichen Entwicklern, die die Speisepläne auf dein Smartphone bringen:
+        ul.app-list
+          li
+            = link_to "https://f-droid.org/de/packages/de.uni_potsdam.hpi.openmensa/" do
+              = vite_image_tag "images/stores/fdroid-de.svg", alt: "OpenMensa im F-Droid Store"
+          li
+            = link_to "https://play.google.com/store/apps/details?id=de.uni_potsdam.hpi.openmensa" do
+              = vite_image_tag "images/stores/google-play-de.svg", alt: "OpenMensa im Google Play Store"
         p
           ' Du möchtest eine OpenMensa App für dein Smartphone entwickeln? Oder einen Parser für deine Mensa?
           a href="https://doc.openmensa.org" Hier
