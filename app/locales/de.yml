@@ -160,6 +160,20 @@ de:
     add_more: Füge mehr Mensen hinzu
     add_more_canteens: "Hier werden alle Mensen angezeigt, die du als Favorit gespeichert hast. Um eine fehlende Mensa hinzufügen, rufe deren Mensaseite auf und markiere sie dort als Favorit."
 
+  canteens:
+    canteen_header:
+      actions:
+        ical:
+          title: iCalendar abonnieren
+      ical:
+        headline: "iCalendar abonnieren"
+        description: "Du kannst den folgenden Link nutzen, um die Essensdaten dieser Mensa in deinem Kalender zu abonnieren."
+        url:
+          label: "iCalendar-URL"
+        download:
+          title: ".ics herunterladen"
+          text: ".ics herunterladen"
+
   canteen_feedback:
     message: Kurzbeschreibung
     create_button: "Rückmeldung absenden"

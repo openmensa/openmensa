@@ -1,0 +1,35 @@
+dialog {
+  border: none;
+  margin: auto calc(auto + 6px);
+  padding: 0;
+
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+
+  max-width: 44em;
+  min-width: 0;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  header {
+    padding: 1px 15px 1px 15px;
+    border-top: 1px solid #ddd;
+    text-shadow: 0 1px 1px #aaa;
+    background-image: url("/assets/dev/images/hbg.png");
+  }
+
+  button.close {
+    border: none;
+    background: transparent;
+    color: #aaa;
+    font-size: 1.5em;
+    padding: 0;
+    margin-left: 15px;
+
+    &:hover {
+      cursor: pointer;
+      color: #333;
+    }
+  }
+}

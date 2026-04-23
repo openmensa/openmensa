@@ -31,6 +31,21 @@ describe "Canteen" do
       expect(page).to have_content "test@example.org"
     end
 
+    it "offers an ics subscription option" do
+      visit canteen_path(canteen)
+
+      click_on "iCalendar abonnieren"
+
+      within("dialog:open") do
+        ics = "#{host}/ical/#{canteen.id}/#{canteen.slug}.ics"
+        expect(page).to have_field with: ics
+        expect(page).to have_link(".ics herunterladen") do |a|
+          expect(a["href"]).to eq(ics)
+          expect(a["download"]).to be_present
+        end
+      end
+    end
+
     context "parser info" do
       let(:owner) { create(:developer) }
       let(:parser) { create(:parser, user: owner) }

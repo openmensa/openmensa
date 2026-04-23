@@ -95,4 +95,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def ical_url(canteen, **)
+    super(canteen, slug: canteen.slug, format: :ics, **)
+  end
 end

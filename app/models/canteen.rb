@@ -68,4 +68,12 @@ class Canteen < ApplicationRecord
 
     "(#{id}) #{name} #{status}"
   end
+
+  def slug
+    @slug ||= begin
+      slug = name.parameterize
+      slug = id.to_s if slug.blank?
+      slug
+    end
+  end
 end
