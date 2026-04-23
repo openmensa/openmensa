@@ -20,5 +20,7 @@ end
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by(:custom_cuprite)
+
+    host!(Capybara.current_session.server_url)
   end
 end

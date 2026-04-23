@@ -1,9 +1,10 @@
 header#canteen-header
-  h1
-    span
+  .container
+    h1
       = canteen.name
       - if canteen.archived?
-        span.outoforder = t(:"canteen.deactivated")
+        span.outoforder
+          =<> t(:"canteen.deactivated")
     ul.actions
       - unless user.internal?
         li
@@ -13,3 +14,28 @@ header#canteen-header
           - else
             = link_to [canteen, :favorite], title: t("favorites.add_as_favorite"), method: :post, class: :fav do
               i.fa-regular.fa-star
+      li
+        button.fav command="show-modal" commandfor="ical-dialog" title=t('.actions.ical.title')
+          i.fa-solid.fa-calendar
+
+dialog#ical-dialog closedby="any"
+  header
+    h2 = t('.ical.headline')
+    button.close commandfor="ical-dialog" command="close"
+      i.fa-solid.fa-xmark
+  .content
+    p = t('.ical.description')
+    form
+      .form-group
+        label for="ical-url" = t('.ical.url.label')
+        input#ical-url.max-w-full name="ical-url" type="text" value=ical_url(canteen) readonly=true
+    p
+      span.actions
+        = link_to( \
+            ical_url(canteen),
+            title: t('.ical.download.title'),
+            class: "btn btn-primary",
+            download: true,
+          ) do
+          i.fa-solid.fa-calendar
+          = t('.ical.download.text')

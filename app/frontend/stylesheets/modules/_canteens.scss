@@ -13,32 +13,59 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
 
-    h1 {
+    .container {
       display: flex;
+      align-items: center;
       width: 100%;
+
+      padding: 15px 15px 15px 25px;
 
       color: #fff;
       margin: 0;
-      padding: 15px 25px;
       text-shadow: none;
       background-color: rgba(0, 0, 0, 0.8);
+    }
 
-      > span {
-        flex-grow: 1;
-      }
+    h1 {
+      flex-grow: 1;
 
-      .fav {
-        color: white;
-        padding: 0 7px;
-        border-radius: 20px;
+      color: #fff;
+      padding: 0;
+      margin: 0;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5em;
+
+      padding: 0;
+      margin: 0;
+    }
+
+    .actions li a,
+    .actions li button {
+      font-size: 3rem;
+
+      border: none;
+      background: transparent;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.7em;
+      height: 1.7em;
+
+      color: white;
+      padding: 0 7px;
+      border-radius: 50%;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: #000;
+        text-decoration: none;
+        background-color: #ffffff;
         transition: all 0.3s ease-in-out;
-
-        &:hover {
-          color: #000;
-          text-decoration: none;
-          background-color: #ffffff;
-          transition: all 0.3s ease-in-out;
-        }
+        cursor: pointer;
       }
     }
 
@@ -51,10 +78,19 @@
       padding: 0;
       background-image: none;
 
+      .container {
+        padding: 0.75em;
+      }
+
       h1 {
         margin: 0;
         padding: 3px 4px;
         text-align: center;
+      }
+
+      .actions li a,
+      .actions li button {
+        font-size: 2rem;
       }
     }
 

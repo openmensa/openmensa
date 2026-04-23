@@ -126,11 +126,15 @@ $btn-success: #238625 !default;
 
 .btn {
   @include btn($btn, #fff);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+
   font-size: 13px;
   font-size: 1.3rem;
   font-weight: bold;
   padding: 4px 10px;
-  display: inline-block;
   text-decoration: none;
 
   appearance: none;
