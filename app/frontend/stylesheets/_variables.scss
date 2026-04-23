@@ -4,12 +4,11 @@
 $text-size: 62.5%;
 $text-color: #333;
 $text-font:
-  system-ui, "Noto Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial,
-  "Liberation Sans", sans-serif, Blobmoji, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  ui-sans-serif, sans-serif, Blobmoji, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol", "Noto Color Emoji";
 
 $header-color: $text-color;
-$header-font: "Droid Sans", $text-font;
+$header-font: $text-font;
 $header-bg-color: #f1f1f1;
 
 $frame-color: #ccc;
