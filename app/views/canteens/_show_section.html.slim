@@ -4,10 +4,8 @@ header.page-header
       = t :today
     - else
       = l @date.to_date, format: :with_weekday
-  = link_to canteen_path(@canteen, date: (@date - 1.day)), class: :prev do
-    span.sr-only Previous day
-  = link_to canteen_path(@canteen, date: (@date + 1.day)), class: :next do
-    span.sr-only Next day
+  = link_to "", canteen_path(@canteen, date: (@date - 1.day)), class: :prev, title: "Vorheriger Tag"
+  = link_to "", canteen_path(@canteen, date: (@date + 1.day)), class: :next, title: "Nächster Tag"
 = render partial: "day", locals: {day: @canteen.days.find_by(date: @date)}
 
 - if @date == Time.zone.now.to_date && @canteen.days.find_by(date: @date + 1.day).try(:meals).try(:any?)
