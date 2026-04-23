@@ -8,8 +8,18 @@ class Canteen < ApplicationRecord
   has_many :parsers, through: :sources
   has_many :feeds, through: :sources
   has_many :data_proposals, dependent: :destroy
+
   has_many :feedbacks, dependent: :destroy
-  belongs_to :replaced_by, class_name: "Canteen", foreign_key: :replaced_by, optional: true
+  belongs_to :replaced_by,
+    class_name: "Canteen",
+    foreign_key: :replaced_by,
+    optional: true,
+    inverse_of: :replacing
+  has_many :replacing,
+    class_name: "Canteen",
+    foreign_key: :replaced_by,
+    dependent: :restrict_with_exception,
+    inverse_of: :replaced_by
 
   scope :active, -> { where(state: %w[active empty]) }
   scope :orphaned, -> { includes(:sources).where(state: %w[new active], sources: {id: nil}) }
@@ -20,7 +30,7 @@ class Canteen < ApplicationRecord
   after_validation :geocode, if: :geocode?
 
   STATES = %w[new active empty archived].freeze
-  validates :state, inclusion: {in: STATES, message: "%<value>s is not a valid canteen state"}
+  validates :state, inclusion: {in: STATES}
 
   def geocode?
     return false unless Rails.env.production? || Rails.env.development?
