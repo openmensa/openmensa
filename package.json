@@ -21,7 +21,7 @@
     "sass-embedded": "1.99.0",
     "sharp": "0.34.5",
     "svgo": "4.0.1",
-    "vite": "8.0.8",
+    "vite": "8.0.9",
     "vite-plugin-full-reload": "1.2.0",
     "vite-plugin-image-optimizer": "2.0.3",
     "vite-plugin-manifest-sri": "0.2.0",
