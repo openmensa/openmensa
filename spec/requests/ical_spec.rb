@@ -28,7 +28,14 @@ RSpec.describe "Ical feeds" do
       calendar = Icalendar::Calendar.parse(response.body)
       expect(calendar.size).to eq 1
 
-      calendar.first.events.tap do |events|
+      calendar = calendar.first
+
+      # URL includes the real slug, not the one from the request:
+      expect(calendar.url.to_s).to eq "http://www.example.com/ical/#{canteen.id}/test-canteen.ics"
+      expect(calendar.prodid).to eq "openmensa.org"
+      expect(calendar.ip_method).to eq "PUBLISH"
+
+      calendar.events.tap do |events|
         expect(events.size).to eq 7
         expect(events[0].dtstart).to eq Icalendar::Values::Date.new(Time.zone.today)
         expect(events[1].dtstart).to eq Icalendar::Values::Date.new(Time.zone.today + 1.day)

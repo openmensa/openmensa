@@ -7,6 +7,10 @@ class IcalController < WebController
     respond_to do |format|
       format.ics do
         calendar = Icalendar::Calendar.new
+        calendar.url = ical_url(canteen, slug: canteen.slug)
+        calendar.prodid = "openmensa.org"
+        calendar.publish
+
         days.each do |day|
           calendar.events << day.decorate.as_ics_event
         end
