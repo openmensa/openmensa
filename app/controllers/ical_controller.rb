@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class IcalController < WebController
+  include Tracing
+
   def show
     authorize!(:show, canteen)
 
@@ -11,11 +13,17 @@ class IcalController < WebController
         calendar.prodid = "openmensa.org"
         calendar.publish
 
-        days.each do |day|
-          calendar.events << day.decorate.as_ics_event
+        with_span(:ical_events, description: "Collecting ICS events") do
+          days.each do |day|
+            calendar.events << day.decorate.as_ics_event
+          end
         end
 
-        send_data calendar.to_ical,
+        data = with_span(:ical_to_ical, description: "Generating ICS data") do
+          calendar.to_ical
+        end
+
+        send_data data,
           type: "text/calendar; charset=utf-8",
           disposition: "attachment; filename=\"#{canteen.name.parameterize}.ics\""
       end
