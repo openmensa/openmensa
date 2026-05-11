@@ -1375,12 +1375,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.locatecontrol@npm:^0.89.0":
-  version: 0.89.1
-  resolution: "leaflet.locatecontrol@npm:0.89.1"
+"leaflet.locatecontrol@npm:^0.90.0":
+  version: 0.90.0
+  resolution: "leaflet.locatecontrol@npm:0.90.0"
   peerDependencies:
     leaflet: ^1.9.0 || >=2.0.0-alpha.1
-  checksum: 10c0/ba048e6b3b84fdf3fea208a0870ce4a88d64159885c4f73b31708d9f50af52c7b13572096f42727ff25d4c0daee6db7ae55284dd4295ae6b5b4a129ce3cf5285
+  checksum: 10c0/bfae8b7e92d360773214c721ee036cdaddd1b1a6d11564df96528b7f9f458c9abd568689069b03897dfe1d18979a9913e8bd2ff22ffe2f68d3ace5d6ac86ff1d
   languageName: node
   linkType: hard
 
@@ -1912,7 +1912,7 @@ __metadata:
     husky: "npm:9.1.7"
     leaflet: "npm:^1.9.4"
     leaflet-hash: "npm:^0.2.1"
-    leaflet.locatecontrol: "npm:^0.89.0"
+    leaflet.locatecontrol: "npm:^0.90.0"
     leaflet.markercluster: "npm:^1.5.3"
     lint-staged: "npm:16.4.0"
     prettier: "npm:3.8.2"
