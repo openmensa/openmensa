@@ -68,7 +68,7 @@ group :development do
   gem "rubocop-capybara", "~> 2.23.0", require: false
   gem "rubocop-factory_bot", "~> 2.28.0", require: false
   gem "rubocop-performance", "~> 1.26.0", require: false
-  gem "rubocop-rails", "~> 2.34.0", require: false
+  gem "rubocop-rails", "~> 2.35.0", require: false
   gem "rubocop-rspec", "~> 3.9.0", require: false
   gem "rubocop-rspec_rails", "~> 2.32.0", require: false
 
