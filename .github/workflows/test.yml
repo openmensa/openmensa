@@ -17,7 +17,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:18-alpine@sha256:fbe586b342d1bcac6d4f3d0e12453a0e3b48369943fdac6658447e1dbe788565
+        image: postgres:18-alpine@sha256:fa206fb6391c039c6d3ac69791f60536d79ff19d1dc32eac7818f39fa5a4aa2e
         env:
           POSTGRES_DB: openmensa
           POSTGRES_PASSWORD: secret
