@@ -1514,9 +1514,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:17.0.4":
-  version: 17.0.4
-  resolution: "lint-staged@npm:17.0.4"
+"lint-staged@npm:17.0.5":
+  version: 17.0.5
+  resolution: "lint-staged@npm:17.0.5"
   dependencies:
     listr2: "npm:^10.2.1"
     picomatch: "npm:^4.0.4"
@@ -1528,7 +1528,7 @@ __metadata:
       optional: true
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 10c0/7a1057eb3dff21236e3efcf199241282488d7cb875caabe3d0cd0cc21886b726a8dad65214f9e509b6f722630be6d5b7eace84c016fac35ecb6e2350843c738d
+  checksum: 10c0/6ecf2024744147ea768dbd550c0c47f04b295f07d30e5ecb5e375c18d8fc24d4bfa897042f4aabd7c3510054ad5bbbb51fa36e60e8dca853e31f9876ef9a3726
   languageName: node
   linkType: hard
 
@@ -1909,7 +1909,7 @@ __metadata:
     leaflet-hash: "npm:^0.2.1"
     leaflet.locatecontrol: "npm:^0.90.0"
     leaflet.markercluster: "npm:^1.5.3"
-    lint-staged: "npm:17.0.4"
+    lint-staged: "npm:17.0.5"
     prettier: "npm:3.8.2"
     rollup: "npm:4.60.4"
     sass-embedded: "npm:1.99.0"
