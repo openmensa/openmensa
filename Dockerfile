@@ -1,36 +1,43 @@
 # syntax = docker/dockerfile:1.24@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9cb89
 
-FROM docker.io/node:24-slim@sha256:4e6b70dd6cbfc88c8157ba19aa3d9f9cce6ba4703576d55459e45efcbc9c5f5d AS assets
+# Ruby base image:
+FROM docker.io/ruby:4.0.4-slim-trixie@sha256:3fc7a33fb84ba3c876ceccafffc4151c6f2cbbb0c4adf9fd4dbe505130988a8a AS ruby
 
-ENV NODE_ENV=production
-ENV YARN_CACHE_FOLDER=/cache/yarn
+# Bun base image:
+FROM docker.io/oven/bun:1@sha256:e10577f0db68676a7024391c6e5cb4b879ebd17188ab750cf10024a6d700e5c4 AS bun
+
+
+# STAGE: Build frontend assets
+FROM bun AS assets
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV NODE_ENV=production
 
 RUN mkdir --parents /opt/openmensa
 WORKDIR /opt/openmensa
 
-COPY .yarnrc.yml package.json yarn.lock /opt/openmensa/
-RUN --mount=type=cache,target=/cache/yarn <<EOF
-  corepack enable
-  yarn install --immutable
+COPY package.json bun.lock /opt/openmensa/
+RUN <<EOF
+  bun install --frozen-lockfile
 EOF
 
 COPY vite.config.mts /opt/openmensa/
 COPY config/vite.json /opt/openmensa/config/
 COPY app/frontend/ /opt/openmensa/app/frontend/
 RUN <<EOF
-  yarn build --mode production
+  bun run build --mode production
 EOF
 
 
-FROM docker.io/ruby:4.0.4-slim-trixie@sha256:3fc7a33fb84ba3c876ceccafffc4151c6f2cbbb0c4adf9fd4dbe505130988a8a AS build
+# STAGE: Build the Ruby application and extra assets
+FROM ruby AS build
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
 ENV SKIP_JS_BUILD=1
-
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN mkdir --parents /opt/openmensa
 WORKDIR /opt/openmensa
@@ -60,11 +67,12 @@ RUN <<EOF
 EOF
 
 
-FROM docker.io/ruby:4.0.4-slim-trixie@sha256:3fc7a33fb84ba3c876ceccafffc4151c6f2cbbb0c4adf9fd4dbe505130988a8a
-
-ENV RAILS_ENV=production
+# STAGE: Final runtime image
+FROM ruby AS runtime
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV RAILS_ENV=production
 
 COPY --from=assets /opt/openmensa /opt/openmensa
 COPY --from=build /opt/openmensa /opt/openmensa
