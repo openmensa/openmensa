@@ -48,5 +48,13 @@
       matchUpdateTypes: ["major", "minor"],
       enabled: false,
     },
+
+    // Do not pin or digest the base image. It is only used for local
+    // development with the docker-compose.yaml, and the tag is intended
+    // to be build locally.
+    {
+      matchPackageNames: ["ghcr.io/openmensa/openmensa:latest"],
+      enabled: false,
+    },
   ],
 }
