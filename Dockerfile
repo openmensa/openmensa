@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.24@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9cb89
 
 # Ruby base image:
-FROM docker.io/ruby:4.0.4-slim-trixie@sha256:3fc7a33fb84ba3c876ceccafffc4151c6f2cbbb0c4adf9fd4dbe505130988a8a AS ruby
+FROM docker.io/ruby:4.0.5-slim-trixie@sha256:d704a39f7be2941b5447a5ac84085707736eb9c1b4d9c68bcf383fda48f91983 AS ruby
 
 # Bun base image:
 FROM docker.io/oven/bun:1@sha256:e10577f0db68676a7024391c6e5cb4b879ebd17188ab750cf10024a6d700e5c4 AS bun
