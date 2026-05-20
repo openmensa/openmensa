@@ -1,9 +1,13 @@
 ---
-name: maintenance-cache-clear
+name: Cleanup Action Caches
+
 on:
   schedule:
     - cron: "0 0 1 * *"
   workflow_dispatch:
+
+permissions:
+  actions: write
 
 jobs:
   cache-clear:

@@ -1,7 +1,10 @@
+---
 name: Cleanup Pull Request Images
+
 on:
   pull_request:
     types: [closed]
+
 jobs:
   ghcr-cleanup-image:
     runs-on: ubuntu-latest

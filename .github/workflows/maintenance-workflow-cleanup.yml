@@ -1,5 +1,6 @@
 ---
-name: maintenance-workflow-cleanup
+name: Cleanup Old Workflow Runs
+
 on:
   schedule:
     - cron: "0 0 1 * *"
@@ -8,6 +9,10 @@ on:
 jobs:
   delete-workflow-runs:
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: write
+
     steps:
       - uses: Mattraks/delete-workflow-runs@b3018382ca039b53d238908238bd35d1fb14f8ee # v2
         with:

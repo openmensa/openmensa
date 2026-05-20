@@ -1,4 +1,5 @@
-name: maintenance-registry
+---
+name: Cleanup GHCR Image Registry
 
 on:
   schedule:
