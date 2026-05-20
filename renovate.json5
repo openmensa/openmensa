@@ -34,7 +34,7 @@
     // Group ruby interpreter bumps for docker, ruby-version, etc. all
     // in one merge request.
     {
-      matchPackageNames: ["ruby", "docker.io/ruby"],
+      matchPackageNames: ["ruby", "docker.io/ruby", "ruby/setup-ruby"],
       groupName: "ruby",
       // Delay new ruby versions to give providers time to add them to
       // e.g. GitHub Actions and container registries.
