@@ -100,7 +100,11 @@ jobs:
     runs-on: ubuntu-24.04
 
     permissions:
+      id-token: write
       packages: write
+      contents: read
+      attestations: write
+      artifact-metadata: write
 
     env:
       REGISTRY: ghcr.io
@@ -132,6 +136,7 @@ jobs:
             # before has been successful (e.g. rspec)
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' && needs.rspec.result == 'success' }}
       - uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7
+        id: push
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
@@ -141,3 +146,9 @@ jobs:
           cache-to: type=gha,mode=max
           provenance: mode=max
           sbom: true
+      - uses: actions/attest@v4
+        id: attest
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
