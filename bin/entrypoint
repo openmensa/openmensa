@@ -9,21 +9,18 @@ sh | bash)
   set -- "$@"
   ;;
 
-server)
-  # Remove 'server' from argument list
+rails)
   shift
+  set -- bundle exec rails "$@"
+  ;;
 
-  # Copy assets into mounted volume as they need to be served by the nginx
-  # container or from the host nginx.
-  echo "[INFO] Copy assets to volume..."
-  (set -x; cp -ar /opt/openmensa/public/. /mnt/www)
+jobs)
+  shift
+  set -- bundle exec good_job "$@"
+  ;;
 
-  # Create database and run all migrations. If no changes are needed,
-  # nothing will happen.
-  echo "[INFO] Run database migrations..."
-  (set -x; bundle exec rake db:create db:migrate)
-
-  echo "[INFO] Start server..."
+server)
+  shift
   set -- bundle exec thrust puma "$@"
   ;;
 esac
