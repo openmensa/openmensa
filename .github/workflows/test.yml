@@ -40,27 +40,15 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           persist-credentials: false
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
-        with:
-          node-version: "24"
-          cache: yarn
-        env:
-          # Workaround for https://github.com/actions/setup-node/issues/899
-          SKIP_YARN_COREPACK_CHECK: true
-
-      - run: corepack enable
-
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
         with:
           bundler-cache: true
-
       - name: Setup
         run: |
           bundle exec rake db:create:all db:setup
           sudo bash -c "echo 127.0.1.2 openmensa.org >> /etc/hosts"
-
       - run: bundle exec rake assets:precompile
-
       - run: bundle exec rspec --tty --color --format doc --format RspecJunitFormatter --out tmp/unit/junit.xml --tag ~type:system ./spec
         env:
           COVERAGE_NAME: rspec:unit
@@ -101,15 +89,9 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           persist-credentials: false
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
-        with:
-          cache: yarn
-        env:
-          # Workaround for https://github.com/actions/setup-node/issues/899
-          SKIP_YARN_COREPACK_CHECK: true
-      - run: corepack enable
-      - run: yarn install --immutable
-      - run: yarn run lint:fmt
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+      - run: bun install --frozen-lockfile
+      - run: bun run lint:fmt
 
   docker:
     needs: rspec

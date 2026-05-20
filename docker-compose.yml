@@ -1,15 +1,5 @@
 ---
 services:
-  postgres:
-    image: postgres:18@sha256:52e6ffd11fddd081ae63880b635b2a61c14008c17fc98cdc7ce5472265516dd0
-    restart: always
-    environment:
-      POSTGRES_USER: openmensa
-      POSTGRES_PASSWORD: openmensa
-      POSTGRES_DB: openmensa
-    volumes:
-      - postgres:/var/lib/postgresql/data
-
   openmensa:
     image: ghcr.io/openmensa/openmensa:latest
     build:
@@ -22,7 +12,23 @@ services:
     ports:
       - 8080:80
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:18@sha256:52e6ffd11fddd081ae63880b635b2a61c14008c17fc98cdc7ce5472265516dd0
+    restart: always
+    environment:
+      POSTGRES_USER: openmensa
+      POSTGRES_PASSWORD: openmensa
+      POSTGRES_DB: openmensa
+    volumes:
+      - postgres:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openmensa -d openmensa"]
+      interval: 1s
+      timeout: 5s
+      retries: 30
 
 volumes:
   postgres:
