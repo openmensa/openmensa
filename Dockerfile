@@ -73,6 +73,7 @@ FROM ruby AS runtime
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
+ENV BUNDLE_USER_HOME=/tmp
 
 COPY --from=assets /opt/openmensa/public /opt/openmensa/public
 COPY --from=build /opt/openmensa /opt/openmensa
