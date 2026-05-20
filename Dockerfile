@@ -89,17 +89,23 @@ RUN <<EOF
   gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
   bundle config set --local deployment 'true'
   bundle config set --local without 'development test'
+
   mkdir --parents /etc/openmensa /var/log/openmensa
+
   ln --symbolic /tmp /opt/openmensa/tmp
   ln --symbolic /var/log/openmensa /opt/openmensa/log
   ln --symbolic /opt/openmensa/config/{database.yml,omniauth.yml,settings.yml} /etc/openmensa
+
   useradd --create-home --home-dir /var/lib/openmensa --shell /bin/bash openmensa
+
   chown openmensa:openmensa /var/log/openmensa
 EOF
 
 USER openmensa
 
 EXPOSE 80
+
+VOLUME [ "/var/log/openmensa" ]
 
 ENTRYPOINT [ "/opt/openmensa/bin/entrypoint" ]
 CMD [ "server" ]
