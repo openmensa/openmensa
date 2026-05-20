@@ -63,7 +63,7 @@ EOF
 COPY . /opt/openmensa/
 RUN <<EOF
   bundle exec rake assets:precompile
-  rm -rf /opt/openmensa/log /opt/openmensa/tmp
+  rm -rf app/frontend log tmp
 EOF
 
 
@@ -74,7 +74,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 
-COPY --from=assets /opt/openmensa /opt/openmensa
+COPY --from=assets /opt/openmensa/public /opt/openmensa/public
 COPY --from=build /opt/openmensa /opt/openmensa
 WORKDIR /opt/openmensa
 
