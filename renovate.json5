@@ -6,6 +6,10 @@
     ":label(dependencies)",
   ],
 
+  // Apply default delay to all dependencies as the best practices do
+  // for node packages.
+  minimumReleaseAge: "3 days",
+
   // Do not pin images in docker-compose. This one is only intended
   // for local development. Pinning makes it harder to use a locally
   // build image for testing.
@@ -32,6 +36,9 @@
     {
       matchPackageNames: ["ruby", "docker.io/ruby"],
       groupName: "ruby",
+      // Delay new ruby versions to give providers time to add them to
+      // e.g. GitHub Actions and container registries.
+      minimumReleaseAge: "2 days",
     },
 
     // Do not bump ruby version (only security patches). We still need
