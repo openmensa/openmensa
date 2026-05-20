@@ -53,7 +53,7 @@
     // development with the docker-compose.yaml, and the tag is intended
     // to be build locally.
     {
-      matchPackageNames: ["ghcr.io/openmensa/openmensa:latest"],
+      matchPackageNames: ["ghcr.io/openmensa/openmensa"],
       enabled: false,
     },
   ],
