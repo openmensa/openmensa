@@ -8,7 +8,6 @@ x-openmensa: &x-openmensa
   read_only: true
   environment:
     DATABASE_URL: postgresql://openmensa:openmensa@postgres/openmensa
-    FORCE_SSL: "no"
   tmpfs:
     - /tmp
   depends_on:
@@ -29,7 +28,7 @@ services:
   server:
     <<: *x-openmensa
     ports:
-      - 8080:80
+      - 3000:80
 
   jobs:
     <<: *x-openmensa

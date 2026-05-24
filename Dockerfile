@@ -1,50 +1,26 @@
 # syntax = docker/dockerfile:1.24@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9cb89
 
-# Ruby base image:
+# Required images
 FROM docker.io/ruby:4.0.5-slim-trixie@sha256:577dc71a969f4f7c5a4b1d43b815ecf6523950436a81ae6d84b25c4e87cf37d5 AS ruby
-
-# Bun base image:
 FROM docker.io/oven/bun:1@sha256:e10577f0db68676a7024391c6e5cb4b879ebd17188ab750cf10024a6d700e5c4 AS bun
 
 
-# STAGE: Build frontend assets
-FROM bun AS assets
-
-SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
-
-ENV NODE_ENV=production
-
-RUN mkdir --parents /opt/openmensa
-WORKDIR /opt/openmensa
-
-COPY package.json bun.lock /opt/openmensa/
-RUN <<EOF
-  bun install --frozen-lockfile
-EOF
-
-COPY vite.config.mts /opt/openmensa/
-COPY config/vite.json /opt/openmensa/config/
-COPY app/frontend/ /opt/openmensa/app/frontend/
-RUN <<EOF
-  bun run build --mode production
-EOF
-
-
-# STAGE: Build the Ruby application and extra assets
+# STAGE: Install the app dependencies and build frontend assets
 FROM ruby AS build
 
-SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
 ENV VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL=true
-ENV VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true
 
 RUN mkdir --parents /opt/openmensa
 WORKDIR /opt/openmensa
 
-# Install build dependencies for gems with native extensions
-RUN <<EOF
+RUN \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  <<EOF
   apt-get --yes --quiet update
   apt-get --yes --quiet install \
     build-essential \
@@ -53,42 +29,65 @@ RUN <<EOF
 EOF
 
 COPY Gemfile Gemfile.lock /opt/openmensa/
-RUN <<EOF
-  gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+RUN --mount=type=cache,target=/root/.gem <<EOF
   bundle config set --local deployment 'true'
   bundle config set --local without 'development test'
   bundle install --jobs 4 --retry 3
 EOF
 
+COPY package.json bun.lock /opt/openmensa/
+RUN \
+  --mount=type=cache,target=/opt/openmensa/node_modules \
+  --mount=type=cache,target=/root/.bun/install/cache \
+  --mount=type=bind,from=bun,source=/usr/local/bin/bun,target=/usr/local/bin/bun \
+  <<EOF
+  bun install --frozen-lockfile
+EOF
+
 # Note: see also .dockerignore
 COPY . /opt/openmensa/
-RUN <<EOF
+RUN \
+  --mount=type=cache,target=/opt/openmensa/log \
+  --mount=type=cache,target=/opt/openmensa/node_modules \
+  --mount=type=cache,target=/opt/openmensa/tmp \
+  --mount=type=bind,from=bun,source=/usr/local/bin/bun,target=/usr/local/bin/bun \
+  <<EOF
   bundle exec rake assets:precompile
-  rm -rf app/frontend log tmp
+
+  # Remove files and directories not needed at runtime; and not part of
+  # a cache mount
+  rm -rf app/frontend
+
+  # Clean up bundler and gems cache, and development files from gems
+  rm -rf vendor/bundle/ruby/*/cache
+  rm -rf vendor/bundle/ruby/*/extensions/*/{*.log,*.out}
+  rm -rf vendor/bundle/ruby/*/gems/*/{.git,.github,.gitlab-ci.yml,.travis.yml,appveyor.yml,.codecov.yml}
+  rm -rf vendor/bundle/ruby/*/gems/*/{test,tests,spec,specs,features,examples,example}/
+  rm -rf vendor/bundle/ruby/*/gems/*/{AGENT.md,CLAUDE.md,README.md,CHANGELOG.md,HISTORY.md,CONTRIBUTING.md,CONTRIBUTE.md,CONTRIBUTORS.md,CODE_OF_CONDUCT.md}
 EOF
 
 
 # STAGE: Final runtime image
 FROM ruby AS runtime
 
-SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV BUNDLE_USER_HOME=/tmp
 
-COPY --from=assets /opt/openmensa/public /opt/openmensa/public
+# Install native runtime dependencies
+RUN \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  <<EOF
+  apt-get --yes --quiet update
+  apt-get --yes --quiet install --no-install-recommends libpq5
+EOF
+
 COPY --from=build /opt/openmensa /opt/openmensa
 WORKDIR /opt/openmensa
 
-# Install native runtime dependencies
 RUN <<EOF
-  apt-get --yes --quiet update
-  apt-get --yes --quiet install --no-install-recommends libpq5
-  rm -rf /var/lib/apt/lists/*
-EOF
-
-RUN <<EOF
-  gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
   bundle config set --local deployment 'true'
   bundle config set --local without 'development test'
 
