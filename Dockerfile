@@ -33,7 +33,7 @@ EOF
 # STAGE: Build the Ruby application and extra assets
 FROM ruby AS build
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
@@ -70,7 +70,7 @@ EOF
 # STAGE: Final runtime image
 FROM ruby AS runtime
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV BUNDLE_USER_HOME=/tmp
