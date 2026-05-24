@@ -10,7 +10,7 @@ FROM docker.io/oven/bun:1@sha256:e10577f0db68676a7024391c6e5cb4b879ebd17188ab750
 # STAGE: Build frontend assets
 FROM bun AS assets
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 ENV NODE_ENV=production
 
@@ -37,7 +37,8 @@ SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
-ENV SKIP_JS_BUILD=1
+ENV VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL=true
+ENV VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true
 
 RUN mkdir --parents /opt/openmensa
 WORKDIR /opt/openmensa
