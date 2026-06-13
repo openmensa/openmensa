@@ -233,7 +233,7 @@ GEM
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.19.8)
+    json (2.19.9)
     jwt (3.2.0)
       base64
     language_server-protocol (3.17.0.5)
@@ -513,10 +513,10 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     securerandom (0.4.1)
-    sentry-rails (6.6.0)
+    sentry-rails (6.6.2)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.6.0)
-    sentry-ruby (6.6.0)
+      sentry-ruby (~> 6.6.2)
+    sentry-ruby (6.6.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
