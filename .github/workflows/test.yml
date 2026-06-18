@@ -55,11 +55,11 @@ jobs:
       - run: bundle exec rspec --tty --color --format doc --format RspecJunitFormatter --out tmp/system/junit.xml --tag type:system ./spec
         env:
           COVERAGE_NAME: rspec:system
-      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v6
+      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
         with:
           use_oidc: true
           fail_ci_if_error: true
-      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v6
+      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
         if: ${{ !cancelled() }}
         with:
           use_oidc: true
