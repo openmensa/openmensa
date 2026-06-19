@@ -14,6 +14,6 @@ jobs:
 
     steps:
       - name: Delete image
-        uses: dataaxiom/ghcr-cleanup-action@374e2028c8fb93b7219f3771cd405fab95d3dec4 # v1
+        uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1
         with:
           delete-tags: pr-${{ github.event.pull_request.number }}
