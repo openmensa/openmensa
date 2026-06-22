@@ -19,7 +19,7 @@
     "prettier": "3.8.2",
     "rollup": "4.62.0",
     "sass-embedded": "1.100.0",
-    "sharp": "0.35.1",
+    "sharp": "0.35.2",
     "svgo": "4.0.1",
     "vite": "8.0.16",
     "vite-plugin-full-reload": "1.2.0",
