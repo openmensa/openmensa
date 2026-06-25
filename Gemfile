@@ -65,7 +65,7 @@ group :development do
   gem "squasher"
 
   gem "rubocop", "~> 1.88.0", require: false
-  gem "rubocop-capybara", "~> 2.23.0", require: false
+  gem "rubocop-capybara", "~> 3.0.0", require: false
   gem "rubocop-factory_bot", "~> 2.28.0", require: false
   gem "rubocop-performance", "~> 1.26.0", require: false
   gem "rubocop-rails", "~> 2.35.0", require: false
