@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.25@sha256:0adf442eae370b6087e08edc7c50b552d80ddf261576f4ebd6421006b2461f12
 
 # Required images
-FROM docker.io/ruby:4.0.5-slim-trixie@sha256:42ad5227a4b2758f32563b34b5967e1055e75c80243eef04e6d2572887d1dec4 AS ruby
+FROM docker.io/ruby:4.0.6-slim-trixie@sha256:2d11e46a6246fa830032437d333fe0944ef4024271a3bc3a580512ac82878110 AS ruby
 FROM docker.io/oven/bun:1@sha256:e10577f0db68676a7024391c6e5cb4b879ebd17188ab750cf10024a6d700e5c4 AS bun
 
 
