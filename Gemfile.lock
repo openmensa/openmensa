@@ -523,7 +523,7 @@ GEM
     simple_form (5.4.1)
       actionpack (>= 7.0)
       activemodel (>= 7.0)
-    simplecov (1.0.0)
+    simplecov (1.0.1)
     simplecov-cobertura (4.0.0)
       rexml
       simplecov (~> 1.0)
