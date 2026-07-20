@@ -49,5 +49,12 @@
       matchPackageNames: ["ghcr.io/openmensa/openmensa"],
       enabled: false,
     },
+
+    // Honor uv min release age
+    {
+      matchDatasources: ["pypi"],
+      minimumReleaseAge: "14 days",
+      minimumReleaseAgeBehaviour: "timestamp-required",
+    },
   ],
 }
