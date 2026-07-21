@@ -15,7 +15,7 @@
     "@codecov/vite-plugin": "2.0.1",
     "@types/node": "26.1.1",
     "husky": "9.1.7",
-    "lint-staged": "17.0.8",
+    "lint-staged": "17.1.0",
     "prettier": "3.8.2",
     "rollup": "4.62.2",
     "sass-embedded": "1.100.0",
