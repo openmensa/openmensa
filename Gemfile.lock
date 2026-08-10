@@ -85,7 +85,7 @@ GEM
       version_gem (~> 1.1, >= 1.1.14)
     api-responder (1.0.1)
       activesupport
-    appsignal (4.9.1)
+    appsignal (4.10.0)
       logger
       rack (>= 2.0.0)
     ast (2.4.3)
