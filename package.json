@@ -18,7 +18,7 @@
     "lint-staged": "17.3.0",
     "prettier": "3.8.2",
     "rollup": "4.62.4",
-    "sass-embedded": "1.100.0",
+    "sass-embedded": "1.102.0",
     "sharp": "0.35.3",
     "svgo": "4.0.2",
     "vite": "8.2.1",
