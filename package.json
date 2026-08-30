@@ -24,7 +24,7 @@
     "vite": "8.2.2",
     "vite-plugin-full-reload": "1.2.0",
     "vite-plugin-image-optimizer": "2.0.3",
-    "vite-plugin-ruby": "5.2.2"
+    "vite-plugin-ruby": "5.2.3"
   },
   "engines": {
     "bun": ">= 1"
