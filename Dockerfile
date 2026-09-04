@@ -2,7 +2,7 @@
 
 # Required images
 FROM docker.io/ruby:4.0.6-slim-trixie@sha256:58479f164d5947f852da27a4436c89bb986a811f959c40552bc7f6ccaabcc9c9 AS ruby
-FROM docker.io/oven/bun:1@sha256:5ff609364c049b54eb0ff560ec96319729a972078ef2c755d758f0c6ef89c2d6 AS bun
+FROM docker.io/oven/bun:1@sha256:9e123d5fc069e29d519fd4c981afb61b8542ac80274771961136db1e4538d53e AS bun
 
 
 # STAGE: Install the app dependencies and build frontend assets
