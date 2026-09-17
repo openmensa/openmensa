@@ -38,7 +38,7 @@ gem "gravtastic"
 gem "rails-timeago"
 gem "simple_form"
 gem "vite_rails"
-gem "vite_ruby", "~> 3.10.0"
+gem "vite_ruby", "~> 3.11.0"
 
 gem "api-responder"
 gem "decorate-responder", "~> 2.1"
