@@ -7,7 +7,6 @@ if SENTRY_DSN.present?
     config.dsn = SENTRY_DSN
     config.breadcrumbs_logger = %i[monotonic_active_support_logger http_logger]
 
-    config.enable_logs = true
     config.enabled_patches = [:logger]
 
     # Do not send full list of gems with each event
