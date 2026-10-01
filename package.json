@@ -4,11 +4,11 @@
     "defaults"
   ],
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^7.2.0",
+    "@fortawesome/fontawesome-free": "^7.3.1",
     "@rails/ujs": "^7.1.600",
     "leaflet": "^1.9.4",
     "leaflet-hash": "^0.2.1",
-    "leaflet.locatecontrol": "^0.90.0",
+    "leaflet.locatecontrol": "^0.90.1",
     "leaflet.markercluster": "^1.5.3"
   },
   "devDependencies": {
