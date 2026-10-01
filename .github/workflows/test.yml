@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   rspec:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     permissions:
       id-token: write
@@ -66,7 +66,7 @@ jobs:
           report_type: test_results
 
   rubocop:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     steps:
       - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
@@ -81,7 +81,7 @@ jobs:
       - run: bundle exec rubocop --color --parallel --fail-level E
 
   prettier:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
@@ -97,7 +97,7 @@ jobs:
     needs: rspec
     if: always()
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     permissions:
       id-token: write
