@@ -616,7 +616,7 @@ DEPENDENCIES
   omniauth-twitter
   paginate-responder (~> 2.0)
   parse-cron
-  pg (~> 1.2)
+  pg (~> 1.7)
   propshaft
   puma (~> 8.0)
   rack-cors
