@@ -17,13 +17,11 @@ describe Day do
     end
 
     it "is stored and loaded as gregorian date" do
-      pending "Rails doesn't correctly parse SQL dates in gregorian calendar"
-
       day = create(:day, date: "1500-02-28")
-      # expect(day.date).to be_gregorian
+      expect(day.date).to be_gregorian
       expect(day.date).to eq Date.new(1500, 2, 28, Date::GREGORIAN)
       day.reload
-      # expect(day.date).to be_gregorian
+      expect(day.date).to be_gregorian
       expect(day.date).to eq Date.new(1500, 2, 28, Date::GREGORIAN)
     end
   end

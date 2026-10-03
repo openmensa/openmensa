@@ -18,7 +18,7 @@ gem "bcrypt"
 gem "good_job", "~> 4.0"
 gem "nokogiri"
 gem "oj"
-gem "pg", "~> 1.2"
+gem "pg", "~> 1.7"
 gem "slim", "~> 5.0"
 
 gem "cancancan", "~> 3.2"
