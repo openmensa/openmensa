@@ -17,7 +17,7 @@
     "husky": "9.1.7",
     "lint-staged": "17.6.0",
     "prettier": "3.8.2",
-    "rollup": "4.64.1",
+    "rollup": "4.64.2",
     "sass-embedded": "1.105.1",
     "sharp": "0.35.5",
     "svgo": "4.1.0",
