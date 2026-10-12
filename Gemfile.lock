@@ -221,11 +221,10 @@ GEM
       logger
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    icalendar (2.12.5)
+    icalendar (2.13.0)
       base64
       ice_cube (~> 0.16)
       logger
-      ostruct
     ice_cube (0.17.0)
     io-console (0.9.4)
     irb (1.18.0)
