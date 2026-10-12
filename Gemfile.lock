@@ -127,7 +127,7 @@ GEM
     cuprite (0.18)
       capybara (~> 3.0)
       ferrum (~> 0.18.0)
-    date (3.5.1)
+    date (3.6.0)
     decorate-responder (2.1.0)
       responders (>= 2, < 4)
     deep_merge (1.2.2)
@@ -221,11 +221,10 @@ GEM
       logger
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    icalendar (2.12.5)
+    icalendar (2.13.0)
       base64
       ice_cube (~> 0.16)
       logger
-      ostruct
     ice_cube (0.17.0)
     io-console (0.9.4)
     irb (1.18.0)
@@ -267,7 +266,8 @@ GEM
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
-    net-http (0.9.1)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
       uri (>= 0.11.1)
     net-imap (0.6.7)
       date
