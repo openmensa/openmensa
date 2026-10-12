@@ -98,7 +98,7 @@ GEM
     brakeman (8.1.0)
       racc
     builder (3.3.0)
-    cancancan (3.6.1)
+    cancancan (3.6.2)
     capybara (3.40.0)
       addressable
       matrix
