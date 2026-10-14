@@ -24,7 +24,7 @@ class FeedsController < WebController
   end
 
   def destroy
-    if @feed.delete
+    if @feed.destroy
       flash[:notice] = t "message.feed_deleted"
       redirect_to edit_source_path(@feed.source_id)
     else

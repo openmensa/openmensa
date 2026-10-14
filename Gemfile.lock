@@ -340,7 +340,6 @@ GEM
       rack-link_headers (>= 2.2)
       responders
     parallel (2.3.0)
-    parse-cron (0.1.4)
     parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
@@ -598,6 +597,7 @@ DEPENDENCIES
   draper (~> 4.0)
   dry-validation (~> 1.10)
   factory_bot_rails (~> 6.1)
+  fugit
   geocoder (~> 1.6)
   good_job (~> 4.0)
   gravtastic
@@ -616,7 +616,6 @@ DEPENDENCIES
   omniauth-rails_csrf_protection (~> 2.0)
   omniauth-twitter
   paginate-responder (~> 2.0)
-  parse-cron
   pg (~> 1.7)
   propshaft
   puma (~> 8.0)

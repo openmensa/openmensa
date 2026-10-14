@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-namespace :openmensa do
-  desc "Fetch feed data"
-  task update_feeds: :environment do
-    OpenMensa::UpdateFeedsTask.new.do
+namespace :feeds do
+  desc "Schedule fetch jobs for all active feeds"
+  task schedule: :environment do
+    ScheduleFeedsJob.perform_now
   end
+end
 
+namespace :parsers do
   desc "Fetch parser index lists"
-  task update_parsers: :environment do
+  task update: :environment do
     OpenMensa::UpdateParsersTask.new.do
   end
 end

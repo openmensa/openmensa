@@ -29,6 +29,8 @@ class Canteen < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :geocode?
 
+  after_save :reset_feed_schedules, if: -> { saved_change_to_state? && state_before_last_save == "archived" }
+
   STATES = %w[new active empty archived].freeze
   validates :state, inclusion: {in: STATES}
 
@@ -75,5 +77,11 @@ class Canteen < ApplicationRecord
       slug = id.to_s if slug.blank?
       slug
     end
+  end
+
+  private
+
+  def reset_feed_schedules
+    feeds.each(&:reset_schedule!)
   end
 end

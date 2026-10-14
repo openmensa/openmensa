@@ -68,11 +68,14 @@ module Openmensa
     config.good_job.on_thread_error = ->(err) { Rails.error.report(err) }
     config.good_job.shutdown_timeout = 90 # seconds
 
+    # Limit feed updates to 2 concurrent to not overload servers
+    config.good_job.queues = "feeds:2;-feeds:3"
+
     config.good_job.enable_cron = true
     config.good_job.cron = {
-      update_feeds: {
-        cron: "*/5 * * * *",
-        class: "UpdateFeedsJob",
+      schedule_feeds: {
+        cron: "15 * * * *",
+        class: "ScheduleFeedsJob",
       },
       update_parsers: {
         cron: "0 1 * * *",
