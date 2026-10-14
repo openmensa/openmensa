@@ -5,9 +5,10 @@ require "net/smtp"
 class DailyReportJob < ApplicationJob
   queue_as :default
 
-  good_job_control_concurrency_with(
+  good_job_concurrency_rule(
+    label: -> { "daily-report-#{arguments.last[:parser_id]}" },
+    apply_label: true,
     total_limit: 1,
-    key: -> { "daily-report-#{arguments.last[:parser_id]}" },
   )
 
   # Retry temporary mail delivery failures for a few hours, but stop
