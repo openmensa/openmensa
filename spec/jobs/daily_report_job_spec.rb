@@ -46,8 +46,6 @@ describe DailyReportJob do
     end
 
     context "with mail delivery errors" do
-      include ActiveJob::TestHelper
-
       let(:delivery) { instance_double(ActionMailer::MessageDelivery) }
 
       before do
@@ -64,9 +62,11 @@ describe DailyReportJob do
         end
 
         it "skips the report without retrying" do
-          perform_enqueued_jobs { DailyReportJob.perform_later(parser_id: parser.id) }
+          DailyReportJob.perform_later(parser_id: parser.id)
+          perform_enqueued_jobs
 
           expect(delivery).to have_received(:deliver_now).once
+          expect(DailyReportJob).not_to have_been_enqueued
           expect(parser.reload.last_report_at).to be_nil
         end
       end
@@ -90,7 +90,8 @@ describe DailyReportJob do
         end
 
         it "retries the report" do
-          DailyReportJob.perform_now(parser_id: parser.id)
+          DailyReportJob.perform_later(parser_id: parser.id)
+          perform_enqueued_jobs
 
           expect(DailyReportJob).to have_been_enqueued
             .with(parser_id: parser.id)
@@ -98,9 +99,12 @@ describe DailyReportJob do
         end
 
         it "skips the report after a few retries" do
-          perform_enqueued_jobs { DailyReportJob.perform_later(parser_id: parser.id) }
+          DailyReportJob.perform_later(parser_id: parser.id)
+          perform_enqueued_jobs
+          perform_scheduled_jobs
 
           expect(delivery).to have_received(:deliver_now).exactly(6).times
+          expect(DailyReportJob).not_to have_been_enqueued
           expect(parser.reload.last_report_at).to be_nil
         end
       end
@@ -109,20 +113,30 @@ describe DailyReportJob do
         let(:error) { Net::ReadTimeout.new }
 
         it "retries the report" do
-          DailyReportJob.perform_now(parser_id: parser.id)
+          DailyReportJob.perform_later(parser_id: parser.id)
+          perform_enqueued_jobs
 
           expect(DailyReportJob).to have_been_enqueued.with(parser_id: parser.id)
         end
 
         it "raises the error after a few retries" do
           DailyReportJob.perform_later(parser_id: parser.id)
+          perform_enqueued_jobs
 
-          expect { 6.times { perform_enqueued_jobs } }.to raise_error(Net::ReadTimeout)
+          expect { perform_scheduled_jobs }.to raise_error(Net::ReadTimeout)
 
           expect(delivery).to have_received(:deliver_now).exactly(6).times
           expect(parser.reload.last_report_at).to be_nil
         end
       end
+    end
+
+    it "limits concurrent reports per parser" do
+      2.times { DailyReportJob.perform_later(parser_id: parser.id) }
+      DailyReportJob.perform_later(parser_id: create(:parser).id)
+
+      expect(DailyReportJob).to have_been_enqueued.with(parser_id: parser.id).once
+      expect(DailyReportJob).to have_been_enqueued.exactly(2).times
     end
   end
 end

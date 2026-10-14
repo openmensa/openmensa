@@ -30,9 +30,11 @@ Rails.application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
-  # Use test adapter for background jobs so that we can test queued and
-  # performed jobs
-  config.active_job.queue_adapter = :test
+  # Enqueue background jobs with GoodJob, but do not execute them. This
+  # applies GoodJob's extensions, such as concurrency controls. See
+  # spec/support/good_job.rb for helpers to test and perform jobs.
+  config.active_job.queue_adapter = :good_job
+  config.good_job.execution_mode = :external
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
