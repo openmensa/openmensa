@@ -3,9 +3,10 @@
 class UpdateSourceJob < ApplicationJob
   queue_as :default
 
-  good_job_control_concurrency_with(
+  good_job_concurrency_rule(
+    label: -> { "#{self.class.name}-#{arguments.first.id}" },
+    apply_label: true,
     total_limit: 1,
-    key: -> { "#{self.class.name}-#{arguments.first.id}" },
   )
 
   retry_on StandardError, wait: :polynomially_longer, attempts: 5

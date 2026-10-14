@@ -3,9 +3,10 @@
 class UpdateFeedsJob < ApplicationJob
   queue_as :default
 
-  good_job_control_concurrency_with(
+  good_job_concurrency_rule(
+    label: "UpdateFeedsJob",
+    apply_label: true,
     total_limit: 1,
-    key: "UpdateFeedsJob",
   )
 
   def perform
