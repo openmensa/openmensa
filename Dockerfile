@@ -35,22 +35,26 @@ RUN --mount=type=cache,target=/root/.gem <<EOF
   bundle install --jobs 4 --retry 3
 EOF
 
-# Note: see also .dockerignore
-COPY . /opt/openmensa/
-
+COPY package.json bun.lock /opt/openmensa/
 RUN \
-  --mount=type=cache,target=/opt/openmensa/log \
-  --mount=type=cache,target=/opt/openmensa/node_modules \
-  --mount=type=cache,target=/opt/openmensa/tmp \
   --mount=type=cache,target=/root/.bun/install/cache \
   --mount=type=bind,from=bun,source=/usr/local/bin/bun,target=/usr/local/bin/bun \
   <<EOF
   bun install --frozen-lockfile
+EOF
+
+# Note: see also .dockerignore
+COPY . /opt/openmensa/
+RUN \
+  --mount=type=cache,target=/opt/openmensa/log \
+  --mount=type=cache,target=/opt/openmensa/tmp \
+  --mount=type=bind,from=bun,source=/usr/local/bin/bun,target=/usr/local/bin/bun \
+  <<EOF
   bundle exec rake assets:precompile
 
   # Remove files and directories not needed at runtime; and not part of
   # a cache mount
-  rm -rf app/frontend
+  rm -rf app/frontend node_modules
 
   # Clean up bundler and gems cache, and development files from gems
   rm -rf vendor/bundle/ruby/*/cache
