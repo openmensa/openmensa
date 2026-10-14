@@ -16,6 +16,7 @@ gem "thruster", "~> 0.1.19"
 
 gem "bcrypt"
 gem "good_job", "~> 4.0"
+gem "net-smtp"
 gem "nokogiri"
 gem "oj"
 gem "pg", "~> 1.7"

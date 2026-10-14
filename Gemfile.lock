@@ -605,6 +605,7 @@ DEPENDENCIES
   icalendar (~> 2.12)
   letter_opener
   listen
+  net-smtp
   nokogiri
   oj
   omniauth (~> 2.0)

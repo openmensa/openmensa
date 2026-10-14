@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "net/smtp"
+
 class DailyReportJob < ApplicationJob
   queue_as :default
 
