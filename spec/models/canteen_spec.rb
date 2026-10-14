@@ -89,4 +89,22 @@ describe Canteen do
       it { is_expected.to eq :no_fetch_ever }
     end
   end
+
+  describe "feed schedules" do
+    let!(:feed) { create(:feed, source: create(:source, canteen:), schedule: "0 8-9 * * *") }
+
+    before do
+      Timecop.freeze(Time.utc(2015, 4, 20, 8, 34, 30))
+      canteen.update!(state: "archived")
+      feed.update_column(:next_fetch_at, nil) # as done by FetchFeedJob
+      GoodJob::Job.delete_all
+    end
+
+    it "restarts feeds when the canteen is no longer archived" do
+      canteen.update!(state: "active")
+
+      expect(feed.reload.next_fetch_at).to eq Time.utc(2015, 4, 20, 8, 0, 0)
+      expect(FetchFeedJob).to have_been_enqueued.with(feed)
+    end
+  end
 end

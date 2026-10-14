@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
+# Replaced by FetchFeedJob and ScheduleFeedsJob. Kept for one release so
+# that jobs enqueued before the deployment are discarded without errors.
+#
+# TODO: Remove with the next release.
 class UpdateFeedsJob < ApplicationJob
-  queue_as :default
-
-  good_job_concurrency_rule(
-    label: "UpdateFeedsJob",
-    apply_label: true,
-    total_limit: 1,
-  )
-
-  def perform
-    OpenMensa::UpdateFeedsTask.new.do
-  end
+  def perform; end
 end

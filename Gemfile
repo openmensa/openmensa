@@ -31,7 +31,7 @@ gem "omniauth-oauth2"
 gem "omniauth-rails_csrf_protection", "~> 2.0"
 gem "omniauth-twitter"
 
-gem "parse-cron"
+gem "fugit"
 gem "rack-cors", require: "rack/cors"
 
 gem "geocoder", "~> 1.6"

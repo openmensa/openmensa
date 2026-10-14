@@ -21,7 +21,7 @@ module GoodJobTestHelper
 
     def job_hash(record)
       data = record.serialized_params
-      scheduled_at = Time.zone.parse(data["scheduled_at"]) if data["scheduled_at"]
+      scheduled_at = record.scheduled_at if data["scheduled_at"]
 
       data.merge(
         job: data.fetch("job_class").constantize,
