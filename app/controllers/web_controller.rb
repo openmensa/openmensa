@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class WebController < ApplicationController
-  protect_from_forgery
   check_authorization
 
   before_action :find_current_user
