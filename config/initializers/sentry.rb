@@ -12,6 +12,9 @@ if SENTRY_DSN.present?
     # Do not send full list of gems with each event
     config.send_modules = false
 
+    # Subscribe to the Rails error reporter
+    config.rails.register_error_subscriber = true
+
     # Set sampling rates to 1.0 to capture 100% of transactions and
     # profiles for performance monitoring.
     config.traces_sample_rate = 1.0
