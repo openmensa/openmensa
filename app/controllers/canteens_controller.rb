@@ -15,12 +15,17 @@ class CanteensController < WebController
       return error_not_found
     end
 
+    return error_not_found unless @canteen.available_dates.cover?(@date)
+
     @meals = @canteen.meals.for(@date)
     @title = @canteen.name
 
+    @prev_date = @date.prev_day if @canteen.days.exists?(date: ...@date)
+    @next_date = @date.next_day if @canteen.days.exists?(date: @date.next_day..Day.upcoming_dates.end)
+
     response.link canteen_url(@canteen), rel: :canonical
-    response.link canteen_url(@canteen, date: (@date + 1.day)), rel: :next
-    response.link canteen_url(@canteen, date: (@date - 1.day)), rel: :prev
+    response.link canteen_url(@canteen, date: @next_date), rel: :next if @next_date
+    response.link canteen_url(@canteen, date: @prev_date), rel: :prev if @prev_date
   end
 
   def edit; end

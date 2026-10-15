@@ -90,6 +90,20 @@ describe Canteen do
     end
   end
 
+  describe "#available_dates" do
+    let(:today) { Time.zone.today }
+
+    it "ranges from today to the future limit without days" do
+      expect(canteen.available_dates).to eq today..(today + Day::MAX_FUTURE)
+    end
+
+    it "starts at the first day" do
+      create(:day, canteen:, date: today - 10)
+
+      expect(canteen.available_dates).to eq (today - 10)..(today + Day::MAX_FUTURE)
+    end
+  end
+
   describe "feed schedules" do
     let!(:feed) { create(:feed, source: create(:source, canteen:), schedule: "0 8-9 * * *") }
 

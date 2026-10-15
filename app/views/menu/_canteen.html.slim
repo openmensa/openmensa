@@ -4,8 +4,10 @@ section
       h2
         - if @date.to_date == Time.zone.now.to_date
           = link_to canteen.name, canteen_path(canteen), title: t(:canteen, :more_with_name, name: canteen.name)
-        - else
+        - elsif canteen.available_dates.cover?(@date)
           = link_to canteen.name, canteen_path(canteen, date: @date), title: t(:canteen, :more_with_name, name: canteen.name)
+        - else
+          = canteen.name
 
     = render partial: "canteens/day", locals: {day: canteen.days.find_by(date: @date)}
     .content
