@@ -283,6 +283,18 @@ describe OpenMensa::Updater do
         expect(updater).not_to be_changed
       end
 
+      it "does not add dates too far in the future" do
+        root_element << day = xml_node("day")
+        day["date"] = (Time.zone.today + Day::MAX_FUTURE + 1.day).to_s
+        day << xml_node("closed")
+
+        updater.update_canteen(root_element)
+
+        expect(canteen.days.size).to be_zero
+        expect(updater.fetch.added_days).to eq(0)
+        expect(updater).not_to be_changed
+      end
+
       it "adds information about today" do
         # build xml data
         root_element << day = xml_node("day")

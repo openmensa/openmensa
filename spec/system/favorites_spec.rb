@@ -53,11 +53,11 @@ describe "Favorites:" do
       visit root_path
       click_on "OpenMensa" # we are on the menu page, lets open the start page
 
-      expect(page).to have_content("Meine Favoriten")
+      expect(page).to have_text("Meine Favoriten")
 
       click_on favorite.canteen.name
 
-      expect(page).to have_content favorite.canteen.name
+      expect(page).to have_text favorite.canteen.name
       expect(page).to have_current_path canteen_path(favorite.canteen), ignore_query: true
     end
 
@@ -68,7 +68,7 @@ describe "Favorites:" do
 
       expect(page).to have_current_path canteen_path(favorite.canteen), ignore_query: true
 
-      expect(page).to have_content favorite.canteen.name
+      expect(page).to have_text favorite.canteen.name
     end
 
     context "with previous set favorites" do
@@ -79,10 +79,20 @@ describe "Favorites:" do
 
         expect(page).to have_current_path menu_path, ignore_query: true
 
-        expect(page).to have_content(canteen.name)
+        expect(page).to have_text(canteen.name)
         expect(page).to have_link("Mehr zu #{canteen.name}")
-        expect(page).to have_content(canteen2.name)
+        expect(page).to have_text(canteen2.name)
         expect(page).to have_link("Mehr zu #{canteen2.name}")
+      end
+
+      it "does not link canteens on dates out of their range" do
+        create(:day, canteen:, date: Time.zone.yesterday)
+
+        visit menu_path(date: Time.zone.yesterday)
+
+        expect(page).to have_link("Mehr zu #{canteen.name}")
+        expect(page).to have_text(canteen2.name)
+        expect(page).to have_no_link("Mehr zu #{canteen2.name}")
       end
 
       it "is possible to open menu page from start page" do
@@ -106,15 +116,15 @@ describe "Favorites:" do
     it "has not favorite link on canteen page" do
       visit canteen_path(canteen)
 
-      expect(page).to have_content canteen.name
+      expect(page).to have_text canteen.name
       expect(page).to have_no_link "Als Favorit markieren"
     end
 
     it "has a start page without favorite menu" do
       visit root_path
 
-      expect(page).to have_content "OpenMensa"
-      expect(page).to have_no_content("Meine Favoriten")
+      expect(page).to have_text "OpenMensa"
+      expect(page).to have_no_text("Meine Favoriten")
     end
   end
 end

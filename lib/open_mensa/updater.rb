@@ -119,7 +119,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
   end
 
   def add_day(day_data)
-    return if Day.parse(day_data["date"]) < Time.zone.today
+    return unless Day.upcoming_dates.cover?(Day.parse(day_data["date"]))
 
     day = canteen.days.create(date: Day.parse(day_data["date"]))
     if day_data.children.any? {|node| node.name == "closed" }
@@ -142,8 +142,8 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
     @changed = true
   end
 
-  def update_day(day, day_data)
-    return if Day.parse(day_data["date"]) < Time.zone.today
+  def update_day(day, day_data) # rubocop:disable Metrics/MethodLength,Metrics/PerceivedComplexity
+    return unless Day.upcoming_dates.cover?(Day.parse(day_data["date"]))
 
     if day_data.children.any? {|node| node.name == "closed" }
       @changed = !day.closed?
@@ -182,7 +182,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
     end
   end
 
-  def update_canteen(canteen_data)
+  def update_canteen(canteen_data) # rubocop:disable Metrics/MethodLength,Naming/PredicateMethod
     days = canteen.days
       .strict_loading
       .where(date: Time.zone.today..)
@@ -192,7 +192,7 @@ class OpenMensa::Updater < OpenMensa::BaseUpdater # rubocop:disable Metrics/Clas
     day_updated = nil
     canteen_data.element_children.each do |day|
       next if day.name != "day"
-      next if Day.parse(day["date"]) < Time.zone.today
+      next unless Day.upcoming_dates.cover?(Day.parse(day["date"]))
 
       canteen.transaction do
         date = day["date"]

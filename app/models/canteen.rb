@@ -57,6 +57,10 @@ class Canteen < ApplicationRecord
     state == "archived"
   end
 
+  def available_dates
+    [days.minimum(:date), Time.zone.today].compact.min..Day.upcoming_dates.end
+  end
+
   def replaced?
     !self[:replaced_by].nil?
   end
