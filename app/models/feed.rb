@@ -14,16 +14,12 @@ class Feed < ApplicationRecord
   has_many :fetches, class_name: "FeedFetch", dependent: :destroy
   has_many :messages, as: :messageable, dependent: :destroy
 
-  scope :archived, lambda {
-    joins(source: :canteen).where(sources: {canteens: {state: "archived"}})
+  scope :active, lambda {
+    where.not(schedule: nil).joins(source: :canteen).merge(Canteen.not_archived)
   }
 
   scope :inactive, lambda {
-    where("(schedule IS NULL OR id IN (?))", Feed.unscoped.archived.select(:id))
-  }
-
-  scope :active, lambda {
-    where("(schedule IS NOT NULL AND id NOT IN (?))", Feed.unscoped.archived.select(:id))
+    where.not(id: Feed.unscoped.active.select(:id))
   }
 
   delegate :canteen, to: :source
@@ -33,7 +29,7 @@ class Feed < ApplicationRecord
   after_save :schedule_fetch, if: :saved_change_to_next_fetch_at?
 
   def active?
-    !schedule.nil? && !canteen&.archived?
+    !schedule.nil? && canteen.present? && !canteen.archived?
   end
 
   def fetch_due?

@@ -84,4 +84,13 @@ describe FetchFeedJob do
     expect(feed.reload.next_fetch_at).to be_nil
     expect(FetchFeedJob).not_to have_been_enqueued
   end
+
+  it "stops fetching feeds without canteen" do
+    feed.source.update!(canteen: nil)
+    perform_enqueued_jobs
+
+    expect(OpenMensa::Updater).not_to have_received(:new)
+    expect(feed.reload.next_fetch_at).to be_nil
+    expect(FetchFeedJob).not_to have_been_enqueued
+  end
 end
