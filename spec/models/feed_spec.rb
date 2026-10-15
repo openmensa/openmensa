@@ -52,6 +52,14 @@ describe Feed do
       expect(feed.next_fetch_at).to be_nil
     end
 
+    it "is not scheduled without canteen" do
+      feed = create(:feed, source: create(:source, canteen: nil))
+
+      expect(feed).not_to be_active
+      expect(feed.next_fetch_at).to be_nil
+      expect(FetchFeedJob).not_to have_been_enqueued
+    end
+
     it "schedules a job for the new time when the schedule changes" do
       feed = create(:feed, schedule: "0 8-9 * * *", retry: [10, 2])
       feed.update_columns(current_retry: [10, 1]) # in the middle of retries
@@ -60,6 +68,18 @@ describe Feed do
       expect(feed.next_fetch_at).to eq _0830
       expect(feed.current_retry).to eq [10, 2]
       expect(FetchFeedJob).to have_been_enqueued.with(feed).at(_0830).once
+    end
+  end
+
+  describe ".active and .inactive" do
+    let!(:active) { create(:feed) }
+    let!(:without_schedule) { create(:feed, schedule: nil) }
+    let!(:without_canteen) { create(:feed, source: create(:source, canteen: nil)) }
+    let!(:archived) { create(:feed, source: create(:source, canteen: create(:canteen, state: "archived"))) }
+
+    it "matches active feeds" do
+      expect(Feed.active).to contain_exactly(active)
+      expect(Feed.inactive).to contain_exactly(without_schedule, without_canteen, archived)
     end
   end
 

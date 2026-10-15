@@ -60,4 +60,12 @@ describe ScheduleFeedsJob do
 
     expect(feed.reload.next_fetch_at).to be_nil
   end
+
+  it "clears next fetch time of feeds without canteen" do
+    feed.source.update!(canteen: nil)
+
+    ScheduleFeedsJob.perform_now
+
+    expect(feed.reload.next_fetch_at).to be_nil
+  end
 end

@@ -22,6 +22,7 @@ class Canteen < ApplicationRecord
     inverse_of: :replaced_by
 
   scope :active, -> { where(state: %w[active empty]) }
+  scope :not_archived, -> { where.not(state: "archived") }
   scope :orphaned, -> { includes(:sources).where(state: %w[new active], sources: {id: nil}) }
 
   validates :city, :name, presence: true
