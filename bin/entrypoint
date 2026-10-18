@@ -21,8 +21,17 @@ jobs)
 
 server)
   shift
-  set -- bundle exec thrust puma "$@"
+
+  case "${THRUSTER_ENABLED:-true}" in
+  0 | false | no | off)
+    set -- bundle exec puma "$@"
+    ;;
+  *)
+    set -- bundle exec thrust puma "$@"
+    ;;
+  esac
   ;;
 esac
 
-(set -x; exec "$@")
+set -x
+exec "$@"

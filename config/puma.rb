@@ -33,6 +33,10 @@ threads threads_count, threads_count
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 port ENV.fetch("PORT", 3000)
 
+# Use only the sockets passed via systemd socket activation instead of
+# the port above, if there are any. Otherwise, this does nothing.
+bind_to_activated_sockets "only"
+
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
 
