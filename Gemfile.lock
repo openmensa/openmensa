@@ -461,7 +461,7 @@ GEM
       rspec-mocks (>= 3.13.0, < 5.0.0)
       rspec-support (>= 3.13.0, < 5.0.0)
     rspec-support (3.13.7)
-    rspec_junit_formatter (0.6.0)
+    rspec_junit_formatter (0.6.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.92.0)
       json (>= 2.3)
