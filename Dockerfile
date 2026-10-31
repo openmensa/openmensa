@@ -109,6 +109,11 @@ RUN <<EOF
   chown openmensa:openmensa /var/log/openmensa
 EOF
 
+ARG REVISION
+RUN <<-EOF
+  [[ -z "${REVISION}" ]] || echo "${REVISION}" > /opt/openmensa/REVISION
+EOF
+
 USER openmensa
 
 EXPOSE 80
