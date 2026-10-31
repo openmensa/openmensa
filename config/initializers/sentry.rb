@@ -19,10 +19,10 @@ if SENTRY_DSN.present?
     # themselves would otherwise stay in a single never-ending trace.
     config.rails.active_job_propagate_traces = false
 
-    # Set sampling rates to 1.0 to capture 100% of transactions and
-    # profiles for performance monitoring.
+    # Capture all transactions, but profile only every tenth of them,
+    # which is still plenty with our traffic.
     config.traces_sample_rate = 1.0
-    config.profiles_sample_rate = 1.0
+    config.profiles_sample_rate = 0.1
 
     filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
     config.before_send = lambda do |event, _hint|
