@@ -11,6 +11,7 @@ gem "rails-i18n", "~> 8.0"
 
 gem "propshaft"
 
+gem "bootsnap", require: false
 gem "puma", "~> 8.0"
 gem "thruster", "~> 0.1.19"
 

@@ -14,6 +14,9 @@ ENV RAILS_ENV=production
 ENV RAILS_GROUPS=assets
 ENV VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL=true
 
+# Outside of tmp/ to keep precompiled files in image
+ENV BOOTSNAP_CACHE_DIR=/opt/openmensa/cache
+
 RUN mkdir --parents /opt/openmensa
 WORKDIR /opt/openmensa
 
@@ -62,6 +65,9 @@ RUN \
   rm -rf vendor/bundle/ruby/*/gems/*/{.git,.github,.gitlab-ci.yml,.travis.yml,appveyor.yml,.codecov.yml}
   rm -rf vendor/bundle/ruby/*/gems/*/{test,tests,spec,specs,features,examples,example}/
   rm -rf vendor/bundle/ruby/*/gems/*/{AGENT.md,CLAUDE.md,README.md,CHANGELOG.md,HISTORY.md,CONTRIBUTING.md,CONTRIBUTE.md,CONTRIBUTORS.md,CODE_OF_CONDUCT.md}
+
+  # Precompile all Ruby and YAML files
+  bundle exec bootsnap precompile --gemfile app/ lib/ config/
 EOF
 
 
@@ -72,6 +78,9 @@ SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
 ENV RAILS_ENV=production
 ENV BUNDLE_USER_HOME=/tmp
+
+ENV BOOTSNAP_CACHE_DIR=/opt/openmensa/cache
+ENV BOOTSNAP_READONLY=true
 
 # Install native runtime dependencies
 RUN \
