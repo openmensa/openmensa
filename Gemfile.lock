@@ -198,6 +198,7 @@ GEM
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
       websocket-driver (~> 0.7)
+    ffi (1.17.4)
     ffi (1.17.4-x86_64-linux-gnu)
     fugit (1.14.0)
       et-orbi (~> 1.4)
@@ -347,6 +348,7 @@ GEM
     parser (3.3.13.0)
       ast (~> 2.4.1)
       racc
+    pg (1.7.0)
     pg (1.7.0-x86_64-linux)
     pp (0.6.4)
       prettyprint
@@ -545,6 +547,7 @@ GEM
       bigdecimal
     temple (0.10.7)
     thor (1.5.0)
+    thruster (0.1.27)
     thruster (0.1.27-x86_64-linux)
     tilt (2.9.0)
     timecop (0.9.11)
@@ -664,7 +667,7 @@ DEPENDENCIES
   will_paginate
 
 RUBY VERSION
-  ruby 4.0.7
+  ruby 4.0.9
 
 BUNDLED WITH
-  4.0.14
+  4.0.23
