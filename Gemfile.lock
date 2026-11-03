@@ -306,9 +306,8 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.9)
       version_gem (~> 1.1, >= 1.1.17)
-    oj (3.17.7)
+    oj (3.17.8)
       bigdecimal (>= 3.0)
-      ostruct (>= 0.2)
     omniauth (2.3.1)
       hashie (>= 3.5.2)
       logger
