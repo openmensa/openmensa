@@ -84,7 +84,7 @@ end
 group :development, :test do
   gem "rspec-collection_matchers"
   gem "rspec-its"
-  gem "rspec-rails", "8.0.4"
+  gem "rspec-rails", "8.0.5"
 end
 
 group :test do
