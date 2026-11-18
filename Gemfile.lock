@@ -308,7 +308,7 @@ GEM
       version_gem (~> 1.1, >= 1.1.17)
     oj (3.17.8)
       bigdecimal (>= 3.0)
-    omniauth (2.4.1)
+    omniauth (2.4.2)
       hashie (>= 3.5.2)
       logger
       rack (>= 2.2.8)
@@ -368,7 +368,7 @@ GEM
       rack (>= 3.0.14)
     rack-link_headers (2.4.1)
       rack
-    rack-protection (4.2.1)
+    rack-protection (4.2.2)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
