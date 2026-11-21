@@ -8,7 +8,7 @@
         "@rails/ujs": "^7.1.600",
         "leaflet": "^1.9.4",
         "leaflet-hash": "^0.2.1",
-        "leaflet.locatecontrol": "^0.90.1",
+        "leaflet.locatecontrol": "^0.91.0",
         "leaflet.markercluster": "^1.5.3",
       },
       "devDependencies": {
@@ -315,7 +315,7 @@
 
     "leaflet-hash": ["leaflet-hash@0.2.1", "", {}, "sha512-1aOP7j1hGDcOo5qAl9QjOcdu33FKQsQiCdepJfAVd7+qwBAZrObLzEGNL0BOUxjXWeJMn/Bv37FmWF2/oj6rLg=="],
 
-    "leaflet.locatecontrol": ["leaflet.locatecontrol@0.90.1", "", { "peerDependencies": { "leaflet": "^1.9.0 || >=2.0.0-alpha.1" } }, "sha512-i8HsspXuYsjOTyDKQKyAgXKxIRjYeW/9FynXgYiVnVKH5mWojlJ1bF/S1S9Z++Qkl5cEKtba+kQdRLBP+HhPnQ=="],
+    "leaflet.locatecontrol": ["leaflet.locatecontrol@0.91.0", "", { "peerDependencies": { "leaflet": "^1.9.0 || ^2.0.0-beta.1" } }, "sha512-WBd0XNCZQdmn/2BEqCLk7Lqpn2MQEFboyYMSM/VA9kzAVe6t8pttt0k2A28Go6C7oHaGa3IcFtkBw8PYMhyGTg=="],
 
     "leaflet.markercluster": ["leaflet.markercluster@1.5.3", "", { "peerDependencies": { "leaflet": "^1.3.1" } }, "sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA=="],
 

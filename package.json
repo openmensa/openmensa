@@ -8,7 +8,7 @@
     "@rails/ujs": "^7.1.600",
     "leaflet": "^1.9.4",
     "leaflet-hash": "^0.2.1",
-    "leaflet.locatecontrol": "^0.90.1",
+    "leaflet.locatecontrol": "^0.91.0",
     "leaflet.markercluster": "^1.5.3"
   },
   "devDependencies": {
