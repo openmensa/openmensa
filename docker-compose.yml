@@ -35,7 +35,7 @@ services:
     command: jobs
 
   postgres:
-    image: postgres:18@sha256:52e6ffd11fddd081ae63880b635b2a61c14008c17fc98cdc7ce5472265516dd0
+    image: postgres:19@sha256:bb6e70add742cd868fb62cb3b2f67d1dd2bdd2b65a521e778420748753687c60
     restart: unless-stopped
     environment:
       POSTGRES_USER: openmensa
