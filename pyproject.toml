@@ -4,7 +4,7 @@ version = "0"
 requires-python = ">= 3.11"
 
 [dependency-groups]
-dev = ["zensical==0.1.0"]
+dev = ["zensical==0.1.1"]
 
 [tool.uv]
 exclude-newer = "3 days"
