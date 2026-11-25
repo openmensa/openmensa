@@ -126,9 +126,9 @@ GEM
       rexml
     crass (1.0.8)
     csv (3.3.7)
-    cuprite (0.20.1)
+    cuprite (0.21)
       capybara (~> 3.0)
-      ferrum (~> 0.20.1)
+      ferrum (~> 0.21.0)
     date (3.6.0)
     decorate-responder (2.1.0)
       responders (>= 2, < 4)
@@ -193,7 +193,7 @@ GEM
       logger
     faraday-net_http (3.5.0)
       net-http (~> 0.5)
-    ferrum (0.20.2)
+    ferrum (0.21.0)
       addressable (~> 2.5)
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
