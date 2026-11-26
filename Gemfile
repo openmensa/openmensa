@@ -66,7 +66,7 @@ group :development do
   gem "spring-commands-rspec"
   gem "squasher"
 
-  gem "rubocop", "~> 1.92.0", require: false
+  gem "rubocop", "~> 1.93.0", require: false
   gem "rubocop-capybara", "~> 3.1.0", require: false
   gem "rubocop-factory_bot", "~> 2.28.0", require: false
   gem "rubocop-performance", "~> 1.27.0", require: false
