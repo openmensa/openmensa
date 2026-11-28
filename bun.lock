@@ -9,7 +9,7 @@
         "leaflet": "^1.9.4",
         "leaflet-hash": "^0.2.1",
         "leaflet.locatecontrol": "^0.91.0",
-        "leaflet.markercluster": "^1.5.3",
+        "leaflet.markercluster": "^2.0.0",
       },
       "devDependencies": {
         "@codecov/vite-plugin": "2.0.1",
@@ -317,7 +317,7 @@
 
     "leaflet.locatecontrol": ["leaflet.locatecontrol@0.91.0", "", { "peerDependencies": { "leaflet": "^1.9.0 || ^2.0.0-beta.1" } }, "sha512-WBd0XNCZQdmn/2BEqCLk7Lqpn2MQEFboyYMSM/VA9kzAVe6t8pttt0k2A28Go6C7oHaGa3IcFtkBw8PYMhyGTg=="],
 
-    "leaflet.markercluster": ["leaflet.markercluster@1.5.3", "", { "peerDependencies": { "leaflet": "^1.3.1" } }, "sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA=="],
+    "leaflet.markercluster": ["leaflet.markercluster@2.0.0", "", { "peerDependencies": { "leaflet": "^1.9.0 || ^2.0.0-beta.1" } }, "sha512-wHc5qUVEkJI0LcR8PnVBYJDkgu2LZgV/+7eaNgU4KNvfXastsVQigz2eSAfoLJAQ6fJt3rrMb5nwQfimHfJ/zg=="],
 
     "lightningcss": ["lightningcss@1.33.0", "", { "dependencies": { "detect-libc": "^2.0.3" }, "optionalDependencies": { "lightningcss-android-arm64": "1.33.0", "lightningcss-darwin-arm64": "1.33.0", "lightningcss-darwin-x64": "1.33.0", "lightningcss-freebsd-x64": "1.33.0", "lightningcss-linux-arm-gnueabihf": "1.33.0", "lightningcss-linux-arm64-gnu": "1.33.0", "lightningcss-linux-arm64-musl": "1.33.0", "lightningcss-linux-x64-gnu": "1.33.0", "lightningcss-linux-x64-musl": "1.33.0", "lightningcss-win32-arm64-msvc": "1.33.0", "lightningcss-win32-x64-msvc": "1.33.0" } }, "sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA=="],
 
